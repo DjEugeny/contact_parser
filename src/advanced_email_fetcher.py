@@ -326,6 +326,7 @@ class AdvancedEmailFetcherV2:
             'excluded_by_image_dimensions': 0,
             'unsupported_attachments': 0,
             'skipped_large_emails': 0,
+            'skipped_already_processed': 0,  # ✅ НОВЫЙ СЧЕТЧИК
             'errors': 0,
             'retry_successful': 0,  # ✅ ДОБАВИТЬ
             'retry_failed': 0,      # ✅ ДОБАВИТЬ
@@ -1389,7 +1390,7 @@ class AdvancedEmailFetcherV2:
                 self.logger.warning(f"⚠️ Ошибка парсинга даты письма: {e}")
                 date_folder = self.get_local_time().strftime('%Y-%m-%d')
 
-            # ✅ ИСПРАВЛЕНО: Проверка дубликатов по Message-ID
+            # ✅ НОВАЯ ЛОГИКА: Проверка сценариев обработки
             message_id = headers_msg.get('Message-ID', '').strip()
 
             if not message_id:
@@ -1397,11 +1398,29 @@ class AdvancedEmailFetcherV2:
                 message_id = f"generated_{int(time.time())}_{hashlib.md5(f'{from_addr}{subject}{date}'.encode()).hexdigest()[:8]}"
                 self.logger.warning(f"⚠️ Message-ID отсутствует, генерируем: {message_id}")
 
-            # Проверяем дубликат по Message-ID
-            if self.check_email_already_saved(message_id, date_folder):
+            # Определяем сценарий обработки
+            processing_scenario = self.get_processing_scenario(message_id, date_folder)
+            
+            if processing_scenario == "skip_all":
                 self.stats['already_exists'] += 1
-                self.logger.info(f"📁 Письмо уже сохранено (Message-ID: {message_id})")
+                self.logger.info(f"📁 ✅ ПИСЬМО УЖЕ ПОЛНОСТЬЮ ОБРАБОТАНО (JSON + вложения существуют)")
+                self.logger.info(f"   Message-ID: {message_id}")
+                self.logger.info(f"   Папка: {date_folder}")
                 return None
+            elif processing_scenario == "download_attachments":
+                self.logger.info(f"📎 ⬇️ ЗАГРУЖАЕМ ТОЛЬКО НЕДОСТАЮЩИЕ ВЛОЖЕНИЯ")
+                self.logger.info(f"   JSON письма уже существует, вложения отсутствуют")
+                self.logger.info(f"   Message-ID: {message_id}")
+                # Продолжаем обработку, но только для вложений
+            elif processing_scenario == "download_json":
+                self.logger.info(f"📧 ⬇️ ЗАГРУЖАЕМ ТОЛЬКО НЕДОСТАЮЩИЙ JSON ПИСЬМА")
+                self.logger.info(f"   Вложения уже существуют, JSON письма отсутствует")
+                self.logger.info(f"   Message-ID: {message_id}")
+                # Продолжаем обработку, но только для JSON
+            else:  # download_all
+                self.logger.info(f"📧📎 ⬇️ ЗАГРУЖАЕМ ВСЁ (JSON + вложения)")
+                self.logger.info(f"   Ни JSON, ни вложения не найдены")
+                self.logger.info(f"   Message-ID: {message_id}")
 
             self.logger.info(f"🔍 ОБРАБОТКА ПИСЬМА {email_num_in_day}/{total_emails_in_day}, {email_date_formatted}")
             self.logger.info(f"📧 От: {from_addr}")  # Показываем полный адрес
@@ -1482,7 +1501,21 @@ class AdvancedEmailFetcherV2:
             emails_date_dir = self.emails_dir / date_folder
             emails_date_dir.mkdir(exist_ok=True)
 
-            # ШАГ 5: УМНАЯ ЗАГРУЗКА
+            # ШАГ 5: ОПРЕДЕЛЕНИЕ СЦЕНАРИЯ ОБРАБОТКИ
+            scenario = self.get_processing_scenario(message_id, date_folder)
+            
+            if scenario == 'skip_all':
+                self.logger.info(f"⏭️ ПИСЬМО УЖЕ ОБРАБОТАНО - пропускаем (JSON и вложения существуют)")
+                self.stats['skipped_already_processed'] = self.stats.get('skipped_already_processed', 0) + 1
+                return None
+            elif scenario == 'download_attachments':
+                self.logger.info(f"📎 ЗАГРУЖАЕМ ТОЛЬКО ВЛОЖЕНИЯ (JSON уже существует)")
+            elif scenario == 'download_json':
+                self.logger.info(f"📄 ЗАГРУЖАЕМ ТОЛЬКО JSON (вложения уже существуют)")
+            elif scenario == 'download_all':
+                self.logger.info(f"📦 ПОЛНАЯ ЗАГРУЗКА (JSON и вложения отсутствуют)")
+
+            # ШАГ 6: УМНАЯ ЗАГРУЗКА
             if has_large_attachments:
                 self.logger.warning(f"⚠️ Обнаружены большие вложения, загружаем без них...")
                 msg = headers_msg
@@ -1532,51 +1565,54 @@ class AdvancedEmailFetcherV2:
                     self.logger.warning(f"⚠️ Ошибка извлечения текста: {e}")
                     body_text = "[ОШИБКА ИЗВЛЕЧЕНИЯ ТЕКСТА]"
 
-                # Обрабатываем вложения
-                self.logger.info("🔍 Обработка вложений...")
-                try:
-                    if msg.is_multipart():
-                        for part_num, part in enumerate(msg.walk()):
-                            try:
-                                content_disposition = part.get_content_disposition()
-                                content_type = part.get_content_type()
+                # Обрабатываем вложения (только если нужно)
+                if scenario in ['download_attachments', 'download_all']:
+                    self.logger.info("🔍 Обработка вложений...")
+                    try:
+                        if msg.is_multipart():
+                            for part_num, part in enumerate(msg.walk()):
+                                try:
+                                    content_disposition = part.get_content_disposition()
+                                    content_type = part.get_content_type()
 
-                                is_attachment = False
-                                is_inline = False
+                                    is_attachment = False
+                                    is_inline = False
 
-                                if content_disposition == 'attachment':
-                                    is_attachment = True
-                                elif (content_disposition == 'inline' and content_type.startswith('image/')) or \
-                                     (not content_disposition and content_type.startswith('image/') and part.get_filename()):
-                                    is_attachment = True
-                                    is_inline = True
+                                    if content_disposition == 'attachment':
+                                        is_attachment = True
+                                    elif (content_disposition == 'inline' and content_type.startswith('image/')) or \
+                                         (not content_disposition and content_type.startswith('image/') and part.get_filename()):
+                                        is_attachment = True
+                                        is_inline = True
 
-                                if is_attachment:
-                                    attachments_stats['total'] += 1
-                                    attachment_info = self.save_attachment_or_inline(part, thread_id, date_folder, is_inline)
+                                    if is_attachment:
+                                        attachments_stats['total'] += 1
+                                        attachment_info = self.save_attachment_or_inline(part, thread_id, date_folder, is_inline)
 
-                                    if attachment_info:
-                                        attachments.append(attachment_info)
-                                        status = attachment_info.get('status', 'unknown')
-                                        if status == 'saved':
-                                            attachments_stats['saved'] += 1
-                                            if is_inline:
-                                                attachments_stats['inline_images'] += 1
-                                        elif status == 'excluded':
-                                            attachments_stats['excluded'] += 1
-                                        elif status == 'excluded_filename':
-                                            attachments_stats['excluded_filenames'] += 1
-                                        elif status == 'excluded_by_size':
-                                            attachments_stats['excluded_by_size'] += 1
-                                        elif status == 'unsupported':
-                                            attachments_stats['unsupported'] += 1
+                                        if attachment_info:
+                                            attachments.append(attachment_info)
+                                            status = attachment_info.get('status', 'unknown')
+                                            if status == 'saved':
+                                                attachments_stats['saved'] += 1
+                                                if is_inline:
+                                                    attachments_stats['inline_images'] += 1
+                                            elif status == 'excluded':
+                                                attachments_stats['excluded'] += 1
+                                            elif status == 'excluded_filename':
+                                                attachments_stats['excluded_filenames'] += 1
+                                            elif status == 'excluded_by_size':
+                                                attachments_stats['excluded_by_size'] += 1
+                                            elif status == 'unsupported':
+                                                attachments_stats['unsupported'] += 1
 
-                            except Exception as e:
-                                self.logger.warning(f"⚠️ Ошибка обработки части {part_num}: {e}")
-                                continue
+                                except Exception as e:
+                                    self.logger.warning(f"⚠️ Ошибка обработки части {part_num}: {e}")
+                                    continue
 
-                except Exception as e:
-                    self.logger.error(f"❌ Ошибка обработки вложений: {e}")
+                    except Exception as e:
+                        self.logger.error(f"❌ Ошибка обработки вложений: {e}")
+                else:
+                    self.logger.info(f"⏭️ Пропускаем обработку вложений (сценарий: {scenario})")
 
             # СБОРКА ДАННЫХ ПИСЬМА
             email_data = {
@@ -1599,21 +1635,24 @@ class AdvancedEmailFetcherV2:
                 "date_folder": date_folder
             }
 
-            # Сохраняем письмо
-            try:
-                email_filename = f"email_{email_num_in_day:03d}_{date_folder.replace('-', '')}_{thread_id}.json"
-                email_path = emails_date_dir / email_filename
+            # Сохраняем письмо (только если нужно)
+            if scenario in ['download_json', 'download_all']:
+                try:
+                    email_filename = f"email_{email_num_in_day:03d}_{date_folder.replace('-', '')}_{thread_id}.json"
+                    email_path = emails_date_dir / email_filename
 
-                with open(email_path, 'w', encoding='utf-8') as f:
-                    json.dump(email_data, f, ensure_ascii=False, indent=2)
+                    with open(email_path, 'w', encoding='utf-8') as f:
+                        json.dump(email_data, f, ensure_ascii=False, indent=2)
 
-                self.logger.info(f"✅ Сохранено: {email_filename}")
+                    self.logger.info(f"✅ Сохранено: {email_filename}")
 
-            except Exception as e:
-                self.logger.error(f"❌ Ошибка сохранения письма: {e}")
-                self.stats['errors'] += 1
-                self.save_skipped_email(msg_id, date_str, f"save_error_{type(e).__name__}")  # ✅ ДОБАВИТЬ
-                return None
+                except Exception as e:
+                    self.logger.error(f"❌ Ошибка сохранения письма: {e}")
+                    self.stats['errors'] += 1
+                    self.save_skipped_email(msg_id, date_str, f"save_error_{type(e).__name__}")  # ✅ ДОБАВИТЬ
+                    return None
+            else:
+                self.logger.info(f"⏭️ Пропускаем сохранение JSON (сценарий: {scenario})")
 
             # Статистика вложений
             if attachments_stats['total'] > 0:
@@ -1623,7 +1662,15 @@ class AdvancedEmailFetcherV2:
                 self.logger.info(f"📎 Вложений: {attachments_stats['saved']}✅ + {attachments_stats['excluded']}🚫 + {attachments_stats['unsupported']}⚠️{inline_info}{filename_excluded}{size_excluded} из {attachments_stats['total']}")
 
             self.stats['saved'] += 1
-            self.logger.info(f"✅ ПИСЬМО СОХРАНЕНО")
+            
+            # Финальное сообщение в зависимости от сценария
+            if scenario == 'download_attachments':
+                self.logger.info(f"✅ ВЛОЖЕНИЯ ЗАГРУЖЕНЫ")
+            elif scenario == 'download_json':
+                self.logger.info(f"✅ JSON СОХРАНЕН")
+            elif scenario == 'download_all':
+                self.logger.info(f"✅ ПИСЬМО ПОЛНОСТЬЮ СОХРАНЕНО")
+            
             return email_data
 
         except Exception as e:
@@ -1756,7 +1803,8 @@ class AdvancedEmailFetcherV2:
         self.logger.info("="*70)
         self.logger.info(f"📧 Обработано писем: {self.stats['processed']}")
         self.logger.info(f"✅ Сохранено писем: {self.stats['saved']}")
-        self.logger.info(f"📁 Уже существовало писем: {self.stats.get('already_exists', 0)}")  # ✅ ДОБАВИТЬ эту строку
+        self.logger.info(f"📁 Уже существовало писем: {self.stats.get('already_exists', 0)}")
+        self.logger.info(f"⏭️ Пропущено уже обработанных: {self.stats.get('skipped_already_processed', 0)}")
         self.logger.info(f"🚫 Исключено по теме: {self.stats['filtered_subject']}")
         self.logger.info(f"🚫 Исключено по черному списку: {self.stats['filtered_blacklist']}")
         self.logger.info(f"🚫 Исключено массовых рассылок: {self.stats['filtered_mass_mailing']}")
@@ -1846,6 +1894,99 @@ class AdvancedEmailFetcherV2:
         except Exception as e:
             self.logger.warning(f"⚠️ Ошибка проверки существования письма: {e}")
             return False
+
+    def check_email_processing_status(self, message_id: str, date_folder: str) -> Dict[str, bool]:
+        """🔍 Проверка статуса обработки письма: JSON и вложения"""
+        
+        status = {
+            'json_exists': False,
+            'attachments_exist': False,
+            'json_file_path': None,
+            'attachment_files': []
+        }
+        
+        try:
+            # Проверяем существование JSON-файла письма
+            email_path = self.data_dir / 'emails' / date_folder
+            
+            if email_path.exists():
+                # Ищем все JSON файлы в папке
+                json_files = list(email_path.glob("*.json"))
+                
+                for json_file in json_files:
+                    try:
+                        with open(json_file, 'r', encoding='utf-8') as f:
+                            email_data = json.load(f)
+                            stored_message_id = email_data.get('message_id', '')
+                            
+                            if stored_message_id and stored_message_id == message_id:
+                                status['json_exists'] = True
+                                status['json_file_path'] = str(json_file)
+                                
+                                # Проверяем наличие вложений для этого письма
+                                attachments_path = self.data_dir / 'attachments' / date_folder
+                                if attachments_path.exists():
+                                    # Ищем файлы вложений по thread_id из JSON
+                                    thread_id = email_data.get('thread_id', '')
+                                    if thread_id:
+                                        # Ищем файлы с префиксом thread_id
+                                        attachment_files = list(attachments_path.glob(f"*{thread_id}*"))
+                                        if attachment_files:
+                                            status['attachments_exist'] = True
+                                            status['attachment_files'] = [str(f) for f in attachment_files]
+                                
+                                break
+                                
+                    except Exception as e:
+                        self.logger.warning(f"⚠️ Ошибка проверки файла {json_file.name}: {e}")
+                        continue
+            
+            # Если JSON не найден, но есть вложения для данной даты, проверяем их отдельно
+            if not status['json_exists']:
+                attachments_path = self.data_dir / 'attachments' / date_folder
+                if attachments_path.exists():
+                    # Ищем любые файлы вложений в папке даты
+                    attachment_files = [f for f in attachments_path.iterdir() if f.is_file()]
+                    if attachment_files:
+                        status['attachments_exist'] = True
+                        status['attachment_files'] = [str(f) for f in attachment_files]
+            
+            return status
+            
+        except Exception as e:
+            self.logger.warning(f"⚠️ Ошибка проверки статуса обработки письма: {e}")
+            return status
+
+    def check_attachments_exist_for_date(self, date_folder: str) -> bool:
+        """📎 Проверка существования вложений для указанной даты"""
+        
+        try:
+            attachments_path = self.data_dir / 'attachments' / date_folder
+            
+            if not attachments_path.exists():
+                return False
+                
+            # Проверяем наличие файлов вложений
+            attachment_files = list(attachments_path.glob("*"))
+            return len(attachment_files) > 0
+            
+        except Exception as e:
+            self.logger.warning(f"⚠️ Ошибка проверки вложений для даты {date_folder}: {e}")
+            return False
+
+    def get_processing_scenario(self, message_id: str, date_folder: str) -> str:
+        """🎯 Определение сценария обработки письма"""
+        
+        status = self.check_email_processing_status(message_id, date_folder)
+        
+        if status['json_exists'] and status['attachments_exist']:
+            return "skip_all"  # JSON и вложения существуют - пропустить
+        elif status['json_exists'] and not status['attachments_exist']:
+            return "download_attachments"  # Только JSON - загрузить вложения
+        elif not status['json_exists'] and status['attachments_exist']:
+            return "download_json"  # Только вложения - загрузить JSON
+        else:
+            return "download_all"  # Ничего нет - загрузить всё
 
 def main():
     """🚀 Главная функция для тестирования парсера v2.12 - ИСПРАВЛЕНИЕ КРИТИЧЕСКИХ БАГОВ"""

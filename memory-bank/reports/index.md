@@ -119,6 +119,7 @@
 | email_limit_fix_report.md | ✅ Завершено | 21.01.2025 | Готов к использованию |
 | full_pipeline_completion_report.md | ✅ Завершено | 21.01.2025 | Готов к использованию |
 | production_integration_report.md | ✅ Завершено | 21.01.2025 | Готов к использованию |
+| 20250824_2350_demo_script_fix_report.md | ✅ Завершено | 24.08.2025 | Исправление проблемы с демо-скриптом |
 | google_sheets_exporter_analysis_report.md | ✅ Завершено | 2025-08-23 23:50 | Детальный анализ модуля google_sheets_exporter.py |
 | README.md | ✅ Актуально | 21.08.2025 | Поддержка актуальности |
 
