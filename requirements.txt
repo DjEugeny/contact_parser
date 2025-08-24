@@ -1,0 +1,13 @@
+google-cloud-vision==3.10.2
+google-api-core==2.25.1
+gspread==6.2.1
+google-auth==2.40.3
+google-api-python-client==2.179.0
+openai==1.99.9
+python-dotenv==1.1.1
+Pillow==11.3.0
+numpy==1.26.4
+PyMuPDF==1.26.3
+python-docx==1.2.0
+openpyxl==3.1.5
+xlrd==2.0.2

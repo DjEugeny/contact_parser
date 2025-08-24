@@ -1,0 +1,13 @@
+# 🚫 Черный список email адресов (по одному на строку)
+info@*
+no-reply@taxi.yandex.ru
+noreply@yandex.ru
+no-reply@google.com
+noreply@*
+newsletter@*
+marketing@*
+promo@*
+news@dna-technology.ru
+vshouz@vshouz.ru
+newsvrach@osp.ru
+valvalpanina222@gmail.com

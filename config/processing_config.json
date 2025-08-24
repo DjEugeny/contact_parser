@@ -1,0 +1,18 @@
+#Конфигурационный файл для дат
+{
+  "date_range": {
+    "start_date": "2025-07-28",
+    "end_date": "2025-08-11",
+    "mode": "range"
+  },
+  "processing": {
+    "skip_processed": true,
+    "force_reprocess": false,
+    "max_parallel": 3
+  },
+  "output": {
+    "save_extracted_texts": true,
+    "generate_html_reports": true,
+    "save_combined_texts": true
+  }
+}

@@ -1,0 +1,15 @@
+# АКТУАЛЬНЫЕ ЗАДАЧИ 2025
+immediate_priorities:
+  - "Превратить test_improved_ocr_universal.py в ProductionOCRProcessor"
+  - "Интегрировать OCR с integrated_llm_processor_v3.py"
+  - "Создать GoogleSheetsExporter для результатов LLM"
+  - "Добавить GoogleContactsExporter"
+
+transformation_target: |
+  test_improved_ocr_universal.py:
+  БЫЛО: Тестовый модуль с меню
+  НУЖНО: ProductionOCRProcessor с API
+  - Убрать main() меню
+  - API методы вместо print()
+  - Proper logging
+  - Batch обработка

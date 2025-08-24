@@ -1,0 +1,156 @@
+---
+description: main rule
+globs: main.mdc
+alwaysApply: false
+---
+# 🔍 СИСТЕМА MEMORY BANK, ОРИЕНТИРОВАННАЯ НА ИЗОЛЯЦИЮ
+
+🚨 КРИТИЧЕСКОЕ ПРАВИЛО: СОЗДАНИЕ MEMORY BANK ОБЯЗАТЕЛЬНО 🚨
+Memory Bank ДОЛЖЕН быть создан ПЕРЕД любыми другими операциями в ЛЮБОМ режиме
+НИКАКОЙ процесс не может продолжаться без проверки существования Memory Bank
+
+> **Кратко**: Эта система разработана для работы с кастомными режимами Cursor, где каждый режим загружает только необходимые правила. Система использует визуальные диаграммы Mermaid и выборочную загрузку документов для оптимизации использования контекста.
+
+## 🧭 ВИЗУАЛЬНЫЕ КАРТЫ ДЛЯ КАЖДОГО РЕЖИМА
+
+```mermaid
+graph TD
+    subgraph Modes["Кастомные режимы Cursor"]
+        VAN["VAN MODE<br>Инициализация"] --> PLAN["PLAN MODE<br>Планирование задач"]
+        PLAN --> Creative["CREATIVE MODE<br>Решения по дизайну"]
+        Creative --> Implement["IMPLEMENT MODE<br>Реализация кода"]
+        Implement --> Reflect["REFLECT MODE<br>Обзор задачи"]
+        Reflect --> Archive["ARCHIVE MODE<br>Документирование"]
+    end
+    
+    VAN -.->|"Загружает"| VANRules["• main.md<br>• platform-awareness.md<br>• file-verification.md<br>• workflow-init.md"]
+    PLAN -.->|"Загружает"| PLANRules["• main.md<br>• task-tracking.md<br>• planning-process.md"]
+    Creative -.->|"Загружает"| CreativeRules["• main.md<br>• creative-phase.md<br>• design-patterns.md"]
+    Implement -.->|"Загружает"| ImplementRules["• main.md<br>• command-execution.md<br>• implementation-guide.md"]
+    Reflect -.->|"Загружает"| ReflectRules["• main.md<br>• reflection-format.md"]
+    Archive -.->|"Загружает"| ArchiveRules["• main.md<br>• archiving-guide.md"]
+```
+
+## 📋 ПРОВЕРКА MEMORY BANK - ОБЯЗАТЕЛЬНА ВО ВСЕХ РЕЖИМАХ
+
+```mermaid
+graph TD
+    Start["Активация режима"] --> CheckMemBank{"Memory Bank<br>Существует?"}
+    
+    CheckMemBank -->|"Нет"| CreateMemBank["СОЗДАТЬ MEMORY BANK<br>[КРИТИЧЕСКИЙ ШАГ]"]
+    CheckMemBank -->|"Да"| VerifyMemBank["Проверить структуру<br>Memory Bank"]
+    
+    CreateMemBank --> VerifyCreation{"Создание<br>Успешно?"}
+    VerifyCreation -->|"Нет"| AbortAll["⛔ ПРЕРВАТЬ ВСЕ ОПЕРАЦИИ<br>Сначала исправьте Memory Bank"]
+    VerifyCreation -->|"Да"| VerifyMemBank
+    
+    VerifyMemBank --> StructureCheck{"Структура<br>Валидна?"}
+    StructureCheck -->|"Нет"| FixStructure["Исправить структуру<br>Memory Bank"]
+    StructureCheck -->|"Да"| ContinueMode["Продолжить операции<br>режима"]
+    
+    FixStructure --> VerifyFix{"Исправление<br>Успешно?"}
+    VerifyFix -->|"Нет"| AbortAll
+    VerifyFix -->|"Да"| ContinueMode
+    
+    style CheckMemBank fill:#ff0000,stroke:#990000,color:white,stroke-width:3px
+    style CreateMemBank fill:#ff0000,stroke:#990000,color:white,stroke-width:3px
+    style VerifyCreation fill:#ff0000,stroke:#990000,color:white,stroke-width:3px
+    style AbortAll fill:#ff0000,stroke:#990000,color:white,stroke-width:3px
+    style StructureCheck fill:#ff0000,stroke:#990000,color:white,stroke-width:3px
+    style FixStructure fill:#ff5555,stroke:#dd3333,color:white
+    style VerifyFix fill:#ff5555,stroke:#dd3333,color:white
+```
+
+## 📚 ВИЗУАЛЬНЫЕ КАРТЫ ПРОЦЕССОВ
+
+Каждый режим имеет собственную визуальную карту процесса:
+
+- @VAN Mode Map
+- @PLAN Mode Map
+- @CREATIVE Mode Map
+- @IMPLEMENT Mode Map
+- @REFLECT Mode Map
+- @ARCHIVE Mode Map
+
+## 🔄 ПРОВЕРКА СОСТОЯНИЯ ФАЙЛОВ
+
+В этом подходе, ориентированном на изоляцию, файлы Memory Bank обеспечивают непрерывность между режимами:
+
+```mermaid
+graph TD
+    subgraph "Файлы Memory Bank"
+        tasks["tasks.md<br>Источник истины"]
+        active["activeContext.md<br>Текущий фокус"]
+        creative["creative-*.md<br>Решения по дизайну"]
+        progress["progress.md<br>Статус реализации"]
+    end
+    
+    VAN["VAN MODE"] -->|"Создает/Обновляет"| tasks
+    VAN -->|"Создает/Обновляет"| active
+    
+    PLAN["PLAN MODE"] -->|"Читает"| tasks
+    PLAN -->|"Читает"| active
+    PLAN -->|"Обновляет"| tasks
+    
+    Creative["CREATIVE MODE"] -->|"Читает"| tasks
+    Creative -->|"Создает"| creative
+    Creative -->|"Обновляет"| tasks
+    
+    Implement["IMPLEMENT MODE"] -->|"Читает"| tasks
+    Implement -->|"Читает"| creative
+    Implement -->|"Обновляет"| tasks
+    Implement -->|"Обновляет"| progress
+    
+    Reflect["REFLECT MODE"] -->|"Читает"| tasks
+    Reflect -->|"Читает"| progress
+    Reflect -->|"Обновляет"| tasks
+    
+    Archive["ARCHIVE MODE"] -->|"Читает"| tasks
+    Archive -->|"Читает"| progress
+    Archive -->|"Архивирует"| creative
+```
+
+## 📋 ПРОТОКОЛ ПЕРЕХОДА МЕЖДУ РЕЖИМАМИ
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant CurrentMode
+    participant NextMode
+    
+    CurrentMode->>CurrentMode: Завершить требования фазы
+    CurrentMode->>User: "Фаза завершена. СЛЕДУЮЩИЙ РЕЖИМ: [название режима]"
+    User->>CurrentMode: Завершить текущий режим
+    User->>NextMode: Запустить следующий режим
+    NextMode->>NextMode: Проверить состояние требуемых файлов
+    
+    alt Состояние файлов валидно
+        NextMode->>User: "Продолжаем с предыдущего режима..."
+    else Состояние файлов невалидно
+        NextMode->>User: "Требуемые файлы не в ожидаемом состоянии"
+        NextMode->>User: "Вернитесь в [предыдущий режим] для завершения требований"
+    end
+```
+
+## 💻 КОМАНДЫ, СПЕЦИФИЧНЫЕ ДЛЯ ПЛАТФОРМЫ
+
+| Действие | Windows | Mac/Linux |
+|----------|---------|-----------|
+| Создать файл | `echo. > file.ext` | `touch file.ext` |
+| Создать директорию | `mkdir directory` | `mkdir -p directory` |
+| Сменить директорию | `cd directory` | `cd directory` |
+| Показать файлы | `dir` | `ls` |
+| Показать содержимое файла | `type file.ext` | `cat file.ext` |
+
+## ⚠️ РЕКОМЕНДАЦИИ ПО ЭФФЕКТИВНОСТИ КОМАНД
+
+Для оптимальной производительности используйте эффективное объединение команд, когда это уместно:
+
+```
+# Примеры эффективного объединения команд:
+mkdir -p project/{src,tests,docs} && cd project
+grep "TODO" $(find . -name "*.js")
+npm install && npm start
+```
+
+См. [command-execution.mdc](mdc:.cursor/rules/isolation_rules/Core/command-execution.mdc) для подробного руководства.

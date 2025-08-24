@@ -1,0 +1,271 @@
+---
+description: Hierarchical rule loading system for optimized token usage
+globs: "**/rule-loading*/**", "**/optimization*/**"
+alwaysApply: false
+---
+
+# СИСТЕМА ИЕРАРХИЧЕСКОЙ ЗАГРУЗКИ ПРАВИЛ
+
+> **Кратко**: Это правило реализует оптимизированную систему загрузки, которая загружает только необходимые правила на основе контекста, уровня сложности и текущей фазы для максимальной эффективности использования токенов.
+
+## 🧠 ИЕРАРХИЧЕСКАЯ СТРУКТУРА ПРАВИЛ
+
+```mermaid
+graph TD
+    Root["Корневые правила"] --> Core["Основные правила<br>(Всегда загружаются)"]
+    Root --> Common["Общие правила<br>(Независимые от режима)"]
+    Root --> Mode["Правила,<br>специфичные для режима"]
+    Root --> Level["Правила<br>уровня сложности"]
+    
+    Core --> Platform["Обнаружение<br>платформы"]
+    Core --> File["Операции<br>с файлами"]
+    Core --> Transition["Переходы<br>между режимами"]
+    
+    Mode --> VAN["Правила<br>VAN Mode"]
+    Mode --> PLAN["Правила<br>PLAN Mode"]
+    Mode --> CREATIVE["Правила<br>CREATIVE Mode"]
+    Mode --> IMPLEMENT["Правила<br>IMPLEMENT Mode"]
+    Mode --> REFLECT["Правила<br>REFLECT Mode"]
+    
+    Level --> Level1["Правила<br>уровня 1"]
+    Level --> Level2["Правила<br>уровня 2"]
+    Level --> Level3["Правила<br>уровня 3"]
+    Level --> Level4["Правила<br>уровня 4"]
+    
+    style Root fill:#4da6ff,stroke:#0066cc,color:white
+    style Core fill:#ffa64d,stroke:#cc7a30,color:white
+    style Common fill:#4dbb5f,stroke:#36873f,color:white
+    style Mode fill:#d94dbb,stroke:#a3378a,color:white
+    style Level fill:#4dbbbb,stroke:#368787,color:white
+```
+
+## 📊 ПРОТОКОЛ ЗАГРУЗКИ ПРАВИЛ
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant LoadManager
+    participant RuleCache
+    participant FileSystem
+    
+    User->>LoadManager: Запрос активации режима
+    LoadManager->>RuleCache: Проверка кэшированных основных правил
+    RuleCache-->>LoadManager: Возврат кэшированных правил, если доступны
+    
+    LoadManager->>FileSystem: Загрузка основных правил режима
+    FileSystem-->>LoadManager: Возврат основных правил
+    
+    LoadManager->>LoadManager: Регистрация отложенных загрузчиков для специализированных правил
+    LoadManager->>User: Возврат инициализированного режима
+    
+    User->>LoadManager: Запрос специализированной функциональности
+    LoadManager->>RuleCache: Проверка кэша специализированных правил
+    RuleCache-->>LoadManager: Возврат кэшированного правила, если доступно
+    
+    alt Правило отсутствует в кэше
+        LoadManager->>FileSystem: Загрузка специализированного правила
+        FileSystem-->>LoadManager: Возврат специализированного правила
+        LoadManager->>RuleCache: Кэширование специализированного правила
+    end
+    
+    LoadManager->>User: Выполнение специализированной функциональности
+```
+
+## 🔄 РЕАЛИЗАЦИЯ ЗАГРУЗКИ ПРАВИЛ
+
+```javascript
+// Псевдокод для иерархической загрузки правил
+class RuleLoadManager {
+  constructor() {
+    this.cache = {
+      core: new Map(),
+      modes: new Map(),
+      levels: new Map(),
+      specialized: new Map()
+    };
+  }
+
+  async initializeMode(mode, complexityLevel) {
+    // Загрузка основных правил
+    await this.loadCoreRules();
+    
+    // Загрузка правил, специфичных для режима
+    await this.loadModeRules(mode);
+    
+    // Загрузка правил уровня сложности
+    await this.loadLevelRules(complexityLevel);
+    
+    // Регистрация отложенных загрузчиков
+    this.registerLazyLoaders(mode);
+  }
+
+  async loadCoreRules() {
+    const coreRules = [
+      'main.mdc',
+      'platform-awareness.mdc',
+      'file-verification.mdc'
+    ];
+    
+    for (const rule of coreRules) {
+      if (!this.cache.core.has(rule)) {
+        const content = await this.loadRuleFromFile(rule);
+        this.cache.core.set(rule, content);
+      }
+    }
+  }
+
+  async loadModeRules(mode) {
+    const modeRules = this.getModeRules(mode);
+    for (const rule of modeRules) {
+      if (!this.cache.modes.has(rule)) {
+        const content = await this.loadRuleFromFile(rule);
+        this.cache.modes.set(rule, content);
+      }
+    }
+  }
+
+  async loadLevelRules(level) {
+    const levelRules = this.getLevelRules(level);
+    for (const rule of levelRules) {
+      if (!this.cache.levels.has(rule)) {
+        const content = await this.loadRuleFromFile(rule);
+        this.cache.levels.set(rule, content);
+      }
+    }
+  }
+
+  registerLazyLoaders(mode) {
+    const specializedRules = this.getSpecializedRules(mode);
+    for (const rule of specializedRules) {
+      this.cache.specialized.set(rule, () => this.loadRuleFromFile(rule));
+    }
+  }
+
+  async loadSpecializedRule(rule) {
+    if (this.cache.specialized.has(rule)) {
+      const loader = this.cache.specialized.get(rule);
+      const content = await loader();
+      this.cache.specialized.set(rule, content);
+      return content;
+    }
+  }
+}
+```
+
+## 📦 СПЕЦИФИЧНЫЕ ДЛЯ КАРТЫ ПРАВИЛ РЕЖИМОВ
+
+```mermaid
+graph TD
+    subgraph "VAN Mode"
+        VanMap["van-mode-map.mdc"] --> V1["platform-awareness.mdc"]
+        VanMap --> V2["file-verification.mdc"]
+    end
+    
+    subgraph "PLAN Mode"
+        PlanMap["plan-mode-map.mdc"] --> P1["task-tracking-simple.mdc"]
+        PlanMap --> P2["task-tracking-intermediate.mdc"]
+        PlanMap --> P3["task-tracking-complex.mdc"]
+    end
+    
+    subgraph "CREATIVE Mode"
+        CreativeMap["creative-mode-map.mdc"] --> C1["creative-phase-enforcement.mdc"]
+        CreativeMap --> C2["creative-phase-architecture.mdc"]
+        CreativeMap --> C3["creative-phase-algorithm.mdc"]
+        CreativeMap --> C4["creative-phase-uiux.mdc"]
+    end
+    
+    subgraph "IMPLEMENT Mode"
+        ImplementMap["implement-mode-map.mdc"] --> Impl1["implementation-guide.mdc"]
+        ImplementMap --> Impl2["testing-strategy.mdc"]
+    end
+```
+
+## 🔍 СПЕЦИФИЧНАЯ ДЛЯ РЕЖИМОВ ЗАГРУЗКА ПРАВИЛ
+
+### Основные правила VAN Mode
+```markdown
+- main.mdc (Core)
+- platform-awareness.mdc (Core)
+- file-verification.mdc (Core)
+- van-mode-map.mdc (Mode)
+```
+
+### Основные правила PLAN Mode
+```markdown
+- main.mdc (Core)
+- plan-mode-map.mdc (Mode)
+- task-tracking-[complexity].mdc (Level)
+```
+
+### Основные правила CREATIVE Mode
+```markdown
+- main.mdc (Core)
+- creative-mode-map.mdc (Mode)
+- creative-phase-enforcement.mdc (Mode)
+```
+
+### Специализированные правила CREATIVE Mode (Отложенная загрузка)
+```markdown
+- creative-phase-architecture.mdc (Specialized)
+- creative-phase-algorithm.mdc (Specialized)
+- creative-phase-uiux.mdc (Specialized)
+```
+
+### Основные правила IMPLEMENT Mode
+```markdown
+- main.mdc (Core)
+- command-execution.mdc (Core)
+- implement-mode-map.mdc (Mode)
+```
+
+## 🚀 ПРЕИМУЩЕСТВА РЕАЛИЗАЦИИ
+
+Система иерархической загрузки обеспечивает:
+
+1. **Снижение начальной загрузки**: Загружаются только основные правила при старте (~70% сокращение токенов)
+2. **Кэширование основных правил**: Правила, общие для режимов, кэшируются
+3. **Загрузка специализированных правил**: Специализированные правила загружаются только при необходимости
+4. **Загрузка на основе сложности**: Загружаются только правила, соответствующие сложности задачи
+
+## 📈 СРАВНЕНИЕ ИСПОЛЬЗОВАНИЯ ТОКЕНОВ
+
+| Подход | Начальные токены | Специализированные токены | Всего токенов |
+|--------|------------------|--------------------------|---------------|
+| Оригинальная система | ~70,000 | Включены в начальные | ~70,000 |
+| Иерархическая система | ~15,000 | ~10,000 (по запросу) | ~25,000 |
+| **Сокращение токенов** | **~55,000 (78%)** | **Н/П** | **~45,000 (64%)** |
+
+## 🔄 ПРИМЕР ИСПОЛЬЗОВАНИЯ
+
+### Пример: Фаза CREATIVE с правилом архитектуры
+
+```javascript
+// Инициализация режима CREATIVE только с основными правилами
+const mode = ruleManager.initializeMode("CREATIVE", 3);
+
+// Основные и режимные правила загружены
+// Правила архитектуры еще НЕ загружены
+
+// Позже, когда требуется проектирование архитектуры:
+const architectureRule = ruleManager.loadSpecializedRule("architecture");
+
+// Теперь правило архитектуры загружено и кэшировано
+```
+
+## 🧪 ПРОВЕРКА ЗАГРУЗКИ ПРАВИЛ
+
+Для обеспечения оптимальной работы системы загрузки правил:
+
+```markdown
+## Проверка загрузки правил
+
+- Основные правила: [Загружены]
+- Основные правила режима: [Загружены]
+- Правила уровня сложности: [Загружены]
+- Специализированные правила: [Не загружены]
+
+Текущее использование токенов: [X] токенов
+Потенциальная экономия токенов: [Y] токенов
+```
+
+Этот иерархический подход обеспечивает оптимальное использование токенов при сохранении всей функциональности.

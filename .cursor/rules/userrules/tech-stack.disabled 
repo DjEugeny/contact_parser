@@ -1,0 +1,14 @@
+# ТЕХНОЛОГИЧЕСКИЙ СТЕК
+python_version: "3.13"
+core_libraries:
+  ocr: ["easyocr", "pytesseract", "transformers", "paddleocr"]
+  docs: ["PyMuPDF", "python-docx", "openpyxl", "xlrd"]
+  llm: ["requests", "json", "re"]
+  email: ["imaplib", "google-api-python-client"]
+  image: ["opencv-python", "pillow", "numpy"]
+
+apis_used:
+  - "OpenRouter API (qwen/qwen3-235b-a22b:free)"
+  - "Gmail API"
+  - "Google Sheets API"
+  - "Google Contacts API"
