@@ -67,7 +67,7 @@ class ContactExtractor:
         
         # Папка с промптами
         current_file = Path(__file__)
-        project_root = current_file.parent
+        project_root = current_file.parent.parent  # Поднимаемся на уровень выше от src к корню проекта
         self.prompts_dir = project_root / "prompts"
         
         # Расширенная статистика
