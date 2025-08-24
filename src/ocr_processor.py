@@ -85,6 +85,32 @@ class OCRProcessor:
         file_types = ["*.png", "*.jpg", "*.jpeg", "*.tiff", "*.pdf", "*.docx", "*.doc", "*.xlsx", "*.xls"]
         files = sorted(list(set(f for pat in file_types for f in date_dir.rglob(pat))))
         return files
+    
+    def _normalize_filename(self, filename: str) -> str:
+        """🔧 Нормализация имени файла, убирая временные метки и дубликаты"""
+        import re
+        
+        # Убираем префикс с временными метками в формате YYYYMMDD_domain_lang_hash_HHMMSS_attach_
+        filename = re.sub(r'^\d{8}_[^_]+_[^_]+_[^_]+_\d{6}_attach_', '', filename)
+        
+        # Убираем суффикс метода в формате ___method_name
+        filename = re.sub(r'___.*$', '', filename)
+        
+        # Убираем временные метки в формате _YYYYMMDD_HHMMSS (для старых файлов)
+        filename = re.sub(r'_\d{8}_\d{6}', '', filename)
+        
+        # Убираем временные метки в формате _YYYY-MM-DD_HH-MM-SS (для старых файлов)
+        filename = re.sub(r'_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}', '', filename)
+        
+        # Убираем суффиксы типа (1), (2), _copy и т.д.
+        filename = re.sub(r'\s*\(\d+\)$', '', filename)
+        filename = re.sub(r'_copy\d*$', '', filename)
+        filename = re.sub(r'_duplicate\d*$', '', filename)
+        
+        # Убираем лишние подчеркивания в конце
+        filename = filename.rstrip('_')
+        
+        return filename
     def run_google_vision_ocr(self, content: bytes) -> Tuple[str, float]:
         if not self.vision_client: raise RuntimeError("Клиент Google Vision не инициализирован.")
         print("   ☁️ Отправка в Google Cloud Vision... (может занять несколько секунд)")
@@ -325,19 +351,32 @@ class OCRProcessor:
         if not date_texts_dir.exists():
             return False
         
-        file_stem = file_path.stem
-        # Ищем файлы с результатами для данного файла (любой метод)
-        existing_files = list(date_texts_dir.glob(f"{file_stem}___*.txt"))
+        # Нормализуем имя файла, убирая временные метки
+        normalized_name = self._normalize_filename(file_path.stem)
+        
+        # Ищем файлы с результатами для данного файла
+        # Проверяем как новый формат (нормализованное_имя___метод), так и старый формат
+        existing_files = list(date_texts_dir.glob(f"{normalized_name}___*.txt"))
+        
+        # Если не найдено в новом формате, ищем в старом формате с префиксами
+        if not existing_files:
+            # Ищем файлы, которые после нормализации дают то же имя
+            all_files = list(date_texts_dir.glob("*.txt"))
+            for file in all_files:
+                if self._normalize_filename(file.stem) == normalized_name:
+                    existing_files.append(file)
+        
         return len(existing_files) > 0
     
     def _get_existing_result(self, file_path: Path, date: str) -> Dict:
         """📄 Получение уже существующего результата обработки"""
         
         date_texts_dir = self.texts_dir / date
-        file_stem = file_path.stem
+        # Нормализуем имя файла, убирая временные метки
+        normalized_name = self._normalize_filename(file_path.stem)
         
         # Ищем первый доступный файл с результатами
-        existing_files = list(date_texts_dir.glob(f"{file_stem}___*.txt"))
+        existing_files = list(date_texts_dir.glob(f"{normalized_name}___*.txt"))
         
         if not existing_files:
             # Если файлов нет, возвращаем пустой результат
@@ -404,7 +443,9 @@ class OCRProcessor:
         
         # Сохраняем TXT файл только при успешном распознавании
         if result["success"] and result.get("text", "").strip():
-            txt_filename = f"{Path(result['file_name']).stem}___{result['method']}.txt"
+            # Используем нормализованное имя файла для предотвращения дублирования
+            normalized_name = self._normalize_filename(Path(result['file_name']).stem)
+            txt_filename = f"{normalized_name}___{result['method']}.txt"
             txt_path = date_texts_dir / txt_filename
             with open(txt_path, "w", encoding="utf-8") as f:
                 f.write(f"# 📄 Файл: {result['file_name']}\n# ⚙️ Метод: {result['method']}\n")

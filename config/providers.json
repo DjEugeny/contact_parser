@@ -1,0 +1,32 @@
+{
+  "provider_order": [
+    "openrouter",
+    "groq",
+    "replicate"
+  ],
+  "provider_settings": {
+    "openrouter": {
+      "enabled": true,
+      "priority": 1,
+      "max_failures_before_skip": 3,
+      "retry_delay_seconds": 5
+    },
+    "groq": {
+      "enabled": true,
+      "priority": 2,
+      "max_failures_before_skip": 3,
+      "retry_delay_seconds": 3
+    },
+    "replicate": {
+      "enabled": true,
+      "priority": 3,
+      "max_failures_before_skip": 2,
+      "retry_delay_seconds": 10
+    }
+  },
+  "fallback_settings": {
+    "max_total_retries": 3,
+    "enable_automatic_fallback": true,
+    "reset_failures_after_hours": 24
+  }
+}

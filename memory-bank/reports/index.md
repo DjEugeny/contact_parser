@@ -55,11 +55,16 @@
   - *Дата:* 21.08.2025
 
 - **[20250121_2336_fallback_system_completion_report.md](20250121_2336_fallback_system_completion_report.md)** - Завершение работы с fallback-системой
-  - *Дата:* 21.01.2025
+  - *Дата:* 24.08.2025
   - *Статус:* ✅ Завершено
   - *Описание:* Полная реализация и тестирование fallback-системы с OpenRouter и Groq
   - *Статус:* ✅ Завершено
   - *Описание:* Автоматическое переключение между OpenRouter и Groq
+
+- **[20250121_2315_fix_duplication_logic.md](20250121_2315_fix_duplication_logic.md)** - Исправление логики предотвращения дублирования файлов в OCRProcessor
+  - *Дата:* 24.08.2025
+  - *Статус:* ✅ Завершено
+  - *Описание:* Исправление логики предотвращения дублирования файлов в OCRProcessor
 
 - **[google_sheets_fallback_report.md](google_sheets_fallback_report.md)** - Реализация fallback-логики для Google Sheets
   - *Дата:* 22.08.2025

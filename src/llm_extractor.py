@@ -22,11 +22,50 @@ load_dotenv()
 class ContactExtractor:
     """🔥 Экстрактор контактов с LLM и JSON Schema валидацией + Fallback система"""
     
-    def __init__(self, test_mode=False):
+    def __init__(self, test_mode=False, config_path=None):
         self.test_mode = test_mode
+        self.config_path = config_path or Path(__file__).parent.parent / "config" / "providers.json"
         
-        # Настройка провайдеров (приоритет: OpenRouter -> Groq)
-        self.providers = {
+        # Загружаем конфигурацию провайдеров
+        self.provider_config = self._load_provider_config()
+        
+        # Настройка провайдеров с учетом конфигурации
+        self.providers = self._initialize_providers()
+        
+        # Устанавливаем текущего провайдера согласно конфигурации
+        self.current_provider = self._get_first_active_provider()
+        
+        # Максимальное количество попыток fallback
+        self.max_fallback_attempts = 2
+        
+        # Папка с промптами
+        current_file = Path(__file__)
+        project_root = current_file.parent.parent  # Поднимаемся на уровень выше от src к корню проекта
+        self.prompts_dir = project_root / "prompts"
+        
+        # Расширенная статистика
+        self.stats = {
+             'total_requests': 0,
+             'successful_requests': 0,
+             'failed_requests': 0,
+             'retry_attempts': 0,
+             'json_validation_errors': 0,
+             'fallback_switches': 0,
+             'provider_failures': {
+                 'openrouter': 0,
+                 'groq': 0,
+                 'replicate': 0
+             }
+         }
+        
+        print(f"🤖 ContactExtractor инициализирован (test_mode={test_mode})")
+        print(f"   📁 Конфигурация: {self.config_path}")
+        print(f"   🔄 Fallback система: OpenRouter -> Groq")
+        print(f"   🎯 Текущий провайдер: {self.providers[self.current_provider]['name']}")
+    
+    def _initialize_providers(self) -> dict:
+        """🔧 Инициализация провайдеров с учетом конфигурации"""
+        providers = {
             'openrouter': {
                 'name': 'OpenRouter',
                 'api_key': os.getenv('OPENROUTER_API_KEY', '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'),
@@ -56,37 +95,74 @@ class ContactExtractor:
                     'Authorization': f'Bearer {os.getenv("GROQ_API_KEY", "")}',
                     'Content-Type': 'application/json'
                 }
+            },
+            'replicate': {
+                'name': 'Replicate',
+                'api_key': os.getenv('REPLICATE_API_TOKEN', ''),
+                'model': os.getenv('REPLICATE_MODEL', 'meta/meta-llama-3-8b-instruct'),
+                'base_url': "https://api.replicate.com/v1/predictions",
+                'priority': 3,
+                'active': True,
+                'failure_count': 0,
+                'last_failure': None,
+                'headers': {
+                    'Authorization': f'Bearer {os.getenv("REPLICATE_API_TOKEN", "")}',
+                    'Content-Type': 'application/json'
+                }
             }
         }
         
-        # Текущий активный провайдер
-        self.current_provider = 'openrouter'
+        # Применяем настройки из конфигурации
+        if self.provider_config:
+            for provider_id, provider_data in providers.items():
+                if provider_id in self.provider_config:
+                    config = self.provider_config[provider_id]
+                    
+                    # Обновляем настройки из конфигурации
+                    if 'active' in config:
+                        provider_data['active'] = config['active']
+                    if 'priority' in config:
+                        provider_data['priority'] = config['priority']
+                    if 'model' in config:
+                        provider_data['model'] = config['model']
+                    if 'api_key' in config and config['api_key']:
+                        provider_data['api_key'] = config['api_key']
+                        # Обновляем заголовки с новым API ключом
+                        provider_data['headers']['Authorization'] = f'Bearer {config["api_key"]}'
+                    
+                    print(f"✅ Провайдер {provider_data['name']}: настройки обновлены из конфигурации")
         
-        # Максимальное количество попыток fallback
-        self.max_fallback_attempts = 2
+        return providers
+    
+    def _get_first_active_provider(self) -> str:
+        """🎯 Получение первого активного провайдера по приоритету"""
+        active_providers = [
+            (pid, provider) for pid, provider in self.providers.items()
+            if provider['active'] and provider['api_key']
+        ]
         
-        # Папка с промптами
-        current_file = Path(__file__)
-        project_root = current_file.parent.parent  # Поднимаемся на уровень выше от src к корню проекта
-        self.prompts_dir = project_root / "prompts"
+        if not active_providers:
+            print("⚠️ Нет активных провайдеров с API ключами, используем openrouter")
+            return 'openrouter'
         
-        # Расширенная статистика
-        self.stats = {
-            'total_requests': 0,
-            'successful_requests': 0,
-            'failed_requests': 0,
-            'retry_attempts': 0,
-            'json_validation_errors': 0,
-            'fallback_switches': 0,
-            'provider_failures': {
-                'openrouter': 0,
-                'groq': 0
-            }
-        }
-        
-        print(f"🤖 ContactExtractor инициализирован (test_mode={test_mode})")
-        print(f"   🔄 Fallback система: OpenRouter -> Groq")
-        print(f"   🎯 Текущий провайдер: {self.providers[self.current_provider]['name']}")
+        # Сортируем по приоритету и возвращаем первый
+        active_providers.sort(key=lambda x: x[1]['priority'])
+        return active_providers[0][0]
+    
+    def _load_provider_config(self) -> dict:
+        """📁 Загрузка конфигурации провайдеров из файла"""
+        try:
+            if self.config_path.exists():
+                with open(self.config_path, 'r', encoding='utf-8') as f:
+                    config = json.load(f)
+                    print(f"✅ Конфигурация провайдеров загружена из {self.config_path}")
+                    return config
+            else:
+                print(f"⚠️ Файл конфигурации не найден: {self.config_path}")
+                return {}
+        except Exception as e:
+            print(f"❌ Ошибка загрузки конфигурации провайдеров: {e}")
+            return {}
     
     def _load_prompt(self, filename: str) -> str:
         """📄 Загрузка промпта из файла"""
@@ -320,20 +396,32 @@ class ContactExtractor:
         # Получаем текущего провайдера
         current_provider = self.providers[self.current_provider]
         
-        # Формируем запрос
-        messages = [
-            {
-                "role": "user",
-                "content": f"{prompt}\n\n📧 ТЕКСТ ДЛЯ АНАЛИЗА:\n{text}"
+        # Формируем запрос в зависимости от провайдера
+        if self.current_provider == 'replicate':
+            # Специальный формат для Replicate API
+            payload = {
+                "version": current_provider['model'],
+                "input": {
+                    "prompt": f"{prompt}\n\n📧 ТЕКСТ ДЛЯ АНАЛИЗА:\n{text}",
+                    "max_tokens": 4000,
+                    "temperature": 0.1
+                }
             }
-        ]
-        
-        payload = {
-            "model": current_provider['model'],
-            "messages": messages,
-            "temperature": 0.1,
-            "max_tokens": 4000
-        }
+        else:
+            # Стандартный OpenAI-совместимый формат для OpenRouter и Groq
+            messages = [
+                {
+                    "role": "user",
+                    "content": f"{prompt}\n\n📧 ТЕКСТ ДЛЯ АНАЛИЗА:\n{text}"
+                }
+            ]
+            
+            payload = {
+                "model": current_provider['model'],
+                "messages": messages,
+                "temperature": 0.1,
+                "max_tokens": 4000
+            }
         
         # Формируем заголовки для текущего провайдера
         headers = {
@@ -385,15 +473,40 @@ class ContactExtractor:
             
             response_data = response.json()
             
-            if 'choices' not in response_data or not response_data['choices']:
-                # Увеличиваем счетчик ошибок провайдера
-                current_provider['failure_count'] += 1
-                current_provider['last_failure'] = datetime.now().isoformat()
-                self.stats['provider_failures'][self.current_provider] += 1
+            # Обработка ответа в зависимости от провайдера
+            if self.current_provider == 'replicate':
+                # Для Replicate API проверяем статус и получаем результат
+                if 'status' in response_data:
+                    if response_data['status'] == 'failed':
+                        raise Exception(f"Replicate prediction failed: {response_data.get('error', 'Unknown error')}")
+                    elif response_data['status'] == 'processing':
+                        # Если предсказание еще обрабатывается, ждем
+                        prediction_id = response_data.get('id')
+                        content = self._wait_for_replicate_result(prediction_id, current_provider)
+                    elif response_data['status'] == 'succeeded':
+                        # Получаем результат из output
+                        output = response_data.get('output', [])
+                        if isinstance(output, list) and output:
+                            content = ''.join(output)
+                        elif isinstance(output, str):
+                            content = output
+                        else:
+                            raise Exception("Некорректный формат ответа от Replicate")
+                    else:
+                        raise Exception(f"Неизвестный статус Replicate: {response_data['status']}")
+                else:
+                    raise Exception("Ответ от Replicate не содержит статус")
+            else:
+                # Стандартная обработка для OpenAI-совместимых API
+                if 'choices' not in response_data or not response_data['choices']:
+                    # Увеличиваем счетчик ошибок провайдера
+                    current_provider['failure_count'] += 1
+                    current_provider['last_failure'] = datetime.now().isoformat()
+                    self.stats['provider_failures'][self.current_provider] += 1
+                    
+                    raise Exception("Пустой ответ от LLM")
                 
-                raise Exception("Пустой ответ от LLM")
-            
-            content = response_data['choices'][0]['message']['content']
+                content = response_data['choices'][0]['message']['content']
             
             # Парсим JSON из ответа
             result = self._parse_llm_response(content)
@@ -409,6 +522,58 @@ class ContactExtractor:
             
             print(f"❌ Ошибка провайдера {current_provider['name']}: {e}")
             raise e
+    
+    def _wait_for_replicate_result(self, prediction_id: str, provider_config: dict, max_wait: int = 300) -> str:
+        """⏳ Ожидание результата от Replicate API"""
+        import time
+        
+        if not prediction_id:
+            raise Exception("Не получен ID предсказания от Replicate")
+        
+        # URL для получения статуса предсказания
+        status_url = f"https://api.replicate.com/v1/predictions/{prediction_id}"
+        headers = {
+            "Authorization": f"Bearer {provider_config['api_key']}",
+            "Content-Type": "application/json"
+        }
+        
+        start_time = time.time()
+        
+        while time.time() - start_time < max_wait:
+            try:
+                response = requests.get(status_url, headers=headers, timeout=30)
+                
+                if response.status_code != 200:
+                    raise Exception(f"Ошибка при получении статуса Replicate: HTTP {response.status_code}")
+                
+                data = response.json()
+                status = data.get('status')
+                
+                if status == 'succeeded':
+                    output = data.get('output', [])
+                    if isinstance(output, list) and output:
+                        return ''.join(output)
+                    elif isinstance(output, str):
+                        return output
+                    else:
+                        raise Exception("Некорректный формат результата от Replicate")
+                
+                elif status == 'failed':
+                    error_msg = data.get('error', 'Unknown error')
+                    raise Exception(f"Replicate prediction failed: {error_msg}")
+                
+                elif status in ['starting', 'processing']:
+                    print(f"⏳ Replicate обрабатывает запрос... (статус: {status})")
+                    time.sleep(2)  # Ждем 2 секунды перед следующей проверкой
+                    continue
+                
+                else:
+                    raise Exception(f"Неизвестный статус Replicate: {status}")
+                    
+            except requests.RequestException as e:
+                raise Exception(f"Ошибка сети при ожидании результата Replicate: {e}")
+        
+        raise Exception(f"Превышено время ожидания результата от Replicate ({max_wait} сек)")
     
     def _parse_llm_response(self, response_text: str) -> dict:
         """📝 Парсинг ответа LLM"""
