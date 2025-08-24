@@ -1,5 +1,5 @@
 # Memory Bank Rules (Trae)
-- Всегда читать #memory-bank перед началом работы.
+- Всегда читать memory-bank перед началом работы.
 - Изменять состояние только через файлы в memory-bank:
   - План и статусы: tasks.md / progress.md
   - Контекст: activeContext.md

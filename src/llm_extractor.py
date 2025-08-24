@@ -71,7 +71,7 @@ class ContactExtractor:
                 'api_key': os.getenv('OPENROUTER_API_KEY', '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'),
                 'model': "qwen/qwen3-235b-a22b:free",
                 'base_url': "https://openrouter.ai/api/v1/chat/completions",
-                'priority': 1,
+                'priority': 3,
                 'active': True,
                 'failure_count': 0,
                 'last_failure': None,
@@ -101,7 +101,7 @@ class ContactExtractor:
                 'api_key': os.getenv('REPLICATE_API_TOKEN', ''),
                 'model': os.getenv('REPLICATE_MODEL', 'meta/meta-llama-3-8b-instruct'),
                 'base_url': "https://api.replicate.com/v1/predictions",
-                'priority': 3,
+                'priority': 1,
                 'active': True,
                 'failure_count': 0,
                 'last_failure': None,
@@ -332,6 +332,14 @@ class ContactExtractor:
                 error_msg = str(e)
                 print(f"❌ Попытка {attempt + 1}: Ошибка запроса к LLM: {e}")
                 
+                # Специальная обработка JSON ошибок с перезапросом
+                if "Ошибка парсинга JSON" in error_msg and attempt < max_retries - 1:
+                    print(f"🔄 JSON ошибка: перезапрос с 'Strict JSON only!' (попытка {attempt + 2})")
+                    # Модифицируем prompt для следующей попытки
+                    if "STRICT JSON ONLY!" not in prompt:
+                        prompt += "\n\nSTRICT JSON ONLY! Отвечай только валидным JSON без дополнительного текста."
+                    continue
+                
                 # Специальная обработка rate limit с exponential backoff
                 if "Rate limit (HTTP 429)" in error_msg:
                     # Извлекаем время ожидания из сообщения об ошибке
@@ -400,11 +408,14 @@ class ContactExtractor:
         if self.current_provider == 'replicate':
             # Специальный формат для Replicate API
             payload = {
-                "version": current_provider['model'],
+                "version": current_provider['model'],  # Используем version вместо model
                 "input": {
-                    "prompt": f"{prompt}\n\n📧 ТЕКСТ ДЛЯ АНАЛИЗА:\n{text}",
-                    "max_tokens": 4000,
-                    "temperature": 0.1
+                    "prompt": f"{prompt}\n\n📧 ТЕКСТ ДЛЯ АНАЛИЗА:\n{text}\n\nSTRICT JSON ONLY! Отвечай только валидным JSON без дополнительного текста.",
+                    "max_tokens": 8000,  # Увеличено для длинных списков
+                    "temperature": 0,     # Убираем фантазии
+                    "top_p": 0.9,
+                    "frequency_penalty": 0,
+                    "presence_penalty": 0
                 }
             }
         else:
@@ -463,7 +474,9 @@ class ContactExtractor:
                 
                 raise Exception(f"Rate limit (HTTP 429): требуется ожидание {wait_time} сек. {response.text}")
             
-            if response.status_code != 200:
+            # Проверяем успешность запроса (для Replicate принимаем 200 и 201)
+            success_codes = [200, 201] if self.current_provider == 'replicate' else [200]
+            if response.status_code not in success_codes:
                 # Увеличиваем счетчик ошибок провайдера
                 current_provider['failure_count'] += 1
                 current_provider['last_failure'] = datetime.now().isoformat()
@@ -479,8 +492,8 @@ class ContactExtractor:
                 if 'status' in response_data:
                     if response_data['status'] == 'failed':
                         raise Exception(f"Replicate prediction failed: {response_data.get('error', 'Unknown error')}")
-                    elif response_data['status'] == 'processing':
-                        # Если предсказание еще обрабатывается, ждем
+                    elif response_data['status'] in ['starting', 'processing']:
+                        # Если предсказание создается или обрабатывается, ждем
                         prediction_id = response_data.get('id')
                         content = self._wait_for_replicate_result(prediction_id, current_provider)
                     elif response_data['status'] == 'succeeded':
@@ -576,26 +589,66 @@ class ContactExtractor:
         raise Exception(f"Превышено время ожидания результата от Replicate ({max_wait} сек)")
     
     def _parse_llm_response(self, response_text: str) -> dict:
-        """📝 Парсинг ответа LLM"""
+        """📝 Парсинг ответа LLM с строгой валидацией JSON"""
+        
+        # Логируем сырой ответ для диагностики
+        print(f"🔍 Сырой ответ LLM ({len(response_text)} символов):")
+        print(f"'{response_text[:500]}{'...' if len(response_text) > 500 else ''}'")
         
         try:
             # Ищем JSON в ответе
             json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
             if json_match:
                 json_str = json_match.group()
-                result = json.loads(json_str)
+                print(f"🔍 Найденный JSON: {json_str[:200]}{'...' if len(json_str) > 200 else ''}")
+                result = json.loads(json_str)  # Post-валидация JSON
+                
+                # Дополнительная проверка структуры
+                if not isinstance(result, dict):
+                    raise ValueError("Ответ не является JSON объектом")
+                
+                # Нормализация ответа от Replicate
+                result = self._normalize_replicate_response(result)
+                    
                 return result
             else:
                 raise ValueError("JSON не найден в ответе LLM")
         
         except json.JSONDecodeError as e:
-            raise ValueError(f"Ошибка парсинга JSON: {e}")
+            raise ValueError(f"Ошибка парсинга JSON: {e}. Требуется перезапрос с 'Strict JSON only!'")
+    
+    def _normalize_replicate_response(self, response: dict) -> dict:
+        """🔧 Нормализация ответа от Replicate API"""
+        
+        # Преобразуем action_items в recommended_actions
+        if 'action_items' in response and 'recommended_actions' not in response:
+            action_items = response.get('action_items', [])
+            if isinstance(action_items, list):
+                response['recommended_actions'] = '; '.join(action_items) if action_items else 'Нет рекомендаций'
+            else:
+                response['recommended_actions'] = str(action_items)
+            print("🔧 Преобразовано action_items -> recommended_actions")
+        
+        # Преобразуем объект business_context в строку
+        if 'business_context' in response and isinstance(response['business_context'], dict):
+            bc = response['business_context']
+            context_parts = []
+            for key, value in bc.items():
+                if value:
+                    context_parts.append(f"{key}: {value}")
+            response['business_context'] = '; '.join(context_parts) if context_parts else 'Контекст не определен'
+            print("🔧 Преобразован объект business_context в строку")
+        
+        return response
     
     def _process_large_text(self, text: str, prompt: str, metadata: dict = None) -> dict:
-        """📄 Обработка больших текстов через разбивку на части"""
+        """📄 Обработка больших текстов через разбивку на части с оптимизацией памяти"""
         
-        chunk_size = 10000  # Размер части
-        overlap = 1000      # Перекрытие между частями
+        # Оптимизированные размеры для предотвращения `zsh: killed`
+        chunk_size = 8000   # Уменьшено для экономии памяти
+        overlap = 800       # Пропорционально уменьшено
+        
+        import gc  # Для принудительной очистки памяти
         
         # Разбиваем текст на части
         chunks = []
@@ -640,16 +693,26 @@ class ContactExtractor:
                 if 'recommended_actions' in chunk_result:
                     all_actions.append(f"Часть {i + 1}: {chunk_result['recommended_actions']}")
                 
-                # Небольшая пауза между запросами
+                # Небольшая пауза между запросами и очистка памяти
                 if i < len(chunks) - 1:
                     time.sleep(2)
+                    
+                # Принудительная очистка памяти после каждой части
+                del chunk_result
+                gc.collect()
             
             except Exception as e:
                 print(f"   ❌ Ошибка обработки части {i + 1}: {e}")
                 all_contexts.append(f"Часть {i + 1}: Ошибка обработки - {str(e)}")
+                # Очистка памяти даже при ошибке
+                gc.collect()
         
         # Удаляем дубликаты контактов
         unique_contacts = self._deduplicate_contacts(all_contacts)
+        
+        # Очищаем промежуточные данные для экономии памяти
+        del all_contacts, chunks
+        gc.collect()
         
         # Формируем итоговый результат
         result = {
@@ -746,6 +809,7 @@ class ContactExtractor:
             if self.test_mode and not metadata:
                 print("   🧪 Активирован тестовый режим")
                 result = {
+                    'success': True,
                     'contacts': [{
                         'name': 'Тестовый Контакт',
                         'email': 'test@example.com',

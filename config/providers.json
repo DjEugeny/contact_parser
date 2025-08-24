@@ -1,13 +1,13 @@
 {
   "provider_order": [
-    "openrouter",
+    "replicate",
     "groq",
-    "replicate"
+    "openrouter"
   ],
   "provider_settings": {
     "openrouter": {
       "enabled": true,
-      "priority": 1,
+      "priority": 3,
       "max_failures_before_skip": 3,
       "retry_delay_seconds": 5
     },
@@ -19,7 +19,7 @@
     },
     "replicate": {
       "enabled": true,
-      "priority": 3,
+      "priority": 1,
       "max_failures_before_skip": 2,
       "retry_delay_seconds": 10
     }
