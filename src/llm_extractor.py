@@ -98,7 +98,7 @@ class ContactExtractor:
             },
             'replicate': {
                 'name': 'Replicate',
-                'api_key': os.getenv('REPLICATE_API_TOKEN', ''),
+                'api_key': os.getenv('REPLICATE_API_KEY', ''),
                 'model': os.getenv('REPLICATE_MODEL', 'meta/meta-llama-3-8b-instruct'),
                 'base_url': "https://api.replicate.com/v1/predictions",
                 'priority': 2,  # Второй приоритет после Groq
@@ -106,7 +106,7 @@ class ContactExtractor:
                 'failure_count': 0,
                 'last_failure': None,
                 'headers': {
-                    'Authorization': f'Bearer {os.getenv("REPLICATE_API_TOKEN", "")}',
+                    'Authorization': f'Bearer {os.getenv("REPLICATE_API_KEY", "")}',
                     'Content-Type': 'application/json'
                 }
             }
@@ -503,6 +503,8 @@ class ContactExtractor:
             response_data = response.json()
             
             # Обработка ответа в зависимости от провайдера
+            content = None  # Инициализируем переменную
+            
             if self.current_provider == 'replicate':
                 # Для Replicate API проверяем статус и получаем результат
                 if 'status' in response_data:
@@ -536,6 +538,10 @@ class ContactExtractor:
                     raise Exception("Пустой ответ от LLM")
                 
                 content = response_data['choices'][0]['message']['content']
+            
+            # Проверяем, что content получен
+            if content is None:
+                raise Exception("Не удалось получить содержимое ответа от LLM")
             
             # Парсим JSON из ответа
             try:

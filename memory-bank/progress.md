@@ -368,3 +368,9 @@
   - Извлечение контактов работает в тестовом режиме (несмотря на техническую ошибку логирования)
   - Система готова к продуктивному использованию
   - Код выхода: 0 (успешное завершение)
+- [2025-08-26 00:15:00] Исправлена критическая ошибка парсинга JSON в Replicate провайдере:
+  - Обнаружена и исправлена ошибка 'NoneType' object has no attribute 'strip' в методе _parse_llm_response
+  - Добавлена инициализация переменной content = None в методе _make_llm_request
+  - Добавлена проверка if content is None перед передачей в _parse_llm_response
+  - Запущен google_sheets_exporter.py с датой 2025-07-29 - обнаружена ошибка доступа к Google Sheets (403 Permission Error)
+  - Файл: [src/llm_extractor.py](../src/llm_extractor.py) (строки 456-460)

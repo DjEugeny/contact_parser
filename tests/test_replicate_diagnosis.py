@@ -20,9 +20,9 @@ def check_replicate_api():
     print("=" * 50)
     
     # Получаем API токен
-    api_token = os.getenv('REPLICATE_API_TOKEN')
+    api_token = os.getenv('REPLICATE_API_KEY')
     if not api_token:
-        print("❌ REPLICATE_API_TOKEN не найден в .env файле")
+        print("❌ REPLICATE_API_KEY не найден в .env файле")
         return False
     
     print(f"🔑 API токен найден: {api_token[:10]}...{api_token[-4:]}")
@@ -77,7 +77,7 @@ def check_replicate_model():
     """Проверка доступности модели"""
     print("\n🤖 Проверка модели...")
     
-    api_token = os.getenv('REPLICATE_API_TOKEN')
+    api_token = os.getenv('REPLICATE_API_KEY')
     model = os.getenv('REPLICATE_MODEL', 'meta/llama-2-13b')
     
     headers = {
@@ -132,7 +132,7 @@ def test_replicate_prediction():
     """Тестирование создания предсказания"""
     print("\n🧪 Тестирование создания предсказания...")
     
-    api_token = os.getenv('REPLICATE_API_TOKEN')
+    api_token = os.getenv('REPLICATE_API_KEY')
     model = os.getenv('REPLICATE_MODEL', 'meta/llama-2-13b')
     
     headers = {
@@ -254,7 +254,7 @@ def check_replicate_usage():
     """Проверка использования и лимитов"""
     print("\n📊 Проверка использования...")
     
-    api_token = os.getenv('REPLICATE_API_TOKEN')
+    api_token = os.getenv('REPLICATE_API_KEY')
     headers = {
         'Authorization': f'Token {api_token}',
         'Content-Type': 'application/json'

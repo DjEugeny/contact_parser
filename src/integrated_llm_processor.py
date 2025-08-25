@@ -680,8 +680,8 @@ def main():
     print("🤖 ТЕСТИРОВАНИЕ ИНТЕГРИРОВАННОГО LLM ПРОЦЕССОРА")
     print("="*70)
     
-    # Создаем процессор в тестовом режиме (без LLM запросов)
-    processor = IntegratedLLMProcessor(test_mode=True)
+    # Создаем процессор в обычном режиме (с LLM запросами)
+    processor = IntegratedLLMProcessor(test_mode=False)
     
     # Получаем доступные даты
     available_dates = processor.email_loader.get_available_date_folders()
