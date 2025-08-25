@@ -1,0 +1,68 @@
+# Конфигурация для подключения к почтовому серверу
+IMAP_SERVER="mail.dna-technology.ru" # Замени на сервер твоей почты, например, mail.dna-technology.ru
+IMAP_PORT=143
+IMAP_USER="s.voronova@dna-technology.ru" # Почта жены
+IMAP_PASSWORD="00000000000000000000000000000000" # Пароль от почты (или пароль приложения, если почта требует)
+
+GOOGLE_SHEET_NAME=CRM_from_Mail
+CONFIDENCE_REVIEW_THRESHOLD=0.6
+DATA_DIR=data
+
+
+# OpenRouter настройки
+OPENROUTER_API_KEY=sk-50000000000000000000000000000000
+OPENROUTER_MODEL=z-ai/glm-4.5-air:free
+OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
+
+# Альтернативные модели для тестирования
+#OPENROUTER_MODEL=z-ai/glm-4.5-air:free
+#OPENROUTER_MODEL=qwen/qwen3-235b-a22b:free
+# OPENROUTER_MODEL=qwen/qwen3-30b-a3b:free
+# OPENROUTER_MODEL=meta-llama/llama-3.1-8b-instruct:free
+# OPENROUTER_MODEL=microsoft/phi-3-medium-128k-instruct:free
+
+
+# Groq API (бесплатная альтернатива для тестирования)
+GROQ_API_KEY=gsk_50000000000000000000000000000000
+GROQ_MODEL=llama3-8b-8192
+GROQ_BASE_URL=https://api.groq.com/openai/v1
+
+# Replicate
+REPLICATE_API_KEY=r8_50000000000000000000000000000000
+#REPLICATE_MODEL=meta/llama-2-13b
+REPLICATE_MODEL=openai/gpt-5-nano
+
+# 🏢 Настройки компании
+COMPANY_DOMAIN=dna-technology.ru
+EXCLUDE_DOMAINS=mailchimp.com,news.example.com,sendgrid.net
+
+# троттлинг/ретраи
+RATE_DELAY=1.2          # пауза между успешными запросами
+RETRY_MAX=6
+RETRY_BASE=1.6
+RETRY_JITTER=0.4
+FALLBACK_TO_REPLICATE=true #false   # true, если хочешь авто-фолбэк (и есть токен Replicate)
+
+# Google Sheets настройки
+GOOGLE_SHEET_ID=1GfYCsBQfQjsHE1c0YgEdpqYk1O8VPlNF0sVeMRIP94k
+#GOOGLE_SHARE_EMAIL=best-sveta-crm-project@best-sveta-crm-project.iam.gserviceaccount.com
+GOOGLE_SHARE_EMAIL=e1979evgeny@gmail.com
+
+# Тестовый диапазон дат для анализа
+TEST_START_DATE=2025-07-28
+TEST_END_DATE=2025-07-31
+
+# Optional: Retry and Timeout Settings
+MAX_RETRIES=3
+RETRY_DELAY=1
+REQUEST_TIMEOUT=30
+
+# Optional: Validation Settings
+MIN_CONFIDENCE=0.5
+MAX_CONTACTS_PER_EMAIL=50
+
+# Optional: Test Mode
+TEST_MODE=false
+
+# Optional: Logging Level
+LOG_LEVEL=INFO

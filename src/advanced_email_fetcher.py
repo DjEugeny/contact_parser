@@ -978,45 +978,89 @@ class AdvancedEmailFetcherV2:
             return val or ''
 
     def extract_plain_text(self, msg: email.message.Message, include_attachment_data: bool = False) -> str:
-        """📄 Извлечение текста письма"""
+        """📄 ИСПРАВЛЕННОЕ извлечение текста письма - точное определение тела"""
         text_parts = []
         max_len = 500_000
         
         try:
             if msg.is_multipart():
+                body_found = False
                 for part in msg.walk():
                     ctype = part.get_content_type()
+                    
+                    # Точное определение: text/plain и text/html всегда считаются телом письма
                     if ctype in ('text/plain', 'text/html'):
-                        # Проверяем, является ли часть вложением
-                        if not include_attachment_data:
-                            disposition = part.get('Content-Disposition', '')
-                            if disposition and ('attachment' in disposition.lower() or 'inline' in disposition.lower()):
-                                continue  # Пропускаем вложения
+                        # Проверяем disposition только для attachment, не для inline
+                        disposition = part.get('Content-Disposition', '')
+                        is_attachment = disposition and 'attachment' in disposition.lower()
+                        
+                        # Пропускаем только явные вложения, inline считаем частью тела
+                        if is_attachment:
+                            continue
                         
                         try:
                             raw = part.get_payload(decode=True)
-                            charset = part.get_content_charset() or 'utf-8'
-                            chunk = raw.decode(charset, errors='ignore')
-                            
-                            if ctype == 'text/html':
-                                chunk = re.sub(r'<[^>]+>', '', chunk)
-                                chunk = re.sub(r'&[a-z]+;', ' ', chunk)
-                            
-                            text_parts.append(chunk)
+                            if raw and len(raw.strip()) > 0:
+                                charset = part.get_content_charset() or 'utf-8'
+                                chunk = raw.decode(charset, errors='ignore')
+                                
+                                if ctype == 'text/html':
+                                    chunk = re.sub(r'<[^>]+>', '', chunk)
+                                    chunk = re.sub(r'&[a-z]+;', ' ', chunk)
+                                
+                                # Проверяем, что это действительно текст, а не пустой HTML
+                                if chunk and len(chunk.strip()) > 10:
+                                    text_parts.append(chunk.strip())
+                                    body_found = True
                         except Exception as e:
                             self.logger.warning(f"⚠️ Ошибка извлечения текста: {e}")
                             continue
+                
+                # Если не найдено обычного текста, проверяем inline content
+                if not body_found:
+                    for part in msg.walk():
+                        ctype = part.get_content_type()
+                        if ctype in ('text/plain', 'text/html'):
+                            disposition = part.get('Content-Disposition', '')
+                            if disposition and 'inline' in disposition.lower():
+                                try:
+                                    raw = part.get_payload(decode=True)
+                                    if raw and len(raw.strip()) > 0:
+                                        charset = part.get_content_charset() or 'utf-8'
+                                        chunk = raw.decode(charset, errors='ignore')
+                                        if ctype == 'text/html':
+                                            chunk = re.sub(r'<[^>]+>', '', chunk)
+                                            chunk = re.sub(r'&[a-z]+;', ' ', chunk)
+                                        if chunk and len(chunk.strip()) > 10:
+                                            text_parts.append(chunk.strip())
+                                except Exception as e:
+                                    self.logger.warning(f"⚠️ Ошибка извлечения inline текста: {e}")
             else:
+                # Простое письмо без multipart
                 try:
-                    raw = msg.get_payload(decode=True)
-                    if raw:
-                        charset = msg.get_content_charset() or 'utf-8'
-                        text_parts.append(raw.decode(charset, errors='ignore'))
+                    ctype = msg.get_content_type()
+                    if ctype in ('text/plain', 'text/html'):
+                        raw = msg.get_payload(decode=True)
+                        if raw and len(raw.strip()) > 0:
+                            charset = msg.get_content_charset() or 'utf-8'
+                            chunk = raw.decode(charset, errors='ignore')
+                            if ctype == 'text/html':
+                                chunk = re.sub(r'<[^>]+>', '', chunk)
+                                chunk = re.sub(r'&[a-z]+;', ' ', chunk)
+                            if chunk and len(chunk.strip()) > 10:
+                                text_parts.append(chunk.strip())
                 except Exception as e:
                     self.logger.warning(f"⚠️ Ошибка извлечения простого текста: {e}")
 
-            full_text = '\n'.join(text_parts)
-            return full_text[:max_len].strip()
+            full_text = '\n'.join(text_parts).strip()
+            
+            # Логируем результат для диагностики
+            if full_text:
+                self.logger.debug(f"📄 Тело письма извлечено: {len(full_text)} символов")
+            else:
+                self.logger.debug(f"📄 Тело письма пусто или не содержит текст")
+                
+            return full_text[:max_len]
         
         except Exception as e:
             self.logger.error(f"❌ Критическая ошибка извлечения текста: {e}")
@@ -1389,7 +1433,7 @@ class AdvancedEmailFetcherV2:
                 self.logger.warning(f"⚠️ Ошибка парсинга даты письма: {e}")
                 date_folder = self.get_local_time().strftime('%Y-%m-%d')
 
-            # ✅ ИСПРАВЛЕНО: Проверка дубликатов по Message-ID
+            # ✅ ИСПРАВЛЕНО: Проверка дубликатов по Message-ID с учетом компонентов
             message_id = headers_msg.get('Message-ID', '').strip()
 
             if not message_id:
@@ -1397,11 +1441,25 @@ class AdvancedEmailFetcherV2:
                 message_id = f"generated_{int(time.time())}_{hashlib.md5(f'{from_addr}{subject}{date}'.encode()).hexdigest()[:8]}"
                 self.logger.warning(f"⚠️ Message-ID отсутствует, генерируем: {message_id}")
 
-            # Проверяем дубликат по Message-ID
-            if self.check_email_already_saved(message_id, date_folder):
+            # ✅ НОВОЕ: Проверяем наличие компонентов письма отдельно
+            email_check = self.check_email_already_saved(message_id, date_folder)
+            
+            if email_check['all_exist']:
                 self.stats['already_exists'] += 1
-                self.logger.info(f"📁 Письмо уже сохранено (Message-ID: {message_id})")
+                self.logger.info(f"📁 Письмо полностью сохранено (Message-ID: {message_id})")
                 return None
+            
+            # ✅ Логируем отсутствующие компоненты
+            missing_components = []
+            if not email_check['body_exists']:
+                missing_components.append("тело письма")
+            if not email_check['attachments_exist']:
+                missing_components.append("вложения")
+                
+            if missing_components:
+                self.logger.info(f"📥 Загрузка отсутствующих компонентов: {', '.join(missing_components)}")
+            else:
+                self.logger.info(f"📧 Письмо новое, загружаем полностью")
 
             self.logger.info(f"🔍 ОБРАБОТКА ПИСЬМА {email_num_in_day}/{total_emails_in_day}, {email_date_formatted}")
             self.logger.info(f"📧 От: {from_addr}")  # Показываем полный адрес
@@ -1528,6 +1586,28 @@ class AdvancedEmailFetcherV2:
 
                 try:
                     body_text = self.extract_plain_text(msg, include_attachment_data)
+                    # ИСПРАВЛЕНИЕ: более точное определение наличия тела письма
+                    if not body_text or len(body_text.strip()) <= 10:
+                        # Дополнительная проверка на текстовый контент
+                        text_content_found = False
+                        for part in msg.walk():
+                            content_disposition = part.get_content_disposition()
+                            if content_disposition not in ['attachment', 'inline']:
+                                ctype = part.get_content_type()
+                                if ctype in ('text/plain', 'text/html'):
+                                    payload = part.get_payload(decode=True)
+                                    if payload and len(payload.strip()) > 10:
+                                        text_content_found = True
+                                        body_text = payload.decode('utf-8', errors='ignore')
+                                        break
+                        
+                        if text_content_found:
+                            self.logger.info("📄 Тело письма обнаружено после дополнительной проверки")
+                        else:
+                            self.logger.info("📄 Тело письма действительно отсутствует")
+                    else:
+                        self.logger.info(f"📄 Тело письма: {len(body_text)} символов")
+                        
                 except Exception as e:
                     self.logger.warning(f"⚠️ Ошибка извлечения текста: {e}")
                     body_text = "[ОШИБКА ИЗВЛЕЧЕНИЯ ТЕКСТА]"
@@ -1536,32 +1616,43 @@ class AdvancedEmailFetcherV2:
                 self.logger.info("🔍 Обработка вложений...")
                 try:
                     if msg.is_multipart():
+                        # Счетчики для диагностики
+                        real_attachments = []
+                        inline_images = []
+                        
                         for part_num, part in enumerate(msg.walk()):
                             try:
                                 content_disposition = part.get_content_disposition()
                                 content_type = part.get_content_type()
+                                filename = part.get_filename()
 
-                                is_attachment = False
-                                is_inline = False
+                                # ИСПРАВЛЕНИЕ: строгое разделение attachment vs inline
+                                is_real_attachment = False
+                                is_inline_image = False
 
                                 if content_disposition == 'attachment':
-                                    is_attachment = True
-                                elif (content_disposition == 'inline' and content_type.startswith('image/')) or \
-                                     (not content_disposition and content_type.startswith('image/') and part.get_filename()):
-                                    is_attachment = True
-                                    is_inline = True
+                                    # Настоящее вложение
+                                    is_real_attachment = True
+                                    real_attachments.append(part)
+                                elif content_disposition == 'inline' and content_type.startswith('image/') and filename:
+                                    # Inline изображение с именем файла
+                                    is_inline_image = True
+                                    inline_images.append(part)
+                                elif not content_disposition and filename and content_type.startswith('image/'):
+                                    # Изображение без явного disposition, но с именем
+                                    is_real_attachment = True
+                                    real_attachments.append(part)
 
-                                if is_attachment:
+                                # Обрабатываем только настоящие вложения
+                                if is_real_attachment and not email_check['attachments_exist']:
                                     attachments_stats['total'] += 1
-                                    attachment_info = self.save_attachment_or_inline(part, thread_id, date_folder, is_inline)
+                                    attachment_info = self.save_attachment_or_inline(part, thread_id, date_folder, is_inline=False)
 
                                     if attachment_info:
                                         attachments.append(attachment_info)
                                         status = attachment_info.get('status', 'unknown')
                                         if status == 'saved':
                                             attachments_stats['saved'] += 1
-                                            if is_inline:
-                                                attachments_stats['inline_images'] += 1
                                         elif status == 'excluded':
                                             attachments_stats['excluded'] += 1
                                         elif status == 'excluded_filename':
@@ -1574,6 +1665,14 @@ class AdvancedEmailFetcherV2:
                             except Exception as e:
                                 self.logger.warning(f"⚠️ Ошибка обработки части {part_num}: {e}")
                                 continue
+
+                        # Логирование результатов
+                        if real_attachments:
+                            self.logger.info(f"📎 Найдено настоящих вложений: {len(real_attachments)}")
+                        if inline_images:
+                            self.logger.info(f"📷 Найдено inline изображений: {len(inline_images)} (не считаются вложениями)")
+                        if not real_attachments and not inline_images:
+                            self.logger.info("📎 Вложений не обнаружено")
 
                 except Exception as e:
                     self.logger.error(f"❌ Ошибка обработки вложений: {e}")
@@ -1615,15 +1714,28 @@ class AdvancedEmailFetcherV2:
                 self.save_skipped_email(msg_id, date_str, f"save_error_{type(e).__name__}")  # ✅ ДОБАВИТЬ
                 return None
 
-            # Статистика вложений
+            # ИСПРАВЛЕНИЕ: корректное определение наличия компонентов
+            has_body = bool(body_text and body_text.strip())
+            real_attachments_count = attachments_stats['saved']
+            
+            # Статистика вложений (только настоящие)
             if attachments_stats['total'] > 0:
-                inline_info = f" + {attachments_stats['inline_images']}🖼️" if attachments_stats['inline_images'] > 0 else ""
                 filename_excluded = f" + {attachments_stats['excluded_filenames']}📝" if attachments_stats['excluded_filenames'] > 0 else ""
                 size_excluded = f" + {attachments_stats['excluded_by_size']}📏" if attachments_stats['excluded_by_size'] > 0 else ""
-                self.logger.info(f"📎 Вложений: {attachments_stats['saved']}✅ + {attachments_stats['excluded']}🚫 + {attachments_stats['unsupported']}⚠️{inline_info}{filename_excluded}{size_excluded} из {attachments_stats['total']}")
+                self.logger.info(f"📎 Вложений: {real_attachments_count}✅ + {attachments_stats['excluded']}🚫 + {attachments_stats['unsupported']}⚠️{filename_excluded}{size_excluded} из {attachments_stats['total']}")
 
             self.stats['saved'] += 1
-            self.logger.info(f"✅ ПИСЬМО СОХРАНЕНО")
+            
+            # ИСПРАВЛЕНИЕ: точное логирование состояния письма
+            if has_body and real_attachments_count > 0:
+                self.logger.info(f"✅ ПИСЬМО СОХРАНЕНО: Тело ✓ ({len(body_text.strip())} символов), Вложения ✓ ({real_attachments_count})")
+            elif has_body:
+                self.logger.info(f"✅ ПИСЬМО СОХРАНЕНО: Тело ✓ ({len(body_text.strip())} символов), Вложений нет")
+            elif real_attachments_count > 0:
+                self.logger.info(f"✅ ПИСЬМО СОХРАНЕНО: Тело пусто, Вложения ✓ ({real_attachments_count})")
+            else:
+                self.logger.info(f"✅ ПИСЬМО СОХРАНЕНО: Тело пусто, Вложений нет")
+                
             return email_data
 
         except Exception as e:
@@ -1802,8 +1914,23 @@ class AdvancedEmailFetcherV2:
             except:
                 pass
 
-    def check_email_already_saved(self, message_id: str, date_folder: str) -> bool:
-        """📁 ИСПРАВЛЕННАЯ проверка существования письма по Message-ID"""
+    def check_email_already_saved(self, message_id: str, date_folder: str) -> Dict[str, bool]:
+        """📁 ИСПРАВЛЕННАЯ проверка существования письма и его компонентов
+        
+        Returns:
+            Dict[str, bool]: Словарь с флагами существования:
+                - 'email_exists': существует ли JSON файл письма
+                - 'body_exists': существует ли тело письма
+                - 'attachments_exist': существуют ли вложения
+                - 'all_exist': все компоненты существуют
+        """
+        
+        result = {
+            'email_exists': False,
+            'body_exists': False,
+            'attachments_exist': False,
+            'all_exist': False
+        }
         
         # Диагностическое логирование
         self.logger.debug(f"🔍 Проверяем дубликат по Message-ID: {message_id}")
@@ -1815,16 +1942,17 @@ class AdvancedEmailFetcherV2:
             
             if not email_path.exists():
                 self.logger.debug(f"📂 Папка {date_folder} не существует")
-                return False
+                return result
                 
             # Получаем все JSON файлы за эту дату
             json_files = list(email_path.glob("email_*.json"))
             
             if not json_files:
                 self.logger.debug(f"📭 JSON файлов в папке нет")
-                return False
+                return result
                 
             # Проверяем каждый файл на совпадение Message-ID
+            email_file = None
             for json_file in json_files:
                 try:
                     with open(json_file, 'r', encoding='utf-8') as f:
@@ -1833,19 +1961,75 @@ class AdvancedEmailFetcherV2:
                         
                         # Сравниваем Message-ID
                         if stored_message_id and stored_message_id == message_id:
-                            self.logger.info(f"📁 Дубликат найден по Message-ID в файле: {json_file.name}")
-                            return True
+                            email_file = json_file
+                            result['email_exists'] = True
+                            break
                             
                 except Exception as e:
                     self.logger.warning(f"⚠️ Ошибка проверки файла {json_file.name}: {e}")
                     continue
-                    
-            self.logger.debug(f"✅ Дубликат не найден среди {len(json_files)} файлов")
-            return False
+            
+            if not email_file:
+                self.logger.debug(f"✅ Дубликат не найден среди {len(json_files)} файлов")
+                return result
+            
+            # Проверяем наличие тела письма
+            try:
+                with open(email_file, 'r', encoding='utf-8') as f:
+                    email_data = json.load(f)
+                    body_text = email_data.get('body_text', '')
+                    if body_text and len(body_text.strip()) > 0:
+                        result['body_exists'] = True
+                        self.logger.debug(f"   📄 Тело письма существует")
+                    else:
+                        self.logger.debug(f"   📄 Тело письма отсутствует или пусто")
+            except Exception as e:
+                self.logger.warning(f"⚠️ Ошибка проверки тела письма: {e}")
+            
+            # Проверяем наличие вложений
+            try:
+                with open(email_file, 'r', encoding='utf-8') as f:
+                    email_data = json.load(f)
+                    attachments = email_data.get('attachments', [])
+                    if attachments and len(attachments) > 0:
+                        # Проверяем, что вложения действительно существуют на диске
+                        attachments_dir = self.data_dir / 'attachments' / date_folder
+                        existing_attachments = 0
+                        for att in attachments:
+                            file_path = att.get('file_path', '')
+                            if file_path and Path(file_path).exists():
+                                existing_attachments += 1
+                        
+                        if existing_attachments > 0:
+                            result['attachments_exist'] = True
+                            self.logger.debug(f"   📎 Вложения существуют ({existing_attachments} из {len(attachments)})")
+                        else:
+                            self.logger.debug(f"   📎 Вложения указаны, но файлы отсутствуют")
+                    else:
+                        self.logger.debug(f"   📎 Вложений нет")
+            except Exception as e:
+                self.logger.warning(f"⚠️ Ошибка проверки вложений: {e}")
+            
+            # Определяем, все ли компоненты существуют
+            result['all_exist'] = result['email_exists'] and result['body_exists'] and result['attachments_exist']
+            
+            # Логируем результат проверки
+            if result['all_exist']:
+                self.logger.info(f"📁 Письмо полностью сохранено: {message_id}")
+            elif result['email_exists']:
+                missing_parts = []
+                if not result['body_exists']:
+                    missing_parts.append("тело письма")
+                if not result['attachments_exist']:
+                    missing_parts.append("вложения")
+                
+                self.logger.info(f"📁 Письмо существует, но отсутствуют: {', '.join(missing_parts)}")
+            
+            return result
             
         except Exception as e:
             self.logger.warning(f"⚠️ Ошибка проверки существования письма: {e}")
-            return False
+            return result
 
 def main():
     """🚀 Главная функция для тестирования парсера v2.12 - ИСПРАВЛЕНИЕ КРИТИЧЕСКИХ БАГОВ"""
@@ -1878,8 +2062,8 @@ def main():
             return
     else:
         # Настройки периода для тестирования по умолчанию
-        start_date = datetime(2025, 8, 20)
-        end_date = datetime(2025, 8, 20)
+        start_date = datetime(2025, 8, 25)
+        end_date = datetime(2025, 8, 25)
 
     # Настраиваем логирование ПЕРЕД созданием fetcher'а
     logs_dir = Path("data/logs")

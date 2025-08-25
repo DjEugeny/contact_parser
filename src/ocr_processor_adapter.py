@@ -89,38 +89,73 @@ class OCRProcessorAdapter:
                 
                 print(f"      ✅ {i}/{len(attachments)}: {attachment_path.name}")
                 
-                # Обрабатываем файл через OCRProcessor
-                ocr_result = self.ocr_processor.extract_text_from_file(attachment_path, date=date_for_cache)
-                
-                if ocr_result.get('success'):
-                    text = ocr_result.get('text', '')
-                    method = ocr_result.get('method', 'unknown')
-                    confidence = ocr_result.get('confidence', 0)
+                # Проверяем существующие результаты перед обработкой
+                if date_for_cache and self.ocr_processor._check_existing_results(attachment_path, date_for_cache):
+                    existing_result = self.ocr_processor._get_existing_result(attachment_path, date_for_cache)
+                    method = existing_result.get('method', 'cached')
+                    text_length = len(existing_result.get('text', ''))
+                    print(f"         📋 Файл уже обработан ранее ({method}), используем кэш...")
+                    print(f"         📄 Использовано {text_length} символов из кэша")
                     
-                    processed_attachments.append({
-                        'file_name': attachment_path.name,
-                        'file_path': str(attachment_path),
-                        'text': text,
-                        'method': method,
-                        'confidence': confidence,
-                        'success': True
-                    })
-                    
-                    total_text_length += len(text)
-                    print(f"         📝 Извлечено {len(text)} символов ({method}, confidence: {confidence:.2%})")
+                    if existing_result.get('success'):
+                        text = existing_result.get('text', '')
+                        method = existing_result.get('method', 'cached')
+                        confidence = existing_result.get('confidence', 0)
+                        
+                        processed_attachments.append({
+                            'file_name': attachment_path.name,
+                            'file_path': str(attachment_path),
+                            'text': text,
+                            'method': method,
+                            'confidence': confidence,
+                            'success': True
+                        })
+                        
+                        total_text_length += len(text)
+                        print(f"         📝 Использовано {len(text)} символов из кэша")
+                    else:
+                        processed_attachments.append({
+                            'file_name': attachment_path.name,
+                            'file_path': str(attachment_path),
+                            'text': '',
+                            'method': 'cached_failed',
+                            'confidence': 0,
+                            'success': False,
+                            'error': existing_result.get('error', 'Cached result failed')
+                        })
                 else:
-                    error = ocr_result.get('error', 'Unknown error')
-                    print(f"         ❌ Ошибка OCR: {error}")
+                    # Обрабатываем файл через OCRProcessor
+                    ocr_result = self.ocr_processor.extract_text_from_file(attachment_path, date=date_for_cache)
                     
-                    processed_attachments.append({
-                        'file_name': attachment_path.name,
-                        'file_path': str(attachment_path),
-                        'text': '',
-                        'method': 'failed',
-                        'confidence': 0,
-                        'success': False,
-                        'error': error
-                    })
+                    if ocr_result.get('success'):
+                        text = ocr_result.get('text', '')
+                        method = ocr_result.get('method', 'unknown')
+                        confidence = ocr_result.get('confidence', 0)
+                        
+                        processed_attachments.append({
+                            'file_name': attachment_path.name,
+                            'file_path': str(attachment_path),
+                            'text': text,
+                            'method': method,
+                            'confidence': confidence,
+                            'success': True
+                        })
+                        
+                        total_text_length += len(text)
+                        print(f"         📝 Извлечено {len(text)} символов ({method}, confidence: {confidence:.2%})")
+                    else:
+                        error = ocr_result.get('error', 'Unknown error')
+                        print(f"         ❌ Ошибка OCR: {error}")
+                        
+                        processed_attachments.append({
+                            'file_name': attachment_path.name,
+                            'file_path': str(attachment_path),
+                            'text': '',
+                            'method': 'failed',
+                            'confidence': 0,
+                            'success': False,
+                            'error': error
+                        })
                     
             except Exception as e:
                 print(f"      ❌ {i}/{len(attachments)}: Ошибка обработки - {e}")
@@ -172,3 +207,97 @@ class OCRProcessorAdapter:
                     combined_text += "\n\n"
         
         return combined_text
+    
+    def process_single_attachment(self, email: Dict, attachment: Dict, email_loader=None) -> Dict:
+        """🧩 Обработка одного вложения в совместимом с AttachmentProcessor формате
+        Возвращает словарь с ключами: extracted_text, method, file_name, file_type, file_size, success, error
+        """
+        # Определяем дату для кэширования (логика как в process_email_attachments)
+        date_for_cache = email.get('date_folder')
+        if not date_for_cache:
+            parsed_date = email.get('parsed_date', '')
+            if parsed_date and isinstance(parsed_date, str):
+                try:
+                    if 'T' in parsed_date:
+                        date_for_cache = parsed_date.split('T')[0]
+                except Exception:
+                    date_for_cache = None
+        if not date_for_cache:
+            email_date = email.get('date', '')
+            if email_date:
+                try:
+                    if isinstance(email_date, str):
+                        for fmt in ['%Y-%m-%d', '%d.%m.%Y', '%d/%m/%Y', '%Y/%m/%d']:
+                            try:
+                                from datetime import datetime
+                                parsed = datetime.strptime(email_date[:10], fmt)
+                                date_for_cache = parsed.strftime('%Y-%m-%d')
+                                break
+                            except ValueError:
+                                continue
+                        if not date_for_cache and len(email_date) >= 10:
+                            date_part = email_date[:10]
+                            if date_part.count('-') == 2 or date_part.count('/') == 2 or date_part.count('.') == 2:
+                                date_for_cache = date_part.replace('/', '-').replace('.', '-')
+                except Exception:
+                    date_for_cache = None
+
+        # Путь к файлу вложения
+        file_path_str = attachment.get('file_path') or (
+            email_loader.get_attachment_file_path(email, attachment) if email_loader else ''
+        )
+        if not file_path_str:
+            return {
+                'extracted_text': '',
+                'method': 'failed',
+                'file_name': attachment.get('original_filename') or attachment.get('file_name') or 'unknown',
+                'file_type': attachment.get('file_type'),
+                'file_size': attachment.get('file_size'),
+                'success': False,
+                'error': 'file_path is missing'
+            }
+        path = Path(file_path_str)
+        if not path.exists():
+            return {
+                'extracted_text': '',
+                'method': 'failed',
+                'file_name': path.name,
+                'file_type': attachment.get('file_type'),
+                'file_size': attachment.get('file_size'),
+                'success': False,
+                'error': f'file not found: {path}'
+            }
+
+        # OCR обработка
+        try:
+            ocr_result = self.ocr_processor.extract_text_from_file(path, date=date_for_cache)
+            if ocr_result.get('success'):
+                return {
+                    'extracted_text': ocr_result.get('text', ''),
+                    'method': ocr_result.get('method', 'unknown'),
+                    'file_name': path.name,
+                    'file_type': attachment.get('file_type'),
+                    'file_size': attachment.get('file_size'),
+                    'success': True,
+                    'error': None
+                }
+            else:
+                return {
+                    'extracted_text': '',
+                    'method': 'failed',
+                    'file_name': path.name,
+                    'file_type': attachment.get('file_type'),
+                    'file_size': attachment.get('file_size'),
+                    'success': False,
+                    'error': ocr_result.get('error', 'unknown error')
+                }
+        except Exception as e:
+            return {
+                'extracted_text': '',
+                'method': 'error',
+                'file_name': path.name,
+                'file_type': attachment.get('file_type'),
+                'file_size': attachment.get('file_size'),
+                'success': False,
+                'error': str(e)
+            }

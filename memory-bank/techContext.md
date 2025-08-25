@@ -55,7 +55,7 @@ GROQ_MODEL=llama3-8b-8192
 GROQ_BASE_URL=https://api.groq.com/openai/v1
 
 # Replicate
-REPLICATE_API_TOKEN=...
+REPLICATE_API_KEY=...
 REPLICATE_MODEL=meta/meta-llama-3-8b-instruct
 
 # Почта

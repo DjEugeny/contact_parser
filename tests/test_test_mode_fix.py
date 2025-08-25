@@ -22,21 +22,48 @@ def test_test_mode_propagation():
     """
     print("\n🧪 Тестирование передачи test_mode...")
     
-    # Тест 1: test_mode=True должен передаваться в ContactExtractor
-    print("\n1️⃣ Тест: test_mode=True")
-    processor_test = IntegratedLLMProcessor(test_mode=True)
-    assert processor_test.test_mode == True, "IntegratedLLMProcessor должен иметь test_mode=True"
-    assert processor_test.contact_extractor.test_mode == True, "ContactExtractor должен иметь test_mode=True"
-    print("   ✅ test_mode=True корректно передан в ContactExtractor")
+    # Устанавливаем фейковые API ключи для тестов
+    os.environ['OPENROUTER_API_KEY'] = 'test-key-123'
+    os.environ['GROQ_API_KEY'] = 'test-key-456'
+    os.environ['REPLICATE_API_KEY'] = 'test-key-789'
     
-    # Тест 2: test_mode=False должен передаваться в ContactExtractor
-    print("\n2️⃣ Тест: test_mode=False")
-    processor_prod = IntegratedLLMProcessor(test_mode=False)
-    assert processor_prod.test_mode == False, "IntegratedLLMProcessor должен иметь test_mode=False"
-    assert processor_prod.contact_extractor.test_mode == False, "ContactExtractor должен иметь test_mode=False"
-    print("   ✅ test_mode=False корректно передан в ContactExtractor")
-    
-    print("\n✅ Все тесты передачи test_mode прошли успешно!")
+    try:
+        # Тест 1: test_mode=True должен передаваться в ContactExtractor
+        print("\n1️⃣ Тест: test_mode=True")
+        processor_test = IntegratedLLMProcessor(test_mode=True)
+        assert processor_test.test_mode == True, "IntegratedLLMProcessor должен иметь test_mode=True"
+        assert processor_test.contact_extractor.test_mode == True, "ContactExtractor должен иметь test_mode=True"
+        print("   ✅ test_mode=True корректно передан в ContactExtractor")
+        
+        # Тест 2: test_mode=False должен передаваться в ContactExtractor
+        print("\n2️⃣ Тест: test_mode=False")
+        processor_prod = IntegratedLLMProcessor(test_mode=False)
+        assert processor_prod.test_mode == False, "IntegratedLLMProcessor должен иметь test_mode=False"
+        assert processor_prod.contact_extractor.test_mode == False, "ContactExtractor должен иметь test_mode=False"
+        print("   ✅ test_mode=False корректно передан в ContactExtractor")
+        
+        print("\n✅ Все тесты передачи test_mode прошли успешно!")
+        
+    finally:
+        # Очищаем временные переменные окружения
+        for key in ['OPENROUTER_API_KEY', 'GROQ_API_KEY', 'REPLICATE_API_KEY']:
+            if key in os.environ:
+                del os.environ[key]
+        # Тест 1: test_mode=True должен передаваться в ContactExtractor
+        print("\n1️⃣ Тест: test_mode=True")
+        processor_test = IntegratedLLMProcessor(test_mode=True)
+        assert processor_test.test_mode == True, "IntegratedLLMProcessor должен иметь test_mode=True"
+        assert processor_test.contact_extractor.test_mode == True, "ContactExtractor должен иметь test_mode=True"
+        print("   ✅ test_mode=True корректно передан в ContactExtractor")
+        
+        # Тест 2: test_mode=False должен передаваться в ContactExtractor
+        print("\n2️⃣ Тест: test_mode=False")
+        processor_prod = IntegratedLLMProcessor(test_mode=False)
+        assert processor_prod.test_mode == False, "IntegratedLLMProcessor должен иметь test_mode=False"
+        assert processor_prod.contact_extractor.test_mode == False, "ContactExtractor должен иметь test_mode=False"
+        print("   ✅ test_mode=False корректно передан в ContactExtractor")
+        
+        print("\n✅ Все тесты передачи test_mode прошли успешно!")
 
 
 def test_test_mode_behavior():

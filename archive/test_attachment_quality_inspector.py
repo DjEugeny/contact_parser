@@ -10,10 +10,10 @@ from pathlib import Path
 from datetime import datetime
 
 # Добавляем путь к src
-sys.path.append(str(Path(__file__).parent))
+sys.path.append(str((Path(__file__).resolve().parent.parent / 'src')))
 
 from email_loader import ProcessedEmailLoader
-from attachment_processor import AttachmentProcessor
+from ocr_processor_adapter import OCRProcessorAdapter as AttachmentProcessor
 
 
 class BatchQualityInspector:

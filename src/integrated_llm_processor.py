@@ -19,6 +19,7 @@ from ocr_processor_adapter import OCRProcessorAdapter
 from llm_extractor import ContactExtractor
 from rate_limit_manager import RateLimitManager
 from config.regions import calculate_contact_priority
+from shared_logging import get_logger
 
 # Загружаем переменные окружения
 load_dotenv()
@@ -28,6 +29,7 @@ class IntegratedLLMProcessor:
     """🔥 Главный процессор для LLM анализа писем + вложений + КП"""
     
     def __init__(self, test_mode=False):
+        self.logger = get_logger(__name__)
         self.email_loader = ProcessedEmailLoader()
         self.attachment_processor = OCRProcessorAdapter()
         # Передаем test_mode в ContactExtractor для корректной работы тестового режима
@@ -58,8 +60,8 @@ class IntegratedLLMProcessor:
             'end_time': None
         }
         
-        print("🤖 Инициализация интегрированного LLM процессора v2.0")
-        print(f"   📊 Результаты будут сохранены в: {self.results_dir}")
+        self.logger.info("🤖 Инициализация интегрированного LLM процессора v2.0")
+        self.logger.info(f"   📊 Результаты будут сохранены в: {self.results_dir}")
 
     def _load_prompt(self, filename: str) -> str:
         """📄 Загрузка промпта из файла"""
@@ -70,10 +72,10 @@ class IntegratedLLMProcessor:
                 content = f.read().strip()
                 return content
         except FileNotFoundError:
-            print(f"❌ Промпт не найден: {prompt_path}")
+            self.logger.warning(f"⚠️ Предупреждение: Файл промпта не найден: {prompt_path}")
             return f"ERROR: Промпт {filename} не найден"
         except Exception as e:
-            print(f"❌ Ошибка загрузки промпта {filename}: {e}")
+            self.logger.error(f"❌ Ошибка загрузки промпта {filename}: {e}")
             return f"ERROR: Не удалось загрузить {filename}"
 
     def _parse_commercial_analysis(self, response_text: str) -> dict:
@@ -89,7 +91,7 @@ class IntegratedLLMProcessor:
             else:
                 return {"commercial_offer_found": False, "error": "JSON не найден в ответе"}
         except json.JSONDecodeError as e:
-            print(f"❌ Ошибка парсинга JSON анализа КП: {e}")
+            self.logger.error(f"❌ Ошибка парсинга JSON анализа КП: {e}")
             return {"commercial_offer_found": False, "error": f"Ошибка парсинга: {e}"}
 
     def analyze_commercial_offers(self, combined_text: str, email_metadata: dict) -> dict:
@@ -102,7 +104,7 @@ class IntegratedLLMProcessor:
             if "ERROR:" in co_prompt:
                 return {"commercial_offer_found": False, "error": "Промпт не загружен"}
             
-            print("   💼 Анализ коммерческих предложений...")
+            self.logger.info("   💼 Анализ коммерческих предложений...")
             
             # Проверяем доступность LLM провайдеров
             if not self.contact_extractor.providers or not self.contact_extractor.current_provider:
@@ -126,15 +128,15 @@ class IntegratedLLMProcessor:
             analysis_result = self._parse_commercial_analysis(response.choices[0].message.content)
             
             if analysis_result.get("commercial_offer_found"):
-                print("   ✅ Коммерческое предложение найдено и проанализировано")
+                self.logger.info("   ✅ Коммерческое предложение найдено и проанализировано")
                 self.stats['commercial_offers_found'] += 1
             else:
-                print("   📄 Коммерческое предложение не обнаружено")
+                self.logger.info("   📄 Коммерческое предложение не обнаружено")
             
             return analysis_result
             
         except Exception as e:
-            print(f"   ❌ Ошибка анализа КП: {e}")
+            self.logger.error(f"   ❌ Ошибка анализа КП: {e}")
             return {"commercial_offer_found": False, "error": str(e)}
 
     def process_emails_by_date(self, target_date: str, max_emails: int = None) -> Dict:
@@ -146,26 +148,26 @@ class IntegratedLLMProcessor:
                                        Если None, обрабатываются все письма.
         """
         
-        print(f"\n🎯 ОБРАБОТКА ПИСЕМ ЗА {target_date}")
-        print("="*60)
+        self.logger.info(f"🎯 ОБРАБОТКА ПИСЕМ ЗА {target_date}")
+        self.logger.info("="*60)
         
         self.stats['start_time'] = datetime.now()
         
         # Загружаем письма
         emails = self.email_loader.load_emails_by_date(target_date)
         if not emails:
-            print(f"❌ Нет писем для обработки за {target_date}")
+            self.logger.warning(f"❌ Нет писем для обработки за {target_date}")
             return self._create_empty_result(target_date)
         
         # Определяем количество писем для обработки
         max_emails_to_process = len(emails) if max_emails is None else min(max_emails, len(emails))
         
         # Выводим информацию о количестве писем
-        print(f"📊 Загружено писем: {len(emails)}")
+        self.logger.info(f"📊 Загружено писем: {len(emails)}")
         if max_emails is not None:
-            print(f"🎯 К обработке: {max_emails_to_process} писем (лимит: {max_emails})")
+            self.logger.info(f"🎯 К обработке: {max_emails_to_process} писем (лимит: {max_emails})")
         else:
-            print(f"🎯 К обработке: все {max_emails_to_process} писем")
+            self.logger.info(f"🎯 К обработке: все {max_emails_to_process} писем")
         
         # Обрабатываем каждое письмо
         processed_results = []
@@ -173,14 +175,14 @@ class IntegratedLLMProcessor:
         for email_idx, email in enumerate(emails, 1):
             # Проверяем лимит писем для обработки
             if email_idx > max_emails_to_process:
-                print(f"\n🛑 Достигнут лимит обработки: {max_emails_to_process} писем")
+                self.logger.info(f"🛑 Достигнут лимит обработки: {max_emails_to_process} писем")
                 break
                 
             try:
-                print(f"\n{'─'*40}")
-                print(f"📧 Обработка письма {email_idx}/{max_emails_to_process}")
-                print(f"   От: {email.get('from', 'N/A')[:50]}...")
-                print(f"   Тема: {email.get('subject', 'N/A')[:60]}...")
+                self.logger.info(f"{'─'*40}")
+                self.logger.info(f"📧 Обработка письма {email_idx}/{max_emails_to_process}")
+                self.logger.info(f"   От: {email.get('from', 'N/A')[:50]}...")
+                self.logger.info(f"   Тема: {email.get('subject', 'N/A')[:60]}...")
                 
                 result = self.process_single_email(email)
                 if result:
@@ -203,12 +205,12 @@ class IntegratedLLMProcessor:
                     self.rate_limit_manager.record_request(request_result)
                     
                     # Применяем адаптивную задержку
-                    delay_used = self.rate_limit_manager.wait_if_needed()
-                    if delay_used > 0:
-                        print(f"   ⏳ Адаптивная задержка {delay_used:.1f} секунд для соблюдения rate limit")
+                delay_used = self.rate_limit_manager.wait_if_needed()
+                if delay_used > 0:
+                    self.logger.info(f"   ⏳ Адаптивная задержка {delay_used:.1f} секунд для соблюдения rate limit")
                     
             except Exception as e:
-                print(f"❌ Ошибка обработки письма {email_idx}: {e}")
+                self.logger.error(f"❌ Ошибка обработки письма {email_idx}: {e}")
                 self.stats['processing_errors'] += 1
                 continue
         
@@ -239,8 +241,8 @@ class IntegratedLLMProcessor:
                 email, attachments_result
             )
             
-            print(f"   📝 Общий объем текста: {len(combined_text)} символов")
-            print(f"   📎 Обработано вложений: {attachments_result['attachments_processed']}")
+            self.logger.info(f"   📝 Общий объем текста: {len(combined_text)} символов")
+            self.logger.info(f"   📎 Обработано вложений: {attachments_result['attachments_processed']}")
             
             # 3. Подготавливаем метаданные для LLM
             email_metadata = {
@@ -256,7 +258,7 @@ class IntegratedLLMProcessor:
             
             # 4. Извлекаем контакты через LLM
             if self.test_mode:
-                print("   🧪 ТЕСТОВЫЙ РЕЖИМ: Пропускаем LLM запросы")
+                self.logger.info("   🧪 ТЕСТОВЫЙ РЕЖИМ: Пропускаем LLM запросы")
                 llm_result = {
                     "contacts": [
                         {
@@ -282,14 +284,14 @@ class IntegratedLLMProcessor:
                     ]
                 }
             else:
-                print("   🤖 Отправка в LLM для извлечения контактов...")
+                self.logger.info("   🤖 Отправка в LLM для извлечения контактов...")
                 llm_result = self.contact_extractor.extract_contacts(combined_text, email_metadata)
                 
                 # Задержка между LLM запросами перенесена в основной цикл
             
             # 5. НОВОЕ: Анализируем коммерческие предложения
             if self.test_mode:
-                print("   🧪 ТЕСТОВЫЙ РЕЖИМ: Пропускаем анализ КП")
+                self.logger.info("   🧪 ТЕСТОВЫЙ РЕЖИМ: Пропускаем анализ КП")
                 commercial_analysis = {
                     "commercial_offer_found": False,
                     "offer_number": "ТЕСТ-001",
@@ -332,25 +334,25 @@ class IntegratedLLMProcessor:
             # Логируем результат
             contacts_count = len(result['contacts'])
             if contacts_count > 0:
-                print(f"   👥 Найдено контактов: {contacts_count}")
+                self.logger.info(f"   👥 Найдено контактов: {contacts_count}")
                 for contact in result['contacts'][:2]:  # Показываем первые 2
                     priority = contact.get('priority', {})
                     conf = contact.get('confidence', 0)
-                    print(f"      • {contact.get('name', 'N/A')} (confidence: {conf}, приоритет: {priority.get('level', 'N/A')})")
+                    self.logger.info(f"      • {contact.get('name', 'N/A')} (confidence: {conf}, приоритет: {priority.get('level', 'N/A')})")
             else:
-                print(f"   👤 Контакты не найдены")
+                self.logger.info(f"   👤 Контакты не найдены")
             
             # Логируем анализ КП
             if commercial_analysis.get('commercial_offer_found'):
                 total_cost = commercial_analysis.get('total_cost', 'N/A')
                 supplier = commercial_analysis.get('supplier_info', {}).get('company', 'N/A')
-                print(f"   💼 КП найдено: {total_cost} от {supplier}")
+                self.logger.info(f"   💼 КП найдено: {total_cost} от {supplier}")
             
             return result
             
         except Exception as e:
-            print(f"   ❌ Ошибка обработки письма: {e}")
-            return None
+            self.logger.error(f"   ❌ Ошибка обработки письма: {e}")
+        return None
 
     def _normalize_email(self, email: str) -> str:
         """🔧 Нормализация email для сравнения"""
@@ -384,7 +386,7 @@ class IntegratedLLMProcessor:
         if len(contacts) == 1:
             return contacts[0]
         
-        print(f"   🔗 Объединяю {len(contacts)} дубликатов контакта")
+        self.logger.info(f"   🔗 Объединяю {len(contacts)} дубликатов контакта")
         
         # Базовый контакт - берем первый
         merged = contacts[0].copy()
@@ -431,7 +433,7 @@ class IntegratedLLMProcessor:
         if not contacts:
             return []
         
-        print(f"   🔍 Начинаю дедупликацию {len(contacts)} контактов")
+        self.logger.info(f"   🔍 Начинаю дедупликацию {len(contacts)} контактов")
         
         # Группируем контакты по ключам
         groups_by_email = {}
@@ -506,10 +508,10 @@ class IntegratedLLMProcessor:
         
         duplicates_found = len(contacts) - len(unique_contacts)
         if duplicates_found > 0:
-            print(f"   ✅ Найдено и объединено {duplicates_found} дубликатов")
-            print(f"   📊 Итого уникальных контактов: {len(unique_contacts)}")
+            self.logger.info(f"   ✅ Найдено и объединено {duplicates_found} дубликатов")
+            self.logger.info(f"   📊 Итого уникальных контактов: {len(unique_contacts)}")
         else:
-            print(f"   ℹ️ Дубликаты не найдены")
+            self.logger.info(f"   ℹ️ Дубликаты не найдены")
         
         return unique_contacts
     
@@ -611,7 +613,7 @@ class IntegratedLLMProcessor:
         try:
             with open(results_path, 'w', encoding='utf-8') as f:
                 json.dump(results, f, ensure_ascii=False, indent=2)
-            print(f"💾 Результаты сохранены: {results_path}")
+            self.logger.info(f"💾 Результаты сохранены: {results_path}")
             
             # Сохраняем краткую сводку отдельно
             summary_data = {
@@ -644,41 +646,42 @@ class IntegratedLLMProcessor:
             with open(summary_path, 'w', encoding='utf-8') as f:
                 json.dump(summary_data, f, ensure_ascii=False, indent=2)
             
-            print(f"📊 Краткая сводка: {summary_path}")
+            self.logger.info(f"📊 Краткая сводка: {summary_path}")
             
         except Exception as e:
-            print(f"❌ Ошибка сохранения результатов: {e}")
+            self.logger.error(f"❌ Ошибка сохранения результатов: {e}")
 
     def _print_final_statistics(self):
         """📊 Печать итоговой статистики"""
         
-        print(f"\n{'='*60}")
-        print(f"📊 ИТОГОВАЯ СТАТИСТИКА ОБРАБОТКИ")
-        print(f"{'='*60}")
+        self.logger.info("="*60)
+        self.logger.info("📊 ИТОГОВАЯ СТАТИСТИКА ОБРАБОТКИ")
+        self.logger.info("="*60)
         
-        print(f"📧 Писем обработано: {self.stats['emails_processed']}")
-        print(f"👥 Писем с найденными контактами: {self.stats['emails_with_contacts']}")
-        print(f"🎯 Всего контактов найдено: {self.stats['total_contacts_found']}")
-        print(f"📎 Писем с вложениями: {self.stats['emails_with_attachments']}")
-        print(f"📎 Вложений обработано: {self.stats['attachments_processed']}")
-        print(f"💼 Коммерческих предложений найдено: {self.stats['commercial_offers_found']}")  # НОВОЕ
-        print(f"❌ Ошибок обработки: {self.stats['processing_errors']}")
+        self.logger.info(f"📧 Писем обработано: {self.stats['emails_processed']}")
+        self.logger.info(f"👥 Писем с найденными контактом: {self.stats['emails_with_contacts']}")
+        self.logger.info(f"🎯 Всего контактов найдено: {self.stats['total_contacts_found']}")
+        self.logger.info(f"📎 Писем с вложениями: {self.stats['emails_with_attachments']}")
+        self.logger.info(f"📎 Вложений обработано: {self.stats['attachments_processed']}")
+        self.logger.info(f"💼 Коммерческих предложений найдено: {self.stats['commercial_offers_found']}")  # НОВОЕ
+        self.logger.info(f"❌ Ошибок обработки: {self.stats['processing_errors']}")
         
         if self.stats['start_time'] and self.stats['end_time']:
             processing_time = (self.stats['end_time'] - self.stats['start_time']).total_seconds()
-            print(f"⏱️ Время обработки: {processing_time:.1f} секунд")
+            self.logger.info(f"⏱️ Время обработки: {processing_time:.1f} секунд")
             
             if self.stats['emails_processed'] > 0:
                 avg_time = processing_time / self.stats['emails_processed']
-                print(f"⚡ Среднее время на письмо: {avg_time:.1f} секунд")
+                self.logger.info(f"⚡ Среднее время на письмо: {avg_time:.1f} секунд")
         
-        print(f"{'='*60}")
+        self.logger.info(f"{'='*60}")
 
 def main():
     """🚀 Главная функция тестирования интегрированной системы"""
     
-    print("🤖 ТЕСТИРОВАНИЕ ИНТЕГРИРОВАННОГО LLM ПРОЦЕССОРА")
-    print("="*70)
+    logger = get_logger('integrated_llm_processor')
+    logger.info("🤖 ТЕСТИРОВАНИЕ ИНТЕГРИРОВАННОГО LLM ПРОЦЕССОРА")
+    logger.info("="*70)
     
     # Создаем процессор в тестовом режиме (без LLM запросов)
     processor = IntegratedLLMProcessor(test_mode=True)
@@ -687,29 +690,29 @@ def main():
     available_dates = processor.email_loader.get_available_date_folders()
     
     if not available_dates:
-        print("❌ Нет обработанных писем для тестирования")
-        print("   Сначала запустите advanced_email_fetcher.py")
+        logger.error("❌ Нет обработанных писем для тестирования")
+        logger.error("   Сначала запустите advanced_email_fetcher.py")
         return
     
-    print(f"📅 Доступные даты: {available_dates}")
+    logger.info(f"📅 Доступные даты: {available_dates}")
     
     # Выбираем дату с наибольшим количеством писем для тестирования
     target_date = "2025-07-29"  # Дата с 30 письмами
-    print(f"🎯 Тестируем на дате: {target_date}")
+    logger.info(f"🎯 Тестируем на дате: {target_date}")
     
     # Запускаем обработку
     results = processor.process_emails_by_date(target_date)
     
     # Показываем краткие результаты
     if results and results['summary']['total_contacts'] > 0:
-        print(f"\n🏆 ТОП НАЙДЕННЫЕ КОНТАКТЫ:")
+        logger.info(f"\n🏆 ТОП НАЙДЕННЫЕ КОНТАКТЫ:")
         for contact_idx, contact in enumerate(results.get('high_priority_contacts', [])[:3], 1):
             priority = contact.get('priority', {})
-            print(f"   {contact_idx}. {contact.get('name', 'N/A')} ({contact.get('organization', 'N/A')})")
-            print(f"      Город: {contact.get('city', 'N/A')}, Confidence: {contact.get('confidence', 0)}")
-            print(f"      Приоритет: {priority.get('level', 'N/A')} (score: {priority.get('score', 0)})")
+            logger.info(f"   {contact_idx}. {contact.get('name', 'N/A')} ({contact.get('organization', 'N/A')})")
+            logger.info(f"      Город: {contact.get('city', 'N/A')}, Confidence: {contact.get('confidence', 0)}")
+            logger.info(f"      Приоритет: {priority.get('level', 'N/A')} (score: {priority.get('score', 0)})")
     
-    print(f"\n🎉 Тестирование завершено! Результаты готовы для Sprint 3 (Google Sheets)!")
+    logger.info(f"\n🎉 Тестирование завершено! Результаты готовы для Sprint 3 (Google Sheets)!")
 
 
 if __name__ == '__main__':

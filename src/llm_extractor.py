@@ -10,10 +10,12 @@ import time
 import requests
 from pathlib import Path
 from typing import Dict, List, Optional, Any
-from datetime import datetime
+from datetime import datetime, timedelta
+import random
 
 from dotenv import load_dotenv
 import os
+from src.utils.logger import get_logger
 
 # Загружаем переменные окружения
 load_dotenv()
@@ -24,51 +26,44 @@ class ContactExtractor:
     
     def __init__(self, test_mode=False):
         self.test_mode = test_mode
+        self.logger = get_logger(__name__)
         
-        # Настройка провайдеров (приоритет: OpenRouter -> Groq)
-        self.providers = {
-            'openrouter': {
-                'name': 'OpenRouter',
-                'api_key': os.getenv('OPENROUTER_API_KEY', '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'),
-                'model': "qwen/qwen3-235b-a22b:free",
-                'base_url': "https://openrouter.ai/api/v1/chat/completions",
-                'priority': 1,
-                'active': True,
-                'failure_count': 0,
-                'last_failure': None,
-                'headers': {
-                    'Authorization': f'Bearer {os.getenv("OPENROUTER_API_KEY", "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")}',
-                    'Content-Type': 'application/json',
-                    'HTTP-Referer': 'https://localhost:3000',
-                    'X-Title': 'Contact Extractor LLM'
-                }
-            },
-            'groq': {
-                'name': 'Groq',
-                'api_key': os.getenv('GROQ_API_KEY', ''),
-                'model': os.getenv('GROQ_MODEL', 'llama3-8b-8192'),
-                'base_url': "https://api.groq.com/openai/v1/chat/completions",
-                'priority': 2,
-                'active': True,
-                'failure_count': 0,
-                'last_failure': None,
-                'headers': {
-                    'Authorization': f'Bearer {os.getenv("GROQ_API_KEY", "")}',
-                    'Content-Type': 'application/json'
-                }
+        # Импортируем конфигурацию
+        import sys
+        from pathlib import Path
+        sys.path.append(str(Path(__file__).parent.parent))
+        from src.config import config
+        self.config = config
+        
+        # Проверяем наличие API ключей (пропускаем в тестовом режиме)
+        if not test_mode and not self.config.validate_api_keys():
+            raise ValueError("Missing required API keys. Please check your environment variables.")
+        
+        # Конфигурация провайдеров из конфигурации
+        self.providers = self.config.providers
+        
+        # Инициализируем состояние провайдеров из конфигурации
+        self.provider_states = {}
+        for provider_name in self.config.providers.keys():
+            self.provider_states[provider_name] = {
+                'is_healthy': True,
+                'consecutive_failures': 0,
+                'last_success': datetime.now().isoformat(),
+                'circuit_breaker_open_until': None
             }
-        }
         
-        # Текущий активный провайдер
-        self.current_provider = 'openrouter'
+        # Текущий активный провайдер (первый из списка приоритетов)
+        self.current_provider = self.config.provider_order[0]
         
-        # Максимальное количество попыток fallback
-        self.max_fallback_attempts = 2
+        # Параметры из конфигурации
+        self.max_fallback_attempts = self.config.max_fallback_attempts
+        self.timeout = self.config.timeout
+        self.retry_delay = self.config.retry_delay
         
         # Папка с промптами
         current_file = Path(__file__)
         project_root = current_file.parent
-        self.prompts_dir = project_root / "prompts"
+        self.prompts_dir = project_root.parent / "prompts"
         
         # Расширенная статистика
         self.stats = {
@@ -81,12 +76,18 @@ class ContactExtractor:
             'provider_failures': {
                 'openrouter': 0,
                 'groq': 0
+            },
+            'circuit_breaker_activations': {
+                'openrouter': 0,
+                'groq': 0
             }
         }
         
-        print(f"🤖 ContactExtractor инициализирован (test_mode={test_mode})")
-        print(f"   🔄 Fallback система: OpenRouter -> Groq")
-        print(f"   🎯 Текущий провайдер: {self.providers[self.current_provider]['name']}")
+        self.logger.info(f"🤖 ContactExtractor инициализирован (test_mode={test_mode})")
+        self.logger.info(f"   🔄 Fallback система: OpenRouter -> Groq")
+        self.logger.info(f"   🎯 Текущий провайдер: {self.providers[self.current_provider]['name']}")
+        self.logger.info(f"   ⚡ Circuit breaker: активен")
+        self.logger.info(f"   ⏱️  Timeout: {self.timeout}s, Retry delay: {self.retry_delay}s")
     
     def _load_prompt(self, filename: str) -> str:
         """📄 Загрузка промпта из файла"""
@@ -97,17 +98,17 @@ class ContactExtractor:
                 content = f.read().strip()
                 return content
         except FileNotFoundError:
-            print(f"❌ Промпт не найден: {prompt_path}")
+            self.logger.error(f"❌ Промпт не найден: {prompt_path}")
             return f"ERROR: Промпт {filename} не найден"
         except Exception as e:
-            print(f"❌ Ошибка загрузки промпта {filename}: {e}")
+            self.logger.error(f"❌ Ошибка загрузки промпта {filename}: {e}")
             return f"ERROR: Не удалось загрузить {filename}"
     
     def _validate_json_schema(self, response_data: dict) -> bool:
         """✅ Улучшенная валидация JSON Schema для ответа LLM"""
         
         if not isinstance(response_data, dict):
-            print("❌ Ответ должен быть объектом")
+            self.logger.error("❌ Ответ должен быть объектом")
             return False
         
         required_fields = ['contacts', 'business_context', 'recommended_actions']
@@ -115,28 +116,28 @@ class ContactExtractor:
         # Проверяем основные поля
         for field in required_fields:
             if field not in response_data:
-                print(f"❌ Отсутствует обязательное поле: {field}")
+                self.logger.error(f"❌ Отсутствует обязательное поле: {field}")
                 return False
         
         # Проверяем типы основных полей
         if not isinstance(response_data['business_context'], str):
-            print("❌ Поле 'business_context' должно быть строкой")
+            self.logger.error("❌ Поле 'business_context' должно быть строкой")
             return False
             
         if not isinstance(response_data['recommended_actions'], str):
-            print("❌ Поле 'recommended_actions' должно быть строкой")
+            self.logger.error("❌ Поле 'recommended_actions' должно быть строкой")
             return False
         
         # Проверяем структуру contacts
         if not isinstance(response_data['contacts'], list):
-            print("❌ Поле 'contacts' должно быть списком")
+            self.logger.error("❌ Поле 'contacts' должно быть списком")
             return False
         
         # Проверяем каждый контакт
         valid_contacts = []
         for i, contact in enumerate(response_data['contacts']):
             if not isinstance(contact, dict):
-                print(f"⚠️ Контакт {i} не является объектом, пропускаем")
+                self.logger.warning(f"⚠️ Контакт {i} не является объектом, пропускаем")
                 continue
             
             # Проверяем обязательные поля контакта
@@ -144,7 +145,7 @@ class ContactExtractor:
             
             for field in contact_required:
                 if field not in contact:
-                    print(f"⚠️ Контакт {i}: отсутствует поле {field}, добавляем пустое значение")
+                    self.logger.warning(f"⚠️ Контакт {i}: отсутствует поле {field}, добавляем пустое значение")
                     contact[field] = '' if field != 'confidence' else 0.0
             
             # Используем детальную валидацию
@@ -164,29 +165,29 @@ class ContactExtractor:
         # Валидация email
         email = contact.get('email', '')
         if email and not self._is_valid_email(email):
-            print(f"⚠️ Контакт {index}: некорректный email '{email}'")
+            self.logger.warning(f"⚠️ Контакт {index}: некорректный email '{email}'")
             contact['email'] = ''  # Очищаем некорректный email
         
         # Валидация телефона
         phone = contact.get('phone', '')
         if phone and not self._is_valid_phone(phone):
-            print(f"⚠️ Контакт {index}: некорректный телефон '{phone}'")
+            self.logger.warning(f"⚠️ Контакт {index}: некорректный телефон '{phone}'")
             contact['phone'] = ''  # Очищаем некорректный телефон
         
         # Валидация confidence
         confidence = contact.get('confidence', 0)
         if not isinstance(confidence, (int, float)):
-            print(f"⚠️ Контакт {index}: confidence должен быть числом, получен {type(confidence)}")
+            self.logger.warning(f"⚠️ Контакт {index}: confidence должен быть числом, получен {type(confidence)}")
             contact['confidence'] = 0.0
         elif confidence < 0 or confidence > 1:
-            print(f"⚠️ Контакт {index}: confidence должен быть от 0 до 1, получен {confidence}")
+            self.logger.warning(f"⚠️ Контакт {index}: confidence должен быть от 0 до 1, получен {confidence}")
             contact['confidence'] = max(0, min(1, float(confidence)))
         
         # Валидация строковых полей
         string_fields = ['name', 'organization', 'position', 'city']
         for field in string_fields:
             if field in contact and not isinstance(contact[field], str):
-                print(f"⚠️ Контакт {index}: поле '{field}' должно быть строкой")
+                self.logger.warning(f"⚠️ Контакт {index}: поле '{field}' должно быть строкой")
                 contact[field] = str(contact[field]) if contact[field] is not None else ''
         
         # Проверяем, что есть хотя бы имя или email или телефон
@@ -195,7 +196,7 @@ class ContactExtractor:
         has_phone = contact.get('phone', '').strip()
         
         if not (has_name or has_email or has_phone):
-            print(f"⚠️ Контакт {index}: отсутствуют ключевые данные (имя, email, телефон)")
+            self.logger.warning(f"⚠️ Контакт {index}: отсутствуют ключевые данные (имя, email, телефон)")
             return False
         
         return True
@@ -218,88 +219,190 @@ class ContactExtractor:
         else:
             digits = cleaned
         
-        return len(digits) >= 7 and len(digits) <= 15 and digits.isdigit()
+        return digits.isdigit() and 7 <= len(digits) <= 15
 
-    def _make_llm_request_with_retries(self, prompt: str, text: str, max_retries: int = 3) -> dict:
-        """🔄 Выполнение запроса к LLM с повторными попытками при ошибках валидации"""
+    def _is_circuit_breaker_open(self, provider: str) -> bool:
+        """⚡ Проверка состояния circuit breaker для провайдера"""
+        state = self.provider_states[provider]
+        if state['circuit_breaker_open_until']:
+            open_until = datetime.fromisoformat(state['circuit_breaker_open_until'])
+            if datetime.now() < open_until:
+                return True
+            else:
+                # Circuit breaker закрывается
+                state['circuit_breaker_open_until'] = None
+                state['consecutive_failures'] = 0
+                state['is_healthy'] = True
+                self.logger.info(f"✅ Circuit breaker для {provider} закрыт")
+        return False
+
+    def _open_circuit_breaker(self, provider: str):
+        """🔒 Открытие circuit breaker для провайдера"""
+        state = self.provider_states[provider]
+        state['circuit_breaker_open_until'] = (datetime.now() + 
+                                             timedelta(minutes=5)).isoformat()
+        state['is_healthy'] = False
+        state['consecutive_failures'] = 0
+        self.stats['circuit_breaker_activations'][provider] += 1
+        self.logger.warning(f"🔒 Circuit breaker открыт для {provider} на 5 минут")
+
+    def _record_success(self, provider: str):
+        """✅ Запись успешного запроса для провайдера"""
+        state = self.provider_states[provider]
+        state['consecutive_failures'] = 0
+        state['last_success'] = datetime.now().isoformat()
+        state['is_healthy'] = True
+
+    def _record_failure(self, provider: str):
+        """❌ Запись неудачного запроса для провайдера"""
+        state = self.provider_states[provider]
+        state['consecutive_failures'] += 1
         
-        for attempt in range(max_retries):
+        # Открываем circuit breaker при 3+ подряд неудачах
+        if state['consecutive_failures'] >= 3:
+            self._open_circuit_breaker(provider)
+
+    def _get_next_healthy_provider(self, current: str) -> Optional[str]:
+        """🔄 Получение следующего здорового провайдера по порядку из конфигурации"""
+        providers_order = self.config.provider_order
+        current_index = providers_order.index(current) if current in providers_order else -1
+        
+        for i in range(current_index + 1, len(providers_order)):
+            next_provider = providers_order[i]
+            if (self.provider_states[next_provider]['is_healthy'] and 
+                not self._is_circuit_breaker_open(next_provider)):
+                return next_provider
+        
+        return None
+
+    def _log_provider_status(self):
+        """📊 Вывод статуса провайдеров"""
+        status_lines = []
+        for provider in self.config.provider_order:
+            if provider in self.provider_states:
+                state = self.provider_states[provider]
+                health = "🟢" if state['is_healthy'] else "🔴"
+                cb = "🔒" if self._is_circuit_breaker_open(provider) else "🔓"
+                failures = state['consecutive_failures']
+                status_lines.append(f"   {provider}: {health} {cb} (failures: {failures})")
+        
+        self.logger.info("\n📊 Статус провайдеров:")
+        for line in status_lines:
+            self.logger.info(line)
+
+    def _make_llm_request_with_retries(self, prompt: str, text: str, max_retries: int = None) -> dict:
+        """🔄 Улучшенный запрос с circuit breaker и интеллектуальным fallback"""
+        
+        if max_retries is None:
+            max_retries = self.config.max_retries
+            
+        last_exception = None
+        original_provider = self.current_provider
+        
+        # Показываем текущий статус провайдеров
+        self._log_provider_status()
+        
+        for attempt in range(max_retries + 1):
             try:
-                self.stats['total_requests'] += 1
-                if attempt > 0:
-                    self.stats['retry_attempts'] += 1
-                    print(f"🔄 Повторная попытка {attempt + 1}/{max_retries}")
-                    time.sleep(2 ** attempt)  # Экспоненциальная задержка
+                # Проверяем, доступен ли текущий провайдер
+                if self._is_circuit_breaker_open(self.current_provider):
+                    next_provider = self._get_next_healthy_provider(self.current_provider)
+                    if next_provider:
+                        self.current_provider = next_provider
+                        self.logger.info(f"🔄 Автоматическое переключение на {self.providers[next_provider]['name']} (circuit breaker)")
+                        self.stats['fallback_switches'] += 1
+                    else:
+                        raise Exception("Все провайдеры недоступны (circuit breaker)")
                 
-                # Выполняем запрос
+                # Делаем запрос
                 result = self._make_llm_request(prompt, text)
+                
+                # Успешный запрос - записываем успех
+                self._record_success(self.current_provider)
                 
                 # Проверяем валидацию JSON Schema
                 if self._validate_json_schema(result):
                     self.stats['successful_requests'] += 1
+                    
+                    # Возвращаемся к оригинальному провайдеру если был переключен
+                    if self.current_provider != original_provider and attempt == 0:
+                        self.current_provider = original_provider
+                    
                     return result
                 else:
                     self.stats['json_validation_errors'] += 1
-                    print(f"❌ Попытка {attempt + 1}: JSON Schema валидация не прошла")
                     
-                    if attempt == max_retries - 1:
-                        print("❌ Все попытки исчерпаны, возвращаем результат с ошибкой")
-                        self.stats['failed_requests'] += 1
-                        return {
-                            'contacts': [],
-                            'business_context': 'Ошибка валидации JSON Schema',
-                            'recommended_actions': 'Проверить формат ответа LLM',
-                            'error': 'JSON Schema validation failed after retries'
-                        }
-            
+                    # Пробуем исправить структуру ответа
+                    fixed_result = self._fix_json_structure(result)
+                    if fixed_result and self._validate_json_schema(fixed_result):
+                        self.logger.info(f"✅ JSON Schema исправлена")
+                        self.stats['successful_requests'] += 1
+                        return fixed_result
+                    
+                    raise Exception("JSON Schema валидация не пройдена")
+                
             except Exception as e:
-                error_msg = str(e)
-                print(f"❌ Попытка {attempt + 1}: Ошибка запроса к LLM: {e}")
+                last_exception = e
+                self.stats['failed_requests'] += 1
                 
-                # Специальная обработка rate limit с exponential backoff
-                if "Rate limit (HTTP 429)" in error_msg:
-                    # Извлекаем время ожидания из сообщения об ошибке
-                    import re
-                    wait_match = re.search(r'ожидание (\d+) сек', error_msg)
-                    base_wait_time = int(wait_match.group(1)) if wait_match else 60
-                    
-                    # Exponential backoff: базовое время * 2^попытка
-                    exponential_wait = base_wait_time * (2 ** attempt)
-                    max_wait = 300  # Максимум 5 минут
-                    actual_wait = min(exponential_wait, max_wait)
-                    
-                    print(f"⏳ Rate limit: exponential backoff {actual_wait} сек (попытка {attempt + 1})")
-                    
-                    if attempt < max_retries - 1:  # Не ждем на последней попытке
-                        time.sleep(actual_wait)
-                        self.stats['retry_attempts'] += 1
-                        continue
+                # Записываем неудачу
+                self._record_failure(self.current_provider)
                 
-                # Пробуем переключиться на другого провайдера
-                if self._switch_to_next_provider():
-                    print(f"🔄 Повторяем запрос с новым провайдером")
-                    continue  # Повторяем попытку с новым провайдером
-                
-                if attempt == max_retries - 1:
-                    self.stats['failed_requests'] += 1
-                    return {
-                        'contacts': [],
-                        'business_context': f'Ошибка LLM: {str(e)}',
-                        'recommended_actions': 'Проверить подключение к LLM и API ключи',
-                        'error': str(e)
-                    }
+                if attempt < max_retries:
+                    # Проверяем доступность следующего провайдера
+                    next_provider = self._get_next_healthy_provider(self.current_provider)
+                    
+                    if next_provider and next_provider != self.current_provider:
+                        self.current_provider = next_provider
+                        self.logger.warning(f"🔄 Переключение на {self.providers[next_provider]['name']} (ошибка: {e})")
+                        self.stats['fallback_switches'] += 1
+                        continue  # Переходим к следующей попытке без задержки
+                    
+                    # Экспоненциальная задержка с jitter для текущего провайдера
+                    base_delay = min(2 ** attempt, 300)  # Максимум 5 минут
+                    jitter = random.uniform(0.1, 0.5) * base_delay
+                    delay = base_delay + jitter
+                    
+                    # Специальная обработка rate limit
+                    if "Rate limit" in str(e) or "HTTP 429" in str(e):
+                        import re
+                        wait_match = re.search(r'ожидание (\d+) сек', str(e))
+                        if wait_match:
+                            delay = int(wait_match.group(1))
+                        else:
+                            delay = 60
+                        
+                        self.logger.warning(f"⏳ Rate limit: ожидание {delay} сек")
+                    else:
+                        self.logger.warning(f"⚠️ Попытка {attempt + 1} не удалась: {e}")
+                        self.logger.info(f"⏳ Ожидание {delay:.1f} сек перед повтором...")
+                    
+                    time.sleep(delay)
+                else:
+                    self.logger.error(f"❌ Все попытки исчерпаны после {max_retries} попыток")
+                    break
         
-        # Этот код не должен выполняться, но на всякий случай
-        self.stats['failed_requests'] += 1
-        return {
+        # Все попытки исчерпаны
+        error_response = {
             'contacts': [],
-            'business_context': 'Неизвестная ошибка',
-            'recommended_actions': 'Обратиться к разработчику',
-            'error': 'Unknown error in retry logic'
+            'business_context': f'Ошибка: {str(last_exception)}',
+            'recommended_actions': 'Проверьте подключение к интернету и API ключи',
+            'provider_used': self.providers[self.current_provider]['name'],
+            'error': str(last_exception),
+            'provider_status': {
+                provider: {
+                    'is_healthy': state['is_healthy'],
+                    'consecutive_failures': state['consecutive_failures'],
+                    'circuit_breaker_open': self._is_circuit_breaker_open(provider)
+                }
+                for provider, state in self.provider_states.items()
+            }
         }
+        
+        return error_response
     
     def _make_llm_request(self, prompt: str, text: str) -> dict:
-        """🤖 Базовый запрос к LLM с поддержкой fallback"""
+        """🤖 Улучшенный базовый запрос к LLM с лучшей обработкой ошибок"""
         
         if self.test_mode:
             return {
@@ -336,61 +439,41 @@ class ContactExtractor:
         }
         
         # Формируем заголовки для текущего провайдера
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {current_provider['api_key']}"
-        }
-        
-        # Добавляем специфичные заголовки для OpenRouter
-        if self.current_provider == 'openrouter':
-            headers["HTTP-Referer"] = "https://github.com/contact-parser"
-            headers["X-Title"] = "Contact Parser"
+        headers = current_provider['headers'].copy()
+        headers["Authorization"] = f"Bearer {self.config.get_api_key(self.current_provider)}"
         
         try:
-            # Выполняем запрос
+            # Выполняем запрос с таймаутом из конфигурации
             response = requests.post(
                 current_provider['base_url'],
                 headers=headers,
                 json=payload,
-                timeout=60
+                timeout=self.timeout
             )
             
-            # Специальная обработка rate limit (HTTP 429)
+            # Обработка ответов
             if response.status_code == 429:
-                # Увеличиваем счетчик ошибок провайдера
-                current_provider['failure_count'] += 1
-                current_provider['last_failure'] = datetime.now().isoformat()
-                self.stats['provider_failures'][self.current_provider] += 1
-                
-                # Извлекаем время ожидания из заголовков (если есть)
+                # Rate limit - извлекаем время ожидания
                 retry_after = response.headers.get('Retry-After')
+                wait_time = 60
                 if retry_after:
                     try:
                         wait_time = int(retry_after)
-                        print(f"⏳ Rate limit от {current_provider['name']}: ожидание {wait_time} сек")
                     except ValueError:
-                        wait_time = 60  # По умолчанию 60 секунд
-                else:
-                    wait_time = 60  # По умолчанию 60 секунд
+                        pass
                 
-                raise Exception(f"Rate limit (HTTP 429): требуется ожидание {wait_time} сек. {response.text}")
-            
-            if response.status_code != 200:
-                # Увеличиваем счетчик ошибок провайдера
+                # Обновляем статистику провайдера
                 current_provider['failure_count'] += 1
                 current_provider['last_failure'] = datetime.now().isoformat()
                 self.stats['provider_failures'][self.current_provider] += 1
                 
-                raise Exception(f"HTTP {response.status_code}: {response.text}")
+                raise Exception(f"Rate limit (HTTP 429): ожидание {wait_time} сек")
+            
+            response.raise_for_status()  # Проверка на другие HTTP ошибки
             
             response_data = response.json()
             
             if 'choices' not in response_data or not response_data['choices']:
-                # Увеличиваем счетчик ошибок провайдера
-                current_provider['failure_count'] += 1
-                current_provider['last_failure'] = datetime.now().isoformat()
-                self.stats['provider_failures'][self.current_provider] += 1
-                
                 raise Exception("Пустой ответ от LLM")
             
             content = response_data['choices'][0]['message']['content']
@@ -401,13 +484,20 @@ class ContactExtractor:
             
             return result
             
+        except requests.exceptions.Timeout:
+            current_provider['failure_count'] += 1
+            current_provider['last_failure'] = datetime.now().isoformat()
+            raise Exception(f"Timeout при запросе к {current_provider['name']}")
+            
+        except requests.exceptions.ConnectionError as e:
+            current_provider['failure_count'] += 1
+            current_provider['last_failure'] = datetime.now().isoformat()
+            raise Exception(f"Ошибка подключения к {current_provider['name']}: {str(e)}")
+            
         except Exception as e:
-            # Увеличиваем счетчик ошибок провайдера
             current_provider['failure_count'] += 1
             current_provider['last_failure'] = datetime.now().isoformat()
             self.stats['provider_failures'][self.current_provider] += 1
-            
-            print(f"❌ Ошибка провайдера {current_provider['name']}: {e}")
             raise e
     
     def _parse_llm_response(self, response_text: str) -> dict:
@@ -451,7 +541,7 @@ class ContactExtractor:
             if start >= len(text):
                 break
         
-        print(f"   📊 Разбито на {len(chunks)} частей по ~{chunk_size} символов")
+        self.logger.info(f"   📊 Разбито на {len(chunks)} частей по ~{chunk_size} символов")
         
         # Обрабатываем каждую часть
         all_contacts = []
@@ -459,7 +549,7 @@ class ContactExtractor:
         all_actions = []
         
         for i, chunk in enumerate(chunks):
-            print(f"   🔍 Обработка части {i + 1}/{len(chunks)}")
+            self.logger.info(f"   🔍 Обработка части {i + 1}/{len(chunks)}")
             
             try:
                 # Обрабатываем часть
@@ -480,7 +570,7 @@ class ContactExtractor:
                     time.sleep(2)
             
             except Exception as e:
-                print(f"   ❌ Ошибка обработки части {i + 1}: {e}")
+                self.logger.error(f"   ❌ Ошибка обработки части {i + 1}: {e}")
                 all_contexts.append(f"Часть {i + 1}: Ошибка обработки - {str(e)}")
         
         # Удаляем дубликаты контактов
@@ -499,7 +589,7 @@ class ContactExtractor:
             'unique_contacts_found': len(unique_contacts)
         }
         
-        print(f"   ✅ Обработка завершена: {len(unique_contacts)} уникальных контактов из {len(all_contacts)} найденных")
+        self.logger.info(f"   ✅ Обработка завершена: {len(unique_contacts)} уникальных контактов из {len(all_contacts)} найденных")
         
         return result
     
@@ -552,8 +642,31 @@ class ContactExtractor:
             if metadata:
                 print(f"   📧 Метаданные: {metadata.get('subject', 'Без темы')}")
             
+            # 🧪 Тестовый режим должен срабатывать раньше, до загрузки промпта,
+            # чтобы не зависеть от наличия файлов и внешних ресурсов
+            if self.test_mode and not metadata:
+                print("   🧪 Активирован тестовый режим")
+                result = {
+                    'contacts': [{
+                        'name': 'Тестовый Контакт',
+                        'email': 'test@example.com',
+                        'phone': '+7 (999) 123-45-67',
+                        'organization': 'Тестовая Организация',
+                        'position': 'Тестовая Должность',
+                        'city': 'Тестовый Город',
+                        'confidence': 0.95
+                    }],
+                    'business_context': 'Тестовый бизнес-контекст',
+                    'recommended_actions': 'Тестовые рекомендации',
+                    'provider_used': 'Test Mode'
+                }
+                
+                # Восстанавливаем исходный test_mode (на случай внешнего использования)
+                self.test_mode = original_test_mode
+                return result
+            
             # Временно отключаем тестовый режим для реальных писем
-            if metadata and not self.test_mode:
+            if metadata and self.test_mode:
                 self.test_mode = False
             
             # Загружаем промпт
@@ -577,27 +690,27 @@ class ContactExtractor:
             # Определяем провайдера
             provider_info = f"{self.providers[self.current_provider]['name']} ({self.providers[self.current_provider]['model']})"
             
-            # Тестовый режим
-            if self.test_mode and not metadata:
-                print("   🧪 Активирован тестовый режим")
-                result = {
-                    'contacts': [{
-                        'name': 'Тестовый Контакт',
-                        'email': 'test@example.com',
-                        'phone': '+7 (999) 123-45-67',
-                        'organization': 'Тестовая Организация',
-                        'position': 'Тестовая Должность',
-                        'city': 'Тестовый Город',
-                        'confidence': 0.95
-                    }],
-                    'business_context': 'Тестовый бизнес-контекст',
-                    'recommended_actions': 'Тестовые рекомендации',
-                    'provider_used': 'Test Mode'
-                }
-                
-                # Восстанавливаем исходный test_mode
-                self.test_mode = original_test_mode
-                return result
+            # Тестовый режим (старый блок оставлен нетронутым, но больше не достижим)
+            # if self.test_mode and not metadata:
+            #     print("   🧪 Активирован тестовый режим")
+            #     result = {
+            #         'contacts': [{
+            #             'name': 'Тестовый Контакт',
+            #             'email': 'test@example.com',
+            #             'phone': '+7 (999) 123-45-67',
+            #             'organization': 'Тестовая Организация',
+            #             'position': 'Тестовая Должность',
+            #             'city': 'Тестовый Город',
+            #             'confidence': 0.95
+            #         }],
+            #         'business_context': 'Тестовый бизнес-контекст',
+            #         'recommended_actions': 'Тестовые рекомендации',
+            #         'provider_used': 'Test Mode'
+            #     }
+            #     
+            #     # Восстанавливаем исходный test_mode
+            #     self.test_mode = original_test_mode
+            #     return result
             
             # Выполняем запрос с повторными попытками
             result = self._make_llm_request_with_retries(prompt, text)
@@ -747,7 +860,7 @@ class ContactExtractor:
                 'error': f'Провайдер {provider_id} не найден'
             }
         
-        # Отключаем провайдера
+        # Отключаем провайдер
         self.providers[provider_id]['active'] = False
         self.providers[provider_id]['failure_count'] += 1
         self.providers[provider_id]['last_failure'] = datetime.now().isoformat()

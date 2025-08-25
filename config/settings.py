@@ -37,7 +37,7 @@ LLM_CONFIG = {
     'analyzer': {
         'provider': 'replicate',
         'model': 'openai/gpt-4o-mini',
-        'api_key': os.getenv('REPLICATE_API_TOKEN'),
+        'api_key': os.getenv('REPLICATE_API_KEY'),
         'max_tokens': 3000,
         'temperature': 0.2
     }

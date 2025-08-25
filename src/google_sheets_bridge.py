@@ -8,23 +8,29 @@ import sys
 import time
 import json
 import subprocess
+import logging
 from pathlib import Path
 from datetime import datetime
 from typing import List, Dict, Optional
 
 # Добавляем путь к текущей директории для импортов
 sys.path.append(str(Path(__file__).parent))
+sys.path.append(str(Path(__file__).parent.parent))
 
 # Импортируем наши модули
-from integrated_llm_processor import IntegratedLLMProcessor
-from google_sheets_exporter import GoogleSheetsExporter
-from local_exporter import LocalDataExporter
+from src.integrated_llm_processor import IntegratedLLMProcessor
+from src.google_sheets_exporter import GoogleSheetsExporter
+from src.local_exporter import LocalDataExporter
+from src.shared_logging import get_logger
 
 
 class LLM_Sheets_Bridge:
     """🔄 Мост для интеграции OCR + LLM + Sheets"""
     
     def __init__(self):
+        # Инициализируем логгер
+        self.logger = get_logger(__name__)
+        
         # Инициализируем процессор с отключенным тестовым режимом
         self.processor = IntegratedLLMProcessor(test_mode=False)
         
@@ -34,16 +40,16 @@ class LLM_Sheets_Bridge:
         # Локальный экспортер как fallback
         self.local_exporter = LocalDataExporter()
         
-        print("🔄 Инициализация моста OCR + LLM + Google Sheets")
+        self.logger.info("🔄 Инициализация моста OCR + LLM + Google Sheets")
         
         # Проверяем доступность Google Sheets API
         if self.exporter.client:
-            print(f"   ✅ Google Sheets API инициализирован")
+            self.logger.info("   ✅ Google Sheets API инициализирован")
         else:
-            print(f"   ❌ Google Sheets API не инициализирован")
-            print(f"   🔑 Путь к service_account.json: {self.exporter.credentials_path}")
+            self.logger.error("   ❌ Google Sheets API не инициализирован")
+            self.logger.error(f"   🔑 Путь к service_account.json: {self.exporter.credentials_path}")
         
-        print(f"   📊 Локальный экспортер: ✅ Готов к работе")
+        self.logger.info("   📊 Локальный экспортер: ✅ Готов к работе")
         
     def _auto_fetch_emails(self, date: str) -> bool:
         """📧 Автоматическая загрузка писем с сервера при их отсутствии
@@ -55,40 +61,32 @@ class LLM_Sheets_Bridge:
             bool: True если загрузка прошла успешно, False в противном случае
         """
         try:
-            print(f"📧 Запуск автоматической загрузки писем за {date}...")
+            self.logger.info(f"📧 Запуск автоматической загрузки писем за {date}...")
             
-            # Путь к advanced_email_fetcher.py
-            fetcher_path = Path(__file__).parent / "advanced_email_fetcher.py"
+            # Импортируем напрямую для обеспечения сквозного логирования
+            from src.advanced_email_fetcher import AdvancedEmailFetcher
             
-            if not fetcher_path.exists():
-                print(f"❌ Файл {fetcher_path} не найден")
-                return False
+            # Создаем экземпляр fetcher с настройкой логирования
+            fetcher = AdvancedEmailFetcher()
             
-            # Запускаем advanced_email_fetcher.py с указанной датой
-            cmd = [sys.executable, str(fetcher_path), "--date", date]
-            print(f"   🔧 Команда: {' '.join(cmd)}")
+            # Конвертируем строку даты в datetime
+            from datetime import datetime
+            target_date = datetime.strptime(date, '%Y-%m-%d')
             
-            result = subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                timeout=300  # 5 минут таймаут
-            )
+            # Запускаем загрузку напрямую
+            emails = fetcher.fetch_emails_by_date_range(target_date, target_date)
             
-            if result.returncode == 0:
-                print(f"   ✅ Письма успешно загружены за {date}")
-                if result.stdout:
-                    print(f"   📝 Вывод: {result.stdout.strip()}")
+            if emails:
+                self.logger.info(f"   ✅ Письма успешно загружены за {date}: {len(emails)} писем")
                 return True
             else:
-                print(f"   ❌ Ошибка загрузки писем: {result.stderr}")
+                self.logger.warning(f"   📭 Писем за {date} не найдено на сервере")
                 return False
                 
-        except subprocess.TimeoutExpired:
-            print(f"   ⏰ Таймаут при загрузке писем за {date}")
-            return False
         except Exception as e:
-            print(f"   ❌ Исключение при загрузке писем: {e}")
+            self.logger.error(f"   ❌ Исключение при загрузке писем: {e}")
+            import traceback
+            self.logger.error(f"   📋 Трейс: {traceback.format_exc()}")
             return False
     
     def process_and_export(self, date: str, create_new_sheet: bool = False, max_emails: int = None) -> bool:
@@ -121,25 +119,24 @@ class LLM_Sheets_Bridge:
             emails_processed = llm_results.get('statistics', {}).get('emails_processed', 0)
             
             if emails_processed == 0:
-                print(f"📭 Письма за {date} не найдены. Запускаем автоматическую загрузку...")
+                self.logger.warning(f"📭 Письма за {date} не найдены. Запускаем автоматическую загрузку...")
                 
                 # Пытаемся загрузить письма с сервера
                 if self._auto_fetch_emails(date):
-                    print(f"🔄 Повторная обработка после загрузки писем...")
+                    self.logger.info(f"🔄 Повторная обработка после загрузки писем...")
                     # Повторно обрабатываем после загрузки
                     llm_results = self.processor.process_emails_by_date(date, max_emails=max_emails)
                     emails_processed = llm_results.get('statistics', {}).get('emails_processed', 0)
                     
                     if emails_processed == 0:
-                        print(f"📭 После загрузки письма за {date} всё ещё не найдены")
+                        self.logger.warning(f"📭 После загрузки письма за {date} всё ещё не найдены")
                         return False
                 else:
-                    print(f"❌ Не удалось загрузить письма за {date}")
+                    self.logger.error(f"❌ Не удалось загрузить письма за {date}")
                     return False
             
             if not llm_results or 'emails_processed' not in llm_results.get('statistics', {}):
-                logging.error(f"Не удалось обработать данные за {date}")
-                print(f"❌ Не удалось обработать данные за {date}")
+                self.logger.error(f"Не удалось обработать данные за {date}")
                 return False
                 
             # Сохраняем результаты в атрибуте statistics для использования в _print_stats
@@ -148,26 +145,20 @@ class LLM_Sheets_Bridge:
                 
             # Проверяем, были ли найдены контакты
             if llm_results.get('summary', {}).get('total_contacts', 0) == 0:
-                logging.warning(f"За {date} не найдено контактов")
-                print(f"⚠️ За {date} не найдено контактов")
-                print(f"   Проверьте, есть ли письма за эту дату")
+                self.logger.warning(f"За {date} не найдено контактов")
                 
             # Выводим статистику обработки
             self._print_stats()
         except Exception as e:
-            logging.error(f"Ошибка при обработке данных за {date}: {e}")
-            print(f"❌ Ошибка при обработке данных: {e}")
+            self.logger.error(f"Ошибка при обработке данных за {date}: {e}")
             return False
         
         # Шаг 2: Экспорт результатов в Google Sheets
-        print("\n📊 ШАГ 2: Экспорт результатов в Google Sheets")
+        self.logger.info("\n📊 ШАГ 2: Экспорт результатов в Google Sheets")
         
         # Проверяем доступность Google Sheets API
         if not self.exporter.client:
-            logging.warning("Google Sheets API не инициализирован, переключение на локальный экспорт")
-            print("❌ Google Sheets API не инициализирован")
-            print("  Проверьте файл config/service_account.json и настройки API")
-            print("  Переключаюсь на локальный экспорт...")
+            self.logger.warning("Google Sheets API не инициализирован, переключение на локальный экспорт")
             return self._fallback_to_local_export(date, llm_results)
         
         try:
@@ -216,8 +207,8 @@ class LLM_Sheets_Bridge:
                     return local_export_result
             except Exception as e:
                 logging.error(f"Ошибка при экспорте в Google Sheets за {date}: {e}")
-                print(f"⚠️ Ошибка при экспорте в Google Sheets: {e}")
-                print(f"🔄 Переключаюсь на локальный экспорт...")
+                self.logger.error(f"Ошибка при экспорте в Google Sheets: {e}")
+                self.logger.info("Переключаюсь на локальный экспорт...")
                 # Гарантированно пытаемся сохранить локально
                 local_export_result = self._fallback_to_local_export(date, llm_results)
                 return local_export_result
@@ -245,8 +236,7 @@ class LLM_Sheets_Bridge:
         logging.info(f"Запуск резервного локального экспорта для даты {date}")
         
         try:
-            print(f"\n📊 ЛОКАЛЬНЫЙ ЭКСПОРТ (FALLBACK) ЗА {date}")
-            print("=" * 50)
+            logging.info(f"📊 ЛОКАЛЬНЫЙ ЭКСПОРТ (FALLBACK) ЗА {date}")
             
             results = llm_results
             
@@ -257,8 +247,6 @@ class LLM_Sheets_Bridge:
                 
                 if not results_path.exists():
                     logging.error(f"Результаты анализа за {date} не найдены: {results_path}")
-                    print(f"❌ Результаты анализа за {date} не найдены")
-                    print(f"   Путь: {results_path}")
                     return False
                 
                 try:
@@ -267,7 +255,6 @@ class LLM_Sheets_Bridge:
                         logging.info(f"Результаты успешно загружены из файла: {len(str(results))} символов")
                 except Exception as e:
                     logging.error(f"Ошибка загрузки результатов из файла: {e}")
-                    print(f"❌ Ошибка загрузки результатов из файла: {e}")
                     import traceback
                     error_traceback = traceback.format_exc()
                     logging.error(f"Трассировка ошибки загрузки: {error_traceback}")
@@ -276,7 +263,6 @@ class LLM_Sheets_Bridge:
             # Проверяем, что результаты не пустые
             if not results:
                 logging.error("Результаты анализа пусты")
-                print("❌ Результаты анализа пусты")
                 return False
             
             # Экспортируем локально
@@ -286,17 +272,13 @@ class LLM_Sheets_Bridge:
             if success:
                 export_path = self.local_exporter.export_dir.absolute()
                 logging.info(f"Локальный экспорт завершен успешно. Файлы сохранены в: {export_path}")
-                print(f"✅ Локальный экспорт завершен успешно")
-                print(f"   📁 Файлы сохранены в: {export_path}")
                 return True
             else:
                 logging.error(f"Локальный экспорт не удался за {date}")
-                print(f"❌ Локальный экспорт также не удался")
                 return False
                 
         except Exception as e:
             logging.error(f"Ошибка локального экспорта за {date}: {e}")
-            print(f"❌ Ошибка локального экспорта: {e}")
             import traceback
             error_traceback = traceback.format_exc()
             logging.error(f"Трассировка ошибки: {error_traceback}")
@@ -317,16 +299,12 @@ class LLM_Sheets_Bridge:
         import logging
         logging.info(f"Запуск резервного локального экспорта для диапазона дат {start_date} - {end_date}")
         
-        print(f"\n📊 ЛОКАЛЬНЫЙ ЭКСПОРТ (FALLBACK) ЗА ПЕРИОД {start_date} - {end_date}")
-        print("=" * 60)
-        
         try:
             # Используем новый метод для экспорта всего диапазона дат сразу
             export_results = self.local_exporter.export_multiple_dates(start_date, end_date, results_dict)
             
             if not export_results:
                 logging.error(f"Ошибка при локальном экспорте диапазона дат {start_date} - {end_date}")
-                print("\n❌ Ошибка при локальном экспорте диапазона дат")
                 return False
                 
             success_count = sum(1 for success in export_results.values() if success)
@@ -335,19 +313,14 @@ class LLM_Sheets_Bridge:
             if success_count > 0:
                 export_path = self.local_exporter.export_dir.absolute()
                 logging.info(f"Локальный экспорт завершен. Успешно: {success_count}/{total_dates}. Файлы сохранены в: {export_path}")
-                print(f"\n✅ Успешно экспортировано {success_count} из {total_dates} дат")
-                print(f"   📁 Файлы сохранены в: {export_path}")
                 return True
             else:
                 logging.error(f"Не удалось экспортировать ни одной даты из диапазона {start_date} - {end_date}")
-                print("\n❌ Не удалось экспортировать ни одной даты")
                 return False
                 
         except Exception as e:
             # В случае ошибки в новом методе, используем старый подход (по одной дате)
             logging.error(f"Ошибка при использовании export_multiple_dates: {e}. Переключение на экспорт по одной дате.")
-            print(f"⚠️ Ошибка при экспорте диапазона: {e}")
-            print("⚠️ Переключение на экспорт по одной дате...")
             
             success_count = 0
             total_dates = len(results_dict)
@@ -360,33 +333,25 @@ class LLM_Sheets_Bridge:
                     if success:
                         success_count += 1
                         logging.info(f"Данные за {date_str} успешно экспортированы локально")
-                        print(f"✅ Данные за {date_str} успешно экспортированы локально")
                     else:
                         logging.error(f"Локальный экспорт не удался за {date_str}")
-                        print(f"❌ Локальный экспорт не удался за {date_str}")
                 except Exception as e:
                     logging.error(f"Ошибка локального экспорта за {date_str}: {e}")
-                    print(f"❌ Ошибка локального экспорта за {date_str}: {e}")
             
             if success_count > 0:
                 export_path = self.local_exporter.export_dir.absolute()
                 logging.info(f"Локальный экспорт завершен. Успешно: {success_count}/{total_dates}. Файлы сохранены в: {export_path}")
-                print(f"\n✅ Успешно экспортировано {success_count} из {total_dates} дат")
-                print(f"   📁 Файлы сохранены в: {export_path}")
                 return True
             else:
                 logging.error(f"Не удалось экспортировать ни одной даты из диапазона {start_date} - {end_date}")
-                print("\n❌ Не удалось экспортировать ни одной даты")
                 return False
     
     def _print_stats(self):
         """📊 Вывести статистику обработки"""
-        import logging
         
         # Проверяем наличие атрибута statistics
         if not hasattr(self.processor, 'statistics') or not self.processor.statistics:
-            logging.warning("Статистика обработки недоступна")
-            print("\n⚠️ Статистика обработки недоступна")
+            self.logger.warning("Статистика обработки недоступна")
             return
         
         # Проверяем наличие атрибута contacts
@@ -400,13 +365,7 @@ class LLM_Sheets_Bridge:
         processing_time = stats.get('processing_time', 0)
         
         # Логируем основную статистику
-        logging.info(f"Статистика обработки: {emails_processed} писем, {attachments_processed} вложений, {contacts_found} контактов, {processing_time:.2f} сек")
-            
-        print("\n📊 СТАТИСТИКА ОБРАБОТКИ")
-        print(f"📧 Обработано писем: {emails_processed}")
-        print(f"📎 Обработано вложений: {attachments_processed}")
-        print(f"👤 Найдено контактов: {contacts_found}")
-        print(f"⏱️ Время обработки: {processing_time:.2f} сек")
+        self.logger.info(f"📊 СТАТИСТИКА ОБРАБОТКИ: {emails_processed} писем, {attachments_processed} вложений, {contacts_found} контактов, {processing_time:.2f} сек")
         
         # Если есть статистика по LLM
         if 'llm_stats' in stats:
@@ -482,9 +441,7 @@ class LLM_Sheets_Bridge:
             print("❌ Начальная дата должна быть меньше или равна конечной")
             return False
         
-        print(f"\n{'='*60}")
-        print(f"🔄 ПОЛНЫЙ ЦИКЛ ОБРАБОТКИ ЗА ПЕРИОД {start_date} - {end_date}")
-        print(f"{'='*60}")
+        self.logger.info(f"🔄 ПОЛНЫЙ ЦИКЛ ОБРАБОТКИ ЗА ПЕРИОД {start_date} - {end_date}")
         
         # Создаем одну таблицу для всего диапазона
         title = f"Контакты из деловой переписки ({start_date} - {end_date})"
@@ -492,24 +449,11 @@ class LLM_Sheets_Bridge:
             sheet_id = self.exporter.create_new_spreadsheet(title)
             if sheet_id:
                 self.exporter.spreadsheet_id = sheet_id
-                logging.info(f"Создана новая таблица: {title} с ID: {sheet_id}")
-                print(f"✅ Создана новая таблица: {title}")
-                print(f"   ID: {sheet_id}")
+                self.logger.info(f"✅ Создана новая таблица: {title} с ID: {sheet_id}")
             else:
-                logging.warning("Не удалось создать новую таблицу Google Sheets")
-                print("❌ Не удалось создать новую таблицу")
-                print("  Возможные причины:")
-                print("  1. Недостаточно прав в service_account.json")
-                print("  2. Google Drive API не включен в консоли Google")
-                print("  3. Проверьте подключение к интернету")
-                print("  4. Превышена квота хранилища Google Drive")
-                print("  Будет использован локальный экспорт для каждой даты")
+                self.logger.warning("Не удалось создать новую таблицу Google Sheets. Будет использован локальный экспорт для каждой даты")
         except Exception as e:
-            logging.error(f"Ошибка создания таблицы: {e}")
-            print(f"❌ Ошибка создания таблицы: {e}")
-            print("  Для активации Google Drive API перейдите по ссылке:")
-            print("  https://console.developers.google.com/apis/api/drive.googleapis.com")
-            print("  Будет использован локальный экспорт для каждой даты")
+            self.logger.error(f"Ошибка создания таблицы: {e}. Будет использован локальный экспорт для каждой даты")
         
         # Проходим по каждой дате в диапазоне
         current = start
@@ -525,12 +469,10 @@ class LLM_Sheets_Bridge:
             date_str = current.strftime('%Y-%m-%d')
             logging.info(f"Начало обработки даты: {date_str}")
             
-            print(f"\n{'*'*60}")
-            print(f"📅 ОБРАБОТКА ДАТЫ: {date_str}")
-            print(f"{'*'*60}")
+            self.logger.info(f"📅 ОБРАБОТКА ДАТЫ: {date_str}")
             
             # Шаг 1: LLM анализ
-            print("\n📄 ШАГ 1: Анализ писем и вложений с помощью LLM")
+            self.logger.info("📄 ШАГ 1: Анализ писем и вложений с помощью LLM")
             
             try:
                 # Обрабатываем реальные данные из почты
@@ -547,15 +489,11 @@ class LLM_Sheets_Bridge:
                     
                     # Проверяем, были ли найдены контакты
                     if llm_results.get('summary', {}).get('total_contacts', 0) == 0:
-                        logging.warning(f"За {date_str} не найдено контактов")
-                        print(f"⚠️ За {date_str} не найдено контактов")
-                        print(f"   Проверьте, есть ли письма за эту дату")
+                        self.logger.warning(f"За {date_str} не найдено контактов")
                 else:
-                    logging.error(f"Не удалось обработать данные за {date_str}")
-                    print(f"❌ Не удалось обработать данные за {date_str}")
+                    self.logger.error(f"Не удалось обработать данные за {date_str}")
             except Exception as e:
-                logging.error(f"Ошибка при обработке данных за {date_str}: {e}")
-                print(f"❌ Ошибка при обработке данных: {e}")
+                self.logger.error(f"Ошибка при обработке данных за {date_str}: {e}")
             
             # Переходим к следующей дате
             current += timedelta(days=1)
@@ -582,7 +520,7 @@ class LLM_Sheets_Bridge:
                         logging.info(f"Данные за период {start_date} - {end_date} успешно экспортированы локально")
                     else:
                         logging.error(f"Не удалось экспортировать данные ни в Google Sheets, ни локально")
-                        print(f"❌ Не удалось экспортировать данные ни в Google Sheets, ни локально")
+                        self.logger.error(f"Не удалось экспортировать данные ни в Google Sheets, ни локально")
             except Exception as e:
                 logging.error(f"Ошибка при экспорте в Google Sheets: {e}")
                 print(f"⚠️ Ошибка при экспорте в Google Sheets: {e}")
@@ -592,22 +530,20 @@ class LLM_Sheets_Bridge:
                 try:
                     if self._fallback_to_local_export_multiple_dates(start_date, end_date, all_results):
                         success_count = len(all_results)
-                        logging.info(f"Данные за период {start_date} - {end_date} успешно экспортированы локально после ошибки Google Sheets")
+                        self.logger.info(f"Данные за период {start_date} - {end_date} успешно экспортированы локально после ошибки Google Sheets")
                         print(f"✅ Данные за период {start_date} - {end_date} успешно экспортированы локально")
                     else:
                         logging.error(f"Локальный экспорт не удался после ошибки Google Sheets")
-                        print(f"❌ Локальный экспорт не удался после ошибки Google Sheets")
+                        self.logger.error(f"Локальный экспорт не удался после ошибки Google Sheets")
                 except Exception as local_error:
                     logging.error(f"Критическая ошибка при локальном экспорте: {local_error}")
-                    print(f"❌ Критическая ошибка при локальном экспорте: {local_error}")
+                    self.logger.error(f"Критическая ошибка при локальном экспорте: {local_error}")
                     success_count = 0
         
-        print(f"\n{'='*60}")
-        print(f"📊 ИТОГИ ОБРАБОТКИ ПЕРИОДА {start_date} - {end_date}")
-        print(f"✅ Успешно обработано дат: {success_count} из {total_days}")
+        self.logger.info(f"ИТОГИ ОБРАБОТКИ ПЕРИОДА {start_date} - {end_date}")
+        self.logger.info(f"Успешно обработано дат: {success_count} из {total_days}")
         if self.exporter.spreadsheet_id:
-            print(f"🔗 URL таблицы: https://docs.google.com/spreadsheets/d/{self.exporter.spreadsheet_id}")
-        print(f"{'='*60}")
+            self.logger.info(f"URL таблицы: https://docs.google.com/spreadsheets/d/{self.exporter.spreadsheet_id}")
         
         # Выводим итоговую статистику обработки
         self._print_stats()
@@ -619,28 +555,18 @@ class LLM_Sheets_Bridge:
 def main():
     """🚀 Основная функция"""
     
-    import logging
     from datetime import datetime
+    from shared_logging import get_logger
+    
+    logger = get_logger(__name__)
     
     # Настройка логирования
     log_file = f"bridge_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler(log_file),
-            logging.StreamHandler()
-        ]
-    )
     
-    logging.info("="*60)
-    logging.info("🔄 ИНТЕГРАЦИЯ OCR + LLM + GOOGLE SHEETS")
-    logging.info("="*60)
-    
-    print("\n" + "="*60)
-    print("🔄 ИНТЕГРАЦИЯ OCR + LLM + GOOGLE SHEETS")
-    print("="*60)
-    print(f"📝 Логи сохраняются в: {log_file}")
+    logger.info("="*60)
+    logger.info("🔄 ИНТЕГРАЦИЯ OCR + LLM + GOOGLE SHEETS")
+    logger.info("="*60)
+    logger.info(f"Логи сохраняются в: {log_file}")
     
     try:
         # Создаем мост
@@ -648,23 +574,22 @@ def main():
         
         # Проверяем доступность Google Sheets API
         if not bridge.exporter.client:
-            logging.warning("Google Sheets API не настроен")
-            print("\n❌ Google Sheets API не настроен")
-            print("   Убедитесь, что файл config/service_account.json существует")
-            print("   Вы можете продолжить без экспорта в Google Sheets")
+            logger.warning("Google Sheets API не настроен")
+            logger.info("Убедитесь, что файл config/service_account.json существует")
+            logger.info("Вы можете продолжить без экспорта в Google Sheets")
             # Даем пользователю возможность продолжить без экспорта
             response = input("\nПродолжить только с LLM обработкой? (y/n): ")
             if response.lower() != 'y':
                 return
         
-        print("\nВыберите режим работы:")
-        print("1. Обработать и экспортировать одну дату")
-        print("2. Обработать и экспортировать диапазон дат")
-        print("3. Обработать произвольный диапазон дат")
-        print("4. Выйти")
+        logger.info("Выберите режим работы:")
+        logger.info("1. Обработать и экспортировать одну дату")
+        logger.info("2. Обработать и экспортировать диапазон дат")
+        logger.info("3. Обработать произвольный диапазон дат")
+        logger.info("4. Выйти")
         
         choice = input("\nВаш выбор (1-4): ")
-        logging.info(f"Выбран режим работы: {choice}")
+        logger.info(f"Выбран режим работы: {choice}")
     except Exception as e:
         logging.error(f"Ошибка при инициализации: {e}")
         print(f"❌ Ошибка при инициализации: {e}")
@@ -689,18 +614,18 @@ def main():
                     max_emails = int(input("Введите количество писем: "))
                     logging.info(f"Выбрано количество писем для обработки: {max_emails}")
                 except ValueError:
-                    print("❌ Введено некорректное значение. Будут обработаны все письма.")
+                    logger.error("Введено некорректное значение. Будут обработаны все письма.")
                     max_emails = None
             else:
-                logging.info("Выбрана обработка всех писем")
+                logger.info("Выбрана обработка всех писем")
             
             result = bridge.process_and_export(date, create_new, max_emails)
             if result:
-                logging.info(f"Успешно обработана дата: {date}")
+                logger.info(f"Успешно обработана дата: {date}")
                 # Дополнительно выводим статистику
                 bridge._print_stats()
             else:
-                logging.warning(f"Не удалось обработать дату: {date}")
+                logger.warning(f"Не удалось обработать дату: {date}")
             
         elif choice == '2':
             # Обработка диапазона дат
@@ -720,17 +645,17 @@ def main():
                     max_emails = int(input("Введите количество писем: "))
                     logging.info(f"Выбрано количество писем для обработки: {max_emails}")
                 except ValueError:
-                    print("❌ Введено некорректное значение. Будут обработаны все письма.")
+                    logger.error("Введено некорректное значение. Будут обработаны все письма.")
                     max_emails = None
             else:
-                logging.info("Выбрана обработка всех писем")
+                logger.info("Выбрана обработка всех писем")
             
             result = bridge.process_date_range(start_date, end_date, max_emails)
             if result:
-                logging.info(f"Успешно обработан диапазон: {start_date} - {end_date}")
+                logger.info(f"Успешно обработан диапазон: {start_date} - {end_date}")
                 # Статистика уже выводится в методе process_date_range
             else:
-                logging.warning(f"Не удалось обработать диапазон: {start_date} - {end_date}")
+                logger.warning(f"Не удалось обработать диапазон: {start_date} - {end_date}")
             
         elif choice == '3':
             # Произвольный диапазон дат
@@ -751,30 +676,30 @@ def main():
                     max_emails = int(input("Введите количество писем: "))
                     logging.info(f"Выбрано количество писем для обработки: {max_emails}")
                 except ValueError:
-                    print("❌ Введено некорректное значение. Будут обработаны все письма.")
+                    logger.error("Введено некорректное значение. Будут обработаны все письма.")
                     max_emails = None
             else:
-                logging.info("Выбрана обработка всех писем")
+                logger.info("Выбрана обработка всех писем")
             
             result = bridge.process_date_range(start_date, end_date, max_emails)
             if result:
-                logging.info(f"Успешно обработан диапазон: {start_date} - {end_date}")
+                logger.info(f"Успешно обработан диапазон: {start_date} - {end_date}")
                 # Статистика уже выводится в методе process_date_range
             else:
-                logging.warning(f"Не удалось обработать диапазон: {start_date} - {end_date}")
+                logger.warning(f"Не удалось обработать диапазон: {start_date} - {end_date}")
             
         elif choice == '4':
-            logging.info("Завершение работы")
-            print("\n👋 До свидания!")
+            logger.info("Завершение работы")
+            logger.info("До свидания!")
             return
             
         else:
-            logging.warning(f"Неверный выбор: {choice}")
-            print("\n❌ Неверный выбор")
+            logger.warning(f"Неверный выбор: {choice}")
+            logger.error("Неверный выбор")
             return
     except Exception as e:
-        logging.error(f"Критическая ошибка: {e}")
-        print(f"❌ Произошла ошибка: {e}")
+        logger.error(f"Критическая ошибка: {e}")
+        logger.error(f"Произошла ошибка: {e}")
         return
 
 

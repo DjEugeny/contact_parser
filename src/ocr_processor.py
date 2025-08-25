@@ -15,9 +15,12 @@ from datetime import datetime
 import subprocess
 import shutil
 import io
+import logging
 
 from PIL import Image
 from google.api_core import exceptions as google_exceptions
+
+from shared_logging import get_logger
 
 Image.MAX_IMAGE_PIXELS = None
 
@@ -49,8 +52,8 @@ except ImportError:
     XLRD_AVAILABLE = False
 
 class OCRProcessor:
-    # ... (init, _show_capabilities, get_available_dates, get_files_for_date, run_google_vision_ocr - без изменений) ...
     def __init__(self):
+        self.logger = get_logger("ocr_processor")
         self.data_dir = Path("data")
         self.attachments_dir = self.data_dir / "attachments"
         self.base_results_dir = self.data_dir / "final_results"
@@ -60,34 +63,34 @@ class OCRProcessor:
         self.reports_dir.mkdir(parents=True, exist_ok=True)
         self.vision_client = vision.ImageAnnotatorClient() if GOOGLE_VISION_AVAILABLE else None
         self._show_capabilities()
-        print("\n" + "=" * 70)
-        print("🎯 OCR ТЕСТЕР С GOOGLE CLOUD VISION v13 🎯")
-        print(f"📁 Исходные файлы: {self.attachments_dir}")
-        print(f"🗂️  Результаты в папке: {self.base_results_dir}")
-        print("=" * 70)
+        self.logger.info("=" * 70)
+        self.logger.info("🎯 OCR ТЕСТЕР С GOOGLE CLOUD VISION v13 🎯")
+        self.logger.info(f"📁 Исходные файлы: {self.attachments_dir}")
+        self.logger.info(f"🗂️  Результаты в папке: {self.base_results_dir}")
+        self.logger.info("=" * 70)
     def _show_capabilities(self):
         antiword_ok = shutil.which('antiword') is not None
-        print("📋 ВОЗМОЖНОСТИ СИСТЕМЫ:")
+        self.logger.info("📋 ВОЗМОЖНОСТИ СИСТЕМЫ:")
         if GOOGLE_VISION_AVAILABLE and self.vision_client:
-            print("   ☁️ Google Cloud Vision: ✅ Готов к работе!")
+            self.logger.info("   ☁️ Google Cloud Vision: ✅ Готов к работе!")
         else:
-            print("   ☁️ Google Cloud Vision: ❌ НЕ НАСТРОЕН!")
+            self.logger.info("   ☁️ Google Cloud Vision: ❌ НЕ НАСТРОЕН!")
         local_status = [f"PDF (текст) {'✅' if PYMUPDF_AVAILABLE else '❌'}", f"DOCX {'✅' if PYTHON_DOCX_AVAILABLE else '❌'}", f"XLSX {'✅' if OPENPYXL_AVAILABLE else '❌'}", f"DOC (antiword) {'✅' if antiword_ok else '❌ (brew install antiword)'}", f"XLS (xlrd) {'✅' if XLRD_AVAILABLE else '❌'}"]
-        print(f"   📄 Локальные форматы: {' | '.join(local_status)}")
+        self.logger.info(f"   📄 Локальные форматы: {' | '.join(local_status)}")
     def get_available_dates(self) -> List[str]:
         if not self.attachments_dir.exists(): return []
         return sorted([d.name for d in self.attachments_dir.iterdir() if d.is_dir() and d.name.count("-") == 2])
     def get_files_for_date(self, date: str) -> List[Path]:
         date_dir = self.attachments_dir / date
         if not date_dir.exists():
-            print(f"❌ Папка не существует: {date_dir}")
+            self.logger.error(f"❌ Папка не существует: {date_dir}")
             return []
         file_types = ["*.png", "*.jpg", "*.jpeg", "*.tiff", "*.pdf", "*.docx", "*.doc", "*.xlsx", "*.xls"]
         files = sorted(list(set(f for pat in file_types for f in date_dir.rglob(pat))))
         return files
     def run_google_vision_ocr(self, content: bytes) -> Tuple[str, float]:
         if not self.vision_client: raise RuntimeError("Клиент Google Vision не инициализирован.")
-        print("   ☁️ Отправка в Google Cloud Vision... (может занять несколько секунд)")
+        self.logger.info("   ☁️ Отправка в Google Cloud Vision... (может занять несколько секунд)")
         ts = time.time()
         image = vision.Image(content=content)
         response = self.vision_client.document_text_detection(image=image)
@@ -97,7 +100,7 @@ class OCRProcessor:
         confidences = [page.confidence for page in response.full_text_annotation.pages]
         avg_confidence = np.mean(confidences) if confidences else 0.0
         elapsed = time.time() - ts
-        print(f"   ✨ Получен ответ от Google за {elapsed:.2f} сек. Уверенность: {avg_confidence:.2%}")
+        self.logger.info(f"   ✨ Получен ответ от Google за {elapsed:.2f} сек. Уверенность: {avg_confidence:.2%}")
         return text, avg_confidence
     
     def run_google_vision_ocr_with_smart_compression(self, content: bytes, max_size_mb: float = 19.0) -> Tuple[str, float]:
@@ -113,18 +116,18 @@ class OCRProcessor:
         if len(content) <= max_size_bytes:
             return self.run_google_vision_ocr(content)
 
-        print(f"   ⚠️ Размер изображения {len(content)/1024/1024:.1f}MB превышает лимит {max_size_mb}MB")
-        print("   🔧 Применяю интеллектуальное сжатие...")
+        self.logger.warning(f"   ⚠️ Размер изображения {len(content)/1024/1024:.1f}MB превышает лимит {max_size_mb}MB")
+        self.logger.info("   🔧 Применяю интеллектуальное сжатие...")
 
         # Загружаем изображение через Pillow
         with Image.open(io.BytesIO(content)) as img:
             # Конвертируем в RGB если нужно
             if img.mode not in ['RGB', 'L']:
-                print(f"   🎨 Конвертирую из {img.mode} в RGB")
+                self.logger.info(f"   🎨 Конвертирую из {img.mode} в RGB")
                 img = img.convert('RGB')
             
             original_size = img.size
-            print(f"   📏 Исходный размер: {original_size[0]}x{original_size[1]} пикселей")
+            self.logger.info(f"   📏 Исходный размер: {original_size[0]}x{original_size[1]} пикселей")
             
             # Для OCR оптимальное разрешение
             max_dimension = 2048  # Максимальная сторона
@@ -133,7 +136,7 @@ class OCRProcessor:
             ratio = min(max_dimension / original_size[0], max_dimension / original_size[1])
             if ratio < 1:
                 new_size = (int(original_size[0] * ratio), int(original_size[1] * ratio))
-                print(f"   📐 Изменяю размер до: {new_size[0]}x{new_size[1]} пикселей")
+                self.logger.info(f"   📐 Изменяю размер до: {new_size[0]}x{new_size[1]} пикселей")
                 img = img.resize(new_size, Image.Resampling.LANCZOS)
             
             # Пробуем разные уровни качества JPEG
@@ -145,14 +148,14 @@ class OCRProcessor:
                 compressed_content = buffer.getvalue()
                 
                 size_mb = len(compressed_content) / 1024 / 1024
-                print(f"   🎚️ Качество {quality}%: {size_mb:.1f}MB")
+                self.logger.info(f"   🎚️ Качество {quality}%: {size_mb:.1f}MB")
                 
                 if len(compressed_content) <= max_size_bytes:
-                    print(f"   ✅ Найден подходящий размер: {size_mb:.1f}MB при качестве {quality}%")
+                    self.logger.info(f"   ✅ Найден подходящий размер: {size_mb:.1f}MB при качестве {quality}%")
                     return self.run_google_vision_ocr(compressed_content)
             
             # Если даже при 70% качества размер большой, уменьшаем разрешение еще больше
-            print("   ⚠️ Требуется дополнительное уменьшение разрешения...")
+            self.logger.warning("   ⚠️ Требуется дополнительное уменьшение разрешения...")
             
             for max_dim in [1600, 1200, 1024, 800]:
                 ratio = min(max_dim / img.size[0], max_dim / img.size[1])
@@ -165,10 +168,10 @@ class OCRProcessor:
                     compressed_content = buffer.getvalue()
                     
                     size_mb = len(compressed_content) / 1024 / 1024
-                    print(f"   📏 Размер {new_size[0]}x{new_size[1]}: {size_mb:.1f}MB")
+                    self.logger.info(f"   📏 Размер {new_size[0]}x{new_size[1]}: {size_mb:.1f}MB")
                     
                     if len(compressed_content) <= max_size_bytes:
-                        print(f"   ✅ Успешное сжатие до {size_mb:.1f}MB")
+                        self.logger.info(f"   ✅ Успешное сжатие до {size_mb:.1f}MB")
                         return self.run_google_vision_ocr(compressed_content)
             
             raise RuntimeError("Не удалось сжать изображение до приемлемого размера")
@@ -182,10 +185,14 @@ class OCRProcessor:
         
         # Проверяем, есть ли уже обработанные результаты
         if date and self._check_existing_results(file_path, date):
-            print(f"   ⏭️ Вложение {file_name} уже обработано. Пропускаю.")
-            return self._get_existing_result(file_path, date)
+            existing_result = self._get_existing_result(file_path, date)
+            method = existing_result.get('method', 'unknown')
+            text_length = len(existing_result.get('text', ''))
+            self.logger.info(f"   📋 Файл уже обработан ранее, пропускаем...")
+            self.logger.info(f"   📄 Использован кэш: {method} ({text_length} символов)")
+            return existing_result
         
-        print(f"   🔄 Обрабатываю вложение {file_name} ({file_size_mb:.1f} MB)")
+        self.logger.info(f"   🔄 Обрабатываю вложение {file_name} ({file_size_mb:.1f} MB)")
         
         result = {
             "file_name": file_name,
@@ -204,12 +211,12 @@ class OCRProcessor:
         ts = time.time()
         try:
             if ext == ".docx":
-                print("   📄 Обработка DOCX локально...")
+                self.logger.info("   📄 Обработка DOCX локально...")
                 doc = DocxDocument(file_path)
                 text = "\n".join([p.text for p in doc.paragraphs])
                 method, confidence = "local_docx", 1.0
             elif ext == ".doc":
-                print("   📄 Обработка DOC (старый формат) через antiword...")
+                self.logger.info("   📄 Обработка DOC (старый формат) через antiword...")
                 if not shutil.which('antiword'):
                     raise FileNotFoundError("Утилита 'antiword' не найдена. Установите ее: brew install antiword")
                 process = subprocess.run(['antiword', str(file_path)], capture_output=True, text=True, encoding='utf-8', errors='ignore')
@@ -219,13 +226,13 @@ class OCRProcessor:
                     raise RuntimeError(f"Antiword вернул ошибку: {process.stderr}")
                 method, confidence = "local_doc_antiword", 1.0
             elif ext == ".xlsx":
-                print("   📄 Обработка XLSX локально...")
+                self.logger.info("   📄 Обработка XLSX локально...")
                 wb = openpyxl.load_workbook(file_path, data_only=True)
                 lines = [" | ".join([str(cell.value or "") for cell in row]) for sheet in wb.worksheets for row in sheet.iter_rows()]
                 text = "\n".join(lines)
                 method, confidence = "local_xlsx", 1.0
             elif ext == ".xls":
-                print("   📄 Обработка XLS (старый формат) локально...")
+                self.logger.info("   📄 Обработка XLS (старый формат) локально...")
                 if not XLRD_AVAILABLE: raise ImportError("Библиотека xlrd не найдена. Установите: pip install xlrd")
                 wb = xlrd.open_workbook(file_path, encoding_override="cp1251")
                 lines = []
@@ -237,21 +244,21 @@ class OCRProcessor:
 
             # <<< ИЗМЕНЕНИЕ: Самая надежная обработка PDF >>>
             elif ext == ".pdf":
-                print("   📄 Обработка PDF... Попытка извлечь текстовый слой.")
+                self.logger.info("   📄 Обработка PDF... Попытка извлечь текстовый слой.")
                 doc = fitz.open(file_path)
                 texts = [page.get_text() for page in doc]
                 full_text_direct = "\n\n".join(texts).strip()
                 
                 if len(full_text_direct) > 100:
-                    print("   ✅ Обнаружен текстовый слой. Извлечено локально.")
+                    self.logger.info("   ✅ Обнаружен текстовый слой. Извлечено локально.")
                     text, method, confidence = full_text_direct, "local_pdf_text", 1.0
                 else:
-                    print("   🖼️ Текстовый слой пуст. Конвертируем страницы PDF в картинки для Google Vision.")
+                    self.logger.info("   🖼️ Текстовый слой пуст. Конвертируем страницы PDF в картинки для Google Vision.")
                     all_pages_text = []
                     all_confidences = []
                     
                     for page_idx, page in enumerate(doc):
-                        print(f"     -- Обработка страницы {page_idx+1}/{len(doc)} --")
+                        self.logger.info(f"     -- Обработка страницы {page_idx+1}/{len(doc)} --")
                         
                         # Используем оптимальное DPI для OCR
                         dpi = 200  # Достаточно для качественного OCR
@@ -264,16 +271,16 @@ class OCRProcessor:
                             page_text, page_confidence = self.run_google_vision_ocr_with_smart_compression(img_bytes)
                             
                         except google_exceptions.InvalidArgument as e:
-                            print(f"     ❌ Ошибка Google Vision: {str(e)[:100]}...")
+                            self.logger.error(f"     ❌ Ошибка Google Vision: {str(e)[:100]}...")
                             
                             # Пробуем с еще меньшим DPI
-                            print("     🔧 Пробую с уменьшенным разрешением (150 DPI)...")
+                            self.logger.info("     🔧 Пробую с уменьшенным разрешением (150 DPI)...")
                             try:
                                 pix_low = page.get_pixmap(dpi=150)
                                 img_bytes_low = pix_low.tobytes("png")
                                 page_text, page_confidence = self.run_google_vision_ocr_with_smart_compression(img_bytes_low)
                             except Exception as e2:
-                                print(f"     ❌ Критическая ошибка: {e2}")
+                                self.logger.error(f"     ❌ Критическая ошибка: {e2}")
                                 page_text, page_confidence = f"[ОШИБКА ОБРАБОТКИ СТРАНИЦЫ]", 0.0
                         
                         all_pages_text.append(page_text)
@@ -284,12 +291,12 @@ class OCRProcessor:
                     method = "google_vision_pdf_optimized"
             
             elif ext in [".png", ".jpg", ".jpeg", ".tiff"]:
-                print(f"   🖼️ Обработка изображения ({ext}). Отправляем в Google Vision.")
+                self.logger.info(f"   🖼️ Обработка изображения ({ext}). Отправляем в Google Vision.")
                 try:
                     img_bytes = file_path.read_bytes()
                     text, confidence = self.run_google_vision_ocr_with_smart_compression(img_bytes)
                 except Exception as e:
-                    print(f"     ❌ Ошибка обработки изображения: {e}")
+                    self.logger.error(f"     ❌ Ошибка обработки изображения: {e}")
                     text, confidence = f"[ОШИБКА ОБРАБОТКИ ИЗОБРАЖЕНИЯ]", 0.0
                 method = "google_vision_image_optimized"
 
@@ -299,7 +306,7 @@ class OCRProcessor:
         except Exception as e:
             error = str(e)
             method = "error"
-            print(f"   ❌ Произошла ошибка: {e}")
+            self.logger.error(f"   ❌ Произошла ошибка: {e}")
 
         # Формируем результат
         result.update({
@@ -427,7 +434,7 @@ class OCRProcessor:
             json.dump(report_data, f, ensure_ascii=False, indent=2)
         
         # Выводим сообщение о сохранении
-        print(f"   ✅ Результаты распознавания сохранены")
+        self.logger.info(f"   ✅ Результаты распознавания сохранены")
     def _print_summary(self, date: str, stats: Dict):
         # ... без изменений ...
         print("\n" + "="*25 + f" 📊 ИТОГИ ТЕСТА ЗА {date} " + "="*25)
