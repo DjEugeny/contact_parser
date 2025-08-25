@@ -72,7 +72,7 @@ class ContactExtractor:
                 'model': "qwen/qwen3-235b-a22b:free",
                 'base_url': "https://openrouter.ai/api/v1/chat/completions",
                 'priority': 3,
-                'active': True,
+                'active': False,  # Временно отключен из-за проблем с авторизацией
                 'failure_count': 0,
                 'last_failure': None,
                 'headers': {
@@ -87,7 +87,7 @@ class ContactExtractor:
                 'api_key': os.getenv('GROQ_API_KEY', ''),
                 'model': os.getenv('GROQ_MODEL', 'llama3-8b-8192'),
                 'base_url': "https://api.groq.com/openai/v1/chat/completions",
-                'priority': 2,
+                'priority': 1,  # Первый приоритет после отключения OpenRouter
                 'active': True,
                 'failure_count': 0,
                 'last_failure': None,
@@ -101,7 +101,7 @@ class ContactExtractor:
                 'api_key': os.getenv('REPLICATE_API_TOKEN', ''),
                 'model': os.getenv('REPLICATE_MODEL', 'meta/meta-llama-3-8b-instruct'),
                 'base_url': "https://api.replicate.com/v1/predictions",
-                'priority': 1,
+                'priority': 2,  # Второй приоритет после Groq
                 'active': True,
                 'failure_count': 0,
                 'last_failure': None,
@@ -299,6 +299,23 @@ class ContactExtractor:
     def _make_llm_request_with_retries(self, prompt: str, text: str, max_retries: int = 3) -> dict:
         """🔄 Выполнение запроса к LLM с повторными попытками при ошибках валидации"""
         
+        # Тестовый режим - возвращаем заранее подготовленный результат
+        if self.test_mode:
+            return {
+                'contacts': [{
+                    'name': 'Тестовый Контакт',
+                    'email': 'test@example.com',
+                    'phone': '+7 (999) 123-45-67',
+                    'organization': 'Тестовая Организация',
+                    'position': 'Тестовая Должность',
+                    'city': 'Тестовый Город',
+                    'confidence': 0.95
+                }],
+                'business_context': 'Тестовый бизнес-контекст',
+                'recommended_actions': 'Тестовые рекомендации',
+                'provider_used': 'Test Mode'
+            }
+        
         for attempt in range(max_retries):
             try:
                 self.stats['total_requests'] += 1
@@ -385,22 +402,6 @@ class ContactExtractor:
     def _make_llm_request(self, prompt: str, text: str) -> dict:
         """🤖 Базовый запрос к LLM с поддержкой fallback"""
         
-        if self.test_mode:
-            return {
-                'contacts': [{
-                    'name': 'Тестовый Контакт',
-                    'email': 'test@example.com',
-                    'phone': '+7 (999) 123-45-67',
-                    'organization': 'Тестовая Организация',
-                    'position': 'Тестовая Должность',
-                    'city': 'Тестовый Город',
-                    'confidence': 0.95
-                }],
-                'business_context': 'Тестовый бизнес-контекст',
-                'recommended_actions': 'Тестовые рекомендации',
-                'provider_used': 'Test Mode'
-            }
-        
         # Получаем текущего провайдера
         current_provider = self.providers[self.current_provider]
         
@@ -427,11 +428,25 @@ class ContactExtractor:
                 }
             ]
             
+            # Адаптивный max_tokens для Groq с учетом лимитов
+            if self.current_provider == 'groq':
+                # Для Groq лимит 6000 токенов на запрос
+                estimated_input_tokens = len(f"{prompt}\n\n📧 ТЕКСТ ДЛЯ АНАЛИЗА:\n{text}") // 4  # Примерно 4 символа = 1 токен
+                max_output_tokens = min(2000, 6000 - estimated_input_tokens - 500)  # Оставляем запас
+                
+                if estimated_input_tokens > 5000:  # Если входной текст слишком большой
+                    print(f"⚠️ Groq: входной текст слишком большой ({estimated_input_tokens} токенов), используем разбивку")
+                    return self._process_large_text_for_groq(text, prompt, metadata={})
+                    
+                max_output_tokens = max(500, max_output_tokens)  # Минимум 500 токенов для ответа
+            else:
+                max_output_tokens = 4000
+            
             payload = {
                 "model": current_provider['model'],
                 "messages": messages,
                 "temperature": 0.1,
-                "max_tokens": 4000
+                "max_tokens": max_output_tokens
             }
         
         # Формируем заголовки для текущего провайдера
@@ -446,12 +461,13 @@ class ContactExtractor:
             headers["X-Title"] = "Contact Parser"
         
         try:
-            # Выполняем запрос
+            # Выполняем запрос с обработкой SSL ошибок
             response = requests.post(
                 current_provider['base_url'],
                 headers=headers,
                 json=payload,
-                timeout=60
+                timeout=60,
+                verify=True  # Включаем проверку SSL сертификатов
             )
             
             # Специальная обработка rate limit (HTTP 429)
@@ -522,10 +538,46 @@ class ContactExtractor:
                 content = response_data['choices'][0]['message']['content']
             
             # Парсим JSON из ответа
-            result = self._parse_llm_response(content)
-            result['provider_used'] = current_provider['name']
+            try:
+                result = self._parse_llm_response(content)
+                result['provider_used'] = current_provider['name']
+                return result
+            except ValueError as parse_error:
+                # Обработка ошибок парсинга JSON
+                current_provider['failure_count'] += 1
+                current_provider['last_failure'] = datetime.now().isoformat()
+                self.stats['provider_failures'][self.current_provider] += 1
+                
+                print(f"❌ Ошибка парсинга ответа от {current_provider['name']}: {parse_error}")
+                raise Exception(f"Ошибка парсинга JSON: {parse_error}")
             
-            return result
+        except requests.exceptions.SSLError as ssl_error:
+            # Специальная обработка SSL ошибок
+            current_provider['failure_count'] += 1
+            current_provider['last_failure'] = datetime.now().isoformat()
+            self.stats['provider_failures'][self.current_provider] += 1
+            
+            print(f"🔒 SSL ошибка провайдера {current_provider['name']}: {ssl_error}")
+            print(f"💡 Попробуйте проверить сетевое соединение или настройки SSL")
+            raise Exception(f"SSL record layer failure: {ssl_error}")
+            
+        except requests.exceptions.ConnectionError as conn_error:
+            # Обработка ошибок соединения
+            current_provider['failure_count'] += 1
+            current_provider['last_failure'] = datetime.now().isoformat()
+            self.stats['provider_failures'][self.current_provider] += 1
+            
+            print(f"🌐 Ошибка соединения с провайдером {current_provider['name']}: {conn_error}")
+            raise Exception(f"Connection error: {conn_error}")
+            
+        except requests.exceptions.Timeout as timeout_error:
+            # Обработка таймаутов
+            current_provider['failure_count'] += 1
+            current_provider['last_failure'] = datetime.now().isoformat()
+            self.stats['provider_failures'][self.current_provider] += 1
+            
+            print(f"⏰ Таймаут провайдера {current_provider['name']}: {timeout_error}")
+            raise Exception(f"Request timeout: {timeout_error}")
             
         except Exception as e:
             # Увеличиваем счетчик ошибок провайдера
@@ -554,7 +606,7 @@ class ContactExtractor:
         
         while time.time() - start_time < max_wait:
             try:
-                response = requests.get(status_url, headers=headers, timeout=30)
+                response = requests.get(status_url, headers=headers, timeout=30, verify=True)
                 
                 if response.status_code != 200:
                     raise Exception(f"Ошибка при получении статуса Replicate: HTTP {response.status_code}")
@@ -583,10 +635,109 @@ class ContactExtractor:
                 else:
                     raise Exception(f"Неизвестный статус Replicate: {status}")
                     
+            except requests.exceptions.SSLError as ssl_error:
+                print(f"🔒 SSL ошибка при ожидании результата Replicate: {ssl_error}")
+                raise Exception(f"SSL record layer failure при ожидании результата: {ssl_error}")
+                
+            except requests.exceptions.ConnectionError as conn_error:
+                print(f"🌐 Ошибка соединения при ожидании результата Replicate: {conn_error}")
+                raise Exception(f"Connection error при ожидании результата: {conn_error}")
+                
+            except requests.exceptions.Timeout as timeout_error:
+                print(f"⏰ Таймаут при ожидании результата Replicate: {timeout_error}")
+                raise Exception(f"Request timeout при ожидании результата: {timeout_error}")
+                
             except requests.RequestException as e:
                 raise Exception(f"Ошибка сети при ожидании результата Replicate: {e}")
         
         raise Exception(f"Превышено время ожидания результата от Replicate ({max_wait} сек)")
+    
+    def _process_large_text_for_groq(self, text: str, prompt: str, metadata: dict = None) -> dict:
+        """🔄 Обработка больших текстов для Groq с разбивкой на части"""
+        
+        # Разбиваем текст на части по 3000 символов (примерно 750 токенов)
+        chunk_size = 3000
+        text_chunks = []
+        
+        for i in range(0, len(text), chunk_size):
+            chunk = text[i:i + chunk_size]
+            text_chunks.append(chunk)
+        
+        print(f"📄 Groq: разбиваем текст на {len(text_chunks)} частей")
+        
+        all_contacts = []
+        all_business_contexts = []
+        all_recommendations = []
+        
+        # Обрабатываем каждую часть отдельно
+        for i, chunk in enumerate(text_chunks):
+            print(f"⏳ Groq: обрабатываем часть {i+1}/{len(text_chunks)}")
+            
+            try:
+                # Временно сохраняем текущий провайдер
+                original_provider = self.current_provider
+                
+                # Принудительно используем Groq для этой части
+                self.current_provider = 'groq'
+                
+                # Делаем запрос для части текста
+                chunk_result = self._make_llm_request(prompt, chunk)
+                
+                # Восстанавливаем провайдера
+                self.current_provider = original_provider
+                
+                # Собираем результаты
+                if 'contacts' in chunk_result and chunk_result['contacts']:
+                    all_contacts.extend(chunk_result['contacts'])
+                
+                if 'business_context' in chunk_result:
+                    all_business_contexts.append(chunk_result['business_context'])
+                
+                if 'recommended_actions' in chunk_result:
+                    all_recommendations.append(chunk_result['recommended_actions'])
+                    
+            except Exception as e:
+                print(f"❌ Ошибка при обработке части {i+1}: {e}")
+                continue
+        
+        # Объединяем результаты
+        combined_result = {
+            'contacts': self._deduplicate_contacts(all_contacts),
+            'business_context': ' | '.join(all_business_contexts) if all_business_contexts else 'Контекст не определен',
+            'recommended_actions': ' | '.join(all_recommendations) if all_recommendations else 'Рекомендации не определены',
+            'provider_used': 'Groq (chunked)',
+            'chunks_processed': len(text_chunks),
+            'total_contacts_found': len(all_contacts)
+        }
+        
+        print(f"✅ Groq: обработка завершена, найдено {len(all_contacts)} контактов")
+        return combined_result
+    
+    def _deduplicate_contacts(self, contacts: list) -> list:
+        """🔄 Удаление дубликатов контактов по email и телефону"""
+        seen = set()
+        unique_contacts = []
+        
+        for contact in contacts:
+            # Создаем ключ для идентификации дубликатов
+            key_parts = []
+            if contact.get('email'):
+                key_parts.append(contact['email'].lower().strip())
+            if contact.get('phone'):
+                # Нормализуем телефон (убираем пробелы, скобки, дефисы)
+                phone_normalized = ''.join(filter(str.isdigit, contact['phone']))
+                key_parts.append(phone_normalized)
+            
+            if key_parts:
+                contact_key = '|'.join(key_parts)
+                if contact_key not in seen:
+                    seen.add(contact_key)
+                    unique_contacts.append(contact)
+            else:
+                # Если нет email и телефона, добавляем как есть
+                unique_contacts.append(contact)
+        
+        return unique_contacts
     
     def _parse_llm_response(self, response_text: str) -> dict:
         """📝 Парсинг ответа LLM с строгой валидацией JSON"""
@@ -831,6 +982,17 @@ class ContactExtractor:
             # Выполняем запрос с повторными попытками
             result = self._make_llm_request_with_retries(prompt, text)
             
+            # Проверяем, что result является словарем
+            if not isinstance(result, dict):
+                print(f"❌ Неожиданный тип результата: {type(result)}")
+                return {
+                    'contacts': [],
+                    'business_context': f'Ошибка: получен {type(result)} вместо dict',
+                    'recommended_actions': 'Проверить логику обработки ответа LLM',
+                    'error': f'Invalid result type: {type(result)}',
+                    'provider_used': 'Error'
+                }
+            
             # Добавляем метаинформацию
             result['provider_used'] = provider_info
             result['processing_time'] = datetime.now().isoformat()
@@ -838,7 +1000,7 @@ class ContactExtractor:
             
             # Статистика
             contacts_count = len(result.get('contacts', []))
-            print(f"   ✅ Найдено контактов: {contacts_count}")
+            print(f"   ✅ Извлечено контактов: {contacts_count}")
             print(f"   🤖 Провайдер: {provider_info}")
             
             return result
