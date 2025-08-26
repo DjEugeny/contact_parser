@@ -25,6 +25,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Set
 from dotenv import load_dotenv
 from PIL import Image
+from text_cleaner import EmailTextCleaner
 
 # Загружаем переменные окружения
 load_dotenv()
@@ -299,6 +300,9 @@ class AdvancedEmailFetcherV2:
 
         # Инициализируем фильтры
         self.filters = EmailFilters(self.config_dir, self.logger)
+        
+        # Инициализируем очиститель текста
+        self.text_cleaner = EmailTextCleaner(self.logger)
 
         # 🔧 ИСПРАВЛЕНИЕ: список специфических исключаемых файлов
         self.specific_excluded_files = {
@@ -979,7 +983,7 @@ class AdvancedEmailFetcherV2:
             return val or ''
 
     def extract_plain_text(self, msg: email.message.Message, include_attachment_data: bool = False) -> str:
-        """📄 Извлечение текста письма"""
+        """📄 Извлечение и очистка текста письма с использованием EmailTextCleaner"""
         text_parts = []
         max_len = 500_000
         
@@ -999,11 +1003,15 @@ class AdvancedEmailFetcherV2:
                             charset = part.get_content_charset() or 'utf-8'
                             chunk = raw.decode(charset, errors='ignore')
                             
+                            # Используем новый очиститель текста
                             if ctype == 'text/html':
-                                chunk = re.sub(r'<[^>]+>', '', chunk)
-                                chunk = re.sub(r'&[a-z]+;', ' ', chunk)
+                                chunk = self.text_cleaner.clean_html_aggressively(chunk)
+                            else:
+                                # Для простого текста применяем базовую очистку
+                                chunk = chunk.strip()
                             
-                            text_parts.append(chunk)
+                            if chunk.strip():  # Добавляем только непустые части
+                                text_parts.append(chunk)
                         except Exception as e:
                             self.logger.warning(f"⚠️ Ошибка извлечения текста: {e}")
                             continue
@@ -1012,11 +1020,30 @@ class AdvancedEmailFetcherV2:
                     raw = msg.get_payload(decode=True)
                     if raw:
                         charset = msg.get_content_charset() or 'utf-8'
-                        text_parts.append(raw.decode(charset, errors='ignore'))
+                        chunk = raw.decode(charset, errors='ignore')
+                        
+                        # Определяем тип контента и очищаем соответственно
+                        ctype = msg.get_content_type()
+                        if ctype == 'text/html':
+                            chunk = self.text_cleaner.clean_html_aggressively(chunk)
+                        else:
+                            # Для простого текста применяем базовую очистку
+                            chunk = chunk.strip()
+                        
+                        if chunk.strip():
+                            text_parts.append(chunk)
                 except Exception as e:
                     self.logger.warning(f"⚠️ Ошибка извлечения простого текста: {e}")
 
+            # Объединяем все части и применяем финальную очистку
             full_text = '\n'.join(text_parts)
+            
+            # Применяем дополнительную очистку для удаления повторяющихся подписей
+            full_text = self.text_cleaner.remove_signatures(full_text)
+            
+            # Извлекаем только осмысленный контент
+            full_text = self.text_cleaner.extract_meaningful_content(full_text)
+            
             return full_text[:max_len].strip()
         
         except Exception as e:
@@ -1611,6 +1638,47 @@ class AdvancedEmailFetcherV2:
 
                     except Exception as e:
                         self.logger.error(f"❌ Ошибка обработки вложений: {e}")
+                elif scenario == 'download_json':
+                    # ✅ ИСПРАВЛЕНИЕ КРИТИЧЕСКОГО БАГА: Собираем информацию о существующих вложениях
+                    self.logger.info("📎 Сбор информации о существующих вложениях...")
+                    try:
+                        attachments_path = self.data_dir / 'attachments' / date_folder
+                        if attachments_path.exists():
+                            # Ищем файлы вложений по thread_id
+                            attachment_files = list(attachments_path.glob(f"*{thread_id}*"))
+                            
+                            for attachment_file in attachment_files:
+                                # Восстанавливаем информацию о вложении из имени файла
+                                filename = attachment_file.name
+                                file_size = attachment_file.stat().st_size
+                                
+                                # Парсим имя файла для извлечения оригинального имени
+                                # Формат: {timestamp}_{thread_id}_{original_filename}
+                                parts = filename.split('_', 2)
+                                if len(parts) >= 3:
+                                    original_filename = parts[2]
+                                else:
+                                    original_filename = filename
+                                
+                                attachment_info = {
+                                    'filename': original_filename,
+                                    'saved_filename': filename,
+                                    'size': file_size,
+                                    'path': str(attachment_file.relative_to(self.data_dir)),
+                                    'status': 'saved',
+                                    'type': 'existing_attachment'
+                                }
+                                
+                                attachments.append(attachment_info)
+                                attachments_stats['total'] += 1
+                                attachments_stats['saved'] += 1
+                                
+                            self.logger.info(f"📎 Найдено существующих вложений: {len(attachment_files)}")
+                        else:
+                            self.logger.info(f"📎 Папка вложений не найдена: {attachments_path}")
+                            
+                    except Exception as e:
+                        self.logger.error(f"❌ Ошибка сбора информации о существующих вложениях: {e}")
                 else:
                     self.logger.info(f"⏭️ Пропускаем обработку вложений (сценарий: {scenario})")
 
@@ -2019,8 +2087,8 @@ def main():
             return
     else:
         # Настройки периода для тестирования по умолчанию
-        start_date = datetime(2025, 8, 20)
-        end_date = datetime(2025, 8, 20)
+        start_date = datetime(2025, 7, 1)
+        end_date = datetime(2025, 8, 24)
 
     # Настраиваем логирование ПЕРЕД созданием fetcher'а
     logs_dir = Path("data/logs")

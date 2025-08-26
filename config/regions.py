@@ -75,10 +75,20 @@ def calculate_contact_priority(contact_data: dict, business_context: dict) -> di
     score = 0.0
     factors = []
     
+    # Проверяем, что business_context не None
+    if business_context is None:
+        business_context = {}
+    
     # 1. Региональный фактор (40% веса)
     region_info = calculate_region_priority(business_context.get('region', ''))
     score += region_info['score'] * 0.4
-    factors.append(f"region_{region_info['level'].split()[1].lower()}")
+    
+    # Безопасное извлечение уровня региона
+    level_parts = region_info['level'].split()
+    if len(level_parts) > 1:
+        factors.append(f"region_{level_parts[1].lower()}")
+    else:
+        factors.append(f"region_{level_parts[0].lower()}")
     
     # 2. ДНК-оборудование (30% веса)
     equipment = business_context.get('equipment_type', '').lower()

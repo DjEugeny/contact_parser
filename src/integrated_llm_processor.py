@@ -19,6 +19,7 @@ from ocr_processor_adapter import OCRProcessorAdapter
 from llm_extractor import ContactExtractor
 from rate_limit_manager import RateLimitManager
 from config.regions import calculate_contact_priority
+from advanced_deduplication import AdvancedContactDeduplicator
 
 # Загружаем переменные окружения
 load_dotenv()
@@ -34,6 +35,7 @@ class IntegratedLLMProcessor:
         self.contact_extractor = ContactExtractor(test_mode=test_mode)
         self.rate_limit_manager = RateLimitManager()  # Адаптивное управление rate limit
         self.test_mode = test_mode  # Режим тестирования без LLM для других операций
+        self.advanced_deduplicator = AdvancedContactDeduplicator()
         
         # Папки для результатов
         current_file = Path(__file__)
@@ -537,8 +539,13 @@ class IntegratedLLMProcessor:
                     'commercial_offer': commercial_analysis
                 })
         
-        # Дедупликация контактов
-        unique_contacts = self._deduplicate_contacts(all_contacts)
+        # Дедупликация контактов - используем продвинутый алгоритм для больших писем
+        total_text_size = sum(result.get('combined_text_length', 0) for result in processed_results)
+        if total_text_size > 50000:  # Для больших писем используем продвинутую дедупликацию
+            print(f"   🔍 Большой объем текста ({total_text_size} символов) - используем продвинутую дедупликацию")
+            unique_contacts = self.advanced_deduplicator.deduplicate_contacts(all_contacts)
+        else:
+            unique_contacts = self._deduplicate_contacts(all_contacts)
         
         # Группируем контакты по приоритету
         contacts_by_priority = {

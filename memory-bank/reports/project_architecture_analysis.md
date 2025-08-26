@@ -1,6 +1,6 @@
 # 📊 Анализ архитектуры проекта Contact Parser
 
-**Дата создания:** 2025-08-24 11:03 (UTC+07)  
+**Дата создания:** 2025-08-26 11:03 (UTC+07)  
 **Версия:** 1.0  
 **Статус:** Полный анализ архитектуры и потока данных
 
@@ -179,11 +179,9 @@ data/
 │       └── ...
 └── attachments/
     └── YYYY-MM-DD/
-        ├── thread_001/
-        │   ├── document.pdf
-        │   └── image.png
-        └── thread_002/
-            └── spreadsheet.xlsx
+        ├── document.pdf
+        ├── image.png
+        └── spreadsheet.xlsx
 ```
 
 ### Промежуточные данные:
@@ -191,8 +189,8 @@ data/
 data/final_results/
 ├── texts/
 │   └── YYYY-MM-DD/
-│       ├── ocr_results_001.json
-│       └── ocr_results_002.json
+│       ├── ocr_results_001.txt
+│       └── ocr_results_002.txt
 └── reports/
     └── YYYY-MM-DD/
         └── ocr_summary.json
@@ -215,9 +213,9 @@ data/final_results/
 ### Переменные окружения (.env):
 ```
 # IMAP настройки
-IMAP_SERVER=imap.gmail.com
-IMAP_PORT=993
-IMAP_USER=your-email@gmail.com
+IMAP_SERVER=mail.dna-technology.ru
+IMAP_PORT=143
+IMAP_USER=s.voronova@dna-technology.ru
 IMAP_PASSWORD=your-app-password
 
 # Google Sheets

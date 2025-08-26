@@ -11,9 +11,19 @@ import requests
 from pathlib import Path
 from typing import Dict, List, Optional, Any
 from datetime import datetime
+import asyncio
+import concurrent.futures
+from functools import partial
 
 from dotenv import load_dotenv
 import os
+
+# Импорт для токен-ориентированного chunking
+try:
+    import tiktoken
+except ImportError:
+    tiktoken = None
+    print("⚠️ tiktoken не установлен, используется символьный chunking")
 
 # Загружаем переменные окружения
 load_dotenv()
@@ -291,6 +301,204 @@ class ContactExtractor:
         
         return len(digits) >= 7 and len(digits) <= 15 and digits.isdigit()
 
+    def _load_chunking_config(self) -> dict:
+        """📁 Загрузка конфигурации chunking из processing_config.json"""
+        try:
+            config_path = Path(__file__).parent.parent / "config" / "processing_config.json"
+            if config_path.exists():
+                with open(config_path, 'r', encoding='utf-8') as f:
+                    config = json.load(f)
+                    return config.get('chunking', {})
+            else:
+                print(f"⚠️ Файл конфигурации не найден: {config_path}")
+                return {}
+        except Exception as e:
+            print(f"❌ Ошибка загрузки конфигурации chunking: {e}")
+            return {}
+    
+    def _create_text_chunks(self, text: str, config: dict) -> List[str]:
+        """✂️ Создание частей текста с токен-ориентированным или символьным chunking"""
+        
+        # Параметры по умолчанию
+        default_config = {
+            'use_token_based': True,
+            'max_tokens_per_chunk': 3000,
+            'overlap_tokens': 300,
+            'max_chunks_per_text': 20,
+            'encoding_model': 'cl100k_base',
+            'auto_adjust_chunk_size': True,
+            'min_chunk_size': 1000,
+            'max_chunk_size': 6000
+        }
+        
+        # Объединяем с загруженной конфигурацией
+        chunking_config = {**default_config, **config}
+        
+        # Выбираем метод chunking
+        if tiktoken and chunking_config.get('use_token_based', True):
+            return self._create_token_based_chunks(text, chunking_config)
+        else:
+            return self._create_character_based_chunks(text, chunking_config)
+    
+    def _create_token_based_chunks(self, text: str, config: dict) -> List[str]:
+        """🎯 Токен-ориентированное разбиение текста с контролем числа чанков"""
+        
+        try:
+            # Инициализируем энкодер
+            encoding = tiktoken.get_encoding(config.get('encoding_model', 'cl100k_base'))
+            
+            # Кодируем весь текст
+            tokens = encoding.encode(text)
+            total_tokens = len(tokens)
+            
+            print(f"   🎯 Токен-ориентированное разбиение: {total_tokens} токенов")
+            
+            # Параметры chunking
+            max_tokens = config.get('max_tokens_per_chunk', 3000)
+            overlap_tokens = config.get('overlap_tokens', 300)
+            max_chunks = config.get('max_chunks_per_text', 20)
+            
+            # Контроль числа чанков
+            chunk_alert_threshold = config.get('chunk_alert_threshold', 20)
+            chunk_abort_threshold = config.get('chunk_abort_threshold', 50)
+            allow_chunk_abort = config.get('allow_chunk_abort', True)
+            
+            # Предварительная оценка количества чанков
+            estimated_chunks = max(1, total_tokens // (max_tokens - overlap_tokens))
+            
+            print(f"   📊 Предварительная оценка: ~{estimated_chunks} чанков")
+            
+            # Alert при превышении порога
+            if estimated_chunks > chunk_alert_threshold:
+                print(f"   ⚠️ ВНИМАНИЕ: Ожидается {estimated_chunks} чанков (>{chunk_alert_threshold})")
+                print(f"   📈 Это может привести к высокому потреблению API токенов")
+            
+            # Прерывание при критическом превышении
+            if allow_chunk_abort and estimated_chunks > chunk_abort_threshold:
+                print(f"   🚫 КРИТИЧЕСКОЕ ПРЕВЫШЕНИЕ: {estimated_chunks} чанков (>{chunk_abort_threshold})")
+                print(f"   ⛔ Обработка прервана для защиты от чрезмерного потребления API")
+                print(f"   💡 Рекомендация: увеличьте max_tokens_per_chunk или уменьшите размер текста")
+                
+                # Возвращаем только первые несколько чанков как fallback
+                fallback_chunks = min(5, chunk_abort_threshold // 2)
+                print(f"   🔄 Fallback: создаем только {fallback_chunks} чанков")
+                max_chunks = fallback_chunks
+            
+            # Автоматическая корректировка размера chunk для очень больших текстов
+            if config.get('auto_adjust_chunk_size', True) and total_tokens > max_tokens * max_chunks:
+                adjusted_max_tokens = min(
+                    config.get('max_chunk_size', 6000),
+                    total_tokens // max_chunks + overlap_tokens
+                )
+                if adjusted_max_tokens > max_tokens:
+                    max_tokens = adjusted_max_tokens
+                    print(f"   📈 Автокорректировка: увеличен размер chunk до {max_tokens} токенов")
+            
+            chunks = []
+            start_token = 0
+            smart_boundary_detection = config.get('smart_boundary_detection', True)
+            
+            while start_token < total_tokens and len(chunks) < max_chunks:
+                # Определяем конец текущего chunk
+                end_token = min(start_token + max_tokens, total_tokens)
+                
+                # Умное определение границ для лучшего разбиения
+                if smart_boundary_detection and end_token < total_tokens:
+                    # Декодируем область вокруг предполагаемой границы
+                    boundary_start = max(0, end_token - 100)
+                    boundary_end = min(total_tokens, end_token + 100)
+                    boundary_text = encoding.decode(tokens[boundary_start:boundary_end])
+                    
+                    # Ищем лучшие места для разрыва (в порядке приоритета)
+                    boundary_patterns = [
+                        r'\n\n',  # Двойной перенос строки (новый абзац)
+                        r'\n[A-ZА-Я]',  # Начало нового предложения с заглавной буквы
+                        r'\. [A-ZА-Я]',  # Конец предложения + начало нового
+                        r'\n',  # Обычный перенос строки
+                        r'[.!?] ',  # Конец предложения
+                        r', ',  # Запятая
+                    ]
+                    
+                    best_boundary = None
+                    relative_pos = end_token - boundary_start
+                    
+                    for pattern in boundary_patterns:
+                        matches = list(re.finditer(pattern, boundary_text))
+                        if matches:
+                            # Ищем ближайшее совпадение к нашей позиции
+                            closest_match = min(matches, key=lambda m: abs(m.start() - relative_pos))
+                            if abs(closest_match.start() - relative_pos) <= 50:  # В пределах 50 символов
+                                best_boundary = boundary_start + closest_match.end()
+                                break
+                    
+                    if best_boundary and boundary_start <= best_boundary <= boundary_end:
+                        end_token = best_boundary
+                        print(f"   🎯 Умная граница найдена на токене {end_token}")
+                
+                # Извлекаем токены для текущего chunk
+                chunk_tokens = tokens[start_token:end_token]
+                
+                # Декодируем обратно в текст
+                chunk_text = encoding.decode(chunk_tokens)
+                
+                # Добавляем информацию о части
+                chunk_info = f"\n\n[ЧАСТЬ {len(chunks) + 1} ИЗ БОЛЬШОГО ПИСЬМА, ТОКЕНЫ {start_token}-{end_token}]\n"
+                chunk_with_info = chunk_info + chunk_text
+                
+                chunks.append(chunk_with_info)
+                
+                # Следующая часть с перекрытием
+                start_token = end_token - overlap_tokens
+                if start_token >= total_tokens:
+                    break
+            
+            print(f"   ✅ Создано {len(chunks)} частей (токен-ориентированный метод)")
+            return chunks
+            
+        except Exception as e:
+            print(f"❌ Ошибка токен-ориентированного chunking: {e}")
+            print("🔄 Переключение на символьный chunking")
+            return self._create_character_based_chunks(text, config)
+    
+    def _create_character_based_chunks(self, text: str, config: dict) -> List[str]:
+        """📝 Символьное разбиение текста (fallback метод)"""
+        
+        # Адаптивные размеры в зависимости от провайдера
+        if self.current_provider == 'replicate':
+            base_chunk_size = 6000
+            base_overlap = 600
+        else:
+            base_chunk_size = 4000
+            base_overlap = 400
+        
+        # Применяем настройки из конфигурации если есть
+        chunk_size = config.get('max_chunk_size', base_chunk_size)
+        overlap = min(config.get('overlap_tokens', base_overlap), chunk_size // 10)
+        max_chunks = config.get('max_chunks_per_text', 20)
+        
+        print(f"   📝 Символьное разбиение: {len(text)} символов, chunk_size={chunk_size}")
+        
+        chunks = []
+        start = 0
+        
+        while start < len(text) and len(chunks) < max_chunks:
+            end = min(start + chunk_size, len(text))
+            chunk = text[start:end]
+            
+            # Добавляем информацию о части
+            chunk_info = f"\n\n[ЧАСТЬ {len(chunks) + 1} ИЗ БОЛЬШОГО ПИСЬМА, СИМВОЛЫ {start}-{end}]\n"
+            chunk_with_info = chunk_info + chunk
+            
+            chunks.append(chunk_with_info)
+            
+            # Следующая часть с перекрытием
+            start = end - overlap
+            if start >= len(text):
+                break
+        
+        print(f"   ✅ Создано {len(chunks)} частей (символьный метод)")
+        return chunks
+
     def _make_llm_request_with_retries(self, prompt: str, text: str, max_retries: int = 3) -> dict:
         """🔄 Выполнение запроса к LLM с повторными попытками при ошибках валидации"""
         
@@ -317,7 +525,15 @@ class ContactExtractor:
                 if attempt > 0:
                     self.stats['retry_attempts'] += 1
                     print(f"🔄 Повторная попытка {attempt + 1}/{max_retries}")
-                    time.sleep(2 ** attempt)  # Экспоненциальная задержка
+                    
+                    # Увеличенные задержки для Replicate
+                    if self.current_provider == 'replicate':
+                        delay = min(5 * (2 ** attempt), 60)  # От 10 до 60 секунд
+                    else:
+                        delay = 2 ** attempt  # Стандартная экспоненциальная задержка
+                    
+                    print(f"⏳ Ожидание {delay} секунд перед повтором...")
+                    time.sleep(delay)
                 
                 # Выполняем запрос
                 result = self._make_llm_request(prompt, text)
@@ -455,6 +671,15 @@ class ContactExtractor:
             headers["HTTP-Referer"] = "https://github.com/contact-parser"
             headers["X-Title"] = "Contact Parser"
         
+        # Расширенное логирование для Replicate
+        if self.current_provider == 'replicate':
+            print(f"🔧 Replicate запрос:")
+            print(f"   URL: {current_provider['base_url']}")
+            print(f"   Model: {current_provider['model']}")
+            print(f"   Payload size: {len(str(payload))} символов")
+            print(f"   Text length: {len(text)} символов")
+            print(f"   Headers: {list(headers.keys())}")
+        
         try:
             # Выполняем запрос с обработкой SSL ошибок
             response = requests.post(
@@ -464,6 +689,10 @@ class ContactExtractor:
                 timeout=60,
                 verify=True  # Включаем проверку SSL сертификатов
             )
+            
+            # Дополнительное логирование для Replicate
+            if self.current_provider == 'replicate':
+                print(f"📡 Replicate ответ: status={response.status_code}, size={len(response.text)} символов")
             
             # Специальная обработка rate limit (HTTP 429)
             if response.status_code == 429:
@@ -594,7 +823,7 @@ class ContactExtractor:
             print(f"❌ Ошибка провайдера {current_provider['name']}: {e}")
             raise e
     
-    def _wait_for_replicate_result(self, prediction_id: str, provider_config: dict, max_wait: int = 300) -> str:
+    def _wait_for_replicate_result(self, prediction_id: str, provider_config: dict, max_wait: int = 600) -> str:
         """⏳ Ожидание результата от Replicate API"""
         import time
         
@@ -661,8 +890,8 @@ class ContactExtractor:
     def _process_large_text_for_groq(self, text: str, prompt: str, metadata: dict = None) -> dict:
         """🔄 Обработка больших текстов для Groq с разбивкой на части"""
         
-        # Разбиваем текст на части по 3000 символов (примерно 750 токенов)
-        chunk_size = 3000
+        # Разбиваем текст на части по 2000 символов для стабильности (примерно 500 токенов)
+        chunk_size = 2000
         text_chunks = []
         
         for i in range(0, len(text), chunk_size):
@@ -753,12 +982,32 @@ class ContactExtractor:
         print(f"'{response_text[:500]}{'...' if len(response_text) > 500 else ''}'")
         
         try:
+            # Очистка ответа для Replicate
+            if self.current_provider == 'replicate':
+                # Убираем возможные префиксы и суффиксы
+                response_text = response_text.strip()
+                # Убираем markdown блоки если есть
+                response_text = re.sub(r'^```json\s*', '', response_text, flags=re.MULTILINE)
+                response_text = re.sub(r'\s*```$', '', response_text, flags=re.MULTILINE)
+                # Убираем возможные текстовые пояснения до JSON
+                response_text = re.sub(r'^[^{]*(?=\{)', '', response_text, flags=re.DOTALL)
+            
             # Ищем JSON в ответе
             json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
             if json_match:
                 json_str = json_match.group()
                 print(f"🔍 Найденный JSON: {json_str[:200]}{'...' if len(json_str) > 200 else ''}")
-                result = json.loads(json_str)  # Post-валидация JSON
+                
+                # Попытка парсинга с обработкой ошибок
+                try:
+                    result = json.loads(json_str)
+                except json.JSONDecodeError as e:
+                    print(f"❌ Ошибка парсинга JSON: {e}")
+                    # Попытка исправить распространенные ошибки
+                    json_str = json_str.replace("'", '"')  # Одинарные кавычки
+                    json_str = re.sub(r',\s*}', '}', json_str)  # Лишние запятые
+                    json_str = re.sub(r',\s*]', ']', json_str)  # Лишние запятые в массивах
+                    result = json.loads(json_str)
                 
                 # Дополнительная проверка структуры
                 if not isinstance(result, dict):
@@ -799,94 +1048,270 @@ class ContactExtractor:
         return response
     
     def _process_large_text(self, text: str, prompt: str, metadata: dict = None) -> dict:
-        """📄 Обработка больших текстов через разбивку на части с оптимизацией памяти"""
+        """📄 Обработка больших текстов через токен-ориентированную разбивку на части с оптимизацией памяти"""
         
-        # Оптимизированные размеры для предотвращения `zsh: killed`
-        chunk_size = 8000   # Уменьшено для экономии памяти
-        overlap = 800       # Пропорционально уменьшено
+        # Проверка тестового режима
+        if self.test_mode:
+            print("   🧪 Тестовый режим: возвращаем тестовые данные для большого текста")
+            return {
+                'success': True,
+                'contacts': [{
+                    'name': 'Тестовый Контакт',
+                    'email': 'test@example.com',
+                    'phone': '+7 (999) 123-45-67',
+                    'organization': 'Тестовая Организация',
+                    'position': 'Тестовая Должность',
+                    'city': 'Тестовый Город',
+                    'confidence': 0.95
+                }],
+                'business_context': 'Тестовый бизнес-контекст для большого текста',
+                'recommended_actions': 'Тестовые рекомендации для большого текста',
+                'provider_used': 'Test Mode'
+            }
         
         import gc  # Для принудительной очистки памяти
         
-        # Разбиваем текст на части
-        chunks = []
-        start = 0
+        # Загружаем конфигурацию chunking
+        chunking_config = self._load_chunking_config()
         
-        while start < len(text):
-            end = min(start + chunk_size, len(text))
-            chunk = text[start:end]
-            
-            # Добавляем информацию о части
-            chunk_info = f"\n\n[ЧАСТЬ {len(chunks) + 1} ИЗ БОЛЬШОГО ПИСЬМА, СИМВОЛЫ {start}-{end}]\n"
-            chunk = chunk_info + chunk
-            
-            chunks.append(chunk)
-            
-            # Следующая часть с перекрытием
-            start = end - overlap
-            if start >= len(text):
-                break
+        # Специальная обработка для очень больших текстов (250K+ символов)
+        text_length = len(text)
+        very_large_threshold = chunking_config.get('very_large_text_threshold', 250000)
         
-        print(f"   📊 Разбито на {len(chunks)} частей по ~{chunk_size} символов")
+        if text_length > very_large_threshold:
+            print(f"   🔥 ОЧЕНЬ БОЛЬШОЙ ТЕКСТ: {text_length} символов (>{very_large_threshold})")
+            # Применяем специальные настройки для очень больших текстов
+            chunking_config.update({
+                'max_tokens_per_chunk': chunking_config.get('very_large_max_tokens_per_chunk', 6000),
+                'overlap_tokens': chunking_config.get('very_large_overlap_tokens', 600),
+                'max_chunks_per_text': chunking_config.get('very_large_max_chunks', 50)
+            })
         
-        # Обрабатываем каждую часть
+        # Создаем части текста
+        chunks = self._create_text_chunks(text, chunking_config)
+        
+        print(f"   📊 Разбито на {len(chunks)} частей (метод: {'токен-ориентированный' if tiktoken else 'символьный'})")
+        
+        # Обрабатываем каждую часть с оптимизацией памяти
         all_contacts = []
         all_contexts = []
         all_actions = []
         
-        for i, chunk in enumerate(chunks):
-            print(f"   🔍 Обработка части {i + 1}/{len(chunks)}")
+        # Определяем стратегию обработки
+        memory_optimization = chunking_config.get('memory_optimization', True)
+        progressive_chunking = chunking_config.get('progressive_chunking', True)
+        
+        # Для очень больших текстов используем прогрессивную обработку
+        if text_length > very_large_threshold and progressive_chunking:
+            print(f"   🚀 Прогрессивная обработка {len(chunks)} частей")
             
-            try:
-                # Обрабатываем часть
-                chunk_result = self._make_llm_request_with_retries(prompt, chunk)
+            # Обрабатываем по батчам для экономии памяти
+            batch_size = min(5, len(chunks))  # Максимум 5 частей одновременно
+            
+            for batch_start in range(0, len(chunks), batch_size):
+                batch_end = min(batch_start + batch_size, len(chunks))
+                batch_chunks = chunks[batch_start:batch_end]
                 
-                # Собираем результаты
-                if 'contacts' in chunk_result and chunk_result['contacts']:
-                    all_contacts.extend(chunk_result['contacts'])
+                print(f"   📦 Батч {batch_start//batch_size + 1}: части {batch_start + 1}-{batch_end}")
                 
-                if 'business_context' in chunk_result:
-                    all_contexts.append(f"Часть {i + 1}: {chunk_result['business_context']}")
+                for i, chunk in enumerate(batch_chunks):
+                    chunk_index = batch_start + i
+                    self._process_single_chunk(chunk, chunk_index + 1, len(chunks), prompt, 
+                                             all_contacts, all_contexts, all_actions, memory_optimization)
                 
-                if 'recommended_actions' in chunk_result:
-                    all_actions.append(f"Часть {i + 1}: {chunk_result['recommended_actions']}")
+                # Очистка памяти после каждого батча
+                if memory_optimization:
+                    del batch_chunks
+                    gc.collect()
+                    print(f"   🧹 Очистка памяти после батча {batch_start//batch_size + 1}")
+        else:
+            # Выбираем метод обработки: асинхронный или синхронный
+            if chunking_config.get('enable_async_processing', True) and len(chunks) > 2:
+                return self._process_chunks_async(chunks, prompt, chunking_config)
+            else:
+                return self._process_chunks_sync(chunks, prompt, chunking_config)
+    
+    def _process_single_chunk(self, chunk, chunk_index, total_chunks, prompt, 
+                             all_contacts, all_contexts, all_actions, memory_optimization):
+        """Обрабатывает одну часть текста"""
+        print(f"   🔍 Обработка части {chunk_index}/{total_chunks} (размер: {len(chunk)} символов)")
+        
+        try:
+            # Обрабатываем часть
+            chunk_result = self._make_llm_request_with_retries(prompt, chunk)
+            
+            # Собираем результаты
+            if 'contacts' in chunk_result and chunk_result['contacts']:
+                all_contacts.extend(chunk_result['contacts'])
+            
+            if 'business_context' in chunk_result:
+                all_contexts.append(f"Часть {chunk_index}: {chunk_result['business_context']}")
+            
+            if 'recommended_actions' in chunk_result:
+                all_actions.append(f"Часть {chunk_index}: {chunk_result['recommended_actions']}")
+            
+            # Небольшая пауза между запросами
+            if chunk_index < total_chunks:
+                time.sleep(2)
                 
-                # Небольшая пауза между запросами и очистка памяти
-                if i < len(chunks) - 1:
-                    time.sleep(2)
-                    
-                # Принудительная очистка памяти после каждой части
+            # Принудительная очистка памяти после каждой части
+            if memory_optimization:
                 del chunk_result
                 gc.collect()
-            
-            except Exception as e:
-                print(f"   ❌ Ошибка обработки части {i + 1}: {e}")
-                all_contexts.append(f"Часть {i + 1}: Ошибка обработки - {str(e)}")
-                # Очистка памяти даже при ошибке
-                gc.collect()
         
-        # Удаляем дубликаты контактов
+        except Exception as e:
+            print(f"   ❌ Ошибка обработки части {chunk_index}: {e}")
+            all_contexts.append(f"Часть {chunk_index}: Ошибка обработки - {str(e)}")
+            # Очистка памяти даже при ошибке
+            if memory_optimization:
+                gc.collect()
+    
+    def _process_chunks_async(self, chunks: List[str], prompt: str, chunking_config: dict) -> dict:
+        """🚀 Асинхронная обработка чанков для ускорения процесса"""
+        
+        import gc
+        
+        # Параметры асинхронной обработки
+        max_concurrent_chunks = chunking_config.get('max_concurrent_chunks', 3)
+        api_rate_limit_delay = chunking_config.get('api_rate_limit_delay', 1.0)
+        enable_async_processing = chunking_config.get('enable_async_processing', True)
+        
+        if not enable_async_processing or len(chunks) <= 2:
+            print(f"   📝 Синхронная обработка {len(chunks)} чанков (async отключен или мало чанков)")
+            return self._process_chunks_sync(chunks, prompt, chunking_config)
+        
+        print(f"   🚀 Асинхронная обработка {len(chunks)} чанков (max_concurrent: {max_concurrent_chunks})")
+        
+        all_contacts = []
+        all_contexts = []
+        all_actions = []
+        
+        def process_single_chunk_wrapper(chunk_data):
+            """Обертка для синхронной функции обработки чанка"""
+            chunk, chunk_index = chunk_data
+            try:
+                # Добавляем задержку для соблюдения rate limits
+                if chunk_index > 1:
+                    time.sleep(api_rate_limit_delay)
+                
+                print(f"   🔍 Асинхронная обработка части {chunk_index}/{len(chunks)}")
+                
+                # Обрабатываем чанк
+                chunk_result = self._make_llm_request_with_retries(prompt, chunk)
+                
+                # Возвращаем результат с индексом для правильной сортировки
+                return {
+                    'index': chunk_index,
+                    'contacts': chunk_result.get('contacts', []),
+                    'business_context': chunk_result.get('business_context', ''),
+                    'recommended_actions': chunk_result.get('recommended_actions', ''),
+                    'success': True
+                }
+                
+            except Exception as e:
+                print(f"   ❌ Ошибка асинхронной обработки части {chunk_index}: {e}")
+                return {
+                    'index': chunk_index,
+                    'contacts': [],
+                    'business_context': f"Ошибка обработки - {str(e)}",
+                    'recommended_actions': '',
+                    'success': False
+                }
+        
+        # Подготавливаем данные для обработки
+        chunk_data = [(chunk, i+1) for i, chunk in enumerate(chunks)]
+        
+        # Используем ThreadPoolExecutor для параллельной обработки
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_concurrent_chunks) as executor:
+            try:
+                # Запускаем обработку всех чанков
+                future_to_chunk = {executor.submit(process_single_chunk_wrapper, data): data[1] 
+                                 for data in chunk_data}
+                
+                # Собираем результаты по мере завершения
+                completed_chunks = 0
+                for future in concurrent.futures.as_completed(future_to_chunk):
+                    chunk_index = future_to_chunk[future]
+                    completed_chunks += 1
+                    
+                    try:
+                        result = future.result()
+                        
+                        # Собираем результаты
+                        if result['contacts']:
+                            all_contacts.extend(result['contacts'])
+                        
+                        if result['business_context']:
+                            all_contexts.append(f"Часть {result['index']}: {result['business_context']}")
+                        
+                        if result['recommended_actions']:
+                            all_actions.append(f"Часть {result['index']}: {result['recommended_actions']}")
+                        
+                        print(f"   ✅ Завершена часть {result['index']} ({completed_chunks}/{len(chunks)})")
+                        
+                    except Exception as e:
+                        print(f"   ❌ Ошибка получения результата части {chunk_index}: {e}")
+                        all_contexts.append(f"Часть {chunk_index}: Ошибка получения результата - {str(e)}")
+                
+            except Exception as e:
+                print(f"   ❌ Критическая ошибка асинхронной обработки: {e}")
+                print(f"   🔄 Переключение на синхронную обработку")
+                return self._process_chunks_sync(chunks, prompt, chunking_config)
+        
+        # Принудительная очистка памяти
+        if chunking_config.get('memory_optimization', True):
+            gc.collect()
+        
+        # Дедупликация контактов
         unique_contacts = self._deduplicate_contacts(all_contacts)
         
-        # Очищаем промежуточные данные для экономии памяти
-        del all_contacts, chunks
-        gc.collect()
+        print(f"   🎯 Асинхронная обработка завершена: {len(all_contacts)} -> {len(unique_contacts)} уникальных контактов")
         
-        # Формируем итоговый результат
-        result = {
+        return {
             'contacts': unique_contacts,
-            'business_context': ' | '.join(all_contexts) if all_contexts else 'Контекст не извлечен',
-            'recommended_actions': ' | '.join(all_actions) if all_actions else 'Рекомендации не получены',
-            'provider_used': f"{self.providers[self.current_provider]['name']} ({self.providers[self.current_provider]['model']}) - {len(chunks)} частей",
-            'processing_time': datetime.now().isoformat(),
-            'text_length': len(text),
+            'business_context': ' | '.join(all_contexts) if all_contexts else 'Контекст не определен',
+            'recommended_actions': ' | '.join(all_actions) if all_actions else 'Рекомендации не определены',
+            'provider_used': f'{self.providers[self.current_provider]["name"]} (async chunked)',
             'chunks_processed': len(chunks),
             'total_contacts_found': len(all_contacts),
-            'unique_contacts_found': len(unique_contacts)
+            'unique_contacts_found': len(unique_contacts),
+            'processing_method': 'async'
         }
+    
+    def _process_chunks_sync(self, chunks: List[str], prompt: str, chunking_config: dict) -> dict:
+        """📝 Синхронная обработка чанков (fallback метод)"""
         
-        print(f"   ✅ Обработка завершена: {len(unique_contacts)} уникальных контактов из {len(all_contacts)} найденных")
+        import gc
         
-        return result
+        print(f"   📝 Синхронная обработка {len(chunks)} чанков")
+        
+        all_contacts = []
+        all_contexts = []
+        all_actions = []
+        memory_optimization = chunking_config.get('memory_optimization', True)
+        
+        # Обрабатываем каждую часть последовательно
+        for i, chunk in enumerate(chunks):
+            self._process_single_chunk(
+                chunk, i+1, len(chunks), prompt,
+                all_contacts, all_contexts, all_actions, memory_optimization
+            )
+        
+        # Дедупликация контактов
+        unique_contacts = self._deduplicate_contacts(all_contacts)
+        
+        print(f"   🎯 Синхронная обработка завершена: {len(all_contacts)} -> {len(unique_contacts)} уникальных контактов")
+        
+        return {
+            'contacts': unique_contacts,
+            'business_context': ' | '.join(all_contexts) if all_contexts else 'Контекст не определен',
+            'recommended_actions': ' | '.join(all_actions) if all_actions else 'Рекомендации не определены',
+            'provider_used': f'{self.providers[self.current_provider]["name"]} (sync chunked)',
+            'chunks_processed': len(chunks),
+            'total_contacts_found': len(all_contacts),
+            'unique_contacts_found': len(unique_contacts),
+            'processing_method': 'sync'
+        }
     
     def _deduplicate_contacts(self, contacts: List[dict]) -> List[dict]:
         """🔄 Удаление дубликатов контактов"""
@@ -902,8 +1327,17 @@ class ContactExtractor:
             email = contact.get('email', '').lower().strip()
             phone = contact.get('phone', '').strip()
             
-            # Нормализуем телефон (убираем пробелы, скобки, дефисы)
-            normalized_phone = re.sub(r'[\s\-\(\)\+]', '', phone)
+            # Нормализуем телефон (убираем пробелы, скобки, дефисы, плюсы)
+            # Оставляем только цифры для сравнения
+            normalized_phone = re.sub(r'[^0-9]', '', phone)
+            
+            # Для российских номеров приводим к единому формату
+            if normalized_phone.startswith('8') and len(normalized_phone) == 11:
+                normalized_phone = '7' + normalized_phone[1:]  # 8xxx -> 7xxx
+            elif normalized_phone.startswith('7') and len(normalized_phone) == 11:
+                pass  # Уже в правильном формате
+            elif len(normalized_phone) == 10:
+                normalized_phone = '7' + normalized_phone  # xxx -> 7xxx
             
             # Проверяем дубликаты по email или телефону
             is_duplicate = False
@@ -937,9 +1371,8 @@ class ContactExtractor:
             if metadata:
                 print(f"   📧 Метаданные: {metadata.get('subject', 'Без темы')}")
             
-            # Временно отключаем тестовый режим для реальных писем
-            if metadata and not self.test_mode:
-                self.test_mode = False
+            # Сохраняем тестовый режим как есть
+            # (убрана логика принудительного отключения тестового режима)
             
             # Загружаем промпт
             prompt = self._load_prompt("contact_extraction.txt")
@@ -952,8 +1385,8 @@ class ContactExtractor:
                     'error': 'Prompt loading failed'
                 }
             
-            # Обработка больших текстов через разбивку на части
-            if len(text) > 12000:
+            # Обработка больших текстов через разбивку на части (снижен порог для стабильности)
+            if len(text) > 6000:
                 print(f"   📄 Большой текст ({len(text)} символов), разбиваем на части")
                 return self._process_large_text(text, prompt, metadata)
             else:
@@ -963,7 +1396,7 @@ class ContactExtractor:
             provider_info = f"{self.providers[self.current_provider]['name']} ({self.providers[self.current_provider]['model']})"
             
             # Тестовый режим
-            if self.test_mode and not metadata:
+            if self.test_mode:
                 print("   🧪 Активирован тестовый режим")
                 result = {
                     'success': True,
@@ -1337,9 +1770,9 @@ def load_emails_for_date(date):
         return []
     
     emails = []
-    json_files = list(emails_dir.glob("*.json"))
+    json_files = sorted(list(emails_dir.glob("*.json")), key=lambda x: x.name)
     
-    print(f"   📁 Найдено {len(json_files)} JSON файлов писем")
+    print(f"   📁 Найдено {len(json_files)} JSON файлов писем (отсортированы по имени)")
     
     for json_file in json_files:
         try:

@@ -1,0 +1,37 @@
+[
+  {
+    "email_path": "data/emails/2025-08-01/email_009_20250801_20250801_dna-technology_ru_85384e9a.json",
+    "body_size": 65410,
+    "processing_time": 0.000583,
+    "contacts_count": 1,
+    "success": true
+  },
+  {
+    "email_path": "data/emails/2025-07-25/email_001_20250725_20250725_dna-technology_ru_ae879b4c.json",
+    "body_size": 82476,
+    "processing_time": 3.1e-05,
+    "contacts_count": 1,
+    "success": true
+  },
+  {
+    "email_path": "data/emails/2025-07-28/email_006_20250728_20250728_dna-technology_ru_da7eb20e.json",
+    "body_size": 132862,
+    "processing_time": 0.00119,
+    "contacts_count": 1,
+    "success": true
+  },
+  {
+    "email_path": "data/emails/2025-08-12/email_001_20250812_20250812_mail_ru_109d9715.json",
+    "body_size": 265029,
+    "processing_time": 3.6e-05,
+    "contacts_count": 1,
+    "success": true
+  },
+  {
+    "email_path": "data/emails/2025-07-07/email_006_20250707_20250707_dna-technology_ru_acd24939.json",
+    "body_size": 499994,
+    "processing_time": 4.9e-05,
+    "contacts_count": 1,
+    "success": true
+  }
+]
