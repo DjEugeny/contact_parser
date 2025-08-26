@@ -502,15 +502,58 @@ class OCRProcessor:
         print(f"\n🎉 Тестирование для даты {date} завершено!")
         self._print_summary(date, stats)
 def main():
-    # ... без изменений ...
-    try: tester = OCRProcessor()
+    import argparse
+    
+    # Парсинг аргументов командной строки
+    parser = argparse.ArgumentParser(description='OCR Processor')
+    parser.add_argument('--auto', action='store_true', help='Автоматический режим без интерактивного меню')
+    parser.add_argument('--date', type=str, help='Дата для обработки в формате YYYY-MM-DD')
+    args = parser.parse_args()
+    
+    try: 
+        tester = OCRProcessor()
     except Exception as e:
-        print(f"❌ Критическая ошибка при инициализации: {e}"); return
+        print(f"❌ Критическая ошибка при инициализации: {e}")
+        return
+        
     if not tester.vision_client:
-        print("\n⚠️ Пожалуйста, настройте Google Cloud Vision и перезапустите скрипт."); return
+        print("\n⚠️ Пожалуйста, настройте Google Cloud Vision и перезапустите скрипт.")
+        return
+        
     available_dates = tester.get_available_dates()
     if not available_dates:
-        print("🤷 В папке 'data/attachments' не найдено папок с датами (YYYY-MM-DD)."); return
+        print("🤷 В папке 'data/attachments' не найдено папок с датами (YYYY-MM-DD).")
+        return
+    
+    # Автоматический режим
+    if args.auto:
+        if args.date:
+            # Обработка конкретной даты
+            if args.date not in available_dates:
+                print(f"❌ Дата '{args.date}' не найдена в доступных датах: {', '.join(available_dates)}")
+                return
+            
+            print(f"🚀 Автоматическая обработка файлов за {args.date}")
+            files_found = tester.get_files_for_date(args.date)
+            if not files_found:
+                print(f"🤷 В папке за {args.date} не найдено поддерживаемых файлов.")
+                return
+            
+            print(f"✅ Найдено файлов для обработки: {len(files_found)}")
+            tester.test_files_by_date(args.date, files_found)
+        else:
+            # Обработка всех дат
+            print("🚀 Автоматическая обработка всех файлов")
+            for date in available_dates:
+                print(f"\n\n--- 🚀 Обработка даты: {date} ---")
+                files_found = tester.get_files_for_date(date)
+                if files_found:
+                    tester.test_files_by_date(date, files_found)
+                else:
+                    print(f"🤷 В папке за {date} не найдено поддерживаемых файлов.")
+        return
+    
+    # Интерактивный режим
     while True:
         print("\n\n" + "="*25 + " 🎯 МЕНЮ ТЕСТИРОВЩИКА 🎯 " + "="*25)
         print(f"📅 Доступные даты для теста: {', '.join(available_dates)}")

@@ -418,42 +418,284 @@ class GoogleSheetsExporter:
         return success_count > 0
 
 
-def main():
-    """🚀 Основная функция для тестирования экспортера"""
+def get_available_dates():
+    """📅 Получение списка доступных дат из папки data/emails"""
+    from pathlib import Path
+    import os
     
+    current_file = Path(__file__)
+    project_root = current_file.parent.parent
+    emails_dir = project_root / "data" / "emails"
+    
+    if not emails_dir.exists():
+        print(f"❌ Папка с данными не найдена: {emails_dir}")
+        return []
+    
+    dates = []
+    for item in os.listdir(emails_dir):
+        item_path = emails_dir / item
+        if item_path.is_dir() and item.startswith('2025-'):
+            dates.append(item)
+    
+    return sorted(dates)
+
+def show_date_menu():
+    """📋 Показать меню выбора дат"""
+    dates = get_available_dates()
+    
+    if not dates:
+        print("❌ Доступные даты не найдены")
+        return None
+    
+    print("\n📅 Доступные даты:")
+    for i, date in enumerate(dates, 1):
+        print(f"   {i:2d}. {date}")
+    
+    print(f"   {len(dates)+1:2d}. Диапазон дат")
+    print(f"   {len(dates)+2:2d}. Все даты")
+    print("    0. Назад")
+    
+    while True:
+        try:
+            choice = input("\n🎯 Выберите опцию (номер или дату YYYY-MM-DD): ").strip()
+            
+            if choice == '0':
+                return None
+            
+            # Проверяем, не ввел ли пользователь дату напрямую
+            if len(choice) == 10 and choice.count('-') == 2:
+                # Возможно, это дата в формате YYYY-MM-DD
+                try:
+                    from datetime import datetime
+                    datetime.strptime(choice, '%Y-%m-%d')
+                    # Проверяем, есть ли такая дата в списке
+                    if choice in dates:
+                        print(f"✅ Выбрана дата: {choice}")
+                        return [choice]
+                    else:
+                        print(f"❌ Дата {choice} не найдена в доступных датах")
+                        print("   Используйте номер из списка выше")
+                        continue
+                except ValueError:
+                    # Не является корректной датой, обрабатываем как номер
+                    pass
+            
+            choice_num = int(choice)
+            
+            if 1 <= choice_num <= len(dates):
+                return [dates[choice_num - 1]]
+            elif choice_num == len(dates) + 1:
+                # Диапазон дат
+                print("\n📊 Выбор диапазона дат:")
+                start_idx = int(input(f"Начальная дата (1-{len(dates)}): ")) - 1
+                end_idx = int(input(f"Конечная дата (1-{len(dates)}): ")) - 1
+                
+                if 0 <= start_idx <= end_idx < len(dates):
+                    return dates[start_idx:end_idx + 1]
+                else:
+                    print("❌ Неверный диапазон дат")
+                    continue
+            elif choice_num == len(dates) + 2:
+                return dates
+            else:
+                print("❌ Неверный выбор")
+                continue
+                
+        except (ValueError, IndexError) as e:
+            print(f"❌ Введите корректный номер или дату в формате YYYY-MM-DD (ошибка: {e})")
+            continue
+        except Exception as e:
+            print(f"❌ Неожиданная ошибка: {e}")
+            continue
+
+def run_interactive_mode():
+    """🎮 Интерактивный режим работы с Google Sheets"""
     print("\n" + "="*60)
-    print("📊 ТЕСТИРОВАНИЕ ЭКСПОРТА В GOOGLE SHEETS")
+    print("📊 GOOGLE SHEETS ЭКСПОРТЕР - ИНТЕРАКТИВНЫЙ РЕЖИМ")
     print("="*60)
     
     exporter = GoogleSheetsExporter()
     
     if not exporter.client:
         print("\n❌ Невозможно продолжить без настроенного Google Sheets API")
+        print("   Убедитесь, что файл service_account.json находится в папке config/")
         return
     
-    # Диапазон дат для обработки
-    test_start_date = "2025-07-29"
-    test_end_date = "2025-07-29"
+    while True:
+        print("\n📋 Главное меню:")
+        print("   1. Экспорт данных за выбранные даты")
+        print("   2. Создать новую таблицу")
+        print("   3. Проверить подключение к Google Sheets")
+        print("   4. Показать информацию о текущей таблице")
+        print("   0. Выход")
+        
+        choice = input("\n🎯 Выберите действие (номер): ").strip()
+        
+        if choice == '0':
+            print("👋 До свидания!")
+            break
+        elif choice == '1':
+            # Экспорт данных
+            selected_dates = show_date_menu()
+            if selected_dates:
+                export_selected_dates(exporter, selected_dates)
+        elif choice == '2':
+            # Создание новой таблицы
+            create_new_spreadsheet_interactive(exporter)
+        elif choice == '3':
+            # Проверка подключения
+            test_connection(exporter)
+        elif choice == '4':
+            # Информация о таблице
+            show_spreadsheet_info(exporter)
+        else:
+            print("❌ Неверный выбор")
+
+def export_selected_dates(exporter, dates):
+    """📊 Экспорт данных за выбранные даты"""
+    print(f"\n🚀 Начинаю экспорт данных за {len(dates)} дат(ы)")
     
-    print(f"\n📅 Тестирование на диапазоне дат: {test_start_date} - {test_end_date}")
-    
-    # Создаем новую таблицу, если ID не указан
+    # Проверяем, есть ли активная таблица
     if not exporter.spreadsheet_id:
-        title = f"Тестовый экспорт контактов ({test_start_date} - {test_end_date})"
+        print("⚠️ Активная таблица не найдена. Создаем новую...")
+        title = f"Экспорт контактов ({dates[0]} - {dates[-1]})"
         spreadsheet_id = exporter.create_new_spreadsheet(title)
         if spreadsheet_id:
             exporter.spreadsheet_id = spreadsheet_id
+            print(f"✅ Создана новая таблица: {title}")
         else:
             print("❌ Не удалось создать таблицу")
             return
     
-    # Экспортируем данные
-    result = exporter.export_multiple_dates(test_start_date, test_end_date)
+    success_count = 0
     
-    if result:
-        print("\n✅ Тестирование завершено успешно!")
+    for date in dates:
+        print(f"\n📅 Экспорт данных за {date}...")
+        
+        try:
+            success = exporter.export_results_by_date(date)
+            if success:
+                print(f"   ✅ Данные за {date} экспортированы")
+                success_count += 1
+            else:
+                print(f"   ❌ Ошибка экспорта за {date}")
+        except Exception as e:
+            print(f"   ❌ Ошибка экспорта за {date}: {e}")
+    
+    print(f"\n🎉 Экспорт завершен! Успешно обработано дат: {success_count}/{len(dates)}")
+    
+    if exporter.spreadsheet_id:
+        print(f"🔗 URL таблицы: https://docs.google.com/spreadsheets/d/{exporter.spreadsheet_id}")
+
+def create_new_spreadsheet_interactive(exporter):
+    """📝 Интерактивное создание новой таблицы"""
+    print("\n📝 Создание новой Google Sheets таблицы")
+    
+    title = input("Введите название таблицы: ").strip()
+    if not title:
+        title = f"Контакты LLM анализ {datetime.now().strftime('%Y-%m-%d %H:%M')}"
+        print(f"Используется название по умолчанию: {title}")
+    
+    print(f"\n🚀 Создаю таблицу '{title}'...")
+    
+    try:
+        spreadsheet_id = exporter.create_new_spreadsheet(title)
+        if spreadsheet_id:
+            exporter.spreadsheet_id = spreadsheet_id
+            print(f"✅ Таблица создана успешно!")
+            print(f"🔗 URL: https://docs.google.com/spreadsheets/d/{spreadsheet_id}")
+        else:
+            print("❌ Не удалось создать таблицу")
+    except Exception as e:
+        print(f"❌ Ошибка создания таблицы: {e}")
+
+def test_connection(exporter):
+    """🔧 Проверка подключения к Google Sheets"""
+    print("\n🔧 Проверка подключения к Google Sheets...")
+    
+    try:
+        if exporter.client:
+            # Пытаемся получить список таблиц
+            spreadsheets = exporter.client.openall()
+            print(f"✅ Подключение успешно! Доступно таблиц: {len(spreadsheets)}")
+            
+            if spreadsheets:
+                print("\n📋 Последние 5 таблиц:")
+                for i, sheet in enumerate(spreadsheets[:5], 1):
+                    print(f"   {i}. {sheet.title}")
+        else:
+            print("❌ Клиент Google Sheets не инициализирован")
+    except Exception as e:
+        print(f"❌ Ошибка подключения: {e}")
+
+def show_spreadsheet_info(exporter):
+    """📊 Показать информацию о текущей таблице"""
+    print("\n📊 Информация о текущей таблице:")
+    
+    if not exporter.spreadsheet_id:
+        print("❌ Активная таблица не выбрана")
+        return
+    
+    try:
+        spreadsheet = exporter.client.open_by_key(exporter.spreadsheet_id)
+        print(f"📝 Название: {spreadsheet.title}")
+        print(f"🔗 ID: {exporter.spreadsheet_id}")
+        print(f"🔗 URL: https://docs.google.com/spreadsheets/d/{exporter.spreadsheet_id}")
+        
+        worksheets = spreadsheet.worksheets()
+        print(f"📄 Листов: {len(worksheets)}")
+        
+        for i, worksheet in enumerate(worksheets, 1):
+            print(f"   {i}. {worksheet.title} ({worksheet.row_count} строк, {worksheet.col_count} столбцов)")
+            
+    except Exception as e:
+        print(f"❌ Ошибка получения информации о таблице: {e}")
+
+def main():
+    """🚀 Основная функция"""
+    import sys
+    
+    # Проверяем аргументы командной строки
+    if len(sys.argv) > 1 and sys.argv[1] == '--test':
+        # Тестовый режим
+        print("🧪 Запуск в тестовом режиме...")
+        
+        print("\n" + "="*60)
+        print("📊 ТЕСТИРОВАНИЕ ЭКСПОРТА В GOOGLE SHEETS")
+        print("="*60)
+        
+        exporter = GoogleSheetsExporter()
+        
+        if not exporter.client:
+            print("\n❌ Невозможно продолжить без настроенного Google Sheets API")
+            return
+        
+        # Диапазон дат для обработки
+        test_start_date = "2025-07-04"
+        test_end_date = "2025-07-04"
+        
+        print(f"\n📅 Тестирование на диапазоне дат: {test_start_date} - {test_end_date}")
+        
+        # Создаем новую таблицу, если ID не указан
+        if not exporter.spreadsheet_id:
+            title = f"Тестовый экспорт контактов ({test_start_date} - {test_end_date})"
+            spreadsheet_id = exporter.create_new_spreadsheet(title)
+            if spreadsheet_id:
+                exporter.spreadsheet_id = spreadsheet_id
+            else:
+                print("❌ Не удалось создать таблицу")
+                return
+        
+        # Экспортируем данные
+        result = exporter.export_multiple_dates(test_start_date, test_end_date)
+        
+        if result:
+            print("\n✅ Тестирование завершено успешно!")
+        else:
+            print("\n❌ При тестировании возникли ошибки")
     else:
-        print("\n❌ При тестировании возникли ошибки")
+        # Интерактивный режим
+        run_interactive_mode()
 
 
 if __name__ == '__main__':

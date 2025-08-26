@@ -65,18 +65,19 @@ class ContactExtractor:
     
     def _initialize_providers(self) -> dict:
         """🔧 Инициализация провайдеров с учетом конфигурации"""
+        # Базовая структура провайдеров с техническими настройками
         providers = {
             'openrouter': {
                 'name': 'OpenRouter',
-                'api_key': os.getenv('OPENROUTER_API_KEY', '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'),
-                'model': "qwen/qwen3-235b-a22b:free",
-                'base_url': "https://openrouter.ai/api/v1/chat/completions",
-                'priority': 3,
-                'active': False,  # Временно отключен из-за проблем с авторизацией
+                'api_key': os.getenv('OPENROUTER_API_KEY'),
+                'model': os.getenv('OPENROUTER_MODEL'),
+                'base_url': os.getenv('OPENROUTER_BASE_URL', "https://openrouter.ai/api/v1/chat/completions"),
+                'priority': 3,  # Значение по умолчанию, будет переопределено из конфигурации
+                'active': True,
                 'failure_count': 0,
                 'last_failure': None,
                 'headers': {
-                    'Authorization': f'Bearer {os.getenv("OPENROUTER_API_KEY", "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")}',
+                    'Authorization': f'Bearer {os.getenv("OPENROUTER_API_KEY")}',
                     'Content-Type': 'application/json',
                     'HTTP-Referer': 'https://localhost:3000',
                     'X-Title': 'Contact Extractor LLM'
@@ -84,51 +85,45 @@ class ContactExtractor:
             },
             'groq': {
                 'name': 'Groq',
-                'api_key': os.getenv('GROQ_API_KEY', ''),
-                'model': os.getenv('GROQ_MODEL', 'llama3-8b-8192'),
-                'base_url': "https://api.groq.com/openai/v1/chat/completions",
-                'priority': 1,  # Первый приоритет после отключения OpenRouter
+                'api_key': os.getenv('GROQ_API_KEY'),
+                'model': os.getenv('GROQ_MODEL'),
+                'base_url': os.getenv('GROQ_BASE_URL', "https://api.groq.com/openai/v1/chat/completions"),
+                'priority': 2,  # Значение по умолчанию, будет переопределено из конфигурации
                 'active': True,
                 'failure_count': 0,
                 'last_failure': None,
                 'headers': {
-                    'Authorization': f'Bearer {os.getenv("GROQ_API_KEY", "")}',
+                    'Authorization': f'Bearer {os.getenv("GROQ_API_KEY")}',
                     'Content-Type': 'application/json'
                 }
             },
             'replicate': {
                 'name': 'Replicate',
-                'api_key': os.getenv('REPLICATE_API_KEY', ''),
-                'model': os.getenv('REPLICATE_MODEL', 'meta/meta-llama-3-8b-instruct'),
+                'api_key': os.getenv('REPLICATE_API_KEY'),
+                'model': os.getenv('REPLICATE_MODEL'),
                 'base_url': "https://api.replicate.com/v1/predictions",
-                'priority': 2,  # Второй приоритет после Groq
+                'priority': 1,  # Значение по умолчанию, будет переопределено из конфигурации
                 'active': True,
                 'failure_count': 0,
                 'last_failure': None,
                 'headers': {
-                    'Authorization': f'Bearer {os.getenv("REPLICATE_API_KEY", "")}',
+                    'Authorization': f'Bearer {os.getenv("REPLICATE_API_KEY")}',
                     'Content-Type': 'application/json'
                 }
             }
         }
         
-        # Применяем настройки из конфигурации
-        if self.provider_config:
+        # Применяем настройки из конфигурации providers.json
+        if self.provider_config and 'provider_settings' in self.provider_config:
             for provider_id, provider_data in providers.items():
-                if provider_id in self.provider_config:
-                    config = self.provider_config[provider_id]
+                if provider_id in self.provider_config['provider_settings']:
+                    config = self.provider_config['provider_settings'][provider_id]
                     
-                    # Обновляем настройки из конфигурации
-                    if 'active' in config:
-                        provider_data['active'] = config['active']
+                    # Обновляем настройки приоритета и активности из конфигурации
+                    if 'enabled' in config:
+                        provider_data['active'] = config['enabled']
                     if 'priority' in config:
                         provider_data['priority'] = config['priority']
-                    if 'model' in config:
-                        provider_data['model'] = config['model']
-                    if 'api_key' in config and config['api_key']:
-                        provider_data['api_key'] = config['api_key']
-                        # Обновляем заголовки с новым API ключом
-                        provider_data['headers']['Authorization'] = f'Bearer {config["api_key"]}'
                     
                     print(f"✅ Провайдер {provider_data['name']}: настройки обновлены из конфигурации")
         
@@ -535,7 +530,12 @@ class ContactExtractor:
                     current_provider['last_failure'] = datetime.now().isoformat()
                     self.stats['provider_failures'][self.current_provider] += 1
                     
-                    raise Exception("Пустой ответ от LLM")
+                    # Добавляем диагностику для отладки
+                    print(f"🔍 Диагностика ответа от {current_provider['name']}:")
+                    print(f"   Response data keys: {list(response_data.keys()) if response_data else 'None'}")
+                    print(f"   Response data: {response_data}")
+                    
+                    raise Exception(f"Пустой ответ от LLM {current_provider['name']}: {response_data}")
                 
                 content = response_data['choices'][0]['message']['content']
             
@@ -1186,15 +1186,461 @@ class ContactExtractor:
         }
 
 
+def get_available_dates():
+    """📅 Получение списка доступных дат из папки data/emails"""
+    from pathlib import Path
+    import os
+    
+    current_file = Path(__file__)
+    project_root = current_file.parent.parent
+    emails_dir = project_root / "data" / "emails"
+    
+    if not emails_dir.exists():
+        print(f"❌ Папка с данными не найдена: {emails_dir}")
+        return []
+    
+    dates = []
+    for item in os.listdir(emails_dir):
+        item_path = emails_dir / item
+        if item_path.is_dir() and item.startswith('2025-'):
+            dates.append(item)
+    
+    return sorted(dates)
+
+def show_date_menu():
+    """📋 Показать меню выбора дат"""
+    dates = get_available_dates()
+    
+    if not dates:
+        print("❌ Доступные даты не найдены")
+        return None
+    
+    print("\n📅 Доступные даты:")
+    for i, date in enumerate(dates, 1):
+        print(f"   {i:2d}. {date}")
+    
+    print(f"   {len(dates)+1:2d}. Диапазон дат")
+    print(f"   {len(dates)+2:2d}. Все даты")
+    print("    0. Назад")
+    
+    while True:
+        try:
+            choice = input("\n🎯 Выберите опцию (номер): ").strip()
+            
+            if choice == '0':
+                return None
+            
+            choice_num = int(choice)
+            
+            if 1 <= choice_num <= len(dates):
+                return [dates[choice_num - 1]]
+            elif choice_num == len(dates) + 1:
+                # Диапазон дат
+                print("\n📊 Выбор диапазона дат:")
+                start_idx = int(input(f"Начальная дата (1-{len(dates)}): ")) - 1
+                end_idx = int(input(f"Конечная дата (1-{len(dates)}): ")) - 1
+                
+                if 0 <= start_idx <= end_idx < len(dates):
+                    return dates[start_idx:end_idx + 1]
+                else:
+                    print("❌ Неверный диапазон дат")
+                    continue
+            elif choice_num == len(dates) + 2:
+                return dates
+            else:
+                print("❌ Неверный выбор")
+                continue
+                
+        except (ValueError, IndexError):
+            print("❌ Введите корректный номер")
+            continue
+
+def show_provider_menu():
+    """🔧 Показать меню выбора провайдера"""
+    providers = {
+        '1': 'groq',
+        '2': 'replicate', 
+        '3': 'openrouter'
+    }
+    
+    print("\n🤖 Доступные LLM провайдеры:")
+    print("   1. Groq (рекомендуется)")
+    print("   2. Replicate")
+    print("   3. OpenRouter")
+    print("   4. Автовыбор (fallback система)")
+    print("   0. Назад")
+    
+    while True:
+        choice = input("\n🎯 Выберите провайдера (номер): ").strip()
+        
+        if choice == '0':
+            return None
+        elif choice in providers:
+            return providers[choice]
+        elif choice == '4':
+            return 'auto'
+        else:
+            print("❌ Неверный выбор")
+            continue
+
+def run_interactive_mode():
+    """🎮 Интерактивный режим работы с меню"""
+    print("\n" + "="*60)
+    print("🤖 LLM ЭКСТРАКТОР КОНТАКТОВ - ИНТЕРАКТИВНЫЙ РЕЖИМ")
+    print("="*60)
+    
+    while True:
+        print("\n📋 Главное меню:")
+        print("   1. Обработка писем с извлечением контактов")
+        print("   2. Экспорт в Google Sheets")
+        print("   3. Тестирование провайдеров")
+        print("   4. Статистика системы")
+        print("   0. Выход")
+        
+        choice = input("\n🎯 Выберите действие (номер): ").strip()
+        
+        if choice == '0':
+            print("👋 До свидания!")
+            break
+        elif choice == '1':
+            # Обработка писем
+            selected_dates = show_date_menu()
+            if selected_dates:
+                selected_provider = show_provider_menu()
+                if selected_provider:
+                    process_emails_for_dates(selected_dates, selected_provider)
+        elif choice == '2':
+            # Экспорт в Google Sheets
+            selected_dates = show_date_menu()
+            if selected_dates:
+                export_to_sheets(selected_dates)
+        elif choice == '3':
+            # Тестирование провайдеров
+            test_providers()
+        elif choice == '4':
+            # Статистика
+            show_system_stats()
+        else:
+            print("❌ Неверный выбор")
+
+def load_emails_for_date(date):
+    """📁 Загрузка JSON файлов писем за конкретную дату"""
+    from pathlib import Path
+    import json
+    
+    current_file = Path(__file__)
+    project_root = current_file.parent.parent
+    emails_dir = project_root / "data" / "emails" / date
+    
+    if not emails_dir.exists():
+        print(f"❌ Папка с письмами за {date} не найдена: {emails_dir}")
+        return []
+    
+    emails = []
+    json_files = list(emails_dir.glob("*.json"))
+    
+    print(f"   📁 Найдено {len(json_files)} JSON файлов писем")
+    
+    for json_file in json_files:
+        try:
+            with open(json_file, 'r', encoding='utf-8') as f:
+                email_data = json.load(f)
+                emails.append(email_data)
+        except Exception as e:
+            print(f"   ⚠️ Ошибка загрузки {json_file.name}: {e}")
+    
+    return emails
+
+def check_and_run_ocr_for_date(date):
+    """🔍 Проверка и запуск OCR для вложений за дату"""
+    from pathlib import Path
+    import subprocess
+    import sys
+    
+    current_file = Path(__file__)
+    project_root = current_file.parent.parent
+    final_results_dir = project_root / "data" / "final_results" / "texts" / date
+    attachments_dir = project_root / "data" / "attachments" / date
+    
+    # Проверяем наличие вложений
+    if not attachments_dir.exists():
+        print(f"   📎 Папка с вложениями за {date} не найдена")
+        return False
+    
+    attachment_files = list(attachments_dir.glob("*"))
+    attachment_files = [f for f in attachment_files if f.is_file() and not f.name.startswith('.')]
+    
+    if not attachment_files:
+        print(f"   📎 Вложения за {date} не найдены")
+        return False
+    
+    # Проверяем наличие результатов OCR
+    if final_results_dir.exists():
+        ocr_files = list(final_results_dir.glob("*.txt"))
+        if len(ocr_files) >= len(attachment_files):
+            print(f"   ✅ OCR результаты уже существуют ({len(ocr_files)} файлов)")
+            return True
+    
+    print(f"   🔄 Запускаю OCR для {len(attachment_files)} вложений...")
+    
+    # Запускаем OCR процессор
+    ocr_script = project_root / "src" / "ocr_processor.py"
+    try:
+        # Запускаем OCR процессор в автоматическом режиме для конкретной даты
+        result = subprocess.run([
+            sys.executable, str(ocr_script), "--auto", "--date", date
+        ], capture_output=True, text=True, cwd=str(project_root))
+        
+        if result.returncode == 0:
+            print(f"   ✅ OCR завершен успешно")
+            return True
+        else:
+            print(f"   ❌ Ошибка OCR: {result.stderr}")
+            return False
+    except Exception as e:
+        print(f"   ❌ Ошибка запуска OCR: {e}")
+        return False
+
+def load_ocr_results_for_date(date):
+    """📄 Загрузка результатов OCR за дату"""
+    from pathlib import Path
+    
+    current_file = Path(__file__)
+    project_root = current_file.parent.parent
+    final_results_dir = project_root / "data" / "final_results" / "texts" / date
+    
+    if not final_results_dir.exists():
+        return []
+    
+    ocr_results = []
+    txt_files = list(final_results_dir.glob("*.txt"))
+    
+    for txt_file in txt_files:
+        try:
+            with open(txt_file, 'r', encoding='utf-8') as f:
+                content = f.read()
+                
+                # Извлекаем текст (пропускаем заголовки)
+                lines = content.split('\n')
+                text_start_idx = 0
+                for i, line in enumerate(lines):
+                    if line.startswith('# ==='):
+                        text_start_idx = i + 1
+                        break
+                
+                text = '\n'.join(lines[text_start_idx:]).strip()
+                
+                if text:
+                    ocr_results.append({
+                        'file_name': txt_file.name,
+                        'text': text,
+                        'source': 'ocr_attachment'
+                    })
+        except Exception as e:
+            print(f"   ⚠️ Ошибка загрузки OCR результата {txt_file.name}: {e}")
+    
+    return ocr_results
+
+def process_emails_for_dates(dates, provider):
+    """📧 Обработка писем за выбранные даты"""
+    print(f"\n🚀 Начинаю обработку писем за {len(dates)} дат(ы) с провайдером {provider}")
+    
+    # Инициализируем экстрактор
+    extractor = ContactExtractor(test_mode=False)
+    
+    # Устанавливаем выбранного провайдера
+    if provider != 'auto':
+        if provider in extractor.providers:
+            extractor.current_provider = provider
+            print(f"✅ Установлен провайдер: {extractor.providers[provider]['name']}")
+        else:
+            print(f"⚠️ Провайдер {provider} не найден, используем автовыбор")
+    
+    total_contacts = 0
+    total_emails_processed = 0
+    
+    for date in dates:
+        print(f"\n📅 Обработка даты: {date}")
+        
+        # Загружаем письма за дату
+        print(f"   📁 Загрузка писем за {date}...")
+        emails = load_emails_for_date(date)
+        
+        if not emails:
+            print(f"   📭 Письма за {date} не найдены")
+            continue
+        
+        # Проверяем и запускаем OCR если нужно
+        print(f"   🔍 Проверка результатов OCR...")
+        check_and_run_ocr_for_date(date)
+        
+        # Загружаем результаты OCR
+        ocr_results = load_ocr_results_for_date(date)
+        print(f"   📄 Загружено {len(ocr_results)} результатов OCR")
+        
+        # Обрабатываем каждое письмо
+        print(f"   🤖 Извлечение контактов с помощью {extractor.providers[extractor.current_provider]['name']}...")
+        
+        date_contacts = 0
+        for email in emails:
+            try:
+                # Формируем текст для анализа
+                text_parts = []
+                
+                # Добавляем текст письма
+                if email.get('body'):
+                    text_parts.append(f"ПИСЬМО:\n{email['body']}")
+                
+                # Добавляем результаты OCR вложений
+                for ocr_result in ocr_results:
+                    text_parts.append(f"ВЛОЖЕНИЕ ({ocr_result['file_name']}):\n{ocr_result['text']}")
+                
+                if not text_parts:
+                    continue
+                
+                combined_text = "\n\n" + "="*50 + "\n\n".join(text_parts)
+                
+                # Формируем метаданные
+                metadata = {
+                    'subject': email.get('subject', ''),
+                    'from': email.get('from', ''),
+                    'date': email.get('date', ''),
+                    'message_id': email.get('message_id', '')
+                }
+                
+                # Извлекаем контакты
+                result = extractor.extract_contacts(combined_text, metadata)
+                
+                if result.get('contacts'):
+                    contacts_count = len(result['contacts'])
+                    date_contacts += contacts_count
+                    print(f"     ✅ Найдено {contacts_count} контактов в письме {email.get('subject', 'Без темы')[:50]}...")
+                    
+                    # Здесь можно добавить сохранение результатов
+                    
+            except Exception as e:
+                print(f"     ❌ Ошибка обработки письма: {e}")
+        
+        total_emails_processed += len(emails)
+        total_contacts += date_contacts
+        print(f"   ✅ Обработано писем: {len(emails)}, найдено контактов: {date_contacts}")
+    
+    print(f"\n🎉 Обработка завершена! Всего найдено контактов: {total_contacts}")
+    print(f"📊 Обработано писем: {total_emails_processed}")
+    print(f"📊 Статистика: {extractor.get_stats()}")
+
+def export_to_sheets(dates):
+    """📊 Экспорт данных в Google Sheets"""
+    print(f"\n📊 Экспорт данных в Google Sheets за {len(dates)} дат(ы)")
+    
+    # Импортируем экспортер
+    try:
+        from google_sheets_exporter import GoogleSheetsExporter
+        exporter = GoogleSheetsExporter()
+        
+        for date in dates:
+            print(f"📅 Экспорт данных за {date}...")
+            success = exporter.export_results_by_date(date)
+            if success:
+                print(f"   ✅ Данные за {date} экспортированы")
+            else:
+                print(f"   ❌ Ошибка экспорта за {date}")
+                
+    except ImportError as e:
+        print(f"❌ Ошибка импорта Google Sheets экспортера: {e}")
+    except Exception as e:
+        print(f"❌ Ошибка экспорта: {e}")
+
+def test_providers():
+    """🧪 Тестирование всех провайдеров"""
+    print("\n🧪 Тестирование LLM провайдеров...")
+    
+    test_text = """
+    Добрый день!
+    
+    Меня зовут Иван Петров, я работаю в компании "ТехноЛаб" на должности менеджера по продажам.
+    Мой email: ivan.petrov@technolab.ru, телефон: +7 (495) 123-45-67.
+    
+    Хотел бы обсудить возможность сотрудничества.
+    
+    С уважением,
+    Иван Петров
+    ООО "ТехноЛаб"
+    г. Москва
+    """
+    
+    extractor = ContactExtractor(test_mode=False)
+    
+    for provider_id, provider_info in extractor.providers.items():
+        if provider_info['active'] and provider_info['api_key']:
+            print(f"\n🔧 Тестирование {provider_info['name']}...")
+            
+            # Временно устанавливаем провайдера
+            original_provider = extractor.current_provider
+            extractor.current_provider = provider_id
+            
+            try:
+                result = extractor.extract_contacts(test_text)
+                contacts_count = len(result.get('contacts', []))
+                print(f"   ✅ {provider_info['name']}: найдено {contacts_count} контактов")
+            except Exception as e:
+                print(f"   ❌ {provider_info['name']}: ошибка - {e}")
+            
+            # Восстанавливаем провайдера
+            extractor.current_provider = original_provider
+        else:
+            print(f"   ⚠️ {provider_info['name']}: неактивен или нет API ключа")
+
+def show_system_stats():
+    """📈 Показать статистику системы"""
+    print("\n📈 Статистика системы:")
+    
+    extractor = ContactExtractor(test_mode=False)
+    stats = extractor.get_stats()
+    
+    print(f"   📊 Всего запросов: {stats['total_requests']}")
+    print(f"   ✅ Успешных запросов: {stats['successful_requests']}")
+    print(f"   ❌ Неудачных запросов: {stats['failed_requests']}")
+    print(f"   🔄 Повторных попыток: {stats['retry_attempts']}")
+    print(f"   📝 Ошибок валидации JSON: {stats['json_validation_errors']}")
+    print(f"   🔀 Переключений провайдеров: {stats['fallback_switches']}")
+    
+    print("\n🤖 Статистика провайдеров:")
+    for provider, failures in stats['provider_failures'].items():
+        status = "✅ Активен" if extractor.providers[provider]['active'] else "❌ Неактивен"
+        print(f"   {provider}: {failures} ошибок, {status}")
+
 if __name__ == "__main__":
-    # Тестирование
-    extractor = ContactExtractor(test_mode=True)
+    import sys
     
-    test_text = "Тестовое письмо от test@example.com"
-    result = extractor.extract_contacts(test_text)
-    
-    print("\n📊 Результат тестирования:")
-    print(json.dumps(result, ensure_ascii=False, indent=2))
-    
-    print("\n📈 Статистика:")
-    print(json.dumps(extractor.get_stats(), ensure_ascii=False, indent=2))
+    # Проверяем аргументы командной строки
+    if len(sys.argv) > 1 and sys.argv[1] == '--test':
+        # Тестовый режим
+        print("🧪 Запуск в тестовом режиме...")
+        extractor = ContactExtractor(test_mode=True)
+        
+        test_text = """
+        Добрый день!
+        
+        Меня зовут Иван Петров, я работаю в компании "ТехноЛаб" на должности менеджера по продажам.
+        Мой email: ivan.petrov@technolab.ru, телефон: +7 (495) 123-45-67.
+        
+        Хотел бы обсудить возможность сотрудничества.
+        
+        С уважением,
+        Иван Петров
+        ООО "ТехноЛаб"
+        г. Москва
+        """
+        
+        print("🚀 Тестирование экстрактора контактов...")
+        result = extractor.extract_contacts(test_text)
+        
+        print("\n📊 Результат:")
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        
+        print("\n📈 Статистика:")
+        print(json.dumps(extractor.get_stats(), ensure_ascii=False, indent=2))
+    else:
+        # Интерактивный режим
+        run_interactive_mode()
