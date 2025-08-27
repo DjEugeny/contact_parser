@@ -6,7 +6,7 @@
 
 from pathlib import Path
 from typing import Dict, List, Optional
-from ocr_processor import OCRProcessor
+from .ocr_processor import OCRProcessor
 
 class OCRProcessorAdapter:
     """🔌 Адаптер для совместимости OCRProcessor с AttachmentProcessor интерфейсом"""
@@ -155,14 +155,25 @@ class OCRProcessorAdapter:
         combined_text += "=" * 50 + "\n\n"
         combined_text += email_text
         
-        # Добавляем текст из вложений
+        # ✅ ИСПРАВЛЕНИЕ КРИТИЧЕСКОГО БАГА: Фильтруем вложения по thread_id письма
+        email_thread_id = email.get('thread_id', '')
         attachments_text = attachments_result.get('attachments_text', [])
-        if attachments_text:
+        
+        # Фильтруем только те вложения, которые принадлежат данному письму
+        relevant_attachments = []
+        if email_thread_id and attachments_text:
+            for attachment in attachments_text:
+                attachment_filename = attachment.get('file_name', '')
+                # Проверяем, содержит ли имя файла вложения thread_id письма
+                if email_thread_id in attachment_filename:
+                    relevant_attachments.append(attachment)
+        
+        if relevant_attachments:
             combined_text += "\n\n" + "=" * 50 + "\n"
             combined_text += "СОДЕРЖИМОЕ ВЛОЖЕНИЙ:\n"
             combined_text += "=" * 50 + "\n\n"
             
-            for i, attachment in enumerate(attachments_text, 1):
+            for i, attachment in enumerate(relevant_attachments, 1):
                 if attachment.get('success') and attachment.get('text'):
                     combined_text += f"--- ВЛОЖЕНИЕ {i}: {attachment['file_name']} ---\n"
                     combined_text += f"Метод обработки: {attachment['method']}\n"

@@ -83,7 +83,7 @@ class ContactExtractor:
                 'model': os.getenv('OPENROUTER_MODEL'),
                 'base_url': os.getenv('OPENROUTER_BASE_URL', "https://openrouter.ai/api/v1/chat/completions"),
                 'priority': 3,  # Значение по умолчанию, будет переопределено из конфигурации
-                'active': True,
+                'active': False,
                 'failure_count': 0,
                 'last_failure': None,
                 'headers': {
@@ -99,7 +99,7 @@ class ContactExtractor:
                 'model': os.getenv('GROQ_MODEL'),
                 'base_url': os.getenv('GROQ_BASE_URL', "https://api.groq.com/openai/v1/chat/completions"),
                 'priority': 2,  # Значение по умолчанию, будет переопределено из конфигурации
-                'active': True,
+                'active': False,
                 'failure_count': 0,
                 'last_failure': None,
                 'headers': {
@@ -271,9 +271,14 @@ class ContactExtractor:
                 contact[field] = str(contact[field]) if contact[field] is not None else ''
         
         # Проверяем, что есть хотя бы имя или email или телефон
-        has_name = contact.get('name', '').strip()
-        has_email = contact.get('email', '').strip()
-        has_phone = contact.get('phone', '').strip()
+        has_name = contact.get('name')
+        has_email = contact.get('email')
+        has_phone = contact.get('phone')
+        
+        # Безопасная проверка с обработкой None
+        has_name = (has_name.strip() if has_name and isinstance(has_name, str) else '')
+        has_email = (has_email.strip() if has_email and isinstance(has_email, str) else '')
+        has_phone = (has_phone.strip() if has_phone and isinstance(has_phone, str) else '')
         
         if not (has_name or has_email or has_phone):
             print(f"⚠️ Контакт {index}: отсутствуют ключевые данные (имя, email, телефон)")
@@ -402,6 +407,11 @@ class ContactExtractor:
                 # Определяем конец текущего chunk
                 end_token = min(start_token + max_tokens, total_tokens)
                 
+                # Проверяем, что у нас есть содержимое для обработки
+                if start_token >= end_token:
+                    print(f"   ⚠️ Достигнут конец текста: start_token={start_token}, end_token={end_token}")
+                    break
+                
                 # Умное определение границ для лучшего разбиения
                 if smart_boundary_detection and end_token < total_tokens:
                     # Декодируем область вокруг предполагаемой границы
@@ -438,6 +448,11 @@ class ContactExtractor:
                 # Извлекаем токены для текущего chunk
                 chunk_tokens = tokens[start_token:end_token]
                 
+                # Проверяем, что chunk не пустой
+                if not chunk_tokens:
+                    print(f"   ⚠️ Пустой chunk на позиции {start_token}-{end_token}, завершаем")
+                    break
+                
                 # Декодируем обратно в текст
                 chunk_text = encoding.decode(chunk_tokens)
                 
@@ -447,10 +462,20 @@ class ContactExtractor:
                 
                 chunks.append(chunk_with_info)
                 
-                # Следующая часть с перекрытием
-                start_token = end_token - overlap_tokens
-                if start_token >= total_tokens:
+                # Проверяем, достигли ли мы конца текста
+                if end_token >= total_tokens:
+                    print(f"   ✅ Весь текст обработан: {end_token}/{total_tokens} токенов")
                     break
+                
+                # Следующая часть с перекрытием
+                next_start = end_token - overlap_tokens
+                
+                # Предотвращаем бесконечный цикл при слишком большом overlap
+                if next_start <= start_token:
+                    print(f"   ⚠️ Overlap слишком большой ({overlap_tokens}), корректируем")
+                    next_start = start_token + max(1, max_tokens // 2)
+                
+                start_token = next_start
             
             print(f"   ✅ Создано {len(chunks)} частей (токен-ориентированный метод)")
             return chunks
@@ -957,11 +982,15 @@ class ContactExtractor:
             # Создаем ключ для идентификации дубликатов
             key_parts = []
             if contact.get('email'):
-                key_parts.append(contact['email'].lower().strip())
+                email = contact.get('email')
+                if email and isinstance(email, str):
+                    key_parts.append(email.lower().strip())
             if contact.get('phone'):
                 # Нормализуем телефон (убираем пробелы, скобки, дефисы)
-                phone_normalized = ''.join(filter(str.isdigit, contact['phone']))
-                key_parts.append(phone_normalized)
+                phone = contact['phone']
+                if phone and isinstance(phone, str):
+                    phone_normalized = ''.join(filter(str.isdigit, phone))
+                    key_parts.append(phone_normalized)
             
             if key_parts:
                 contact_key = '|'.join(key_parts)
@@ -976,6 +1005,10 @@ class ContactExtractor:
     
     def _parse_llm_response(self, response_text: str) -> dict:
         """📝 Парсинг ответа LLM с строгой валидацией JSON"""
+        
+        # Проверяем, что response_text не None
+        if response_text is None:
+            raise ValueError("Получен None вместо текста ответа от LLM")
         
         # Логируем сырой ответ для диагностики
         print(f"🔍 Сырой ответ LLM ({len(response_text)} символов):")
@@ -1324,8 +1357,17 @@ class ContactExtractor:
         seen_phones = set()
         
         for contact in contacts:
-            email = contact.get('email', '').lower().strip()
-            phone = contact.get('phone', '').strip()
+            email = contact.get('email', '')
+            if email and isinstance(email, str):
+                email = email.lower().strip()
+            else:
+                email = ''
+            
+            phone = contact.get('phone', '')
+            if phone and isinstance(phone, str):
+                phone = phone.strip()
+            else:
+                phone = ''
             
             # Нормализуем телефон (убираем пробелы, скобки, дефисы, плюсы)
             # Оставляем только цифры для сравнения
@@ -1385,12 +1427,16 @@ class ContactExtractor:
                     'error': 'Prompt loading failed'
                 }
             
-            # Обработка больших текстов через разбивку на части (снижен порог для стабильности)
-            if len(text) > 6000:
-                print(f"   📄 Большой текст ({len(text)} символов), разбиваем на части")
+            # Загружаем конфигурацию для определения порога больших текстов
+            chunking_config = self._load_chunking_config()
+            large_text_threshold = chunking_config.get('max_chunk_size', 6000)
+            
+            # Обработка больших текстов через разбивку на части
+            if len(text) > large_text_threshold:
+                print(f"   📄 Большой текст ({len(text)} символов > {large_text_threshold}), разбиваем на части")
                 return self._process_large_text(text, prompt, metadata)
             else:
-                print(f"   📝 Обычный размер текста: {len(text)} символов")
+                print(f"   📝 Обычный размер текста: {len(text)} символов (≤ {large_text_threshold})")
             
             # Определяем провайдера
             provider_info = f"{self.providers[self.current_provider]['name']} ({self.providers[self.current_provider]['model']})"

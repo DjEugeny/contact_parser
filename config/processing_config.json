@@ -18,7 +18,7 @@
     "use_token_based": true,
     "max_tokens_per_chunk": 4000,
     "overlap_tokens": 400,
-    "max_chunks_per_text": 30,
+    "max_chunks_per_text": 10,
     "encoding_model": "cl100k_base",
     "auto_adjust_chunk_size": true,
     "min_chunk_size": 1500,

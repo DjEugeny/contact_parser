@@ -13,13 +13,13 @@ from datetime import datetime
 from typing import Dict, List, Optional
 
 from dotenv import load_dotenv
-from email_loader import ProcessedEmailLoader
+from .email_loader import ProcessedEmailLoader
 # from attachment_processor import AttachmentProcessor  # АРХИВИРОВАН
-from ocr_processor_adapter import OCRProcessorAdapter
-from llm_extractor import ContactExtractor
-from rate_limit_manager import RateLimitManager
-from config.regions import calculate_contact_priority
-from advanced_deduplication import AdvancedContactDeduplicator
+from .ocr_processor_adapter import OCRProcessorAdapter
+from .llm_extractor import ContactExtractor
+from .rate_limit_manager import RateLimitManager
+from .config.regions import calculate_contact_priority
+from .advanced_deduplication import AdvancedContactDeduplicator
 
 # Загружаем переменные окружения
 load_dotenv()
@@ -114,18 +114,26 @@ class IntegratedLLMProcessor:
             current_provider = self.contact_extractor.providers[self.contact_extractor.current_provider]
             
             # Отправляем в LLM с фокусом на коммерческую информацию
-            response = current_provider['client'].chat.completions.create(
-                model=current_provider['model'],
-                messages=[
+            # Используем тот же механизм что и в contact_extractor для совместимости
+            llm_payload = {
+                "messages": [
                     {"role": "system", "content": co_prompt},
-                    {"role": "user", "content": f"Проанализируй коммерческую информацию из этого письма и вложений:\n\n{combined_text}"}  # Полный текст без ограничений
+                    {"role": "user", "content": f"Проанализируй коммерческую информацию из этого письма и вложений:\n\n{combined_text}"}
                 ],
-                max_tokens=3000,
-                temperature=0.1
-            )
+                "max_tokens": 3000,
+                "temperature": 0.1
+            }
+            
+            # Делаем запрос через contact_extractor для единообразия
+            response = self.contact_extractor._make_llm_request(llm_payload, current_provider)
             
             # Парсим результат
-            analysis_result = self._parse_commercial_analysis(response.choices[0].message.content)
+            # _make_llm_request возвращает строку, а не объект с choices
+            if isinstance(response, str):
+                analysis_result = self._parse_commercial_analysis(response)
+            else:
+                # Fallback для совместимости
+                analysis_result = self._parse_commercial_analysis(str(response))
             
             if analysis_result.get("commercial_offer_found"):
                 print("   ✅ Коммерческое предложение найдено и проанализировано")
