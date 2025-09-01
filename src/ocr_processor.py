@@ -21,7 +21,7 @@ from logging.handlers import RotatingFileHandler
 
 from PIL import Image
 from google.api_core import exceptions as google_exceptions
-from .file_utils import normalize_filename
+from file_utils import normalize_filename
 
 Image.MAX_IMAGE_PIXELS = None
 
@@ -300,7 +300,24 @@ class OCRProcessor:
             if ext == ".docx":
                 print("   📄 Обработка DOCX локально...")
                 doc = DocxDocument(file_path)
-                text = "\n".join([p.text for p in doc.paragraphs])
+
+                # Извлекаем текст из параграфов
+                paragraphs_text = "\n".join([p.text for p in doc.paragraphs])
+
+                # Извлекаем текст из таблиц
+                tables_text = []
+                for table in doc.tables:
+                    for row in table.rows:
+                        for cell in row.cells:
+                            cell_text = cell.text.strip()
+                            if cell_text:
+                                tables_text.append(cell_text)
+                tables_combined = "\n".join(tables_text)
+
+                # Комбинируем текст из параграфов и таблиц
+                text = paragraphs_text + "\n" + tables_combined
+                text = text.strip()
+
                 method, confidence = "local_docx", 1.0
             elif ext == ".doc":
                 print("   📄 Обработка DOC (старый формат) через antiword...")
@@ -441,38 +458,37 @@ class OCRProcessor:
         # Получаем точное имя файла без расширения
         file_stem = file_path.stem
         
-        # Ищем файлы с точным совпадением имени (включая файлы-маркеры ошибок)
-        existing_files = list(date_texts_dir.glob(f"{file_stem}___*.txt"))
+        # Ищем файлы с точным совпадением имени (без суффиксов метода)
+        exact_match_files = list(date_texts_dir.glob(f"{file_stem}.txt")) + list(date_texts_dir.glob(f"{file_stem}_ERROR.txt"))
         
-        # Если найдены файлы с точным совпадением, возвращаем True
-        if existing_files:
+        # Если найдены файлы с точным совпадением
+        if exact_match_files:
             # Проверяем, есть ли среди найденных файлов файлы-маркеры ошибок
-            error_files = [f for f in existing_files if '_ERROR.txt' in f.name]
-            success_files = [f for f in existing_files if '_ERROR.txt' not in f.name]
-            
+            error_files = [f for f in exact_match_files if '_ERROR.txt' in f.name]
+            success_files = [f for f in exact_match_files if '_ERROR.txt' not in f.name]
+
             if success_files:
                 self.logger.debug(f"Найдены успешные результаты для {file_path.name}: {len(success_files)} файлов")
-                return True
+                return True  # Есть успешные результаты - пропускаем
             elif error_files:
                 self.logger.debug(f"Найдены только файлы-маркеры ошибок для {file_path.name}: {len(error_files)} файлов")
-                # Возвращаем True, чтобы не обрабатывать повторно файлы с ошибками
-                return True
+                # Файлы с ошибками нуждаются в повторной обработке
+                return False  # НЕ пропускаем, а обрабатываем повторно
         
-        # Дополнительно проверяем нормализованное имя для совместимости со старыми файлами
-        normalized_name = self._normalize_filename(file_stem)
-        normalized_files = list(date_texts_dir.glob(f"{normalized_name}___*.txt"))
+        # Дополнительно проверяем старые файлы с суффиксами методов для совместимости
+        old_format_files = list(date_texts_dir.glob(f"{file_stem}___*.txt"))
         
-        if normalized_files:
-            # Аналогично проверяем нормализованные файлы
-            error_files = [f for f in normalized_files if '_ERROR.txt' in f.name]
-            success_files = [f for f in normalized_files if '_ERROR.txt' not in f.name]
-            
+        if old_format_files:
+            # Аналогично проверяем старые файлы
+            error_files = [f for f in old_format_files if '_ERROR.txt' in f.name]
+            success_files = [f for f in old_format_files if '_ERROR.txt' not in f.name]
+
             if success_files:
-                self.logger.debug(f"Найдены нормализованные успешные результаты для {file_path.name}: {len(success_files)} файлов")
-                return True
+                self.logger.debug(f"Найдены старые успешные результаты для {file_path.name}: {len(success_files)} файлов")
+                return True  # Есть успешные результаты - пропускаем
             elif error_files:
-                self.logger.debug(f"Найдены нормализованные файлы-маркеры ошибок для {file_path.name}: {len(error_files)} файлов")
-                return True
+                self.logger.debug(f"Найдены старые файлы-маркеры ошибок для {file_path.name}: {len(error_files)} файлов")
+                return False  # Файлы с ошибками нуждаются в повторной обработке
         
         self.logger.debug(f"Результаты для {file_path.name} не найдены")
         return False
@@ -483,13 +499,15 @@ class OCRProcessor:
         date_texts_dir = self.texts_dir / date
         file_stem = file_path.stem
         
-        # Сначала ищем файлы с точным совпадением имени
-        existing_files = list(date_texts_dir.glob(f"{file_stem}___*.txt"))
+        # Сначала ищем файлы с точным совпадением имени (новый формат)
+        exact_match_files = list(date_texts_dir.glob(f"{file_stem}.txt")) + list(date_texts_dir.glob(f"{file_stem}_ERROR.txt"))
         
-        # Если не найдено, ищем по нормализованному имени
-        if not existing_files:
-            normalized_name = self._normalize_filename(file_stem)
-            existing_files = list(date_texts_dir.glob(f"{normalized_name}___*.txt"))
+        # Если не найдено, ищем по старому формату с суффиксами методов
+        if not exact_match_files:
+            old_format_files = list(date_texts_dir.glob(f"{file_stem}___*.txt"))
+            existing_files = old_format_files
+        else:
+            existing_files = exact_match_files
         
         if not existing_files:
             # Если файлов нет, возвращаем пустой результат
@@ -520,11 +538,26 @@ class OCRProcessor:
             result_file = existing_files[0]
             is_error = '_ERROR.txt' in result_file.name
         
-        method = result_file.stem.split('___')[-1] if '___' in result_file.stem else 'unknown'
+        # Определяем метод обработки из имени файла или содержимого
+        if '___' in result_file.stem:
+            # Старый формат с суффиксом метода
+            method = result_file.stem.split('___')[-1]
+            if method.endswith('_ERROR'):
+                method = method[:-6]  # Убираем _ERROR суффикс
+        else:
+            # Новый формат - метод в содержимом файла
+            method = 'unknown'
         
         try:
             with open(result_file, 'r', encoding='utf-8') as f:
                 content = f.read()
+                
+            # Если новый формат, извлекаем метод из содержимого
+            if method == 'unknown' and '# ⚙️ Метод:' in content:
+                for line in content.split('\n'):
+                    if line.startswith('# ⚙️ Метод:'):
+                        method = line.split(': ')[1].strip()
+                        break
                 
             # Извлекаем текст (пропускаем заголовки)
             lines = content.split('\n')
@@ -657,29 +690,42 @@ class OCRProcessor:
             # Сохраняем TXT файл ВСЕГДА при успешной обработке (даже если текст пустой)
             # Это предотвращает повторную обработку файлов с пустым содержимым
             if result["success"]:
-                # Используем нормализованное имя файла для предотвращения дублирования
-                normalized_name = self._normalize_filename(Path(result['file_name']).stem)
-                txt_filename = f"{normalized_name}___{result['method']}.txt"
+                # Используем точное имя файла как в папке @attachments
+                original_name = Path(result['file_name']).stem
+                txt_filename = f"{original_name}.txt"
                 txt_path = date_texts_dir / txt_filename
-                
+
+                # УДАЛЯЕМ СТАРЫЕ ФАЙЛЫ С ОШИБКАМИ перед сохранением нового результата
+                error_filename = f"{original_name}_ERROR.txt"
+                error_path = date_texts_dir / error_filename
+                if error_path.exists():
+                    error_path.unlink()
+                    self.logger.info(f"Удален старый файл с ошибкой: {error_path}")
+
+                # Также проверяем старый формат файлов для совместимости
+                old_error_files = list(date_texts_dir.glob(f"{original_name}___*_ERROR.txt"))
+                for old_error_file in old_error_files:
+                    old_error_file.unlink()
+                    self.logger.info(f"Удален старый файл с ошибкой: {old_error_file}")
+
                 # Определяем содержимое для сохранения
                 text_content = result.get("text", "").strip()
                 if not text_content:
                     text_content = "[ФАЙЛ ОБРАБОТАН УСПЕШНО, НО ТЕКСТ НЕ ИЗВЛЕЧЕН]"
-                
+
                 with open(txt_path, "w", encoding="utf-8") as f:
                     f.write(f"# 📄 Файл: {result['file_name']}\n# ⚙️ Метод: {result['method']}\n")
                     f.write(f"# ✨ Уверенность: {result['confidence']:.2%}\n# ⏱️ Время: {result['processing_time_sec']:.2f} сек\n")
                     if result.get('error'):
                         f.write(f"# ⚠️ Ошибка: {result['error']}\n")
                     f.write("# " + "=" * 50 + "\n\n" + text_content)
-                
+
                 result["txt_file_path"] = str(txt_path)
                 self.logger.info(f"Сохранен TXT файл для {file_name}: {txt_path} (текст: {len(text_content)} символов)")
             else:
                 # Для неуспешной обработки тоже создаем файл-маркер
-                normalized_name = self._normalize_filename(Path(result['file_name']).stem)
-                txt_filename = f"{normalized_name}___{result['method']}_ERROR.txt"
+                original_name = Path(result['file_name']).stem
+                txt_filename = f"{original_name}_ERROR.txt"
                 txt_path = date_texts_dir / txt_filename
                 
                 with open(txt_path, "w", encoding="utf-8") as f:
@@ -949,12 +995,21 @@ class OCRProcessor:
             
             # Проверяем, есть ли уже обработанные результаты
             if self._check_existing_results(file_path, date):
-                print(f"   ⏭️  Статус: УЖЕ ОБРАБОТАН - пропускаем")
-                stats["total"] += 1
-                stats["skipped"] += 1
-                stats["methods"]["skipped_existing"] = stats["methods"].get("skipped_existing", 0) + 1
-                self._print_current_stats(stats)
-                continue
+                # Дополнительная проверка: есть ли файлы с ошибками, которые нужно переобработать
+                date_texts_dir = self.texts_dir / date
+                file_stem = file_path.stem
+                error_files = list(date_texts_dir.glob(f"{file_stem}_ERROR.txt")) + list(date_texts_dir.glob(f"{file_stem}___*_ERROR.txt"))
+
+                if error_files:
+                    print(f"   🔄 Статус: ОБНАРУЖЕНЫ СТАРЫЕ ОШИБКИ - повторная обработка")
+                    # Не пропускаем, обрабатываем повторно
+                else:
+                    print(f"   ⏭️  Статус: УСПЕШНО ОБРАБОТАН РАНЕЕ - пропускаем")
+                    stats["total"] += 1
+                    stats["skipped"] += 1
+                    stats["methods"]["skipped_existing"] = stats["methods"].get("skipped_existing", 0) + 1
+                    self._print_current_stats(stats)
+                    continue
             
             # Обрабатываем файл
             print(f"   🔄 Статус: ОБРАБАТЫВАЕТСЯ...")
@@ -1007,9 +1062,9 @@ class OCRProcessor:
         
         confidences = stats["quality"]["confidences"]
         if confidences:
-            stats["quality"]["average_confidence"] = sum(confidences) / len(confidences)
-            stats["quality"]["high_confidence_count"] = sum(1 for c in confidences if c > 80)
-            stats["quality"]["low_confidence_count"] = sum(1 for c in confidences if c < 50)
+            stats["quality"]["average_confidence"] = sum(confidences) / len(confidences) * 100  # Convert to percentage
+            stats["quality"]["high_confidence_count"] = sum(1 for c in confidences if c > 0.8)  # 80% as decimal
+            stats["quality"]["low_confidence_count"] = sum(1 for c in confidences if c < 0.5)   # 50% as decimal
         
         print("\n" + "=" * 80)
         print(f"🎉 Тестирование для даты {date} завершено!")
