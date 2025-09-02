@@ -9,7 +9,7 @@
 import json
 import numpy as np
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Tuple
 import time
 from datetime import datetime
 import subprocess
@@ -22,9 +22,6 @@ import re
 
 from PIL import Image
 from google.api_core import exceptions as google_exceptions
-import sys
-from pathlib import Path
-sys.path.append(str(Path(__file__).parent))
 from file_utils import normalize_filename
 
 Image.MAX_IMAGE_PIXELS = None
@@ -55,11 +52,6 @@ try:
     XLRD_AVAILABLE = True
 except ImportError:
     XLRD_AVAILABLE = False
-try:
-    import pandas as pd
-    PANDAS_AVAILABLE = True
-except ImportError:
-    PANDAS_AVAILABLE = False
 
 class OCRProcessor:
     # ... (init, _show_capabilities, get_available_dates, get_files_for_date, run_google_vision_ocr - без изменений) ...
@@ -174,158 +166,6 @@ class OCRProcessor:
     def _normalize_filename(self, filename: str) -> str:
         """🔧 Нормализация имени файла через единую функцию из file_utils"""
         return normalize_filename(filename, remove_extension=True, to_lowercase=True)
-
-    def _detect_excel_format(self, file_path: Path) -> str:
-        """
-        Определяет реальный формат Excel файла по его сигнатуре,
-        независимо от расширения файла.
-        """
-        try:
-            with open(file_path, 'rb') as f:
-                header = f.read(8)
-
-            # XLSX файлы - это ZIP архивы, начинающиеся с PK
-            if header.startswith(b'PK\x03\x04'):
-                return 'xlsx'
-
-            # XLS файлы начинаются с OLE сигнатуры
-            if header.startswith(b'\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1'):
-                return 'xls'
-
-            return 'unknown'
-
-        except Exception as e:
-            self.logger.warning(f"Ошибка определения формата Excel файла {file_path}: {e}")
-            return 'unknown'
-
-    def _process_excel_file(self, file_path: Path, expected_format: str) -> Tuple[str, str, float]:
-        """
-        Универсальная обработка Excel файлов с автоматическим определением формата.
-        expected_format: 'xls' или 'xlsx' - ожидаемый формат по расширению
-        """
-        real_format = self._detect_excel_format(file_path)
-
-        if real_format == 'unknown':
-            raise RuntimeError(f"Не удалось определить формат Excel файла {file_path}")
-
-        print(f"   📊 Реальный формат файла: {real_format.upper()}, расширение указывает на: {expected_format.upper()}")
-
-        # Пробуем основной метод (xlrd для XLS, openpyxl для XLSX)
-        if real_format == 'xls' and XLRD_AVAILABLE:
-            try:
-                wb = xlrd.open_workbook(file_path, encoding_override="cp1251")
-                lines = []
-                for sheet in wb.sheets():
-                    for row_idx in range(sheet.nrows):
-                        row_data = [str(sheet.cell(row_idx, col_idx).value or "") for col_idx in range(sheet.ncols)]
-                        lines.append(" | ".join(row_data))
-                text = "\n".join(lines)
-                text = text.strip()
-
-                if text:
-                    method = "local_xls" if expected_format == 'xls' else "local_xls_fallback"
-                    return text, method, 1.0
-                else:
-                    raise RuntimeError("xlrd не смог извлечь текст")
-
-            except Exception as e:
-                print(f"   ⚠️ xlrd не справился: {e}")
-
-        elif real_format == 'xlsx' and OPENPYXL_AVAILABLE:
-            try:
-                wb = openpyxl.load_workbook(file_path, data_only=True)
-                lines = [" | ".join([str(cell.value or "") for cell in row])
-                        for sheet in wb.worksheets for row in sheet.iter_rows()]
-                text = "\n".join(lines)
-                text = text.strip()
-
-                if text:
-                    method = "local_xlsx" if expected_format == 'xlsx' else "local_xlsx_fallback"
-                    return text, method, 1.0
-                else:
-                    raise RuntimeError("openpyxl не смог извлечь текст")
-
-            except Exception as e:
-                print(f"   ⚠️ openpyxl не справился: {e}")
-
-        # Пробуем pandas как универсальный метод
-        if PANDAS_AVAILABLE:
-            try:
-                print("   🔄 Пробуем pandas как универсальный метод...")
-                # Используем engine='openpyxl' для XLSX файлов
-                if real_format == 'xlsx':
-                    df_dict = pd.read_excel(file_path, sheet_name=None, engine='openpyxl')
-                else:
-                    # Для XLS файлов используем engine='xlrd'
-                    df_dict = pd.read_excel(file_path, sheet_name=None, engine='xlrd')
-
-                lines = []
-                for sheet_name, df in df_dict.items():
-                    lines.append(f"=== {sheet_name} ===")
-                    # Преобразуем DataFrame в строки
-                    for _, row in df.iterrows():
-                        row_data = [str(val) if pd.notna(val) else "" for val in row]
-                        lines.append(" | ".join(row_data))
-
-                text = "\n".join(lines)
-                text = text.strip()
-
-                if text:
-                    method = "local_pandas_fallback"
-                    print("   ✅ Pandas успешно обработал файл")
-                    return text, method, 1.0
-                else:
-                    raise RuntimeError("Pandas не смог извлечь текст")
-
-            except Exception as e:
-                print(f"   ⚠️ Pandas тоже не справился: {e}")
-
-        # Пробуем альтернативный метод
-        print("   🔄 Пробуем альтернативный метод...")
-
-        if real_format == 'xls' and OPENPYXL_AVAILABLE:
-            # Для XLS файла пробуем openpyxl (редкий случай)
-            try:
-                wb = openpyxl.load_workbook(file_path, data_only=True)
-                lines = [" | ".join([str(cell.value or "") for cell in row])
-                        for sheet in wb.worksheets for row in sheet.iter_rows()]
-                text = "\n".join(lines)
-                text = text.strip()
-
-                if text:
-                    method = "local_xlsx_fallback"
-                    print("   ✅ Альтернативный метод (XLSX) сработал успешно")
-                    return text, method, 1.0
-                else:
-                    raise RuntimeError("Альтернативный метод не смог извлечь текст")
-
-            except Exception as e:
-                print(f"   ❌ Альтернативный метод тоже не сработал: {e}")
-
-        elif real_format == 'xlsx' and XLRD_AVAILABLE:
-            # Для XLSX файла пробуем xlrd (редкий случай)
-            try:
-                wb = xlrd.open_workbook(file_path, encoding_override="cp1251")
-                lines = []
-                for sheet in wb.sheets():
-                    for row_idx in range(sheet.nrows):
-                        row_data = [str(sheet.cell(row_idx, col_idx).value or "") for col_idx in range(sheet.ncols)]
-                        lines.append(" | ".join(row_data))
-                text = "\n".join(lines)
-                text = text.strip()
-
-                if text:
-                    method = "local_xls_fallback"
-                    print("   ✅ Альтернативный метод (XLS) сработал успешно")
-                    return text, method, 1.0
-                else:
-                    raise RuntimeError("Альтернативный метод не смог извлечь текст")
-
-            except Exception as e:
-                print(f"   ❌ Альтернативный метод тоже не сработал: {e}")
-
-        # Если ничего не сработало
-        raise RuntimeError(f"Все методы обработки {expected_format.upper()} файла неудачны. Реальный формат: {real_format.upper()}")
 
     def _analyze_pdf_structure(self, pdf_path: Path) -> dict:
         """
@@ -449,12 +289,9 @@ class OCRProcessor:
         }
 
         garbage_score = 0
-        pattern_details = {}
-        for pattern_name, pattern in patterns.items():
+        for pattern in patterns.values():
             matches = re.findall(pattern, text)
-            count = len(matches)
-            garbage_score += count
-            pattern_details[pattern_name] = count
+            garbage_score += len(matches)
 
         # Поиск реальных слов (улучшенная версия)
         russian_words = re.findall(r'[а-яё]{4,}', text.lower())  # Минимум 4 буквы
@@ -475,38 +312,16 @@ class OCRProcessor:
         # Расчет процента фейковых английских слов
         fake_ratio = fake_english_score / max(len(english_words), 1)
 
-        # Адаптивные критерии мусора в зависимости от типа документа
-        total_words = len(russian_words) + len(english_words)
-        text_length = len(text)
-
-        # Для длинных технических документов (более 10000 символов) более мягкие критерии
-        if text_length > 10000:
-            garbage_threshold = 20  # Увеличиваем порог для длинных документов
-        elif text_length > 5000:
-            garbage_threshold = 10
-        else:
-            garbage_threshold = 5   # Оригинальный порог для коротких документов
-
-        # Для документов с большим количеством слов более мягкие критерии
-        if total_words > 1000:
-            garbage_threshold *= 2
-        elif total_words > 500:
-            garbage_threshold *= 1.5
-
-        # Учитываем соотношение мусора к общему количеству слов
-        garbage_to_words_ratio = garbage_score / max(total_words, 1)
-
-        # Критерии мусора с адаптивными порогами
+        # Критерии мусора
         is_good = (
-            garbage_score < garbage_threshold and  # Адаптивный порог мусора
-            garbage_to_words_ratio < 0.05 and  # Менее 5% мусора от общего количества слов
+            garbage_score < 5 and  # Мало мусорных паттернов
             len(russian_words) > 2 and  # Есть русские слова
             fake_ratio < 0.7  # Менее 70% английских слов являются фейковыми
         )
 
         return {
             'is_good': is_good,
-            'reason': f"garbage_score={garbage_score}/{garbage_threshold}, ratio={garbage_to_words_ratio:.3f}, russian_words={len(russian_words)}, fake_english_ratio={fake_ratio:.2f}"
+            'reason': f"garbage_score={garbage_score}, russian_words={len(russian_words)}, fake_english_ratio={fake_ratio:.2f}"
         }
 
     def _is_text_quality_good(self, text: str, pdf_path: Path = None) -> bool:
@@ -526,20 +341,6 @@ class OCRProcessor:
                 if structure_analysis['has_text_layer'] and structure_analysis['text_confidence'] > 0.7:
                     # Дополнительная проверка текста на мусор
                     garbage_check = self._quick_garbage_check(text)
-
-                    # Специальная логика для документов с отличной структурой PDF
-                    if (structure_analysis['structure_score'] >= 90 and
-                        'ratio=' in garbage_check['reason']):
-                        # Извлекаем ratio из reason
-                        try:
-                            ratio_str = garbage_check['reason'].split('ratio=')[1].split(',')[0]
-                            garbage_ratio = float(ratio_str)
-                            # Если соотношение мусора мало (< 5%), игнорируем строгие пороги
-                            if garbage_ratio < 0.05:
-                                return True
-                        except (ValueError, IndexError):
-                            pass
-
                     return garbage_check['is_good']
                 elif structure_analysis['text_confidence'] < 0.3:
                     # Структура показывает отсутствие качественного текстового слоя
@@ -974,10 +775,80 @@ class OCRProcessor:
                         raise RuntimeError(f"Все методы обработки DOC файла неудачны. Antiword: {process.stderr or 'ошибка'}. Резервный: {str(fallback_error)}")
             elif ext == ".xlsx":
                 print("   📄 Обработка XLSX локально...")
-                text, method, confidence = self._process_excel_file(file_path, 'xlsx')
+                if not OPENPYXL_AVAILABLE: raise ImportError("Библиотека openpyxl не найдена. Установите: pip install openpyxl")
+
+                # Пытаемся обработать через openpyxl
+                try:
+                    wb = openpyxl.load_workbook(file_path, data_only=True)
+                    lines = [" | ".join([str(cell.value or "") for cell in row]) for sheet in wb.worksheets for row in sheet.iter_rows()]
+                    text = "\n".join(lines)
+                    text = text.strip()
+
+                    if text:  # Проверяем, что извлечен текст
+                        method, confidence = "local_xlsx", 1.0
+                    else:
+                        raise RuntimeError("openpyxl не смог извлечь текст")
+
+                except Exception as openpyxl_error:
+                    print("   ⚠️ openpyxl не справился. Пробуем резервный метод (XLS)...")
+                    # Резервный метод: пробуем обработать как XLS (файл может быть в старом формате)
+                    try:
+                        if XLRD_AVAILABLE:
+                            wb = xlrd.open_workbook(file_path, encoding_override="cp1251")
+                            lines = []
+                            for sheet in wb.sheets():
+                                for row_idx in range(sheet.nrows):
+                                    lines.append(" | ".join([str(sheet.cell(row_idx, col_idx).value or "") for col_idx in range(sheet.ncols)]))
+                            text = "\n".join(lines)
+                            text = text.strip()
+
+                            if text:  # Проверяем, что извлечен текст
+                                method, confidence = "local_xls_fallback", 1.0
+                                print("   ✅ Резервный метод (XLS) сработал успешно")
+                            else:
+                                raise RuntimeError("Резервный метод не смог извлечь текст")
+                        else:
+                            raise RuntimeError("Библиотека xlrd не доступна для резервного метода")
+                    except Exception as fallback_error:
+                        raise RuntimeError(f"Все методы обработки XLSX файла неудачны. openpyxl: {str(openpyxl_error)}. Резервный: {str(fallback_error)}")
             elif ext == ".xls":
                 print("   📄 Обработка XLS (старый формат) локально...")
-                text, method, confidence = self._process_excel_file(file_path, 'xls')
+                if not XLRD_AVAILABLE: raise ImportError("Библиотека xlrd не найдена. Установите: pip install xlrd")
+
+                # Пытаемся обработать через xlrd
+                try:
+                    wb = xlrd.open_workbook(file_path, encoding_override="cp1251")
+                    lines = []
+                    for sheet in wb.sheets():
+                        for row_idx in range(sheet.nrows):
+                            lines.append(" | ".join([str(sheet.cell(row_idx, col_idx).value or "") for col_idx in range(sheet.ncols)]))
+                    text = "\n".join(lines)
+                    text = text.strip()
+
+                    if text:  # Проверяем, что извлечен текст
+                        method, confidence = "local_xls", 1.0
+                    else:
+                        raise RuntimeError("xlrd не смог извлечь текст")
+
+                except Exception as xlrd_error:
+                    print("   ⚠️ xlrd не справился. Пробуем резервный метод (XLSX)...")
+                    # Резервный метод: пробуем обработать как XLSX (файл может быть в новом формате)
+                    try:
+                        if OPENPYXL_AVAILABLE:
+                            wb = openpyxl.load_workbook(file_path, data_only=True)
+                            lines = [" | ".join([str(cell.value or "") for cell in row]) for sheet in wb.worksheets for row in sheet.iter_rows()]
+                            text = "\n".join(lines)
+                            text = text.strip()
+
+                            if text:  # Проверяем, что извлечен текст
+                                method, confidence = "local_xlsx_fallback", 1.0
+                                print("   ✅ Резервный метод (XLSX) сработал успешно")
+                            else:
+                                raise RuntimeError("Резервный метод не смог извлечь текст")
+                        else:
+                            raise RuntimeError("Библиотека openpyxl не доступна для резервного метода")
+                    except Exception as fallback_error:
+                        raise RuntimeError(f"Все методы обработки XLS файла неудачны. xlrd: {str(xlrd_error)}. Резервный: {str(fallback_error)}")
 
             # <<< ИЗМЕНЕНИЕ: Самая надежная обработка PDF >>>
             elif ext == ".pdf":

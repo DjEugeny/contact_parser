@@ -1,4 +1,5 @@
 # 🚫 Черный список email адресов (по одному на строку)
+s.voronova@dna-technology.ru
 info@*
 no-reply@taxi.yandex.ru
 noreply@yandex.ru

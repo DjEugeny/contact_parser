@@ -14,7 +14,7 @@ import logging
 import hashlib
 import re
 from pathlib import Path
-# from file_utils import normalize_filename  # Комментируем импорт
+from file_utils import normalize_filename
 from typing import Dict, List, Tuple, Optional, Any
 from datetime import datetime
 import tiktoken
@@ -160,18 +160,10 @@ class FileTokenCounter:
                 print("Некорректный ввод. Введите число или 'q'.")
 
     def count_symbols_tokens(self, text: str) -> Tuple[int, int]:
-        """Подсчитывает количество символов и токенов в тексте с нормализацией."""
+        """Подсчитывает количество символов и токенов в тексте."""
         if not text or not isinstance(text, str):
             return 0, 0
-
-        # Нормализуем текст для консистентности расчетов
-        # Удаляем BOM если присутствует
-        if text.startswith('\ufeff'):
-            text = text[1:]
-
-        # Удаляем лишние пробелы в начале и конце
-        text = text.strip()
-
+        
         symbols = len(text)
         tokens = 0
         if self.encoder:
@@ -179,7 +171,7 @@ class FileTokenCounter:
                 tokens = len(self.encoder.encode(text))
             except Exception as e:
                 logger.warning(f"Ошибка подсчёта токенов: {e}")
-
+        
         return symbols, tokens
 
     def _extract_email_number(self, filename: str) -> int:
@@ -189,152 +181,94 @@ class FileTokenCounter:
     
     def _normalize_filename(self, filename: str) -> str:
         """Нормализует имя файла для лучшего сопоставления."""
-        # Простая нормализация без использования file_utils
-        return filename.lower().replace(' ', '_')
+        return normalize_filename(filename, remove_extension=True, to_lowercase=True)
     
     def _extract_attachment_core_name(self, attachment_name: str) -> str:
         """Извлекает ключевую часть имени вложения, которая остаётся после обработки OCR."""
-        # Простая нормализация без использования file_utils
-        return attachment_name.lower().replace(' ', '_')
+        return normalize_filename(attachment_name, remove_extension=True, to_lowercase=True)
     
     def _extract_ocr_core_name(self, ocr_filename: str) -> str:
         """Извлекает ключевую часть имени OCR файла."""
-        # Простая нормализация без использования file_utils
-        return ocr_filename.lower().replace(' ', '_')
+        return normalize_filename(ocr_filename, remove_extension=True, to_lowercase=True)
     
     def _extract_email_prefix(self, filename: str) -> Optional[str]:
         """Извлекает префикс email_X_ из имени файла OCR."""
         match = re.search(r'^(email_\d+)_', filename)
         return match.group(1) if match else None
 
-    def _read_file_content(self, file_path: Path) -> str:
-        """Унифицированное чтение файла с поддержкой различных кодировок."""
-        encodings_to_try = ['utf-8', 'utf-8-sig', 'cp1251', 'windows-1251', 'iso-8859-1']
-
-        for encoding in encodings_to_try:
-            try:
-                content = file_path.read_text(encoding=encoding)
-
-                # Удаляем BOM если присутствует
-                if content.startswith('\ufeff'):
-                    content = content[1:]
-
-                # Проверяем, что файл не пустой и содержит текст
-                if content.strip():
-                    logger.debug(f"Файл {file_path.name} успешно прочитан с кодировкой {encoding}")
-                    return content
-            except (UnicodeDecodeError, UnicodeError):
-                continue
-            except Exception as e:
-                logger.warning(f"Ошибка при чтении файла {file_path.name} с кодировкой {encoding}: {e}")
-                continue
-
-        # Если ни одна кодировка не сработала, пробуем прочитать как бинарный файл
-        try:
-            content = file_path.read_bytes().decode('utf-8', errors='replace')
-            if content.strip():
-                logger.debug(f"Файл {file_path.name} прочитан как бинарный с заменой ошибок")
-                return content
-        except Exception as e:
-            logger.error(f"Критическая ошибка чтения файла {file_path.name}: {e}")
-
-        return ""
-
-    def _normalize_for_comparison(self, text: str) -> str:
-        """Нормализует текст для сравнения, устраняя различия в кодировке."""
-        if not text:
-            return text
-
-        # Приводим к нижнему регистру
-        text = text.lower()
-
-        # Заменяем похожие символы (кириллица vs латиница, диакритические знаки)
-        replacements = {
-            'й': 'и',  # й -> и
-            'ё': 'е',  # ё -> е
-            'ъ': '',   # удаляем твердый знак
-            'ь': '',   # удаляем мягкий знак
-            # Заменяем похожие буквы
-            'a': 'а', 'b': 'в', 'c': 'с', 'e': 'е', 'h': 'н',
-            'k': 'к', 'm': 'м', 'o': 'о', 'p': 'р', 't': 'т',
-            'u': 'и', 'x': 'х', 'y': 'у',
-            # Удаляем диакритические знаки и специальные символы
-            '\u0301': '',  # ударение
-            '\u0300': '',  # гравис
-            '\u0306': '',  # breve
-        }
-
-        for old_char, new_char in replacements.items():
-            text = text.replace(old_char, new_char)
-
-        # Удаляем множественные пробелы и приводим к единому формату
-        import re
-        text = re.sub(r'\s+', ' ', text).strip()
-
-        return text
-
-    def _find_ocr_file(self, date: str, attachment_name: str) -> Optional[Path]:
-        """Выполняет гибкий поиск OCR-файла для указанного вложения с диагностикой."""
+    def _find_ocr_file(self, date: str, attachment_name: str, email_prefix: Optional[str] = None) -> Optional[Path]:
+        """Выполняет улучшенный поиск OCR-файла для указанного вложения."""
         ocr_dir = self.final_results_path / date
         if not ocr_dir.exists():
             logger.debug(f"OCR папка для даты {date} не существует: {ocr_dir}")
             return None
 
-        # Получаем список всех OCR файлов для диагностики
         all_ocr_files = list(ocr_dir.glob("*.txt"))
         logger.debug(f"Поиск OCR для '{attachment_name}' среди {len(all_ocr_files)} файлов в {date}")
-
+        
+        # Извлекаем ключевую часть имени вложения (то, что остаётся после OCR обработки)
+        attachment_core = self._extract_attachment_core_name(attachment_name)
+        attachment_normalized = self._normalize_filename(attachment_name)
         attachment_base = attachment_name.rsplit('.', 1)[0] if '.' in attachment_name else attachment_name
-
-        # Этап 1: Точное совпадение по полному имени
+        
+        logger.debug(f"Поиск OCR для вложения: '{attachment_name}'")
+        logger.debug(f"  - Ключевая часть: '{attachment_core}'")
+        
+        # Этап 1: Поиск по ключевой части имени (ОСНОВНОЙ МЕТОД!)
         for ocr_file in all_ocr_files:
-            ocr_file_name_no_ext = ocr_file.stem
-            if attachment_name == ocr_file_name_no_ext:
-                logger.debug(f"Найдено точное совпадение: {attachment_name} -> {ocr_file.name}")
+            ocr_core = self._extract_ocr_core_name(ocr_file.name)
+            if attachment_core and ocr_core and attachment_core == ocr_core:
+                logger.debug(f"✅ Найдено совпадение по ключевой части: '{attachment_core}' -> {ocr_file.name}")
                 return ocr_file
-
-        # Этап 2: Совпадение по базовому имени без расширения
+        
+        # Этап 2: Поиск по ключевой части с нормализацией
+        attachment_core_normalized = self._normalize_filename(attachment_core) if attachment_core else ""
         for ocr_file in all_ocr_files:
-            ocr_file_name_no_ext = ocr_file.stem
-            if attachment_base == ocr_file_name_no_ext:
-                logger.debug(f"Найдено совпадение по базовому имени: {attachment_base} -> {ocr_file.name}")
+            ocr_core = self._extract_ocr_core_name(ocr_file.name)
+            ocr_core_normalized = self._normalize_filename(ocr_core) if ocr_core else ""
+            if attachment_core_normalized and ocr_core_normalized and attachment_core_normalized == ocr_core_normalized:
+                logger.debug(f"✅ Найдено нормализованное совпадение по ключевой части: '{attachment_core_normalized}' -> {ocr_file.name}")
                 return ocr_file
-
-        # Этап 3: Нормализованное сравнение (учитывает кодировочные различия)
-        attachment_normalized = self._normalize_for_comparison(attachment_base)
-        logger.debug(f"Нормализованное имя вложения: '{attachment_normalized}'")
-
+        
+        # Этап 3: Поиск по точному совпадению с префиксом email_X_
+        if email_prefix:
+            for ocr_file in all_ocr_files:
+                if ocr_file.name.startswith(f"{email_prefix}_"):
+                    ocr_without_prefix = ocr_file.name[len(email_prefix)+1:]  # +1 для символа _
+                    if attachment_normalized in ocr_without_prefix.lower() or ocr_without_prefix.lower() in attachment_normalized:
+                        logger.debug(f"✅ Найдено по префиксу email: {email_prefix} -> {ocr_file.name}")
+                        return ocr_file
+        
+        # Этап 4: Поиск по полному имени файла
         for ocr_file in all_ocr_files:
-            ocr_file_name_no_ext = ocr_file.stem
-            ocr_normalized = self._normalize_for_comparison(ocr_file_name_no_ext)
-
-            # Проверяем схожесть после нормализации
-            if attachment_normalized == ocr_normalized:
-                logger.debug(f"Найдено совпадение после нормализации: '{attachment_base}' -> '{ocr_file_name_no_ext}'")
+            ocr_base = ocr_file.name.rsplit('.', 1)[0]
+            if attachment_base.lower() == ocr_base.lower():
+                logger.debug(f"✅ Найдено точное совпадение полного имени: {ocr_file.name}")
                 return ocr_file
-
-            # Более мягкое сравнение - проверяем, содержит ли одно имя другое после нормализации
-            if (len(attachment_normalized) > 10 and attachment_normalized in ocr_normalized) or \
-               (len(ocr_normalized) > 10 and ocr_normalized in attachment_normalized):
-                logger.debug(f"Найдено частичное совпадение после нормализации: '{attachment_base}' ~ '{ocr_file_name_no_ext}'")
-                return ocr_file
-
-        # Этап 4: Частичное совпадение (базовое имя содержится в OCR файле)
+        
+        # Этап 5: Частичное совпадение (строгое)
         for ocr_file in all_ocr_files:
-            if attachment_base in ocr_file.name:
-                logger.debug(f"Найдено частичное совпадение: {attachment_base} содержится в {ocr_file.name}")
+            ocr_normalized = self._normalize_filename(ocr_file.name)
+            if (len(attachment_normalized) > 3 and attachment_normalized in ocr_normalized) or \
+               (len(ocr_normalized) > 3 and ocr_normalized in attachment_normalized):
+                logger.debug(f"✅ Найдено частичное совпадение: '{attachment_normalized}' <-> '{ocr_normalized}'")
                 return ocr_file
-
-        # Этап 5: Обратное частичное совпадение (OCR имя содержится в attachment)
+        
+        # Этап 6: Поиск по базовому имени без префиксов и суффиксов
+        attachment_clean = re.sub(r'^email_\d+_', '', attachment_base)
+        attachment_clean = re.sub(r'_\d{6}_(attach|inline)_.*$', '', attachment_clean)
+        attachment_clean = self._normalize_filename(attachment_clean)
+        
         for ocr_file in all_ocr_files:
-            ocr_base = ocr_file.stem
-            if len(ocr_base) > 5 and ocr_base in attachment_name:  # Минимальная длина для избежания ложных совпадений
-                logger.debug(f"Найдено обратное частичное совпадение: {ocr_base} содержится в {attachment_name}")
+            ocr_clean = re.sub(r'^email_\d+_', '', ocr_file.name)
+            ocr_clean = re.sub(r'___.*$', '', ocr_clean)
+            ocr_clean = self._normalize_filename(ocr_clean)
+            
+            if attachment_clean and ocr_clean and attachment_clean == ocr_clean:
+                logger.debug(f"✅ Найдено по очищенному имени: '{attachment_clean}' -> {ocr_file.name}")
                 return ocr_file
-
-        logger.warning(f"OCR файл для вложения '{attachment_name}' не найден среди {len(all_ocr_files)} файлов")
-        if logger.isEnabledFor(logging.DEBUG):
-            logger.debug(f"Доступные OCR файлы: {[f.name for f in all_ocr_files[:10]]}{'...' if len(all_ocr_files) > 10 else ''}")
+                
+        logger.info(f"⚠️ OCR файл для вложения '{attachment_name}' не найден среди {len(all_ocr_files)} файлов")
         return None
 
     def process_date(self, date: str) -> List[Dict]:
@@ -377,6 +311,10 @@ class FileTokenCounter:
                     "attachments": []
                 }
 
+                # Извлекаем номер письма для более точного поиска OCR файлов
+                email_number = self._extract_email_number(email_file.name)
+                email_prefix = f"email_{email_number}" if email_number > 0 else None
+
                 # Обработка вложений
                 attachments = email_data.get('attachments', [])
                 for attachment in attachments:
@@ -384,7 +322,7 @@ class FileTokenCounter:
                     if not saved_filename:
                         continue
 
-                    ocr_file = self._find_ocr_file(date, saved_filename)
+                    ocr_file = self._find_ocr_file(date, saved_filename, email_prefix)
                     att_result = {"file": saved_filename, "status": "unprocessed", "symbols": 0, "tokens": 0}
 
                     if ocr_file:
@@ -394,14 +332,10 @@ class FileTokenCounter:
                             att_result["symbols"], att_result["tokens"] = cached_ocr
                         else:
                             try:
-                                ocr_text = self._read_file_content(ocr_file)
-                                if ocr_text:
-                                    att_result["symbols"], att_result["tokens"] = self.count_symbols_tokens(ocr_text)
-                                    self._update_cache(ocr_file, att_result["symbols"], att_result["tokens"])
-                                else:
-                                    logger.error(f"Не удалось прочитать OCR файл {ocr_file.name}")
-                                    att_result["status"] = "error"
-                            except Exception as e:
+                                ocr_text = ocr_file.read_text(encoding='utf-8')
+                                att_result["symbols"], att_result["tokens"] = self.count_symbols_tokens(ocr_text)
+                                self._update_cache(ocr_file, att_result["symbols"], att_result["tokens"])
+                            except IOError as e:
                                 logger.error(f"Ошибка чтения OCR файла {ocr_file.name}: {e}")
                                 att_result["status"] = "error"
                         
@@ -446,14 +380,10 @@ class FileTokenCounter:
                                     symbols, tokens = cached_ocr
                                 else:
                                     try:
-                                        ocr_text = self._read_file_content(ocr_file)
-                                        if ocr_text:
-                                            symbols, tokens = self.count_symbols_tokens(ocr_text)
-                                            self._update_cache(ocr_file, symbols, tokens)
-                                        else:
-                                            logger.error(f"Не удалось прочитать OCR файл {ocr_file.name}")
-                                            symbols, tokens = 0, 0
-                                    except Exception as e:
+                                        ocr_text = ocr_file.read_text(encoding='utf-8')
+                                        symbols, tokens = self.count_symbols_tokens(ocr_text)
+                                        self._update_cache(ocr_file, symbols, tokens)
+                                    except IOError as e:
                                         logger.error(f"Ошибка чтения OCR файла {ocr_file.name}: {e}")
                                         symbols, tokens = 0, 0
                                 
@@ -488,14 +418,10 @@ class FileTokenCounter:
                             symbols, tokens = cached_ocr
                         else:
                             try:
-                                ocr_text = self._read_file_content(ocr_file)
-                                if ocr_text:
-                                    symbols, tokens = self.count_symbols_tokens(ocr_text)
-                                    self._update_cache(ocr_file, symbols, tokens)
-                                else:
-                                    logger.error(f"Не удалось прочитать OCR файл {ocr_file.name}")
-                                    symbols, tokens = 0, 0
-                            except Exception as e:
+                                ocr_text = ocr_file.read_text(encoding='utf-8')
+                                symbols, tokens = self.count_symbols_tokens(ocr_text)
+                                self._update_cache(ocr_file, symbols, tokens)
+                            except IOError as e:
                                 logger.error(f"Ошибка чтения OCR файла {ocr_file.name}: {e}")
                                 symbols, tokens = 0, 0
                         
@@ -515,27 +441,16 @@ class FileTokenCounter:
     def _build_diagnostics_section(self, dates: List[str]) -> str:
         """Строит секцию с диагностической информацией."""
         diagnostics_rows = ""
-
+        
         for date in dates:
-            # Подсчет файлов в attachments (исключаем скрытые файлы)
-            attachments_dir = self.attachments_path / date
-            if attachments_dir.exists():
-                attachments_count = len([f for f in attachments_dir.iterdir()
-                                       if f.is_file() and not f.name.startswith('.')])
-            else:
-                attachments_count = 0
-
-            # Подсчет файлов в final_results (только .txt файлы)
-            ocr_dir = self.final_results_path / date
-            ocr_count = len(list(ocr_dir.glob("*.txt"))) if ocr_dir.exists() else 0
-
             # Подсчет писем
             emails_dir = self.emails_path / date
             emails_count = len(list(emails_dir.glob("*.json"))) if emails_dir.exists() else 0
-
+            
             # Подсчет вложений на основе данных из JSON файлов писем
-            expected_attachments = 0  # Количество вложений, которые должны быть сохранены
-            excluded_attachments = 0   # Количество исключенных вложений
+            attachments_count = 0
+            expected_attachments = 0  # Количество вложений, которые должны быть по данным писем
+            
             if emails_dir.exists():
                 for email_file in emails_dir.glob("*.json"):
                     try:
@@ -543,28 +458,33 @@ class FileTokenCounter:
                             email_data = json.load(f)
                         # Считаем количество вложений в JSON файле письма
                         email_attachments = email_data.get('attachments', [])
-                        for attachment in email_attachments:
-                            status = attachment.get('status', '')
-                            if status == 'saved':
-                                expected_attachments += 1
-                            elif status in ['excluded_by_name', 'excluded_by_size', 'unsupported']:
-                                excluded_attachments += 1
+                        expected_attachments += len(email_attachments)
                     except (IOError, json.JSONDecodeError) as e:
                         logger.warning(f"Ошибка чтения файла письма {email_file.name}: {e}")
-
-            # Определяем статус с улучшенной логикой
+            
+            # Подсчет реальных файлов в attachments (исключаем скрытые файлы и директории)
+            attachments_dir = self.attachments_path / date
+            if attachments_dir.exists():
+                attachments_count = len([f for f in attachments_dir.iterdir() 
+                                       if f.is_file() and not f.name.startswith('.')])
+            
+            # Подсчет файлов в final_results
+            ocr_dir = self.final_results_path / date
+            ocr_count = len(list(ocr_dir.glob("*.txt"))) if ocr_dir.exists() else 0
+            
+            # Определяем статус: зеленый если нет ожидаемых вложений
             status_class = ""
             if expected_attachments == 0:
-                # Если в письмах не было сохраненных вложений - это нормально
+                # Если в письмах не было вложений - это нормально (зеленый)
                 status_class = "status-ok"
             elif expected_attachments > 0 and attachments_count == 0:
-                # Красный статус только если письма ожидают вложения, но их нет в attachments
+                # Красный статус только если письма ожидают вложения, но их нет в @attachments
                 status_class = "status-missing"
             elif attachments_count != ocr_count:
                 status_class = "status-mismatch"
             else:
                 status_class = "status-ok"
-
+            
             diagnostics_rows += f"""
             <tr class="{status_class}">
                 <td>{date}</td>
@@ -618,70 +538,7 @@ class FileTokenCounter:
             </div>
         </details>
         """
-
-    def _build_top_attachments_section(self, all_results: Dict[str, List[Dict]]) -> str:
-        """Строит секцию с ТОП-30 вложений по количеству символов."""
-        # Собираем все вложения из всех дат
-        all_attachments = []
-
-        for date, emails in all_results.items():
-            for email in emails:
-                for attachment in email.get('attachments', []):
-                    if attachment['symbols'] > 0:  # Только вложения с содержимым
-                        all_attachments.append({
-                            'file': attachment['file'],
-                            'symbols': attachment['symbols'],
-                            'tokens': attachment['tokens'],
-                            'date': date,
-                            'email': email['file']
-                        })
-
-        # Сортируем по количеству символов (по убыванию) и берем топ-30
-        top_attachments = sorted(all_attachments, key=lambda x: x['symbols'], reverse=True)[:30]
-
-        if not top_attachments:
-            return ""
-
-        # Строим HTML таблицу
-        top_rows = ""
-        for i, att in enumerate(top_attachments, 1):
-            # Создаем кликабельную ссылку с JavaScript для открытия файла
-            file_path = str((self.attachments_path / att['date'] / att['file']).resolve())
-            top_rows += f"""
-            <tr class="top-attachment-row">
-                <td class="number">{i}</td>
-                <td class="file-name">
-                    <button onclick="openFile('{file_path}')" class="file-link" title="Открыть файл: {att['file']}">
-                        {att['file']}
-                    </button>
-                    <br><small class="file-info">{att['date']} • {att['email']}</small>
-                </td>
-                <td class="symbols">{self.format_number(att['symbols'])}</td>
-                <td class="tokens">{self.format_number(att['tokens'])}</td>
-            </tr>
-            """
-
-        return f"""
-        <details class="top-attachments-section" open>
-            <summary class="top-attachments-header">📊 ТОП-30 вложений по символам</summary>
-            <div class="top-attachments-content">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th class="rank-column">#</th>
-                            <th class="file-column">Файл</th>
-                            <th class="symbols-column">Символы</th>
-                            <th class="tokens-column">Токены</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {top_rows}
-                    </tbody>
-                </table>
-            </div>
-        </details>
-        """
-
+    
     def format_number(self, number: int) -> str:
         """Форматирование числа с разделителем разрядов (пробел справа налево через 3 знака)."""
         if number == 0:
@@ -700,7 +557,7 @@ class FileTokenCounter:
         """Возвращает текст статуса для диагностики."""
         if expected_attachments == 0:
             # Если в письмах не было вложений - это нормально
-            return "📭 Без вложений"
+            return "✅ Соответствие"
         elif expected_attachments > 0 and attachments_count == 0:
             return f"❌ Отсутствуют вложения: {expected_attachments}"
         elif attachments_count == ocr_count:
@@ -723,9 +580,6 @@ class FileTokenCounter:
 
         # Сбор диагностической информации
         diagnostics_html = self._build_diagnostics_section(sorted_dates)
-
-        # Сбор информации о ТОП вложениях
-        top_attachments_html = self._build_top_attachments_section(all_results)
 
         date_sections_html = ""
         for date in sorted_dates:
@@ -948,84 +802,7 @@ class FileTokenCounter:
         .status-empty {{ background-color: #f8d7da; }}
         .status-missing {{ background-color: #f5c6cb; color: #721c24 !important; }}
         .status-cell {{ font-weight: bold; }}
-
-        /* Раздел ТОП вложений */
-        .top-attachments-section {{
-            margin-bottom: 30px;
-            border: 2px solid #17a2b8;
-            border-radius: 8px;
-            background: #f8f9fa;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }}
-
-        .top-attachments-header {{
-            position: sticky;
-            top: 70px;
-            z-index: 900;
-            background: #17a2b8;
-            color: white;
-            padding: 12px 15px;
-            margin: 0;
-            cursor: pointer;
-            font-weight: bold;
-            border-radius: 6px 6px 0 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }}
-
-        .top-attachments-content {{
-            padding: 15px;
-        }}
-
-        .top-attachment-row {{
-            background: #ffffff;
-            border-bottom: 1px solid #f0f0f0;
-        }}
-
-        .top-attachment-row:hover {{
-            background: #f8f9fa;
-        }}
-
-        .top-attachment-row td {{
-            padding: 12px 15px;
-            vertical-align: middle;
-        }}
-
-        .top-attachment-row .file-name {{
-            font-weight: 600;
-            color: #333;
-        }}
-
-        .file-link {{
-            background: none;
-            border: none;
-            color: #007bff;
-            text-decoration: underline;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: inherit;
-            font-weight: 600;
-            padding: 0;
-            text-align: left;
-        }}
-
-        .file-link:hover {{
-            color: #0056b3;
-            text-decoration: none;
-        }}
-
-        .file-info {{
-            color: #666;
-            font-weight: normal;
-            font-size: 11px;
-        }}
-
-        .rank-column {{
-            width: 40px;
-            text-align: center;
-            font-weight: bold;
-            color: #17a2b8;
-        }}
-
+        
         /* Секция даты */
         .date-section {{
             margin-bottom: 30px;
@@ -1222,38 +999,13 @@ class FileTokenCounter:
         </div>
         
         {diagnostics_html}
-
-        {top_attachments_html}
-
+        
         {date_sections_html}
-
+        
         {final_total_html}
     </div>
     
     <script>
-                // Функция для показа пути к файлу
-        function openFile(filePath) {{
-            // Показываем полный путь к файлу для ручного открытия
-            const message = '📁 Путь к файлу:\\n' + filePath + '\\n\\n' +
-                           '💡 Инструкция:\\n' +
-                           '1. Скопируйте путь выше\\n' +
-                           '2. Откройте Finder\\n' +
-                           '3. Нажмите Cmd+Shift+G\\n' +
-                           '4. Вставьте путь и нажмите Enter';
-
-            // Пытаемся скопировать в буфер обмена
-            if (navigator.clipboard && window.isSecureContext) {{
-                navigator.clipboard.writeText(filePath).then(function() {{
-                    alert(message + '\\n\\n✅ Путь скопирован в буфер обмена!');
-                }}).catch(function() {{
-                    alert(message + '\\n\\n❌ Не удалось скопировать в буфер');
-                }});
-            }} else {{
-                // Fallback для браузеров без clipboard API
-                alert(message + '\\n\\nСкопируйте путь вручную.');
-            }}
-        }}
-
         // Переключение развертывания секции
         function toggleDateSection(header) {{
             const section = header.parentElement;

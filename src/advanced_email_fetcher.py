@@ -2087,8 +2087,8 @@ def main():
             return
     else:
         # Настройки периода для тестирования по умолчанию
-        start_date = datetime(2025, 8, 25)
-        end_date = datetime(2025, 8, 25)
+        start_date = datetime(2025, 7, 2)
+        end_date = datetime(2025, 7, 22)
 
     # Настраиваем логирование ПЕРЕД созданием fetcher'а
     logs_dir = Path("data/logs")

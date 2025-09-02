@@ -9,7 +9,7 @@
 import json
 import numpy as np
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Tuple
 import time
 from datetime import datetime
 import subprocess
@@ -18,13 +18,9 @@ import io
 import logging
 import traceback
 from logging.handlers import RotatingFileHandler
-import re
 
 from PIL import Image
 from google.api_core import exceptions as google_exceptions
-import sys
-from pathlib import Path
-sys.path.append(str(Path(__file__).parent))
 from file_utils import normalize_filename
 
 Image.MAX_IMAGE_PIXELS = None
@@ -55,11 +51,6 @@ try:
     XLRD_AVAILABLE = True
 except ImportError:
     XLRD_AVAILABLE = False
-try:
-    import pandas as pd
-    PANDAS_AVAILABLE = True
-except ImportError:
-    PANDAS_AVAILABLE = False
 
 class OCRProcessor:
     # ... (init, _show_capabilities, get_available_dates, get_files_for_date, run_google_vision_ocr - без изменений) ...
@@ -147,619 +138,13 @@ class OCRProcessor:
         if not date_dir.exists():
             print(f"❌ Папка не существует: {date_dir}")
             return []
-
-        # Используем более надежный способ поиска файлов, который правильно обрабатывает кириллицу
-        file_types = [".png", ".jpg", ".jpeg", ".tiff", ".pdf", ".docx", ".doc", ".xlsx", ".xls"]
-        files = []
-
-        try:
-            # Сначала пробуем стандартный glob
-            for item in date_dir.iterdir():
-                if item.is_file() and item.suffix.lower() in file_types:
-                    files.append(item)
-        except Exception as e:
-            self.logger.warning(f"Ошибка при поиске файлов через iterdir: {e}")
-            # Fallback на glob паттерны
-            try:
-                files = sorted(list(set(f for ext in file_types for f in date_dir.glob(f"*{ext}"))))
-            except Exception as e2:
-                self.logger.error(f"Ошибка при поиске файлов через glob: {e2}")
-                return []
-
-        # Исключаем системные файлы
-        files = [f for f in files if not f.name.startswith('.') and f.name != '.DS_Store']
-
-        return sorted(files)
+        file_types = ["*.png", "*.jpg", "*.jpeg", "*.tiff", "*.pdf", "*.docx", "*.doc", "*.xlsx", "*.xls"]
+        files = sorted(list(set(f for pat in file_types for f in date_dir.rglob(pat))))
+        return files
     
     def _normalize_filename(self, filename: str) -> str:
         """🔧 Нормализация имени файла через единую функцию из file_utils"""
         return normalize_filename(filename, remove_extension=True, to_lowercase=True)
-
-    def _detect_excel_format(self, file_path: Path) -> str:
-        """
-        Определяет реальный формат Excel файла по его сигнатуре,
-        независимо от расширения файла.
-        """
-        try:
-            with open(file_path, 'rb') as f:
-                header = f.read(8)
-
-            # XLSX файлы - это ZIP архивы, начинающиеся с PK
-            if header.startswith(b'PK\x03\x04'):
-                return 'xlsx'
-
-            # XLS файлы начинаются с OLE сигнатуры
-            if header.startswith(b'\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1'):
-                return 'xls'
-
-            return 'unknown'
-
-        except Exception as e:
-            self.logger.warning(f"Ошибка определения формата Excel файла {file_path}: {e}")
-            return 'unknown'
-
-    def _process_excel_file(self, file_path: Path, expected_format: str) -> Tuple[str, str, float]:
-        """
-        Универсальная обработка Excel файлов с автоматическим определением формата.
-        expected_format: 'xls' или 'xlsx' - ожидаемый формат по расширению
-        """
-        real_format = self._detect_excel_format(file_path)
-
-        if real_format == 'unknown':
-            raise RuntimeError(f"Не удалось определить формат Excel файла {file_path}")
-
-        print(f"   📊 Реальный формат файла: {real_format.upper()}, расширение указывает на: {expected_format.upper()}")
-
-        # Пробуем основной метод (xlrd для XLS, openpyxl для XLSX)
-        if real_format == 'xls' and XLRD_AVAILABLE:
-            try:
-                wb = xlrd.open_workbook(file_path, encoding_override="cp1251")
-                lines = []
-                for sheet in wb.sheets():
-                    for row_idx in range(sheet.nrows):
-                        row_data = [str(sheet.cell(row_idx, col_idx).value or "") for col_idx in range(sheet.ncols)]
-                        lines.append(" | ".join(row_data))
-                text = "\n".join(lines)
-                text = text.strip()
-
-                if text:
-                    method = "local_xls" if expected_format == 'xls' else "local_xls_fallback"
-                    return text, method, 1.0
-                else:
-                    raise RuntimeError("xlrd не смог извлечь текст")
-
-            except Exception as e:
-                print(f"   ⚠️ xlrd не справился: {e}")
-
-        elif real_format == 'xlsx' and OPENPYXL_AVAILABLE:
-            try:
-                wb = openpyxl.load_workbook(file_path, data_only=True)
-                lines = [" | ".join([str(cell.value or "") for cell in row])
-                        for sheet in wb.worksheets for row in sheet.iter_rows()]
-                text = "\n".join(lines)
-                text = text.strip()
-
-                if text:
-                    method = "local_xlsx" if expected_format == 'xlsx' else "local_xlsx_fallback"
-                    return text, method, 1.0
-                else:
-                    raise RuntimeError("openpyxl не смог извлечь текст")
-
-            except Exception as e:
-                print(f"   ⚠️ openpyxl не справился: {e}")
-
-        # Пробуем pandas как универсальный метод
-        if PANDAS_AVAILABLE:
-            try:
-                print("   🔄 Пробуем pandas как универсальный метод...")
-                # Используем engine='openpyxl' для XLSX файлов
-                if real_format == 'xlsx':
-                    df_dict = pd.read_excel(file_path, sheet_name=None, engine='openpyxl')
-                else:
-                    # Для XLS файлов используем engine='xlrd'
-                    df_dict = pd.read_excel(file_path, sheet_name=None, engine='xlrd')
-
-                lines = []
-                for sheet_name, df in df_dict.items():
-                    lines.append(f"=== {sheet_name} ===")
-                    # Преобразуем DataFrame в строки
-                    for _, row in df.iterrows():
-                        row_data = [str(val) if pd.notna(val) else "" for val in row]
-                        lines.append(" | ".join(row_data))
-
-                text = "\n".join(lines)
-                text = text.strip()
-
-                if text:
-                    method = "local_pandas_fallback"
-                    print("   ✅ Pandas успешно обработал файл")
-                    return text, method, 1.0
-                else:
-                    raise RuntimeError("Pandas не смог извлечь текст")
-
-            except Exception as e:
-                print(f"   ⚠️ Pandas тоже не справился: {e}")
-
-        # Пробуем альтернативный метод
-        print("   🔄 Пробуем альтернативный метод...")
-
-        if real_format == 'xls' and OPENPYXL_AVAILABLE:
-            # Для XLS файла пробуем openpyxl (редкий случай)
-            try:
-                wb = openpyxl.load_workbook(file_path, data_only=True)
-                lines = [" | ".join([str(cell.value or "") for cell in row])
-                        for sheet in wb.worksheets for row in sheet.iter_rows()]
-                text = "\n".join(lines)
-                text = text.strip()
-
-                if text:
-                    method = "local_xlsx_fallback"
-                    print("   ✅ Альтернативный метод (XLSX) сработал успешно")
-                    return text, method, 1.0
-                else:
-                    raise RuntimeError("Альтернативный метод не смог извлечь текст")
-
-            except Exception as e:
-                print(f"   ❌ Альтернативный метод тоже не сработал: {e}")
-
-        elif real_format == 'xlsx' and XLRD_AVAILABLE:
-            # Для XLSX файла пробуем xlrd (редкий случай)
-            try:
-                wb = xlrd.open_workbook(file_path, encoding_override="cp1251")
-                lines = []
-                for sheet in wb.sheets():
-                    for row_idx in range(sheet.nrows):
-                        row_data = [str(sheet.cell(row_idx, col_idx).value or "") for col_idx in range(sheet.ncols)]
-                        lines.append(" | ".join(row_data))
-                text = "\n".join(lines)
-                text = text.strip()
-
-                if text:
-                    method = "local_xls_fallback"
-                    print("   ✅ Альтернативный метод (XLS) сработал успешно")
-                    return text, method, 1.0
-                else:
-                    raise RuntimeError("Альтернативный метод не смог извлечь текст")
-
-            except Exception as e:
-                print(f"   ❌ Альтернативный метод тоже не сработал: {e}")
-
-        # Если ничего не сработало
-        raise RuntimeError(f"Все методы обработки {expected_format.upper()} файла неудачны. Реальный формат: {real_format.upper()}")
-
-    def _analyze_pdf_structure(self, pdf_path: Path) -> dict:
-        """
-        Глубокий анализ структуры PDF для определения наличия качественного текстового слоя.
-        Возвращает детальную информацию о структуре документа.
-        """
-        result = {
-            'has_text_layer': False,
-            'text_to_image_ratio': 0.0,
-            'has_embedded_fonts': False,
-            'text_objects_count': 0,
-            'image_objects_count': 0,
-            'total_objects': 0,
-            'font_types': set(),
-            'text_confidence': 0.0,
-            'structure_score': 0.0
-        }
-
-        try:
-            import fitz  # PyMuPDF
-
-            doc = fitz.open(str(pdf_path))
-            total_text_chars = 0
-            total_image_area = 0
-            total_page_area = 0
-
-            for page_num in range(min(len(doc), 3)):  # Анализируем первые 3 страницы
-                page = doc[page_num]
-                page_area = page.rect.width * page.rect.height
-                total_page_area += page_area
-
-                # Извлекаем текст
-                text = page.get_text()
-                total_text_chars += len(text)
-
-                # Анализируем объекты страницы
-                text_blocks = page.get_text("dict")
-                result['text_objects_count'] += len(text_blocks.get('blocks', []))
-
-                # Анализируем изображения
-                images = page.get_images(full=True)
-                result['image_objects_count'] += len(images)
-
-                # Вычисляем площадь изображений
-                for img in images:
-                    try:
-                        img_rect = page.get_image_rects(img[7])  # xref
-                        if img_rect:
-                            for rect in img_rect:
-                                img_area = (rect[2] - rect[0]) * (rect[3] - rect[1])
-                                total_image_area += img_area
-                    except:
-                        pass
-
-                # Анализируем шрифты
-                fonts = page.get_fonts()
-                for font in fonts:
-                    if font and len(font) > 3:
-                        font_name = font[3] if isinstance(font[3], str) else str(font[3])
-                        result['font_types'].add(font_name)
-
-            doc.close()
-
-            # Вычисляем соотношения
-            if total_page_area > 0:
-                result['text_to_image_ratio'] = total_image_area / total_page_area
-
-            # Определяем наличие embedded шрифтов
-            embedded_fonts = [f for f in result['font_types'] if not f.startswith(('Times', 'Helvetica', 'Courier', 'Symbol', 'ZapfDingbats'))]
-            result['has_embedded_fonts'] = len(embedded_fonts) > 0
-
-            # Общее количество объектов
-            result['total_objects'] = result['text_objects_count'] + result['image_objects_count']
-
-            # Определяем наличие качественного текстового слоя
-            has_significant_text = total_text_chars > 500  # Минимум 500 символов текста
-            has_low_image_ratio = result['text_to_image_ratio'] < 0.3  # Менее 30% площади занимают изображения
-            has_good_object_ratio = result['text_objects_count'] > result['image_objects_count']  # Больше текстовых объектов чем изображений
-            has_embedded_fonts = result['has_embedded_fonts']
-
-            result['has_text_layer'] = has_significant_text and (has_low_image_ratio or has_embedded_fonts or has_good_object_ratio)
-
-            # Вычисляем общий structural score (0-100)
-            score = 0
-            if has_significant_text: score += 40
-            if has_low_image_ratio: score += 30
-            if has_good_object_ratio: score += 20
-            if has_embedded_fonts: score += 10
-
-            result['structure_score'] = min(100, score)
-
-            # Определяем уверенность в наличии текстового слоя
-            if result['has_text_layer'] and result['structure_score'] > 70:
-                result['text_confidence'] = 0.9
-            elif result['has_text_layer'] and result['structure_score'] > 50:
-                result['text_confidence'] = 0.7
-            elif result['has_text_layer']:
-                result['text_confidence'] = 0.5
-            else:
-                result['text_confidence'] = 0.1
-
-        except Exception as e:
-            result['error'] = str(e)
-            result['has_text_layer'] = False
-            result['text_confidence'] = 0.0
-
-        return result
-
-    def _quick_garbage_check(self, text: str) -> dict:
-        """
-        Быстрая проверка текста на наличие мусорных паттернов.
-        Возвращает {'is_good': bool, 'reason': str}
-        """
-        # Анализ паттернов мусора
-        patterns = {
-            'ocr_garbage': r'[a-z]{2,}[0-9]{2,}[a-z]*',
-            'letter_substitution': r'[a-z]{3,}[A-Z]{1,}[a-z]*',
-            'symbol_mess': r'[<>(){}[\]]{2,}',
-            'repeated_chars': r'(.)\1{3,}',
-            'mixed_encoding': r'[\u0080-\u00FF]{3,}',
-        }
-
-        garbage_score = 0
-        pattern_details = {}
-        for pattern_name, pattern in patterns.items():
-            matches = re.findall(pattern, text)
-            count = len(matches)
-            garbage_score += count
-            pattern_details[pattern_name] = count
-
-        # Поиск реальных слов (улучшенная версия)
-        russian_words = re.findall(r'[а-яё]{4,}', text.lower())  # Минимум 4 буквы
-        english_words = re.findall(r'[a-z]{4,}', text.lower())  # Минимум 4 буквы
-
-        # Проверка на искаженные английские слова (замена русских букв)
-        fake_english_score = 0
-        if english_words:
-            for word in english_words[:10]:  # Проверяем первые 10 слов
-                # Проверяем на наличие паттернов замены русских букв
-                if re.search(r'[a-z]*[o]{2,}[a-z]*', word):  # 'о' заменяется на 'o'
-                    fake_english_score += 1
-                if re.search(r'[a-z]*[e]{3,}[a-z]*', word):  # 'е' заменяется на 'e'
-                    fake_english_score += 1
-                if re.search(r'[a-z]*[a]{3,}[a-z]*', word):  # 'а' заменяется на 'a'
-                    fake_english_score += 1
-
-        # Расчет процента фейковых английских слов
-        fake_ratio = fake_english_score / max(len(english_words), 1)
-
-        # Адаптивные критерии мусора в зависимости от типа документа
-        total_words = len(russian_words) + len(english_words)
-        text_length = len(text)
-
-        # Для длинных технических документов (более 10000 символов) более мягкие критерии
-        if text_length > 10000:
-            garbage_threshold = 20  # Увеличиваем порог для длинных документов
-        elif text_length > 5000:
-            garbage_threshold = 10
-        else:
-            garbage_threshold = 5   # Оригинальный порог для коротких документов
-
-        # Для документов с большим количеством слов более мягкие критерии
-        if total_words > 1000:
-            garbage_threshold *= 2
-        elif total_words > 500:
-            garbage_threshold *= 1.5
-
-        # Учитываем соотношение мусора к общему количеству слов
-        garbage_to_words_ratio = garbage_score / max(total_words, 1)
-
-        # Критерии мусора с адаптивными порогами
-        is_good = (
-            garbage_score < garbage_threshold and  # Адаптивный порог мусора
-            garbage_to_words_ratio < 0.05 and  # Менее 5% мусора от общего количества слов
-            len(russian_words) > 2 and  # Есть русские слова
-            fake_ratio < 0.7  # Менее 70% английских слов являются фейковыми
-        )
-
-        return {
-            'is_good': is_good,
-            'reason': f"garbage_score={garbage_score}/{garbage_threshold}, ratio={garbage_to_words_ratio:.3f}, russian_words={len(russian_words)}, fake_english_ratio={fake_ratio:.2f}"
-        }
-
-    def _is_text_quality_good(self, text: str, pdf_path: Path = None) -> bool:
-        """
-        Улучшенная оценка качества извлеченного текста из PDF.
-        Использует комбинацию анализа текста и структуры PDF.
-        """
-        if not text or len(text) < 50:
-            return False
-
-        # Если передан путь к PDF, сначала анализируем его структуру
-        if pdf_path and pdf_path.exists():
-            try:
-                structure_analysis = self._analyze_pdf_structure(pdf_path)
-
-                # Если структура показывает наличие качественного текстового слоя с высокой уверенностью
-                if structure_analysis['has_text_layer'] and structure_analysis['text_confidence'] > 0.7:
-                    # Дополнительная проверка текста на мусор
-                    garbage_check = self._quick_garbage_check(text)
-
-                    # Специальная логика для документов с отличной структурой PDF
-                    if (structure_analysis['structure_score'] >= 90 and
-                        'ratio=' in garbage_check['reason']):
-                        # Извлекаем ratio из reason
-                        try:
-                            ratio_str = garbage_check['reason'].split('ratio=')[1].split(',')[0]
-                            garbage_ratio = float(ratio_str)
-                            # Если соотношение мусора мало (< 5%), игнорируем строгие пороги
-                            if garbage_ratio < 0.05:
-                                return True
-                        except (ValueError, IndexError):
-                            pass
-
-                    return garbage_check['is_good']
-                elif structure_analysis['text_confidence'] < 0.3:
-                    # Структура показывает отсутствие качественного текстового слоя
-                    return False
-            except Exception as e:
-                # Если анализ структуры не удался, продолжаем с текстовым анализом
-                pass
-
-        # Быстрая проверка на мусор перед основной обработкой
-        garbage_check = self._quick_garbage_check(text)
-        if not garbage_check['is_good']:
-            return False
-
-        # Разделяем текст на страницы для анализа
-        pages = text.split('\n\n')
-        if len(pages) == 0:
-            return False
-
-        # Анализируем каждую страницу отдельно
-        good_pages = 0
-        total_meaningful_text = 0
-
-        for page_text in pages:
-            if len(page_text.strip()) < 20:  # Пропускаем пустые или слишком короткие страницы
-                continue
-
-            page_analysis = self._analyze_page_quality(page_text)
-            if page_analysis['is_good']:
-                good_pages += 1
-                total_meaningful_text += page_analysis['meaningful_chars']
-
-        # Если хотя бы одна страница содержит качественный текст - считаем документ хорошим
-        if good_pages > 0:
-            return True
-
-        # Дополнительная проверка: если есть значительный объем осмысленного текста
-        if total_meaningful_text > 500:  # Минимум 500 символов осмысленного текста
-            return True
-
-        return False
-
-    def _analyze_page_quality(self, page_text: str) -> dict:
-        """
-        Улучшенная анализ качества текста на отдельной странице PDF.
-        Проверяет язык, читаемость и исключает технический мусор.
-        """
-        result = {
-            'is_good': False,
-            'meaningful_chars': 0,
-            'has_structure': False,
-            'language_score': 0
-        }
-
-        # Очищаем текст от лишних пробелов
-        clean_text = page_text.replace('\n', ' ').replace('\t', ' ')
-        clean_text = ' '.join(clean_text.split())  # Убираем множественные пробелы
-
-        if len(clean_text) < 50:  # Увеличиваем минимальную длину
-            return result
-
-        # Подсчет различных типов символов
-        total_chars = len(clean_text.replace(' ', ''))
-        if total_chars == 0:
-            return result
-
-        # Расширенная проверка на мусор - исключаем файлы с техническими кодами
-        # Проверяем на наличие паттернов, характерных для искаженного текста
-        garbage_patterns = [
-            r'[a-z]{2,}[0-9]{2,}[a-z]*',  # Смешанные буквы и цифры без пробелов
-            r'[<>(){}[\]]{3,}',           # Много скобок подряд
-            r'[|@#$%^&*]{3,}',            # Специальные символы группами
-            r'[A-Z]{5,}',                 # Длинные последовательности заглавных букв
-        ]
-
-        for pattern in garbage_patterns:
-            if re.search(pattern, clean_text):
-                return result  # Это мусор
-
-        # Проверяем кодировку - исключаем файлы с неправильной кодировкой
-        weird_chars = sum(1 for c in clean_text if ord(c) > 1000 or (ord(c) < 32 and c not in '\n\t '))
-        weird_ratio = weird_chars / total_chars if total_chars > 0 else 0
-        if weird_ratio > 0.1:  # Более 10% странных символов
-            return result
-
-        # Считаем читаемые символы (буквы и цифры)
-        readable_chars = sum(1 for c in clean_text if c.isalnum())
-        readable_ratio = readable_chars / total_chars if total_chars > 0 else 0
-
-        # Считаем специальные символы
-        special_chars = sum(1 for c in clean_text if not c.isalnum() and not c.isspace())
-        special_ratio = special_chars / total_chars if total_chars > 0 else 0
-
-        # Проверяем язык - должен быть русский или английский
-        cyrillic_chars = sum(1 for c in clean_text if ord(c) >= 1040 and ord(c) <= 1103)  # Основная кириллица
-        latin_chars = sum(1 for c in clean_text if c.isalpha() and ord(c) < 128)  # Латиница
-
-        language_chars = cyrillic_chars + latin_chars
-        language_ratio = language_chars / readable_chars if readable_chars > 0 else 0
-
-        # Если меньше 60% символов на известных языках - это мусор
-        if language_ratio < 0.6:
-            return result
-
-        # Проверяем на наличие повторяющихся символов
-        char_counts = {}
-        for c in clean_text[:1000]:  # Проверяем первые 1000 символов
-            if not c.isspace():
-                char_counts[c] = char_counts.get(c, 0) + 1
-
-        # Если какой-то символ повторяется более 50 раз - это мусор
-        max_repeats = max(char_counts.values()) if char_counts else 0
-        if max_repeats > 50:
-            return result
-
-        # Проверяем на последовательные повторения
-        for char, count in char_counts.items():
-            if count > 20 and not char.isalnum():
-                return result
-
-        # Анализируем слова
-        words = [word for word in clean_text.split() if len(word.strip()) > 0]
-        if len(words) < 3:  # Слишком мало слов
-            return result
-
-        meaningful_words = 0
-        total_word_length = 0
-        real_words = 0  # Слова, которые выглядят как настоящие
-
-        for word in words:
-            # Очищаем слово от знаков препинания
-            clean_word = ''.join(c for c in word if c.isalnum())
-            word_len = len(clean_word)
-
-            if word_len >= 2:
-                has_letters = any(c.isalpha() for c in clean_word)
-                has_digits = any(c.isdigit() for c in clean_word)
-
-                if has_letters:  # Слово содержит буквы
-                    meaningful_words += 1
-                    total_word_length += word_len
-
-                    # Проверяем, является ли слово "реальным"
-                    # Реальные слова не должны быть слишком длинными (>20 символов)
-                    # и не должны содержать слишком много цифр
-                    if word_len <= 20 and (not has_digits or len(clean_word.replace('0123456789', '')) >= len(clean_word) * 0.3):
-                        real_words += 1
-
-        # Рассчитываем метрики
-        meaningful_ratio = meaningful_words / len(words) if words else 0
-        real_words_ratio = real_words / len(words) if words else 0
-        avg_word_length = total_word_length / meaningful_words if meaningful_words > 0 else 0
-
-        # Проверяем наличие структурированного текста
-        has_structure = self._has_text_structure(clean_text)
-
-        # Сохраняем языковой скор
-        result['language_score'] = language_ratio
-
-        # Улучшенные критерии качественного текста:
-        # 1. Достаточное количество читаемых символов (> 40%)
-        # 2. Не слишком много специальных символов (< 60%)
-        # 3. Достаточное количество осмысленных слов (> 25%)
-        # 4. Реальные слова (> 20%)
-        # 5. Средняя длина слова разумная (2-18 символов)
-        # 6. Хороший языковой скор (> 70%)
-        # 7. Наличие структуры ИЛИ достаточное количество реальных слов
-
-        is_good = (
-            readable_ratio > 0.4 and
-            special_ratio < 0.6 and
-            meaningful_ratio > 0.25 and
-            real_words_ratio > 0.2 and
-            2 <= avg_word_length <= 18 and
-            language_ratio > 0.7 and
-            (has_structure or real_words > 5)
-        )
-
-        result['is_good'] = is_good
-        result['meaningful_chars'] = readable_chars
-        result['has_structure'] = has_structure
-
-        return result
-
-    def _has_text_structure(self, text: str) -> bool:
-        """
-        Проверяет наличие структурированного текста (таблицы, списки, заголовки).
-        """
-        lines = text.split('\n')
-
-        # Проверяем на наличие таблиц (строки с разделителями | или табуляциями)
-        table_indicators = ['|', '\t']
-        table_lines = 0
-        for line in lines:
-            if any(indicator in line for indicator in table_indicators):
-                table_lines += 1
-
-        if table_lines > 2:  # Более 2 строк с разделителями - вероятно таблица
-            return True
-
-        # Проверяем на наличие списков (маркеры: -, •, цифры с точкой)
-        list_indicators = [' - ', ' • ', ' 1. ', ' 2. ', ' 3. ']
-        list_lines = 0
-        for line in lines:
-            if any(indicator in line for indicator in list_indicators):
-                list_lines += 1
-
-        if list_lines > 3:  # Более 3 строк со списком - вероятно структурированный текст
-            return True
-
-        # Проверяем на наличие заголовков (ВСЕ ЗАГЛАВНЫЕ БУКВЫ)
-        uppercase_lines = 0
-        for line in lines:
-            clean_line = ''.join(c for c in line if c.isalpha())
-            if len(clean_line) > 3 and clean_line.isupper():
-                uppercase_lines += 1
-
-        if uppercase_lines > 1:  # Более 1 заголовка - структурированный текст
-            return True
-
-        return False
     def run_google_vision_ocr(self, content: bytes) -> Tuple[str, float]:
         if not self.vision_client: raise RuntimeError("Клиент Google Vision не инициализирован.")
         print("   ☁️ Отправка в Google Cloud Vision... (может занять несколько секунд)")
@@ -938,46 +323,28 @@ class OCRProcessor:
                 print("   📄 Обработка DOC (старый формат) через antiword...")
                 if not shutil.which('antiword'):
                     raise FileNotFoundError("Утилита 'antiword' не найдена. Установите ее: brew install antiword")
-
-                # Пытаемся обработать через antiword
                 process = subprocess.run(['antiword', str(file_path)], capture_output=True, text=True, encoding='utf-8', errors='ignore')
-
-                if process.returncode == 0 and process.stdout.strip():
+                if process.returncode == 0:
                     text = process.stdout
-                    method, confidence = "local_doc_antiword", 1.0
                 else:
-                    print("   ⚠️ Antiword не справился. Пробуем резервный метод (DOCX)...")
-                    # Резервный метод: пробуем обработать как DOCX (файл может быть в новом формате)
-                    try:
-                        if PYTHON_DOCX_AVAILABLE:
-                            doc = DocxDocument(file_path)
-                            paragraphs_text = "\n".join([p.text for p in doc.paragraphs])
-                            tables_text = []
-                            for table in doc.tables:
-                                for row in table.rows:
-                                    for cell in row.cells:
-                                        cell_text = cell.text.strip()
-                                        if cell_text:
-                                            tables_text.append(cell_text)
-                            tables_combined = "\n".join(tables_text)
-                            text = paragraphs_text + "\n" + tables_combined
-                            text = text.strip()
-
-                            if text:  # Проверяем, что извлечен текст
-                                method, confidence = "local_docx_fallback", 1.0
-                                print("   ✅ Резервный метод (DOCX) сработал успешно")
-                            else:
-                                raise RuntimeError("Резервный метод не смог извлечь текст")
-                        else:
-                            raise RuntimeError("Библиотека python-docx не доступна для резервного метода")
-                    except Exception as fallback_error:
-                        raise RuntimeError(f"Все методы обработки DOC файла неудачны. Antiword: {process.stderr or 'ошибка'}. Резервный: {str(fallback_error)}")
+                    raise RuntimeError(f"Antiword вернул ошибку: {process.stderr}")
+                method, confidence = "local_doc_antiword", 1.0
             elif ext == ".xlsx":
                 print("   📄 Обработка XLSX локально...")
-                text, method, confidence = self._process_excel_file(file_path, 'xlsx')
+                wb = openpyxl.load_workbook(file_path, data_only=True)
+                lines = [" | ".join([str(cell.value or "") for cell in row]) for sheet in wb.worksheets for row in sheet.iter_rows()]
+                text = "\n".join(lines)
+                method, confidence = "local_xlsx", 1.0
             elif ext == ".xls":
                 print("   📄 Обработка XLS (старый формат) локально...")
-                text, method, confidence = self._process_excel_file(file_path, 'xls')
+                if not XLRD_AVAILABLE: raise ImportError("Библиотека xlrd не найдена. Установите: pip install xlrd")
+                wb = xlrd.open_workbook(file_path, encoding_override="cp1251")
+                lines = []
+                for sheet in wb.sheets():
+                    for row_idx in range(sheet.nrows):
+                        lines.append(" | ".join([str(sheet.cell(row_idx, col_idx).value or "") for col_idx in range(sheet.ncols)]))
+                text = "\n".join(lines)
+                method, confidence = "local_xls", 1.0
 
             # <<< ИЗМЕНЕНИЕ: Самая надежная обработка PDF >>>
             elif ext == ".pdf":
@@ -985,16 +352,12 @@ class OCRProcessor:
                 doc = fitz.open(file_path)
                 texts = [page.get_text() for page in doc]
                 full_text_direct = "\n\n".join(texts).strip()
-
-                # Проверяем качество извлеченного текста с учетом структуры PDF
-                if len(full_text_direct) > 100 and self._is_text_quality_good(full_text_direct, file_path):
-                    print("   ✅ Обнаружен качественный текстовый слой. Извлечено локально.")
+                
+                if len(full_text_direct) > 100:
+                    print("   ✅ Обнаружен текстовый слой. Извлечено локально.")
                     text, method, confidence = full_text_direct, "local_pdf_text", 1.0
                 else:
-                    if len(full_text_direct) > 100:
-                        print("   ⚠️ Извлеченный текст содержит много мусора. Конвертируем страницы PDF в картинки для Google Vision.")
-                    else:
-                        print("   🖼️ Текстовый слой пуст. Конвертируем страницы PDF в картинки для Google Vision.")
+                    print("   🖼️ Текстовый слой пуст. Конвертируем страницы PDF в картинки для Google Vision.")
                     all_pages_text = []
                     all_confidences = []
                     
@@ -1605,81 +968,19 @@ class OCRProcessor:
             print(f"   📊 Текущая статистика: Всего: {total} | Обработано: {processed} | Успешно: {successful} ({success_rate}%) | Пропущено: {skipped} | Верификация: {verification_passed}/{successful} ({verification_rate}%)")
         except Exception as e:
             print(f"   ⚠️ Ошибка отображения статистики: {e}")
-
-    def _auto_retry_error_files(self, date: str):
-        """🔄 Автоматическая повторная обработка файлов с ошибками для указанной даты"""
-        date_texts_dir = self.texts_dir / date
-        if not date_texts_dir.exists():
-            return
-
-        # Ищем файлы с ошибками
-        error_files = list(date_texts_dir.glob("*_ERROR.txt"))
-
-        if not error_files:
-            return
-
-        print(f"\n🔄 Найдено {len(error_files)} файлов с ошибками. Запускаю автоматическую повторную обработку...")
-
-        retry_stats = {"successful": 0, "failed": 0}
-
-        for error_file in error_files:
-            # Извлекаем оригинальное имя файла из имени файла с ошибкой
-            error_filename = error_file.stem  # Убираем .txt
-            if error_filename.endswith('_ERROR'):
-                original_filename = error_filename[:-6]  # Убираем _ERROR
-            else:
-                continue
-
-            # Ищем соответствующий файл во вложениях
-            attachments_dir = self.attachments_dir / date
-            matching_files = list(attachments_dir.glob(f"{original_filename}.*"))
-
-            if not matching_files:
-                print(f"   ⚠️ Не найден файл вложения для {original_filename}")
-                continue
-
-            file_path = matching_files[0]
-            print(f"   🔄 Переобработка: {file_path.name}")
-
-            try:
-                # Повторная обработка файла
-                result = self.extract_text_from_file(file_path, date)
-
-                if result["success"]:
-                    retry_stats["successful"] += 1
-                    print(f"   ✅ Успешно переобработан: {original_filename}")
-
-                    # Удаляем старый файл с ошибкой
-                    error_file.unlink()
-                    self.logger.info(f"Удален файл с ошибкой после успешной переобработки: {error_file}")
-                else:
-                    retry_stats["failed"] += 1
-                    print(f"   ❌ Переобработка неудачна: {original_filename}")
-
-            except Exception as e:
-                retry_stats["failed"] += 1
-                print(f"   ❌ Ошибка при переобработке {original_filename}: {e}")
-                self.logger.error(f"Ошибка автоматической переобработки файла {original_filename}: {e}")
-
-        if retry_stats["successful"] > 0:
-            print(f"   🎉 Автоматическая переобработка завершена: {retry_stats['successful']} успешно, {retry_stats['failed']} неудачно")
-
     def test_files_by_date(self, date: str, files_to_test: List[Path], limit: int = None):
         """🧪 Тестирование файлов за конкретную дату с оптимизацией повторной обработки"""
         if limit:
             files_to_test = files_to_test[:limit]
             print(f"🎯 Ограничение: тестируем первые {limit} файлов.")
-
-        # Автоматическая повторная обработка файлов с ошибками
-        self._auto_retry_error_files(date)
-
+        
         stats = {
-            "total": 0, "successful": 0, "skipped": 0, "processed": 0,
-            "verification_passed": 0, "verification_failed": 0,
+            "total": 0, "successful": 0, "skipped": 0, "processed": 0, 
+            "verification_passed": 0, "verification_failed": 0, 
             "methods": {}, "file_types": {}, "timing": {"times": []}, "quality": {"confidences": []}
         }
         total_files = len(files_to_test)
-
+        
         print(f"\n🔍 Проверяю существующие результаты для {total_files} файлов...")
         print(f"📊 Прогресс обработки для даты {date}:")
         print("=" * 80)
