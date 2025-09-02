@@ -225,6 +225,62 @@ class EmailFilters:
         
         return None
 
+    def is_inline_image_excluded(self, filename: str, content_type: str, content_id: str = None) -> Optional[str]:
+        """🆕 Проверка inline изображения на исключение"""
+        if not filename:
+            return None
+
+        filename_lower = filename.lower()
+
+        # Проверяем Content-ID (характерно для встроенных изображений)
+        if content_id:
+            return f"изображение с Content-ID: {content_id}"
+
+        # Проверяем на очень короткие имена файлов
+        if len(filename) <= 3:
+            return f"слишком короткое имя файла: {filename}"
+
+        # Извлекаем имя файла без расширения для анализа
+        name_without_ext = filename
+        if '.' in filename:
+            name_without_ext = filename.rsplit('.', 1)[0]
+
+        # Проверяем на случайные имена (только буквы и цифры, без пробелов и точек)
+        if re.match(r'^[a-zA-Z0-9]+$', name_without_ext):
+            # Для коротких имен - проверяем длину
+            if len(name_without_ext) <= 6:
+                # Короткие имена могут быть нормальными, проверяем на специальные случаи
+                if name_without_ext in ['img', 'pic', 'photo', 'image']:
+                    return None  # Эти короткие имена могут быть нормальными
+                else:
+                    return f"слишком короткое имя файла: {filename}"
+
+            # Для длинных имен - проверяем entropy
+            unique_chars = len(set(name_without_ext.lower()))
+            total_chars = len(name_without_ext)
+
+            # Вычисляем коэффициент разнообразия
+            diversity_ratio = unique_chars / total_chars
+
+            # Если много повторяющихся символов - вероятно паттерн, а не случайное имя
+            if diversity_ratio < 0.6:  # Менее 60% уникальных символов
+                return f"низкая энтропия символов, вероятно паттерн: {filename}"
+
+            # Если высокая энтропия и длина > 8 - вероятно случайное имя
+            if len(name_without_ext) > 8 and diversity_ratio > 0.7:
+                return f"высокая энтропия символов, вероятно случайное имя: {filename}"
+
+            # Средний случай - исключаем имена длиннее 12 символов
+            if len(name_without_ext) > 12:
+                return f"слишком длинное имя файла: {filename}"
+
+        # Проверяем паттерны мусорных inline изображений
+        for pattern in self.inline_exclusion_patterns:
+            if re.match(pattern, filename_lower, re.IGNORECASE):
+                return f"соответствует паттерну исключения: {pattern}"
+
+        return None
+
     def is_filename_excluded(self, filename: str) -> Optional[str]:
         """🚫 ИСПРАВЛЕННАЯ проверка имени файла с диагностикой"""
         if not filename or not self.filename_excludes:
@@ -304,14 +360,37 @@ class AdvancedEmailFetcherV2:
         # Инициализируем очиститель текста
         self.text_cleaner = EmailTextCleaner(self.logger)
 
-        # 🔧 ИСПРАВЛЕНИЕ: список специфических исключаемых файлов
+        # 🔧 ИСПРАВЛЕНИЕ: расширенный список специфических исключаемых файлов
         self.specific_excluded_files = {
-            "WRD0004.jpg",   # Мусорный файл Microsoft
-            "~WRD0004.jpg",  # Мусорный файл Microsoft с префиксом
-            "_.jpg",         # Файл, состоящий из одного символа
-            "blocked.gif",   # Мусорный GIF файл
-            "image001.png",  # Мусорное изображение из подписи
-            "image002.png"   # Мусорное изображение из подписи
+            # Microsoft Office мусор
+            "WRD0004.jpg", "WRD000.jpg", "WRD00.jpg", "WRD0.jpg",
+            "~WRD0004.jpg", "~WRD000.jpg", "~WRD00.jpg", "~WRD0.jpg",
+            "_.jpg", "_.png", "_.gif",
+
+            # Распространенные мусорные файлы из email подписей
+            "blocked.gif", "image001.png", "image002.png", "image003.png",
+            "image004.png", "image005.png", "image006.png", "image007.png",
+
+            # Случайные имена файлов (паттерны)
+            # Добавим в отдельный словарь паттернов ниже
+        }
+
+        # 🆕 ДОБАВИТЬ: Паттерны для исключения inline изображений
+        self.inline_exclusion_patterns = {
+            # Случайные имена из email-клиентов
+            r'mailrusigimg_.*',     # Подписи Mail.ru
+            r'signature.*',         # Подписи
+            r'logo.*',              # Логотипы
+            r'banner.*',            # Баннеры
+            r'footer.*',            # Футеры
+            r'header.*',            # Хедеры
+            r'image00[1-9]\.',      # image001, image002 и т.д.
+            r'image0[1-9]\.',       # image01, image02 и т.д.
+            r'blocked\.',           # blocked.gif и т.д.
+            r'.*WRD00.*',           # WRD000.jpg, WRD001.jpg и т.д.
+            r'.*WRD0.*',            # WRD0.jpg и т.д.
+            r'_\..*',               # _.jpg, _.png и т.д.
+            r'^_+$',                # ___, ____ и т.д.
         }
 
         # Счетчики для статистики
@@ -1092,6 +1171,21 @@ class AdvancedEmailFetcherV2:
             # Декодируем имя файла
             filename = self.decode_header_value(filename)
 
+            # 🆕 ДОБАВИТЬ: Специальная проверка для inline изображений
+            if is_inline:
+                content_id = part.get('Content-ID', '').strip('<>')
+                inline_exclusion = self.filters.is_inline_image_excluded(filename, content_type, content_id)
+                if inline_exclusion:
+                    self.logger.info(f"🚫 INLINE ИЗОБРАЖЕНИЕ ИСКЛЮЧЕНО: {filename} - {inline_exclusion}")
+                    self.stats['excluded_filenames'] += 1
+                    return {
+                        "original_filename": filename,
+                        "status": "excluded_inline_image",
+                        "exclusion_reason": inline_exclusion,
+                        "is_inline": is_inline,
+                        "content_id": content_id
+                    }
+
             # 🔧 ИСПРАВЛЕНИЕ: проверка специфических исключаемых файлов
             if filename in self.specific_excluded_files:
                 self.logger.info(f"🚫 ИСКЛЮЧЕНО ПО ИМЕНИ ФАЙЛА: {filename} - в списке специальных исключений")
@@ -1607,10 +1701,24 @@ class AdvancedEmailFetcherV2:
 
                                     if content_disposition == 'attachment':
                                         is_attachment = True
-                                    elif (content_disposition == 'inline' and content_type.startswith('image/')) or \
-                                         (not content_disposition and content_type.startswith('image/') and part.get_filename()):
+                                    elif content_disposition == 'inline' and content_type.startswith('image/'):
+                                        # 🆕 СТРОГАЯ ПРОВЕРКА: только явные inline изображения с content-disposition
                                         is_attachment = True
                                         is_inline = True
+                                    elif not content_disposition and content_type.startswith('image/') and part.get_filename():
+                                        # 🆕 ДОПОЛНИТЕЛЬНЫЕ ПРОВЕРКИ для изображений без content-disposition
+                                        filename = part.get_filename()
+                                        content_id = part.get('Content-ID', '').strip('<>')
+
+                                        # Проверяем, является ли это действительно полезным вложением
+                                        if content_id or (filename and len(filename) > 5):
+                                            # Это может быть встроенное изображение с Content-ID или осмысленным именем
+                                            is_attachment = True
+                                            is_inline = True
+                                        else:
+                                            # Пропускаем подозрительные изображения без Content-ID и с коротким именем
+                                            self.logger.debug(f"⏭️ Пропускаем подозрительное изображение: {filename} (нет Content-ID, короткое имя)")
+                                            continue
 
                                     if is_attachment:
                                         attachments_stats['total'] += 1
@@ -2056,6 +2164,64 @@ class AdvancedEmailFetcherV2:
         else:
             return "download_all"  # Ничего нет - загрузить всё
 
+def test_inline_exclusion():
+    """🧪 Тестирование функции исключения inline изображений"""
+    import logging
+
+    # Настройка минимального логирования для теста
+    logger = logging.getLogger('TestLogger')
+    logger.setLevel(logging.DEBUG)
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(logging.Formatter('%(levelname)s: %(message)s'))
+    logger.addHandler(console_handler)
+
+    # Создаем тестовый фильтр
+    config_dir = Path("config")
+    config_dir.mkdir(exist_ok=True)
+    filters = EmailFilters(config_dir, logger)
+
+    # Тестовые случаи
+    test_cases = [
+        # (filename, content_type, content_id, expected_result)
+        ("ghgq2FUQF40it72R.png", "image/png", "", "вероятно случайное имя файла"),
+        ("mailrusigimg_P7zCThU7.jpg", "image/jpeg", "", "соответствует паттерну исключения"),
+        ("signature_image.png", "image/png", "", "соответствует паттерну исключения"),
+        ("logo_small.gif", "image/gif", "", "соответствует паттерну исключения"),
+        ("normal_image.jpg", "image/jpeg", "<content123>", "изображение с Content-ID"),
+        ("WRD000.jpg", "image/jpeg", "", None),  # Это должно быть исключено по другому механизму
+        ("", "image/png", "", None),  # Пустое имя файла
+        ("ab.png", "image/png", "", "слишком короткое имя файла"),  # Короткое имя
+        ("normal_document.pdf", "application/pdf", "", None),  # Не изображение
+    ]
+
+    print("🧪 ТЕСТИРОВАНИЕ ИСКЛЮЧЕНИЯ INLINE ИЗОБРАЖЕНИЙ")
+    print("=" * 60)
+
+    passed = 0
+    total = len(test_cases)
+
+    for filename, content_type, content_id, expected in test_cases:
+        result = filters.is_inline_image_excluded(filename, content_type, content_id)
+
+        if expected:
+            if result and expected in result:
+                status = "✅ PASS"
+                passed += 1
+            else:
+                status = "❌ FAIL"
+        else:
+            if not result:
+                status = "✅ PASS"
+                passed += 1
+            else:
+                status = "❌ FAIL"
+
+        print(f"{filename:<25} | {content_type:<15} | {content_id:<10} | {result or "":<40} | {status}")
+
+    print("=" * 60)
+    print(f"📊 РЕЗУЛЬТАТЫ ТЕСТА: {passed}/{total} пройдено")
+    return passed == total
+
 def main():
     """🚀 Главная функция для тестирования парсера v2.12 - ИСПРАВЛЕНИЕ КРИТИЧЕСКИХ БАГОВ"""
     
@@ -2088,7 +2254,7 @@ def main():
     else:
         # Настройки периода для тестирования по умолчанию
         start_date = datetime(2025, 7, 2)
-        end_date = datetime(2025, 7, 22)
+        end_date = datetime(2025, 7, 2)
 
     # Настраиваем логирование ПЕРЕД созданием fetcher'а
     logs_dir = Path("data/logs")

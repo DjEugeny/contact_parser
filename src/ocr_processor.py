@@ -1086,65 +1086,120 @@ class OCRProcessor:
     
     def _check_existing_results(self, file_path: Path, date: str) -> bool:
         """🔍 Проверка существования уже обработанных результатов"""
-        
+
         date_texts_dir = self.texts_dir / date
         if not date_texts_dir.exists():
             self.logger.debug(f"Папка для даты {date} не существует: {date_texts_dir}")
             return False
-        
+
         # Получаем точное имя файла без расширения
         file_stem = file_path.stem
-        
-        # Ищем файлы с точным совпадением имени (без суффиксов метода)
+
+        # 🆕 ИСПРАВЛЕНИЕ: Ищем файлы с учетом возможных временных меток
+        # Формат имени: {thread_id}_{timestamp}_{type}_{original_filename}
+        # Пример: 20250722_dna-technology_ru_17cb0020_033857_attach_реквизиты ООО
+
+        # Разбираем имя файла для извлечения оригинального имени без временных меток
+        parts = file_stem.split('_')
+        if len(parts) >= 4 and parts[-2] == 'attach':
+            # Это файл вложения с правильным форматом
+            # Извлекаем оригинальное имя: все после '_attach_'
+            original_name = '_'.join(parts[3:])  # parts[3:] содержит оригинальное имя
+            self.logger.debug(f"Распознано имя вложения: {original_name}")
+
+            # Ищем все файлы, содержащие оригинальное имя
+            all_txt_files = list(date_texts_dir.glob("*.txt"))
+            matching_files = []
+
+            for txt_file in all_txt_files:
+                txt_stem = txt_file.stem
+                # Убираем суффиксы методов и ошибок для сравнения
+                clean_txt_stem = txt_stem.replace('___google_vision_pdf_optimized', '').replace('___local_pdf_text', '').replace('_ERROR', '')
+
+                # Проверяем, содержит ли имя файла оригинальное имя вложения
+                if original_name in clean_txt_stem:
+                    matching_files.append(txt_file)
+
+            if matching_files:
+                # Проверяем, есть ли успешные результаты
+                error_files = [f for f in matching_files if '_ERROR.txt' in f.name]
+                success_files = [f for f in matching_files if '_ERROR.txt' not in f.name]
+
+                if success_files:
+                    self.logger.debug(f"Найдены успешные результаты для вложения '{original_name}': {len(success_files)} файлов")
+                    return True  # Есть успешные результаты - пропускаем
+                elif error_files:
+                    self.logger.debug(f"Найдены только файлы-маркеры ошибок для вложения '{original_name}': {len(error_files)} файлов")
+                    return False  # Файлы с ошибками нуждаются в повторной обработке
+        else:
+            # Файл не соответствует ожидаемому формату - используем старую логику
+            self.logger.debug(f"Файл {file_path.name} не соответствует формату вложения, используем точное совпадение")
+
+        # Резервная логика: ищем файлы с точным совпадением имени
         exact_match_files = list(date_texts_dir.glob(f"{file_stem}.txt")) + list(date_texts_dir.glob(f"{file_stem}_ERROR.txt"))
-        
-        # Если найдены файлы с точным совпадением
+
         if exact_match_files:
-            # Проверяем, есть ли среди найденных файлов файлы-маркеры ошибок
             error_files = [f for f in exact_match_files if '_ERROR.txt' in f.name]
             success_files = [f for f in exact_match_files if '_ERROR.txt' not in f.name]
 
             if success_files:
                 self.logger.debug(f"Найдены успешные результаты для {file_path.name}: {len(success_files)} файлов")
-                return True  # Есть успешные результаты - пропускаем
+                return True
             elif error_files:
                 self.logger.debug(f"Найдены только файлы-маркеры ошибок для {file_path.name}: {len(error_files)} файлов")
-                # Файлы с ошибками нуждаются в повторной обработке
-                return False  # НЕ пропускаем, а обрабатываем повторно
-        
+                return False
+
         # Дополнительно проверяем старые файлы с суффиксами методов для совместимости
         old_format_files = list(date_texts_dir.glob(f"{file_stem}___*.txt"))
-        
+
         if old_format_files:
-            # Аналогично проверяем старые файлы
             error_files = [f for f in old_format_files if '_ERROR.txt' in f.name]
             success_files = [f for f in old_format_files if '_ERROR.txt' not in f.name]
 
             if success_files:
                 self.logger.debug(f"Найдены старые успешные результаты для {file_path.name}: {len(success_files)} файлов")
-                return True  # Есть успешные результаты - пропускаем
+                return True
             elif error_files:
                 self.logger.debug(f"Найдены старые файлы-маркеры ошибок для {file_path.name}: {len(error_files)} файлов")
-                return False  # Файлы с ошибками нуждаются в повторной обработке
-        
+                return False
+
         self.logger.debug(f"Результаты для {file_path.name} не найдены")
         return False
     
     def _get_existing_result(self, file_path: Path, date: str) -> Dict:
         """📄 Получение уже существующего результата обработки"""
-        
+
         date_texts_dir = self.texts_dir / date
         file_stem = file_path.stem
-        
-        # Сначала ищем файлы с точным совпадением имени (новый формат)
-        exact_match_files = list(date_texts_dir.glob(f"{file_stem}.txt")) + list(date_texts_dir.glob(f"{file_stem}_ERROR.txt"))
-        
-        # Если не найдено, ищем по старому формату с суффиксами методов
-        if not exact_match_files:
-            old_format_files = list(date_texts_dir.glob(f"{file_stem}___*.txt"))
-            existing_files = old_format_files
+
+        # 🆕 ИСПРАВЛЕНИЕ: Используем ту же логику, что и в _check_existing_results
+        parts = file_stem.split('_')
+        existing_files = []
+
+        if len(parts) >= 4 and parts[-2] == 'attach':
+            # Это файл вложения с правильным форматом
+            original_name = '_'.join(parts[3:])  # parts[3:] содержит оригинальное имя
+
+            # Ищем все файлы, содержащие оригинальное имя
+            all_txt_files = list(date_texts_dir.glob("*.txt"))
+
+            for txt_file in all_txt_files:
+                txt_stem = txt_file.stem
+                # Убираем суффиксы методов и ошибок для сравнения
+                clean_txt_stem = txt_stem.replace('___google_vision_pdf_optimized', '').replace('___local_pdf_text', '').replace('_ERROR', '')
+
+                # Проверяем, содержит ли имя файла оригинальное имя вложения
+                if original_name in clean_txt_stem:
+                    existing_files.append(txt_file)
         else:
-            existing_files = exact_match_files
+            # Файл не соответствует формату - используем старую логику
+            exact_match_files = list(date_texts_dir.glob(f"{file_stem}.txt")) + list(date_texts_dir.glob(f"{file_stem}_ERROR.txt"))
+
+            if not exact_match_files:
+                old_format_files = list(date_texts_dir.glob(f"{file_stem}___*.txt"))
+                existing_files = old_format_files
+            else:
+                existing_files = exact_match_files
         
         if not existing_files:
             # Если файлов нет, возвращаем пустой результат
@@ -1694,10 +1749,28 @@ class OCRProcessor:
             
             # Проверяем, есть ли уже обработанные результаты
             if self._check_existing_results(file_path, date):
-                # Дополнительная проверка: есть ли файлы с ошибками, которые нужно переобработать
-                date_texts_dir = self.texts_dir / date
+                # 🆕 ИСПРАВЛЕНИЕ: Проверяем, есть ли файлы с ошибками, которые нужно переобработать
+                # Используем ту же логику, что и в _check_existing_results
                 file_stem = file_path.stem
-                error_files = list(date_texts_dir.glob(f"{file_stem}_ERROR.txt")) + list(date_texts_dir.glob(f"{file_stem}___*_ERROR.txt"))
+                parts = file_stem.split('_')
+                error_files = []
+
+                if len(parts) >= 4 and parts[-2] == 'attach':
+                    # Для файлов вложений ищем по оригинальному имени
+                    original_name = '_'.join(parts[3:])
+                    date_texts_dir = self.texts_dir / date
+                    all_txt_files = list(date_texts_dir.glob("*.txt"))
+
+                    for txt_file in all_txt_files:
+                        txt_stem = txt_file.stem
+                        clean_txt_stem = txt_stem.replace('___google_vision_pdf_optimized', '').replace('___local_pdf_text', '').replace('_ERROR', '')
+
+                        if original_name in clean_txt_stem and '_ERROR.txt' in txt_file.name:
+                            error_files.append(txt_file)
+                else:
+                    # Для файлов не-вложений используем старую логику
+                    date_texts_dir = self.texts_dir / date
+                    error_files = list(date_texts_dir.glob(f"{file_stem}_ERROR.txt")) + list(date_texts_dir.glob(f"{file_stem}___*_ERROR.txt"))
 
                 if error_files:
                     print(f"   🔄 Статус: ОБНАРУЖЕНЫ СТАРЫЕ ОШИБКИ - повторная обработка")
