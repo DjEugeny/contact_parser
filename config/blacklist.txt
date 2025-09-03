@@ -1,6 +1,9 @@
 # 🚫 Черный список email адресов (по одному на строку)
 s.voronova@dna-technology.ru
+burkova@dna-technology.ru
 info@*
+echeck@1-ofd.ru
+echeck@*
 no-reply@taxi.yandex.ru
 noreply@yandex.ru
 no-reply@google.com
@@ -15,3 +18,6 @@ newsvrach@osp.ru
 valvalpanina222@gmail.com
 sale@*
 sale*@*
+quantorm@quantorm.ru
+veronika.holodnaya@ignesko.ru
+*@ignesko.ru

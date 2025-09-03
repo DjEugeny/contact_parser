@@ -1,64 +1,71 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-Тест исправления фильтрации вложений в OCRProcessorAdapter
+🧪 Тестовый скрипт для проверки исправлений логики вложений
 """
 
 import json
-import sys
-import os
+from pathlib import Path
 
-# Добавляем путь к src
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
+def test_attachment_json_sync():
+    """Проверяем синхронизацию информации о вложениях между JSON и файловой системой"""
 
-from ocr_processor_adapter import OCRProcessorAdapter
+    print("🧪 ТЕСТИРОВАНИЕ ИСПРАВЛЕНИЙ ЛОГИКИ ВЛОЖЕНИЙ")
+    print("=" * 60)
 
-def test_email_006_attachment_filtering():
-    """Тест фильтрации вложений для email_006"""
-    print("=== Тест исправления фильтрации вложений ===")
-    
-    # Инициализация адаптера
-    adapter = OCRProcessorAdapter()
-    
-    # Загрузка email_006
-    email_path = '/Users/evgenyzach/contact_parser/data/emails/2025-07-01/email_006_20250701_20250701_dna-technology_ru_539d677f.json'
-    
-    try:
-        with open(email_path, 'r', encoding='utf-8') as f:
-            email = json.load(f)
-        
-        print(f"Email thread_id: {email.get('thread_id', 'N/A')}")
-        print(f"Email attachments: {email.get('attachments', [])}")
-        
-        # Тест с пустыми результатами вложений (как должно быть для email_006)
-        combined_text_empty = adapter.combine_email_with_attachments(email, {})
-        print(f"\nС пустыми вложениями:")
-        print(f"Combined text length: {len(combined_text_empty)} characters")
-        print(f"First 200 chars: {combined_text_empty[:200]}...")
-        
-        # Тест с фиктивными вложениями других писем
-        fake_attachments = {
-            'other_thread_id_1': 'Текст вложения от другого письма 1',
-            'other_thread_id_2': 'Текст вложения от другого письма 2',
-            email.get('thread_id', 'unknown'): 'Текст вложения для этого письма'
+    # Проверяем конкретные файлы из примера пользователя
+    test_cases = [
+        {
+            'json_path': 'data/emails/2025-06-02/email_006_20250602_20250602_dna-technology_ru_8e904fa9.json',
+            'thread_id': '20250602_dna-technology_ru_8e904fa9',
+            'expected_attachments': 1
+        },
+        {
+            'json_path': 'data/emails/2025-06-02/email_007_20250602_20250602_dna-technology_ru_7cba8f23.json',
+            'thread_id': '20250602_dna-technology_ru_7cba8f23',
+            'expected_attachments': 1
         }
-        
-        combined_text_filtered = adapter.combine_email_with_attachments(email, fake_attachments)
-        print(f"\nС фильтрацией по thread_id:")
-        print(f"Combined text length: {len(combined_text_filtered)} characters")
-        print(f"Should contain only relevant attachment: {'Текст вложения для этого письма' in combined_text_filtered}")
-        print(f"Should NOT contain other attachments: {'другого письма 1' not in combined_text_filtered}")
-        
-        return True
-        
-    except Exception as e:
-        print(f"Ошибка при тестировании: {e}")
-        return False
+    ]
 
-if __name__ == "__main__":
-    success = test_email_006_attachment_filtering()
-    if success:
-        print("\n✅ Тест завершен успешно")
-    else:
-        print("\n❌ Тест завершен с ошибками")
-        sys.exit(1)
+    for test_case in test_cases:
+        json_path = Path(test_case['json_path'])
+        thread_id = test_case['thread_id']
+        expected_count = test_case['expected_attachments']
+
+        print(f"\n📧 Проверка: {json_path.name}")
+        print(f"   Thread-ID: {thread_id}")
+
+        # Проверяем JSON файл
+        if json_path.exists():
+            try:
+                with open(json_path, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+
+                attachments = data.get('attachments', [])
+                attachments_stats = data.get('attachments_stats', {})
+
+                print(f"   📎 В JSON: {len(attachments)} вложений")
+                print(f"   📊 Статистика: {attachments_stats}")
+
+                if len(attachments) == 0:
+                    print("   ❌ ПРОБЛЕМА: В JSON нет информации о вложениях!")
+                else:
+                    print("   ✅ JSON содержит информацию о вложениях")
+
+            except Exception as e:
+                print(f"   ❌ Ошибка чтения JSON: {e}")
+        else:
+            print("   ❌ JSON файл не найден")
+
+        # Проверяем файлы вложений
+        attachments_dir = Path('data/attachments/2025-06-02')
+        if attachments_dir.exists():
+            attachment_files = list(attachments_dir.glob(f"*{thread_id}*"))
+            print(f"   📁 В файловой системе: {len(attachment_files)} файлов")
+
+            for attachment_file in attachment_files:
+                print(f"      - {attachment_file.name}")
+        else:
+            print("   ❌ Папка вложений не найдена")
+
+if __name__ == '__main__':
+    test_attachment_json_sync()
