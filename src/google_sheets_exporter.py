@@ -252,12 +252,25 @@ class GoogleSheetsExporter:
     
     def _export_commercial_offers(self, spreadsheet, results: Dict, date: str):
         """💼 Экспорт коммерческих предложений в таблицу"""
-        
+
         worksheet = spreadsheet.worksheet("Коммерческие предложения")
-        
+
         # Получаем все КП из результатов обработки email
         all_offers = []
         for email_result in results.get('emails_results', []):
+            # Поддержка новой структуры (Фаза 1)
+            commercial_offers = email_result.get('commercial_offers', [])
+            if commercial_offers and isinstance(commercial_offers, list):
+                for offer in commercial_offers:
+                    if offer.get('found', False):
+                        # Добавляем метаданные email к КП
+                        offer_with_metadata = offer.copy()
+                        offer_with_metadata['email_thread_id'] = email_result.get('original_email', {}).get('thread_id', 'неизвестно')
+                        offer_with_metadata['email_subject'] = email_result.get('original_email', {}).get('subject', 'неизвестно')
+                        offer_with_metadata['email_from'] = email_result.get('original_email', {}).get('from', 'неизвестно')
+                        all_offers.append(offer_with_metadata)
+
+            # Обратная совместимость со старой структурой
             commercial_analysis = email_result.get('commercial_analysis', {})
             if commercial_analysis and commercial_analysis.get('commercial_offer_found'):
                 # Добавляем метаданные email к КП
@@ -266,40 +279,57 @@ class GoogleSheetsExporter:
                 offer_with_metadata['email_subject'] = email_result.get('original_email', {}).get('subject', 'неизвестно')
                 offer_with_metadata['email_from'] = email_result.get('original_email', {}).get('from', 'неизвестно')
                 all_offers.append(offer_with_metadata)
-        
+
         if not all_offers:
             print("   ℹ️ Коммерческие предложения для экспорта не найдены")
             return
-        
+
         # Подготавливаем данные для вставки
         offer_rows = []
         for offer_data in all_offers:
-            # Формируем строку для вставки
-            row = [
-                date,
-                offer_data.get('email_from', 'неизвестно'),
-                offer_data.get('offer_number', 'б/н'),
-                offer_data.get('offer_date', ''),
-                offer_data.get('end_user', ''),
-                offer_data.get('end_user_city', ''),
-                offer_data.get('intermediary', ''),
-                offer_data.get('payment_terms', ''),
-                offer_data.get('delivery_time', ''),
-                offer_data.get('delivery_terms', ''),
-                offer_data.get('valid_until', ''),
-                offer_data.get('issued_by', ''),
-                offer_data.get('total_cost', ''),
-                offer_data.get('currency', 'RUB'),
-                offer_data.get('email_thread_id', 'неизвестно')
-            ]
+            # Новая структура (Фаза 1)
+            if 'supplier' in offer_data:
+                row = [
+                    date,
+                    offer_data.get('email_from', 'неизвестно'),
+                    offer_data.get('supplier', 'неизвестно'),  # Поставщик
+                    ', '.join(offer_data.get('products', [])),  # Продукты
+                    offer_data.get('total_amount', ''),  # Сумма
+                    offer_data.get('currency', 'RUB'),  # Валюта
+                    offer_data.get('valid_until', ''),  # Срок действия
+                    offer_data.get('email_thread_id', 'неизвестно')
+                ]
+            # Старая структура (обратная совместимость)
+            else:
+                row = [
+                    date,
+                    offer_data.get('email_from', 'неизвестно'),
+                    offer_data.get('offer_number', 'б/н'),
+                    offer_data.get('offer_date', ''),
+                    offer_data.get('end_user', ''),
+                    offer_data.get('end_user_city', ''),
+                    offer_data.get('intermediary', ''),
+                    offer_data.get('payment_terms', ''),
+                    offer_data.get('delivery_time', ''),
+                    offer_data.get('delivery_terms', ''),
+                    offer_data.get('valid_until', ''),
+                    offer_data.get('issued_by', ''),
+                    offer_data.get('total_cost', ''),
+                    offer_data.get('currency', 'RUB'),
+                    offer_data.get('email_thread_id', 'неизвестно')
+                ]
             offer_rows.append(row)
-        
+
         # Получаем следующую пустую строку для вставки
         next_row = len(worksheet.get_all_values()) + 1
-        
+
         # Вставляем данные
         if offer_rows:
-            cell_range = f"A{next_row}:O{next_row + len(offer_rows) - 1}"
+            # Для новой структуры меньше колонок
+            if 'supplier' in all_offers[0]:
+                cell_range = f"A{next_row}:H{next_row + len(offer_rows) - 1}"
+            else:
+                cell_range = f"A{next_row}:O{next_row + len(offer_rows) - 1}"
             worksheet.update(cell_range, offer_rows)
             print(f"   ✅ Экспортировано КП: {len(offer_rows)}")
     

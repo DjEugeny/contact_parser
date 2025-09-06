@@ -68,11 +68,51 @@ class ContactExtractor:
              }
          }
         
+        # Валидация конфигурации при инициализации
+        self._validate_configuration()
+
         print(f"🤖 ContactExtractor инициализирован (test_mode={test_mode})")
         print(f"   📁 Конфигурация: {self.config_path}")
-        print(f"   🔄 Fallback система: OpenRouter -> Groq")
+        print(f"   🔄 Fallback система: OpenRouter -> Groq -> Replicate")
         print(f"   🎯 Текущий провайдер: {self.providers[self.current_provider]['name']}")
-    
+        print("   ✅ Конфигурация провайдеров валидирована")
+
+    def _validate_configuration(self):
+        """✅ Валидация конфигурации при инициализации"""
+        print("🔍 Валидация конфигурации...")
+
+        # Проверка наличия API ключей
+        required_keys = ['OPENROUTER_API_KEY', 'GROQ_API_KEY', 'REPLICATE_API_KEY']
+        missing_keys = []
+        for key in required_keys:
+            if not os.getenv(key):
+                missing_keys.append(key)
+
+        if missing_keys:
+            raise ValueError(f"❌ Отсутствуют обязательные API ключи: {', '.join(missing_keys)}")
+
+        # Проверка доступности провайдеров
+        active_providers = 0
+        for provider_id, provider in self.providers.items():
+            if provider['api_key']:
+                active_providers += 1
+                print(f"   ✅ {provider['name']}: API ключ найден")
+            else:
+                print(f"   ⚠️  {provider['name']}: API ключ отсутствует")
+
+        if active_providers == 0:
+            raise ValueError("❌ Нет ни одного провайдера с API ключом")
+
+        # Проверка сетевых настроек (базовая)
+        try:
+            import socket
+            socket.create_connection(("8.8.8.8", 53), timeout=3)
+            print("   ✅ Сетевое подключение: доступно")
+        except OSError:
+            print("   ⚠️  Сетевое подключение: ограничено (работа возможна только с кэшем)")
+
+        print("✅ Валидация конфигурации завершена успешно")
+
     def _initialize_providers(self) -> dict:
         """🔧 Инициализация провайдеров с учетом конфигурации"""
         # Базовая структура провайдеров с техническими настройками
@@ -191,7 +231,7 @@ class ContactExtractor:
             print("❌ Ответ должен быть объектом")
             return False
         
-        required_fields = ['contacts', 'business_context', 'recommended_actions']
+        required_fields = ['contacts', 'business_context', 'commercial_offers']
         
         # Проверяем основные поля
         for field in required_fields:
@@ -204,8 +244,8 @@ class ContactExtractor:
             print("❌ Поле 'business_context' должно быть строкой")
             return False
             
-        if not isinstance(response_data['recommended_actions'], str):
-            print("❌ Поле 'recommended_actions' должно быть строкой")
+        if not isinstance(response_data['commercial_offers'], list):
+            print("❌ Поле 'commercial_offers' должно быть списком")
             return False
         
         # Проверяем структуру contacts
@@ -540,7 +580,7 @@ class ContactExtractor:
                     'confidence': 0.95
                 }],
                 'business_context': 'Тестовый бизнес-контекст',
-                'recommended_actions': 'Тестовые рекомендации',
+                'commercial_offers': [],
                 'provider_used': 'Test Mode'
             }
         
@@ -551,11 +591,21 @@ class ContactExtractor:
                     self.stats['retry_attempts'] += 1
                     print(f"🔄 Повторная попытка {attempt + 1}/{max_retries}")
                     
-                    # Увеличенные задержки для Replicate
+                    # Оптимизированные задержки согласно мастер-плану
+                    base_delay = 1.0  # Начальная задержка 1 сек для быстрого переключения
+
+                    # Учитываем тип провайдера
                     if self.current_provider == 'replicate':
-                        delay = min(5 * (2 ** attempt), 60)  # От 10 до 60 секунд
-                    else:
-                        delay = 2 ** attempt  # Стандартная экспоненциальная задержка
+                        # Для Replicate увеличиваем базовую задержку
+                        base_delay = 3.0
+
+                    # Экспоненциальная задержка с максимумом 30 сек
+                    delay = min(base_delay * (2 ** attempt), 30)
+
+                    # Добавляем jitter для распределения нагрузки
+                    import random
+                    jitter = random.uniform(0.1, 0.5)
+                    delay = delay * (1 + jitter)
                     
                     print(f"⏳ Ожидание {delay} секунд перед повтором...")
                     time.sleep(delay)
@@ -577,7 +627,7 @@ class ContactExtractor:
                         return {
                             'contacts': [],
                             'business_context': 'Ошибка валидации JSON Schema',
-                            'recommended_actions': 'Проверить формат ответа LLM',
+                            'commercial_offers': [],
                             'error': 'JSON Schema validation failed after retries'
                         }
             
@@ -612,17 +662,28 @@ class ContactExtractor:
                         self.stats['retry_attempts'] += 1
                         continue
                 
-                # Пробуем переключиться на другого провайдера
-                if self._switch_to_next_provider():
-                    print(f"🔄 Повторяем запрос с новым провайдером")
-                    continue  # Повторяем попытку с новым провайдером
+                # Проверяем Circuit Breaker перед переключением
+                if self._is_provider_in_circuit_break():
+                    print(f"🔌 Circuit Breaker: провайдер {self.providers[self.current_provider]['name']} отключен")
+                    # Пробуем переключиться на другого провайдера
+                    if self._switch_to_next_provider():
+                        print(f"🔄 Повторяем запрос с новым провайдером")
+                        continue  # Повторяем попытку с новым провайдером
+                    else:
+                        print("❌ Нет доступных провайдеров для fallback")
+                        break  # Выходим из цикла retry
+                else:
+                    # Пробуем переключиться на другого провайдера
+                    if self._switch_to_next_provider():
+                        print(f"🔄 Повторяем запрос с новым провайдером")
+                        continue  # Повторяем попытку с новым провайдером
                 
                 if attempt == max_retries - 1:
                     self.stats['failed_requests'] += 1
                     return {
                         'contacts': [],
-                        'business_context': f'Ошибка LLM: {str(e)}',
-                        'recommended_actions': 'Проверить подключение к LLM и API ключи',
+                            'business_context': f'Ошибка LLM: {str(e)}',
+                            'commercial_offers': [],
                         'error': str(e)
                     }
         
@@ -631,7 +692,7 @@ class ContactExtractor:
         return {
             'contacts': [],
             'business_context': 'Неизвестная ошибка',
-            'recommended_actions': 'Обратиться к разработчику',
+            'commercial_offers': [],
             'error': 'Unknown error in retry logic'
         }
     
@@ -1417,13 +1478,13 @@ class ContactExtractor:
             # (убрана логика принудительного отключения тестового режима)
             
             # Загружаем промпт
-            prompt = self._load_prompt("contact_extraction.txt")
+            prompt = self._load_prompt("unified_contact_extraction.txt")
             
             if prompt.startswith("ERROR:"):
                 return {
                     'contacts': [],
                     'business_context': prompt,
-                    'recommended_actions': 'Проверить наличие файла промпта',
+                    'commercial_offers': [],
                     'error': 'Prompt loading failed'
                 }
             
@@ -1456,7 +1517,7 @@ class ContactExtractor:
                         'confidence': 0.95
                     }],
                     'business_context': 'Тестовый бизнес-контекст',
-                    'recommended_actions': 'Тестовые рекомендации',
+                    'commercial_offers': [],
                     'provider_used': 'Test Mode'
                 }
                 
@@ -1473,7 +1534,7 @@ class ContactExtractor:
                 return {
                     'contacts': [],
                     'business_context': f'Ошибка: получен {type(result)} вместо dict',
-                    'recommended_actions': 'Проверить логику обработки ответа LLM',
+                    'commercial_offers': [],
                     'error': f'Invalid result type: {type(result)}',
                     'provider_used': 'Error'
                 }
@@ -1495,7 +1556,7 @@ class ContactExtractor:
             return {
                 'contacts': [],
                 'business_context': f'Ошибка обработки: {str(e)}',
-                'recommended_actions': 'Проверить настройки LLM и повторить',
+                'commercial_offers': [],
                 'error': str(e),
                 'provider_used': 'Error'
             }
@@ -1577,42 +1638,78 @@ class ContactExtractor:
         return health_status
     
     def _switch_to_next_provider(self) -> bool:
-        """🔄 Переключение на следующий доступный провайдер"""
+        """🔄 Переключение на следующий доступный провайдер с Circuit Breaker"""
         # Получаем список активных провайдеров, отсортированных по приоритету
         active_providers = [
             (pid, provider) for pid, provider in self.providers.items()
-            if provider['active'] and provider['api_key']
+            if provider['active'] and provider['api_key'] and not self._is_provider_in_circuit_break(pid)
         ]
         active_providers.sort(key=lambda x: x[1]['priority'])
-        
+
+        if not active_providers:
+            print("❌ Нет доступных провайдеров (все в circuit break или неактивны)")
+            return False
+
         # Ищем следующий провайдер после текущего
         current_index = -1
         for i, (pid, _) in enumerate(active_providers):
             if pid == self.current_provider:
                 current_index = i
                 break
-        
+
         # Переключаемся на следующий провайдер
         if current_index >= 0 and current_index + 1 < len(active_providers):
             next_provider_id = active_providers[current_index + 1][0]
-            old_provider = self.current_provider
-            self.current_provider = next_provider_id
-            self.stats['fallback_switches'] += 1
-            
-            print(f"🔄 Fallback: переключение с {self.providers[old_provider]['name']} на {self.providers[next_provider_id]['name']}")
-            return True
-        
-        # Если нет следующего провайдера, пробуем первый в списке (если он не текущий)
-        if active_providers and active_providers[0][0] != self.current_provider:
+        else:
+            # Если текущий провайдер последний или не найден, берем первый
             next_provider_id = active_providers[0][0]
-            old_provider = self.current_provider
-            self.current_provider = next_provider_id
-            self.stats['fallback_switches'] += 1
-            
-            print(f"🔄 Fallback: переключение с {self.providers[old_provider]['name']} на {self.providers[next_provider_id]['name']}")
-            return True
-        
-        print("❌ Нет доступных провайдеров для fallback")
+
+        # Не переключаемся на тот же провайдер
+        if next_provider_id == self.current_provider:
+            print("❌ Следующий провайдер совпадает с текущим")
+            return False
+
+        old_provider = self.current_provider
+        self.current_provider = next_provider_id
+        self.stats['fallback_switches'] += 1
+
+        print(f"🔄 Fallback: переключение с {self.providers[old_provider]['name']} на {self.providers[next_provider_id]['name']}")
+        return True
+
+    def _is_provider_in_circuit_break(self, provider_id: str = None) -> bool:
+        """🔌 Проверка Circuit Breaker для провайдера"""
+        if provider_id is None:
+            provider_id = self.current_provider
+
+        if provider_id not in self.providers:
+            return False
+
+        provider = self.providers[provider_id]
+
+        # Проверяем условия circuit break
+        failure_threshold = 5  # Максимум 5 неудач
+        recovery_timeout = 300  # 5 минут восстановления
+
+        if provider['failure_count'] >= failure_threshold:
+            if provider['last_failure']:
+                # Проверяем, прошло ли время восстановления
+                from datetime import datetime
+                last_failure_time = datetime.fromisoformat(provider['last_failure'])
+                time_since_failure = (datetime.now() - last_failure_time).total_seconds()
+
+                if time_since_failure < recovery_timeout:
+                    # Провайдер все еще в circuit break
+                    return True
+                else:
+                    # Время восстановления прошло, сбрасываем счетчик
+                    print(f"🔄 Circuit Breaker: провайдер {provider['name']} восстановлен")
+                    provider['failure_count'] = 0
+                    provider['last_failure'] = None
+                    return False
+            else:
+                # Нет времени последней ошибки, но счетчик высок - включаем circuit break
+                return True
+
         return False
     
     def simulate_provider_failure(self, provider_id: str) -> dict:
