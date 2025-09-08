@@ -1461,6 +1461,13 @@ class ContactExtractor:
         return unique_contacts
     
     def extract_contacts(self, text: str, metadata: dict = None) -> dict:
+        """
+        🔄 УСТАРЕВШИЙ МЕТОД: Используйте extract_all_data()
+        Оставлен для обратной совместимости
+        """
+        return self.extract_all_data(text, metadata)
+
+    def extract_all_data(self, text: str, metadata: dict = None) -> dict:
         """👤 Основной метод извлечения контактов"""
         
         # Сохраняем исходный test_mode
@@ -1468,7 +1475,7 @@ class ContactExtractor:
         
         try:
             # Логирование
-            print(f"\n🔍 Извлечение контактов (test_mode={self.test_mode})")
+            print(f"\n🔍 Единый анализ данных (test_mode={self.test_mode})")
             print(f"   📝 Длина текста: {len(text)} символов")
             
             if metadata:

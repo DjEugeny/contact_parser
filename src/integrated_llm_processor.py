@@ -94,58 +94,6 @@ class IntegratedLLMProcessor:
             print(f"❌ Ошибка парсинга JSON анализа КП: {e}")
             return {"commercial_offer_found": False, "error": f"Ошибка парсинга: {e}"}
 
-    def analyze_commercial_offers(self, combined_text: str, email_metadata: dict) -> dict:
-        """💼 Специальный анализ коммерческих предложений"""
-        
-        try:
-            # Загружаем специальный промпт для КП
-            co_prompt = self._load_prompt("commercial_offer_analysis.txt")
-            
-            if "ERROR:" in co_prompt:
-                return {"commercial_offer_found": False, "error": "Промпт не загружен"}
-            
-            print("   💼 Анализ коммерческих предложений...")
-            
-            # Проверяем доступность LLM провайдеров
-            if not self.contact_extractor.providers or not self.contact_extractor.current_provider:
-                return {"commercial_offer_found": False, "error": "LLM провайдеры недоступны"}
-            
-            # Получаем текущего провайдера
-            current_provider = self.contact_extractor.providers[self.contact_extractor.current_provider]
-            
-            # Отправляем в LLM с фокусом на коммерческую информацию
-            # Используем тот же механизм что и в contact_extractor для совместимости
-            llm_payload = {
-                "messages": [
-                    {"role": "system", "content": co_prompt},
-                    {"role": "user", "content": f"Проанализируй коммерческую информацию из этого письма и вложений:\n\n{combined_text}"}
-                ],
-                "max_tokens": 3000,
-                "temperature": 0.1
-            }
-            
-            # Делаем запрос через contact_extractor для единообразия
-            response = self.contact_extractor._make_llm_request(llm_payload, current_provider)
-            
-            # Парсим результат
-            # _make_llm_request возвращает строку, а не объект с choices
-            if isinstance(response, str):
-                analysis_result = self._parse_commercial_analysis(response)
-            else:
-                # Fallback для совместимости
-                analysis_result = self._parse_commercial_analysis(str(response))
-            
-            if analysis_result.get("commercial_offer_found"):
-                print("   ✅ Коммерческое предложение найдено и проанализировано")
-                self.stats['commercial_offers_found'] += 1
-            else:
-                print("   📄 Коммерческое предложение не обнаружено")
-            
-            return analysis_result
-            
-        except Exception as e:
-            print(f"   ❌ Ошибка анализа КП: {e}")
-            return {"commercial_offer_found": False, "error": str(e)}
 
     def process_emails_by_date(self, target_date: str, max_emails: int = None) -> Dict:
         """📅 Обработка писем за конкретную дату
@@ -204,6 +152,10 @@ class IntegratedLLMProcessor:
                     if result.get('attachments_processed', 0) > 0:
                         self.stats['emails_with_attachments'] += 1
                         self.stats['attachments_processed'] += result['attachments_processed']
+                    # Обновляем статистику коммерческих предложений
+                    commercial_offers_count = len(result.get('commercial_offers', []))
+                    if commercial_offers_count > 0:
+                        self.stats['commercial_offers_found'] += commercial_offers_count
                 
                 # Адаптивная задержка между LLM запросами
                 # Не делаем задержку после последнего письма
@@ -292,23 +244,18 @@ class IntegratedLLMProcessor:
                     ]
                 }
             else:
-                print("   🤖 Отправка в LLM для извлечения контактов...")
-                llm_result = self.contact_extractor.extract_contacts(combined_text, email_metadata)
+                print("   🤖 Отправка в LLM для единого анализа данных...")
+                llm_result = self.contact_extractor.extract_all_data(combined_text, email_metadata)
                 
                 # Задержка между LLM запросами перенесена в основной цикл
             
-            # 5. НОВОЕ: Анализируем коммерческие предложения
+            # 5. Получаем коммерческие предложения из единого LLM результата
             if self.test_mode:
-                print("   🧪 ТЕСТОВЫЙ РЕЖИМ: Пропускаем анализ КП")
-                commercial_analysis = {
-                    "commercial_offer_found": False,
-                    "offer_number": "ТЕСТ-001",
-                    "supplier_info": {"company": "Тестовая Компания"},
-                    "total_cost": "100000",
-                    "currency": "RUB"
-                }
+                print("   🧪 ТЕСТОВЫЙ РЕЖИМ: Используем тестовые КП")
+                commercial_offers = []
             else:
-                commercial_analysis = self.analyze_commercial_offers(combined_text, email_metadata)
+                commercial_offers = llm_result.get('commercial_offers', [])
+                print(f"   💼 Получено КП из единого запроса: {len(commercial_offers)}")
             
             # 6. Рассчитываем приоритеты контактов
             if llm_result and isinstance(llm_result, dict):
@@ -331,11 +278,9 @@ class IntegratedLLMProcessor:
                 'attachments_details': attachments_result['attachments_text'],
                 'combined_text_length': len(combined_text),
                 'llm_analysis': llm_result,
-                'commercial_analysis': commercial_analysis,  # НОВОЕ: добавляем анализ КП
+                'commercial_offers': commercial_offers,  # Из единого LLM запроса
                 'contacts': llm_result.get('contacts', []),
-                'business_context': llm_result.get('business_context', {}),
-                'action_items': llm_result.get('action_items', []),
-                'tags': llm_result.get('tags', []),
+                'business_context': llm_result.get('business_context', ''),
                 'processed_at': datetime.now().isoformat()
             }
             
@@ -350,11 +295,14 @@ class IntegratedLLMProcessor:
             else:
                 print(f"   👤 Контакты не найдены")
             
-            # Логируем анализ КП
-            if commercial_analysis.get('commercial_offer_found'):
-                total_cost = commercial_analysis.get('total_cost', 'N/A')
-                supplier = commercial_analysis.get('supplier_info', {}).get('company', 'N/A')
-                print(f"   💼 КП найдено: {total_cost} от {supplier}")
+            # Логируем коммерческие предложения
+            if commercial_offers:
+                print(f"   💼 Найдено КП: {len(commercial_offers)}")
+                for i, offer in enumerate(commercial_offers[:2]):  # Показываем первые 2
+                    supplier = offer.get('supplier', 'N/A')
+                    amount = offer.get('total_amount', 'N/A')
+                    currency = offer.get('currency', 'RUB')
+                    print(f"      • {supplier}: {amount} {currency}")
             
             return result
             

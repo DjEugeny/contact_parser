@@ -1,0 +1,88 @@
+{
+  "variant1": {
+    "result": {
+      "contacts": [
+        {
+          "name": "Иван Петрович",
+          "phone": "+7 (495) 123-45-67 доб. 123",
+          "email": "",
+          "organization": "null",
+          "position": "null",
+          "city": "null",
+          "confidence": 0.95
+        },
+        {
+          "name": "Анна Сергеевна",
+          "phone": "",
+          "email": "a.sergeeva@medteh.ru",
+          "organization": "ООО \"МедТехника\"",
+          "position": "менеджер по продажам",
+          "city": "г. Москва",
+          "confidence": 0.95
+        }
+      ],
+      "business_context": "Запрос информации об амплификаторах DNA-технологии для лаборатории молекулярной диагностики.",
+      "commercial_offers": [
+        {
+          "found": true,
+          "supplier": "ООО \"МедТехника\"",
+          "products": [
+            "Амплификатор DNA Pro",
+            "Реагенты для ПЦР"
+          ],
+          "total_amount": 800000,
+          "currency": "RUB",
+          "valid_until": "null"
+        }
+      ],
+      "provider_used": "Replicate (meta/llama-3.1-8b-instant)",
+      "processing_time": "2025-09-08T14:11:28.862062",
+      "text_length": 560
+    },
+    "time": 5.387635231018066,
+    "success": true
+  },
+  "variant2": {
+    "result": {
+      "contacts": [
+        {
+          "name": "Иван Петрович",
+          "phone": null,
+          "email": null,
+          "organization": "",
+          "position": "",
+          "city": "",
+          "confidence": 0.95
+        },
+        {
+          "name": "Анна Сергеевна",
+          "phone": "+7 (495) 123-45-67 доб. 123",
+          "email": "a.sergeeva@medteh.ru",
+          "organization": "ООО \"МедТехника\"",
+          "position": "",
+          "city": "г. Москва",
+          "confidence": 0.95
+        }
+      ],
+      "business_context": "Предложение поставки лабораторного оборудования в ответ на запрос клиента.",
+      "commercial_offers": [
+        {
+          "found": true,
+          "supplier": "ООО \"МедТехника\"",
+          "products": [
+            "Амплификатор DNA Pro",
+            "Реагенты для ПЦР"
+          ],
+          "total_amount": 800000,
+          "currency": "RUB",
+          "valid_until": null
+        }
+      ],
+      "provider_used": "Groq (llama-3.1-8b-instant)",
+      "processing_time": "2025-09-08T14:11:29.715842",
+      "text_length": 560
+    },
+    "time": 0.8537709712982178,
+    "success": true
+  }
+}
