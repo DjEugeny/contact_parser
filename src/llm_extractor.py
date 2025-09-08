@@ -28,6 +28,12 @@ except ImportError:
 # Загружаем переменные окружения
 load_dotenv()
 
+# Импорт функций нормализации телефонов
+from .phone_normalizer import PhoneNormalizer
+
+# Импорт строгого JSON валидатора (ФАЗА 4)
+from .json_validator import LLMResponseValidator
+
 
 class ContactExtractor:
     """🔥 Экстрактор контактов с LLM и JSON Schema валидацией + Fallback система"""
@@ -53,13 +59,15 @@ class ContactExtractor:
         project_root = current_file.parent.parent  # Поднимаемся на уровень выше от src к корню проекта
         self.prompts_dir = project_root / "prompts"
         
-        # Расширенная статистика
+        # Расширенная статистика (расширена для ФАЗЫ 4)
         self.stats = {
              'total_requests': 0,
              'successful_requests': 0,
              'failed_requests': 0,
              'retry_attempts': 0,
-             'json_validation_errors': 0,
+             'json_parsing_errors': 0,  # Старые ошибки парсинга
+             'json_schema_validation_errors': 0,  # Новые ошибки схемы (ФАЗА 4)
+             'json_schema_auto_corrections': 0,  # Автоисправления (ФАЗА 4)
              'fallback_switches': 0,
              'provider_failures': {
                  'openrouter': 0,
@@ -71,11 +79,19 @@ class ContactExtractor:
         # Валидация конфигурации при инициализации
         self._validate_configuration()
 
+        # Инициализация нормализатора телефонов (ФАЗА 3)
+        self.phone_normalizer = PhoneNormalizer()
+
+        # Инициализация строгого JSON валидатора (ФАЗА 4)
+        self.json_validator = LLMResponseValidator()
+
         print(f"🤖 ContactExtractor инициализирован (test_mode={test_mode})")
         print(f"   📁 Конфигурация: {self.config_path}")
         print(f"   🔄 Fallback система: OpenRouter -> Groq -> Replicate")
         print(f"   🎯 Текущий провайдер: {self.providers[self.current_provider]['name']}")
         print("   ✅ Конфигурация провайдеров валидирована")
+        print("   📞 PhoneNormalizer интегрирован")
+        print("   📊 JSON Schema Validator интегрирован")
 
     def _validate_configuration(self):
         """✅ Валидация конфигурации при инициализации"""
@@ -1109,12 +1125,38 @@ class ContactExtractor:
                 
                 # Нормализация ответа от Replicate
                 result = self._normalize_replicate_response(result)
-                    
+
+                # ФАЗА 4: Строгая JSON Schema валидация
+                print(f"🔍 Применение строгой JSON Schema валидации...")
+                is_valid, validation_errors, corrected_result = self.json_validator.validate_llm_response(result)
+
+                if not is_valid:
+                    self.stats['json_schema_validation_errors'] += 1
+                    print(f"❌ JSON Schema валидация не пройдена: {len(validation_errors)} ошибок")
+
+                    # Детальная диагностика
+                    for error in validation_errors:
+                        print(f"   ⚠️ {error}")
+
+                    # Используем исправленный результат если возможно
+                    if corrected_result != result:
+                        self.stats['json_schema_auto_corrections'] += 1
+                        result = corrected_result
+                        print("✅ Использован автоматически исправленный результат")
+                    else:
+                        # Graceful degradation
+                        print("🛡️ Применение graceful degradation...")
+                        result = self.json_validator.graceful_degradation_fallback(result)
+                        print("✅ Создан минимально валидный ответ")
+                else:
+                    print("✅ JSON Schema валидация пройдена успешно")
+
                 return result
             else:
                 raise ValueError("JSON не найден в ответе LLM")
         
         except json.JSONDecodeError as e:
+            self.stats['json_parsing_errors'] += 1  # ФАЗА 4: Учет ошибок парсинга отдельно
             raise ValueError(f"Ошибка парсинга JSON: {e}. Требуется перезапрос с 'Strict JSON only!'")
     
     def _normalize_replicate_response(self, response: dict) -> dict:
@@ -1408,56 +1450,59 @@ class ContactExtractor:
         }
     
     def _deduplicate_contacts(self, contacts: List[dict]) -> List[dict]:
-        """🔄 Удаление дубликатов контактов"""
-        
+        """🔄 Улучшенная дедупликация контактов с использованием нормализованных телефонов (ФАЗА 3)"""
+
         if not contacts:
             return []
-        
+
         unique_contacts = []
         seen_emails = set()
         seen_phones = set()
-        
+
         for contact in contacts:
+            # Получаем email
             email = contact.get('email', '')
             if email and isinstance(email, str):
                 email = email.lower().strip()
             else:
                 email = ''
-            
-            phone = contact.get('phone', '')
-            if phone and isinstance(phone, str):
-                phone = phone.strip()
-            else:
-                phone = ''
-            
-            # Нормализуем телефон (убираем пробелы, скобки, дефисы, плюсы)
-            # Оставляем только цифры для сравнения
-            normalized_phone = re.sub(r'[^0-9]', '', phone)
-            
-            # Для российских номеров приводим к единому формату
-            if normalized_phone.startswith('8') and len(normalized_phone) == 11:
-                normalized_phone = '7' + normalized_phone[1:]  # 8xxx -> 7xxx
-            elif normalized_phone.startswith('7') and len(normalized_phone) == 11:
-                pass  # Уже в правильном формате
-            elif len(normalized_phone) == 10:
-                normalized_phone = '7' + normalized_phone  # xxx -> 7xxx
-            
-            # Проверяем дубликаты по email или телефону
+
+            # Используем нормализованный телефон (ФАЗА 3)
+            normalized_phone = contact.get('normalized_phone', '')
+            if not normalized_phone:
+                # Fallback: если нормализация не прошла, используем старую логику
+                phone = contact.get('phone', '')
+                if phone and isinstance(phone, str):
+                    phone = phone.strip()
+                    normalized_phone = re.sub(r'[^0-9]', '', phone)
+                    # Для российских номеров приводим к единому формату
+                    if normalized_phone.startswith('8') and len(normalized_phone) == 11:
+                        normalized_phone = '7' + normalized_phone[1:]
+                    elif len(normalized_phone) == 10:
+                        normalized_phone = '7' + normalized_phone
+
+            # Проверяем дубликаты
             is_duplicate = False
-            
+
+            # Дубликат по email
             if email and email in seen_emails:
                 is_duplicate = True
-            
-            if normalized_phone and len(normalized_phone) > 6 and normalized_phone in seen_phones:
+                print(f"   🔄 Дубликат по email: {email}")
+
+            # Дубликат по телефону (только если телефон валидный)
+            if (normalized_phone and len(normalized_phone) >= 7 and
+                normalized_phone in seen_phones):
                 is_duplicate = True
-            
+                print(f"   🔄 Дубликат по телефону: {normalized_phone}")
+
             if not is_duplicate:
                 unique_contacts.append(contact)
                 if email:
                     seen_emails.add(email)
-                if normalized_phone and len(normalized_phone) > 6:
+                if normalized_phone and len(normalized_phone) >= 7:
                     seen_phones.add(normalized_phone)
-        
+
+        print(f"   🎯 Дедупликация: {len(contacts)} -> {len(unique_contacts)} уникальных контактов")
         return unique_contacts
     
     def extract_contacts(self, text: str, metadata: dict = None) -> dict:
@@ -1527,6 +1572,12 @@ class ContactExtractor:
                     'commercial_offers': [],
                     'provider_used': 'Test Mode'
                 }
+
+                # ФАЗА 3: Нормализация телефонов даже в тестовом режиме
+                if 'contacts' in result and result['contacts']:
+                    print(f"   📞 Нормализация телефонов для {len(result['contacts'])} тестовых контактов...")
+                    result['contacts'] = self.phone_normalizer.normalize_contact_list(result['contacts'])
+                    print("   ✅ Тестовые телефоны нормализованы")
                 
                 # Восстанавливаем исходный test_mode
                 self.test_mode = original_test_mode
@@ -1546,16 +1597,22 @@ class ContactExtractor:
                     'provider_used': 'Error'
                 }
             
+            # ФАЗА 3: Нормализация телефонов в контактах
+            if 'contacts' in result and result['contacts']:
+                print(f"   📞 Нормализация телефонов для {len(result['contacts'])} контактов...")
+                result['contacts'] = self.phone_normalizer.normalize_contact_list(result['contacts'])
+                print("   ✅ Телефоны нормализованы")
+
             # Добавляем метаинформацию
             result['provider_used'] = provider_info
             result['processing_time'] = datetime.now().isoformat()
             result['text_length'] = len(text)
-            
+
             # Статистика
             contacts_count = len(result.get('contacts', []))
             print(f"   ✅ Извлечено контактов: {contacts_count}")
             print(f"   🤖 Провайдер: {provider_info}")
-            
+
             return result
         
         except Exception as e:
@@ -1577,20 +1634,23 @@ class ContactExtractor:
         return self.stats.copy()
     
     def reset_stats(self):
-        """🔄 Сброс статистики"""
+        """🔄 Сброс статистики (обновлено для ФАЗЫ 4)"""
         self.stats = {
             'total_requests': 0,
             'successful_requests': 0,
             'failed_requests': 0,
             'retry_attempts': 0,
-            'json_validation_errors': 0,
+            'json_parsing_errors': 0,
+            'json_schema_validation_errors': 0,
+            'json_schema_auto_corrections': 0,
             'fallback_switches': 0,
             'provider_failures': {
                 'openrouter': 0,
-                'groq': 0
+                'groq': 0,
+                'replicate': 0
             }
         }
-        print("📊 Статистика сброшена")
+        print("📊 Статистика сброшена (ФАЗА 4)")
     
     def get_provider_health(self) -> dict:
         """🏥 Получение статуса здоровья всех провайдеров"""
