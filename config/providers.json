@@ -1,8 +1,8 @@
 {
   "provider_order": [
     "replicate",
-    "groq",
-    "openrouter"
+    "openrouter",
+    "groq"
   ],
   "provider_settings": {
     "openrouter": {

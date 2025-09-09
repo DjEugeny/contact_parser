@@ -32,7 +32,7 @@ load_dotenv()
 from .phone_normalizer import PhoneNormalizer
 
 # Импорт строгого JSON валидатора (ФАЗА 4)
-from .json_validator import LLMResponseValidator
+from .core.validator import LLMResponseValidator
 
 
 class ContactExtractor:
@@ -1529,8 +1529,8 @@ class ContactExtractor:
             # Сохраняем тестовый режим как есть
             # (убрана логика принудительного отключения тестового режима)
             
-            # Загружаем промпт
-            prompt = self._load_prompt("unified_contact_extraction.txt")
+            # Загружаем основной структурированный промпт для извлечения ИНН и сайтов
+            prompt = self._load_prompt("unified_contact_extraction_structured.txt")
             
             if prompt.startswith("ERROR:"):
                 return {

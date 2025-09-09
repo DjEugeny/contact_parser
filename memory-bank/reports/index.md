@@ -4,6 +4,11 @@
 
 ### 🔧 Отчеты об исправлениях
 - [test_mode_bug_fix_report.md](test_mode_bug_fix_report.md) - Исправление критического бага с test_mode в ContactExtractor
+- [20250129_1430_llm_integration_analysis.md](./20250129_1430_llm_integration_analysis.md) - Анализ интеграции LLM и проблем с извлечением ИНН/сайтов
+- [20250129_1435_contact_extractor_refactoring.md](./20250129_1435_contact_extractor_refactoring.md) - Рефакторинг ContactExtractor и исправление критического бага
+- [20250129_1445_debug_llm_extraction_results.md](./20250129_1445_debug_llm_extraction_results.md) - Отладка извлечения ИНН и сайтов из LLM
+- [20250113_1843_llm_validation_success.md](20250113_1843_llm_validation_success.md) - Успешная валидация LLM извлечения ИНН и сайтов
+- [20250113_1850_final_inn_website_completion.md](20250113_1850_final_inn_website_completion.md) - Итоговый отчет: Завершение работы с извлечением ИНН и сайтов
 - [20250127_2230_file_processing_issues_analysis.md](20250127_2230_file_processing_issues_analysis.md) - Анализ проблем с обработкой файлов и план исправления
   - *Дата:* 21.01.2025
   - *Статус:* ✅ Завершено
@@ -48,6 +53,11 @@
 - **[20250121_2345_interactive_mode_completion.md](20250121_2345_interactive_mode_completion.md)** - Завершение реализации интерактивного режима
   - *Дата:* 26.08.2025
   - *Статус:* ✅ Завершено
+
+- **[20250121_2300_phase10_prompt_corrections.md](20250121_2300_phase10_prompt_corrections.md)** - Корректировки промптов после завершения фазы 10
+  - *Дата:* 21.01.2025
+  - *Статус:* ✅ Завершено
+  - *Описание:* Добавление полей intermediary и intermediary_date, удаление currency и supplier из структуры КП
   - *Описание:* Полное тестирование, документирование результатов, обнаружение проблемы с Google Sheets доступом
 
 - **[20250121_2315_replicate_json_fix.md](20250121_2315_replicate_json_fix.md)** - Исправление ошибки парсинга JSON в Replicate провайдере
@@ -298,6 +308,11 @@
   - *Дата:* 21.01.2025
   - *Статус:* ✅ Завершено
   - *Описание:* Полное завершение всех задач из списка TODO, система готова к продакшену
+
+- **[20250121_2315_refactor_contact_extractor_completion.md](20250121_2315_refactor_contact_extractor_completion.md)** - Завершение рефакторинга ContactExtractor
+  - *Дата:* 21.01.2025
+  - *Статус:* ✅ Завершено
+  - *Описание:* Добавление постобработки ИНН и сайтов, улучшение извлечения контактов
 
 ## 🔄 Статус отчетов
 

@@ -1,0 +1,9 @@
+{
+  "content": "{\n  \"contacts\": [\n    {\n      \"name\": \"Бабиченко Иван Сергеевич\",\n      \"phone\": \"+7-913-399-32-72\",\n      \"email\": null,\n      \"organization\": \"Центр Лабораторной Диагностики\",\n      \"position\": \"Руководитель ОМТС\",\n      \"city\": \"Новосибирск\",\n      \"confidence\": 0.95\n    }\n  ],\n  \"business_context\": \"Запрос сроков поставки товара по счету №8164 от 16 июля 2025 г. Запрашивает Центр Лабораторной Диагностики для планирования отгрузки.\",\n  \"commercial_offers\": []\n}",
+  "provider": "openrouter",
+  "model": "qwen/qwen3-235b-a22b:free",
+  "tokens_used": 62,
+  "response_time": 14.689526081085205,
+  "used_provider": "OpenRouter",
+  "fallback_used": false
+}

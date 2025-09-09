@@ -1,0 +1,9 @@
+{
+  "content": "{\n  \"contacts\": [\n    {\n      \"name\": \"Петрова Анна Сергеевна\",\n      \"phone\": \"+7 (495) 111-22-33\",\n      \"email\": \"petrova@labtechservice.ru\",\n      \"organization\": \"ООО «ЛабТехСервис»\",\n      \"position\": \"Менеджер по закупкам\",\n      \"city\": \"Москва\",\n      \"confidence\": 0.95\n    }\n  ],\n  \"business_context\": \"Запрос информации о лабораторном оборудовании для анализа ДНК. ООО «ЛабТехСервис» заинтересовано в приобретении амплификаторов DNA Pro и ПЦР-оборудования для молекулярной диагностики. Запрашиваются технические характеристики, прайс-лист, условия поставки и организация демонстрации оборудования.\",\n  \"commercial_offers\": []\n}",
+  "provider": "openrouter",
+  "model": "qwen/qwen3-235b-a22b:free",
+  "tokens_used": 80,
+  "response_time": 7.276625156402588,
+  "used_provider": "OpenRouter",
+  "fallback_used": false
+}

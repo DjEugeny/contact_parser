@@ -1,0 +1,9 @@
+{
+  "content": "{\n  \"contacts\": [\n    {\n      \"name\": \"Иванов Иван Иванович\",\n      \"phone\": \"+7 (495) 640-17-71\",\n      \"email\": \"ivanov@dna-technology.ru\",\n      \"organization\": \"ООО «ДНК-Технология»\",\n      \"position\": \"Генеральный директор\",\n      \"city\": \"Москва\",\n      \"confidence\": 0.95\n    },\n    {\n      \"name\": \"Петрова Анна Сергеевна\",\n      \"phone\": null,\n      \"email\": \"anna.petrova@company.ru\",\n      \"organization\": null,\n      \"position\": null,\n      \"city\": null,\n      \"confidence\": 0.8\n    },\n    {\n      \"name\": \"И.И. Сидоров\",\n      \"phone\": \"+7 (495) 123-45-67\",\n      \"email\": \"sidorov@partner.ru\",\n      \"organization\": null,\n      \"position\": null,\n      \"city\": null,\n      \"confidence\": 0.8\n    }\n  ],\n  \"business_context\": \"Направление коммерческого предложения от ООО «ДНК-Технология» по лабораторному оборудованию.\",\n  \"commercial_offers\": [\n    {\n      \"found\": true,\n      \"supplier\": \"ООО «ДНК-Технология»\",\n      \"products\": [],\n      \"total_amount\": null,\n      \"currency\": null,\n      \"valid_until\": null\n    }\n  ]\n}",
+  "provider": "openrouter",
+  "model": "qwen/qwen3-235b-a22b:free",
+  "tokens_used": 119,
+  "response_time": 24.74803614616394,
+  "used_provider": "OpenRouter",
+  "fallback_used": false
+}

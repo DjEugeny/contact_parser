@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 from .email_loader import ProcessedEmailLoader
 # from attachment_processor import AttachmentProcessor  # АРХИВИРОВАН
 from .ocr_processor_adapter import OCRProcessorAdapter
-from .llm_extractor import ContactExtractor
+from .core.extractor_factory import ExtractorFactory
 from .rate_limit_manager import RateLimitManager
 from .config.regions import calculate_contact_priority
 from .advanced_deduplication import AdvancedContactDeduplicator
@@ -32,7 +32,7 @@ class IntegratedLLMProcessor:
         self.email_loader = ProcessedEmailLoader()
         self.attachment_processor = OCRProcessorAdapter()
         # Передаем test_mode в ContactExtractor для корректной работы тестового режима
-        self.contact_extractor = ContactExtractor(test_mode=test_mode)
+        self.contact_extractor = ExtractorFactory.create_extractor(test_mode=test_mode)
         self.rate_limit_manager = RateLimitManager()  # Адаптивное управление rate limit
         self.test_mode = test_mode  # Режим тестирования без LLM для других операций
         self.advanced_deduplicator = AdvancedContactDeduplicator()

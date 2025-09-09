@@ -1,0 +1,9 @@
+{
+  "content": "{\n  \"contacts\": [\n    {\n      \"name\": \"Иванов Иван Иванович\",\n      \"phone\": \"+7 (495) 640-17-71\",\n      \"email\": \"ivanov@dna-technology.ru\",\n      \"organization\": \"ООО «ДНК-Технология»\",\n      \"position\": \"Генеральный директор\",\n      \"city\": null,\n      \"confidence\": 0.95\n    },\n    {\n      \"name\": \"Петрова Анна Сергеевна\",\n      \"phone\": null,\n      \"email\": \"anna.petrova@company.ru\",\n      \"organization\": null,\n      \"position\": null,\n      \"city\": null,\n      \"confidence\": 0.8\n    }\n  ],\n  \"business_context\": null,\n  \"commercial_offers\": []\n}",
+  "provider": "openrouter",
+  "model": "qwen/qwen3-235b-a22b:free",
+  "tokens_used": 63,
+  "response_time": 6.109610080718994,
+  "used_provider": "OpenRouter",
+  "fallback_used": false
+}

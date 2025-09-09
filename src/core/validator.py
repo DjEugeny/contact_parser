@@ -98,8 +98,32 @@ class LLMResponseValidator:
                     "type": ["string", "null"],
                     "enum": ["email_body", "attachment", "signature", None],
                     "description": "Источник извлечения контакта"
-                }
-            },
+                },
+                "inn": {
+                    "type": ["string", "null"],
+                    "pattern": "^\\d{10}(\\d{2})?$",
+                    "description": "ИНН организации или ИП"
+                },
+                "inn_type": {
+                    "type": ["string", "null"],
+                    "enum": ["organization", "individual", "invalid"],
+                    "description": "Тип ИНН (юридическое лицо или ИП)"
+                },
+                "inn_validated": {
+                    "type": "boolean",
+                    "description": "Прошел ли ИНН валидацию по алгоритму ФНС"
+                },
+                "website": {
+                    "type": ["string", "null"],
+                    "format": "uri",
+                    "description": "Сайт компании"
+                },
+                "website_confidence": {
+                    "type": ["number", "null"],
+                    "minimum": 0.0,
+                    "maximum": 1.0,
+                    "description": "Уверенность в корректности сайта"
+                }            },
             "additionalProperties": False  # Запрещаем дополнительные поля
         }
 
@@ -169,6 +193,22 @@ class LLMResponseValidator:
                 },
                 "business_context": self.business_context_schema,
                 "commercial_offers": self.commercial_offers_schema,
+                "summary": {
+                    "type": "object",
+                    "properties": {
+                        "topic": {"type": ["string", "null"]},
+                        "product_interest": {"type": ["string", "null"]},
+                        "communication_stage": {"type": ["string", "null"]},
+                        "request_type": {"type": ["string", "null"]}
+                    },
+                    "additionalProperties": False
+                },
+                "key_points": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "minItems": 0,
+                    "maxItems": 10
+                },
                 "provider_used": {
                     "type": ["string", "null"],
                     "description": "Использованный LLM провайдер"
@@ -207,7 +247,7 @@ class LLMResponseValidator:
                     "description": "Сообщение об ошибке"
                 }
             },
-            "additionalProperties": False  # Запрещаем дополнительные поля
+            "additionalProperties": False
         }
 
     def validate_llm_response(self, response: Dict[str, Any]) -> Tuple[bool, List[str], Dict[str, Any]]:

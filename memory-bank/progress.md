@@ -807,3 +807,33 @@
   - 📊 **Статистика:** Исправлено 65 случаев потери вложений при первом запуске
   - 🔧 **Файл:** [src/advanced_email_fetcher.py](../src/advanced_email_fetcher.py) (методы check_email_processing_status, process_single_email)
   - 🎯 **Статус:** ПРОБЛЕМА ПОЛНОСТЬЮ РЕШЕНА - система готова к продакшену
+
+- [2025-09-09 15:52] Внесены корректировки в промпты после завершения фазы 10:
+  - Добавлены поля intermediary и intermediary_date в коммерческие предложения
+  - Удалены избыточные поля currency и supplier из структуры КП
+  - Обновлены файлы: unified_contact_extraction_structured.txt и unified_contact_extraction.txt
+  - Приведена в соответствие бизнес-логика работы с посредниками и конечными пользователями
+  - Создан отчет: [20250121_2300_phase10_prompt_corrections.md](reports/20250121_2300_phase10_prompt_corrections.md)
+- [2025-09-09 15:55 (UTC+07)] Полностью завершены все корректировки после фазы 10:
+  - ✅ Обновлен мастер-план с информацией о корректировках промптов
+  - ✅ Обновлен индекс отчетов с новым отчетом о корректировках
+  - ✅ Все задачи по корректировкам отмечены как выполненные
+  - ✅ Система готова к переходу к фазе 11 (рефакторинг модулей)
+  - 📊 Отчет: [20250121_2300_phase10_prompt_corrections.md](reports/20250121_2300_phase10_prompt_corrections.md)
+  - 🔧 Файлы: [llm_integration_master_plan.md](llm_integration_master_plan.md), [reports/index.md](reports/index.md)
+  - 🎯 **Статус:** ВСЕ КОРРЕКТИРОВКИ ПОСЛЕ ФАЗЫ 10 ЗАВЕРШЕНЫ - готов к фазе 11
+- [2025-09-09 16:16 (UTC+07)] Исправлены критические ошибки в модулях для тестирования извлечения ИНН и сайтов:
+  - Установлены недостающие зависимости: phonenumbers, jsonschema, psutil
+  - Исправлен импорт LLMResponseValidator в llm_extractor.py (путь изменен с .json_validator на .core.validator)
+  - Исправлена синтаксическая ошибка в validator.py - восстановлена корректная структура JSON схемы в методе _create_full_response_schema
+  - Успешно запущен тест test_inn_website_extraction_20250121_2245.py
+  - Результат теста: обработано 5 файлов, эффективность извлечения ИНН и сайтов 0% - требуется оптимизация промптов
+  - Файлы: [src/llm_extractor.py](../src/llm_extractor.py), [src/core/validator.py](../src/core/validator.py)
+- [2025-09-09 16:30:00] Исправлен критический баг с ContactExtractor в IntegratedLLMProcessor:
+  - Обнаружено, что IntegratedLLMProcessor использовал старый ContactExtractor из llm_extractor.py
+  - Исправлен импорт на новый ContactExtractor через ExtractorFactory из core/extractor_factory.py
+  - Обновлена инициализация с использованием ExtractorFactory.create_extractor(test_mode=test_mode)
+  - Создан тест test_inn_website_mock.py для проверки извлечения ИНН и сайтов
+  - Подтверждено использование нового ContactExtractor из src.core.extractor
+  - Файлы: [src/integrated_llm_processor.py](../src/integrated_llm_processor.py), [tests/test_inn_website_mock.py](../tests/test_inn_website_mock.py)
+  - Статус: ✅ Критический баг исправлен, система готова к тестированию извлечения ИНН и сайтов
