@@ -49,7 +49,7 @@ def test_pdf_quality(file_path):
         # Показываем первые 500 символов для анализа
         print(f"\n📋 Первые 500 символов текста:")
         print("-" * 50)
-        print(full_text[:500])
+        print(full_text)
         print("-" * 50)
 
         # Показываем анализ страниц

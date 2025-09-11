@@ -91,7 +91,7 @@ class MockOCRProcessor:
 
         # Проверяем на наличие повторяющихся символов (характерно для мусора)
         char_counts = {}
-        for c in clean_text[:500]:  # Проверяем первые 500 символов
+        for c in clean_text:  # Проверяем первые 500 символов
             if not c.isspace():
                 char_counts[c] = char_counts.get(c, 0) + 1
 

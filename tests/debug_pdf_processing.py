@@ -32,7 +32,7 @@ def analyze_page_quality(page_text):
     special_ratio = special_chars / total_chars if total_chars > 0 else 0
 
     char_counts = {}
-    for c in clean_text[:500]:
+    for c in clean_text:
         if not c.isspace():
             char_counts[c] = char_counts.get(c, 0) + 1
 

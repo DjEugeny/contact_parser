@@ -103,7 +103,7 @@ def test_email_attachments_integration():
         # Показываем первые 500 символов объединенного текста
         print(f"\n   📄 Первые 500 символов объединенного текста:")
         print(f"   {'-' * 50}")
-        print(f"   {combined_text[:500]}...")
+        print(f"   {combined_text}...")
         print(f"   {'-' * 50}")
         
         # 5. Тестирование подготовки метаданных

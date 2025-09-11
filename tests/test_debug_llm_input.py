@@ -83,7 +83,7 @@ def test_debug_llm_input():
         
         # Показываем первые 500 символов LLM-текста
         print(f"\n📝 ПЕРВЫЕ 500 СИМВОЛОВ LLM-ТЕКСТА:")
-        print(f"\"{text[:500]}...\"")
+        print(f"\"{text}...\"")
         
         # Вызываем оригинальный метод
         return original_extract(text, metadata, *args, **kwargs)

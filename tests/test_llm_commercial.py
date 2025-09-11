@@ -394,7 +394,7 @@ class CommercialOfferLLMTester:
                         return {
                             'success': False,
                             'error': f'Некорректный JSON после очистки: {str(e)}',
-                            'raw_response': llm_response[:500],
+                            'raw_response': llm_response,
                             'cleaned_response': cleaned_response[:500],
                             'model': self.model
                         }

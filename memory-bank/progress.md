@@ -829,7 +829,7 @@
   - Успешно запущен тест test_inn_website_extraction_20250121_2245.py
   - Результат теста: обработано 5 файлов, эффективность извлечения ИНН и сайтов 0% - требуется оптимизация промптов
   - Файлы: [src/llm_extractor.py](../src/llm_extractor.py), [src/core/validator.py](../src/core/validator.py)
-- [2025-09-09 16:30:00] Исправлен критический баг с ContactExtractor в IntegratedLLMProcessor:
+- [2025-09-09 15:30:00] Исправлен критический баг с ContactExtractor в IntegratedLLMProcessor:
   - Обнаружено, что IntegratedLLMProcessor использовал старый ContactExtractor из llm_extractor.py
   - Исправлен импорт на новый ContactExtractor через ExtractorFactory из core/extractor_factory.py
   - Обновлена инициализация с использованием ExtractorFactory.create_extractor(test_mode=test_mode)
