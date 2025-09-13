@@ -99,26 +99,35 @@ class GoogleSheetsExporter:
     def _setup_spreadsheet_structure(self, spreadsheet):
         """📋 Настройка структуры листов в таблице"""
         
-        # Переименовываем первый лист
+        # Переименовываем первый лист для организаций
         worksheet = spreadsheet.get_worksheet(0)
-        worksheet.update_title("Контакты")
+        worksheet.update_title("Организации")
         
-        # Настраиваем заголовки для контактов
-        headers = [
-            "Дата", "Имя", "Email", "Телефон", "Организация", 
-            "Должность", "Город", "Confidence", "Приоритет",
+        # Настраиваем заголовки для организаций
+        org_headers = [
+            "Дата", "ID организации", "Название", "ИНН", "Сайт", "Город", 
+            "Адрес", "Email (основные)", "Телефоны", "Тема письма", "Thread ID"
+        ]
+        worksheet.update('A1:K1', [org_headers])
+        worksheet.format('A1:K1', {'textFormat': {'bold': True}})
+        
+        # Создаем лист для персональных контактов
+        contacts_worksheet = spreadsheet.add_worksheet(title="Контакты", rows=100, cols=15)
+        contact_headers = [
+            "Дата", "ID контакта", "Имя", "ID организации", "Должность", 
+            "Email", "Телефоны (тип: номер)", "Город", "Адрес", "Confidence",
             "Тема письма", "Thread ID"
         ]
-        worksheet.update('A1:K1', [headers])
-        worksheet.format('A1:K1', {'textFormat': {'bold': True}})
+        contacts_worksheet.update('A1:L1', [contact_headers])
+        contacts_worksheet.format('A1:L1', {'textFormat': {'bold': True}})
         
         # Создаем лист для КП
         co_worksheet = spreadsheet.add_worksheet(title="Коммерческие предложения", rows=100, cols=20)
         co_headers = [
-            "Дата", "От", "№ КП", "Дата КП", "Конечный пользователь",
-            "Город", "Посредник", "Условия оплаты", "Срок поставки",
-            "Доставка", "Действительно до", "Кто выставил", "Общая стоимость",
-            "Валюта", "Thread ID"
+            "Дата", "№ КП", "Дата КП", "Конечный пользователь", "ИНН конечного пользователя",
+            "Посредник", "Данные посредника", "Условия оплаты", "Срок поставки",
+            "Условия доставки", "Действительно до", "Общая стоимость", "Комментарии",
+            "Тема письма", "Thread ID"
         ]
         co_worksheet.update('A1:O1', [co_headers])
         co_worksheet.format('A1:O1', {'textFormat': {'bold': True}})
@@ -126,11 +135,11 @@ class GoogleSheetsExporter:
         # Создаем лист для статистики
         stats_worksheet = spreadsheet.add_worksheet(title="Статистика", rows=50, cols=10)
         stats_headers = [
-            "Дата", "Писем обработано", "Контактов найдено", 
+            "Дата", "Писем обработано", "Организаций найдено", "Контактов найдено",
             "Писем с вложениями", "Вложений обработано", "КП найдено"
         ]
-        stats_worksheet.update('A1:F1', [stats_headers])
-        stats_worksheet.format('A1:F1', {'textFormat': {'bold': True}})
+        stats_worksheet.update('A1:G1', [stats_headers])
+        stats_worksheet.format('A1:G1', {'textFormat': {'bold': True}})
     
     def export_results_by_date(self, date: str, results: Dict = None) -> bool:
         """📊 Экспорт результатов за конкретную дату
@@ -176,6 +185,10 @@ class GoogleSheetsExporter:
             spreadsheet = self.client.open_by_key(self.spreadsheet_id)
             print(f"   ✅ Таблица открыта успешно")
             
+            # Экспортируем организации
+            print(f"   🏢 Начинаю экспорт организаций...")
+            self._export_organizations(spreadsheet, results, date)
+            
             # Экспортируем контакты
             print(f"   👤 Начинаю экспорт контактов...")
             self._export_contacts(spreadsheet, results, date)
@@ -199,6 +212,72 @@ class GoogleSheetsExporter:
             print(f"   🔍 Детали ошибки:")
             traceback.print_exc()
             return False
+    
+    def _export_organizations(self, spreadsheet, results: Dict, date: str):
+        """🏢 Экспорт организаций в таблицу"""
+        
+        worksheet = spreadsheet.worksheet("Организации")
+        
+        # Получаем все организации из результатов обработки email
+        all_organizations = []
+        for email_result in results.get('emails_results', []):
+            email_organizations = email_result.get('organizations', [])
+            if email_organizations:
+                # Добавляем метаданные email к каждой организации
+                for org in email_organizations:
+                    org_with_metadata = org.copy()
+                    org_with_metadata['email_thread_id'] = email_result.get('original_email', {}).get('thread_id', 'неизвестно')
+                    org_with_metadata['email_subject'] = email_result.get('original_email', {}).get('subject', 'неизвестно')
+                    org_with_metadata['email_from'] = email_result.get('original_email', {}).get('from', 'неизвестно')
+                    all_organizations.append(org_with_metadata)
+        
+        if not all_organizations:
+            print("   ℹ️ Организации для экспорта не найдены")
+            return
+        
+        # Подготавливаем данные для вставки
+        org_rows = []
+        for org in all_organizations:
+            # Форматируем телефоны
+            phones_formatted = ""
+            if org.get('phones'):
+                phone_list = []
+                for phone in org['phones']:
+                    if isinstance(phone, dict):
+                        phone_type = phone.get('type', 'unknown')
+                        phone_number = phone.get('number', '')
+                        phone_list.append(f"{phone_type}: {phone_number}")
+                    else:
+                        phone_list.append(str(phone))
+                phones_formatted = "; ".join(phone_list)
+            
+            # Форматируем основные email
+            main_emails = "; ".join(org.get('main_emails', []))
+            
+            # Формируем строку для вставки
+            row = [
+                date,
+                org.get('id', ''),
+                org.get('name', ''),
+                org.get('inn', ''),
+                org.get('website', ''),
+                org.get('city', ''),
+                org.get('address', ''),
+                main_emails,
+                phones_formatted,
+                org.get('email_subject', 'неизвестно'),
+                org.get('email_thread_id', 'неизвестно')
+            ]
+            org_rows.append(row)
+        
+        # Получаем следующую пустую строку для вставки
+        next_row = len(worksheet.get_all_values()) + 1
+        
+        # Вставляем данные
+        if org_rows:
+            cell_range = f"A{next_row}:K{next_row + len(org_rows) - 1}"
+            worksheet.update(cell_range, org_rows)
+            print(f"   ✅ Экспортировано организаций: {len(org_rows)}")
     
     def _export_contacts(self, spreadsheet, results: Dict, date: str):
         """👤 Экспорт контактов в таблицу"""
@@ -225,17 +304,33 @@ class GoogleSheetsExporter:
         # Подготавливаем данные для вставки
         contact_rows = []
         for contact in all_contacts:
+            # Форматируем телефоны
+            phones_formatted = ""
+            if contact.get('phones'):
+                phone_list = []
+                for phone in contact['phones']:
+                    if isinstance(phone, dict):
+                        phone_type = phone.get('type', 'unknown')
+                        phone_number = phone.get('number', '')
+                        phone_list.append(f"{phone_type}: {phone_number}")
+                    else:
+                        phone_list.append(str(phone))
+                phones_formatted = "; ".join(phone_list)
+            elif contact.get('phone'):
+                phones_formatted = contact.get('phone')
+            
             # Формируем строку для вставки
             row = [
                 date,
+                contact.get('id', ''),
                 contact.get('name', ''),
-                contact.get('email', ''),
-                contact.get('phone', ''),
-                contact.get('organization', ''),
+                contact.get('organization_id', ''),
                 contact.get('position', ''),
+                contact.get('email', ''),
+                phones_formatted,
                 contact.get('city', ''),
+                contact.get('address', ''),
                 contact.get('confidence', 0),
-                contact.get('priority', {}).get('level', 'низкий'),
                 contact.get('email_subject', 'неизвестно'),
                 contact.get('email_thread_id', 'неизвестно')
             ]
@@ -246,7 +341,7 @@ class GoogleSheetsExporter:
         
         # Вставляем данные
         if contact_rows:
-            cell_range = f"A{next_row}:K{next_row + len(contact_rows) - 1}"
+            cell_range = f"A{next_row}:L{next_row + len(contact_rows) - 1}"
             worksheet.update(cell_range, contact_rows)
             print(f"   ✅ Экспортировано контактов: {len(contact_rows)}")
     
@@ -301,21 +396,37 @@ class GoogleSheetsExporter:
                 ]
             # Старая структура (обратная совместимость)
             else:
+                # Форматируем данные посредника
+                intermediary_data = ""
+                if offer_data.get('intermediary_data'):
+                    intermediary_info = offer_data['intermediary_data']
+                    if isinstance(intermediary_info, dict):
+                        parts = []
+                        if intermediary_info.get('name'):
+                            parts.append(f"Название: {intermediary_info['name']}")
+                        if intermediary_info.get('inn'):
+                            parts.append(f"ИНН: {intermediary_info['inn']}")
+                        if intermediary_info.get('contact'):
+                            parts.append(f"Контакт: {intermediary_info['contact']}")
+                        intermediary_data = "; ".join(parts)
+                    else:
+                        intermediary_data = str(intermediary_info)
+                
                 row = [
                     date,
-                    offer_data.get('email_from', 'неизвестно'),
                     offer_data.get('offer_number', 'б/н'),
                     offer_data.get('offer_date', ''),
                     offer_data.get('end_user', ''),
-                    offer_data.get('end_user_city', ''),
+                    offer_data.get('end_user_inn', ''),
                     offer_data.get('intermediary', ''),
+                    intermediary_data,
                     offer_data.get('payment_terms', ''),
                     offer_data.get('delivery_time', ''),
-                    offer_data.get('delivery_terms', ''),
+                    offer_data.get('delivery_conditions', ''),
                     offer_data.get('valid_until', ''),
-                    offer_data.get('issued_by', ''),
                     offer_data.get('total_cost', ''),
-                    offer_data.get('currency', 'RUB'),
+                    offer_data.get('comments', ''),
+                    offer_data.get('email_subject', 'неизвестно'),
                     offer_data.get('email_thread_id', 'неизвестно')
                 ]
             offer_rows.append(row)
@@ -338,26 +449,49 @@ class GoogleSheetsExporter:
         
         worksheet = spreadsheet.worksheet("Статистика")
         
-        # Получаем статистику
-        stats = results.get('statistics', {})
+        # Подсчитываем статистику из результатов
+        emails_processed = len(results.get('emails_results', []))
+        
+        organizations_found = 0
+        contacts_found = 0
+        commercial_offers_found = 0
+        emails_with_attachments = 0
+        attachments_processed = 0
+        
+        for email_result in results.get('emails_results', []):
+            # Подсчитываем организации
+            organizations_found += len(email_result.get('organizations', []))
+            
+            # Подсчитываем контакты
+            contacts_found += len(email_result.get('contacts', []))
+            
+            # Подсчитываем КП
+            commercial_offers_found += len(email_result.get('commercial_offers', []))
+            
+            # Подсчитываем вложения
+            attachments = email_result.get('attachments', [])
+            if attachments:
+                emails_with_attachments += 1
+                attachments_processed += len(attachments)
         
         # Формируем строку для вставки
         stats_row = [
             date,
-            stats.get('emails_processed', 0),
-            stats.get('total_contacts_found', 0),
-            stats.get('emails_with_attachments', 0),
-            stats.get('attachments_processed', 0),
-            stats.get('commercial_offers_found', 0)
+            emails_processed,
+            organizations_found,
+            contacts_found,
+            emails_with_attachments,
+            attachments_processed,
+            commercial_offers_found
         ]
         
         # Получаем следующую пустую строку для вставки
         next_row = len(worksheet.get_all_values()) + 1
         
         # Вставляем данные
-        cell_range = f"A{next_row}:F{next_row}"
+        cell_range = f"A{next_row}:G{next_row}"
         worksheet.update(cell_range, [stats_row])
-        print(f"   ✅ Экспортирована статистика за {date}")
+        print(f"   ✅ Экспортирована статистика за {date}: {emails_processed} писем, {organizations_found} организаций, {contacts_found} контактов, {commercial_offers_found} КП")
     
     def export_multiple_dates(self, start_date: str, end_date: str, results_dict: Dict[str, Dict] = None) -> bool:
         """📅 Экспорт результатов за диапазон дат

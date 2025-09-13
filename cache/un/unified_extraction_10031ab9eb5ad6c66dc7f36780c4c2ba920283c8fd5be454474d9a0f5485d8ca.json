@@ -1,9 +1,0 @@
-{
-  "content": "{\n  \"contacts\": [\n    {\n      \"name\": \"Гоголева Мария Михайловна\",\n      \"phone\": \"+7 (495) 640-17-71 (доб. 2030)\",\n      \"email\": \"m.gogoleva@dna-technology.ru\",\n      \"organization\": \"ООО «ДНК-Технология»\",\n      \"position\": \"Менеджер по продаже оборудования\",\n      \"city\": null,\n      \"confidence\": 0.95\n    }\n  ],\n  \"business_context\": \"Запрос информации об оборудовании направлен от представителя ООО «ДНК-Технология» (Гоголева Мария Михайловна) через прикрепленное коммерческое предложение. Упомянутая организация специализируется на лабораторном оборудовании.\",\n  \"commercial_offers\": []\n}",
-  "provider": "openrouter",
-  "model": "qwen/qwen3-235b-a22b:free",
-  "tokens_used": 72,
-  "response_time": 22.414180040359497,
-  "used_provider": "OpenRouter",
-  "fallback_used": false
-}

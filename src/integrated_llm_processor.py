@@ -20,6 +20,7 @@ from .core.extractor_factory import ExtractorFactory
 from .rate_limit_manager import RateLimitManager
 from .config.regions import calculate_contact_priority
 from .advanced_deduplication import AdvancedContactDeduplicator
+from .postprocessing import PostProcessor
 
 # Загружаем переменные окружения
 load_dotenv()
@@ -36,6 +37,7 @@ class IntegratedLLMProcessor:
         self.rate_limit_manager = RateLimitManager()  # Адаптивное управление rate limit
         self.test_mode = test_mode  # Режим тестирования без LLM для других операций
         self.advanced_deduplicator = AdvancedContactDeduplicator()
+        self.postprocessor = PostProcessor()  # Постобработка данных LLM
         
         # Папки для результатов
         current_file = Path(__file__)
@@ -257,15 +259,24 @@ class IntegratedLLMProcessor:
                 commercial_offers = llm_result.get('commercial_offers', [])
                 print(f"   💼 Получено КП из единого запроса: {len(commercial_offers)}")
             
-            # 6. Рассчитываем приоритеты контактов
+            # 6. Постобработка LLM результата (новая структура)
+            if llm_result and isinstance(llm_result, dict) and not self.test_mode:
+                # Проверяем, есть ли новая структура organizations/contacts
+                if 'organizations' in llm_result and 'contacts' in llm_result:
+                    print("   🔧 Применяем постобработку данных...")
+                    llm_result = self.postprocessor.process_llm_response(llm_result, email_metadata)
+                    print(f"   ✅ Постобработка завершена: {len(llm_result.get('organizations', []))} орг., {len(llm_result.get('contacts', []))} контактов")
+            
+            # 7. Рассчитываем приоритеты контактов (для старой и новой структуры)
             if llm_result and isinstance(llm_result, dict):
-                for contact in llm_result.get('contacts', []):
+                contacts_to_process = llm_result.get('contacts', [])
+                for contact in contacts_to_process:
                     if contact and isinstance(contact, dict):
                         business_context = llm_result.get('business_context', {}) or {}
                         priority_info = calculate_contact_priority(contact, business_context)
                         contact['priority'] = priority_info
             
-            # 7. Формируем итоговый результат
+            # 8. Формируем итоговый результат (поддержка новой структуры)
             result = {
                 'original_email': {
                     'thread_id': email.get('thread_id'),
@@ -284,14 +295,32 @@ class IntegratedLLMProcessor:
                 'processed_at': datetime.now().isoformat()
             }
             
+            # Добавляем organizations если есть новая структура
+            if 'organizations' in llm_result:
+                result['organizations'] = llm_result.get('organizations', [])
+                
+            # Добавляем метаданные постобработки если есть
+            if 'postprocessing_metadata' in llm_result:
+                result['postprocessing_metadata'] = llm_result['postprocessing_metadata']
+            
             # Логируем результат
             contacts_count = len(result['contacts'])
+            organizations_count = len(result.get('organizations', []))
+            
+            if organizations_count > 0:
+                print(f"   🏢 Найдено организаций: {organizations_count}")
+                for org in result['organizations'][:2]:  # Показываем первые 2
+                    org_name = org.get('name', 'N/A')
+                    org_id = org.get('organization_id', 'N/A')
+                    print(f"      • {org_name} (ID: {org_id})")
+            
             if contacts_count > 0:
                 print(f"   👥 Найдено контактов: {contacts_count}")
                 for contact in result['contacts'][:2]:  # Показываем первые 2
                     priority = contact.get('priority', {})
                     conf = contact.get('confidence', 0)
-                    print(f"      • {contact.get('name', 'N/A')} (confidence: {conf}, приоритет: {priority.get('level', 'N/A')})")
+                    org_id = contact.get('organization_id', 'N/A')
+                    print(f"      • {contact.get('name', 'N/A')} (org_id: {org_id}, confidence: {conf}, приоритет: {priority.get('level', 'N/A')})")
             else:
                 print(f"   👤 Контакты не найдены")
             
