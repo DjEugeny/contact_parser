@@ -10,6 +10,7 @@ import socket
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 from dataclasses import dataclass
+from .config_manager import UnifiedConfigManager
 
 
 @dataclass
@@ -25,12 +26,16 @@ class ConfigValidator:
     """🔍 Валидатор конфигурации Contact Parser"""
 
     def __init__(self):
-        self.required_env_vars = [
-            'OPENROUTER_API_KEY',
-            'GROQ_API_KEY',
-            'REPLICATE_API_KEY'
-        ]
-
+        # Получаем активные провайдеры из конфигурации
+        self.config_manager = UnifiedConfigManager()
+        
+        # Маппинг провайдеров к переменным окружения
+        self.provider_env_mapping = {
+            'OpenRouter': 'OPENROUTER_API_KEY',
+            'Groq': 'GROQ_API_KEY',
+            'Replicate': 'REPLICATE_API_KEY'
+        }
+        
         self.optional_env_vars = [
             'OPENROUTER_MODEL',
             'GROQ_MODEL',
@@ -89,15 +94,20 @@ class ConfigValidator:
         warnings = []
         info = []
 
-        # Проверка обязательных переменных
-        for var in self.required_env_vars:
-            value = os.getenv(var)
-            if not value:
-                errors.append(f"Отсутствует обязательная переменная окружения: {var}")
-            elif len(value.strip()) < 10:
-                warnings.append(f"Переменная окружения {var} выглядит слишком короткой")
-            else:
-                info.append(f"✅ {var}: установлена")
+        # Получаем активные провайдеры и проверяем только их ключи
+        active_providers = self.config_manager.get_llm_providers()
+        
+        for provider in active_providers:
+            if provider.active:
+                env_key = self.provider_env_mapping.get(provider.name)
+                if env_key:
+                    value = os.getenv(env_key)
+                    if not value:
+                        errors.append(f"Отсутствует обязательная переменная окружения: {env_key}")
+                    elif len(value.strip()) < 10:
+                        warnings.append(f"Переменная окружения {env_key} выглядит слишком короткой")
+                    else:
+                        info.append(f"✅ {env_key}: установлена")
 
         # Проверка опциональных переменных
         for var in self.optional_env_vars:

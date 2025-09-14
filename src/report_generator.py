@@ -420,3 +420,204 @@ class ReportGenerator:
         # Сохраняем обновленный индекс
         with open(index_path, 'w', encoding='utf-8') as f:
             f.write(content)
+    
+    def generate_validation_report(self, result: Dict[str, Any], validation_result: Dict[str, Any] = None) -> str:
+        """Генерировать детальный отчет с валидацией для одного письма"""
+        
+        email_file = result.get('email_file', 'Unknown')
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M (UTC+07)')
+        
+        if not result.get('success', False):
+            return f"""# Детальный отчет валидации - {email_file}
+
+**Время анализа:** {timestamp}
+**Статус:** ❌ ОШИБКА
+
+## Ошибка обработки
+```
+{result.get('error', 'Неизвестная ошибка')}
+```
+"""
+        
+        email_meta = result.get('email_metadata', {})
+        llm_response = result.get('llm_response', {})
+        
+        # Информация о валидации
+        validation_info = ""
+        if validation_result:
+            validation_status = "✅ ВАЛИДАЦИЯ ПРОЙДЕНА" if validation_result.get('valid', False) else "❌ ВАЛИДАЦИЯ НЕ ПРОЙДЕНА"
+            validation_info = f"""
+## Результат валидации
+
+**Статус:** {validation_status}
+
+### Ошибки валидации:
+"""
+            if validation_result.get('errors'):
+                for error in validation_result['errors']:
+                    validation_info += f"- {error}\n"
+            else:
+                validation_info += "- Ошибок не обнаружено\n"
+            
+            if validation_result.get('warnings'):
+                validation_info += "\n### Предупреждения:\n"
+                for warning in validation_result['warnings']:
+                    validation_info += f"- {warning}\n"
+        
+        report = f"""# Детальный отчет валидации - {email_file}
+
+**Время анализа:** {timestamp}
+**Статус:** {'✅ УСПЕХ' if result.get('success', False) else '❌ ОШИБКА'}
+
+## Метаданные письма
+
+- **От:** {email_meta.get('from', 'Не указано')}
+- **Тема:** {email_meta.get('subject', 'Не указано')}
+- **Дата:** {email_meta.get('date', 'Не указано')}
+- **Размер:** {email_meta.get('size', 'Не указано')}
+- **Вложения:** {email_meta.get('attachments_count', 0)}
+{validation_info}
+
+## Извлеченные данные
+
+### Организации ({len(llm_response.get('organizations', []))} найдено)
+
+"""
+        
+        # Детальная информация об организациях
+        organizations = llm_response.get('organizations', [])
+        if organizations:
+            report += "| ID | Название | ИНН | Сайт | Город | Адрес | Email | Телефоны |\n"
+            report += "|----|---------|----|-----|-------|-------|-------|----------|\n"
+            
+            for org in organizations:
+                org_id = org.get('organization_id', '')
+                name = org.get('name', 'Не указано')
+                inn = org.get('inn', 'Не указано')
+                website = org.get('website', 'Не указано')
+                city = org.get('city', 'Не указано')
+                address = org.get('address', 'Не указано')
+                emails = ', '.join(org.get('emails', [])) if org.get('emails') else 'Не указаны'
+                phones = ', '.join(org.get('phones', [])) if org.get('phones') else 'Не указаны'
+                
+                report += f"| {org_id} | {name} | {inn} | {website} | {city} | {address} | {emails} | {phones} |\n"
+        else:
+            report += "❌ **Организации не найдены**\n"
+        
+        # Детальная информация о контактах
+        contacts = llm_response.get('contacts', [])
+        report += f"\n### Контакты ({len(contacts)} найдено)\n\n"
+        
+        if contacts:
+            report += "| ID | Имя | Орг.ID | Должность | Email | Телефоны | Город | Адрес | Уверенность |\n"
+            report += "|----|----|-------|-----------|-------|----------|-------|-------|-------------|\n"
+            
+            for contact in contacts:
+                contact_id = contact.get('contact_id', '')
+                name = contact.get('name', 'Не указано')
+                org_id = contact.get('organization_id', '')
+                position = contact.get('position', 'Не указано')
+                email = contact.get('email', 'Не указано')
+                
+                # Форматируем телефоны
+                phones_data = contact.get('phones', [])
+                if phones_data and isinstance(phones_data, list):
+                    phones_str = ', '.join([f"{p.get('type', 'main')}: {p.get('number', '')}" if isinstance(p, dict) else str(p) for p in phones_data])
+                else:
+                    phones_str = 'Не указаны'
+                
+                city = contact.get('city', 'Не указано')
+                address = contact.get('address', 'Не указано')
+                confidence = contact.get('confidence', 0)
+                
+                report += f"| {contact_id} | {name} | {org_id} | {position} | {email} | {phones_str} | {city} | {address} | {confidence:.2f} |\n"
+        else:
+            report += "❌ **Контакты не найдены**\n"
+        
+        # Коммерческие предложения
+        commercial_offers = llm_response.get('commercial_offers', [])
+        report += f"\n### Коммерческие предложения ({len(commercial_offers)} найдено)\n\n"
+        
+        if commercial_offers:
+            for i, offer in enumerate(commercial_offers, 1):
+                found_status = "✅ Найдено" if offer.get('found', False) else "❌ Не найдено"
+                report += f"#### КП #{i}\n\n"
+                report += f"- **Статус:** {found_status}\n"
+                report += f"- **Номер КП:** {offer.get('offer_number', 'Не указан')}\n"
+                report += f"- **Дата КП:** {offer.get('offer_date', 'Не указана')}\n"
+                report += f"- **Валюта:** {offer.get('currency', 'RUB')}\n"
+                report += f"- **Общая стоимость:** {offer.get('total_cost', 'Не указана')}\n"
+                
+                # Оборудование
+                equipment_items = offer.get('equipment_items', [])
+                if equipment_items:
+                    report += f"\n**Оборудование ({len(equipment_items)} позиций):**\n\n"
+                    report += "| Название | Количество | Цена за ед. | Общая стоимость |\n"
+                    report += "|----------|------------|-------------|-----------------|\n"
+                    
+                    for item in equipment_items:
+                        name = item.get('name', 'Не указано')
+                        quantity = item.get('quantity', 0)
+                        unit_price = item.get('unit_price', 0) or 0
+                        total_price = item.get('total_price', 0) or 0
+                        
+                        report += f"| {name} | {quantity} | {unit_price} | {total_price} |\n"
+                
+                report += "\n"
+        else:
+            report += "❌ **Коммерческие предложения не найдены**\n"
+        
+        # Дополнительная информация
+        business_context = llm_response.get('business_context', '')
+        summary = llm_response.get('summary', {})
+        key_points = llm_response.get('key_points', [])
+        
+        report += f"""\n## Дополнительная информация
+
+### Бизнес-контекст
+{business_context or 'Не указан'}
+
+### Краткое резюме
+- **Тема:** {summary.get('topic', 'Не указана') if isinstance(summary, dict) else summary}
+
+### Ключевые моменты
+"""
+        
+        if key_points:
+            for point in key_points:
+                report += f"- {point}\n"
+        else:
+            report += "- Ключевые моменты не выделены\n"
+        
+        report += f"\n---\n*Отчет сгенерирован: {timestamp}*\n"
+        
+        return report
+    
+    def save_individual_email_reports(self, results: List[Dict[str, Any]], validation_results: List[Dict[str, Any]] = None) -> List[str]:
+        """Сохранить индивидуальные отчеты для каждого письма"""
+        
+        saved_reports = []
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M')
+        
+        for i, result in enumerate(results):
+            email_file = result.get('email_file', f'email_{i+1}')
+            # Извлекаем номер письма из имени файла
+            email_num = email_file.replace('.txt', '').replace('email_', '')
+            
+            validation_result = None
+            if validation_results and i < len(validation_results):
+                validation_result = validation_results[i]
+            
+            # Генерируем отчет
+            report_content = self.generate_validation_report(result, validation_result)
+            
+            # Формируем имя файла
+            filename = f"{timestamp}_email_{email_num}_detailed.md"
+            
+            # Сохраняем отчет
+            filepath = self.save_report(report_content, filename)
+            saved_reports.append(filepath)
+            
+            print(f"✅ Сохранен детальный отчет: {filename}")
+        
+        return saved_reports

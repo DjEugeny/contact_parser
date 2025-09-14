@@ -48,8 +48,25 @@ class ChunkingConfig:
                     config = json.load(f)
                     chunking_config = config.get('chunking', {})
 
+                # Маппинг параметров из JSON в поля класса
+                mapped_config = {
+                    'max_chunk_size': chunking_config.get('max_tokens_per_chunk', 8000),
+                    'overlap_size': chunking_config.get('overlap_tokens', 1000),
+                    'use_tokens': chunking_config.get('use_tokens', True),
+                    'encoding_model': chunking_config.get('encoding_model', 'cl100k_base'),
+                    'max_chunks_per_text': chunking_config.get('max_chunks_per_text', 20),
+                    'min_chunk_size': chunking_config.get('min_chunk_size', 1000),
+                    'auto_adjust_chunk_size': chunking_config.get('auto_adjust_chunk_size', True),
+                    'smart_boundary_detection': chunking_config.get('smart_boundary_detection', True),
+                    'chunk_alert_threshold': chunking_config.get('chunk_alert_threshold', 20),
+                    'chunk_abort_threshold': chunking_config.get('chunk_abort_threshold', 50),
+                    'allow_chunk_abort': chunking_config.get('allow_chunk_abort', True),
+                    'memory_optimization': chunking_config.get('memory_optimization', True),
+                    'progressive_chunking': chunking_config.get('progressive_chunking', True)
+                }
+                
                 # Создаем экземпляр с загруженными настройками
-                return cls(**chunking_config)
+                return cls(**mapped_config)
             else:
                 print(f"⚠️ Файл конфигурации не найден: {config_path}")
                 return cls()

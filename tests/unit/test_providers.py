@@ -292,7 +292,7 @@ class TestProviderManagerIntegration:
     @patch('config.provider_manager.ProviderManager._initialize_providers')
     def test_provider_manager_initialization(self, mock_init):
         """Тест инициализации ProviderManager"""
-        from config.provider_manager import ProviderManager, ProviderManagerConfig
+        from config.provider_manager_old import ProviderManager, ProviderManagerConfig
 
         config = ProviderManagerConfig()
         manager = ProviderManager(config)

@@ -1,0 +1,9 @@
+{
+  "content": "```json\n{\n    \"organizations\": [\n        {\n            \"organization_id\": 1,\n            \"name\": \"ДНК-Технология\",\n            \"inn\": \"7714843760\",\n            \"website\": \"dna-technology.ru\",\n            \"city\": \"Москва\",\n            \"address\": \"ул. Академика Королёва, д. 12\",\n            \"emails\": [\"info@dna-technology.ru\"],\n            \"phones\": [\"8 800 200-75-15\", \"+7(495) 640-17-71\"]\n        }\n    ],\n    \"contacts\": [\n        {\n            \"contact_id\": 1,\n            \"name\": \"Гоголева Мария\",\n            \"organization_id\": 1,\n            \"position\": null,\n            \"email\": \"m.gogoleva@dna-technology.ru\",\n            \"phones\": [],\n            \"city\": \"Москва\",\n            \"address\": \"ул. Академика Королёва, д. 12\",\n            \"confidence\": 0.9\n        }\n    ],\n    \"business_context\": \"Переписка касается ошибки обработки в контексте отгрузки наборов Фемофлор®II. Обсуждение технических вопросов, связанных с поставками продукции.\",\n    \"summary\": {\n        \"topic\": \"Сервисное обслуживание\",\n        \"product_interest\": \"Наборы реагентов Фемофлор®II\",\n        \"communication_stage\": \"Исполнение\",\n        \"request_type\": \"Технические характеристики\"\n    },\n    \"key_points\": [\n        \"Обсуждается ошибка обработки наборов Фемофлор®II\",\n        \"Затронуты вопросы отгрузки продукции\",\n        \"Требуется техническое решение проблемы\"\n    ],\n    \"commercial_offers\": []\n}\n```",
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-chat-v3.1:free",
+  "tokens_used": 144,
+  "response_time": 23.31351089477539,
+  "used_provider": "OpenRouter",
+  "fallback_used": false
+}

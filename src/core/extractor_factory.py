@@ -7,7 +7,8 @@
 
 from pathlib import Path
 from typing import Optional
-from .extractor import ContactExtractor, ExtractorConfig, ChunkingConfig, RetryConfig
+from .extractor import ContactExtractor, ExtractorConfig, RetryConfig
+from .chunker import ChunkingConfig
 from ..config import UnifiedConfigManager
 from ..phone_normalizer import PhoneNormalizer
 from .validator import LLMResponseValidator
@@ -41,7 +42,7 @@ class ExtractorFactory:
         llm_providers = unified_config.get_llm_providers()
 
         # Создание ProviderManager на основе унифицированной конфигурации
-        from ..config.provider_manager import ProviderManager, ProviderManagerConfig
+        from ..config.provider_manager_old import ProviderManager, ProviderManagerConfig
         provider_config = ProviderManagerConfig(
             config_path=config_path,
             fallback_enabled=True,
@@ -60,11 +61,8 @@ class ExtractorFactory:
         json_validator = LLMResponseValidator()
 
         # 4. Настройка конфигураций
-        chunking_config = ChunkingConfig(
-            max_chunk_size=8000,
-            overlap_size=1000,
-            use_tokens=True
-        )
+        # Загружаем chunking конфигурацию из processing_config.json
+        chunking_config = ChunkingConfig.load_from_file()
 
         retry_config = RetryConfig(
             max_attempts=3,
@@ -107,17 +105,32 @@ class ExtractorFactory:
 
         issues = []
 
-        # Проверка API ключей
-        required_keys = ['OPENROUTER_API_KEY', 'GROQ_API_KEY', 'REPLICATE_API_KEY']
-        missing_keys = [key for key in required_keys if not os.getenv(key)]
+        # Проверка API ключей только для активных провайдеров
+        from ..config import UnifiedConfigManager
+        unified_config = UnifiedConfigManager()
+        llm_providers = unified_config.get_llm_providers()
+        
+        # Маппинг провайдеров к переменным окружения
+        provider_key_mapping = {
+            'OpenRouter': 'OPENROUTER_API_KEY',
+            'Groq': 'GROQ_API_KEY', 
+            'Replicate': 'REPLICATE_API_KEY'
+        }
+        
+        missing_keys = []
+        for provider in llm_providers:
+            if provider.active:
+                env_key = provider_key_mapping.get(provider.name)
+                if env_key and not os.getenv(env_key):
+                    missing_keys.append(env_key)
 
         if missing_keys:
-            issues.append(f"Отсутствуют API ключи: {', '.join(missing_keys)}")
+            issues.append(f"Отсутствуют API ключи для активных провайдеров: {', '.join(missing_keys)}")
 
         # Проверка наличия промптов
         prompts_dir = Path(__file__).parent.parent.parent / "prompts"
         required_prompts = [
-            "unified_contact_extraction.txt",
+            "unified_contact_extraction_structured.txt",
             "contact_extraction.txt"
         ]
 

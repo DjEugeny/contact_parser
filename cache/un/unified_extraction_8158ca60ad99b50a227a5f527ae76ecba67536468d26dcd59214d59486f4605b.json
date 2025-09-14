@@ -1,0 +1,9 @@
+{
+  "content": "{\n  \"contacts\": [\n    {\n      \"name\": \"Билалов Альберт Аглямович\",\n      \"phone\": \"+7 (495) 640-17-71, доб.2031\",\n      \"email\": \"bilalov@dna-technology.ru\",\n      \"organization\": \"ООО \\\"ДНК-Технология\\\"\",\n      \"position\": \"зам. начальника отдела продаж\",\n      \"inn\": null,\n      \"website\": \"www.dna-technology.ru\",\n      \"city\": null,\n      \"confidence\": 0.95\n    }\n  ],\n  \"business_context\": \"Передача акта и УПД (универсального передаточного документа) от 23 июля. Отправка документов от представителя ООО \\\"ДНК-Технология\\\" получателю.\",\n  \"summary\": {\n    \"topic\": \"Документация\",\n    \"product_interest\": null,\n    \"communication_stage\": \"Исполнение\",\n    \"request_type\": \"Документация\"\n  },\n  \"key_points\": [\n    \"Передача акта и УПД с датой 23 июля\",\n    \"Документы отправлены во вложении\",\n    \"Отправлено от ООО \\\"ДНК-Технология\\\"\"\n  ],\n  \"commercial_offers\": []\n}",
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-chat-v3.1:free",
+  "tokens_used": 109,
+  "response_time": 16.029081106185913,
+  "used_provider": "OpenRouter",
+  "fallback_used": false
+}

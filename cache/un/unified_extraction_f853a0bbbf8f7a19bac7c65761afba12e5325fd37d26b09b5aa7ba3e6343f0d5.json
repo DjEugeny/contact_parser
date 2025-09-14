@@ -1,0 +1,9 @@
+{
+  "content": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": null,\n      \"website\": \"dna-technology.ru\",\n      \"city\": null,\n      \"address\": null,\n      \"emails\": [\"hotline@dna-technology.ru\"],\n      \"phones\": []\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Воронова Светлана\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"s.voronova@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"confidence\": 0.9\n    }\n  ],\n  \"business_context\": \"Внутренняя переписка между сотрудниками компании ДНК-Технология по вопросам поддержки клиентов, использующих набор Фемофлор II. Обсуждается распределение дистрибутива и необходимость дополнительной информации для клиентов.\",\n  \"summary\": {\n    \"topic\": \"Сервисное обслуживание\",\n    \"product_interest\": \"Набор реагентов Фемофлор II\",\n    \"communication_stage\": \"Исполнение\",\n    \"request_type\": \"Технические характеристики\"\n  },\n  \"key_points\": [\n    \"Поддержка нового набора Фемофлор II началась не по плану\",\n    \"Дистрибутив был предоставлен всем региональным представителям\",\n    \"Необходимо выяснить, кому из клиентов требуется дополнительная информация\",\n    \"Клиенты разделены на две группы: получившие пробник и не получившие\"\n  ],\n  \"commercial_offers\": []\n}\n```",
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-chat-v3.1:free",
+  "tokens_used": 165,
+  "response_time": 19.55476212501526,
+  "used_provider": "OpenRouter",
+  "fallback_used": false
+}

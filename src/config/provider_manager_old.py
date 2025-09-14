@@ -80,21 +80,27 @@ class ProviderManager:
         else:
             print(f"⚠️  Пропущен провайдер OpenRouter: отсутствует API ключ")
 
-        # Groq - все настройки из .env
-        groq_config = ProviderConfig(
-            name="Groq",
-            api_key=os.getenv('GROQ_API_KEY', ''),
-            model=os.getenv('GROQ_MODEL', 'llama-3.1-8b-instant'),
-            base_url=os.getenv('GROQ_BASE_URL', "https://api.groq.com/openai/v1/chat/completions"),
-            priority=self.provider_configs.get('groq', {}).get('priority', 3),  # Изменен приоритет
-            active=self.provider_configs.get('groq', {}).get('enabled', True)
-        )
+        # Groq - ВРЕМЕННО ОТКЛЮЧЕН для тестирования DeepSeek V3.1
+        # Для включения: раскомментируйте блок ниже и установите GROQ_ENABLED=true в .env
+        groq_enabled = os.getenv('GROQ_ENABLED', 'false').lower() == 'true'
+        
+        if groq_enabled:
+            groq_config = ProviderConfig(
+                name="Groq",
+                api_key=os.getenv('GROQ_API_KEY', ''),
+                model=os.getenv('GROQ_MODEL', 'llama-3.1-8b-instant'),
+                base_url=os.getenv('GROQ_BASE_URL', "https://api.groq.com/openai/v1/chat/completions"),
+                priority=self.provider_configs.get('groq', {}).get('priority', 3),
+                active=self.provider_configs.get('groq', {}).get('enabled', True)
+            )
 
-        if groq_config.api_key:
-            self.providers['groq'] = GroqProvider(groq_config)
-            print(f"✅ Инициализирован провайдер: {groq_config.name}")
+            if groq_config.api_key:
+                self.providers['groq'] = GroqProvider(groq_config)
+                print(f"✅ Инициализирован провайдер: {groq_config.name}")
+            else:
+                print(f"⚠️  Пропущен провайдер Groq: отсутствует API ключ")
         else:
-            print(f"⚠️  Пропущен провайдер Groq: отсутствует API ключ")
+            print(f"⚠️  Провайдер Groq временно отключен (GROQ_ENABLED=false)")
 
         # Replicate - все настройки из .env
         replicate_config = ProviderConfig(

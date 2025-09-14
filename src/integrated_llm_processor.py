@@ -222,14 +222,33 @@ class IntegratedLLMProcessor:
             if self.test_mode:
                 print("   🧪 ТЕСТОВЫЙ РЕЖИМ: Пропускаем LLM запросы")
                 llm_result = {
+                    "organizations": [
+                        {
+                            "organization_id": 1,
+                            "name": "Тестовая Компания",
+                            "inn": "1234567890",
+                            "city": "Москва",
+                            "address": "ул. Тестовая, д. 1",
+                            "emails": ["info@test-company.ru"],
+                            "phones": ["+7-495-123-45-67"],
+                            "website": "https://test-company.ru"
+                        }
+                    ],
                     "contacts": [
                         {
+                            "contact_id": 1,
                             "name": "Тестовый Контакт",
-                            "phone": "+7-999-123-45-67",
+                            "organization_id": 1,
+                            "phones": [
+                                {
+                                    "type": "main",
+                                    "number": "+7-999-123-45-67"
+                                }
+                            ],
                             "email": "test@example.com",
-                            "organization": "Тестовая Компания",
                             "position": "Менеджер",
                             "city": "Москва",
+                            "address": "ул. Тестовая, д. 1",
                             "confidence": 0.95
                         }
                     ],

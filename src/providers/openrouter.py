@@ -41,9 +41,12 @@ class OpenRouterProvider(BaseProvider):
         if not self.is_available():
             raise RuntimeError(f"❌ Провайдер {self.config.name} недоступен")
 
-        # Параметры запроса
-        temperature = kwargs.get('temperature', 0.1)
-        max_tokens = kwargs.get('max_tokens', 4000)
+        # Параметры запроса для DeepSeek V3.1
+        # Оптимизированы под контекстное окно 128K токенов
+        temperature = kwargs.get('temperature', 0.2)  # Повышено для более креативных ответов
+        max_tokens = kwargs.get('max_tokens', 8000)   # Увеличено под возможности модели
+        top_p = kwargs.get('top_p', 0.95)             # Оптимизировано для качества
+        stream = kwargs.get('stream', False)          # Поддержка стриминга
 
         payload = {
             "model": self.config.model,
@@ -55,8 +58,8 @@ class OpenRouterProvider(BaseProvider):
             ],
             "temperature": temperature,
             "max_tokens": max_tokens,
-            "top_p": 0.9,
-            "stream": False
+            "top_p": top_p,
+            "stream": stream
         }
 
         try:

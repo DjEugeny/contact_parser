@@ -1,0 +1,9 @@
+{
+  "content": "{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"Центр Лабораторной Диагностики\",\n      \"inn\": null,\n      \"website\": null,\n      \"city\": \"Новосибирск\",\n      \"address\": \"630075, г. Новосибирск, ул. Народная, 3\",\n      \"emails\": [],\n      \"phones\": []\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Бабиченко Иван Сергеевич\",\n      \"organization_id\": 1,\n      \"position\": \"Руководитель ОМТС\",\n      \"email\": null,\n      \"phones\": [\n        {\n          \"type\": \"main\",\n          \"number\": \"+7-913-399-32-72\"\n        }\n      ],\n      \"city\": \"Новосибирск\",\n      \"address\": \"630075, г. Новосибирск, ул. Народная, 3\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"business_context\": \"Клиент запрашивает информацию о сроках отгрузки товара по конкретному счету на оплату. Переписка касается логистики и исполнения ранее согласованных условий поставки.\",\n  \"summary\": {\n    \"topic\": \"Доставка и логистика\",\n    \"product_interest\": \"Товар по счету №8164\",\n    \"communication_stage\": \"Исполнение\",\n    \"request_type\": \"Наличие на складе\"\n  },\n  \"key_points\": [\n    \"Запрос сроков отгрузки товара по Счету на оплату №8164 от 16 июля 2025 г.\",\n    \"Важность понимания сроков поставки для клиента\",\n    \"Указан график работы организации: Пн-Пт с 9:00 до 16:00, обед с 12:00 до 13:00\"\n  ],\n  \"commercial_offers\": []\n}",
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-chat-v3.1:free",
+  "tokens_used": 191,
+  "response_time": 19.514118909835815,
+  "used_provider": "OpenRouter",
+  "fallback_used": false
+}

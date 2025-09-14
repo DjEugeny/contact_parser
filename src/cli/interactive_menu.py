@@ -263,7 +263,7 @@ class InteractiveMenu:
         print("\n📁 Проверка файлов:")
         project_root = Path(__file__).parent.parent.parent
         files_to_check = [
-            "prompts/unified_contact_extraction.txt",
+            "prompts/unified_contact_extraction_structured.txt",
             "config/providers.json",
             ".env"
         ]

@@ -1,0 +1,1033 @@
+{
+  "test_summary": {
+    "total_emails": 10,
+    "successful_tests": 10,
+    "failed_tests": 0,
+    "success_rate": 100.0,
+    "timestamp": "2025-09-13T23:26:23.631919"
+  },
+  "extractor_stats": {
+    "extractor_stats": {
+      "total_requests": 10,
+      "successful_requests": 10,
+      "failed_requests": 0,
+      "retry_attempts": 0,
+      "json_parsing_errors": 0,
+      "json_schema_validation_errors": 0,
+      "json_schema_auto_corrections": 0,
+      "fallback_switches": 0,
+      "provider_failures": {
+        "openrouter": 0,
+        "groq": 0,
+        "replicate": 0
+      },
+      "async_operations": 0,
+      "chunked_operations": 0,
+      "cached_requests": 3
+    },
+    "provider_stats": {
+      "openrouter": {
+        "name": "OpenRouter",
+        "active": true,
+        "priority": 3,
+        "requests_total": 7,
+        "success_rate": 1.0,
+        "avg_response_time": 21.18312672206334,
+        "in_circuit_break": false,
+        "failure_count": 0,
+        "http_stats": {
+          "total_requests": 0,
+          "success_rate": 0,
+          "avg_request_time": 0,
+          "connection_pools": {}
+        }
+      },
+      "replicate": {
+        "name": "Replicate",
+        "active": true,
+        "priority": 1,
+        "requests_total": 0,
+        "success_rate": 0,
+        "avg_response_time": 0.0,
+        "in_circuit_break": false,
+        "failure_count": 0,
+        "http_stats": {
+          "total_requests": 0,
+          "success_rate": 0,
+          "avg_request_time": 0,
+          "connection_pools": {}
+        }
+      }
+    },
+    "phone_normalizer_stats": {
+      "total_contacts": 0,
+      "with_phones": 0,
+      "phone_types": {},
+      "extensions": 0,
+      "confidence_distribution": {
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    "json_validator_stats": {
+      "validator_version": "2.0.0",
+      "supported_format": "organizations/contacts",
+      "schemas_loaded": {
+        "organization_schema": true,
+        "contact_schema": true,
+        "phone_schema": true,
+        "commercial_offer_schema": true,
+        "full_response_schema": true
+      }
+    }
+  },
+  "individual_results": [
+    {
+      "filename": "email_001_20250729_20250729_centerld_ru_d03bd60b.json",
+      "timestamp": "2025-09-13T23:23:55.046962",
+      "processing_time_seconds": 0.032084,
+      "original_email": {
+        "from": "sklad@centerld.ru",
+        "subject": "Заказ.",
+        "attachments_count": 0,
+        "char_count": 804
+      },
+      "extraction_result": {
+        "contacts": [
+          {
+            "name": "Бабиченко Иван Сергеевич",
+            "email": "sklad@centerld.ru",
+            "inn": null,
+            "city": "Новосибирск",
+            "confidence": 0.95,
+            "phones": [
+              {
+                "type": "main",
+                "number": "+7-913-399-32-72"
+              }
+            ],
+            "organization_id": 1,
+            "inn_type": null,
+            "inn_validated": false,
+            "website": "https://centerld.ru",
+            "website_confidence": 0.6
+          }
+        ],
+        "business_context": "Запрос информации о сроках отгрузки товара по конкретному счету на оплату. Клиент уточняет планируемые сроки поставки оборудования.",
+        "summary": {
+          "topic": "Доставка и логистика",
+          "product_interest": "Товар по счету №8164 от 16.07.2025",
+          "communication_stage": "Исполнение",
+          "request_type": "Наличие на складе"
+        },
+        "key_points": [
+          "Номер счета: 8164 от 16 июля 2025 г.",
+          "Требуется уточнение сроков отгрузки товара",
+          "Важность понимания сроков поставки для клиента",
+          "Адрес доставки: г. Новосибирск, ул. Народная, 3"
+        ],
+        "commercial_offers": [],
+        "organizations": [
+          {
+            "organization_id": 1,
+            "name": "Центр Лабораторной Диагностики",
+            "emails": [],
+            "phones": []
+          }
+        ],
+        "provider_used": "openrouter",
+        "processing_time": 10.185894966125488,
+        "text_length": 854,
+        "chunks_processed": 1,
+        "total_contacts_found": 1,
+        "unique_contacts_found": 1
+      },
+      "success": true
+    },
+    {
+      "filename": "email_008_20250729_20250729_mail_ru_8f55fa3f.json",
+      "timestamp": "2025-09-13T23:23:55.071917",
+      "processing_time_seconds": 0.022488,
+      "original_email": {
+        "from": "medic.81@mail.ru",
+        "subject": "Re: Fwd: Fwd: Начало отгрузки наборов Фемофлор®II",
+        "attachments_count": 1,
+        "char_count": 127
+      },
+      "extraction_result": {
+        "contacts": [
+          {
+            "name": "Юлия Александровна Пименова",
+            "email": "medic.81@mail.ru",
+            "inn": null,
+            "city": null,
+            "confidence": 0.95,
+            "phones": [],
+            "inn_type": null,
+            "inn_validated": false,
+            "website": null,
+            "website_confidence": null
+          }
+        ],
+        "business_context": "Переписка касается отгрузки наборов для лабораторной диагностики Фемофлор®II. Участником является медицинское учреждение Клиника Претор из города Новосибирск.",
+        "summary": {
+          "topic": "Доставка и логистика",
+          "product_interest": "Наборы реагентов Фемофлор®II",
+          "communication_stage": "Исполнение",
+          "request_type": "Наличие на складе"
+        },
+        "key_points": [
+          "Начало отгрузки наборов Фемофлор®II",
+          "Участник: Клиника Претор, г. Новосибирск",
+          "Приложена анкета участника"
+        ],
+        "commercial_offers": [],
+        "organizations": [],
+        "provider_used": "openrouter",
+        "processing_time": 9.848475933074951,
+        "text_length": 339,
+        "chunks_processed": 1,
+        "total_contacts_found": 1,
+        "unique_contacts_found": 1
+      },
+      "success": true
+    },
+    {
+      "filename": "email_022_20250729_20250729_dna-technology_ru_6360137e.json",
+      "timestamp": "2025-09-13T23:23:55.097393",
+      "processing_time_seconds": 0.021151,
+      "original_email": {
+        "from": "m.gogoleva@dna-technology.ru",
+        "subject": "Re: ФБУЗ \"Центр Гигиены и Эпидемиологии в Республике Хакасия\"",
+        "attachments_count": 4,
+        "char_count": 9871
+      },
+      "extraction_result": {
+        "organizations": [],
+        "contacts": [],
+        "business_context": "Ошибка валидации",
+        "summary": {
+          "topic": "Ошибка обработки"
+        },
+        "key_points": [],
+        "commercial_offers": [],
+        "validation_error": true,
+        "original_response": {
+          "contacts": [
+            {
+              "name": "Гоголева Мария Михайловна",
+              "email": "m.gogoleva@dna-technology.ru",
+              "inn": null,
+              "city": "Москва",
+              "confidence": 0.95,
+              "phones": [
+                {
+                  "type": "main",
+                  "number": "+7 (495) 640-17-71 (доб. 2030)"
+                }
+              ],
+              "organization_id": 1
+            },
+            {
+              "name": "Акутин Иван Алексеевич",
+              "email": "ivak@millab.ru",
+              "inn": null,
+              "city": null,
+              "confidence": 0.95,
+              "phones": [
+                {
+                  "type": "main",
+                  "number": "+7 (495) 933 71 47 (48), доб.171"
+                }
+              ],
+              "organization_id": 2
+            },
+            {
+              "name": "Воронова Светлана Сергеевна",
+              "email": null,
+              "inn": null,
+              "city": null,
+              "confidence": 0.8,
+              "phones": []
+            }
+          ],
+          "business_context": "Обсуждение коммерческого предложения на поставку амплификаторов ДТпрайм для ФБУЗ \"Центр Гигиены и Эпидемиологии в Республике Хакасия\". Клиент запрашивает обновление КП и уточнение цены на модель ДТпрайм II6М6 для планируемой закупки в августе 2025 года.",
+          "summary": {
+            "topic": "Закупка оборудования",
+            "product_interest": "Амплификаторы ДТпрайм 5М6 и ДТпрайм II6М6",
+            "communication_stage": "Коммерческие переговоры",
+            "request_type": "Запрос цены"
+          },
+          "key_points": [
+            "Конечный пользователь: ФБУЗ \"Центр Гигиены и Эпидемиологии в Республике Хакасия\" (ИНН: 1901066506)",
+            "Запланированная дата закупки: август 2025 года",
+            "Требуется уточнение цены на модель ДТпрайм II6М6 для оценки бюджета",
+            "Ранее было предоставлено КП от 14 марта со сроком действия до 15 июня",
+            "Обсуждался вопрос поверки оборудования и внесения в реестр средств измерений"
+          ],
+          "commercial_offers": [
+            {
+              "found": true,
+              "offer_type": "Приборы",
+              "offer_number": null,
+              "offer_date": "2025-03-14",
+              "end_user": "ФБУЗ \"Центр Гигиены и Эпидемиологии в Республике Хакасия\"",
+              "end_user_inn": "1901066506",
+              "intermediary": "Акутин Иван Алексеевич",
+              "intermediary_date": "Компания МИЛЛАБ, менеджер отдела \"Оборудование для микробиологии и биотехнологий\", +7 (495) 933 71 47 (48), доб.171, +7 (968) 628 75 81, ivak@millab.ru",
+              "payment_terms": null,
+              "delivery_time": null,
+              "delivery_terms": null,
+              "valid_until": "2025-06-15",
+              "equipment_items": [
+                {
+                  "name": "Амплификатор",
+                  "model": "DTprime 5М6",
+                  "article": null,
+                  "quantity": null,
+                  "unit_price": null,
+                  "total_price": null,
+                  "vat": null
+                }
+              ],
+              "total_cost": null,
+              "comments": "Включен ноутбук"
+            },
+            {
+              "found": true,
+              "offer_type": "Приборы",
+              "offer_number": null,
+              "offer_date": "2025-07-29",
+              "end_user": "ФБУЗ \"Центр Гигиены и Эпидемиологии в Республике Хакасия\"",
+              "end_user_inn": "1901066506",
+              "intermediary": "Акутин Иван Алексеевич",
+              "intermediary_date": "Компания МИЛЛАБ, менеджер отдела \"Оборудование для микробиологии и биотехнологий\", +7 (495) 933 71 47 (48), доб.171, +7 (968) 628 75 81, ivak@millab.ru",
+              "payment_terms": null,
+              "delivery_time": null,
+              "delivery_terms": null,
+              "valid_until": null,
+              "equipment_items": [
+                {
+                  "name": "Амплификатор",
+                  "model": "DTprime 5М6",
+                  "article": null,
+                  "quantity": null,
+                  "unit_price": null,
+                  "total_price": null,
+                  "vat": null
+                },
+                {
+                  "name": "Амплификатор",
+                  "model": "ДТпрайм II 6М6",
+                  "article": null,
+                  "quantity": null,
+                  "unit_price": null,
+                  "total_price": null,
+                  "vat": null
+                }
+              ],
+              "total_cost": null,
+              "comments": "Включен ноутбук, обновленное предложение с дополнительной моделью"
+            }
+          ]
+        },
+        "provider_used": "openrouter",
+        "processing_time": 39.07099103927612,
+        "text_length": 10559,
+        "chunks_processed": 1,
+        "total_contacts_found": 0,
+        "unique_contacts_found": 0
+      },
+      "success": true
+    },
+    {
+      "filename": "email_012_20250729_20250729_dna-technology_ru_6fd74dbf.json",
+      "timestamp": "2025-09-13T23:24:11.155491",
+      "processing_time_seconds": 16.056728,
+      "original_email": {
+        "from": "bilalov@dna-technology.ru",
+        "subject": "документы с датой 23.07",
+        "attachments_count": 2,
+        "char_count": 391
+      },
+      "extraction_result": {
+        "contacts": [
+          {
+            "name": "Билалов Альберт Аглямович",
+            "email": "bilalov@dna-technology.ru",
+            "inn": null,
+            "city": null,
+            "confidence": 0.95,
+            "phones": [
+              {
+                "type": "main",
+                "number": "+7 (495) 640-17-71, доб.2031"
+              }
+            ],
+            "organization_id": 1,
+            "inn_type": null,
+            "inn_validated": false,
+            "website": "https://dna-technology.ru",
+            "website_confidence": 0.6
+          }
+        ],
+        "business_context": "Передача акта и УПД (универсального передаточного документа) от 23 июля. Отправка документов от представителя ООО \"ДНК-Технология\" получателю.",
+        "summary": {
+          "topic": "Документация",
+          "product_interest": null,
+          "communication_stage": "Исполнение",
+          "request_type": "Документация"
+        },
+        "key_points": [
+          "Передача акта и УПД с датой 23 июля",
+          "Документы отправлены во вложении",
+          "Отправлено от ООО \"ДНК-Технология\""
+        ],
+        "commercial_offers": [],
+        "organizations": [
+          {
+            "organization_id": 1,
+            "name": "ООО \"ДНК-Технология\"",
+            "emails": [],
+            "phones": []
+          }
+        ],
+        "provider_used": "openrouter",
+        "processing_time": 16.029081106185913,
+        "text_length": 610,
+        "chunks_processed": 1,
+        "total_contacts_found": 1,
+        "unique_contacts_found": 1
+      },
+      "success": true
+    },
+    {
+      "filename": "email_015_20250729_20250729_dna-technology_ru_41fbdf51.json",
+      "timestamp": "2025-09-13T23:24:30.836389",
+      "processing_time_seconds": 19.67982,
+      "original_email": {
+        "from": "torgi@dna-technology.ru",
+        "subject": "Re: Fwd: Запрос КП Наборы",
+        "attachments_count": 1,
+        "char_count": 3487
+      },
+      "extraction_result": {
+        "contacts": [
+          {
+            "name": "Фролова Мария Борисовна",
+            "email": "torgi@dna-technology.ru",
+            "inn": null,
+            "city": "Москва",
+            "confidence": 0.95,
+            "phones": [
+              {
+                "type": "main",
+                "number": "+7 (495) 640-17-71 (доб. 2036)"
+              }
+            ],
+            "organization_id": 1,
+            "inn_type": null,
+            "inn_validated": false,
+            "website": "https://dna-technology.ru",
+            "website_confidence": 0.6
+          },
+          {
+            "name": "Дудко Анастасия",
+            "email": "a.dudko@helicon.ru",
+            "inn": null,
+            "city": "Новосибирск",
+            "confidence": 0.95,
+            "phones": [
+              {
+                "type": "main",
+                "number": "8 (800) 770-71-21 доб. 3108"
+              }
+            ],
+            "organization_id": 2,
+            "inn_type": null,
+            "inn_validated": false,
+            "website": "https://helicon.ru",
+            "website_confidence": 0.6
+          },
+          {
+            "name": null,
+            "email": null,
+            "inn": null,
+            "city": null,
+            "confidence": 0.95,
+            "phones": [
+              {
+                "type": "main",
+                "number": "+7 (953) 794-60-38"
+              }
+            ],
+            "inn_type": null,
+            "inn_validated": false,
+            "website": null,
+            "website_confidence": null
+          }
+        ],
+        "business_context": "Запрос коммерческого предложения на наборы для ПЦР по конечной точке от компании Хеликон для конечного пользователя ООО МЦ ДНК. Ответ о том, что данные комплекты реагентов сняты с производства.",
+        "summary": {
+          "topic": "Коммерческое предложение",
+          "product_interest": "Наборы для ПЦР по конечной точке: ВПЧ 16/18 высокого риска, ВПЧ 16/18 низкого риска, Герпес 1,2",
+          "communication_stage": "Сбор информации",
+          "request_type": "Запрос цены"
+        },
+        "key_points": [
+          "Запрос КП на три типа наборов для ПЦР по конечной точке",
+          "Конечный пользователь - ООО МЦ ДНК, Абакан, ИНН 1901074000",
+          "Комплекты реагентов с детекцией по конечной точке сняты с производства",
+          "Запрос поступил от ООО Компания Хеликон как посредника",
+          "Указаны конкретные контактные данные ответственных лиц с обеих сторон"
+        ],
+        "commercial_offers": [],
+        "organizations": [
+          {
+            "organization_id": 1,
+            "name": "ООО «ДНК-Технология»",
+            "emails": [],
+            "phones": []
+          },
+          {
+            "organization_id": 2,
+            "name": "ООО «Компания Хеликон»",
+            "emails": [],
+            "phones": []
+          }
+        ],
+        "provider_used": "openrouter",
+        "processing_time": 19.64854884147644,
+        "text_length": 3650,
+        "chunks_processed": 1,
+        "total_contacts_found": 3,
+        "unique_contacts_found": 3
+      },
+      "success": true
+    },
+    {
+      "filename": "email_004_20250729_20250729_dna-technology_ru_6e851453.json",
+      "timestamp": "2025-09-13T23:24:45.232329",
+      "processing_time_seconds": 14.395226,
+      "original_email": {
+        "from": "m.gogoleva@dna-technology.ru",
+        "subject": "Fwd: запрос КП для Центр специализированной медицинской помощи детям имени В.Ф. Войно-Ясенецкого",
+        "attachments_count": 1,
+        "char_count": 2812
+      },
+      "extraction_result": {
+        "contacts": [
+          {
+            "name": "Тарасова Ирина Александровна",
+            "email": "i.tarasova@helicon.ru",
+            "inn": null,
+            "city": "Москва",
+            "confidence": 0.95,
+            "phones": [
+              {
+                "type": "main",
+                "number": "8 800-770-71-21, доб.1315"
+              }
+            ],
+            "organization_id": 1,
+            "inn_type": null,
+            "inn_validated": false,
+            "website": "https://helicon.ru",
+            "website_confidence": 0.6
+          },
+          {
+            "name": "Мария Гоголева",
+            "email": "m.gogoleva@dna-technology.ru",
+            "inn": null,
+            "city": null,
+            "confidence": 0.95,
+            "phones": [],
+            "inn_type": null,
+            "inn_validated": false,
+            "website": "https://dna-technology.ru",
+            "website_confidence": 0.6
+          },
+          {
+            "name": "Косачева Светлана",
+            "email": "kosacheva@dna-technology.ru",
+            "inn": null,
+            "city": null,
+            "confidence": 0.95,
+            "phones": [],
+            "inn_type": null,
+            "inn_validated": false,
+            "website": "https://dna-technology.ru",
+            "website_confidence": 0.6
+          }
+        ],
+        "business_context": "Запрос коммерческого предложения на амплификатор ДТ-прйм 5М1 для Центра специализированной медицинской помощи детям имени В.Ф. Войно-Ясенецкого. Уточнение наличия оборудования на складе и предоставление КП.",
+        "summary": {
+          "topic": "Коммерческое предложение",
+          "product_interest": "Амплификатор ДТ-прйм 5М1",
+          "communication_stage": "Сбор информации",
+          "request_type": "Запрос цены"
+        },
+        "key_points": [
+          "Запрос коммерческого предложения на амплификатор ДТ-прйм 5М1",
+          "Уточнение наличия оборудования на складе",
+          "Конечный пользователь - Центр специализированной медицинской помощи детям имени В.Ф. Войно-Ясенецкого (ИНН 7731147890)",
+          "Ранее в марте уже выставлялось КП для ЭкоМеда на это же оборудование"
+        ],
+        "commercial_offers": [],
+        "organizations": [
+          {
+            "organization_id": 1,
+            "name": "Компания Хеликон",
+            "emails": [],
+            "phones": []
+          }
+        ],
+        "provider_used": "openrouter",
+        "processing_time": 14.353516101837158,
+        "text_length": 3170,
+        "chunks_processed": 1,
+        "total_contacts_found": 3,
+        "unique_contacts_found": 3
+      },
+      "success": true
+    },
+    {
+      "filename": "email_028_20250729_20250729_dna-technology_ru_46932b3d.json",
+      "timestamp": "2025-09-13T23:25:05.270100",
+      "processing_time_seconds": 20.036683,
+      "original_email": {
+        "from": "m.gogoleva@dna-technology.ru",
+        "subject": "Re: Fwd: Fwd: Начало отгрузки наборов Фемофлор®II",
+        "attachments_count": 1,
+        "char_count": 1095
+      },
+      "extraction_result": {
+        "organizations": [],
+        "contacts": [],
+        "business_context": "Ошибка валидации",
+        "summary": {
+          "topic": "Ошибка обработки"
+        },
+        "key_points": [],
+        "commercial_offers": [],
+        "validation_error": true,
+        "original_response": {
+          "contacts": [
+            {
+              "name": "Гоголева Мария Михайловна",
+              "email": "m.gogoleva@dna-technology.ru",
+              "inn": null,
+              "city": "Москва",
+              "confidence": 0.95,
+              "phones": [
+                {
+                  "type": "main",
+                  "number": "+7 (495) 640-17-71 (доб. 2030)"
+                }
+              ],
+              "organization_id": 1
+            },
+            {
+              "name": "Юлия Александровна Пименова",
+              "email": "medic.81@mail.ru",
+              "inn": null,
+              "city": null,
+              "confidence": 0.95,
+              "phones": []
+            }
+          ],
+          "business_context": "Переписка касается коммерческого предложения на поставку амплификатора ДТпрайм 5М1 для клиники в Новосибирске. Предложение включает акционные условия и отправлено в ответ на запрос клиента.",
+          "summary": {
+            "topic": "Коммерческое предложение",
+            "product_interest": "Амплификатор ДТпрайм 5М1",
+            "communication_stage": "Коммерческие переговоры",
+            "request_type": "Запрос цены"
+          },
+          "key_points": [
+            "Коммерческое предложение на амплификатор ДТпрайм 5М1",
+            "Предложение включает акционные условия",
+            "Конечный пользователь - клиника в Новосибирске"
+          ],
+          "commercial_offers": [
+            {
+              "found": true,
+              "offer_type": "Приборы",
+              "offer_number": null,
+              "offer_date": "2025-07-29",
+              "end_user": "Новосибирск Клиника Претор",
+              "end_user_inn": null,
+              "intermediary": "Юлия Александровна Пименова",
+              "intermediary_date": "medic.81@mail.ru",
+              "payment_terms": null,
+              "delivery_time": null,
+              "delivery_terms": null,
+              "valid_until": null,
+              "equipment_items": [
+                {
+                  "name": "Амплификатор",
+                  "model": "ДТпрайм 5М1",
+                  "article": null,
+                  "quantity": null,
+                  "unit_price": null,
+                  "total_price": null,
+                  "vat": null
+                }
+              ],
+              "total_cost": null,
+              "comments": "Акционное предложение"
+            }
+          ]
+        },
+        "provider_used": "openrouter",
+        "processing_time": 19.988624811172485,
+        "text_length": 1328,
+        "chunks_processed": 1,
+        "total_contacts_found": 0,
+        "unique_contacts_found": 0
+      },
+      "success": true
+    },
+    {
+      "filename": "email_014_20250729_20250729_millab_ru_62cf1268.json",
+      "timestamp": "2025-09-13T23:25:25.929304",
+      "processing_time_seconds": 20.658071,
+      "original_email": {
+        "from": "ivak@millab.ru",
+        "subject": "RE: ФБУЗ \"Центр Гигиены и Эпидемиологии в Республике Хакасия\"",
+        "attachments_count": 0,
+        "char_count": 5584
+      },
+      "extraction_result": {
+        "contacts": [
+          {
+            "name": "Акутин Иван Алексеевич",
+            "email": "ivak@millab.ru",
+            "inn": null,
+            "city": null,
+            "confidence": 0.95,
+            "phones": [
+              {
+                "type": "main",
+                "number": "+7 (495) 933 71 47 (48), доб.171"
+              }
+            ],
+            "organization_id": 1,
+            "inn_type": null,
+            "inn_validated": false,
+            "website": "https://millab.ru",
+            "website_confidence": 0.6
+          },
+          {
+            "name": "Гоголева Мария",
+            "email": "m.gogoleva@dna-technology.ru",
+            "inn": null,
+            "city": null,
+            "confidence": 0.95,
+            "phones": [
+              {
+                "type": "main",
+                "number": "(495) 640-17-71, доб. 2030"
+              }
+            ],
+            "organization_id": 2,
+            "inn_type": null,
+            "inn_validated": false,
+            "website": "https://dna-technology.ru",
+            "website_confidence": 0.6
+          },
+          {
+            "name": "Воронова Светлана Сергеевна",
+            "email": null,
+            "inn": null,
+            "city": null,
+            "confidence": 0.8,
+            "phones": [],
+            "inn_type": null,
+            "inn_validated": false,
+            "website": null,
+            "website_confidence": null
+          }
+        ],
+        "business_context": "Обсуждение обновления коммерческого предложения на амплификаторы ДТпрайм для ФБУЗ \"Центр Гигиены и Эпидемиологии в Республике Хакасия\". Клиент запрашивает уточнение цены на модель ДТпрайм II 6М6 для планирования бюджета на закупку в августе 2025 года.",
+        "summary": {
+          "topic": "Закупка оборудования",
+          "product_interest": "Амплификаторы ДТпрайм (5М6, II 6М6)",
+          "communication_stage": "Сбор информации",
+          "request_type": "Запрос цены"
+        },
+        "key_points": [
+          "Запрос на обновление коммерческого предложения для ЦГИЭ в Республике Хакасия",
+          "Планируемая закупка в августе 2025 года",
+          "Уточнение цены на модель ДТпрайм II 6М6 для оценки бюджета",
+          "Конечный пользователь - ФБУЗ \"Центр Гигиены и Эпидемиологии в Республике Хакасия\" (ИНН: 1901066506)",
+          "Предыдущее КП от 14 марта со сроком действия до 15 июня"
+        ],
+        "commercial_offers": [],
+        "organizations": [
+          {
+            "organization_id": 1,
+            "name": "Компания МИЛЛАБ",
+            "emails": [],
+            "phones": []
+          },
+          {
+            "organization_id": 2,
+            "name": "ООО \"ДНК-Технология\"",
+            "emails": [],
+            "phones": []
+          }
+        ],
+        "provider_used": "openrouter",
+        "processing_time": 20.63596200942993,
+        "text_length": 5686,
+        "chunks_processed": 1,
+        "total_contacts_found": 3,
+        "unique_contacts_found": 3
+      },
+      "success": true
+    },
+    {
+      "filename": "email_016_20250729_20250729_dna-technology_ru_6360137e.json",
+      "timestamp": "2025-09-13T23:26:07.739763",
+      "processing_time_seconds": 41.809257,
+      "original_email": {
+        "from": "m.gogoleva@dna-technology.ru",
+        "subject": "Fwd: ФБУЗ \"Центр Гигиены и Эпидемиологии в Республике Хакасия\"",
+        "attachments_count": 4,
+        "char_count": 6798
+      },
+      "extraction_result": {
+        "organizations": [],
+        "contacts": [],
+        "business_context": "Ошибка валидации",
+        "summary": {
+          "topic": "Ошибка обработки"
+        },
+        "key_points": [],
+        "commercial_offers": [],
+        "validation_error": true,
+        "original_response": {
+          "contacts": [
+            {
+              "name": "Иван Акутин",
+              "email": "ivak@millab.ru",
+              "inn": null,
+              "city": null,
+              "confidence": 0.95,
+              "phones": [
+                {
+                  "type": "main",
+                  "number": "+7 (495) 933 71 47 (48), доб.171"
+                }
+              ],
+              "organization_id": 1
+            },
+            {
+              "name": "Гоголева Мария",
+              "email": "m.gogoleva@dna-technology.ru",
+              "inn": null,
+              "city": null,
+              "confidence": 0.95,
+              "phones": [
+                {
+                  "type": "main",
+                  "number": "(495) 640-17-71, доб. 2030"
+                }
+              ],
+              "organization_id": 2
+            },
+            {
+              "name": "Воронова Светлана Сергеевна",
+              "email": "s.voronova@dna-technology.ru",
+              "inn": null,
+              "city": null,
+              "confidence": 0.95,
+              "phones": []
+            }
+          ],
+          "business_context": "Обсуждение обновления коммерческого предложения на амплификаторы ДТпрайм для ФБУЗ \"Центр Гигиены и Эпидемиологии в Республике Хакасия\". Клиент планирует закупку в августе 2025 года и уточняет цену на модель ДТпрайм II6М6 для определения соответствия бюджету.",
+          "summary": {
+            "topic": "Коммерческое предложение",
+            "product_interest": "Амплификаторы ДТпрайм 5М6 и ДТпрайм II6М6",
+            "communication_stage": "Сбор информации",
+            "request_type": "Запрос цены"
+          },
+          "key_points": [
+            "Конечный пользователь: ФБУЗ \"Центр Гигиены и Эпидемиологии в Республике Хакасия\" (ИНН: 1901066506)",
+            "Запланированная закупка в августе 2025 года",
+            "Необходимость уточнения цены на модель ДТпрайм II6М6",
+            "Предыдущее КП от 14 марта со сроком действия до 15 июня",
+            "Вопрос о возможности добавления поверки в КП"
+          ],
+          "commercial_offers": [
+            {
+              "found": true,
+              "offer_type": "Приборы",
+              "offer_number": "б/н",
+              "offer_date": "2025-03-14",
+              "end_user": "ФБУЗ \"Центр Гигиены и Эпидемиологии в Республике Хакасия\"",
+              "end_user_inn": "1901066506",
+              "intermediary": "Иван Акутин",
+              "intermediary_date": "Менеджер отдела \"Оборудование для микробиологии и биотехнологий\" Компания МИЛЛАБ, +7 (495) 933 71 47 (48), доб.171, +7 (968) 628 75 81, ivak@millab.ru",
+              "payment_terms": null,
+              "delivery_time": null,
+              "delivery_terms": null,
+              "valid_until": "2025-06-15",
+              "equipment_items": [
+                {
+                  "name": "Амплификатор",
+                  "model": "ДТпрайм 5М6",
+                  "article": null,
+                  "quantity": null,
+                  "unit_price": null,
+                  "total_price": null,
+                  "vat": null
+                }
+              ],
+              "total_cost": null,
+              "comments": "Включен ноутбук"
+            },
+            {
+              "found": true,
+              "offer_type": "Приборы",
+              "offer_number": "б/н",
+              "offer_date": "2025-07-29",
+              "end_user": "ФБУЗ \"Центр Гигиены и Эпидемиологии в Республике Хакасия\"",
+              "end_user_inn": "1901066506",
+              "intermediary": "Иван Акутин",
+              "intermediary_date": "Менеджер отдела \"Оборудование для микробиологии и биотехнологий\" Компания МИЛЛАБ, +7 (495) 933 71 47 (48), доб.171, +7 (968) 628 75 81, ivak@millab.ru",
+              "payment_terms": null,
+              "delivery_time": null,
+              "delivery_terms": null,
+              "valid_until": null,
+              "equipment_items": [
+                {
+                  "name": "Амплификатор",
+                  "model": "ДТпрайм 5М6",
+                  "article": null,
+                  "quantity": null,
+                  "unit_price": null,
+                  "total_price": null,
+                  "vat": null
+                },
+                {
+                  "name": "Амплификатор",
+                  "model": "ДТпрайм II6М6",
+                  "article": null,
+                  "quantity": null,
+                  "unit_price": null,
+                  "total_price": null,
+                  "vat": null
+                }
+              ],
+              "total_cost": null,
+              "comments": "Включен ноутбук, обновленная версия КП с дополнительной моделью"
+            }
+          ]
+        },
+        "provider_used": "openrouter",
+        "processing_time": 41.759671211242676,
+        "text_length": 7487,
+        "chunks_processed": 1,
+        "total_contacts_found": 0,
+        "unique_contacts_found": 0
+      },
+      "success": true
+    },
+    {
+      "filename": "email_025_20250729_20250729_dna-technology_ru_4aee22c5.json",
+      "timestamp": "2025-09-13T23:26:23.631289",
+      "processing_time_seconds": 15.890494,
+      "original_email": {
+        "from": "m.gogoleva@dna-technology.ru",
+        "subject": "Fwd: Fwd: Запрос коммерческого предложения ЦЕНТР ГИГИЕНЫ И ЭПИДЕМИОЛОГИИ В РЕСПУБЛИКЕ ХАКАСИЯ",
+        "attachments_count": 0,
+        "char_count": 4098
+      },
+      "extraction_result": {
+        "contacts": [
+          {
+            "name": "Присяжнюк Маргарита Александровна",
+            "email": "prisyazhnyuk@dna-technology.ru",
+            "inn": null,
+            "city": null,
+            "confidence": 0.95,
+            "phones": [],
+            "organization_id": 1,
+            "inn_type": null,
+            "inn_validated": false,
+            "website": "https://dna-technology.ru",
+            "website_confidence": 0.6
+          },
+          {
+            "name": "Гоголева Мария",
+            "email": "m.gogoleva@dna-technology.ru",
+            "inn": null,
+            "city": null,
+            "confidence": 0.95,
+            "phones": [],
+            "organization_id": 1,
+            "inn_type": null,
+            "inn_validated": false,
+            "website": "https://dna-technology.ru",
+            "website_confidence": 0.6
+          },
+          {
+            "name": "Юлия Евгеньевна",
+            "email": "086975@bk.ru",
+            "inn": null,
+            "city": "Казань",
+            "confidence": 0.95,
+            "phones": [
+              {
+                "type": "main",
+                "number": "+7-960-048-63-74"
+              }
+            ],
+            "organization_id": 2,
+            "inn_type": null,
+            "inn_validated": false,
+            "website": "https://bk.ru",
+            "website_confidence": 0.6
+          }
+        ],
+        "business_context": "Запрос коммерческого предложения на амплификатор для вирусологической лаборатории конечного пользователя - ФБУЗ Центр гигиены и эпидемиологии в Республике Хакасия. Обращение от компании-посредника ООО Агрохим.",
+        "summary": {
+          "topic": "Закупка оборудования",
+          "product_interest": "Амплификатор на 6 каналов",
+          "communication_stage": "Сбор информации",
+          "request_type": "Запрос цены"
+        },
+        "key_points": [
+          "Требуется амплификатор на 6 каналов - 1 шт.",
+          "Конечный пользователь: ФБУЗ Центр гигиены и эпидемиологии в Республике Хакасия",
+          "ИНН конечного пользователя: 1901066506",
+          "Назначение: для вирусологической лаборатории"
+        ],
+        "commercial_offers": [],
+        "organizations": [
+          {
+            "organization_id": 1,
+            "name": "DNA Technology",
+            "emails": [],
+            "phones": []
+          },
+          {
+            "organization_id": 2,
+            "name": "ООО Агрохим",
+            "emails": [],
+            "phones": []
+          }
+        ],
+        "provider_used": "openrouter",
+        "processing_time": 15.866482973098755,
+        "text_length": 4246,
+        "chunks_processed": 1,
+        "total_contacts_found": 3,
+        "unique_contacts_found": 3
+      },
+      "success": true
+    }
+  ]
+}

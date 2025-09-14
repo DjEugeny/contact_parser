@@ -42,9 +42,12 @@ class ReplicateProvider(BaseProvider):
         if not self.is_available():
             raise RuntimeError(f"❌ Провайдер {self.config.name} недоступен")
 
-        # Параметры запроса для Replicate
-        temperature = kwargs.get('temperature', 0.1)
-        max_tokens = kwargs.get('max_tokens', 4000)
+        # Параметры запроса для DeepSeek V3.1 на Replicate
+        # Оптимизированы под контекстное окно 128K токенов
+        temperature = kwargs.get('temperature', 0.2)  # Повышено для более креативных ответов
+        max_tokens = kwargs.get('max_tokens', 8000)   # Увеличено под возможности модели
+        top_p = kwargs.get('top_p', 0.95)             # Оптимизировано для качества
+        system_prompt = kwargs.get('system_prompt', "You are a helpful assistant that extracts contact information from text.")
 
         payload = {
             "version": self.config.model,
@@ -52,8 +55,8 @@ class ReplicateProvider(BaseProvider):
                 "prompt": prompt,
                 "temperature": temperature,
                 "max_tokens": max_tokens,
-                "top_p": 0.9,
-                "system_prompt": "You are a helpful assistant that extracts contact information from text."
+                "top_p": top_p,
+                "system_prompt": system_prompt
             }
         }
 

@@ -10,6 +10,10 @@ import jsonschema
 from typing import Dict, List, Optional, Any, Tuple
 from jsonschema import ValidationError, SchemaError
 
+class InvalidStructureError(Exception):
+    """Исключение для полностью невалидной структуры данных"""
+    pass
+
 class LLMResponseValidator:
     """🔍 Валидатор JSON Schema для новой структуры organizations/contacts"""
 
@@ -123,7 +127,7 @@ class LLMResponseValidator:
         """👤 Создание схемы для контакта"""
         return {
             "type": "object",
-            "required": ["name", "email", "confidence"],
+            "required": ["confidence"],
             "properties": {
                 "contact_id": {
                     "type": ["integer", "null"],
@@ -269,12 +273,12 @@ class LLMResponseValidator:
                                 "description": "Количество"
                             },
                             "unit_price": {
-                                "type": "number",
+                                "type": ["number", "null"],
                                 "minimum": 0,
                                 "description": "Цена за единицу"
                             },
                             "total_price": {
-                                "type": "number",
+                                "type": ["number", "null"],
                                 "minimum": 0,
                                 "description": "Общая стоимость позиции"
                             },
@@ -283,7 +287,7 @@ class LLMResponseValidator:
                                 "description": "НДС"
                             }
                         },
-                        "required": ["name", "quantity", "unit_price", "total_price"],
+                        "required": ["name", "quantity"],
                         "additionalProperties": False
                     },
                     "description": "Список оборудования в КП"
@@ -305,9 +309,17 @@ class LLMResponseValidator:
                 "reason": {
                     "type": ["string", "null"],
                     "description": "Причина, по которой КП не найдено"
+                },
+                "offer_type": {
+                    "type": ["string", "null"],
+                    "description": "Тип коммерческого предложения"
+                },
+                "intermediary_date": {
+                    "type": ["string", "null"],
+                    "description": "Дата или контактные данные посредника"
                 }
             },
-            "additionalProperties": False
+            "additionalProperties": True
         }
 
     def _create_full_response_schema(self) -> Dict[str, Any]:
@@ -391,6 +403,14 @@ class LLMResponseValidator:
                 print("✅ Автокоррекция успешна, валидация прошла")
                 return True, errors, corrected_response
                 
+            except InvalidStructureError as structure_error:
+                print(f"❌ Невалидная структура данных: {structure_error}")
+                errors.append(f"Невалидная структура: {structure_error}")
+                
+                # Graceful degradation fallback
+                fallback_response = self.graceful_degradation_fallback(response)
+                return False, errors, fallback_response
+                
             except (ValidationError, SchemaError) as correction_error:
                 print(f"❌ Автокоррекция не удалась: {correction_error}")
                 errors.append(f"Автокоррекция не удалась: {correction_error}")
@@ -426,7 +446,15 @@ class LLMResponseValidator:
         """🔧 Автокоррекция ответа"""
         corrected = response.copy()
         
-        # Добавляем отсутствующие обязательные поля
+        # Проверяем, есть ли хотя бы одно валидное поле
+        valid_fields = {'organizations', 'contacts', 'commercial_offers'}
+        has_valid_structure = any(field in corrected for field in valid_fields)
+        
+        if not has_valid_structure:
+            # Если нет валидной структуры, не исправляем - пусть идет в graceful degradation
+            raise InvalidStructureError("Полностью невалидная структура данных")
+        
+        # Добавляем отсутствующие обязательные поля только если их нет
         if 'organizations' not in corrected:
             corrected['organizations'] = []
             print("🔧 Добавлен пустой массив organizations")
@@ -435,12 +463,12 @@ class LLMResponseValidator:
             corrected['contacts'] = []
             print("🔧 Добавлен пустой массив contacts")
         
-        # Исправляем контакты
+        # Исправляем контакты - добавляем только обязательные поля
         if 'contacts' in corrected:
             for i, contact in enumerate(corrected['contacts']):
                 if not isinstance(contact, dict):
                     continue
-                    
+                        
                 # Добавляем обязательные поля контакта
                 if 'confidence' not in contact:
                     contact['confidence'] = 0.5
@@ -460,6 +488,40 @@ class LLMResponseValidator:
                 if 'name' not in org or not org['name']:
                     org['name'] = f"Организация {i + 1}"
                     print(f"🔧 Добавлено название для организации {i}")
+                
+                # Удаляем дублирующиеся телефоны в организациях
+                if 'phones' in org and isinstance(org['phones'], list):
+                    unique_phones = []
+                    seen_phones = set()
+                    for phone in org['phones']:
+                        if phone not in seen_phones:
+                            unique_phones.append(phone)
+                            seen_phones.add(phone)
+                    if len(unique_phones) != len(org['phones']):
+                        org['phones'] = unique_phones
+                        print(f"🔧 Удалены дублирующиеся телефоны в организации {i}")
+        
+        # Исправляем коммерческие предложения
+        if 'commercial_offers' in corrected:
+            for i, offer in enumerate(corrected['commercial_offers']):
+                if not isinstance(offer, dict):
+                    continue
+                
+                # Исправляем equipment_items с unit_price=None
+                if 'equipment_items' in offer and isinstance(offer['equipment_items'], list):
+                    for j, item in enumerate(offer['equipment_items']):
+                        if isinstance(item, dict):
+                            # Исправляем unit_price=None
+                            if item.get('unit_price') is None:
+                                item['unit_price'] = 0.0
+                                print(f"🔧 Исправлен unit_price=None в предложении {i}, товаре {j}")
+                            
+                            # Исправляем total_price=None
+                            if item.get('total_price') is None:
+                                quantity = item.get('quantity', 1)
+                                unit_price = item.get('unit_price', 0.0)
+                                item['total_price'] = quantity * unit_price
+                                print(f"🔧 Исправлен total_price=None в предложении {i}, товаре {j}")
         
         return corrected
 
@@ -589,6 +651,16 @@ class LLMResponseValidator:
             'stats': {}
         }
         
+        # Валидация организаций
+        if 'organizations' in data:
+            orgs_valid, orgs_errors = self.validate_organizations(data['organizations'])
+            if not orgs_valid:
+                result['valid'] = False
+                result['errors'].extend(orgs_errors)
+            
+            # Постобработка организаций (пока просто копируем)
+            result['processed_data']['organizations'] = data['organizations']
+        
         # Валидация контактов
         if 'contacts' in data:
             contacts_valid, contacts_errors = self.validate_contacts(data['contacts'])
@@ -596,9 +668,8 @@ class LLMResponseValidator:
                 result['valid'] = False
                 result['errors'].extend(contacts_errors)
             
-            # Постобработка контактов
-            processed_contacts = self.postprocess_contacts(data['contacts'])
-            result['processed_data']['contacts'] = processed_contacts
+            # Постобработка контактов (пока просто копируем)
+            result['processed_data']['contacts'] = data['contacts']
         
         # Валидация коммерческих предложений
         if 'commercial_offers' in data:
@@ -614,7 +685,8 @@ class LLMResponseValidator:
         # Сбор статистики
         result['stats'] = self.get_validation_stats()
         
-        return result
+        # Возвращаем только обработанные данные, а не всю структуру result
+        return result['processed_data']
 
     def get_validation_stats(self) -> Dict[str, Any]:
         """📊 Получение статистики валидации"""

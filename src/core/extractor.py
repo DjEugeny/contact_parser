@@ -16,7 +16,7 @@ from dataclasses import dataclass, field
 from functools import lru_cache
 
 from ..providers.base_provider import BaseProvider
-from ..config.provider_manager import ProviderManager, ProviderManagerConfig
+from ..config.provider_manager_old import ProviderManager, ProviderManagerConfig
 from ..phone_normalizer import PhoneNormalizer
 from .validator import LLMResponseValidator
 from .cache_manager import MultiLevelCache
@@ -187,6 +187,23 @@ class ContactExtractor:
             else:
                 result = llm_response
 
+            # Валидация через validate_llm_response (с автокоррекцией)
+            print("🔍 Применение строгой JSON Schema валидации...")
+            is_valid, errors, corrected_result = self.config.json_validator.validate_llm_response(result)
+            
+            if is_valid:
+                print("✅ JSON Schema валидация пройдена успешно")
+                result = corrected_result
+            else:
+                print(f"❌ Валидация не удалась: {errors}")
+                result = corrected_result  # Используем fallback результат
+            
+            print(f"🔍 После валидации: {len(result.get('contacts', []))} контактов, {len(result.get('organizations', []))} организаций")
+            if result.get('organizations'):
+                print(f"📋 Организации: {[org.get('name') for org in result['organizations']]}")
+            
+            print(f"✅ Валидация завершена: {len(result.get('contacts', []))} контактов, {len(result.get('organizations', []))} организаций")
+
             # Постобработка контактов
             if 'contacts' in result and result['contacts']:
                 print(f"   📞 Постобработка {len(result['contacts'])} контактов...")
@@ -242,7 +259,7 @@ class ContactExtractor:
         """📝 Подготовка единого промпта для всех задач"""
         try:
             # Загрузка основного промпта
-            base_prompt = self.load_prompt("unified_contact_extraction.txt")
+            base_prompt = self.load_prompt("unified_contact_extraction_structured.txt")
 
             # Замена плейсхолдера на текст
             prompt = base_prompt.replace("{combined_text}", text)
@@ -371,30 +388,8 @@ class ContactExtractor:
                 else:
                     raise ValueError("JSON не найден в ответе LLM")
 
-            # ФАЗА 4: Строгая JSON Schema валидация
-            print(f"🔍 Применение строгой JSON Schema валидации...")
-            is_valid, validation_errors, corrected_result = self.config.json_validator.validate_llm_response(result)
-
-            if not is_valid:
-                self.stats['json_schema_validation_errors'] += 1
-                print(f"❌ JSON Schema валидация не пройдена: {len(validation_errors)} ошибок")
-
-                # Детальная диагностика
-                for error in validation_errors:
-                    print(f"   ⚠️ {error}")
-
-                # Автоматическое исправление
-                if corrected_result != result:
-                    self.stats['json_schema_auto_corrections'] += 1
-                    result = corrected_result
-                    print("✅ Использован автоматически исправленный результат")
-                else:
-                    # Graceful degradation
-                    result = self.config.json_validator.graceful_degradation_fallback(result)
-                    print("✅ Создан минимально валидный ответ")
-            else:
-                print("✅ JSON Schema валидация пройдена успешно")
-
+            # Возвращаем распарсенный JSON без дополнительной валидации
+            # (валидация будет выполнена в extract_all_data)
             return result
 
         except json.JSONDecodeError as e:

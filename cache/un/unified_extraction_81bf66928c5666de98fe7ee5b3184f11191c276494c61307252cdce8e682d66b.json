@@ -1,0 +1,9 @@
+{
+  "content": "{\n  \"contacts\": [\n    {\n      \"name\": \"Юлия Александровна Пименова\",\n      \"phone\": null,\n      \"email\": \"medic.81@mail.ru\",\n      \"organization\": null,\n      \"position\": null,\n      \"inn\": null,\n      \"website\": null,\n      \"city\": null,\n      \"confidence\": 0.95\n    }\n  ],\n  \"business_context\": \"Переписка касается отгрузки наборов для лабораторной диагностики Фемофлор®II. Участником является медицинское учреждение Клиника Претор из города Новосибирск.\",\n  \"summary\": {\n    \"topic\": \"Доставка и логистика\",\n    \"product_interest\": \"Наборы реагентов Фемофлор®II\",\n    \"communication_stage\": \"Исполнение\",\n    \"request_type\": \"Наличие на складе\"\n  },\n  \"key_points\": [\n    \"Начало отгрузки наборов Фемофлор®II\",\n    \"Участник: Клиника Претор, г. Новосибирск\",\n    \"Приложена анкета участника\"\n  ],\n  \"commercial_offers\": []\n}",
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-chat-v3.1:free",
+  "tokens_used": 102,
+  "response_time": 9.848475933074951,
+  "used_provider": "OpenRouter",
+  "fallback_used": false
+}

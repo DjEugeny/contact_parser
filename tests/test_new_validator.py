@@ -17,9 +17,13 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 # Простой импорт валидатора
+# Импортируем валидатор напрямую, минуя проблемный __init__.py
+core_path = os.path.join(os.path.dirname(__file__), '..', 'src', 'core')
+if core_path not in sys.path:
+    sys.path.insert(0, core_path)
+
 try:
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
-    from core.validator import LLMResponseValidator
+    from validator import LLMResponseValidator
 except ImportError as e:
     print(f"Ошибка импорта: {e}")
     # Mock класс для тестирования
@@ -157,9 +161,9 @@ class TestNewValidator(unittest.TestCase):
             "invalid_field": "test",
             "another_invalid": 123
         }
-        
+
         is_valid, errors, corrected = self.validator.validate_llm_response(completely_invalid)
-        
+
         # Должен вернуть fallback структуру
         self.assertFalse(is_valid)
         self.assertIn('organizations', corrected)

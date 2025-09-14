@@ -101,16 +101,16 @@ class UnifiedConfigManager:
                 active=True
             ))
 
-        # Groq - приоритет 3 (резервный)
-        if groq_key := os.getenv('GROQ_API_KEY'):
-            providers.append(LLMProviderConfig(
-                name="Groq",
-                api_key=groq_key,
-                model=os.getenv('GROQ_MODEL', 'llama-3.1-8b-instant'),
-                base_url=os.getenv('GROQ_BASE_URL', 'https://api.groq.com/openai/v1/chat/completions'),
-                priority=3,
-                active=True
-            ))
+        # Groq - приоритет 3 (резервный) - ВРЕМЕННО ОТКЛЮЧЕН
+        # if groq_key := os.getenv('GROQ_API_KEY'):
+        #     providers.append(LLMProviderConfig(
+        #         name="Groq",
+        #         api_key=groq_key,
+        #         model=os.getenv('GROQ_MODEL', 'llama-3.1-8b-instant'),
+        #         base_url=os.getenv('GROQ_BASE_URL', 'https://api.groq.com/openai/v1/chat/completions'),
+        #         priority=3,
+        #         active=True
+        #     ))
 
         # Сортировка по приоритету (выше приоритет - раньше в списке)
         providers.sort(key=lambda p: p.priority)

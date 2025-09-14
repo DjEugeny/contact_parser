@@ -5,7 +5,7 @@
 Фаза 5: Архитектурная оптимизация
 """
 
-from .provider_manager import ProviderManager, ProviderManagerConfig
+from .provider_manager_old import ProviderManager, ProviderManagerConfig
 from .config_validator import ConfigValidator
 from .config_manager import UnifiedConfigManager, LLMProviderConfig, ProcessingConfig, ExportConfig
 

@@ -1,0 +1,9 @@
+{
+  "content": "```json\n{\n    \"organizations\": [\n        {\n            \"organization_id\": 1,\n            \"name\": \"Центр Лабораторной Диагностики\",\n            \"inn\": null,\n            \"website\": \"centerld.ru\",\n            \"city\": null,\n            \"address\": null,\n            \"emails\": [\"sklad@centerld.ru\"],\n            \"phones\": []\n        }\n    ],\n    \"contacts\": [\n        {\n            \"contact_id\": 1,\n            \"name\": \"Бабиченко Иван Сергеевич\",\n            \"organization_id\": 1,\n            \"position\": \"Руководитель ОМТС\",\n            \"email\": null,\n            \"phones\": [\n                {\n                    \"type\": \"mobile\",\n                    \"number\": \"+7-913-399-32-72\"\n                }\n            ],\n            \"city\": null,\n            \"address\": null,\n            \"confidence\": 0.9\n        }\n    ],\n    \"business_context\": \"Клиент запрашивает информацию о сроках отгрузки товара по ранее выставленному счету на оплату. Необходимо уточнить планируемые сроки поставки для планирования дальнейших действий.\",\n    \"summary\": {\n        \"topic\": \"Доставка и логистика\",\n        \"product_interest\": \"Товар по счету №8164 от 16 июля 2025 г.\",\n        \"communication_stage\": \"Исполнение\",\n        \"request_type\": \"Наличие на складе\"\n    },\n    \"key_points\": [\n        \"Запрос сроков отгрузки товара по счету №8164 от 16 июля 2025 г.\",\n        \"Важность понимания сроков поставки для планирования\",\n        \"График работы: Пн-Пт с 9:00 до 16:00, обед с 12:00 до 13:00\"\n    ],\n    \"commercial_offers\": []\n}\n```",
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-chat-v3.1:free",
+  "tokens_used": 183,
+  "response_time": 15.690359115600586,
+  "used_provider": "OpenRouter",
+  "fallback_used": false
+}
