@@ -1,0 +1,9 @@
+{
+  "content": "{\"organizations\": [], \"contacts\": [{\"contact_id\": 1, \"name\": \"Пименова Юлия Александровна\", \"organization_id\": null, \"position\": null, \"email\": \"medic.81@mail.ru\", \"phones\": [], \"city\": null, \"address\": null, \"confidence\": 0.8}], \"business_context\": \"Краткое письмо с представлением контактного лица и email адреса\", \"summary\": {\"topic\": null, \"product_interest\": null, \"communication_stage\": \"Начальный контакт\", \"request_type\": null}, \"key_points\": [\"Представление контакта Юлии Пименовой\", \"Указан email адрес для связи\"], \"commercial_offers\": []}",
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-chat-v3.1:free",
+  "tokens_used": 71,
+  "response_time": 9.144405841827393,
+  "used_provider": "OpenRouter",
+  "fallback_used": false
+}

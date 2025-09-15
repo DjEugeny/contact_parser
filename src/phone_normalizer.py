@@ -290,3 +290,13 @@ class PhoneNormalizer:
                     stats['confidence_distribution']['low'] += 1
 
         return stats
+
+# Глобальная функция для обратной совместимости
+_normalizer_instance = None
+
+def normalize_phone(phone: str) -> Dict[str, str]:
+    """🔄 Глобальная функция нормализации телефона для обратной совместимости"""
+    global _normalizer_instance
+    if _normalizer_instance is None:
+        _normalizer_instance = PhoneNormalizer()
+    return _normalizer_instance.normalize_contact_phone(phone)

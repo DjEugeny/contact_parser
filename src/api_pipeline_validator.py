@@ -13,6 +13,7 @@ import sys
 import json
 import time
 import argparse
+import os
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Optional, Set
@@ -63,7 +64,10 @@ class SimpleReportGenerator:
         
         # Получаем данные из результата
         email_data = result.get('email_data', {})
+        # Исправляем извлечение данных - они могут быть в llm_result или extraction_result
         llm_result = result.get('llm_result', {})
+        if not llm_result and 'extraction_result' in result:
+            llm_result = result['extraction_result']
         
         # Метаданные письма
         email_from = email_data.get('from', 'Не указано')
@@ -129,12 +133,57 @@ class SimpleReportGenerator:
                 found_status = "✅ Найдено" if offer.get('found', False) else "❌ Не найдено"
                 offers_section += f"#### КП #{i}\n\n"
                 offers_section += f"- **Статус:** {found_status}\n"
-                offers_section += f"- **Общая стоимость:** {offer.get('total_cost', 0)} руб.\n\n"
+                
+                # Основная информация о КП
+                if offer.get('offer_number'):
+                    offers_section += f"- **Номер КП:** {offer.get('offer_number')}\n"
+                if offer.get('offer_date'):
+                    offers_section += f"- **Дата КП:** {offer.get('offer_date')}\n"
+                if offer.get('end_user'):
+                    offers_section += f"- **Конечный заказчик:** {offer.get('end_user')}\n"
+                if offer.get('intermediary'):
+                    offers_section += f"- **Посредник:** {offer.get('intermediary')}\n"
+                
+                # Условия
+                if offer.get('payment_terms'):
+                    offers_section += f"- **Условия оплаты:** {offer.get('payment_terms')}\n"
+                if offer.get('delivery_time'):
+                    offers_section += f"- **Срок поставки:** {offer.get('delivery_time')}\n"
+                if offer.get('delivery_terms'):
+                    offers_section += f"- **Условия доставки:** {offer.get('delivery_terms')}\n"
+                if offer.get('valid_until'):
+                    offers_section += f"- **Срок действия:** до {offer.get('valid_until')}\n"
+                
+                # Оборудование
+                equipment_items = offer.get('equipment_items', [])
+                if equipment_items:
+                    offers_section += "\n**Оборудование:**\n\n"
+                    offers_section += "| № | Модель | Артикул | Наименование | Кол-во | Цена за ед. | Цена со скидкой | НДС |\n"
+                    offers_section += "| :--: | :-- | :-- | :-- | :--: | :-- | :-- | :--: |\n"
+                    
+                    for j, item in enumerate(equipment_items, 1):
+                        model = item.get('model', '')
+                        article = item.get('article', '')
+                        name = item.get('name', '')
+                        quantity = item.get('quantity', 0)
+                        unit_price = item.get('unit_price', 0)
+                        total_price = item.get('total_price', 0)
+                        vat = item.get('vat', '')
+                        
+                        offers_section += f"| {j} | {model} | {article} | {name} | {quantity} | {unit_price:,} | {total_price:,} | {vat} |\n"
+                
+                offers_section += f"\n- **Общая стоимость:** {offer.get('total_cost', 0):,} руб.\n"
+                
+                if offer.get('comments'):
+                    offers_section += f"- **Комментарий:** {offer.get('comments')}\n"
+                
+                offers_section += "\n"
         else:
             offers_section += "❌ **Коммерческие предложения не найдены**\n"
         
         # Собираем отчет
         status = "✅ УСПЕХ" if result.get('success', False) else "❌ ОШИБКА"
+        business_context = llm_result.get('business_context', 'Контактная информация извлечена из деловой переписки.')
         
         report = f"""# Детальный отчет валидации - {result.get('filename', 'Unknown')}
 
@@ -160,7 +209,7 @@ class SimpleReportGenerator:
 ## Дополнительная информация
 
 ### Бизнес-контекст
-Контактная информация извлечена из деловой переписки.
+{business_context}
 
 ### Ключевые моменты
 - Обработано через реальный пайплайн извлечения
@@ -186,7 +235,8 @@ class APIPipelineValidator:
     def __init__(self, 
                  date: str = "2025-07-29",
                  results_dir: Optional[str] = None,
-                 reports_dir: Optional[str] = None):
+                 reports_dir: Optional[str] = None,
+                 test_mode: bool = False):
         """
         Инициализация валидатора
         
@@ -194,8 +244,10 @@ class APIPipelineValidator:
             date: Дата для обработки (по умолчанию 2025-07-29)
             results_dir: Директория для сохранения JSON результатов
             reports_dir: Директория для сохранения отчетов
+            test_mode: Режим тестирования (по умолчанию False)
         """
         self.date = date
+        self.test_mode = test_mode
         self.project_root = project_root
         
         # Пути директорий
@@ -238,6 +290,21 @@ class APIPipelineValidator:
         print(f"🎯 API Pipeline Validator для даты {date}")
         print(f"   📁 Результаты JSON: {self.results_dir}")
         print(f"   📄 Отчеты: {self.reports_dir}")
+    
+    def validate_pipeline(self, text: str) -> Dict:
+        """Валидация пайплайна с текстом для тестирования"""
+        if not self.validate_setup():
+            return {'success': False, 'error': 'Setup validation failed', 'test_mode': self.test_mode}
+        
+        if not self.processor:
+            return {'success': False, 'error': 'Processor not initialized', 'test_mode': self.test_mode}
+        
+        try:
+            result = self.processor.extract_all_data(text)
+            result['test_mode'] = self.test_mode
+            return result
+        except Exception as e:
+            return {'success': False, 'error': str(e), 'test_mode': self.test_mode}
 
     def validate_setup(self) -> bool:
         """🔍 Валидация настроек перед началом работы"""
@@ -285,21 +352,21 @@ class APIPipelineValidator:
         # Инициализация компонентов
         print("   🚀 Инициализация компонентов...")
         try:
-            # 🎯 АРХИТЕКТУРНОЕ УЛУЧШЕНИЕ: Используем паттерн из test_api_dataset.py
-            # Используем ExtractorFactory для создания экстрактора как в test_api_dataset.py
+            # 🎯 ПРАВИЛЬНАЯ АРХИТЕКТУРА: Используем ExtractorFactory как в main_new.py
             if ExtractorFactory:
-                self.processor = ExtractorFactory.create_extractor()
-                print("   ✅ Экстрактор создан через ExtractorFactory (паттерн test_api_dataset.py)")
+                self.processor = ExtractorFactory.create_extractor(test_mode=self.test_mode)
+                print(f"   ✅ Экстрактор создан через ExtractorFactory (основной пайплайн, test_mode={self.test_mode})")
+                # В тестовом режиме не переопределяем test_mode
+                if not self.test_mode and hasattr(self.processor, 'test_mode'):
+                    self.processor.test_mode = False
+                    print("   ✅ test_mode принудительно отключен в процессоре")
             else:
                 print("   ❌ ExtractorFactory недоступен")
                 return False
                 
-            if ReportGenerator:
-                self.report_generator = ReportGenerator()
-                print("   ✅ ReportGenerator инициализирован")
-            else:
-                self.report_generator = SimpleReportGenerator()
-                print("   🔄 Используем SimpleReportGenerator")
+            # 🎯 ВСЕГДА используем SimpleReportGenerator для корректного отображения данных
+            self.report_generator = SimpleReportGenerator()
+            print("   ✅ SimpleReportGenerator инициализирован (показывает реальные данные)")
                 
             if ProcessedEmailLoader:
                 self.email_loader = ProcessedEmailLoader()
@@ -579,7 +646,7 @@ class APIPipelineValidator:
 
 
     def process_single_email(self, filename: str) -> Optional[Dict]:
-        """⚡ Обработка одного письма через основной пайплайн"""
+        """⚡ Обработка одного письма через основной пайплайн - ТОНКИЙ ТЕСТОВЫЙ СЛОЙ"""
         print(f"      🔄 Обработка: {filename}")
         
         try:
@@ -593,18 +660,6 @@ class APIPipelineValidator:
                     'no_providers_available': False
                 }
             
-            # 🎯 АРХИТЕКТУРНОЕ УЛУЧШЕНИЕ: Используем паттерн из test_api_dataset.py
-            # Подготавливаем текстовое содержимое
-            text_content = self._extract_text_content(email_data)
-            
-            # Подготавливаем метаданные в соответствии со спецификацией
-            metadata = {
-                'subject': email_data.get('subject', ''),
-                'from': email_data.get('from', ''),
-                'date': email_data.get('date', ''),
-                'attachments_count': len(email_data.get('attachments', []))
-            }
-            
             # КРИТИЧЕСКАЯ ПРОВЕРКА: есть ли доступные провайдеры через основной пайплайн
             if not self.processor:
                 print(f"      ❌ Процессор не инициализирован")
@@ -615,13 +670,15 @@ class APIPipelineValidator:
                     'no_providers_available': True
                 }
             
-            # 🎯 ГЛАВНОЕ УЛУЧШЕНИЕ: Используем метод extract_all_data() как в test_api_dataset.py
+            # 🎯 ПРАВИЛЬНАЯ АРХИТЕКТУРА: Подготавливаем текстовое содержимое через основной пайплайн
+            text_content = self._extract_text_content_via_main_pipeline(email_data)
+            
             print(f"      🤖 Обработка через основной пайплайн ({len(text_content)} символов)...")
             print(f"      📎 Вложений: {len(email_data.get('attachments', []))}")
             
             start_time = time.time()
             try:
-                # Делегируем обработку основному пайплайну точно как в test_api_dataset.py
+                # 🎯 ПОЛНОЕ ДЕЛЕГИРОВАНИЕ: Используем основной пайплайн как в main_new.py
                 result = self.processor.extract_all_data(text_content)
                     
             except Exception as extract_error:
@@ -635,9 +692,8 @@ class APIPipelineValidator:
             
             processing_time = time.time() - start_time
             
-            # 🔧 УЛУЧШЕНИЕ: Проверяем успешность по наличию данных
+            # Проверяем успешность по наличию данных
             if result and (result.get('organizations') or result.get('contacts') or result.get('commercial_offers')):
-                success = True
                 print(f"      ✅ Обработано успешно за {processing_time:.2f}с")
                 print(f"         - Организации: {len(result.get('organizations', []))}")
                 print(f"         - Контакты: {len(result.get('contacts', []))}")
@@ -650,7 +706,8 @@ class APIPipelineValidator:
                         'subject': email_data.get('subject', ''),
                         'date': email_data.get('date', ''),
                         'attachments_count': len(email_data.get('attachments', [])),
-                        'char_count': len(text_content)
+                        'char_count': len(text_content),
+                        'attachments': email_data.get('attachments', [])  # Добавляем информацию о вложениях
                     },
                     'llm_result': result,
                     'processing_time': processing_time,
@@ -675,7 +732,8 @@ class APIPipelineValidator:
                         'subject': email_data.get('subject', ''),
                         'date': email_data.get('date', ''),
                         'attachments_count': len(email_data.get('attachments', [])),
-                        'char_count': len(text_content)
+                        'char_count': len(text_content),
+                        'attachments': email_data.get('attachments', [])  # Добавляем информацию о вложениях
                     },
                     'llm_result': result or {},
                     'processing_time': processing_time,
@@ -694,37 +752,105 @@ class APIPipelineValidator:
                 'error': str(e)
             }
     
-    def _extract_text_content(self, email_data: Dict) -> str:
-        """📄 Извлечение текстового содержимого (паттерн из test_api_dataset.py)"""
+    def _extract_text_content_via_main_pipeline(self, email_data: Dict) -> str:
+        """📄 Извлечение текстового содержимого через основной пайплайн с OCR"""
         content_parts = []
         
-        # Основное тело письма
-        if 'body' in email_data and email_data['body']:
-            content_parts.append(f"Тело письма:\n{email_data['body']}")
+        # Основной текст письма
+        if email_data.get('body'):
+            content_parts.append(f"=== ТЕКСТ ПИСЬМА ===\n{email_data['body']}")
+        
+        # 🎯 ПРАВИЛЬНАЯ АРХИТЕКТУРА: Обработка вложений через OCR сервис основного пайплайна
+        attachments = email_data.get('attachments', [])
+        if attachments:
+            print(f"      📎 Обработка {len(attachments)} вложений через основной пайплайн...")
             
-        # Информация об отправителе
-        if 'from' in email_data:
-            content_parts.append(f"От: {email_data['from']}")
-            
-        # Тема письма
-        if 'subject' in email_data:
-            content_parts.append(f"Тема: {email_data['subject']}")
-            
-        # Информация о вложениях
-        if 'attachments' in email_data and email_data['attachments']:
-            attachments_info = "Вложения:\n"
-            for att in email_data['attachments']:
-                if isinstance(att, dict):
-                    name = att.get('filename', 'Неизвестно')
-                    size = att.get('size', 'Неизвестно')
-                    attachments_info += f"- {name} ({size} байт)\n"
+            # Импортируем OCR сервис из основного пайплайна
+            try:
+                from src.services import OCRService
+                ocr_service = OCRService()
+                
+                for i, attachment in enumerate(attachments, 1):
+                    attachment_name = attachment.get('original_filename', attachment.get('filename', f'attachment_{i}'))
+                    # 🔧 ИСПРАВЛЕНИЕ: Используем правильный ключ для пути к файлу
+                    attachment_path = attachment.get('file_path', attachment.get('path', ''))
                     
-                    # Добавляем содержимое вложения если есть
-                    if 'content' in att and att['content']:
-                        attachments_info += f"  Содержимое: {att['content'][:500]}...\n"
-                        
-            content_parts.append(attachments_info)
-            
+                    # Проверяем статус вложения - обрабатываем только сохраненные файлы
+                    attachment_status = attachment.get('status', 'unknown')
+                    if attachment_status in ['excluded_by_filter', 'excluded_by_size', 'unsupported']:
+                        print(f"        ⏭️  Пропуск вложения: {attachment_name} (статус: {attachment_status})")
+                        continue
+                    
+                    # Формируем полный путь к файлу
+                    if attachment_path:
+                        if not attachment_path.startswith('/'):
+                            # Относительный путь - добавляем корень проекта
+                            full_attachment_path = os.path.join(project_root, attachment_path)
+                        else:
+                            full_attachment_path = attachment_path
+                    else:
+                        full_attachment_path = ''
+                    
+                    if not full_attachment_path:
+                        print(f"        ⚠️  Путь к файлу не указан: {attachment_name} (статус: {attachment_status})")
+                        continue
+                    
+                    if os.path.exists(full_attachment_path):
+                        try:
+                            # 🎯 ДЕЛЕГИРОВАНИЕ: Используем OCR сервис для извлечения текста
+                            print(f"        🔍 Обработка файла: {full_attachment_path}")
+                            ocr_result = ocr_service.test_single_file(Path(full_attachment_path))
+                            if ocr_result and ocr_result.get('text'):
+                                extracted_text = ocr_result['text']
+                                content_parts.append(f"\n=== ВЛОЖЕНИЕ {i}: {attachment_name} ===\n{extracted_text}")
+                                print(f"        ✅ OCR обработка: {attachment_name} ({len(extracted_text)} символов)")
+                            else:
+                                print(f"        ⚠️  OCR не смог извлечь текст: {attachment_name}")
+                        except Exception as ocr_error:
+                            print(f"        ❌ Ошибка OCR для {attachment_name}: {ocr_error}")
+                            # Fallback: пытаемся использовать готовый текст
+                            attachment_content = attachment.get('content', '')
+                            if attachment_content and isinstance(attachment_content, str):
+                                content_parts.append(f"\n=== ВЛОЖЕНИЕ {i}: {attachment_name} ===\n{attachment_content}")
+                                print(f"        ✅ Fallback текст: {attachment_name} ({len(attachment_content)} символов)")
+                    else:
+                        # Fallback: используем готовый текст если путь недоступен
+                        attachment_content = attachment.get('content', '')
+                        if attachment_content and isinstance(attachment_content, str):
+                            content_parts.append(f"\n=== ВЛОЖЕНИЕ {i}: {attachment_name} ===\n{attachment_content}")
+                            print(f"        ✅ Готовый текст: {attachment_name} ({len(attachment_content)} символов)")
+                        else:
+                            print(f"        ⚠️  Нет доступного текста: {attachment_name}")
+                            
+            except ImportError as import_error:
+                print(f"        ❌ Не удалось импортировать OCR сервис: {import_error}")
+                # Fallback: используем старый метод
+                return self._extract_text_content_fallback(email_data)
+        
+        combined_content = "\n\n".join(content_parts)
+        print(f"      📊 Общий объем текста: {len(combined_content)} символов")
+        
+        return combined_content
+    
+    def _extract_text_content_fallback(self, email_data: Dict) -> str:
+        """📄 Fallback метод извлечения текста без OCR"""
+        content_parts = []
+        
+        # Основной текст письма
+        if email_data.get('body'):
+            content_parts.append(f"=== ТЕКСТ ПИСЬМА ===\n{email_data['body']}")
+        
+        # Простая обработка вложений без OCR
+        attachments = email_data.get('attachments', [])
+        if attachments:
+            for i, attachment in enumerate(attachments, 1):
+                attachment_name = attachment.get('filename', f'attachment_{i}')
+                attachment_content = attachment.get('content', '')
+                
+                if attachment_content and isinstance(attachment_content, str) and len(attachment_content.strip()) > 0:
+                    content_parts.append(f"\n=== ВЛОЖЕНИЕ {i}: {attachment_name} ===\n{attachment_content}")
+                    print(f"        ✅ Fallback текст: {attachment_name} ({len(attachment_content)} символов)")
+        
         return "\n\n".join(content_parts)
 
     def save_structured_result(self, result: Dict, filename: str) -> bool:
@@ -732,6 +858,9 @@ class APIPipelineValidator:
         try:
             # КРИТИЧЕСКАЯ ПРОВЕРКА: проверяем все возможные индикаторы ошибок
             llm_result = result.get('llm_result', {})
+            # Исправляем извлечение данных - они могут быть в llm_result или extraction_result
+            if not llm_result and 'extraction_result' in result:
+                llm_result = result['extraction_result']
             
             # Проверка 1: флаг no_providers_available
             if result.get('no_providers_available'):

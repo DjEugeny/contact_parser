@@ -1,0 +1,9 @@
+{
+  "content": "```json\n{\n  \"organizations\": [],\n  \"contacts\": [],\n  \"business_context\": \"Текст для анализа не содержит значимой информации для извлечения контактов и организаций\",\n  \"summary\": {\n    \"topic\": null,\n    \"product_interest\": null,\n    \"communication_stage\": null,\n    \"request_type\": null\n  },\n  \"key_points\": [],\n  \"commercial_offers\": []\n}\n```",
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-chat-v3.1:free",
+  "tokens_used": 46,
+  "response_time": 5.48892617225647,
+  "used_provider": "OpenRouter",
+  "fallback_used": false
+}

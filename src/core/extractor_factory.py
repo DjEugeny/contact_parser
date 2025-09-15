@@ -78,7 +78,8 @@ class ExtractorFactory:
             json_validator=json_validator,
             chunking_config=chunking_config,
             retry_config=retry_config,
-            prompts_dir=prompts_dir
+            prompts_dir=prompts_dir,
+            test_mode=test_mode
         )
 
         # 6. Создание и возврат экстрактора

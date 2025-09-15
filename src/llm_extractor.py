@@ -1569,7 +1569,31 @@ class ContactExtractor:
                         'confidence': 0.95
                     }],
                     'business_context': 'Тестовый бизнес-контекст',
-                    'commercial_offers': [],
+                    'commercial_offers': [{
+                        'found': True,
+                        'offer_type': 'Приборы',
+                        'offer_number': 'КП-TEST-001',
+                        'offer_date': '2025-01-26',
+                        'end_user': 'Тестовая Лаборатория',
+                        'end_user_inn': '1234567890',
+                        'intermediary': 'Тестовый Менеджер',
+                        'intermediary_date': 'г. Москва, ООО "Тест", менеджер, +7 (495) 123-45-67, test@test.ru',
+                        'payment_terms': '100% предоплата',
+                        'delivery_time': '14 дней',
+                        'delivery_terms': 'EXW Москва',
+                        'valid_until': '2025-02-26',
+                        'equipment_items': [{
+                            'name': 'Тестовый Амплификатор',
+                            'model': 'TEST-96',
+                            'article': 'TEST-001',
+                            'quantity': 1,
+                            'unit_price': 1000000,
+                            'total_price': 1000000,
+                            'vat': '20%'
+                        }],
+                        'total_cost': 1000000,
+                        'comments': 'Тестовое коммерческое предложение для проверки качества LLM'
+                    }],
                     'provider_used': 'Test Mode'
                 }
 

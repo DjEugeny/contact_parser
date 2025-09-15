@@ -50,6 +50,7 @@ class ExtractorConfig:
     chunking_config: ChunkingConfig = field(default_factory=ChunkingConfig)
     retry_config: RetryConfig = field(default_factory=RetryConfig)
     prompts_dir: Optional[Path] = None
+    test_mode: bool = False
 
 
 class ContactExtractor:
@@ -65,6 +66,7 @@ class ContactExtractor:
 
     def __init__(self, config: ExtractorConfig):
         self.config = config
+        self.test_mode = config.test_mode
 
         # Расширенная статистика
         self.stats = {
@@ -148,6 +150,43 @@ class ContactExtractor:
             }
         """
         self.stats['total_requests'] += 1
+
+        # Тестовый режим - возвращаем заранее подготовленный результат
+        if self.test_mode:
+            print("🧪 Тестовый режим: возвращаем тестовые данные")
+            return {
+                'contacts': [{
+                    'name': 'Тестовый Контакт',
+                    'email': 'test@example.com',
+                    'phone': '+7 (999) 123-45-67',
+                    'organization': 'Тестовая Организация',
+                    'position': 'Тестовая Должность',
+                    'city': 'Тестовый Город',
+                    'website': 'https://test.example.com',
+                    'inn': '1234567890',
+                    'confidence': 0.95
+                }],
+                'business_context': 'Тестовый бизнес-контекст для демонстрации',
+                'commercial_offers': [{
+                    'title': 'Тестовое предложение',
+                    'description': 'Описание тестового коммерческого предложения',
+                    'price': '100000 руб.',
+                    'confidence': 0.9
+                }],
+                'organizations': [{
+                    'name': 'Тестовая Организация',
+                    'inn': '1234567890',
+                    'website': 'https://test.example.com',
+                    'confidence': 0.95
+                }],
+                'provider_used': 'test_mode',
+                'processing_time': 0.1,
+                'text_length': len(text),
+                'chunks_processed': 1,
+                'total_contacts_found': 1,
+                'unique_contacts_found': 1,
+                'test_mode': True
+            }
 
         try:
             # 🧠 Проверяем размер текста и оптимизируем память (Фаза 6)

@@ -1101,10 +1101,18 @@ class OCRProcessor:
 
         # Разбираем имя файла для извлечения оригинального имени без временных меток
         parts = file_stem.split('_')
-        if len(parts) >= 4 and parts[-2] == 'attach':
+        
+        # Ищем позицию 'attach' в частях имени файла
+        attach_index = -1
+        for i, part in enumerate(parts):
+            if part == 'attach':
+                attach_index = i
+                break
+        
+        if attach_index != -1 and attach_index < len(parts) - 1:
             # Это файл вложения с правильным форматом
             # Извлекаем оригинальное имя: все после '_attach_'
-            original_name = '_'.join(parts[3:])  # parts[3:] содержит оригинальное имя
+            original_name = '_'.join(parts[attach_index + 1:])
             self.logger.debug(f"Распознано имя вложения: {original_name}")
 
             # Ищем все файлы, содержащие оригинальное имя

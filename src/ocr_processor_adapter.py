@@ -143,6 +143,15 @@ class OCRProcessorAdapter:
     def combine_email_with_attachments(self, email: Dict, attachments_result: Dict) -> str:
         """🔗 Объединение текста письма с содержимым вложений"""
         
+        # Проверка входных данных
+        if not isinstance(email, dict):
+            print("⚠️ Некорректный формат письма, используем пустой объект")
+            email = {}
+        
+        if not isinstance(attachments_result, dict):
+            print("⚠️ Некорректный формат результатов вложений, используем пустой объект")
+            attachments_result = {}
+        
         # Базовый текст письма
         email_text = email.get('body', '') or email.get('text', '') or ''
         
