@@ -1,9 +1,0 @@
-{
-  "content": "```json\n{\n    \"organizations\": [],\n    \"contacts\": [\n        {\n            \"contact_id\": 1,\n            \"name\": \"Пименова Юлия Александровна\",\n            \"organization_id\": null,\n            \"position\": null,\n            \"email\": \"medic.81@mail.ru\",\n            \"phones\": [],\n            \"city\": null,\n            \"address\": null,\n            \"confidence\": 0.9\n        }\n    ],\n    \"business_context\": \"Переписка по теме отгрузки наборов Фемофлор®II, содержит анкету участника для клиники в Новосибирске\",\n    \"summary\": {\n        \"topic\": \"Доставка и логистика\",\n        \"product_interest\": \"Наборы реагентов Фемофлор®II\",\n        \"communication_stage\": \"Исполнение\",\n        \"request_type\": \"Условия поставки\"\n    },\n    \"key_points\": [\n        \"Обсуждается начало отгрузки наборов Фемофлор®II\",\n        \"Участие клиники в программе (анкета участника)\",\n        \"Клиника расположена в Новосибирске\"\n    ],\n    \"commercial_offers\": []\n}\n```",
-  "provider": "openrouter",
-  "model": "deepseek/deepseek-chat-v3.1:free",
-  "tokens_used": 105,
-  "response_time": 9.510059118270874,
-  "used_provider": "OpenRouter",
-  "fallback_used": false
-}

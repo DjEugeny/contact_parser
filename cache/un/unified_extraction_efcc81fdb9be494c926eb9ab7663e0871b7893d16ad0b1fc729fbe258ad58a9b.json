@@ -1,9 +1,0 @@
-{
-  "content": "{\"organizations\": [], \"contacts\": [{\"contact_id\": 1, \"name\": \"Пименова Юлия Александровна\", \"organization_id\": null, \"position\": null, \"email\": \"medic.81@mail.ru\", \"phones\": [], \"city\": null, \"address\": null, \"confidence\": 0.8}], \"business_context\": \"Переписка по теме отгрузки наборов Фемофлор®II. Вложение содержит анкету участника для МСЧ Клиницист-Клиника Претор г. Новосибирск.\", \"summary\": {\"topic\": \"Сервисное обслуживание\", \"product_interest\": \"Наборы реагентов Фемофлор®II\", \"communication_stage\": \"Исполнение\", \"request_type\": \"Документация\"}, \"key_points\": [\"Отгрузка наборов Фемофлор®II\", \"Анкета участника для МСЧ Клиницист-Клиника Претор\", \"Город Новосибирск\"], \"commercial_offers\": []}",
-  "provider": "openrouter",
-  "model": "deepseek/deepseek-chat-v3.1:free",
-  "tokens_used": 85,
-  "response_time": 10.868151903152466,
-  "used_provider": "OpenRouter",
-  "fallback_used": false
-}

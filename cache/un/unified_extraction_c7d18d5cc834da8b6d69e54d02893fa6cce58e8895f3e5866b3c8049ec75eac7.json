@@ -1,9 +1,0 @@
-{
-  "content": "{\"organizations\": [{\"organization_id\": 1, \"name\": \"ДНК-Технология\", \"inn\": null, \"website\": \"dna-technology.ru\", \"city\": null, \"address\": null, \"emails\": [\"m.gogoleva@dna-technology.ru\", \"s.voronova@dna-technology.ru\"], \"phones\": []}], \"contacts\": [{\"contact_id\": 1, \"name\": \"Пименова Юлия Александровна\", \"organization_id\": null, \"position\": null, \"email\": \"medic.81@mail.ru\", \"phones\": [], \"city\": null, \"address\": null, \"confidence\": 0.8}], \"business_context\": \"Переписка между клиникой и компанией ДНК-Технология по вопросам отгрузки наборов Фемофлор®II. Приложена анкета участника МСЧ Клиницист для клиники Претор из Новосибирска.\", \"summary\": {\"topic\": \"Доставка и логистика\", \"product_interest\": \"Наборы Фемофлор®II\", \"communication_stage\": \"Исполнение\", \"request_type\": \"Условия поставки\"}, \"key_points\": [\"Обсуждается начало отгрузки наборов Фемофлор®II\", \"Клиника из Новосибирска участвует в программе МСЧ Клиницист\", \"Приложена анкета участника для клиники Претор\"], \"commercial_offers\": []}",
-  "provider": "openrouter",
-  "model": "deepseek/deepseek-chat-v3.1:free",
-  "tokens_used": 124,
-  "response_time": 31.151051998138428,
-  "used_provider": "OpenRouter",
-  "fallback_used": false
-}

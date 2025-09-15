@@ -1,9 +1,0 @@
-{
-  "content": "```json\n{\n    \"organizations\": [\n        {\n            \"organization_id\": 1,\n            \"name\": \"Тестовая компания\",\n            \"inn\": null,\n            \"website\": null,\n            \"city\": null,\n            \"address\": null,\n            \"emails\": [\"test@company.ru\"],\n            \"phones\": [\"+7 (495) 123-45-67\"]\n        }\n    ],\n    \"contacts\": [],\n    \"business_context\": \"В тексте представлены только контактные данные организации без указания конкретных лиц и бизнес-контекста\",\n    \"summary\": {\n        \"topic\": null,\n        \"product_interest\": null,\n        \"communication_stage\": null,\n        \"request_type\": null\n    },\n    \"key_points\": [],\n    \"commercial_offers\": []\n}\n```",
-  "provider": "openrouter",
-  "model": "deepseek/deepseek-chat-v3.1:free",
-  "tokens_used": 76,
-  "response_time": 17.221245050430298,
-  "used_provider": "OpenRouter",
-  "fallback_used": false
-}

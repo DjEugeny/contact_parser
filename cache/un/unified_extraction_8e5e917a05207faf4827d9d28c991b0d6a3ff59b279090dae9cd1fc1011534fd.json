@@ -1,0 +1,9 @@
+{
+  "content": "{\"organizations\": [{\"organization_id\": 1, \"name\": \"ДНК-Технология\", \"inn\": null, \"website\": \"dna-technology.ru\", \"city\": \"Москва\", \"address\": \"Варшавское шоссе, дом 125Ж, корпус 5\", \"emails\": [], \"phones\": []}], \"contacts\": [{\"contact_id\": 1, \"name\": \"Гоголева Мария Михайловна\", \"organization_id\": 1, \"position\": \"Менеджер по продаже оборудования\", \"email\": \"m.gogoleva@dna-technology.ru\", \"phones\": [{\"type\": \"office\", \"number\": \"+7 (495) 640-17-71 (доб. 2030)\"}], \"city\": \"Москва\", \"address\": \"Варшавское шоссе, дом 125Ж, корпус 5\", \"confidence\": 0.95}, {\"contact_id\": 2, \"name\": \"Юлия Александровна Пименова\", \"organization_id\": null, \"position\": null, \"email\": \"medic.81@mail.ru\", \"phones\": [], \"city\": null, \"address\": null, \"confidence\": 0.8}], \"business_context\": \"Переписка между менеджером по продажам ООО \\\"ДНК-Технология\\\" и потенциальным клиентом по поводу коммерческого предложения на лабораторное оборудование и реагенты для молекулярно-генетических исследований.\", \"summary\": {\"topic\": \"Коммерческое предложение\", \"product_interest\": \"Лабораторное оборудование, ПО и реагенты для молекулярно-генетических исследований (ПЦР, NGS)\", \"communication_stage\": \"Начальный контакт\", \"request_type\": \"Запрос цены\"}, \"key_points\": [\"Отправлено коммерческое предложение во вложении\", \"Компания специализируется на разработке и производстве лабораторного оборудования для ПЦР и NGS исследований\", \"Контактное лицо от ДНК-Технологии - менеджер по продажам Мария Гоголева\"], \"commercial_offers\": []}",
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-chat-v3.1:free",
+  "tokens_used": 198,
+  "response_time": 16.537369966506958,
+  "used_provider": "OpenRouter",
+  "fallback_used": false
+}

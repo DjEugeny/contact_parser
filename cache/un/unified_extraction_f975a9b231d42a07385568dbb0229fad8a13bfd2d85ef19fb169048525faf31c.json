@@ -1,9 +1,0 @@
-{
-  "content": "{\n  \"contacts\": [\n    {\n      \"name\": \"Бабиченко Иван Сергеевич\",\n      \"phone\": \"+7-913-399-32-72\",\n      \"email\": \"sklad@centerld.ru\",\n      \"organization\": \"Центр Лабораторной Диагностики\",\n      \"position\": \"Руководитель ОМТС\",\n      \"inn\": null,\n      \"website\": null,\n      \"city\": \"Новосибирск\",\n      \"confidence\": 0.95\n    }\n  ],\n  \"business_context\": \"Запрос информации о сроках отгрузки товара по конкретному счету на оплату. Клиент уточняет планируемые сроки поставки оборудования.\",\n  \"summary\": {\n    \"topic\": \"Доставка и логистика\",\n    \"product_interest\": \"Товар по счету №8164 от 16.07.2025\",\n    \"communication_stage\": \"Исполнение\",\n    \"request_type\": \"Наличие на складе\"\n  },\n  \"key_points\": [\n    \"Номер счета: 8164 от 16 июля 2025 г.\",\n    \"Требуется уточнение сроков отгрузки товара\",\n    \"Важность понимания сроков поставки для клиента\",\n    \"Адрес доставки: г. Новосибирск, ул. Народная, 3\"\n  ],\n  \"commercial_offers\": []\n}",
-  "provider": "openrouter",
-  "model": "deepseek/deepseek-chat-v3.1:free",
-  "tokens_used": 128,
-  "response_time": 10.185894966125488,
-  "used_provider": "OpenRouter",
-  "fallback_used": false
-}

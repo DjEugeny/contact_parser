@@ -1,0 +1,9 @@
+{
+  "content": "```json\n{\n    \"organizations\": [\n        {\n            \"organization_id\": 1,\n            \"name\": \"ДНК-Технология\",\n            \"inn\": null,\n            \"website\": \"www.dna-technology.ru\",\n            \"city\": null,\n            \"address\": null,\n            \"emails\": [],\n            \"phones\": []\n        }\n    ],\n    \"contacts\": [\n        {\n            \"contact_id\": 1,\n            \"name\": \"Билалов Альберт Аглямович\",\n            \"organization_id\": 1,\n            \"position\": \"зам. начальника отдела продаж\",\n            \"email\": \"bilalov@dna-technology.ru\",\n            \"phones\": [\n                {\n                    \"type\": \"main\",\n                    \"number\": \"+7 (495) 640-17-71, доб.2031\"\n                }\n            ],\n            \"city\": null,\n            \"address\": null,\n            \"confidence\": 0.9\n        }\n    ],\n    \"business_context\": \"Передача закрывающих документов (акт и УПД) от сотрудника ООО \\\"ДНК-Технология\\\" получателю. Документы датированы 23 июля.\",\n    \"summary\": {\n        \"topic\": \"Документация\",\n        \"product_interest\": null,\n        \"communication_stage\": \"Исполнение\",\n        \"request_type\": null\n    },\n    \"key_points\": [\n        \"Переданы акт и УПД\",\n        \"Дата документов: 23 июля\",\n        \"Документы переданы от ООО \\\"ДНК-Технология\\\"\"\n    ],\n    \"commercial_offers\": []\n}\n```",
+  "provider": "openrouter",
+  "model": "deepseek/deepseek-chat-v3.1:free",
+  "tokens_used": 140,
+  "response_time": 13.85594892501831,
+  "used_provider": "OpenRouter",
+  "fallback_used": false
+}

@@ -1,9 +1,0 @@
-{
-  "content": "```json\n{\n    \"organizations\": [\n        {\n            \"organization_id\": 1,\n            \"name\": \"ДНК-Технология\",\n            \"inn\": null,\n            \"website\": \"dna-technology.ru\",\n            \"city\": null,\n            \"address\": null,\n            \"emails\": [],\n            \"phones\": []\n        }\n    ],\n    \"contacts\": [\n        {\n            \"contact_id\": 1,\n            \"name\": \"Билалов Альберт Аглямович\",\n            \"organization_id\": 1,\n            \"position\": \"зам. начальника отдела продаж\",\n            \"email\": \"bilalov@dna-technology.ru\",\n            \"phones\": [\n                {\n                    \"type\": \"main\",\n                    \"number\": \"+7 (495) 640-17-71, доб.2031\"\n                }\n            ],\n            \"city\": null,\n            \"address\": null,\n            \"confidence\": 0.95\n        }\n    ],\n    \"business_context\": \"Переписка касается отправки акта и УПД от 23 июля. Представитель компании ДНК-Технология отправляет закрывающие документы.\",\n    \"summary\": {\n        \"topic\": \"Документация\",\n        \"product_interest\": \"Не указано\",\n        \"communication_stage\": \"Исполнение\",\n        \"request_type\": \"Документация\"\n    },\n    \"key_points\": [\n        \"Отправлены акт и УПД с датой 23 июля\",\n        \"Документы без названия\",\n        \"Контактное лицо - Билалов Альберт Аглямович, зам. начальника отдела продаж\"\n    ],\n    \"commercial_offers\": []\n}\n```",
-  "provider": "openrouter",
-  "model": "deepseek/deepseek-chat-v3.1:free",
-  "tokens_used": 152,
-  "response_time": 18.817311763763428,
-  "used_provider": "OpenRouter",
-  "fallback_used": false
-}

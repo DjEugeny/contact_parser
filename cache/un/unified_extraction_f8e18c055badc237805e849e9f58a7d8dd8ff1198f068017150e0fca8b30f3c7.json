@@ -1,9 +1,0 @@
-{
-  "content": "{\n  \"contacts\": [\n    {\n      \"name\": \"Присяжнюк Маргарита Александровна\",\n      \"phone\": null,\n      \"email\": \"prisyazhnyuk@dna-technology.ru\",\n      \"organization\": \"DNA Technology\",\n      \"position\": null,\n      \"inn\": null,\n      \"website\": null,\n      \"city\": null,\n      \"confidence\": 0.95\n    },\n    {\n      \"name\": \"Гоголева Мария\",\n      \"phone\": null,\n      \"email\": \"m.gogoleva@dna-technology.ru\",\n      \"organization\": \"DNA Technology\",\n      \"position\": null,\n      \"inn\": null,\n      \"website\": null,\n      \"city\": null,\n      \"confidence\": 0.95\n    },\n    {\n      \"name\": \"Юлия Евгеньевна\",\n      \"phone\": \"+7-960-048-63-74\",\n      \"email\": \"086975@bk.ru\",\n      \"organization\": \"ООО Агрохим\",\n      \"position\": \"Специалист компании\",\n      \"inn\": null,\n      \"website\": null,\n      \"city\": \"Казань\",\n      \"confidence\": 0.95\n    }\n  ],\n  \"business_context\": \"Запрос коммерческого предложения на амплификатор для вирусологической лаборатории конечного пользователя - ФБУЗ Центр гигиены и эпидемиологии в Республике Хакасия. Обращение от компании-посредника ООО Агрохим.\",\n  \"summary\": {\n    \"topic\": \"Закупка оборудования\",\n    \"product_interest\": \"Амплификатор на 6 каналов\",\n    \"communication_stage\": \"Сбор информации\",\n    \"request_type\": \"Запрос цены\"\n  },\n  \"key_points\": [\n    \"Требуется амплификатор на 6 каналов - 1 шт.\",\n    \"Конечный пользователь: ФБУЗ Центр гигиены и эпидемиологии в Республике Хакасия\",\n    \"ИНН конечного пользователя: 1901066506\",\n    \"Назначение: для вирусологической лаборатории\"\n  ],\n  \"commercial_offers\": []\n}",
-  "provider": "openrouter",
-  "model": "deepseek/deepseek-chat-v3.1:free",
-  "tokens_used": 189,
-  "response_time": 15.866482973098755,
-  "used_provider": "OpenRouter",
-  "fallback_used": false
-}

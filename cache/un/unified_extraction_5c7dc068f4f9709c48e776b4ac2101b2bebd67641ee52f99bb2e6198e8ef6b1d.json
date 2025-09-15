@@ -1,9 +1,0 @@
-{
-  "content": "```json\n{\n    \"organizations\": [],\n    \"contacts\": [\n        {\n            \"contact_id\": 1,\n            \"name\": \"Пименова Юлия Александровна\",\n            \"organization_id\": null,\n            \"position\": null,\n            \"email\": \"medic.81@mail.ru\",\n            \"phones\": [],\n            \"city\": null,\n            \"address\": null,\n            \"confidence\": 0.9\n        }\n    ],\n    \"business_context\": \"Краткое приветственное сообщение с контактной информацией\",\n    \"summary\": {\n        \"topic\": null,\n        \"product_interest\": null,\n        \"communication_stage\": \"Начальный контакт\",\n        \"request_type\": null\n    },\n    \"key_points\": [],\n    \"commercial_offers\": []\n}\n```",
-  "provider": "openrouter",
-  "model": "deepseek/deepseek-chat-v3.1:free",
-  "tokens_used": 70,
-  "response_time": 11.811933994293213,
-  "used_provider": "OpenRouter",
-  "fallback_used": false
-}

@@ -177,358 +177,7 @@ class SimpleReportGenerator:
         pass
 
 
-class RealLLMProcessor:
-    """🤖 Реальный LLM процессор с подключением к LLM API провайдерам"""
-    
-    def __init__(self):
-        self.project_root = Path(__file__).parent.parent
-        self.prompts_dir = self.project_root / "prompts"
-        self.stats = {'requests_made': 0, 'successful_requests': 0, 'failed_requests': 0}
-        
-        # Инициализация реального LLM экстрактора
-        try:
-            from src.core.extractor_factory import ExtractorFactory
-            self.llm_extractor = ExtractorFactory.create_extractor(test_mode=False)
-            print("      ✅ Реальный LLM экстрактор инициализирован")
-        except ImportError as e:
-            print(f"      ⚠️ Не удалось импортировать ExtractorFactory: {e}")
-            self.llm_extractor = None
-            
-        # Если экстрактор недоступен, создаем простую HTTP реализацию
-        if not self.llm_extractor:
-            self._setup_direct_api_client()
-            
-    def _setup_direct_api_client(self):
-        """🔧 Настройка прямого API клиента для LLM запросов"""
-        import os
-        
-        # Проверяем доступные API ключи
-        self.api_providers = []
-        
-        # OpenRouter
-        if os.getenv('OPENROUTER_API_KEY'):
-            self.api_providers.append({
-                'name': 'OpenRouter',
-                'api_key': os.getenv('OPENROUTER_API_KEY'),
-                'model': os.getenv('OPENROUTER_MODEL', 'qwen/qwen3-235b-a22b:free'),
-                'base_url': 'https://openrouter.ai/api/v1/chat/completions',
-                'headers': {
-                    'Authorization': f'Bearer {os.getenv("OPENROUTER_API_KEY")}',
-                    'Content-Type': 'application/json',
-                    'HTTP-Referer': 'https://localhost:3000',
-                    'X-Title': 'API Pipeline Validator'
-                }
-            })
-            
-        # Replicate
-        if os.getenv('REPLICATE_API_KEY'):
-            self.api_providers.append({
-                'name': 'Replicate',
-                'api_key': os.getenv('REPLICATE_API_KEY'),
-                'model': os.getenv('REPLICATE_MODEL', 'meta/llama-3.1-8b-instant'),
-                'base_url': 'https://api.replicate.com/v1/predictions',
-                'headers': {
-                    'Authorization': f'Bearer {os.getenv("REPLICATE_API_KEY")}',
-                    'Content-Type': 'application/json'
-                }
-            })
-            
-        if not self.api_providers:
-            print("      ⚠️ Нет доступных API ключей для LLM провайдеров")
-            print("      🔄 Будет использоваться fallback режим с regex извлечением")
-        else:
-            print(f"      ✅ Настроено {len(self.api_providers)} LLM провайдеров")
-            
-    def _load_prompt(self, filename: str = "unified_contact_extraction_structured.txt") -> str:
-        """📄 Загрузка промпта из файла"""
-        prompt_path = self.prompts_dir / filename
-        if prompt_path.exists():
-            try:
-                with open(prompt_path, 'r', encoding='utf-8') as f:
-                    return f.read().strip()
-            except Exception as e:
-                print(f"      ⚠️ Ошибка чтения промпта: {e}")
-        return self._get_default_prompt()
-    
-    def _get_default_prompt(self) -> str:
-        """📋 Стандартный промпт для извлечения контактов"""
-        return '''Анализируй данный текст письма и верни только валидный JSON с информацией о:
 
-1. Организациях (organizations)
-2. Контактных лицах (contacts)  
-3. Коммерческих предложениях (commercial_offers)
-
-СТРОГО соблюдай этот формат JSON:
-{
-  "organizations": [
-    {
-      "organization_id": 1,
-      "name": "Название организации",
-      "inn": "ИНН (10-12 цифр)",
-      "website": "сайт или null",
-      "emails": ["email1@domain.ru"],
-      "phones": ["+7-xxx-xxx-xx-xx"]
-    }
-  ],
-  "contacts": [
-    {
-      "contact_id": 1,
-      "name": "Имя Фамилия",
-      "organization_id": 1,
-      "email": "email@domain.ru",
-      "phones": [{"type": "mobile", "number": "+7-xxx-xxx-xx-xx"}],
-      "position": "Должность",
-      "confidence": 0.95
-    }
-  ],
-  "commercial_offers": [
-    {
-      "found": true,
-      "equipment_items": ["название оборудования"],
-      "total_cost": 1000000
-    }
-  ]
-}
-
-Верни ТОЛЬКО JSON, без дополнительного текста.
-
-Текст для анализа:
-{text}'''
-        
-    def _make_llm_request(self, text: str) -> dict:
-        """🚀 Отправка запроса к LLM API"""
-        try:
-            import requests
-            import json
-        except ImportError:
-            print("      ❌ Модуль requests не доступен, используем fallback")
-            return self._make_simple_extraction(text)
-            
-        prompt = self._load_prompt()
-        formatted_prompt = prompt.format(text=text[:15000])  # Ограничиваем размер текста
-        
-        for provider in self.api_providers:
-            try:
-                print(f"      🔄 Попытка запроса к {provider['name']}...")
-                
-                if provider['name'] == 'OpenRouter':
-                    payload = {
-                        "model": provider['model'],
-                        "messages": [
-                            {"role": "user", "content": formatted_prompt}
-                        ],
-                        "temperature": 0.1,
-                        "max_tokens": 4000
-                    }
-                    
-                    response = requests.post(
-                        provider['base_url'],
-                        headers=provider['headers'],
-                        json=payload,
-                        timeout=120  # Увеличиваем таймаут до 120 секунд
-                    )
-                    
-                    if response.status_code == 200:
-                        result = response.json()
-                        content = result['choices'][0]['message']['content']
-                        
-                        # Парсим JSON из ответа
-                        try:
-                            # Ищем JSON в ответе
-                            import re
-                            json_match = re.search(r'\{.*\}', content, re.DOTALL)
-                            if json_match:
-                                json_str = json_match.group()
-                                parsed_result = json.loads(json_str)
-                                print(f"      ✅ Успешный ответ от {provider['name']}")
-                                self.stats['successful_requests'] += 1
-                                return parsed_result
-                        except json.JSONDecodeError:
-                            print(f"      ⚠️ Ошибка парсинга JSON от {provider['name']}")
-                            continue
-                    else:
-                        print(f"      ❌ Ошибка HTTP {response.status_code} от {provider['name']}")
-                        try:
-                            error_data = response.json()
-                            print(f"      📋 Детали ошибки: {error_data}")
-                        except:
-                            print(f"      📋 Ответ сервера: {response.text[:200]}")
-                        continue
-                        
-                elif provider['name'] == 'Replicate':
-                    # Реализация для Replicate API
-                    print(f"      ⚠️ Replicate API требует дополнительной настройки")
-                    continue
-                    
-            except requests.exceptions.Timeout:
-                print(f"      ⏳ Таймаут запроса к {provider['name']}, пробуем следующего провайдера")
-                continue
-            except requests.exceptions.ConnectionError:
-                print(f"      🌐 Ошибка соединения с {provider['name']}, пробуем следующего провайдера")
-                continue
-            except Exception as e:
-                print(f"      ❌ Ошибка запроса к {provider['name']}: {e}")
-                continue
-                
-        # Если все провайдеры не сработали, используем fallback
-        print("      🔄 Все LLM провайдеры недоступны, используем regex fallback")
-        self.stats['failed_requests'] += 1
-        return self._make_simple_extraction(text)
-        
-    def _make_simple_extraction(self, text: str) -> dict:
-        """🛡️ Простое извлечение на основе регулярных выражений (fallback)"""
-        import re
-        
-        organizations = []
-        contacts = []
-        
-        # Поиск email'ов
-        emails = re.findall(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', text)
-        # Поиск телефонов
-        phones = re.findall(r'[+]?[7-8][-\s]?\(?\d{3}\)?[-\s]?\d{3}[-\s]?\d{2}[-\s]?\d{2}', text)
-        # Поиск ИНН
-        inns = re.findall(r'\b\d{10,12}\b', text)
-        # Поиск сайтов
-        websites = re.findall(r'https?://[^\s]+|www\.[^\s]+|[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(?:/[^\s]*)?', text)
-        
-        if emails or phones:
-            org_name = "Организация из письма"
-            
-            # Попытка найти название организации
-            if 'ООО' in text:
-                org_match = re.search(r'ООО\s*["«]?([^"»\n]+)["»]?', text)
-                if org_match:
-                    org_name = f'ООО "{org_match.group(1).strip()}"'
-            elif '@' in text and emails:
-                # Извлекаем домен из email как название организации
-                domain = emails[0].split('@')[1]
-                org_name = f"Организация ({domain})"
-            
-            organizations.append({
-                'organization_id': 1,
-                'name': org_name,
-                'inn': inns[0] if inns else None,
-                'website': websites[0] if websites else None,
-                'emails': emails[:3],
-                'phones': phones[:3]
-            })
-            
-            # Попытка найти имя контакта
-            contact_name = "Контакт из письма"
-            # Поиск имен в формате "Имя Фамилия"
-            name_patterns = [
-                r'[А-ЯЁ][а-яё]+\s+[А-ЯЁ][а-яё]+',
-                r'[A-Z][a-z]+\s+[A-Z][a-z]+'
-            ]
-            
-            for pattern in name_patterns:
-                name_match = re.search(pattern, text)
-                if name_match:
-                    contact_name = name_match.group()
-                    break
-            
-            contacts.append({
-                'contact_id': 1,
-                'name': contact_name,
-                'organization_id': 1,
-                'email': emails[0] if emails else None,
-                'phones': [{'type': 'main', 'number': phones[0]}] if phones else [],
-                'position': None,
-                'confidence': 0.7
-            })
-        
-        return {
-            'organizations': organizations,
-            'contacts': contacts,
-            'commercial_offers': []
-        }
-    
-    def process_single_email(self, email_data: dict) -> dict:
-        """📧 Обработка одного письма через реальные LLM API"""
-        try:
-            # Проверяем доступность провайдеров ПЕРЕД обработкой
-            if not self.llm_extractor and not self.api_providers:
-                self.stats['failed_requests'] += 1
-                print(f"      ❌ Нет доступных LLM провайдеров для обработки")
-                return {
-                    'success': False,
-                    'error': 'Нет доступных LLM провайдеров',
-                    'organizations': [],
-                    'contacts': [],
-                    'commercial_offers': [],
-                    'no_providers_available': True
-                }
-            
-            # Если доступен настоящий LLM экстрактор, используем его
-            if self.llm_extractor:
-                print(f"      🤖 Используем реальный LLM экстрактор...")
-                
-                # Получаем текст письма
-                email_text = email_data.get('body', '')
-                
-                # Обрабатываем через LLM экстрактор
-                try:
-                    result = self.llm_extractor.extract_contacts(email_text, email_data)
-                except Exception as extract_error:
-                    print(f"      ❌ Ошибка в LLM экстракторе: {extract_error}")
-                    # Переключаемся на fallback
-                    result = None
-                
-                if result and 'organizations' in result:
-                    self.stats['successful_requests'] += 1
-                    return {
-                        'success': True,
-                        'organizations': result.get('organizations', []),
-                        'contacts': result.get('contacts', []),
-                        'commercial_offers': result.get('commercial_offers', []),
-                        'attachments_processed': len(email_data.get('attachments', [])),
-                        'original_email': email_data
-                    }
-                else:
-                    print(f"      ⚠️ LLM экстрактор не вернул данные, переключаемся на fallback")
-            
-            # Fallback на прямые API запросы
-            # Получаем текст письма
-            email_text = email_data.get('body', '')
-            
-            # Добавляем информацию о вложениях
-            attachment_text = ""
-            attachments = email_data.get('attachments', [])
-            if attachments:
-                attachment_names = [att.get('filename', '') for att in attachments]
-                attachment_text = f"\n\nВложения: {', '.join(attachment_names)}"
-            
-            # Объединяем текст письма и вложения
-            combined_text = email_text + attachment_text
-            
-            # Добавляем combined_text в email_data для совместимости
-            email_data['combined_text'] = combined_text
-            email_data['combined_text_length'] = len(combined_text)
-            
-            print(f"      🔍 Анализ текста ({len(combined_text)} символов)...")
-            
-            # Используем реальные LLM API (fallback уже проверен выше)
-            result = self._make_llm_request(combined_text)
-            
-            return {
-                'success': True,
-                'organizations': result.get('organizations', []),
-                'contacts': result.get('contacts', []),
-                'commercial_offers': result.get('commercial_offers', []),
-                'attachments_processed': len(attachments),
-                'original_email': email_data
-            }
-            
-        except Exception as e:
-            self.stats['failed_requests'] += 1
-            print(f"      ❌ Ошибка обработки: {e}")
-            return {
-                'success': False,
-                'error': str(e),
-                'organizations': [],
-                'contacts': [],
-                'commercial_offers': []
-            }
 
 
 class APIPipelineValidator:
@@ -636,17 +285,14 @@ class APIPipelineValidator:
         # Инициализация компонентов
         print("   🚀 Инициализация компонентов...")
         try:
-            # Попытка использовать реальные компоненты
-            if IntegratedLLMProcessor:
-                # Для API Pipeline Validation используем IntegratedLLMProcessor без test_mode
-                # что означает реальные LLM запросы через настроенные провайдеры
-                self.processor = IntegratedLLMProcessor(test_mode=False)
-                print("   ✅ IntegratedLLMProcessor инициализирован с реальными LLM API")
+            # 🎯 АРХИТЕКТУРНОЕ УЛУЧШЕНИЕ: Используем паттерн из test_api_dataset.py
+            # Используем ExtractorFactory для создания экстрактора как в test_api_dataset.py
+            if ExtractorFactory:
+                self.processor = ExtractorFactory.create_extractor()
+                print("   ✅ Экстрактор создан через ExtractorFactory (паттерн test_api_dataset.py)")
             else:
-                # Если основной процессор недоступен, используем RealLLMProcessor
-                # который также может делать прямые HTTP запросы к LLM API
-                self.processor = RealLLMProcessor()
-                print("   🔄 Используем RealLLMProcessor с прямыми API вызовами")
+                print("   ❌ ExtractorFactory недоступен")
+                return False
                 
             if ReportGenerator:
                 self.report_generator = ReportGenerator()
@@ -846,34 +492,120 @@ class APIPipelineValidator:
             
         except Exception as e:
             print(f"      ❌ Ошибка загрузки письма {filename}: {e}")
+            
+            # 🔍 Дополнительная диагностика при ошибке
+            if "FileNotFoundError" in str(type(e).__name__):
+                print(f"      📁 Проверяем директорию: {self.emails_dir}")
+                available_files = list(self.emails_dir.glob("*.json"))
+                print(f"      📊 Доступно файлов: {len(available_files)}")
+                for af in available_files[:3]:  # Показываем первые 3
+                    print(f"         - {af.name}")
+            
+            import traceback
+            print(f"      🔍 Детали ошибки: {traceback.format_exc()}")
             return None
 
     def _extract_attachments_text(self, email_data: Dict) -> str:
-        """📎 Извлечение текста из вложений (заглушка)"""
-        # Это упрощенная версия - в реальности нужно использовать OCRProcessorAdapter
-        # для извлечения текста из PDF/DOCX файлов
+        """📎 Использование реального OCRProcessorAdapter из основного пайплайна"""
         
-        attachment_text = ""
-        attachments = email_data.get('attachments', [])
-        
-        for attachment in attachments:
-            filename = attachment.get('filename', '')
-            if filename:
-                attachment_text += f"\n[Вложение: {filename}]"
+        # 🎯 АРХИТЕКТУРНОЕ ИСПРАВЛЕНИЕ: Используем основной пайплайн
+        try:
+            if self.ocr_adapter:
+                print(f"      📎 Используем OCRProcessorAdapter из основного пайплайна...")
                 
-        return attachment_text
+                # Обрабатываем вложения через реальный OCR адаптер
+                attachments_result = self.ocr_adapter.process_email_attachments(
+                    email_data, self.email_loader
+                )
+                
+                # Объединяем текст письма с вложениями через адаптер
+                combined_text = self.ocr_adapter.combine_email_with_attachments(
+                    email_data, attachments_result
+                )
+                
+                # Извлекаем только текст вложений (убираем заголовки письма)
+                email_body = email_data.get('body', '')
+                if email_body in combined_text:
+                    attachment_text = combined_text.replace(email_body, '').strip()
+                    # Убираем служебные заголовки
+                    lines = attachment_text.split('\n')
+                    filtered_lines = []
+                    skip_headers = True
+                    for line in lines:
+                        if '=' * 50 in line and 'СОДЕРЖИМОЕ ВЛОЖЕНИЙ' in lines:
+                            skip_headers = False
+                            continue
+                        if not skip_headers and not line.startswith(('ТЕМА:', 'ОТ:', 'К:', 'ДАТА:', 'THREAD ID:')):
+                            filtered_lines.append(line)
+                    
+                    attachment_text = '\n'.join(filtered_lines).strip()
+                    
+                    if attachment_text:
+                        print(f"      ✅ OCRProcessorAdapter извлек {len(attachment_text)} символов из вложений")
+                        return attachment_text
+                
+                print(f"      ⚠️ OCRProcessorAdapter не смог извлечь текст из вложений")
+                return ""
+            else:
+                print(f"      ⚠️ OCRProcessorAdapter недоступен, используем fallback")
+                return self._simple_attachments_info(email_data)
+                
+        except Exception as e:
+            print(f"      ❌ Ошибка в OCRProcessorAdapter: {e}")
+            return self._simple_attachments_info(email_data)
+    
+    def _simple_attachments_info(self, email_data: Dict) -> str:
+        """📎 Простая информация о вложениях (fallback)"""
+        attachments = email_data.get('attachments', [])
+        if not attachments:
+            return ""
+         
+        attachment_info = "\n\n=== ИНФОРМАЦИЯ О ВЛОЖЕНИЯХ ===\n"
+        for i, attachment in enumerate(attachments, 1):
+            filename = attachment.get('original_filename', f'вложение_{i}')
+            status = attachment.get('status', 'unknown')
+            file_type = attachment.get('file_type', '')
+            exclusion_reason = attachment.get('exclusion_reason', '')
+            
+            attachment_info += f"{i}. {filename} ({file_type})\n"
+            if status != 'saved' and status != 'already_exists':
+                attachment_info += f"   Статус: {status}\n"
+                if exclusion_reason:
+                    attachment_info += f"   Причина: {exclusion_reason}\n"
+            attachment_info += "\n"
+        
+        return attachment_info
+    
+
 
     def process_single_email(self, filename: str) -> Optional[Dict]:
-        """⚡ Обработка одного письма через IntegratedLLMProcessor"""
+        """⚡ Обработка одного письма через основной пайплайн"""
         print(f"      🔄 Обработка: {filename}")
         
         try:
             # Загружаем письмо с вложениями
             email_data = self.load_email_with_attachments(filename)
             if not email_data:
-                return None
-                
-            # КРИТИЧЕСКАЯ ПРОВЕРКА: есть ли доступные провайдеры
+                return {
+                    'filename': filename,
+                    'success': False,
+                    'error': 'Ошибка загрузки письма',
+                    'no_providers_available': False
+                }
+            
+            # 🎯 АРХИТЕКТУРНОЕ УЛУЧШЕНИЕ: Используем паттерн из test_api_dataset.py
+            # Подготавливаем текстовое содержимое
+            text_content = self._extract_text_content(email_data)
+            
+            # Подготавливаем метаданные в соответствии со спецификацией
+            metadata = {
+                'subject': email_data.get('subject', ''),
+                'from': email_data.get('from', ''),
+                'date': email_data.get('date', ''),
+                'attachments_count': len(email_data.get('attachments', []))
+            }
+            
+            # КРИТИЧЕСКАЯ ПРОВЕРКА: есть ли доступные провайдеры через основной пайплайн
             if not self.processor:
                 print(f"      ❌ Процессор не инициализирован")
                 return {
@@ -882,62 +614,154 @@ class APIPipelineValidator:
                     'error': 'Процессор не инициализирован',
                     'no_providers_available': True
                 }
-                
-            # Обрабатываем через IntegratedLLMProcessor
-            start_time = time.time()
-            result = self.processor.process_single_email(email_data)
-            processing_time = time.time() - start_time
             
-            # Проверяем результат на наличие данных
-            if result:
-                # Проверяем, есть ли реальные данные (не пустые списки)
-                has_data = (
-                    result.get('organizations') or 
-                    result.get('contacts') or 
-                    result.get('commercial_offers')
-                )
-                
-                # Если данных нет и это из-за недоступности провайдеров
-                if not has_data and result.get('no_providers_available'):
-                    print(f"      ❌ Нет доступных провайдеров для обработки")
-                    return {
-                        'filename': filename,
-                        'success': False,
-                        'error': 'Нет доступных LLM провайдеров',
-                        'no_providers_available': True
-                    }
-                
-                print(f"      ✅ Обработано за {processing_time:.2f}с")
+            # 🎯 ГЛАВНОЕ УЛУЧШЕНИЕ: Используем метод extract_all_data() как в test_api_dataset.py
+            print(f"      🤖 Обработка через основной пайплайн ({len(text_content)} символов)...")
+            print(f"      📎 Вложений: {len(email_data.get('attachments', []))}")
+            
+            start_time = time.time()
+            try:
+                # Делегируем обработку основному пайплайну точно как в test_api_dataset.py
+                result = self.processor.extract_all_data(text_content)
+                    
+            except Exception as extract_error:
+                print(f"      ❌ Ошибка в основном пайплайне: {extract_error}")
                 return {
                     'filename': filename,
-                    'email_data': email_data,
+                    'success': False,
+                    'error': f'Ошибка основного пайплайна: {str(extract_error)}',
+                    'no_providers_available': False
+                }
+            
+            processing_time = time.time() - start_time
+            
+            # 🔧 УЛУЧШЕНИЕ: Проверяем успешность по наличию данных
+            if result and (result.get('organizations') or result.get('contacts') or result.get('commercial_offers')):
+                success = True
+                print(f"      ✅ Обработано успешно за {processing_time:.2f}с")
+                print(f"         - Организации: {len(result.get('organizations', []))}")
+                print(f"         - Контакты: {len(result.get('contacts', []))}")
+                print(f"         - Коммерческие предложения: {len(result.get('commercial_offers', []))}")
+                
+                return {
+                    'filename': filename,
+                    'email_data': {
+                        'from': email_data.get('from', ''),
+                        'subject': email_data.get('subject', ''),
+                        'date': email_data.get('date', ''),
+                        'attachments_count': len(email_data.get('attachments', [])),
+                        'char_count': len(text_content)
+                    },
                     'llm_result': result,
                     'processing_time': processing_time,
                     'timestamp': datetime.now().isoformat(),
                     'success': True
                 }
             else:
-                print(f"      ❌ Обработка не удалась")
+                print(f"      ❌ Обработка неуспешна: нет извлеченных данных")
+                
+                # Проверяем на отсутствие провайдеров
+                error_msg = str(result.get('error', '')) if result else 'Пустой результат'
+                no_providers = (
+                    'Нет доступных LLM провайдеров' in error_msg or
+                    'Все провайдеры недоступны' in error_msg or
+                    (result and result.get('no_providers_available', False))
+                )
+                
                 return {
                     'filename': filename,
+                    'email_data': {
+                        'from': email_data.get('from', ''),
+                        'subject': email_data.get('subject', ''),
+                        'date': email_data.get('date', ''),
+                        'attachments_count': len(email_data.get('attachments', [])),
+                        'char_count': len(text_content)
+                    },
+                    'llm_result': result or {},
+                    'processing_time': processing_time,
+                    'timestamp': datetime.now().isoformat(),
                     'success': False,
-                    'error': 'Пустой результат от процессора'
+                    'no_providers_available': no_providers
                 }
                 
         except Exception as e:
             print(f"      ❌ Ошибка обработки: {e}")
+            import traceback
+            print(f"      🔍 Детали ошибки: {traceback.format_exc()}")
             return {
                 'filename': filename,
                 'success': False,
                 'error': str(e)
             }
+    
+    def _extract_text_content(self, email_data: Dict) -> str:
+        """📄 Извлечение текстового содержимого (паттерн из test_api_dataset.py)"""
+        content_parts = []
+        
+        # Основное тело письма
+        if 'body' in email_data and email_data['body']:
+            content_parts.append(f"Тело письма:\n{email_data['body']}")
+            
+        # Информация об отправителе
+        if 'from' in email_data:
+            content_parts.append(f"От: {email_data['from']}")
+            
+        # Тема письма
+        if 'subject' in email_data:
+            content_parts.append(f"Тема: {email_data['subject']}")
+            
+        # Информация о вложениях
+        if 'attachments' in email_data and email_data['attachments']:
+            attachments_info = "Вложения:\n"
+            for att in email_data['attachments']:
+                if isinstance(att, dict):
+                    name = att.get('filename', 'Неизвестно')
+                    size = att.get('size', 'Неизвестно')
+                    attachments_info += f"- {name} ({size} байт)\n"
+                    
+                    # Добавляем содержимое вложения если есть
+                    if 'content' in att and att['content']:
+                        attachments_info += f"  Содержимое: {att['content'][:500]}...\n"
+                        
+            content_parts.append(attachments_info)
+            
+        return "\n\n".join(content_parts)
 
     def save_structured_result(self, result: Dict, filename: str) -> bool:
         """💾 Сохранение структурированного JSON результата"""
         try:
-            # КРИТИЧЕСКАЯ ПРОВЕРКА: не сохраняем пустые результаты
-            if result.get('no_providers_available') or not result.get('success', False):
-                print(f"      ⚠️ Пропускаем сохранение JSON: нет доступных провайдеров или ошибка обработки")
+            # КРИТИЧЕСКАЯ ПРОВЕРКА: проверяем все возможные индикаторы ошибок
+            llm_result = result.get('llm_result', {})
+            
+            # Проверка 1: флаг no_providers_available
+            if result.get('no_providers_available'):
+                print(f"      ⚠️ Пропускаем сохранение JSON: нет доступных провайдеров")
+                return False
+                
+            # Проверка 2: общий success флаг
+            if not result.get('success', False):
+                print(f"      ⚠️ Пропускаем сохранение JSON: обработка неуспешна")
+                return False
+                
+            # Проверка 3: validation_error в llm_result
+            if llm_result.get('validation_error'):
+                print(f"      ⚠️ Пропускаем сохранение JSON: ошибка валидации LLM")
+                return False
+                
+            # Проверка 4: наличие error в llm_result
+            if llm_result.get('error'):
+                print(f"      ⚠️ Пропускаем сохранение JSON: ошибка в LLM результате")
+                return False
+                
+            # Проверка 5: наличие реальных данных
+            has_data = (
+                llm_result.get('organizations') or 
+                llm_result.get('contacts') or 
+                llm_result.get('commercial_offers')
+            )
+            
+            if not has_data:
+                print(f"      ⚠️ Пропускаем сохранение JSON: нет извлеченных данных")
                 return False
             
             # 🔧 ИСПРАВЛЕНИЕ: Убеждаемся что директория существует
@@ -950,19 +774,23 @@ class APIPipelineValidator:
             
             print(f"      💾 Сохраняю JSON в: {result_path}")
             
-            # Подготавливаем данные для сохранения
+            # 🔧 УЛУЧШЕНИЕ: Подготавливаем чистые данные без дублирования
+            # Соответствуем спецификации: исключаем original_email field
             structured_data = {
                 'source_file': filename,
                 'processing_timestamp': result.get('timestamp'),
                 'processing_time_seconds': result.get('processing_time'),
-                'email_metadata': {
-                    'from': result['email_data'].get('from'),
-                    'subject': result['email_data'].get('subject'),
-                    'date': result['email_data'].get('date'),
-                    'attachments_count': len(result['email_data'].get('attachments', [])),
-                    'char_count': result['email_data'].get('char_count')
-                },
-                'extraction_result': result['llm_result']
+                'email_metadata': result.get('email_data', {}),  # Оптимизированные метаданные
+                'extraction_result': {
+                    'success': llm_result.get('success', True),
+                    'organizations': llm_result.get('organizations', []),
+                    'contacts': llm_result.get('contacts', []),
+                    'commercial_offers': llm_result.get('commercial_offers', []),
+                    'business_context': llm_result.get('business_context', ''),
+                    'attachments_processed': llm_result.get('attachments_processed', 0),
+                    'provider_used': llm_result.get('provider_used', 'Unknown')
+                    # 📎 Соответствуем спецификации: убираем 'original_email' чтобы избежать дублирования
+                }
             }
             
             # Сохраняем JSON
@@ -978,13 +806,58 @@ class APIPipelineValidator:
             import traceback
             print(f"      🔍 Детали ошибки: {traceback.format_exc()}")
             return False
+    
+    def _get_extractor_stats(self) -> Dict:
+        """📊 Получение статистики экстрактора (паттерн из test_api_dataset.py)"""
+        try:
+            # Точно как в test_api_dataset.py
+            if self.processor and hasattr(self.processor, 'get_stats'):
+                return self.processor.get_stats()
+            else:
+                return {
+                    'message': 'Статистика недоступна',
+                    'processor_type': type(self.processor).__name__ if self.processor else 'None'
+                }
+        except Exception as e:
+            return {
+                'error': f'Ошибка получения статистики: {str(e)}'
+            }
 
     def generate_detailed_report(self, result: Dict, filename: str) -> bool:
         """📄 Генерация детального отчета"""
         try:
-            # КРИТИЧЕСКАЯ ПРОВЕРКА: не создаем отчеты для пустых результатов
-            if result.get('no_providers_available') or not result.get('success', False):
-                print(f"      ⚠️ Пропускаем создание отчета: нет доступных провайдеров или ошибка обработки")
+            # КРИТИЧЕСКАЯ ПРОВЕРКА: проверяем все возможные индикаторы ошибок
+            llm_result = result.get('llm_result', {})
+            
+            # Проверка 1: флаг no_providers_available
+            if result.get('no_providers_available'):
+                print(f"      ⚠️ Пропускаем создание отчета: нет доступных провайдеров")
+                return False
+                
+            # Проверка 2: общий success флаг
+            if not result.get('success', False):
+                print(f"      ⚠️ Пропускаем создание отчета: обработка неуспешна")
+                return False
+                
+            # Проверка 3: validation_error в llm_result
+            if llm_result.get('validation_error'):
+                print(f"      ⚠️ Пропускаем создание отчета: ошибка валидации LLM")
+                return False
+                
+            # Проверка 4: наличие error в llm_result
+            if llm_result.get('error'):
+                print(f"      ⚠️ Пропускаем создание отчета: ошибка в LLM результате")
+                return False
+                
+            # Проверка 5: наличие реальных данных
+            has_data = (
+                llm_result.get('organizations') or 
+                llm_result.get('contacts') or 
+                llm_result.get('commercial_offers')
+            )
+            
+            if not has_data:
+                print(f"      ⚠️ Пропускаем создание отчета: нет извлеченных данных")
                 return False
             
             if not self.report_generator:
@@ -1214,7 +1087,7 @@ class APIPipelineValidator:
             print(f"   ❌ Ошибка обновления индексов: {e}")
 
     def generate_final_report(self) -> str:
-        """📊 Генерация итогового отчета валидации"""
+        """📊 Генерация итогового отчета валидации (паттерн test_api_dataset.py)"""
         print("\n📊 ГЕНЕРАЦИЯ ИТОГОВОГО ОТЧЕТА")
         print("=" * 40)
         
@@ -1226,6 +1099,11 @@ class APIPipelineValidator:
         if self.stats['start_time'] and self.stats['end_time']:
             processing_time = (self.stats['end_time'] - self.stats['start_time']).total_seconds()
             
+        # 🎯 УЛУЧШЕНИЕ: Добавляем статистику экстрактора как в test_api_dataset.py
+        extractor_stats = self._get_extractor_stats()
+        
+        success_rate = (self.stats['emails_successful'] / max(self.stats['emails_processed'], 1)) * 100
+        
         report_content = f"""# Итоговый отчет API Pipeline Validation
 
 **Дата валидации:** {datetime.now().strftime('%Y-%m-%d %H:%M (UTC+07)')}
@@ -1237,8 +1115,21 @@ class APIPipelineValidator:
 - **Всего писем обработано:** {self.stats['emails_processed']}
 - **Успешных обработок:** {self.stats['emails_successful']}
 - **Неудачных обработок:** {self.stats['emails_failed']}
+- **Успешность:** {success_rate:.1f}%
 - **JSON файлов создано:** {self.stats['json_files_created']}
 - **Отчетов создано:** {self.stats['reports_created']}
+
+## 🤖 Статистика экстрактора
+
+"""
+        
+        if extractor_stats:
+            for key, value in extractor_stats.items():
+                report_content += f"- **{key}:** {value}\n"
+        else:
+            report_content += "- Статистика экстрактора недоступна\n"
+        
+        report_content += f"""
 
 ## 📁 Результаты
 
