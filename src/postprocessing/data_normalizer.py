@@ -31,19 +31,16 @@ class DataNormalizer:
             r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
         )
         
-        # Попытка импорта phone_normalizer
+        # Импорт phone_normalizer из той же папки postprocessing
         try:
-            import sys
-            import os
-            sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-            from phone_normalizer import normalize_phone
-            self.normalize_phone = normalize_phone
+            from .phone_normalizer import PhoneNormalizer
+            self.phone_normalizer = PhoneNormalizer()
             self.phone_normalizer_available = True
             self.logger.info("📞 phone_normalizer.py успешно импортирован")
         except ImportError as e:
             self.logger.warning(f"⚠️ Не удалось импортировать phone_normalizer: {e}")
             self.phone_normalizer_available = False
-            self.normalize_phone = self._fallback_normalize_phone
+            self.phone_normalizer = None
     
     def normalize_contacts(self, contacts: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """Нормализация списка контактов
@@ -138,11 +135,38 @@ class DataNormalizer:
         # 1. Нормализация массива телефонов
         if 'phones' in normalized and normalized['phones']:
             normalized_phones = []
-            for phone in normalized['phones']:
-                if isinstance(phone, str) and phone.strip():
-                    normalized_phone = self.normalize_phone(phone.strip())
+            phones_list = normalized['phones']
+            
+            # Если phones - это список, обрабатываем каждый элемент
+            if isinstance(phones_list, list):
+                for phone in phones_list:
+                    if isinstance(phone, str) and phone.strip():
+                        original_phone = phone.strip()
+                        if self.phone_normalizer_available:
+                            # Используем новый метод для обработки множественных номеров
+                            multiple_results = self.phone_normalizer.normalize_multiple_phones(original_phone)
+                            for result in multiple_results:
+                                if result.get('formatted'):
+                                    normalized_phones.append(result['formatted'])
+                        else:
+                            # Fallback: простая нормализация без phone_normalizer
+                            normalized_phone = self._simple_phone_cleanup(original_phone)
+                            if normalized_phone:
+                                normalized_phones.append(normalized_phone)
+            # Если phones - это строка, преобразуем в список
+            elif isinstance(phones_list, str) and phones_list.strip():
+                original_phone = phones_list.strip()
+                if self.phone_normalizer_available:
+                    multiple_results = self.phone_normalizer.normalize_multiple_phones(original_phone)
+                    for result in multiple_results:
+                        if result.get('formatted'):
+                            normalized_phones.append(result['formatted'])
+                else:
+                    # Fallback: простая нормализация без phone_normalizer
+                    normalized_phone = self._simple_phone_cleanup(original_phone)
                     if normalized_phone:
                         normalized_phones.append(normalized_phone)
+            
             normalized['phones'] = normalized_phones
         
         # 2. Нормализация массива emails
@@ -177,44 +201,84 @@ class DataNormalizer:
             for phone_obj in contact['phones']:
                 if isinstance(phone_obj, dict) and phone_obj.get('number'):
                     original_number = phone_obj['number']
-                    normalized_number = self.normalize_phone(original_number)
+                    if self.phone_normalizer_available:
+                        normalized_result = self.phone_normalizer.normalize_contact_phone(original_number)
+                        normalized_number = normalized_result.get('formatted_phone', '')
+                        phone_type = normalized_result.get('phone_type', 'unknown')
+                        extension = normalized_result.get('phone_extension', '')
+                    else:
+                        normalized_number = self._simple_phone_cleanup(original_number)
+                        phone_type = 'unknown'
+                        extension = ''
                     
                     if normalized_number:
                         normalized_phone_obj = phone_obj.copy()
-                        normalized_phone_obj['normalized'] = normalized_number
+                        normalized_phone_obj['number'] = normalized_number
                         normalized_phone_obj['original'] = original_number
+                        
+                        # Добавляем добавочный номер если есть
+                        if extension:
+                            normalized_phone_obj['extension'] = extension
                         
                         # Определяем тип телефона, если не указан
                         if not normalized_phone_obj.get('type'):
-                            normalized_phone_obj['type'] = self._detect_phone_type(original_number)
+                            normalized_phone_obj['type'] = phone_type
                         
                         normalized_phones.append(normalized_phone_obj)
                 elif isinstance(phone_obj, str) and phone_obj.strip():
                     # Поддержка старого формата в массиве
-                    normalized_number = self.normalize_phone(phone_obj.strip())
+                    original_number = phone_obj.strip()
+                    if self.phone_normalizer_available:
+                        normalized_result = self.phone_normalizer.normalize_contact_phone(original_number)
+                        normalized_number = normalized_result.get('formatted_phone', '')
+                        phone_type = normalized_result.get('phone_type', 'unknown')
+                        extension = normalized_result.get('phone_extension', '')
+                    else:
+                        normalized_number = self._simple_phone_cleanup(original_number)
+                        phone_type = 'unknown'
+                        extension = ''
+                    
                     if normalized_number:
-                        normalized_phones.append({
-                            'type': self._detect_phone_type(phone_obj.strip()),
-                            'number': phone_obj.strip(),
-                            'normalized': normalized_number,
-                            'original': phone_obj.strip()
-                        })
+                        phone_obj_dict = {
+                            'type': phone_type,
+                            'number': normalized_number,
+                            'original': original_number
+                        }
+                        
+                        # Добавляем добавочный номер если есть
+                        if extension:
+                            phone_obj_dict['extension'] = extension
+                            
+                        normalized_phones.append(phone_obj_dict)
             
             contact['phones'] = normalized_phones
         
         # Поддержка старого формата phone (для совместимости)
         elif 'phone' in contact and contact['phone']:
             original_phone = contact['phone']
-            normalized_phone = self.normalize_phone(original_phone)
+            if self.phone_normalizer_available:
+                normalized_result = self.phone_normalizer.normalize_contact_phone(original_phone)
+                normalized_phone = normalized_result.get('formatted_phone', '')
+                phone_type = normalized_result.get('phone_type', 'unknown')
+                extension = normalized_result.get('phone_extension', '')
+            else:
+                normalized_phone = self._simple_phone_cleanup(original_phone)
+                phone_type = 'unknown'
+                extension = ''
             
             if normalized_phone:
                 # Конвертируем в новый формат
-                contact['phones'] = [{
-                    'type': self._detect_phone_type(original_phone),
-                    'number': original_phone,
-                    'normalized': normalized_phone,
+                phone_obj = {
+                    'type': phone_type,
+                    'number': normalized_phone,
                     'original': original_phone
-                }]
+                }
+                
+                # Добавляем добавочный номер если есть
+                if extension:
+                    phone_obj['extension'] = extension
+                    
+                contact['phones'] = [phone_obj]
                 # Оставляем старое поле для совместимости
                 contact['phone_normalized'] = normalized_phone
         
@@ -281,14 +345,14 @@ class DataNormalizer:
         
         return contact
     
-    def _fallback_normalize_phone(self, phone: str) -> str:
-        """Fallback нормализация телефона без phone_normalizer.py
+    def _simple_phone_cleanup(self, phone: str) -> str:
+        """Простая очистка телефона для fallback случаев
         
         Args:
             phone: Исходный телефон
             
         Returns:
-            str: Нормализованный телефон
+            str: Очищенный телефон
         """
         if not phone:
             return ''
@@ -303,47 +367,7 @@ class DataNormalizer:
             normalized = '+' + normalized
         
         return normalized
-    
-    def _detect_phone_type(self, phone: str) -> str:
-        """Определение типа телефона
-        
-        Args:
-            phone: Номер телефона
-            
-        Returns:
-            str: Тип телефона
-        """
-        if not phone:
-            return 'unknown'
-        
-        phone_clean = re.sub(r'[^\d]', '', phone)
-        
-        # Мобильные коды России
-        mobile_codes = ['900', '901', '902', '903', '904', '905', '906', '908', '909',
-                       '910', '911', '912', '913', '914', '915', '916', '917', '918', '919',
-                       '920', '921', '922', '923', '924', '925', '926', '927', '928', '929',
-                       '930', '931', '932', '933', '934', '936', '937', '938', '939',
-                       '950', '951', '952', '953', '954', '955', '956', '958', '960',
-                       '961', '962', '963', '964', '965', '966', '967', '968', '969',
-                       '970', '971', '977', '978', '980', '981', '982', '983', '984',
-                       '985', '986', '987', '988', '989', '991', '992', '993', '994',
-                       '995', '996', '997', '999']
-        
-        if len(phone_clean) >= 10:
-            # Проверяем российские мобильные
-            if phone_clean.startswith('7') or phone_clean.startswith('8'):
-                code = phone_clean[1:4] if phone_clean.startswith(('7', '8')) else phone_clean[:3]
-                if code in mobile_codes:
-                    return 'mobile'
-                else:
-                    return 'office'
-        
-        # Проверяем на факс по ключевым словам в контексте
-        if 'факс' in phone.lower() or 'fax' in phone.lower():
-            return 'fax'
-        
-        return 'main'
-    
+     
     def _normalize_email(self, email: str) -> str:
         """Нормализация email адреса
         

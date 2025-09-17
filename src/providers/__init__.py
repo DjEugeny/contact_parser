@@ -9,6 +9,7 @@ from .base_provider import BaseProvider, ProviderConfig, ProviderStats
 from .openrouter import OpenRouterProvider
 from .groq import GroqProvider
 from .replicate import ReplicateProvider
+from .async_provider_wrapper import AsyncProviderWrapper, AsyncProviderManager, AsyncProviderStats
 
 __all__ = [
     'BaseProvider',
@@ -16,5 +17,8 @@ __all__ = [
     'ProviderStats',
     'OpenRouterProvider',
     'GroqProvider',
-    'ReplicateProvider'
+    'ReplicateProvider',
+    'AsyncProviderWrapper',
+    'AsyncProviderManager',
+    'AsyncProviderStats'
 ]

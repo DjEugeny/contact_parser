@@ -642,51 +642,29 @@ class LLMResponseValidator:
         return processed_offers
 
     def validate_and_postprocess(self, data: Dict[str, Any]) -> Dict[str, Any]:
-        """🔄 Основной метод валидации и постобработки"""
-        result = {
-            'valid': True,
-            'errors': [],
-            'warnings': [],
-            'processed_data': data.copy(),
-            'stats': {}
-        }
+        """🔄 Полная валидация и постобработка ответа LLM"""
+        # 1. JSON Schema валидация с автокоррекцией
+        is_valid, errors, corrected_data = self.validate_llm_response(data)
         
-        # Валидация организаций
-        if 'organizations' in data:
-            orgs_valid, orgs_errors = self.validate_organizations(data['organizations'])
-            if not orgs_valid:
-                result['valid'] = False
-                result['errors'].extend(orgs_errors)
+        if not is_valid:
+            # Graceful degradation для невалидных данных
+            print(f"⚠️ Валидация не пройдена, применяется graceful degradation. Ошибки: {errors}")
+            return self.graceful_degradation_fallback(data)
+        
+        # 2. Постпроцессинг валидных данных
+        try:
+            from ..postprocessing.postprocessor import PostProcessor
+            postprocessor = PostProcessor()
             
-            # Постобработка организаций (пока просто копируем)
-            result['processed_data']['organizations'] = data['organizations']
-        
-        # Валидация контактов
-        if 'contacts' in data:
-            contacts_valid, contacts_errors = self.validate_contacts(data['contacts'])
-            if not contacts_valid:
-                result['valid'] = False
-                result['errors'].extend(contacts_errors)
+            print("🔄 Применяется постпроцессинг к валидным данным")
+            processed_data = postprocessor.process_llm_response(corrected_data)
             
-            # Постобработка контактов (пока просто копируем)
-            result['processed_data']['contacts'] = data['contacts']
-        
-        # Валидация коммерческих предложений
-        if 'commercial_offers' in data:
-            offers_valid, offers_errors = self.validate_commercial_offers(data['commercial_offers'])
-            if not offers_valid:
-                result['valid'] = False
-                result['errors'].extend(offers_errors)
+            return processed_data
             
-            # Постобработка коммерческих предложений
-            processed_offers = self.postprocess_commercial_offers(data['commercial_offers'])
-            result['processed_data']['commercial_offers'] = processed_offers
-        
-        # Сбор статистики
-        result['stats'] = self.get_validation_stats()
-        
-        # Возвращаем только обработанные данные, а не всю структуру result
-        return result['processed_data']
+        except Exception as e:
+            print(f"❌ Ошибка постпроцессинга: {e}")
+            # Возвращаем валидные данные без постпроцессинга
+            return corrected_data
 
     def get_validation_stats(self) -> Dict[str, Any]:
         """📊 Получение статистики валидации"""

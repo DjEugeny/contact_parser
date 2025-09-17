@@ -1,9 +1,0 @@
-{
-  "content": "```json\n{\n    \"organizations\": [],\n    \"contacts\": [],\n    \"business_context\": \"Недостаточно данных для анализа бизнес-контекста. Текст для анализа содержит только служебную информацию о письме без содержания переписки.\",\n    \"summary\": {\n        \"topic\": null,\n        \"product_interest\": null,\n        \"communication_stage\": null,\n        \"request_type\": null\n    },\n    \"key_points\": [],\n    \"commercial_offers\": [],\n    \"additional_info\": {\n        \"from\": \"\",\n        \"to\": \"\",\n        \"cc\": \"\",\n        \"subject\": \"\",\n        \"date\": \"\",\n        \"thread_id\": \"\",\n        \"has_attachments\": false,\n        \"attachments_count\": 0\n    }\n}\n```",
-  "provider": "openrouter",
-  "model": "deepseek/deepseek-chat-v3.1:free",
-  "tokens_used": 78,
-  "response_time": 6.949914932250977,
-  "used_provider": "OpenRouter",
-  "fallback_used": false
-}

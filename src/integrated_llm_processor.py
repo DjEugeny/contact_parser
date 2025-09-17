@@ -13,14 +13,14 @@ from datetime import datetime
 from typing import Dict, List, Optional
 
 from dotenv import load_dotenv
-from .email_loader import ProcessedEmailLoader
+from email_loader import ProcessedEmailLoader
 # from attachment_processor import AttachmentProcessor  # АРХИВИРОВАН
-from .ocr_processor_adapter import OCRProcessorAdapter
-from .core.extractor_factory import ExtractorFactory
-from .rate_limit_manager import RateLimitManager
-from .config.regions import calculate_contact_priority
-from .advanced_deduplication import AdvancedContactDeduplicator
-from .postprocessing import PostProcessor
+from ocr_processor_adapter import OCRProcessorAdapter
+from core.extractor_factory import ExtractorFactory
+from rate_limit_manager import RateLimitManager
+from config.regions import calculate_contact_priority
+from advanced_deduplication import AdvancedContactDeduplicator
+from postprocessing import PostProcessor
 
 # Загружаем переменные окружения
 load_dotenv()

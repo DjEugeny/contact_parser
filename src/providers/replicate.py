@@ -5,7 +5,8 @@
 Фаза 5: Архитектурная оптимизация
 """
 
-import requests
+import aiohttp
+import asyncio
 import json
 import time
 from typing import Dict, Any, Optional
@@ -17,7 +18,7 @@ class ReplicateProvider(BaseProvider):
 
     def __init__(self, config: ProviderConfig):
         super().__init__(config)
-        self.session = requests.Session()
+        self.session = None  # Will be created in async context
         # Replicate использует более длительные таймауты
         self.config.timeout = 120  # 2 минуты
 
@@ -28,12 +29,12 @@ class ReplicateProvider(BaseProvider):
             'Content-Type': 'application/json'
         }
 
-    def make_request(self, prompt: str, **kwargs) -> Dict[str, Any]:
+    async def make_request(self, request_data: Dict[str, Any], **kwargs) -> Dict[str, Any]:
         """
         🚀 Запрос к Replicate API
 
         Args:
-            prompt: Текст для обработки
+            request_data: Данные запроса с prompt или messages
             **kwargs: Дополнительные параметры
 
         Returns:
@@ -42,12 +43,27 @@ class ReplicateProvider(BaseProvider):
         if not self.is_available():
             raise RuntimeError(f"❌ Провайдер {self.config.name} недоступен")
 
+        # Извлекаем prompt из request_data
+        prompt = request_data.get('prompt')
+        if not prompt:
+            # Если нет prompt, пытаемся извлечь из messages
+            messages = request_data.get('messages', [])
+            if isinstance(messages, list) and len(messages) > 0:
+                # Берем последнее сообщение пользователя
+                for msg in reversed(messages):
+                    if msg.get('role') == 'user':
+                        prompt = msg.get('content', '')
+                        break
+            
+            if not prompt:
+                raise ValueError("❌ Не найден prompt в request_data")
+
         # Параметры запроса для DeepSeek V3.1 на Replicate
         # Оптимизированы под контекстное окно 128K токенов
-        temperature = kwargs.get('temperature', 0.2)  # Повышено для более креативных ответов
-        max_tokens = kwargs.get('max_tokens', 8000)   # Увеличено под возможности модели
-        top_p = kwargs.get('top_p', 0.95)             # Оптимизировано для качества
-        system_prompt = kwargs.get('system_prompt', "You are a helpful assistant that extracts contact information from text.")
+        temperature = request_data.get('temperature', kwargs.get('temperature', 0.2))  # Повышено для более креативных ответов
+        max_tokens = request_data.get('max_tokens', kwargs.get('max_tokens', 8000))   # Увеличено под возможности модели
+        top_p = request_data.get('top_p', kwargs.get('top_p', 0.95))             # Оптимизировано для качества
+        system_prompt = request_data.get('system_prompt', kwargs.get('system_prompt', "You are a helpful assistant that extracts contact information from text."))
 
         payload = {
             "version": self.config.model,
@@ -64,31 +80,38 @@ class ReplicateProvider(BaseProvider):
             start_time = time.time()
 
             # Создание предсказания
-            response = self.session.post(
-                self.config.base_url,
-                json=payload,
-                headers=self.config.headers,
-                timeout=self.config.timeout
-            )
+            async with aiohttp.ClientSession() as session:
+                async with session.post(
+                    self.config.base_url,
+                    json=payload,
+                    headers=self.config.headers,
+                    timeout=aiohttp.ClientTimeout(total=self.config.timeout)
+                ) as response:
+                    if response.status != 201:
+                        error_text = await response.text()
+                        error_msg = f"HTTP {response.status}: {error_text}"
+                        self.record_failure("http_error")
+                        raise RuntimeError(f"❌ Ошибка создания предсказания Replicate: {error_msg}")
 
-            if response.status_code != 201:
-                error_msg = f"HTTP {response.status_code}: {response.text}"
-                self.record_failure("http_error")
-                raise RuntimeError(f"❌ Ошибка создания предсказания Replicate: {error_msg}")
+                    prediction = await response.json()
+                    prediction_id = prediction.get('id')
 
-            prediction = response.json()
-            prediction_id = prediction.get('id')
+                    if not prediction_id:
+                        raise ValueError("❌ Не получен ID предсказания от Replicate")
 
-            if not prediction_id:
-                raise ValueError("❌ Не получен ID предсказания от Replicate")
-
-            # Ожидание завершения предсказания
-            result = self._wait_for_prediction(prediction_id)
+                # Ожидание завершения предсказания
+                result = await self._wait_for_prediction(prediction_id)
             response_time = time.time() - start_time
 
             # Извлечение ответа
             if 'output' in result:
                 content = result['output']
+                
+                # Обработка случая, когда content является списком
+                if isinstance(content, list):
+                    content = ' '.join(str(item) for item in content)
+                elif not isinstance(content, str):
+                    content = str(content)
 
                 # Подсчет токенов (примерная оценка)
                 tokens_used = len(content.split()) * 1.3
@@ -106,14 +129,14 @@ class ReplicateProvider(BaseProvider):
             else:
                 raise ValueError("❌ Пустой output от Replicate")
 
-        except requests.exceptions.RequestException as e:
+        except aiohttp.ClientError as e:
             self.record_failure("network_error")
             raise RuntimeError(f"❌ Сетевая ошибка Replicate: {str(e)}")
         except Exception as e:
             self.record_failure("unknown_error")
             raise RuntimeError(f"❌ Неожиданная ошибка Replicate: {str(e)}")
 
-    def _wait_for_prediction(self, prediction_id: str) -> Dict[str, Any]:
+    async def _wait_for_prediction(self, prediction_id: str) -> Dict[str, Any]:
         """
         ⏳ Ожидание завершения предсказания Replicate
 
@@ -125,26 +148,26 @@ class ReplicateProvider(BaseProvider):
         """
         status_url = f"https://api.replicate.com/v1/predictions/{prediction_id}"
 
-        while True:
-            response = self.session.get(
-                status_url,
-                headers=self.config.headers,
-                timeout=30
-            )
+        async with aiohttp.ClientSession() as session:
+            while True:
+                async with session.get(
+                    status_url,
+                    headers=self.config.headers,
+                    timeout=aiohttp.ClientTimeout(total=30)
+                ) as response:
+                    if response.status != 200:
+                        raise RuntimeError(f"❌ Ошибка проверки статуса: HTTP {response.status}")
 
-            if response.status_code != 200:
-                raise RuntimeError(f"❌ Ошибка проверки статуса: HTTP {response.status_code}")
+                    result = await response.json()
+                    status = result.get('status')
 
-            result = response.json()
-            status = result.get('status')
+                    if status == 'succeeded':
+                        return result
+                    elif status == 'failed':
+                        error = result.get('error', 'Unknown error')
+                        raise RuntimeError(f"❌ Предсказание Replicate провалилось: {error}")
+                    elif status == 'cancelled':
+                        raise RuntimeError("❌ Предсказание Replicate отменено")
 
-            if status == 'succeeded':
-                return result
-            elif status == 'failed':
-                error = result.get('error', 'Unknown error')
-                raise RuntimeError(f"❌ Предсказание Replicate провалилось: {error}")
-            elif status == 'cancelled':
-                raise RuntimeError("❌ Предсказание Replicate отменено")
-
-            # Ожидание перед следующей проверкой
-            time.sleep(2)
+                # Ожидание перед следующей проверкой
+                await asyncio.sleep(2)

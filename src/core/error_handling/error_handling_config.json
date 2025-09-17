@@ -1,0 +1,52 @@
+{
+  "retry_config": {
+    "max_attempts": 3,
+    "base_delay": 1.0,
+    "max_delay": 60.0,
+    "exponential_base": 2.0,
+    "jitter": true,
+    "backoff_strategy": "exponential"
+  },
+  "circuit_breaker_config": {
+    "failure_threshold": 5,
+    "recovery_timeout": 60,
+    "expected_exception_types": [
+      "NetworkError",
+      "TimeoutError",
+      "ResourceError"
+    ],
+    "half_open_max_calls": 3
+  },
+  "timeout_config": {
+    "default_timeout": 30.0,
+    "network_timeout": 60.0,
+    "processing_timeout": 120.0,
+    "ocr_timeout": 180.0,
+    "email_fetch_timeout": 90.0
+  },
+  "error_reporting": {
+    "log_level": "INFO",
+    "include_stack_trace": true,
+    "max_context_size": 1000,
+    "enable_metrics": true,
+    "metrics_file": "logs/error_metrics.json"
+  },
+  "recovery_config": {
+    "auto_recovery_enabled": true,
+    "recovery_strategies": {
+      "NetworkError": "retry_with_backoff",
+      "ProcessingError": "fallback_processing",
+      "ResourceError": "resource_cleanup",
+      "TimeoutError": "increase_timeout",
+      "AuthenticationError": "refresh_credentials"
+    },
+    "max_recovery_attempts": 2
+  },
+  "monitoring": {
+    "error_rate_threshold": 0.1,
+    "response_time_threshold": 5.0,
+    "memory_usage_threshold": 0.8,
+    "disk_usage_threshold": 0.9,
+    "alert_cooldown": 300
+  }
+}

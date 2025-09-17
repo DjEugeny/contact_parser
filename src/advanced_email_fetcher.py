@@ -1732,12 +1732,20 @@ class AdvancedEmailFetcherV2:
                                                 attachments_stats['saved'] += 1
                                                 if is_inline:
                                                     attachments_stats['inline_images'] += 1
+                                            elif status == 'already_exists':
+                                                attachments_stats['saved'] += 1  # Считаем как сохраненные
                                             elif status == 'excluded':
+                                                attachments_stats['excluded'] += 1
+                                            elif status == 'excluded_by_filter':
+                                                attachments_stats['excluded_filenames'] += 1
+                                            elif status == 'excluded_inline_image':
                                                 attachments_stats['excluded'] += 1
                                             elif status == 'excluded_filename':
                                                 attachments_stats['excluded_filenames'] += 1
                                             elif status == 'excluded_by_size':
                                                 attachments_stats['excluded_by_size'] += 1
+                                            elif status == 'excluded_by_image_dimensions':
+                                                attachments_stats['excluded_by_image_dimensions'] += 1
                                             elif status == 'unsupported':
                                                 attachments_stats['unsupported'] += 1
 

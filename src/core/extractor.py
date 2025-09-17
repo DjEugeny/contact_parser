@@ -16,12 +16,16 @@ from dataclasses import dataclass, field
 from functools import lru_cache
 
 from ..providers.base_provider import BaseProvider
-from ..config.provider_manager_old import ProviderManager, ProviderManagerConfig
-from ..phone_normalizer import PhoneNormalizer
+from ..config import UnifiedConfigManager
+from ..postprocessing.phone_normalizer import PhoneNormalizer
 from .validator import LLMResponseValidator
 from .cache_manager import MultiLevelCache
 from .memory_optimizer import MemoryOptimizer
 from .chunker import TextChunker, ChunkingConfig
+from .ocr_manager import OCRManager, get_ocr_manager
+
+# Импорт системы кеширования
+from .result_cache import get_result_cache, CacheConfig
 
 
 @dataclass
@@ -44,11 +48,12 @@ class RetryConfig:
 @dataclass
 class ExtractorConfig:
     """📋 Полная конфигурация экстрактора"""
-    provider_manager: ProviderManager
+    provider_manager: UnifiedConfigManager
     phone_normalizer: PhoneNormalizer
     json_validator: LLMResponseValidator
     chunking_config: ChunkingConfig = field(default_factory=ChunkingConfig)
     retry_config: RetryConfig = field(default_factory=RetryConfig)
+    ocr_manager: Optional[OCRManager] = field(default_factory=lambda: get_ocr_manager())
     prompts_dir: Optional[Path] = None
     test_mode: bool = False
 
@@ -97,28 +102,53 @@ class ContactExtractor:
         # ✂️ Text chunker (Фаза 5+)
         self.chunker = TextChunker(config.chunking_config)
 
+        # 🔍 OCR Manager (унифицированная OCR обработка)
+        self.ocr_manager = config.ocr_manager
+
         # Устаревший кэш промптов (для совместимости)
         self._prompt_cache: Dict[str, str] = {}
 
+        # Инициализация системы кеширования результатов
+        cache_config = CacheConfig(
+            extraction_ttl=3600,  # 1 час для результатов извлечения
+            ocr_ttl=86400,        # 24 часа для OCR результатов
+            prompt_ttl=7200,      # 2 часа для промптов
+            enable_local_cache=True,
+            enable_compression=True
+        )
+        self.result_cache = get_result_cache(cache_config)
+
         print("🎯 Новый ContactExtractor инициализирован с Dependency Injection")
         print(f"   📁 Промпты: {self.config.prompts_dir}")
-        print(f"   🔧 Провайдеры: {len(self.config.provider_manager.providers)}")
+        print(f"   🔧 Провайдеры: {len(self.config.provider_manager.get_llm_providers())}")
         print("   📞 PhoneNormalizer: интегрирован")
         print("   📊 JSON Schema Validator: интегрирован")
+        print("   🔍 OCR Manager: интегрирован")
+        print("   🏪 Result Cache: включен")
     def load_prompt(self, filename: str) -> str:
         """
-        📝 Загрузка промпта с многоуровневым кэшированием (Фаза 6)
+        📝 Загрузка промпта с многоуровневым кэшированием через ResultCache
 
-        Сначала проверяет новый MultiLevelCache, затем падает обратно на старый метод
+        Использует новую систему кеширования результатов
         """
+        # 🚀 Проверяем кеш результатов
+        cached_prompt = self.result_cache.get_prompt(filename)
+        if cached_prompt:
+            return cached_prompt
+
         # 🚀 Сначала пробуем новый кэш (Фаза 6)
         cached_prompt = self.cache.get_prompt(filename)
         if cached_prompt:
+            # Кешируем в новой системе
+            self.result_cache.cache_prompt(filename, cached_prompt)
             return cached_prompt
 
         # 🔄 Fallback на старый метод (для совместимости)
         if filename in self._prompt_cache:
-            return self._prompt_cache[filename]
+            prompt = self._prompt_cache[filename]
+            # Кешируем в новой системе
+            self.result_cache.cache_prompt(filename, prompt)
+            return prompt
 
         prompts_dir = self.config.prompts_dir or Path(__file__).parent.parent.parent / "prompts"
         prompt_path = prompts_dir / filename
@@ -129,6 +159,9 @@ class ContactExtractor:
         with open(prompt_path, 'r', encoding='utf-8') as f:
             prompt = f.read().strip()
 
+        # Кешируем в новой системе
+        self.result_cache.cache_prompt(filename, prompt)
+        
         # Кэшируем в старом кэше для совместимости
         self._prompt_cache[filename] = prompt
         return prompt
@@ -150,6 +183,33 @@ class ContactExtractor:
             }
         """
         self.stats['total_requests'] += 1
+
+        # 🎯 Этап 4: Фильтрация по токенам с конфигурируемым порогом 15000 токенов
+        token_limit = 15000  # Конфигурируемый порог
+        token_count = self._count_tokens(text)
+        
+        if token_count > token_limit:
+            print(f"⚠️ Текст превышает лимит токенов: {token_count} > {token_limit}")
+            print(f"🔄 Применяем chunking для обработки большого текста")
+            
+            # Используем chunking для больших текстов
+            chunks = self.chunker.create_chunks(text)
+            if len(chunks) > 1:
+                print(f"✂️ Текст разбит на {len(chunks)} частей")
+                return self._process_chunks(chunks, metadata)
+            else:
+                print(f"⚠️ Chunking не помог, обрабатываем как есть")
+
+        # Создаем хеш контента для кеширования
+        content_hash = hashlib.md5(f"{text}_{metadata}".encode()).hexdigest()
+        
+        # Проверяем кеш результатов (если не тестовый режим)
+        if not self.test_mode:
+            cached_result = self.result_cache.get_extraction_result(content_hash)
+            if cached_result and 'result' in cached_result:
+                print(f"💾 Используем кешированный результат: {content_hash[:8]}...")
+                self.stats['cached_requests'] += 1
+                return cached_result['result']
 
         # Тестовый режим - возвращаем заранее подготовленный результат
         if self.test_mode:
@@ -211,10 +271,16 @@ class ContactExtractor:
             else:
                 # Запрос к LLM с fallback системой
                 print("🤖 Запрос к LLM провайдерам...")
-                llm_response = self.config.provider_manager.make_request_with_fallback(
-                    prompt,
-                    temperature=0.1,
-                    max_tokens=4000
+                request_data = {
+                    "messages": [{"role": "user", "content": prompt}],
+                    "temperature": 0.1,
+                    "max_tokens": 4000
+                }
+                
+                # Используем синхронную версию fallback системы
+                llm_response = self.config.provider_manager.make_request_sync(
+                    provider=self.config.provider_manager.get_best_available_provider(),
+                    request_data=request_data
                 )
 
                 # 💾 Кэшируем результат (Фаза 6)
@@ -259,6 +325,10 @@ class ContactExtractor:
                 'unique_contacts_found': len(result.get('contacts', []))
             })
 
+            # Кешируем результат (если не тестовый режим)
+            if not self.test_mode:
+                self.result_cache.cache_extraction_result(content_hash, result)
+
             self.stats['successful_requests'] += 1
             return result
 
@@ -274,25 +344,121 @@ class ContactExtractor:
 
     async def extract_all_data_async(self, text: str, metadata: dict = None) -> dict:
         """
-        🚀 Асинхронная версия extract_all_data
-        Для лучшей производительности при параллельной обработке
+        🚀 Улучшенная асинхронная версия extract_all_data
+        С полноценной retry логикой, обработкой исключений и таймаутами
         """
         self.stats['async_operations'] += 1
+        
+        # Применяем retry логику для асинхронной обработки
+        for attempt in range(self.config.retry_config.max_attempts):
+            try:
+                print(f"🚀 Асинхронная обработка (попытка {attempt + 1}/{self.config.retry_config.max_attempts})...")
+                
+                # Используем asyncio.wait_for для таймаута
+                result = await asyncio.wait_for(
+                    self._extract_with_executor(text, metadata),
+                    timeout=120.0  # 2 минуты таймаут
+                )
+                
+                print(f"✅ Асинхронная обработка успешно завершена")
+                return result
+                
+            except asyncio.TimeoutError:
+                print(f"⏰ Таймаут асинхронной обработки (попытка {attempt + 1})")
+                if attempt == self.config.retry_config.max_attempts - 1:
+                    return {
+                        'contacts': [],
+                        'business_context': '',
+                        'commercial_offers': [],
+                        'provider_used': 'async_timeout_error',
+                        'processing_time': 120.0,
+                        'error': 'Превышен таймаут асинхронной обработки',
+                        'attempts_made': attempt + 1
+                    }
+                    
+            except Exception as e:
+                print(f"❌ Ошибка асинхронной обработки (попытка {attempt + 1}): {e}")
+                
+                if attempt == self.config.retry_config.max_attempts - 1:
+                    # Последняя попытка - возвращаем ошибку
+                    return {
+                        'contacts': [],
+                        'business_context': '',
+                        'commercial_offers': [],
+                        'provider_used': 'async_error',
+                        'processing_time': 0,
+                        'error': f'Асинхронная обработка не удалась: {str(e)}',
+                        'attempts_made': attempt + 1
+                    }
+                
+                # Экспоненциальная задержка перед повтором
+                delay = min(
+                    self.config.retry_config.base_delay * (self.config.retry_config.exponential_base ** attempt),
+                    self.config.retry_config.max_delay
+                )
+                print(f"⏳ Ожидание {delay:.1f}с перед повтором...")
+                await asyncio.sleep(delay)
+        
+        # Этот код не должен выполняться, но на всякий случай
+        return {
+            'contacts': [],
+            'business_context': '',
+            'commercial_offers': [],
+            'provider_used': 'async_fallback_error',
+            'processing_time': 0,
+            'error': 'Неожиданная ошибка в асинхронной обработке'
+        }
 
-        # В текущей реализации используем ThreadPoolExecutor
-        # В будущем можно добавить полноценную асинхронную поддержку
+    async def _extract_with_executor(self, text: str, metadata: dict = None) -> dict:
+        """
+        🔧 Вспомогательный метод для выполнения извлечения в ThreadPoolExecutor
+        
+        Args:
+            text: Текст для анализа
+            metadata: Дополнительные метаданные
+            
+        Returns:
+            dict: Результат обработки
+        """
         import concurrent.futures
-
-        with concurrent.futures.ThreadPoolExecutor() as executor:
+        
+        # Используем ThreadPoolExecutor с ограниченным количеством потоков
+        with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
             loop = asyncio.get_event_loop()
+            
+            # Запускаем синхронную обработку в отдельном потоке
             result = await loop.run_in_executor(
                 executor,
-                self.extract_all_data,
+                self._extract_with_error_handling,
                 text,
                 metadata
             )
-
+            
         return result
+
+    def _extract_with_error_handling(self, text: str, metadata: dict = None) -> dict:
+        """
+        🛡️ Обертка для extract_all_data с дополнительной обработкой ошибок
+        
+        Args:
+            text: Текст для анализа
+            metadata: Дополнительные метаданные
+            
+        Returns:
+            dict: Результат обработки
+        """
+        try:
+            return self.extract_all_data(text, metadata)
+        except Exception as e:
+            print(f"❌ Критическая ошибка в _extract_with_error_handling: {e}")
+            return {
+                'contacts': [],
+                'business_context': '',
+                'commercial_offers': [],
+                'provider_used': 'error_handler',
+                'processing_time': 0,
+                'error': f'Критическая ошибка обработки: {str(e)}'
+            }
 
     def _prepare_unified_prompt(self, text: str, metadata: dict = None) -> str:
         """📝 Подготовка единого промпта для всех задач"""
@@ -457,6 +623,71 @@ class ContactExtractor:
 
         return text
 
+    def extract_from_file(self, file_path: str, date: str = None) -> dict:
+        """
+        🔍 Извлечение контактов из файла с использованием OCR Manager
+        
+        Args:
+            file_path: Путь к файлу для обработки
+            date: Дата для фильтрации (опционально)
+            
+        Returns:
+            dict: Результат извлечения контактов с метаданными OCR
+        """
+        if not self.ocr_manager:
+            raise ValueError("OCR Manager не инициализирован")
+            
+        try:
+            # Извлекаем текст через OCR Manager
+            ocr_result = self.ocr_manager.extract_text_from_file(file_path, date)
+            
+            if not ocr_result.get('success', False):
+                return {
+                    'success': False,
+                    'error': ocr_result.get('error', 'OCR обработка не удалась'),
+                    'contacts': [],
+                    'metadata': {
+                        'file_path': file_path,
+                        'ocr_used': True,
+                        'ocr_cached': ocr_result.get('cached', False)
+                    }
+                }
+            
+            # Извлекаем контакты из полученного текста
+            extracted_text = ocr_result.get('text', '')
+            metadata = {
+                'file_path': file_path,
+                'ocr_used': True,
+                'ocr_cached': ocr_result.get('cached', False),
+                'ocr_processing_time': ocr_result.get('processing_time', 0),
+                'date_filter': date
+            }
+            
+            # Используем основной метод извлечения
+            extraction_result = self.extract_all_data(extracted_text, metadata)
+            
+            # Обновляем статистику
+            self.stats['total_requests'] += 1
+            if extraction_result.get('success', False):
+                self.stats['successful_requests'] += 1
+            else:
+                self.stats['failed_requests'] += 1
+                
+            return extraction_result
+            
+        except Exception as e:
+            self.stats['failed_requests'] += 1
+            return {
+                'success': False,
+                'error': f'Ошибка обработки файла: {str(e)}',
+                'contacts': [],
+                'metadata': {
+                    'file_path': file_path,
+                    'ocr_used': True,
+                    'error_type': type(e).__name__
+                }
+            }
+
     def get_stats(self) -> Dict[str, Any]:
         """📊 Получить статистику экстрактора"""
         provider_stats = self.config.provider_manager.get_stats()
@@ -476,3 +707,208 @@ class ContactExtractor:
         """
         print("⚠️  Используется устаревший метод extract_contacts, рекомендуется extract_all_data")
         return self.extract_all_data(text, metadata)
+
+    def _count_tokens(self, text: str) -> int:
+        """
+        🔢 Подсчет токенов в тексте
+        
+        Args:
+            text: Текст для подсчета токенов
+            
+        Returns:
+            int: Количество токенов
+        """
+        try:
+            import tiktoken
+            encoding = tiktoken.get_encoding('cl100k_base')
+            return len(encoding.encode(text))
+        except ImportError:
+            # Fallback: примерная оценка 1 токен = 4 символа
+            return len(text) // 4
+        except Exception as e:
+            print(f"⚠️ Ошибка подсчета токенов: {e}")
+            return len(text) // 4
+
+    def _process_chunks(self, chunks: List[str], metadata: dict = None) -> dict:
+        """
+        🧩 Обработка текста по частям (chunks)
+        
+        Args:
+            chunks: Список частей текста
+            metadata: Дополнительные метаданные
+            
+        Returns:
+            dict: Объединенный результат обработки всех частей
+        """
+        all_contacts = []
+        all_business_contexts = []
+        all_commercial_offers = []
+        total_processing_time = 0
+        
+        print(f"🧩 Обрабатываем {len(chunks)} частей текста...")
+        
+        for i, chunk in enumerate(chunks, 1):
+            print(f"   📄 Обработка части {i}/{len(chunks)}...")
+            
+            try:
+                # Обрабатываем каждую часть отдельно
+                chunk_result = self._extract_single_chunk(chunk, metadata)
+                
+                # Собираем результаты
+                if chunk_result.get('contacts'):
+                    all_contacts.extend(chunk_result['contacts'])
+                
+                if chunk_result.get('business_context'):
+                    all_business_contexts.append(chunk_result['business_context'])
+                
+                if chunk_result.get('commercial_offers'):
+                    all_commercial_offers.extend(chunk_result['commercial_offers'])
+                
+                total_processing_time += chunk_result.get('processing_time', 0)
+                
+            except Exception as e:
+                print(f"❌ Ошибка обработки части {i}: {e}")
+                continue
+        
+        # Объединяем и дедуплицируем результаты
+        unique_contacts = self._deduplicate_contacts(all_contacts)
+        combined_business_context = ' '.join(all_business_contexts)
+        unique_offers = self._deduplicate_offers(all_commercial_offers)
+        
+        print(f"✅ Обработка завершена: {len(unique_contacts)} контактов, {len(unique_offers)} предложений")
+        
+        return {
+            'contacts': unique_contacts,
+            'business_context': combined_business_context,
+            'commercial_offers': unique_offers,
+            'provider_used': 'chunked_processing',
+            'processing_time': total_processing_time,
+            'text_length': sum(len(chunk) for chunk in chunks),
+            'chunks_processed': len(chunks),
+            'total_contacts_found': len(all_contacts),
+            'unique_contacts_found': len(unique_contacts)
+        }
+
+    def _extract_single_chunk(self, text: str, metadata: dict = None) -> dict:
+        """
+        🎯 Обработка одной части текста (без фильтрации по токенам)
+        
+        Args:
+            text: Текст для анализа
+            metadata: Дополнительные метаданные
+            
+        Returns:
+            dict: Результат обработки части
+        """
+        # Создаем хеш контента для кеширования
+        content_hash = hashlib.md5(f"{text}_{metadata}".encode()).hexdigest()
+        
+        # Проверяем кеш результатов (если не тестовый режим)
+        if not self.test_mode:
+            cached_result = self.result_cache.get_extraction_result(content_hash)
+            if cached_result and 'result' in cached_result:
+                return cached_result['result']
+
+        # Тестовый режим - возвращаем заранее подготовленный результат
+        if self.test_mode:
+            return {
+                'contacts': [{
+                    'name': 'Тестовый Контакт (Chunk)',
+                    'email': 'chunk@example.com',
+                    'phone': '+7 (999) 123-45-67',
+                    'confidence': 0.85
+                }],
+                'business_context': 'Тестовый контекст из части текста',
+                'commercial_offers': [],
+                'provider_used': 'test_mode_chunk',
+                'processing_time': 0.05
+            }
+
+        try:
+            # Подготавливаем промпт
+            prompt = self._prepare_unified_prompt(text, metadata)
+            
+            # Отправляем запрос к LLM
+            start_time = time.time()
+            response = self.config.provider_manager.get_current_provider().generate_response(prompt)
+            processing_time = time.time() - start_time
+            
+            # Парсим ответ
+            result = self._parse_llm_response(response)
+            result['processing_time'] = processing_time
+            result['provider_used'] = self.config.provider_manager.get_current_provider().name
+            
+            # Кешируем результат
+            if not self.test_mode:
+                self.result_cache.save_extraction_result(content_hash, result)
+            
+            return result
+            
+        except Exception as e:
+            print(f"❌ Ошибка обработки части текста: {e}")
+            return {
+                'contacts': [],
+                'business_context': '',
+                'commercial_offers': [],
+                'provider_used': 'error',
+                'processing_time': 0,
+                'error': str(e)
+            }
+
+    def _deduplicate_contacts(self, contacts: List[dict]) -> List[dict]:
+        """
+        🔄 Дедупликация контактов по email и телефону
+        
+        Args:
+            contacts: Список контактов
+            
+        Returns:
+            List[dict]: Уникальные контакты
+        """
+        seen = set()
+        unique_contacts = []
+        
+        for contact in contacts:
+            # Создаем ключ для дедупликации
+            key_parts = []
+            if contact.get('email'):
+                key_parts.append(contact['email'].lower())
+            if contact.get('phone'):
+                # Нормализуем телефон для сравнения
+                phone = re.sub(r'[^\d+]', '', contact['phone'])
+                key_parts.append(phone)
+            
+            if key_parts:
+                key = '|'.join(key_parts)
+                if key not in seen:
+                    seen.add(key)
+                    unique_contacts.append(contact)
+            else:
+                # Если нет email и телефона, добавляем как есть
+                unique_contacts.append(contact)
+        
+        return unique_contacts
+
+    def _deduplicate_offers(self, offers: List[dict]) -> List[dict]:
+        """
+        🔄 Дедупликация коммерческих предложений по названию
+        
+        Args:
+            offers: Список предложений
+            
+        Returns:
+            List[dict]: Уникальные предложения
+        """
+        seen = set()
+        unique_offers = []
+        
+        for offer in offers:
+            title = offer.get('title', '').lower().strip()
+            if title and title not in seen:
+                seen.add(title)
+                unique_offers.append(offer)
+            elif not title:
+                # Если нет названия, добавляем как есть
+                unique_offers.append(offer)
+        
+        return unique_offers

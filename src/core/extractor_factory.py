@@ -10,12 +10,30 @@ from typing import Optional
 from .extractor import ContactExtractor, ExtractorConfig, RetryConfig
 from .chunker import ChunkingConfig
 from ..config import UnifiedConfigManager
-from ..phone_normalizer import PhoneNormalizer
+from ..postprocessing.phone_normalizer import PhoneNormalizer
 from .validator import LLMResponseValidator
 
 
 class ExtractorFactory:
     """🏭 Фабрика для создания ContactExtractor с правильной инициализацией зависимостей"""
+    
+    # Singleton экземпляры для тяжелых компонентов
+    _phone_normalizer = None
+    _json_validator = None
+    
+    @classmethod
+    def get_phone_normalizer(cls):
+        """Получение единственного экземпляра PhoneNormalizer"""
+        if cls._phone_normalizer is None:
+            cls._phone_normalizer = PhoneNormalizer()
+        return cls._phone_normalizer
+    
+    @classmethod
+    def get_json_validator(cls):
+        """Получение единственного экземпляра LLMResponseValidator"""
+        if cls._json_validator is None:
+            cls._json_validator = LLMResponseValidator()
+        return cls._json_validator
 
     @staticmethod
     def create_extractor(
@@ -41,24 +59,14 @@ class ExtractorFactory:
         # Получение настроек провайдеров из .env
         llm_providers = unified_config.get_llm_providers()
 
-        # Создание ProviderManager на основе унифицированной конфигурации
-        from ..config.provider_manager_old import ProviderManager, ProviderManagerConfig
-        provider_config = ProviderManagerConfig(
-            config_path=config_path,
-            fallback_enabled=True,
-            circuit_breaker_enabled=True,
-            max_fallback_attempts=2
-        )
-        provider_manager = ProviderManager(provider_config)
+        # Используем новый UnifiedConfigManager с критическими исправлениями
+        provider_manager = unified_config  # Теперь UnifiedConfigManager содержит все необходимые методы
 
-        # Примечание: ProviderManager все еще использует старый подход с JSON,
-        # но теперь он может быть обновлен для использования unified_config
+        # 2. Получение единственного экземпляра нормализатора телефонов
+        phone_normalizer = ExtractorFactory.get_phone_normalizer()
 
-        # 2. Создание нормализатора телефонов
-        phone_normalizer = PhoneNormalizer()
-
-        # 3. Создание JSON валидатора
-        json_validator = LLMResponseValidator()
+        # 3. Получение единственного экземпляра JSON валидатора
+        json_validator = ExtractorFactory.get_json_validator()
 
         # 4. Настройка конфигураций
         # Загружаем chunking конфигурацию из processing_config.json

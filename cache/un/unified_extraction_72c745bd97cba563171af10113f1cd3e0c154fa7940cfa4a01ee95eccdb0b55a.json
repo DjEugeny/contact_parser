@@ -1,9 +1,0 @@
-{
-  "content": "```json\n{\n  \"organizations\": [],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Пименова Юлия Александровна\",\n      \"organization_id\": null,\n      \"position\": null,\n      \"email\": \"medic.81@mail.ru\",\n      \"phones\": [],\n      \"city\": \"Новосибирск\",\n      \"address\": null,\n      \"confidence\": 0.8\n    }\n  ],\n  \"business_context\": \"Переписка по теме отгрузки наборов Фемофлор®II, содержит анкету участника для клиники в Новосибирске. Обсуждается начало отгрузки и участие клиники в программе.\",\n  \"summary\": {\n    \"topic\": \"Сервисное обслуживание\",\n    \"product_interest\": \"Наборы Фемофлор®II\",\n    \"communication_stage\": \"Исполнение\",\n    \"request_type\": \"Условия поставки\"\n  },\n  \"key_points\": [\n    \"Начало отгрузки наборов Фемофлор®II\",\n    \"Участие клиники в программе\",\n    \"Клиника расположена в Новосибирске\"\n  ],\n  \"commercial_offers\": []\n}\n```",
-  "provider": "openrouter",
-  "model": "deepseek/deepseek-chat-v3.1:free",
-  "tokens_used": 109,
-  "response_time": 10.870431900024414,
-  "used_provider": "OpenRouter",
-  "fallback_used": false
-}
