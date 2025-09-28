@@ -2,6 +2,10 @@
 
 ## 📋 Список отчетов
 
+3. [20250928_1255_postprocessing_pipeline_update.md](20250928_1255_postprocessing_pipeline_update.md) - Постобработка и дедупликация LLM-ответа (2025-09-28 12:55)
+2. [20250928_1129_extractor_validator_refactor.md](20250928_1129_extractor_validator_refactor.md) - Рефакторинг extractor/validator под новый JSON-шаблон (2025-09-28 11:29)
+1. [План реализации Mini-CRM MVP — 2025-09-28](plan_mini_crm_mvp_2025-09-28.md) - План обновления конвейера и UI (создан 2025-09-28)
+
 1. [Анализ архитектуры проекта](1.%20project_architecture_analysis.md) - Детальный анализ архитектуры Фазы 5 с постобработкой данных (обновлен 2025-09-13 17:20)
 2. [20250127_2230_task_status_verification.md](20250127_2230_task_status_verification.md) - Отчет о проверке и актуализации статуса задач (2025-01-27 22:30)
 2. [Завершение анализа архитектуры](20241219_1645_architecture_analysis_complete.md) - Итоги анализа и рекомендации для Фазы 6 (2025-09-13 17:20)
@@ -31,6 +35,9 @@
 22. [Завершение этапа 11: Fallback механизм для PDF](20250127_1530_etap11_fallback_pdf_completed.md) - 2025-01-27 15:30
 23. [Завершение этапа 12: Оптимизация производительности пайплайна](20250127_2217_stage12_performance_optimization_complete.md) - 2025-01-27 22:17
 24. [Отчет о результатах интеграционного тестирования](20250917_2220_integration_testing_report.md) - 2025-09-17 22:20
+25. [Отчет о результатах интеграционного тестирования](20250917_2227_integration_testing_results.md) - 2025-09-17 22:27
+26. [Исправление ошибки 'NoneType' object is not subscriptable в OCR модуле](20250117_1430_ocr_nonetype_fix.md) - 2025-01-17 14:30
+27. [Отчет о выполнении тестов системы обработки писем](20250117_1441_testing_progress.md) - 2025-01-17 14:41
 
 ## 🎯 Быстрая навигация по отчетам
 
@@ -588,3 +595,9 @@
 18. [Расширение плана API Pipeline Validator](20250130_0230_api_pipeline_plan_extension.md) - 2025-01-30 02:30
 18. [Завершение устранения дублирования OCR обработки](20250130_0230_ocr_deduplication_complete.md) - 2025-01-30 02:30
 19. [Завершение этапа 13: Система обработки ошибок и автоматического восстановления](20250130_0300_error_handling_system_complete.md) - 2025-01-30 03:00
+- [Обновление API Pipeline Validator](implementation_api_pipeline_validator_refactor_2025-09-28.md) - 2025-09-28 12:00 (UTC+07)
+- [Унификация путей конфигурации](20250928_1400_config_paths_unification.md) - 2025-09-28 14:00 (UTC+07)
+- 2025-09-28T12:57:26 · API Validator 2025-07-29 (20250928_125642) — 10 писем — [data/llm_results/2025-07-29/_summary_20250928_125642.json](../../data/llm_results/2025-07-29/_summary_20250928_125642.json)
+- 2025-09-28T13:23:07 · API Validator 2025-07-29 (20250928_132044) — 10 писем — [data/llm_results/2025-07-29/_summary_20250928_132044.json](../../data/llm_results/2025-07-29/_summary_20250928_132044.json)
+- 2025-09-28T13:27:25 · API Validator 2025-07-29 (20250928_132725) — 10 писем — [data/llm_results/2025-07-29/_summary_20250928_132725.json](../../data/llm_results/2025-07-29/_summary_20250928_132725.json)
+- 2025-09-28T13:30:22 · API Validator 2025-07-29 (20250928_132747) — 10 писем — [data/llm_results/2025-07-29/_summary_20250928_132747.json](../../data/llm_results/2025-07-29/_summary_20250928_132747.json)

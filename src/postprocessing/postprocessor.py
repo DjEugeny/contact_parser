@@ -9,12 +9,13 @@ Created: 2025-09-13
 """
 
 import logging
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Optional, Tuple
 
 from .organization_deduplicator import OrganizationDeduplicator
 from .contact_filter import ContactFilter
 from .data_enricher import DataEnricher
 from .data_normalizer import DataNormalizer
+from .advanced_contact_deduplicator import AdvancedContactDeduplicator
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +35,8 @@ class PostProcessor:
                  organization_deduplicator: Optional[OrganizationDeduplicator] = None,
                  contact_filter: Optional[ContactFilter] = None,
                  data_enricher: Optional[DataEnricher] = None,
-                 data_normalizer: Optional[DataNormalizer] = None):
+                 data_normalizer: Optional[DataNormalizer] = None,
+                 contact_deduplicator: Optional[AdvancedContactDeduplicator] = None):
         """Инициализация постпроцессора
         
         Args:
@@ -47,6 +49,7 @@ class PostProcessor:
         self.contact_filter = contact_filter or ContactFilter()
         self.data_enricher = data_enricher or DataEnricher()
         self.data_normalizer = data_normalizer or DataNormalizer()
+        self.contact_deduplicator = contact_deduplicator or AdvancedContactDeduplicator()
         self.logger = logging.getLogger(__name__)
         
         # Статистика обработки
@@ -59,14 +62,18 @@ class PostProcessor:
             'contacts_enriched': 0,
             'data_normalized': 0
         }
+        self.organization_mapping: Dict[int, int] = {}
+        self.contact_mapping: Dict[int, int] = {}
     
     def process_llm_response(self, llm_result: Dict[str, Any], 
-                           email_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+                           email_data: Optional[Dict[str, Any]] = None,
+                           existing_organizations: Optional[Dict[int, Dict[str, Any]]] = None) -> Dict[str, Any]:
         """Полная постобработка ответа LLM
         
         Args:
             llm_result: Результат от LLM в новом формате
             email_data: Данные исходного email для обогащения
+            existing_organizations: Предзагруженный справочник организаций
             
         Returns:
             Dict: Обработанный результат
@@ -74,23 +81,31 @@ class PostProcessor:
         self.logger.info("🔄 Начало постобработки ответа LLM")
         
         try:
+            self._reset_runtime_state()
             # Валидация входных данных
             if not self._validate_llm_result(llm_result):
                 raise ValueError("Некорректная структура LLM результата")
+
+            if existing_organizations:
+                self.org_deduplicator.load_existing_organizations(existing_organizations)
             
             # Этап 1: Дедупликация и объединение организаций (п.3.a)
             organizations_mapping = self._process_organizations(
                 llm_result.get('organizations', [])
             )
-            
+            self.organization_mapping = organizations_mapping
             # Этап 2: Обновление organization_id в контактах (п.3.b)
             updated_contacts = self._update_contact_organization_ids(
                 llm_result.get('contacts', []), organizations_mapping
             )
             
+            # Этап 2.5: Дедупликация контактов
+            deduplicated_contacts, contact_mapping = self._deduplicate_contacts(updated_contacts)
+            self.contact_mapping = contact_mapping
+
             # Этап 3: Фильтрация ценных контактов (п.3.c)
             valuable_contacts, updated_organizations = self._filter_valuable_contacts(
-                updated_contacts
+                deduplicated_contacts
             )
             
             # Этап 4: Обогащение данных (п.3.e)
@@ -103,9 +118,26 @@ class PostProcessor:
                 enriched_contacts, updated_organizations
             )
             
+            # Этап 6: Обновление interactions
+            processed_interactions = self._process_interactions(
+                llm_result.get('interactions', []),
+                final_contacts,
+                final_organizations
+            )
+
+            summary = self._sanitize_summary(llm_result.get('summary'))
+            key_points = self._sanitize_key_points(llm_result.get('key_points'))
+            business_context = llm_result.get('business_context') or ""
+
             # Формирование финального результата
             processed_result = self._build_final_result(
-                llm_result, final_contacts, final_organizations
+                llm_result,
+                final_contacts,
+                final_organizations,
+                processed_interactions,
+                summary,
+                key_points,
+                business_context
             )
             
             # Обновление статистики
@@ -118,7 +150,12 @@ class PostProcessor:
             self.logger.error(f"❌ Ошибка при постобработке: {str(e)}")
             # Возвращаем оригинальный результат в случае ошибки
             return llm_result
-    
+
+    def _reset_runtime_state(self) -> None:
+        """Сброс временных структур перед обработкой"""
+        self.organization_mapping = {}
+        self.contact_mapping = {}
+
     def _validate_llm_result(self, llm_result: Dict[str, Any]) -> bool:
         """Валидация структуры LLM результата
         
@@ -207,7 +244,7 @@ class PostProcessor:
         
         # Получаем текущие организации
         current_organizations = {
-            org_id: org for org_id, org in self.org_deduplicator.global_organizations.items()
+            org_id: org for org_id, org in self.org_deduplicator.get_global_organizations().items()
         }
         
         valuable_contacts, updated_organizations = self.contact_filter.filter_valuable_contacts(
@@ -223,6 +260,15 @@ class PostProcessor:
         
         self.logger.info(f"✅ Отфильтровано {filtered_count} неценных контактов")
         return valuable_contacts, updated_organizations
+
+    def _deduplicate_contacts(self, contacts: List[Dict[str, Any]]) -> Tuple[List[Dict[str, Any]], Dict[int, int]]:
+        """Дедупликация контактов с сохранением маппинга ID"""
+        if not contacts:
+            return [], {}
+
+        deduplicated = self.contact_deduplicator.deduplicate_contacts(contacts)
+        mapping = self.contact_deduplicator.get_last_mapping()
+        return deduplicated, mapping
     
     def _enrich_contact_data(self, contacts: List[Dict[str, Any]], 
                            organizations: Dict[int, Dict[str, Any]],
@@ -268,10 +314,131 @@ class PostProcessor:
         
         self.logger.info(f"✅ Нормализовано {len(normalized_contacts)} контактов и {len(normalized_organizations)} организаций")
         return normalized_contacts, normalized_organizations
+
+    def _process_interactions(self, interactions: Optional[List[Dict[str, Any]]],
+                              contacts: List[Dict[str, Any]],
+                              organizations: Dict[int, Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Приведение interactions к актуальным идентификаторам и структуре"""
+        if not interactions:
+            return []
+
+        allowed_types = {
+            "requested_quote",
+            "sent_quote",
+            "follow_up",
+            "clarification",
+            "complaint",
+            "invoice_sent",
+            "invoice_paid",
+            "contract_sent",
+            "contract_signed",
+            "delivery",
+            "support",
+            "other"
+        }
+
+        valid_contact_ids = {
+            contact.get('contact_id') for contact in contacts
+            if isinstance(contact.get('contact_id'), int)
+        }
+        organization_ids = set(organizations.keys())
+        fallback_org_id = next(iter(organization_ids), None)
+
+        processed: List[Dict[str, Any]] = []
+        for index, interaction in enumerate(interactions, 1):
+            if not isinstance(interaction, dict):
+                continue
+
+            item = interaction.copy()
+            contact_id = item.get('contact_id')
+            if contact_id in self.contact_mapping:
+                item['contact_id'] = self.contact_mapping[contact_id]
+
+            if item.get('contact_id') not in valid_contact_ids:
+                continue
+
+            org_id = item.get('organization_id')
+            if org_id in self.organization_mapping:
+                item['organization_id'] = self.organization_mapping[org_id]
+
+            if item.get('organization_id') not in organization_ids:
+                if fallback_org_id is None:
+                    continue
+                item['organization_id'] = fallback_org_id
+
+            item['interaction_local_id'] = item.get('interaction_local_id') or index
+            item['role_in_message'] = str(item.get('role_in_message') or 'other').lower()
+
+            interaction_type = str(item.get('interaction_type') or 'other').lower()
+            if interaction_type not in allowed_types:
+                interaction_type = 'other'
+            item['interaction_type'] = interaction_type
+
+            attachments = item.get('attachments', [])
+            if not isinstance(attachments, list):
+                attachments = [attachments] if attachments else []
+            item['attachments'] = [str(att).strip() for att in attachments if att]
+
+            try:
+                confidence = float(item.get('confidence', 0.0))
+            except (TypeError, ValueError):
+                confidence = 0.0
+            item['confidence'] = max(0.0, min(1.0, confidence))
+
+            if item.get('message_date'):
+                item['message_date'] = str(item['message_date']).strip()
+
+            processed.append(item)
+
+        return processed
+
+    def _sanitize_summary(self, summary: Optional[Dict[str, Any]]) -> Dict[str, Optional[str]]:
+        """Гарантия структуры summary блока"""
+        template = {
+            'topic': None,
+            'product_interest': None,
+            'communication_stage': None,
+            'request_type': None
+        }
+
+        if not isinstance(summary, dict):
+            return template
+
+        sanitized = {}
+        for key in template:
+            value = summary.get(key)
+            if value is None:
+                sanitized[key] = None
+            else:
+                text = str(value).strip()
+                sanitized[key] = text if text else None
+
+        return sanitized
+
+    def _sanitize_key_points(self, key_points: Optional[List[Any]]) -> List[str]:
+        """Очистка списка ключевых пунктов"""
+        if not isinstance(key_points, list):
+            return []
+
+        sanitized: List[str] = []
+        for point in key_points:
+            if point is None:
+                continue
+            text = str(point).strip()
+            if text:
+                sanitized.append(text)
+            if len(sanitized) >= 5:
+                break
+
+        return sanitized
     
     def _build_final_result(self, original_result: Dict[str, Any], 
                           final_contacts: List[Dict[str, Any]],
-                          final_organizations: Dict[int, Dict[str, Any]]) -> Dict[str, Any]:
+                          final_organizations: Dict[int, Dict[str, Any]],
+                          interactions: List[Dict[str, Any]],
+                          summary: Dict[str, Optional[str]],
+                          key_points: List[str],
+                          business_context: str) -> Dict[str, Any]:
         """Формирование финального результата
         
         Args:
@@ -285,14 +452,21 @@ class PostProcessor:
         processed_result = original_result.copy()
         
         # Обновляем обработанные данные
-        processed_result['organizations'] = list(final_organizations.values())
+        sorted_org_ids = sorted(final_organizations.keys())
+        processed_result['organizations'] = [final_organizations[oid] for oid in sorted_org_ids]
         processed_result['contacts'] = final_contacts
+        processed_result['interactions'] = interactions
+        processed_result['summary'] = summary
+        processed_result['key_points'] = key_points
+        processed_result['business_context'] = business_context
         
         # Добавляем метаданные постобработки
         processed_result['postprocessing_metadata'] = {
             'processed_at': self._get_current_timestamp(),
             'stats': self.stats.copy(),
-            'version': '1.0.0'
+            'version': '1.1.0',
+            'organization_mapping': self.organization_mapping,
+            'contact_mapping': self.contact_mapping
         }
         
         return processed_result
@@ -340,6 +514,9 @@ class PostProcessor:
         base_stats['contact_filter'] = self.contact_filter.get_filter_stats([])
         base_stats['data_enricher'] = self.data_enricher.get_enrichment_stats()
         base_stats['data_normalizer'] = self.data_normalizer.get_normalization_stats()
+        base_stats['contact_deduplicator'] = {
+            'last_mapping_size': len(self.contact_mapping)
+        }
         
         return base_stats
     

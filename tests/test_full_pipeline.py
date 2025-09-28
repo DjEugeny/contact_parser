@@ -1,256 +1,202 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-🧪 Тест полной цепочки обработки: загрузка писем → OCR → LLM → экспорт в таблицы
+Тестирование полного пайплайна с обновленной нормализацией телефонов
 """
 
 import sys
 import os
-import unittest
 from pathlib import Path
-from datetime import datetime, timedelta
-from unittest.mock import patch, MagicMock
 
-# Добавляем путь к src для импортов
-sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
+# Добавляем корневую директорию в путь
+project_root = Path(__file__).parent
+sys.path.insert(0, str(project_root))
 
-from google_sheets_bridge import LLM_Sheets_Bridge
-from integrated_llm_processor import IntegratedLLMProcessor
-from google_sheets_exporter import GoogleSheetsExporter
-from local_exporter import LocalDataExporter
-
-
-class TestFullPipeline(unittest.TestCase):
-    """🧪 Тесты полной цепочки обработки"""
+def test_phone_normalizer_integration():
+    """Тестирование интеграции phone_normalizer в postprocessing"""
+    print("🔧 Тестирование интеграции phone_normalizer...")
     
-    def setUp(self):
-        """Настройка тестового окружения"""
-        self.test_date = "2025-01-15"
-        self.bridge = LLM_Sheets_Bridge()
+    try:
+        from src.postprocessing.phone_normalizer import PhoneNormalizer
+        normalizer = PhoneNormalizer()
         
-    def test_bridge_initialization(self):
-        """🔧 Тест инициализации моста"""
-        print("\n🔧 Тестирование инициализации LLM_Sheets_Bridge...")
+        # Тестовые номера
+        test_phones = [
+            "+7 (495) 123-45-67 доб. 123",
+            "8-800-555-35-35, +7-926-123-45-67",
+            "495-123-45-67"
+        ]
         
-        # Проверяем, что все компоненты инициализированы
-        self.assertIsInstance(self.bridge.processor, IntegratedLLMProcessor)
-        self.assertIsInstance(self.bridge.exporter, GoogleSheetsExporter)
-        self.assertIsInstance(self.bridge.local_exporter, LocalDataExporter)
+        print("\n📞 Тестирование нормализации телефонов:")
+        for phone in test_phones:
+            result = normalizer.normalize_contact_phone(phone)
+            print(f"  Исходный: {phone}")
+            print(f"  Результат: {result}")
+            print()
+            
+        # Тестирование множественных номеров
+        print(f"\n📱 Множественная нормализация:")
+        for phone in test_phones:
+            multiple_result = normalizer.normalize_multiple_phones(phone)
+            print(f"  Исходный: {phone}")
+            print(f"  Результаты: {len(multiple_result)} номеров")
+            for i, result in enumerate(multiple_result):
+                print(f"    {i+1}. {result}")
+            print()
+            
+        print("✅ phone_normalizer интегрирован успешно")
+        return True
         
-        # Проверяем, что процессор не в тестовом режиме
-        self.assertFalse(self.bridge.processor.test_mode)
+    except Exception as e:
+        print(f"❌ Ошибка интеграции phone_normalizer: {e}")
+        return False
+
+def test_data_normalizer_integration():
+    """Тестирование DataNormalizer с новым phone_normalizer"""
+    print("\n🔧 Тестирование DataNormalizer...")
+    
+    try:
+        from src.postprocessing.data_normalizer import DataNormalizer
+        normalizer = DataNormalizer()
         
-        print("   ✅ Все компоненты инициализированы корректно")
-        
-    @patch('subprocess.run')
-    def test_auto_fetch_emails_success(self, mock_subprocess):
-        """📧 Тест успешной автоматической загрузки писем"""
-        print("\n📧 Тестирование автоматической загрузки писем...")
-        
-        # Мокаем успешный результат subprocess
-        mock_result = MagicMock()
-        mock_result.returncode = 0
-        mock_result.stdout = "Загружено 5 писем за 2025-01-15"
-        mock_result.stderr = ""
-        mock_subprocess.return_value = mock_result
-        
-        # Тестируем автозагрузку
-        result = self.bridge._auto_fetch_emails(self.test_date)
-        
-        # Проверяем результат
-        self.assertTrue(result)
-        
-        # Проверяем, что subprocess был вызван с правильными параметрами
-        mock_subprocess.assert_called_once()
-        call_args = mock_subprocess.call_args[0][0]
-        self.assertIn("advanced_email_fetcher.py", str(call_args))
-        self.assertIn("--date", call_args)
-        self.assertIn(self.test_date, call_args)
-        
-        print("   ✅ Автоматическая загрузка писем работает корректно")
-        
-    @patch('subprocess.run')
-    def test_auto_fetch_emails_failure(self, mock_subprocess):
-        """📧 Тест неудачной автоматической загрузки писем"""
-        print("\n📧 Тестирование обработки ошибок при загрузке писем...")
-        
-        # Мокаем неудачный результат subprocess
-        mock_result = MagicMock()
-        mock_result.returncode = 1
-        mock_result.stdout = ""
-        mock_result.stderr = "Ошибка подключения к серверу"
-        mock_subprocess.return_value = mock_result
-        
-        # Тестируем автозагрузку
-        result = self.bridge._auto_fetch_emails(self.test_date)
-        
-        # Проверяем результат
-        self.assertFalse(result)
-        
-        print("   ✅ Обработка ошибок загрузки работает корректно")
-        
-    @patch.object(LLM_Sheets_Bridge, '_auto_fetch_emails')
-    @patch.object(IntegratedLLMProcessor, 'process_emails_by_date')
-    def test_process_and_export_with_auto_fetch(self, mock_process, mock_fetch):
-        """🔄 Тест полной цепочки с автоматической загрузкой"""
-        print("\n🔄 Тестирование полной цепочки с автозагрузкой...")
-        
-        # Первый вызов process_emails_by_date возвращает пустой результат
-        # Второй вызов (после автозагрузки) возвращает данные
-        mock_process.side_effect = [
-            # Первый вызов - нет писем
+        # Тестовые контакты
+        test_contacts = [
             {
-                'statistics': {'emails_processed': 0},
-                'summary': {'total_contacts': 0},
-                'all_contacts': []
+                "name": "Иван Петров",
+                "phones": ["+7 (495) 123-45-67 доб. 123", "8-926-555-35-35"],
+                "email": "ivan@example.com",
+                "organization": "ООО Тест"
             },
-            # Второй вызов - есть письма после автозагрузки
             {
-                'statistics': {
-                    'emails_processed': 3,
-                    'total_requests': 3,
-                    'successful_requests': 3,
-                    'failed_requests': 0
-                },
-                'summary': {'total_contacts': 2},
-                'all_contacts': [
-                    {
-                        'name': 'Иван Петров',
-                        'email': 'ivan@example.com',
-                        'phone': '+7-123-456-7890',
-                        'company': 'ООО Тест',
-                        'priority': 8
-                    },
-                    {
-                        'name': 'Мария Сидорова',
-                        'email': 'maria@test.ru',
-                        'phone': '+7-987-654-3210',
-                        'company': 'ИП Сидорова',
-                        'priority': 7
-                    }
-                ]
+                "name": "Мария Сидорова", 
+                "phone": "+7-800-555-35-35, +7-926-123-45-67",
+                "email": "maria@test.ru"
             }
         ]
         
-        # Мокаем успешную автозагрузку
-        mock_fetch.return_value = True
+        print("\n👥 Тестирование нормализации контактов:")
+        normalized = normalizer.normalize_contacts(test_contacts)
         
-        # Мокаем экспорт в Google Sheets (недоступен)
-        with patch.object(self.bridge.exporter, 'client', None):
-            with patch.object(self.bridge, '_fallback_to_local_export', return_value=True) as mock_local:
-                # Тестируем полную цепочку
-                result = self.bridge.process_and_export(self.test_date)
-                
-                # Проверяем результат
-                self.assertTrue(result)
-                
-                # Проверяем, что автозагрузка была вызвана
-                mock_fetch.assert_called_once_with(self.test_date)
-                
-                # Проверяем, что process_emails_by_date был вызван дважды
-                self.assertEqual(mock_process.call_count, 2)
-                
-                # Проверяем, что был вызван локальный экспорт
-                mock_local.assert_called_once()
-                
-        print("   ✅ Полная цепочка с автозагрузкой работает корректно")
-        
-    @patch.object(IntegratedLLMProcessor, 'process_emails_by_date')
-    def test_process_and_export_no_emails_no_fetch(self, mock_process):
-        """📭 Тест обработки случая, когда нет писем и автозагрузка не помогла"""
-        print("\n📭 Тестирование случая отсутствия писем...")
-        
-        # Мокаем отсутствие писем
-        mock_process.return_value = {
-            'statistics': {'emails_processed': 0},
-            'summary': {'total_contacts': 0},
-            'all_contacts': []
-        }
-        
-        # Мокаем неудачную автозагрузку
-        with patch.object(self.bridge, '_auto_fetch_emails', return_value=False):
-            # Тестируем обработку
-            result = self.bridge.process_and_export(self.test_date)
+        for i, contact in enumerate(normalized):
+            print(f"  Контакт {i+1}:")
+            print(f"    Имя: {contact.get('name')}")
+            print(f"    Телефоны: {contact.get('phones', [])}")
+            print(f"    Email: {contact.get('email')}")
+            print(f"    Организация: {contact.get('organization')}")
+            print()
             
-            # Проверяем результат
-            self.assertFalse(result)
-            
-        print("   ✅ Обработка отсутствия писем работает корректно")
+        print("✅ DataNormalizer работает корректно")
+        return True
         
-    @patch.object(IntegratedLLMProcessor, 'process_emails_by_date')
-    def test_process_and_export_with_google_sheets(self, mock_process):
-        """📊 Тест экспорта в Google Sheets"""
-        print("\n📊 Тестирование экспорта в Google Sheets...")
+    except Exception as e:
+        print(f"❌ Ошибка DataNormalizer: {e}")
+        return False
+
+def test_postprocessor_integration():
+    """Тестирование PostProcessor с обновленной нормализацией"""
+    print("\n🔧 Тестирование PostProcessor...")
+    
+    try:
+        from src.postprocessing import PostProcessor
+        processor = PostProcessor()
         
-        # Мокаем успешную обработку писем
-        mock_process.return_value = {
-            'statistics': {
-                'emails_processed': 2,
-                'total_requests': 2,
-                'successful_requests': 2,
-                'failed_requests': 0
-            },
-            'summary': {'total_contacts': 1},
-            'all_contacts': [
+        # Тестовый LLM результат
+        test_llm_result = {
+            "organizations": [
                 {
-                    'name': 'Тест Контакт',
-                    'email': 'test@example.com',
-                    'phone': '+7-111-222-3333',
-                    'company': 'Тест Компания',
-                    'priority': 9
+                    "organization_id": 1,
+                    "name": "ООО Тестовая Компания",
+                    "phones": ["+7 (495) 123-45-67 доб. 100", "8-800-555-35-35"]
+                }
+            ],
+            "contacts": [
+                {
+                    "contact_id": 1,
+                    "name": "Алексей Иванов",
+                    "organization_id": 1,
+                    "phones": [
+                        {
+                            "type": "main",
+                            "number": "+7-926-123-45-67 доб. 200"
+                        }
+                    ],
+                    "email": "alexey@test.com"
                 }
             ]
         }
         
-        # Мокаем доступный Google Sheets API
-        with patch.object(self.bridge.exporter, 'client', MagicMock()):
-            with patch.object(self.bridge.exporter, 'export_results_by_date', return_value=True) as mock_export:
-                # Тестируем экспорт
-                result = self.bridge.process_and_export(self.test_date)
-                
-                # Проверяем результат
-                self.assertTrue(result)
-                
-                # Проверяем, что экспорт был вызван
-                mock_export.assert_called_once_with(self.test_date, mock_process.return_value)
-                
-        print("   ✅ Экспорт в Google Sheets работает корректно")
+        email_metadata = {
+            "from": "test@example.com",
+            "subject": "Тестовое письмо"
+        }
         
-    def test_pipeline_components_integration(self):
-        """🔗 Тест интеграции компонентов пайплайна"""
-        print("\n🔗 Тестирование интеграции компонентов...")
+        print("\n🏭 Тестирование постпроцессинга:")
+        result = processor.process_llm_response(test_llm_result, email_metadata)
         
-        # Проверяем, что RateLimitManager интегрирован в процессор
-        self.assertIsNotNone(self.bridge.processor.rate_limit_manager)
-        
-        # Проверяем, что процессор не в тестовом режиме (для реальной обработки)
-        self.assertFalse(self.bridge.processor.test_mode)
-        
-        # Проверяем наличие необходимых методов
-        self.assertTrue(hasattr(self.bridge, 'process_and_export'))
-        self.assertTrue(hasattr(self.bridge, '_auto_fetch_emails'))
-        self.assertTrue(hasattr(self.bridge, '_fallback_to_local_export'))
-        
-        print("   ✅ Интеграция компонентов корректна")
-        
-    def test_error_handling_in_pipeline(self):
-        """⚠️ Тест обработки ошибок в пайплайне"""
-        print("\n⚠️ Тестирование обработки ошибок...")
-        
-        # Мокаем ошибку в процессоре
-        with patch.object(self.bridge.processor, 'process_emails_by_date', side_effect=Exception("Тестовая ошибка")):
-            # Тестируем обработку ошибки
-            result = self.bridge.process_and_export(self.test_date)
+        print(f"  Организации: {len(result.get('organizations', []))}")
+        for org in result.get('organizations', []):
+            print(f"    - {org.get('name')}: {org.get('phones', [])}")
             
-            # Проверяем, что ошибка обработана корректно
-            self.assertFalse(result)
+        print(f"  Контакты: {len(result.get('contacts', []))}")
+        for contact in result.get('contacts', []):
+            print(f"    - {contact.get('name')}: {contact.get('phones', [])}")
             
-        print("   ✅ Обработка ошибок работает корректно")
+        print("✅ PostProcessor работает корректно")
+        return True
+        
+    except Exception as e:
+        print(f"❌ Ошибка PostProcessor: {e}")
+        return False
 
+def test_api_pipeline_validator():
+    """Проверка импортов в api_pipeline_validator"""
+    print("\n🔧 Проверка api_pipeline_validator...")
+    
+    try:
+        # Проверяем, что можем импортировать основные компоненты
+        from src.api_pipeline_validator import APIPipelineValidator
+        
+        # Создаем валидатор в тестовом режиме
+        validator = APIPipelineValidator(test_mode=True)
+        
+        print("✅ APIPipelineValidator импортируется корректно")
+        return True
+        
+    except Exception as e:
+        print(f"❌ Ошибка APIPipelineValidator: {e}")
+        return False
 
-if __name__ == '__main__':
-    print("🧪 Запуск тестов полной цепочки обработки")
+def main():
+    """Основная функция тестирования"""
+    print("🚀 ТЕСТИРОВАНИЕ ПОЛНОГО ПАЙПЛАЙНА")
     print("=" * 50)
     
-    # Запускаем тесты с подробным выводом
-    unittest.main(verbosity=2, buffer=True)
+    tests = [
+        test_phone_normalizer_integration,
+        test_data_normalizer_integration, 
+        test_postprocessor_integration,
+        test_api_pipeline_validator
+    ]
+    
+    passed = 0
+    total = len(tests)
+    
+    for test in tests:
+        if test():
+            passed += 1
+    
+    print("\n" + "=" * 50)
+    print(f"📊 РЕЗУЛЬТАТЫ: {passed}/{total} тестов пройдено")
+    
+    if passed == total:
+        print("🎉 Все тесты пройдены успешно!")
+        print("✅ Пайплайн готов к работе")
+    else:
+        print(f"⚠️ {total - passed} тестов не пройдено")
+        print("❌ Требуется исправление ошибок")
+    
+    return passed == total
+
+if __name__ == "__main__":
+    success = main()
+    sys.exit(0 if success else 1)

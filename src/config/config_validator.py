@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Dict, List, Any, Optional
 from dataclasses import dataclass
 from .config_manager import UnifiedConfigManager
+from .paths import PROJECT_ROOT, get_config_path
 
 
 @dataclass
@@ -130,13 +131,10 @@ class ConfigValidator:
         warnings = []
         info = []
 
-        # Определение путей к файлам
-        project_root = Path(__file__).parent.parent.parent
-
         config_files = {
-            'providers.json': project_root / "config" / "providers.json",
-            'service_account.json': project_root / "config" / "service_account.json",
-            '.env': project_root / ".env"
+            'providers.json': get_config_path('providers.json'),
+            'service_account.json': get_config_path('service_account.json'),
+            '.env': PROJECT_ROOT / ".env"
         }
 
         required_files = ['providers.json', '.env']

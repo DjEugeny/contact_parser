@@ -147,6 +147,10 @@ class OCRProcessor:
             if cache_file.exists():
                 with open(cache_file, 'r', encoding='utf-8') as f:
                     self._pdf_structure_cache = json.load(f)
+                # Преобразуем списки обратно в множества
+                for key, value in self._pdf_structure_cache.items():
+                    if isinstance(value, dict) and 'font_types' in value and isinstance(value['font_types'], list):
+                        value['font_types'] = set(value['font_types'])
                 self.logger.info(f"💾 Загружен кэш PDF анализа: {len(self._pdf_structure_cache)} записей")
             else:
                 self._pdf_structure_cache = {}
@@ -159,8 +163,18 @@ class OCRProcessor:
         """💾 Сохранение кэша структурного анализа PDF"""
         cache_file = self._cache_dir / "pdf_structure_cache.json"
         try:
+            # Преобразуем множества в списки для сериализации
+            serializable_cache = {}
+            for key, value in self._pdf_structure_cache.items():
+                if isinstance(value, dict):
+                    serializable_cache[key] = value.copy()
+                    if 'font_types' in serializable_cache[key] and isinstance(serializable_cache[key]['font_types'], set):
+                        serializable_cache[key]['font_types'] = list(serializable_cache[key]['font_types'])
+                else:
+                    serializable_cache[key] = value
+            
             with open(cache_file, 'w', encoding='utf-8') as f:
-                json.dump(self._pdf_structure_cache, f, ensure_ascii=False, indent=2)
+                json.dump(serializable_cache, f, ensure_ascii=False, indent=2)
             self.logger.debug(f"💾 Кэш PDF анализа сохранен: {len(self._pdf_structure_cache)} записей")
         except Exception as e:
             self.logger.error(f"❌ Ошибка сохранения кэша PDF анализа: {e}")
@@ -693,7 +707,7 @@ class OCRProcessor:
 
         # Сохраняем результат в кэш
         cache_key = self._get_pdf_cache_key(pdf_path)
-        self.pdf_structure_cache[cache_key] = result
+        self._pdf_structure_cache[cache_key] = result
         self._save_pdf_structure_cache()
         
         return result
@@ -1488,19 +1502,34 @@ class OCRProcessor:
         total_words = len(russian_words) + len(english_words)
         text_length = len(text)
 
-        # Для длинных технических документов (более 10000 символов) более мягкие критерии
-        if text_length > 10000:
-            garbage_threshold = 20  # Увеличиваем порог для длинных документов
-        elif text_length > 5000:
-            garbage_threshold = 10
+        # Более мягкие критерии для русских технических документов
+        if len(russian_words) > 1000 and fake_ratio < 0.1:  # Явно русский документ
+            # Для русских документов разрешаем больше "мусора" (технические термины, формулы)
+            if text_length > 50000:  # Большие документы
+                garbage_threshold = min(800, max(200, total_words // 50))  # Увеличенные пороги
+            elif text_length > 10000:  # Средние документы
+                garbage_threshold = min(400, max(100, total_words // 75))
+            else:  # Маленькие документы
+                garbage_threshold = min(200, max(50, total_words // 100))
+            
+            # Также увеличиваем допустимое соотношение мусора к словам для русских документов
+            max_garbage_ratio = 0.15  # 15% вместо 5%
         else:
-            garbage_threshold = 5   # Оригинальный порог для коротких документов
+            # Стандартные критерии для смешанных/английских документов
+            if text_length > 10000:
+                garbage_threshold = 20  # Увеличиваем порог для длинных документов
+            elif text_length > 5000:
+                garbage_threshold = 10
+            else:
+                garbage_threshold = 5   # Оригинальный порог для коротких документов
 
-        # Для документов с большим количеством слов более мягкие критерии
-        if total_words > 1000:
-            garbage_threshold *= 2
-        elif total_words > 500:
-            garbage_threshold *= 1.5
+            # Для документов с большим количеством слов более мягкие критерии
+            if total_words > 1000:
+                garbage_threshold *= 2
+            elif total_words > 500:
+                garbage_threshold *= 1.5
+                
+            max_garbage_ratio = 0.05  # Стандартные 5%
 
         # Учитываем соотношение мусора к общему количеству слов
         garbage_to_words_ratio = garbage_score / max(total_words, 1)
@@ -1508,7 +1537,7 @@ class OCRProcessor:
         # Критерии мусора с адаптивными порогами
         is_good = (
             garbage_score < garbage_threshold and  # Адаптивный порог мусора
-            garbage_to_words_ratio < 0.05 and  # Менее 5% мусора от общего количества слов
+            garbage_to_words_ratio < max_garbage_ratio and  # Адаптивное соотношение мусора
             len(russian_words) > 2 and  # Есть русские слова
             fake_ratio < 0.7  # Менее 70% английских слов являются фейковыми
         )
@@ -1526,26 +1555,21 @@ class OCRProcessor:
 
     def _is_text_quality_good(self, text: str, pdf_path: Path = None) -> bool:
         """
-        Улучшенная оценка качества извлеченного текста из PDF.
-        Использует адаптивные критерии для разных типов документов.
+        Упрощённая и надёжная оценка качества извлеченного текста из PDF.
+        Возвращена к проверенной логике из старой версии.
         """
         if not text or len(text) < 50:
             return False
 
-        # Определяем тип документа для адаптивных критериев
-        document_type = self._detect_document_type(text, pdf_path)
-        
         # Если передан путь к PDF, сначала анализируем его структуру
         if pdf_path and pdf_path.exists():
             try:
                 structure_analysis = self._analyze_pdf_structure(pdf_path)
-
-                # Адаптивные пороги в зависимости от типа документа
-                confidence_threshold = self._get_confidence_threshold(document_type, structure_analysis)
                 
-                # Если структура показывает наличие качественного текстового слоя
-                if structure_analysis['has_text_layer'] and structure_analysis['text_confidence'] > confidence_threshold:
-                    # Дополнительная проверка текста на мусор с адаптивными критериями
+                # Если структура показывает наличие качественного текстового слоя с высокой уверенностью
+                if structure_analysis['has_text_layer'] and structure_analysis['text_confidence'] > 0.7:
+
+                    # Дополнительная проверка текста на мусор
                     garbage_check = self._quick_garbage_check(text)
 
                     # Специальная логика для документов с отличной структурой PDF
@@ -1555,17 +1579,19 @@ class OCRProcessor:
                         try:
                             ratio_str = garbage_check['reason'].split('ratio=')[1].split(',')[0]
                             garbage_ratio = float(ratio_str)
-                            # Адаптивный порог мусора в зависимости от типа документа
-                            garbage_threshold = self._get_garbage_threshold(document_type)
-                            if garbage_ratio < garbage_threshold:
+                            # Для документов с отличной структурой и большим количеством русских слов расслабляем порог
+                            if garbage_ratio < 0.15:  # 15% вместо 5% для отличных PDF
                                 return True
                         except (ValueError, IndexError):
                             pass
 
-                    return garbage_check['is_good']
-                elif structure_analysis['text_confidence'] < 0.2:  # Снижен порог для отклонения
+                    result = garbage_check['is_good']
+                    return result
+                elif structure_analysis['text_confidence'] < 0.3:
+                    # Структура показывает отсутствие качественного текстового слоя
                     return False
             except Exception as e:
+                self.logger.warning(f"Ошибка структурного анализа для {pdf_path}: {e}")
                 # Если анализ структуры не удался, продолжаем с текстовым анализом
                 pass
 
@@ -1574,8 +1600,33 @@ class OCRProcessor:
         if not garbage_check['is_good']:
             return False
 
-        # Адаптивный анализ страниц в зависимости от типа документа
-        return self._analyze_document_quality_adaptive(text, document_type)
+        # Разделяем текст на страницы для анализа
+        pages = text.split('\n\n')
+        if len(pages) == 0:
+            return False
+
+        # Анализируем каждую страницу отдельно
+        good_pages = 0
+        total_meaningful_text = 0
+
+        for page_text in pages:
+            if len(page_text.strip()) < 20:  # Пропускаем пустые или слишком короткие страницы
+                continue
+
+            page_analysis = self._analyze_page_quality(page_text)
+            if page_analysis['is_good']:
+                good_pages += 1
+                total_meaningful_text += page_analysis['meaningful_chars']
+
+        # Если хотя бы одна страница содержит качественный текст - считаем документ хорошим
+        if good_pages > 0:
+            return True
+
+        # Дополнительная проверка: если есть значительный объем осмысленного текста
+        if total_meaningful_text > 500:  # Минимум 500 символов осмысленного текста
+            return True
+
+        return False
 
     def _analyze_page_quality(self, page_text: str) -> dict:
         """
@@ -2435,7 +2486,7 @@ class OCRProcessor:
                         result = self.run_google_vision_ocr(compressed_content)
                         
                         # Логируем метрики качества для сжатого изображения
-                        if result[0]:  # Если есть текст
+                        if result and result[0]:  # Проверяем что result не None и есть текст
                             self._log_ocr_quality_metrics(result[0], result[1], method="google_vision_compressed")
                         
                         self._log_operation_time("google_vision_smart_compression", start_time, 

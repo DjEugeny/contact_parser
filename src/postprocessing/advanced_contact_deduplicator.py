@@ -26,10 +26,12 @@ class AdvancedContactDeduplicator:
     def __init__(self):
         self.similarity_threshold = 0.3  # Порог схожести для имен (понижен для тестов)
         self.phone_similarity_threshold = 0.9  # Порог для телефонов
-        
+        self.last_mapping: Dict[int, int] = {}
+
     def deduplicate_contacts(self, contacts: List[Dict]) -> List[Dict]:
         """🎯 Основной метод дедупликации с многоуровневым анализом"""
         if not contacts:
+            self.last_mapping = {}
             return []
             
         print(f"   🔍 Продвинутая дедупликация {len(contacts)} контактов")
@@ -44,14 +46,19 @@ class AdvancedContactDeduplicator:
         semantic_groups = self._group_by_semantic_similarity(exact_groups)
         
         # Этап 3: Объединение групп и создание финальных контактов
-        unique_contacts = self._merge_contact_groups(semantic_groups)
-        
+        unique_contacts, contact_mapping = self._merge_contact_groups(semantic_groups)
+        self.last_mapping = contact_mapping
+
         duplicates_removed = len(contacts) - len(unique_contacts)
         if duplicates_removed > 0:
             print(f"   ✅ Удалено {duplicates_removed} дубликатов (продвинутый алгоритм)")
             print(f"   📊 Итого уникальных контактов: {len(unique_contacts)}")
-        
+
         return unique_contacts
+
+    def get_last_mapping(self) -> Dict[int, int]:
+        """Возвращает маппинг контактных ID после последней дедупликации"""
+        return dict(self.last_mapping)
     
     def _group_by_exact_matches(self, contacts: List[Dict]) -> List[List[Dict]]:
         """📧 Группировка по точным совпадениям email/телефона"""
@@ -185,18 +192,37 @@ class AdvancedContactDeduplicator:
         
         return weighted_sum / total_weight if total_weight > 0 else 0.0
     
-    def _merge_contact_groups(self, groups: List[List[Dict]]) -> List[Dict]:
-        """🔗 Объединение групп контактов в финальные уникальные записи"""
+    def _merge_contact_groups(self, groups: List[List[Dict]]) -> Tuple[List[Dict], Dict[int, int]]:
+        """🔗 Объединение групп контактов и формирование маппинга ID"""
         unique_contacts = []
-        
+        mapping: Dict[int, int] = {}
+
         for group in groups:
             if len(group) == 1:
-                unique_contacts.append(group[0])
-            else:
-                merged_contact = self._merge_contact_group(group)
-                unique_contacts.append(merged_contact)
-        
-        return unique_contacts
+                contact = group[0]
+                unique_contacts.append(contact)
+                final_id = contact.get('contact_id')
+                if final_id is not None:
+                    mapping[final_id] = final_id
+                continue
+
+            merged_contact = self._merge_contact_group(group)
+            unique_contacts.append(merged_contact)
+            final_id = merged_contact.get('contact_id')
+            if final_id is None:
+                continue
+            for original in group:
+                original_id = original.get('contact_id')
+                if original_id is not None:
+                    mapping[original_id] = final_id
+
+        # Обеспечиваем, что все новые контакты присутствуют в mapping (хотя бы на себя)
+        for contact in unique_contacts:
+            cid = contact.get('contact_id')
+            if cid is not None and cid not in mapping:
+                mapping[cid] = cid
+
+        return unique_contacts, mapping
     
     def _merge_contact_group(self, contacts: List[Dict]) -> Dict:
         """🔗 Объединение группы дубликатов в один контакт"""

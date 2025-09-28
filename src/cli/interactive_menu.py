@@ -14,6 +14,7 @@ from datetime import datetime
 from ..core.extractor_factory import ExtractorFactory
 from ..core.extractor import ContactExtractor
 from ..config.config_validator import ConfigValidator
+from ..config.paths import PROJECT_ROOT, get_config_path
 
 
 class InteractiveMenu:
@@ -261,20 +262,18 @@ class InteractiveMenu:
 
         # Диагностика файлов
         print("\n📁 Проверка файлов:")
-        project_root = Path(__file__).parent.parent.parent
         files_to_check = [
-            "prompts/unified_contact_extraction_structured.txt",
-            "config/providers.json",
-            ".env"
+            ("prompts/unified_contact_extraction_structured.txt", PROJECT_ROOT / "prompts" / "unified_contact_extraction_structured.txt"),
+            ("config/providers.json", get_config_path("providers.json")),
+            (".env", PROJECT_ROOT / ".env"),
         ]
 
-        for file_path in files_to_check:
-            full_path = project_root / file_path
+        for label, full_path in files_to_check:
             if full_path.exists():
                 size = full_path.stat().st_size
-                print(f"   ✅ {file_path} ({size} байт)")
+                print(f"   ✅ {label} ({size} байт)")
             else:
-                print(f"   ❌ {file_path} (отсутствует)")
+                print(f"   ❌ {label} (отсутствует)")
 
 
 def main():

@@ -1,21 +1,42 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-⚙️ Конфигурация Contact Parser
-Фаза 5: Архитектурная оптимизация
-"""
+"""⚙️ Конфигурационный пакет Contact Parser."""
 
-# from .provider_manager_old import ProviderManager, ProviderManagerConfig  # Удален - заменен на UnifiedConfigManager
-from .config_validator import ConfigValidator
-from .config_manager import UnifiedConfigManager, LLMProviderConfig, ProcessingConfig, ExportConfig
+from .config_validator import ConfigValidator, ValidationResult
+from .config_manager import (
+    UnifiedConfigManager,
+    LLMProviderConfig,
+    ProcessingConfig,
+    ExportConfig,
+)
+from .paths import (
+    PROJECT_ROOT,
+    CONFIG_DIR,
+    DATA_DIR,
+    LOGS_DIR,
+    get_config_path,
+    ensure_config_structure,
+)
+from .regions import (
+    WIFE_REGIONS,
+    calculate_region_priority,
+    calculate_contact_priority,
+)
 
 __all__ = [
-    'ProviderManager',
-    'ProviderManagerConfig',
-    'ConfigValidator',
-    'UnifiedConfigManager',
-    'LLMProviderConfig',
-    'ProcessingConfig',
-    'ExportConfig',
-    'ValidationResult'
+    "ConfigValidator",
+    "ValidationResult",
+    "UnifiedConfigManager",
+    "LLMProviderConfig",
+    "ProcessingConfig",
+    "ExportConfig",
+    "PROJECT_ROOT",
+    "CONFIG_DIR",
+    "DATA_DIR",
+    "LOGS_DIR",
+    "get_config_path",
+    "ensure_config_structure",
+    "WIFE_REGIONS",
+    "calculate_region_priority",
+    "calculate_contact_priority",
 ]

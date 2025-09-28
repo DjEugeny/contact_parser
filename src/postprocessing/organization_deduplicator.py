@@ -26,12 +26,34 @@ class OrganizationDeduplicator:
     4. Создание маппинга локальных -> глобальных ID
     """
     
-    def __init__(self):
+    def __init__(self, initial_organizations: Dict[int, Dict[str, Any]] = None):
         self.global_organizations: Dict[int, Dict[str, Any]] = {}
         self.next_global_id = 1
         self.name_similarity_threshold = 0.85
         self.logger = logging.getLogger(__name__)
-        
+        self._stats = {
+            'processed': 0,
+            'created': 0,
+            'merged': 0
+        }
+
+        if initial_organizations:
+            self.load_existing_organizations(initial_organizations)
+
+    def load_existing_organizations(self, organizations: Dict[int, Dict[str, Any]]) -> None:
+        """Загрузка существующих организаций в глобальный справочник"""
+        for org_id, payload in organizations.items():
+            if not isinstance(payload, dict):
+                continue
+            numeric_id = int(org_id)
+            self.global_organizations[numeric_id] = payload.copy()
+        if self.global_organizations:
+            self.next_global_id = max(self.global_organizations.keys()) + 1
+
+    def get_global_organizations(self) -> Dict[int, Dict[str, Any]]:
+        """Возвращает текущий словарь глобальных организаций"""
+        return self.global_organizations
+
     def process_organizations(self, llm_organizations: List[Dict[str, Any]]) -> Dict[int, int]:
         """Обработка организаций из LLM ответа
         
@@ -56,7 +78,8 @@ class OrganizationDeduplicator:
                 
             global_id = self._find_or_create_organization(org)
             local_to_global_mapping[local_id] = global_id
-            
+            self._stats['processed'] += 1
+
         self.logger.info(f"✅ Создан маппинг для {len(local_to_global_mapping)} организаций")
         return local_to_global_mapping
     
@@ -75,10 +98,13 @@ class OrganizationDeduplicator:
         if duplicate_id:
             # Объединяем данные с существующей организацией
             self._merge_organization_data(duplicate_id, org)
+            self._stats['merged'] += 1
             return duplicate_id
         else:
             # Создаем новую организацию
-            return self._create_new_organization(org)
+            created_id = self._create_new_organization(org)
+            self._stats['created'] += 1
+            return created_id
     
     def _find_duplicate_organization(self, org: Dict[str, Any]) -> int:
         """Поиск дубликата организации
@@ -157,7 +183,9 @@ class OrganizationDeduplicator:
             int: Новый глобальный ID
         """
         global_id = self.next_global_id
-        self.next_global_id += 1
+        while global_id in self.global_organizations:
+            global_id += 1
+        self.next_global_id = global_id + 1
         
         # Создаем копию организации с глобальным ID
         new_org = org.copy()
@@ -191,6 +219,10 @@ class OrganizationDeduplicator:
         # Если новое значение длиннее (более информативное)
         elif new_value and len(str(new_value)) > len(str(existing_value or '')):
             existing[field] = new_value
+
+    def get_stats(self) -> Dict[str, Any]:
+        """Возвращает статистику работы дедупликатора"""
+        return self._stats.copy()
     
     def _normalize_organization_name(self, name: str) -> str:
         """Нормализация названия организации

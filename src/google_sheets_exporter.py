@@ -12,9 +12,16 @@ from pathlib import Path
 from typing import Dict, List, Optional, Union
 from datetime import datetime
 
-# Обеспечиваем правильный импорт модулей
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+CURRENT_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = CURRENT_DIR.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from src.config.paths import CONFIG_DIR, DATA_DIR
+
+# Обеспечиваем правильный импорт модулей (совместимость со старыми скриптами)
+sys.path.append(str(CURRENT_DIR))
+sys.path.append(str(PROJECT_ROOT))
 
 import gspread
 # Замена oauth2client на google.oauth2
@@ -32,9 +39,9 @@ class GoogleSheetsExporter:
         current_file = Path(__file__)
         project_root = current_file.parent.parent
         
-        self.data_dir = project_root / "data"
+        self.data_dir = DATA_DIR
         self.results_dir = self.data_dir / "llm_results"
-        self.config_dir = project_root / "config"
+        self.config_dir = CONFIG_DIR
         
         # Настройки Google Sheets API
         scope = ['https://spreadsheets.google.com/feeds',
@@ -589,7 +596,7 @@ def get_available_dates():
     
     current_file = Path(__file__)
     project_root = current_file.parent.parent
-    emails_dir = project_root / "data" / "emails"
+    emails_dir = DATA_DIR / "emails"
     
     if not emails_dir.exists():
         print(f"❌ Папка с данными не найдена: {emails_dir}")

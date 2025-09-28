@@ -1,420 +1,77 @@
-# API Pipeline Validator - Phase 11.4
+# API Pipeline Validator (обновлённые режимы)
 
-Этот модуль реализует пункт 11.4 "Валидация через API Пайплайн" из мастер-плана LLM интеграции. Он обеспечивает валидацию системы на **реальных данных с настоящими LLM API запросами**, не тестовыми данными.
-
-## 🚨 ВАЖНО: Реальные LLM запросы
-
-**КРИТИЧЕСКОЕ ОТЛИЧИЕ ОТ ПРЕДЫДУЩИХ ВЕРСИЙ:**
-- ✅ Использует **настоящие LLM API** (OpenRouter, Replicate)
-- ✅ Обрабатывает **реальные письма с их вложениями**
-- ✅ Генерирует **структурированные данные** вместо тестовых заглушек
-- ✅ Время обработки: **60+ секунд на письмо** (реальные запросы к LLM)
-- ❌ **НЕ использует** regex-based extraction или моковые данные
+> **Mini-CRM / Mini Pipeline** – тонкий слой над `ContactExtractor`, собранный для проверки end-to-end конвейера перед переходом на `main_new.py`.
 
 ## 🎯 Назначение
+- Сквозной прогон цепочки **Email → OCR → LLM → PostProcessing** на локальном датасете.
+- Генерация артефактов в формате JSON/Markdown для экспресс-проверки результатов.
+- Подготовка данных для дальнейшей загрузки в `crm.db` и Google Sheets.
+- Отчётность и контроль качества перед переключением на полноценный пайплайн (`main_new.py`).
 
-API Pipeline Validator создан для:
-- **Тестирования полного пайплайна с РЕАЛЬНЫМИ LLM API запросами**
-- **Обработки настоящих писем и их вложений OCR данными**
-- Обеспечения идемпотентности обработки (исключение повторной обработки)
-- Генерации структурированных JSON результатов с **реальными извлеченными данными**
-- Создания детальных отчетов по каждому письму
-- Сравнения результатов с ручным анализом
-- **Валидации что система работает end-to-end с реальными провайдерами LLM**
-
-## 🚀 Основные возможности
-
-### Режимы работы
-
-1. **first10** - Обработка первых 10 писем из тестового датасета
-   - Использует список из `memory-bank/test_dataset_10_emails.md`
-   - Идеален для начального тестирования и сравнения с ручным анализом
-   - **РЕЗУЛЬТАТ**: 9/10 писем обработано с реальными LLM запросами
-
-2. **all** - Обработка всех писем за дату
-   - Обрабатывает все письма из `data/emails/2025-07-29/`
-   - Исключает уже обработанные файлы (идемпотентность)
-
-### 🔧 Ключевые технические решения
-
-#### 🚀 Переход от RealLLMProcessor к IntegratedLLMProcessor
-
-**ВАЖНОЕ ИСПРАВЛЕНИЕ:** Первоначальная реализация `RealLLMProcessor` была сломана:
-- ❌ **Проблема**: Использовал regex-based extraction вместо LLM API
-- ❌ **Результат**: Генерировал пустые данные (null, empty arrays)
-- ✅ **Решение**: Переход на `IntegratedLLMProcessor` с `test_mode=False`
-
-```python
-# Старая сломанная реализация
-class RealLLMProcessor:
-    def extract_contacts_from_text(self, text):
-        # regex extraction - НЕ LLM!
-        return {"contacts": [], "organizations": []}
-
-# Новая рабочая реализация  
-class IntegratedLLMProcessor:
-    def __init__(self, test_mode=False):  # test_mode=False для РЕАЛЬНЫХ запросов
-        self.llm_extractor = ExtractorFactory.create_extractor(test_mode=False)
-```
-
-#### 🛠️ Email Format Conversion (Критическое исправление)
-
-**ПРОБЛЕМА:** Email файлы содержали processed results, а не raw email данные
-
-```python
-# Обнаружена проблема в структуре данных
-if 'extraction_result' in email_data and 'original_email' in email_data:
-    # Email уже обработан - нужна конвертация!
-    
-    # Извлекаем контент из processed results:
-    business_context = email_data['extraction_result']['business_context']
-    key_points = email_data['extraction_result']['key_points']
-    contacts = email_data['extraction_result']['contacts']
-    organizations = email_data['extraction_result']['organizations']
-    
-    # Реконструируем raw email format для LLM
-    combined_text = f"Бизнес-контекст: {business_context}\n"
-    combined_text += f"Ключевые моменты: {', '.join(key_points)}\n"
-    # + данные о контактах и организациях
-    
-    email_data['combined_text'] = combined_text
-```
-
-**РЕЗУЛЬТАТ:** LLM получает достаточно данных для анализа вместо пустых полей.
-
-#### 🌐 Real LLM Processing Configuration
-
-**OpenRouter API (Primary):**
-- **Model**: `deepseek/deepseek-chat-v3.1:free`
-- **Timeout**: 120 секунд
-- **Fallback**: Automatic на Replicate
-
-**Replicate API (Fallback):**
-- **Model**: `deepseek-ai/deepseek-v3.1`
-- **Timeout**: 120 секунд
-- **Error handling**: Детальная диагностика
-
-**Критические исправления конфигурации:**
-```python
-# Увеличенные таймауты для реальных LLM запросов
-REQUEST_TIMEOUT = 120  # было 30 секунд
-
-# Правильная обработка API ключей
-if not openrouter_key or not replicate_key:
-    raise ValueError("Missing LLM API keys - real processing impossible")
-```
-
-### 🔄 Идемпотентность и проблемы с файлами
-
-**Автоматическое исключение повторной обработки:**
-```python
-# Проверка уже обработанных файлов
-result_filename = f"{base_name}_structured_result.json"
-if os.path.exists(os.path.join(results_dir, result_filename)):
-    print(f"⏭️  Пропускаем {result_filename} - уже обработан")
-    continue
-```
-
-**ПРОБЛЕМЫ С ФАЙЛАМИ И ИХ РЕШЕНИЯ:**
-
-1. **Отсутствие файлов 2025-07-29:**
-   - ❌ **Проблема**: Папка `data/emails/2025-07-29/` была пуста
-   - ✅ **Решение**: Скопированы файлы из `test_results/` директории
-   ```bash
-   cp /Users/evgenyzach/contact_parser/test_results/*.json \
-      /Users/evgenyzach/contact_parser/data/emails/2025-07-29/
-   ```
-
-2. **Проблемы с пробелами в именах файлов:**
-   - ❌ **Проблема**: `test_dataset_10_emails.md` содержал пробелы в именах
-   - ✅ **Решение**: Добавлен `.strip()` при извлечении имен файлов
-   ```python
-   # Исправление извлечения имен файлов
-   if line.strip().startswith('`') and line.strip().endswith('`'):
-       filename = line.strip()[1:-1].strip()  # Убираем пробелы!
-   ```
-
-3. **Синтаксические ошибки в api_pipeline_validator.py:**
-   - ❌ **Проблема**: Отсутствие shebang и неправильное определение классов
-   - ✅ **Решение**: Добавлена правильная структура файла
-   ```python
-   #!/usr/bin/env python3
-   # -*- coding: utf-8 -*-
-   
-   # Правильный порядок импортов и определения классов
-   ```
-
-4. **Проблемы с зависимостями:**
-   - ❌ **Проблема**: Отсутствие критических пакетов
-   - ✅ **Решение**: Установка через pip
-   ```bash
-   pip install jsonschema phonenumbers Pillow --break-system-packages
-   ```
-
-## 📊 Результаты
-
-### JSON файлы (structured_results/) - РЕАЛЬНЫЕ ДАННЫЕ
-
-**Пример реального результата обработки:**
-```json
-{
-  "source_file": "email_004_20250729_20250729_dna-technology_ru_6e851453.json",
-  "processing_timestamp": "2025-09-14T16:51:33.892120", 
-  "processing_time_seconds": 61.07,
-  "extraction_result": {
-    "organizations": [
-      {
-        "organization_id": 1,
-        "name": "ДНК-Технология",
-        "website": "dna-technology.ru",
-        "emails": ["m.gogoleva@dna-technology.ru"]
-      },
-      {
-        "organization_id": 2, 
-        "name": "Хеликон",
-        "website": "helicon.ru"
-      }
-    ],
-    "contacts": [
-      {
-        "contact_id": 101,
-        "name": "Гоголева Мария", 
-        "email": "m.gogoleva@dna-technology.ru",
-        "confidence": 0.9
-      }
-    ],
-    "business_context": "Переписка между сотрудниками компаний Хеликон и ДНК-Технология по поводу коммерческого предложения на поставку амплификатора ДТ-прйм 5М1 для медицинского центра.",
-    "provider_used": "openrouter",
-    "total_contacts_found": 3,
-    "unique_contacts_found": 3
-  }
-}
-```
-
-**Ключевые показатели качества РЕАЛЬНОЙ обработки:**
-- ✅ **Время обработки**: 61 секунда (реальный LLM запрос)
-- ✅ **Найдено организаций**: 3 с детальной информацией (ДНК-Технология, Хеликон, мед.центр)
-- ✅ **Найдено контактов**: 2 с высокой достоверностью (0.9-0.95)
-- ✅ **Бизнес-контекст**: "Переписка между сотрудниками компаний Хеликон и ДНК-Технология по поводу коммерческого предложения на поставку амплификатора ДТ-прйм 5М1..."
-- ✅ **Ключевые моменты**: Конкретные детали из письма (запрос КП, наличие на складе, ИНН клиента)
-- ✅ **Provider used**: "openrouter" (подтверждение реального API)
-- ✅ **Processing time**: 61.047927141189575 секунд (реальное время LLM обработки)
-
-**ДОКАЗАТЕЛЬСТВА РЕАЛЬНОЙ ОБРАБОТКИ:**
-- Время обработки 60+ секунд вместо мгновенных результатов тестовых данных
-- Конкретные извлеченные данные: ИНН 7731147890, телефон 8 800-770-71-21
-- Детальный бизнес-контекст с упоминанием конкретного оборудования
-- Указание используемого провайдера LLM в результатах
-
-### Детальные отчеты (.md)
-- Полная информация по каждому письму
-- Таблицы с извлеченными организациями и контактами
-- Анализ коммерческих предложений
-- Статистика обработки
-
-## 🛠️ Использование
-
-### Базовое использование
-
+## 🚀 Основные режимы CLI
 ```bash
-# Режим first10 (тестовый датасет с реальными LLM запросами)
-python src/api_pipeline_validator.py --mode first10
-
-# Режим all (все письма за дату с реальными LLM запросами)
-python src/api_pipeline_validator.py --mode all
-
-# Другая дата
-python src/api_pipeline_validator.py --mode first10 --date 2025-08-15
+python api_pipeline_validator.py --mode first10
+python api_pipeline_validator.py --mode batch --date 2025-07-29 --count 20
+python api_pipeline_validator.py --mode range --start 2025-05-01 --end 2025-05-05
+python api_pipeline_validator.py --mode batch --date 2025-07-29 --count 10 --dry-run
 ```
 
-### 🔧 Требования для работы
+Параметры:
+- `--mode`: `first10` (тестовая выборка), `batch` (N писем за дату), `range` (диапазон дат).
+- `--date`: дата в формате `YYYY-MM-DD` (для режима `batch`).
+- `--count`: лимит обработанных писем (по умолчанию 10).
+- `--start`, `--end`: границы диапазона (для режима `range`).
+- `--dry-run`: отключает запись в БД (оставляет только артефакты).
 
-**Обязательные переменные окружения (.env):**
-
-⚠️ **ВАЖНО:** Пользователь настроил .env файл самостоятельно:
-> "Стоп! Файл .env без меня не менять!!! Он уже настроен и там все корректно прописано!"
-
-```bash
-# OpenRouter API (основной провайдер) - УЖЕ НАСТРОЕНО
-OPENROUTER_API_KEY=sk-or-v1-...  # РЕАЛЬНЫЙ КЛЮЧ
-OPENROUTER_MODEL=deepseek/deepseek-chat-v3.1:free
-
-# Replicate API (fallback) - УЖЕ НАСТРОЕНО
-REPLICATE_API_KEY=r8_...  # РЕАЛЬНЫЙ КЛЮЧ  
-REPLICATE_MODEL=deepseek-ai/deepseek-v3.1
+## 🧱 Архитектура (тонкий слой)
+```
+ProcessedEmailLoader → OCR Manager → ContactExtractor (LLM)
+                                ↘ PostProcessor (нормализация/дедуп/обогащение)
+                                   ↘ ReportGenerator (JSON/Markdown + summary)
 ```
 
-**Установка зависимостей:**
-```bash
-# Критические зависимости для реальных LLM запросов
-pip install jsonschema phonenumbers Pillow --break-system-packages
-```
+- **Email загрузка**: `ProcessedEmailLoader` читает JSON из `data/emails/YYYY-MM-DD/email_*.json`.
+- **OCR**: `get_ocr_manager()` извлекает текст вложений, если в `attachments[].content` нет готового текста.
+- **LLM-извлечение**: `ContactExtractor.create_extractor(test_mode=False)` с промптом `unified_contact_extraction_structured.txt`.
+- **Постобработка**: встроенный `PostProcessor` реализует правила `11_DEDUP_ENRICH_RULES.md`.
+- **Отчётность**: новый `src/reporting/report_generator.py` сохраняет пару артефактов на письмо + агрегированный summary по запуску.
 
-**Проверка готовности системы:**
-```bash
-# Проверка API ключей
-python tests/test_env.py
+## 📦 Артефакты
+После каждого запуска формируются:
+- `data/llm_results/YYYY-MM-DD/` – директория запуска (создаётся автоматически).
+  - `<slug>_<run>_<timestamp>_raw.json` – сырой ответ LLM (из `raw_llm_result`).
+  - `<slug>_<run>_<timestamp>_processed.json` – постобработанный результат (готовый для записи в БД).
+  - `<slug>_<run>_<timestamp>.md` – Markdown-отчёт по письму (метаданные, summary, таблицы организаций/контактов/КП/интеракций).
+  - `_summary_<run>.json|md` – сводка запуска (агрегированная статистика, ссылки на отчёты).
+  - `index.md` – консолидированный индекс всех запусков по дате (обновляется автоматически).
+- `memory-bank/reports/index.md` – дополняется ссылкой на свежую сводку (для хронологии экспериментов).
+- Логи процессов записываются через `CentralizedLogger` (`data/logs/pipeline.log`, `data/logs/errors.log`).
 
-# Проверка синтаксиса валидатора
-python -m py_compile src/api_pipeline_validator.py
-```
+## ✅ Валидация & Логика успеха
+- `ReportGenerator` считывает флаг `success` из результата; если поля пустые, но ошибок нет – считается успешным, однако итоговый отчёт выделяет пустые секции.
+- Сводка отражает количество найденных `organizations`, `contacts`, `commercial_offers`, `interactions` и время прогонов.
+- При ошибках генератор фиксирует их в `failures[]`, а Markdown отчёт маркирует блок **Диагностика**.
 
-### Расширенные опции
+## 🔄 Idempotency & Fallbacks
+- Имена артефактов включают `run_id` и `timestamp`, поэтому повторные запуски не перезаписывают существующие файлы.
+- У записи артефактов есть fallback-директория `data/llm_results/_failed_reports/` на случай ошибок записи.
+- OCR-пайплайн использует готовый текст, а при необходимости автоматически вызывает `get_ocr_manager()`.
 
-```bash
-# Кастомные директории для результатов
-python src/api_pipeline_validator.py \
-  --mode first10 \
-  --results-dir /custom/path/results \
-  --reports-dir /custom/path/reports
+## 🧪 Порядок запуска MVP
+1. `--mode first10` – проверяем промпт/валидацию на эталонной выборке (`memory-bank/test_dataset_10_emails.md`).
+2. `--mode batch` – масштабируемся на 20+ писем (контроль качества и дедуп правил).
+3. `--mode range` – прогон нескольких дней подряд, получаем consolidated summary.
+4. После стабилизации включаем запись в `crm.db` (см. ниже TO-DO) и переходим к `main_new.py` (`full-pipeline`, `async-*`).
 
-# Помощь по всем параметрам
-python src/api_pipeline_validator.py --help
-```
+## ⚠️ Текущие TODO
+- Реализовать модуль записи в SQLite (`crm.db`) с отражением таблиц: `organizations`, `contacts`, `contact_phones`, `commercial_offers`, `interactions`, `moderation_inbox`.
+- Интегрировать экспорт в Google Sheets (по `10_GOOGLE_SHEETS_INTERIM.md`).
+- Добавить автотесты для `ReportGenerator` и smoke-тесты режимов `first10`/`batch`.
+- Подключить Inbox/Moderation поток после внедрения scoring.
 
-## 📁 Структура файлов
-
-### Входные данные
-```
-memory-bank/test_dataset_10_emails.md     # Список тестового датасета
-data/emails/2025-07-29/                   # Исходные письма
-data/attachments/2025-07-29/              # Вложения (OCR)
-```
-
-### Результаты
-```
-data/ТЕСТ 10 реальный писем/2025-07-29_LLM/
-├── structured_results/                   # JSON результаты
-│   ├── email_001_..._structured_result.json
-│   ├── email_004_..._structured_result.json
-│   └── ...
-├── 20250914_1558_email_001_..._detailed.md  # Детальные отчеты
-├── 20250914_1558_email_004_..._detailed.md
-├── ...
-└── 20250914_1559_api_pipeline_validation_summary.md  # Итоговый отчет
-```
-
-### Обновляемые индексы
-```
-memory-bank/reports/
-├── detailed_reports_index.md            # Индекс всех детальных отчетов
-└── index.md                             # Основной индекс отчетов
-```
-
-## 🔧 Архитектура
-
-### Основные компоненты
-
-1. **APIPipelineValidator** - Главный класс валидатора
-2. **IntegratedLLMProcessor** - Обработка писем через LLM (**НЕ RealLLMProcessor!**)
-3. **ReportGenerator** - Генерация отчетов
-4. **Email/OCR Loaders** - Загрузка данных
-
-### Обработка данных
-
-```
-Email JSON → Load with Attachments → LLM Processing → 
-Postprocessing → JSON Result + MD Report → Index Update
-```
-
-## 📊 Статистика успешного выполнения
-
-**РЕАЛЬНЫЕ РЕЗУЛЬТАТЫ выполнения first10:**
-- ✅ **Обработано**: 9 из 10 писем (1 уже был обработан ранее)
-- ✅ **Время**: ~10 минут (60+ секунд на письмо)
-- ✅ **Созданы файлы**: 9 JSON + 9 MD отчетов
-- ✅ **Найдено контактов**: 27 контактов с высокой достоверностью
-- ✅ **Найдено организаций**: 22 организации с детальной информацией
-- ✅ **LLM провайдер**: OpenRouter (deepseek/deepseek-chat-v3.1:free)
-- ✅ **API статус**: Все запросы успешны
-
-## 🔍 Валидация
-
-Перед началом работы выполняется:
-- Проверка зависимостей системы
-- Валидация конфигурации LLM API
-- Проверка доступности исходных данных
-- Инициализация всех компонентов
-- **Тест реального LLM подключения**
-
-## 🚦 Статусы выполнения
-
-- ✅ **Успешно** - Все письма обработаны без ошибок с реальными LLM запросами
-- ⚠️ **С предупреждениями** - Есть незначительные проблемы
-- ❌ **С ошибками** - Критические ошибки обработки
-
-## 📝 Примеры выполнения
-
-### Пример 1: Первый запуск first10 - РЕАЛЬНЫЙ ВЫВОД
-```bash
-$ python src/api_pipeline_validator.py --mode first10
-
-🎯 API Pipeline Validator для даты 2025-07-29
-🔍 ВАЛИДАЦИЯ НАСТРОЕК - ✅ УСПЕШНО
-🎯 РЕЖИМ FIRST10: Обработка тестового датасета
-📊 К обработке: 10 писем
-
-📧 Обработка email_001... ✅ (63.2 сек) - РЕАЛЬНЫЙ LLM ЗАПРОС
-📧 Обработка email_002... ✅ (71.8 сек) - РЕАЛЬНЫЙ LLM ЗАПРОС
-📧 Обработка email_003... ✅ (58.4 сек) - РЕАЛЬНЫЙ LLM ЗАПРОС
-📧 Обработка email_004... ✅ (61.1 сек) - РЕАЛЬНЫЙ LLM ЗАПРОС
-📧 Обработка email_005... ✅ (69.3 сек) - РЕАЛЬНЫЙ LLM ЗАПРОС
-📧 Обработка email_006... ✅ (54.7 сек) - РЕАЛЬНЫЙ LLM ЗАПРОС
-📧 Обработка email_007... ✅ (67.2 сек) - РЕАЛЬНЫЙ LLM ЗАПРОС
-📧 Обработка email_008... ✅ (59.8 сек) - РЕАЛЬНЫЙ LLM ЗАПРОС
-📧 Обработка email_009... ✅ (65.4 сек) - РЕАЛЬНЫЙ LLM ЗАПРОС
-📧 Обработка email_010... ⏭️ ПРОПУЩЕН (уже обработан)
-
-📧 Обработка: 9/10 писем - ✅ УСПЕШНО (1 уже был обработан)
-Время обработки: ~10 минут (60+ сек на письмо)
-📋 Обновление индексов - ✅ ЗАВЕРШЕНО
-📊 ИТОГОВЫЙ ОТЧЕТ - ✅ СОЗДАН
-
-Результат: 9 новых JSON с РЕАЛЬНЫМИ данными + 9 детальных отчетов
-```
-
-### Пример 2: Запуск all mode
-```bash
-$ python src/api_pipeline_validator.py --mode all
-
-🌐 РЕЖИМ ALL: Обработка всех писем за дату
-📊 Всего писем: 30, Уже обработано: 10, К обработке: 20
-📧 Обработка: 20/20 писем - ✅ УСПЕШНО с реальными LLM запросами
-
-Результат: 20 дополнительных JSON + отчетов
-```
-
-## 🔄 Интеграция с основной системой
-
-Валидатор использует все ключевые компоненты системы:
-- Архитектуру из `main_new.py`
-- `IntegratedLLMProcessor` для обработки (**НЕ RealLLMProcessor**)
-- `ReportGenerator` для отчетов
-- Систему валидации конфигурации
-
-## 🚫 Что НЕ работало ранее (исправлено)
-
-❌ **RealLLMProcessor** - использовал regex вместо LLM  
-❌ **Пустые результаты** - генерировал null/empty arrays  
-❌ **Синтаксические ошибки** - в api_pipeline_validator.py  
-❌ **Отсутствие файлов** - emails 2025-07-29 не было  
-❌ **Проблемы с пробелами** - в именах файлов датасета  
-❌ **Отсутствие зависимостей** - jsonschema, phonenumbers, Pillow  
-
-## 🎯 Соответствие Phase 11.4
-
-✅ **Режим first10** - Обработка тестового датасета с реальными LLM  
-✅ **Режим all** - Обработка всех писем с идемпотентностью  
-✅ **Структурированные JSON** - В формате structured_results с реальными данными  
-✅ **Детальные отчеты** - По образцу с полной информацией  
-✅ **Индексация отчетов** - Автоматическое обновление индексов  
-✅ **Постобработка данных** - Дедупликация и нормализация  
-✅ **Итоговые метрики** - Сводные отчеты по валидации  
-✅ **РЕАЛЬНЫЕ LLM API** - OpenRouter и Replicate с настоящими запросами  
-
----
-
-**Дата создания:** 2025-09-14  
-**Статус:** ✅ Полностью реализован и протестирован с реальными LLM API  
-**Версия:** 2.0 (исправленная версия с реальными LLM запросами)
-**Последнее обновление:** 2025-09-14 после успешного тестирования
+## 🔗 Полезные ссылки
+- PRD / требования: `memory-bank/mini_crm_prd/`
+- Обновлённый промпт: `prompts/unified_contact_extraction_structured.txt`
+- PostProcessing: `src/postprocessing/postprocessor.py`
+- Отчётность: `src/reporting/report_generator.py`
+- Основной пайплайн: `src/main_new.py`

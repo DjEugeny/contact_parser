@@ -25,7 +25,8 @@ from pathlib import Path
 from typing import Dict, List, Optional, Set
 from dotenv import load_dotenv
 from PIL import Image
-from text_cleaner import EmailTextCleaner
+from .text_cleaner import EmailTextCleaner
+from .config.paths import CONFIG_DIR, DATA_DIR, LOGS_DIR, ensure_config_structure
 
 # Загружаем переменные окружения
 load_dotenv()
@@ -345,13 +346,14 @@ class AdvancedEmailFetcherV2:
         self.last_connect_time = 0
 
         # Создаем папки для данных
-        self.data_dir = Path("data")
+        ensure_config_structure()
+        self.data_dir = DATA_DIR
         self.emails_dir = self.data_dir / "emails"
         self.attachments_dir = self.data_dir / "attachments"
-        self.logs_dir = self.data_dir / "logs"
-        self.config_dir = Path("config")
+        self.logs_dir = LOGS_DIR
+        self.config_dir = CONFIG_DIR
 
-        for dir_path in [self.emails_dir, self.attachments_dir, self.logs_dir, self.config_dir]:
+        for dir_path in [self.emails_dir, self.attachments_dir]:
             dir_path.mkdir(parents=True, exist_ok=True)
 
         # Инициализируем фильтры
@@ -2230,9 +2232,8 @@ def test_inline_exclusion():
     logger.addHandler(console_handler)
 
     # Создаем тестовый фильтр
-    config_dir = Path("config")
-    config_dir.mkdir(exist_ok=True)
-    filters = EmailFilters(config_dir, logger)
+    ensure_config_structure()
+    filters = EmailFilters(CONFIG_DIR, logger)
 
     # Тестовые случаи
     test_cases = [
@@ -2270,7 +2271,7 @@ def test_inline_exclusion():
             else:
                 status = "❌ FAIL"
 
-        print(f"{filename:<25} | {content_type:<15} | {content_id:<10} | {result or "":<40} | {status}")
+        print(f"{filename:<25} | {content_type:<15} | {content_id:<10} | {(result or ''):<40} | {status}")
 
     print("=" * 60)
     print(f"📊 РЕЗУЛЬТАТЫ ТЕСТА: {passed}/{total} пройдено")

@@ -10,6 +10,8 @@ import sys
 from pathlib import Path
 import logging
 
+from src.config.paths import CONFIG_DIR, ensure_config_structure
+
 # Настраиваем простой логгер
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("FilterReloader")
@@ -17,7 +19,8 @@ logger = logging.getLogger("FilterReloader")
 def reload_filters():
     """Перезагружает фильтры из конфигурационных файлов"""
     
-    config_dir = Path("config")
+    ensure_config_structure()
+    config_dir = CONFIG_DIR
     
     # Проверяем наличие конфигурационных файлов
     filters = {

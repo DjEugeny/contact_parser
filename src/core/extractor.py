@@ -6,6 +6,7 @@
 """
 
 import asyncio
+import copy
 import json
 import re
 import time
@@ -18,6 +19,7 @@ from functools import lru_cache
 from ..providers.base_provider import BaseProvider
 from ..config import UnifiedConfigManager
 from ..postprocessing.phone_normalizer import PhoneNormalizer
+from ..postprocessing.postprocessor import PostProcessor
 from .validator import LLMResponseValidator
 from .cache_manager import MultiLevelCache
 from .memory_optimizer import MemoryOptimizer
@@ -118,6 +120,8 @@ class ContactExtractor:
         )
         self.result_cache = get_result_cache(cache_config)
 
+        self.postprocessor = PostProcessor()
+
         print("🎯 Новый ContactExtractor инициализирован с Dependency Injection")
         print(f"   📁 Промпты: {self.config.prompts_dir}")
         print(f"   🔧 Провайдеры: {len(self.config.provider_manager.get_llm_providers())}")
@@ -125,6 +129,32 @@ class ContactExtractor:
         print("   📊 JSON Schema Validator: интегрирован")
         print("   🔍 OCR Manager: интегрирован")
         print("   🏪 Result Cache: включен")
+
+    def _build_empty_result(self) -> Dict[str, Any]:
+        """📦 Создание пустого результата в формате JSON-схемы"""
+        return {
+            "organizations": [],
+            "contacts": [],
+            "business_context": "",
+            "summary": {
+                "topic": None,
+                "product_interest": None,
+                "communication_stage": None,
+                "request_type": None
+            },
+            "key_points": [],
+            "commercial_offers": [],
+            "interactions": []
+        }
+
+    def _apply_postprocessing(self, result: Dict[str, Any], metadata: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """✅ Постобработка валидного ответа LLM через централизованный PostProcessor"""
+        try:
+            email_data = metadata or {}
+            return self.postprocessor.process_llm_response(result, email_data=email_data)
+        except Exception as exc:
+            print(f"⚠️ Ошибка постобработки, возвращаю исходный результат: {exc}")
+            return result
     def load_prompt(self, filename: str) -> str:
         """
         📝 Загрузка промпта с многоуровневым кэшированием через ResultCache
@@ -214,39 +244,93 @@ class ContactExtractor:
         # Тестовый режим - возвращаем заранее подготовленный результат
         if self.test_mode:
             print("🧪 Тестовый режим: возвращаем тестовые данные")
-            return {
-                'contacts': [{
-                    'name': 'Тестовый Контакт',
-                    'email': 'test@example.com',
-                    'phone': '+7 (999) 123-45-67',
-                    'organization': 'Тестовая Организация',
-                    'position': 'Тестовая Должность',
-                    'city': 'Тестовый Город',
-                    'website': 'https://test.example.com',
-                    'inn': '1234567890',
-                    'confidence': 0.95
-                }],
-                'business_context': 'Тестовый бизнес-контекст для демонстрации',
-                'commercial_offers': [{
-                    'title': 'Тестовое предложение',
-                    'description': 'Описание тестового коммерческого предложения',
-                    'price': '100000 руб.',
-                    'confidence': 0.9
-                }],
-                'organizations': [{
-                    'name': 'Тестовая Организация',
-                    'inn': '1234567890',
-                    'website': 'https://test.example.com',
-                    'confidence': 0.95
-                }],
-                'provider_used': 'test_mode',
-                'processing_time': 0.1,
-                'text_length': len(text),
-                'chunks_processed': 1,
-                'total_contacts_found': 1,
-                'unique_contacts_found': 1,
-                'test_mode': True
+            test_result = self._build_empty_result()
+            test_result["organizations"] = [{
+                "organization_id": 1,
+                "name": "Тестовая Организация",
+                "inn": "1234567890",
+                "website": "https://test.example.com",
+                "city": "Москва",
+                "address": "ул. Тестовая, д. 1",
+                "emails": ["info@test.example.com"],
+                "phones": ["+7 (495) 000-00-00"]
+            }]
+            test_result["contacts"] = [{
+                "contact_id": 1,
+                "name": "Тестовый Контакт",
+                "organization_id": 1,
+                "position": "Менеджер",
+                "email": "test@example.com",
+                "phones": [{"type": "mobile", "number": "+7 (999) 123-45-67"}],
+                "city": "Москва",
+                "address": None,
+                "role_in_message": "sender",
+                "confidence": 0.95
+            }]
+            test_result["business_context"] = "Тестовый бизнес-контекст для демонстрации"
+            test_result["summary"] = {
+                "topic": "Тестовые переговоры",
+                "product_interest": "Лабораторное оборудование",
+                "communication_stage": "отправка КП",
+                "request_type": "запрос КП"
             }
+            test_result["key_points"] = [
+                "Получен запрос на КП",
+                "Необходимо подтвердить сроки поставки",
+                "Контакт ожидает ответ до пятницы"
+            ]
+            test_result["commercial_offers"] = [{
+                "found": True,
+                "offer_type": "Приборы",
+                "offer_number": "КП-2025-001",
+                "offer_date": "2025-01-15",
+                "end_user": "Лаборатория молекулярной диагностики",
+                "end_user_inn": "123456789012",
+                "intermediary": "ООО «Медтехника»",
+                "intermediary_date": "г. Москва, менеджер, +7 (495) 123-45-67",
+                "payment_terms": "50% предоплата, 50% после поставки",
+                "delivery_time": "30 дней",
+                "delivery_terms": "EXW Москва",
+                "valid_until": "2025-02-15",
+                "equipment_items": [
+                    {
+                        "name": "Амплификатор DNA Pro",
+                        "model": "DT-96",
+                        "article": "AP-001",
+                        "quantity": 2,
+                        "unit_price": 1500000,
+                        "total_price": 3000000,
+                        "vat": "20%"
+                    }
+                ],
+                "total_cost": 3000000,
+                "comments": "Включена доставка и монтаж"
+            }]
+            test_result["interactions"] = [{
+                "interaction_local_id": 1,
+                "contact_id": 1,
+                "organization_id": 1,
+                "message_subject": "Тестовое письмо",
+                "message_date": "2025-05-12T10:21:00+03:00",
+                "message_id_hint": "<test_message_id@example.com>",
+                "role_in_message": "sender",
+                "interaction_type": "sent_quote",
+                "summary": "Тестовый контакт отправил КП",
+                "attachments": ["Тестовое КП.pdf"],
+                "confidence": 0.9
+            }]
+            raw_snapshot = copy.deepcopy(test_result)
+            test_result.update({
+                "provider_used": "test_mode",
+                "processing_time": 0.1,
+                "text_length": len(text),
+                "chunks_processed": 1,
+                "total_contacts_found": len(test_result["contacts"]),
+                "unique_contacts_found": len(test_result["contacts"]),
+                "test_mode": True
+            })
+            test_result["raw_llm_result"] = raw_snapshot
+            return test_result
 
         try:
             # 🧠 Проверяем размер текста и оптимизируем память (Фаза 6)
@@ -278,69 +362,79 @@ class ContactExtractor:
                 }
                 
                 # Используем синхронную версию fallback системы
-                llm_response = self.config.provider_manager.make_request_sync(
-                    provider=self.config.provider_manager.get_best_available_provider(),
-                    request_data=request_data
+                llm_response = asyncio.run(
+                    self.config.provider_manager.make_request_with_fallback(
+                        request_data=request_data
+                    )
                 )
 
                 # 💾 Кэшируем результат (Фаза 6)
                 self.cache.set_llm_response(prompt_hash, "unified_extraction", llm_response)
 
             # Парсинг JSON ответа
-            if isinstance(llm_response, dict) and 'content' in llm_response:
-                result = self._parse_llm_response(llm_response['content'])
+            raw_content = llm_response.get('content') if isinstance(llm_response, dict) else llm_response
+
+            if isinstance(raw_content, str):
+                result = self._parse_llm_response(raw_content)
             else:
-                result = llm_response
+                result = raw_content
 
             # Валидация через validate_llm_response (с автокоррекцией)
             print("🔍 Применение строгой JSON Schema валидации...")
             is_valid, errors, corrected_result = self.config.json_validator.validate_llm_response(result)
-            
+
             if is_valid:
                 print("✅ JSON Schema валидация пройдена успешно")
                 result = corrected_result
             else:
                 print(f"❌ Валидация не удалась: {errors}")
                 result = corrected_result  # Используем fallback результат
-            
-            print(f"🔍 После валидации: {len(result.get('contacts', []))} контактов, {len(result.get('organizations', []))} организаций")
-            if result.get('organizations'):
-                print(f"📋 Организации: {[org.get('name') for org in result['organizations']]}")
-            
-            print(f"✅ Валидация завершена: {len(result.get('contacts', []))} контактов, {len(result.get('organizations', []))} организаций")
 
-            # Постобработка контактов
-            if 'contacts' in result and result['contacts']:
-                print(f"   📞 Постобработка {len(result['contacts'])} контактов...")
-                result['contacts'] = self._postprocess_contacts(result['contacts'])
-                print("   ✅ Контакты обработаны")
+            raw_snapshot = copy.deepcopy(result)
+            if isinstance(result, dict):
+                result.setdefault('original_response', raw_content)
+            processed_result = self._apply_postprocessing(result, metadata)
 
-            # Добавление метаданных ответа
-            result.update({
-                'provider_used': llm_response.get('provider'),
-                'processing_time': llm_response.get('response_time', 0),
+            print(
+                f"✅ После постобработки: {len(processed_result.get('contacts', []))} контактов, "
+                f"{len(processed_result.get('organizations', []))} организаций, "
+                f"{len(processed_result.get('commercial_offers', []))} КП"
+            )
+
+            provider_name = (
+                llm_response.get('provider') if isinstance(llm_response, dict) else None
+            )
+            response_time = (
+                llm_response.get('response_time', 0) if isinstance(llm_response, dict) else 0
+            )
+
+            processed_result.update({
+                'provider_used': provider_name,
+                'processing_time': response_time,
                 'text_length': len(text),
                 'chunks_processed': 1,
-                'total_contacts_found': len(result.get('contacts', [])),
-                'unique_contacts_found': len(result.get('contacts', []))
+                'total_contacts_found': len(processed_result.get('contacts', [])),
+                'unique_contacts_found': len(processed_result.get('contacts', []))
             })
+            processed_result['raw_llm_result'] = raw_snapshot
 
-            # Кешируем результат (если не тестовый режим)
             if not self.test_mode:
-                self.result_cache.cache_extraction_result(content_hash, result)
+                self.result_cache.cache_extraction_result(content_hash, processed_result)
 
             self.stats['successful_requests'] += 1
-            return result
+            return processed_result
 
         except Exception as e:
             self.stats['failed_requests'] += 1
             print(f"❌ Ошибка в extract_all_data: {e}")
 
-            # Возврат минимально валидного ответа
-            return self.config.json_validator.graceful_degradation_fallback({
+            fallback = self.config.json_validator.graceful_degradation_fallback({
                 'error': str(e),
                 'text_length': len(text)
             })
+            processed_fallback = self._apply_postprocessing(fallback, metadata)
+            processed_fallback['raw_llm_result'] = copy.deepcopy(fallback)
+            return processed_fallback
 
     async def extract_all_data_async(self, text: str, metadata: dict = None) -> dict:
         """
@@ -366,30 +460,28 @@ class ContactExtractor:
             except asyncio.TimeoutError:
                 print(f"⏰ Таймаут асинхронной обработки (попытка {attempt + 1})")
                 if attempt == self.config.retry_config.max_attempts - 1:
-                    return {
-                        'contacts': [],
-                        'business_context': '',
-                        'commercial_offers': [],
+                    fallback = self._build_empty_result()
+                    fallback.update({
                         'provider_used': 'async_timeout_error',
                         'processing_time': 120.0,
                         'error': 'Превышен таймаут асинхронной обработки',
                         'attempts_made': attempt + 1
-                    }
+                    })
+                    return fallback
                     
             except Exception as e:
                 print(f"❌ Ошибка асинхронной обработки (попытка {attempt + 1}): {e}")
                 
                 if attempt == self.config.retry_config.max_attempts - 1:
                     # Последняя попытка - возвращаем ошибку
-                    return {
-                        'contacts': [],
-                        'business_context': '',
-                        'commercial_offers': [],
+                    fallback = self._build_empty_result()
+                    fallback.update({
                         'provider_used': 'async_error',
                         'processing_time': 0,
                         'error': f'Асинхронная обработка не удалась: {str(e)}',
                         'attempts_made': attempt + 1
-                    }
+                    })
+                    return fallback
                 
                 # Экспоненциальная задержка перед повтором
                 delay = min(
@@ -451,14 +543,13 @@ class ContactExtractor:
             return self.extract_all_data(text, metadata)
         except Exception as e:
             print(f"❌ Критическая ошибка в _extract_with_error_handling: {e}")
-            return {
-                'contacts': [],
-                'business_context': '',
-                'commercial_offers': [],
+            fallback = self._build_empty_result()
+            fallback.update({
                 'provider_used': 'error_handler',
                 'processing_time': 0,
                 'error': f'Критическая ошибка обработки: {str(e)}'
-            }
+            })
+            return fallback
 
     def _prepare_unified_prompt(self, text: str, metadata: dict = None) -> str:
         """📝 Подготовка единого промпта для всех задач"""
@@ -483,93 +574,11 @@ class ContactExtractor:
 
     def _create_simple_fallback_prompt(self, text: str) -> str:
         """🛡️ Простой fallback промпт при проблемах с загрузкой"""
-        return f"""Проанализируй следующий текст и верни JSON с контактами, бизнес-контекстом и коммерческими предложениями:
-
-Текст: {text}
-
-Формат ответа:
-{{
-  "contacts": [],
-  "business_context": "",
-  "commercial_offers": []
-}}"""
-
-    def _postprocess_contacts(self, contacts: List[dict]) -> List[dict]:
-        """🔧 Постобработка контактов: нормализация телефонов, обработка ИНН и сайтов"""
-        if not contacts:
-            return contacts
-            
-        processed_contacts = []
-        
-        for contact in contacts:
-            try:
-                # 1. Нормализация телефонов
-                if contact.get('phone'):
-                    normalized_phones = self.config.phone_normalizer.normalize_contact_list([contact])
-                    if normalized_phones:
-                        contact = normalized_phones[0]
-                
-                # 2. Обработка ИНН
-                if contact.get('inn'):
-                    inn = str(contact['inn']).strip()
-                    # Базовая валидация ИНН (10 или 12 цифр)
-                    if inn.isdigit() and len(inn) in [10, 12]:
-                        contact['inn'] = inn
-                        contact['inn_type'] = 'organization' if len(inn) == 10 else 'individual'
-                        contact['inn_validated'] = True
-                    else:
-                        contact['inn'] = None
-                        contact['inn_type'] = 'invalid'
-                        contact['inn_validated'] = False
-                else:
-                    contact['inn'] = None
-                    contact['inn_type'] = None
-                    contact['inn_validated'] = False
-                
-                # 3. Обработка сайтов
-                if contact.get('website'):
-                    website = str(contact['website']).strip()
-                    # Базовая нормализация URL
-                    if website and not website.startswith(('http://', 'https://')):
-                        if '.' in website:
-                            website = f'https://{website}'
-                        else:
-                            website = None
-                    
-                    if website:
-                        contact['website'] = website
-                        contact['website_confidence'] = 0.8  # Базовая уверенность
-                    else:
-                        contact['website'] = None
-                        contact['website_confidence'] = None
-                else:
-                    # Попытка извлечь сайт из email домена
-                    if contact.get('email'):
-                        email = contact['email']
-                        if '@' in email:
-                            domain = email.split('@')[1]
-                            # Исключаем популярные почтовые сервисы
-                            if domain not in ['gmail.com', 'yandex.ru', 'mail.ru', 'yahoo.com', 'outlook.com']:
-                                contact['website'] = f'https://{domain}'
-                                contact['website_confidence'] = 0.6  # Средняя уверенность
-                            else:
-                                contact['website'] = None
-                                contact['website_confidence'] = None
-                        else:
-                            contact['website'] = None
-                            contact['website_confidence'] = None
-                    else:
-                        contact['website'] = None
-                        contact['website_confidence'] = None
-                
-                processed_contacts.append(contact)
-                
-            except Exception as e:
-                print(f"⚠️ Ошибка постобработки контакта: {e}")
-                # Возвращаем контакт как есть при ошибке
-                processed_contacts.append(contact)
-        
-        return processed_contacts
+        example_template = json.dumps(self._build_empty_result(), ensure_ascii=False, indent=2)
+        return (
+            "Проанализируй следующий текст и верни строго валидный JSON, соответствующий шаблону:"\
+            f"\n\nТекст: {text}\n\nШаблон:\n{example_template}"
+        )
 
     def _parse_llm_response(self, response_text: str) -> dict:
         """
@@ -605,13 +614,19 @@ class ContactExtractor:
             fixed_text = self._fix_common_json_errors(response_text)
             try:
                 return json.loads(fixed_text)
-            except:
+            except Exception:
                 # Graceful degradation
-                return self.config.json_validator.graceful_degradation_fallback({})
+                fallback = self.config.json_validator.graceful_degradation_fallback({})
+                if isinstance(fallback, dict):
+                    fallback.setdefault('original_response', response_text)
+                return fallback
 
         except Exception as e:
             print(f"❌ Неожиданная ошибка парсинга: {e}")
-            return self.config.json_validator.graceful_degradation_fallback({})
+            fallback = self.config.json_validator.graceful_degradation_fallback({})
+            if isinstance(fallback, dict):
+                fallback.setdefault('original_response', response_text)
+            return fallback
 
     def _fix_common_json_errors(self, text: str) -> str:
         """🔧 Исправление распространенных ошибок JSON"""
@@ -642,16 +657,17 @@ class ContactExtractor:
             ocr_result = self.ocr_manager.extract_text_from_file(file_path, date)
             
             if not ocr_result.get('success', False):
-                return {
+                fallback = self._build_empty_result()
+                fallback.update({
                     'success': False,
                     'error': ocr_result.get('error', 'OCR обработка не удалась'),
-                    'contacts': [],
                     'metadata': {
                         'file_path': file_path,
                         'ocr_used': True,
                         'ocr_cached': ocr_result.get('cached', False)
                     }
-                }
+                })
+                return fallback
             
             # Извлекаем контакты из полученного текста
             extracted_text = ocr_result.get('text', '')
@@ -677,16 +693,17 @@ class ContactExtractor:
             
         except Exception as e:
             self.stats['failed_requests'] += 1
-            return {
+            fallback = self._build_empty_result()
+            fallback.update({
                 'success': False,
                 'error': f'Ошибка обработки файла: {str(e)}',
-                'contacts': [],
                 'metadata': {
                     'file_path': file_path,
                     'ocr_used': True,
                     'error_type': type(e).__name__
                 }
-            }
+            })
+            return fallback
 
     def get_stats(self) -> Dict[str, Any]:
         """📊 Получить статистику экстрактора"""
@@ -730,64 +747,57 @@ class ContactExtractor:
             return len(text) // 4
 
     def _process_chunks(self, chunks: List[str], metadata: dict = None) -> dict:
-        """
-        🧩 Обработка текста по частям (chunks)
-        
-        Args:
-            chunks: Список частей текста
-            metadata: Дополнительные метаданные
-            
-        Returns:
-            dict: Объединенный результат обработки всех частей
-        """
-        all_contacts = []
-        all_business_contexts = []
-        all_commercial_offers = []
-        total_processing_time = 0
-        
+        """🧩 Обработка текста по частям с последующей объединённой постобработкой"""
+        aggregated_result = self._build_empty_result()
+        total_processing_time = 0.0
+        summary_candidates: List[Dict[str, Any]] = []
+        context_parts: List[str] = []
+
         print(f"🧩 Обрабатываем {len(chunks)} частей текста...")
-        
-        for i, chunk in enumerate(chunks, 1):
-            print(f"   📄 Обработка части {i}/{len(chunks)}...")
-            
+
+        for index, chunk in enumerate(chunks, 1):
+            print(f"   📄 Обработка части {index}/{len(chunks)}...")
+
             try:
-                # Обрабатываем каждую часть отдельно
-                chunk_result = self._extract_single_chunk(chunk, metadata)
-                
-                # Собираем результаты
-                if chunk_result.get('contacts'):
-                    all_contacts.extend(chunk_result['contacts'])
-                
+                chunk_metadata = dict(metadata or {})
+                chunk_metadata["chunk_index"] = index
+                chunk_result = self._extract_single_chunk(chunk, chunk_metadata)
+
+                aggregated_result['organizations'].extend(chunk_result.get('organizations', []))
+                aggregated_result['contacts'].extend(chunk_result.get('contacts', []))
+                aggregated_result['commercial_offers'].extend(chunk_result.get('commercial_offers', []))
+                aggregated_result['interactions'].extend(chunk_result.get('interactions', []))
+                aggregated_result['key_points'].extend(chunk_result.get('key_points', []))
+
+                if isinstance(chunk_result.get('summary'), dict):
+                    summary_candidates.append(chunk_result['summary'])
                 if chunk_result.get('business_context'):
-                    all_business_contexts.append(chunk_result['business_context'])
-                
-                if chunk_result.get('commercial_offers'):
-                    all_commercial_offers.extend(chunk_result['commercial_offers'])
-                
-                total_processing_time += chunk_result.get('processing_time', 0)
-                
-            except Exception as e:
-                print(f"❌ Ошибка обработки части {i}: {e}")
+                    context_parts.append(str(chunk_result['business_context']))
+
+                total_processing_time += chunk_result.get('processing_time', 0.0)
+            except Exception as exc:
+                print(f"❌ Ошибка обработки части {index}: {exc}")
                 continue
-        
-        # Объединяем и дедуплицируем результаты
-        unique_contacts = self._deduplicate_contacts(all_contacts)
-        combined_business_context = ' '.join(all_business_contexts)
-        unique_offers = self._deduplicate_offers(all_commercial_offers)
-        
-        print(f"✅ Обработка завершена: {len(unique_contacts)} контактов, {len(unique_offers)} предложений")
-        
-        return {
-            'contacts': unique_contacts,
-            'business_context': combined_business_context,
-            'commercial_offers': unique_offers,
+
+        # Собираем summary из первых непустых полей
+        for summary in summary_candidates:
+            for key, value in summary.items():
+                if value and not aggregated_result['summary'].get(key):
+                    aggregated_result['summary'][key] = value
+
+        aggregated_result['business_context'] = ' \n'.join(context_parts).strip()
+
+        processed_aggregated = self._apply_postprocessing(aggregated_result, metadata)
+        processed_aggregated.update({
             'provider_used': 'chunked_processing',
             'processing_time': total_processing_time,
             'text_length': sum(len(chunk) for chunk in chunks),
             'chunks_processed': len(chunks),
-            'total_contacts_found': len(all_contacts),
-            'unique_contacts_found': len(unique_contacts)
-        }
+            'total_contacts_found': len(processed_aggregated.get('contacts', [])),
+            'unique_contacts_found': len(processed_aggregated.get('contacts', []))
+        })
+
+        return processed_aggregated
 
     def _extract_single_chunk(self, text: str, metadata: dict = None) -> dict:
         """
@@ -800,115 +810,67 @@ class ContactExtractor:
         Returns:
             dict: Результат обработки части
         """
-        # Создаем хеш контента для кеширования
-        content_hash = hashlib.md5(f"{text}_{metadata}".encode()).hexdigest()
-        
-        # Проверяем кеш результатов (если не тестовый режим)
-        if not self.test_mode:
-            cached_result = self.result_cache.get_extraction_result(content_hash)
-            if cached_result and 'result' in cached_result:
-                return cached_result['result']
-
-        # Тестовый режим - возвращаем заранее подготовленный результат
         if self.test_mode:
-            return {
-                'contacts': [{
-                    'name': 'Тестовый Контакт (Chunk)',
-                    'email': 'chunk@example.com',
-                    'phone': '+7 (999) 123-45-67',
-                    'confidence': 0.85
-                }],
-                'business_context': 'Тестовый контекст из части текста',
-                'commercial_offers': [],
+            chunk_result = self._build_empty_result()
+            chunk_result.update({
                 'provider_used': 'test_mode_chunk',
                 'processing_time': 0.05
-            }
+            })
+            return chunk_result
 
         try:
-            # Подготавливаем промпт
             prompt = self._prepare_unified_prompt(text, metadata)
-            
-            # Отправляем запрос к LLM
-            start_time = time.time()
-            response = self.config.provider_manager.get_current_provider().generate_response(prompt)
-            processing_time = time.time() - start_time
-            
-            # Парсим ответ
-            result = self._parse_llm_response(response)
-            result['processing_time'] = processing_time
-            result['provider_used'] = self.config.provider_manager.get_current_provider().name
-            
-            # Кешируем результат
-            if not self.test_mode:
-                self.result_cache.save_extraction_result(content_hash, result)
-            
-            return result
-            
+            prompt_hash = hashlib.sha256(prompt.encode('utf-8')).hexdigest()
+
+            cached_llm = self.cache.get_llm_response(prompt_hash, "unified_extraction_chunk")
+
+            if cached_llm:
+                llm_response = cached_llm
+            else:
+                request_data = {
+                    "messages": [{"role": "user", "content": prompt}],
+                    "temperature": 0.1,
+                    "max_tokens": 4000
+                }
+                start_time = time.time()
+                llm_response = self.config.provider_manager.make_request_sync(
+                    provider=self.config.provider_manager.get_best_available_provider(),
+                    request_data=request_data
+                )
+                elapsed = time.time() - start_time
+                if isinstance(llm_response, dict):
+                    llm_response.setdefault('response_time', elapsed)
+                if not self.test_mode:
+                    self.cache.set_llm_response(prompt_hash, "unified_extraction_chunk", llm_response)
+
+            if isinstance(llm_response, dict) and 'content' in llm_response:
+                raw_result = self._parse_llm_response(llm_response['content'])
+            else:
+                raw_result = llm_response
+
+            _, _, corrected_result = self.config.json_validator.validate_llm_response(raw_result)
+            provider_name = (
+                llm_response.get('provider') if isinstance(llm_response, dict) else None
+            )
+            response_time = (
+                llm_response.get('response_time', 0) if isinstance(llm_response, dict) else 0
+            )
+
+            corrected_result.update({
+                'provider_used': provider_name,
+                'processing_time': response_time,
+                'text_length': len(text),
+                'chunks_processed': 1
+            })
+
+            return corrected_result
+
         except Exception as e:
             print(f"❌ Ошибка обработки части текста: {e}")
-            return {
-                'contacts': [],
-                'business_context': '',
-                'commercial_offers': [],
-                'provider_used': 'error',
+            fallback = self._build_empty_result()
+            fallback.update({
+                'provider_used': 'chunk_error',
                 'processing_time': 0,
                 'error': str(e)
-            }
-
-    def _deduplicate_contacts(self, contacts: List[dict]) -> List[dict]:
-        """
-        🔄 Дедупликация контактов по email и телефону
-        
-        Args:
-            contacts: Список контактов
-            
-        Returns:
-            List[dict]: Уникальные контакты
-        """
-        seen = set()
-        unique_contacts = []
-        
-        for contact in contacts:
-            # Создаем ключ для дедупликации
-            key_parts = []
-            if contact.get('email'):
-                key_parts.append(contact['email'].lower())
-            if contact.get('phone'):
-                # Нормализуем телефон для сравнения
-                phone = re.sub(r'[^\d+]', '', contact['phone'])
-                key_parts.append(phone)
-            
-            if key_parts:
-                key = '|'.join(key_parts)
-                if key not in seen:
-                    seen.add(key)
-                    unique_contacts.append(contact)
-            else:
-                # Если нет email и телефона, добавляем как есть
-                unique_contacts.append(contact)
-        
-        return unique_contacts
-
-    def _deduplicate_offers(self, offers: List[dict]) -> List[dict]:
-        """
-        🔄 Дедупликация коммерческих предложений по названию
-        
-        Args:
-            offers: Список предложений
-            
-        Returns:
-            List[dict]: Уникальные предложения
-        """
-        seen = set()
-        unique_offers = []
-        
-        for offer in offers:
-            title = offer.get('title', '').lower().strip()
-            if title and title not in seen:
-                seen.add(title)
-                unique_offers.append(offer)
-            elif not title:
-                # Если нет названия, добавляем как есть
-                unique_offers.append(offer)
-        
-        return unique_offers
+            })
+            return fallback

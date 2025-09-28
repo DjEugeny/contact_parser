@@ -23,6 +23,7 @@ class LLMResponseValidator:
         self.organization_schema = self._create_organization_schema()
         self.contact_schema = self._create_contact_schema()
         self.commercial_offer_schema = self._create_commercial_offer_schema()
+        self.interaction_schema = self._create_interaction_schema()
         self.full_response_schema = self._create_full_response_schema()
 
         print("✅ LLMResponseValidator инициализирован для новой структуры organizations/contacts")
@@ -31,11 +32,11 @@ class LLMResponseValidator:
         """📞 Создание схемы для телефона в новом формате"""
         return {
             "type": "object",
-            "required": ["type", "number"],
+            "required": ["number"],
             "properties": {
                 "type": {
-                    "type": "string",
-                    "enum": ["main", "mobile", "office", "fax", "other"],
+                    "type": ["string", "null"],
+                    "enum": ["main", "mobile", "office", "fax", "other", None],
                     "description": "Тип телефона"
                 },
                 "number": {
@@ -43,16 +44,26 @@ class LLMResponseValidator:
                     "minLength": 1,
                     "description": "Номер телефона"
                 },
+                "formatted": {
+                    "type": ["string", "null"],
+                    "description": "Форматированный номер"
+                },
                 "normalized": {
                     "type": ["string", "null"],
                     "description": "Нормализованный номер"
                 },
-                "original": {
+                "extension": {
                     "type": ["string", "null"],
-                    "description": "Оригинальный номер"
+                    "description": "Добавочный номер"
+                },
+                "confidence": {
+                    "type": ["number", "null"],
+                    "minimum": 0,
+                    "maximum": 1,
+                    "description": "Уверенность в корректности номера"
                 }
             },
-            "additionalProperties": True
+            "additionalProperties": False
         }
 
     def _create_organization_schema(self) -> Dict[str, Any]:
@@ -127,21 +138,27 @@ class LLMResponseValidator:
         """👤 Создание схемы для контакта"""
         return {
             "type": "object",
-            "required": ["confidence"],
+            "required": [
+                "contact_id",
+                "name",
+                "organization_id",
+                "role_in_message",
+                "confidence"
+            ],
             "properties": {
                 "contact_id": {
-                    "type": ["integer", "null"],
+                    "type": "integer",
                     "minimum": 1,
-                    "description": "Уникальный ID контакта"
+                    "description": "Уникальный ID контакта в рамках письма"
                 },
                 "name": {
-                    "type": ["string", "null"],
+                    "type": "string",
                     "minLength": 1,
                     "maxLength": 200,
                     "description": "Имя контактного лица"
                 },
                 "organization_id": {
-                    "type": ["integer", "null"],
+                    "type": "integer",
                     "minimum": 1,
                     "description": "ID связанной организации"
                 },
@@ -179,6 +196,11 @@ class LLMResponseValidator:
                     "pattern": "^[0-9]{10,12}$",
                     "description": "ИНН контакта"
                 },
+                "role_in_message": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Роль контакта в письме"
+                },
                 "confidence": {
                     "type": "number",
                     "minimum": 0,
@@ -208,6 +230,11 @@ class LLMResponseValidator:
                     "type": "boolean",
                     "description": "Найдено ли коммерческое предложение"
                 },
+                "offer_type": {
+                    "type": ["string", "null"],
+                    "enum": ["Приборы", "Наборы", "Другое", None],
+                    "description": "Тип коммерческого предложения"
+                },
                 "offer_number": {
                     "type": ["string", "null"],
                     "description": "Номер коммерческого предложения"
@@ -230,9 +257,9 @@ class LLMResponseValidator:
                     "type": ["string", "null"],
                     "description": "Посредник/контактное лицо"
                 },
-                "intermediary_data": {
+                "intermediary_date": {
                     "type": ["string", "null"],
-                    "description": "Данные посредника (организация, телефон, email)"
+                    "description": "Контактные данные посредника"
                 },
                 "payment_terms": {
                     "type": ["string", "null"],
@@ -309,24 +336,110 @@ class LLMResponseValidator:
                 "reason": {
                     "type": ["string", "null"],
                     "description": "Причина, по которой КП не найдено"
-                },
-                "offer_type": {
-                    "type": ["string", "null"],
-                    "description": "Тип коммерческого предложения"
-                },
-                "intermediary_date": {
-                    "type": ["string", "null"],
-                    "description": "Дата или контактные данные посредника"
                 }
             },
             "additionalProperties": True
+        }
+
+    def _create_interaction_schema(self) -> Dict[str, Any]:
+        """🔁 Создание схемы для взаимодействий"""
+        allowed_types = [
+            "requested_quote",
+            "sent_quote",
+            "follow_up",
+            "clarification",
+            "complaint",
+            "invoice_sent",
+            "invoice_paid",
+            "contract_sent",
+            "contract_signed",
+            "delivery",
+            "support",
+            "other"
+        ]
+
+        return {
+            "type": "object",
+            "required": [
+                "interaction_local_id",
+                "contact_id",
+                "organization_id",
+                "role_in_message",
+                "interaction_type",
+                "summary",
+                "confidence"
+            ],
+            "properties": {
+                "interaction_local_id": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "description": "Локальный ID взаимодействия в рамках письма"
+                },
+                "contact_id": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "description": "Ссылка на контакт"
+                },
+                "organization_id": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "description": "Ссылка на организацию"
+                },
+                "message_subject": {
+                    "type": ["string", "null"],
+                    "description": "Тема письма"
+                },
+                "message_date": {
+                    "type": ["string", "null"],
+                    "description": "Дата письма в ISO 8601"
+                },
+                "message_id_hint": {
+                    "type": ["string", "null"],
+                    "description": "Message-ID или подсказка"
+                },
+                "role_in_message": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Роль участника в переписке"
+                },
+                "interaction_type": {
+                    "type": "string",
+                    "enum": allowed_types,
+                    "description": "Тип взаимодействия"
+                },
+                "summary": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Краткое описание взаимодействия"
+                },
+                "attachments": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Список вложений"
+                },
+                "confidence": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1,
+                    "description": "Уверенность в корректности записи"
+                }
+            },
+            "additionalProperties": False
         }
 
     def _create_full_response_schema(self) -> Dict[str, Any]:
         """📋 Создание полной схемы ответа в новом формате"""
         return {
             "type": "object",
-            "required": ["organizations", "contacts"],
+            "required": [
+                "organizations",
+                "contacts",
+                "business_context",
+                "summary",
+                "key_points",
+                "commercial_offers",
+                "interactions"
+            ],
             "properties": {
                 "organizations": {
                     "type": "array",
@@ -339,16 +452,24 @@ class LLMResponseValidator:
                     "description": "Массив контактов"
                 },
                 "business_context": {
-                    "type": ["string", "object", "null"],
+                    "type": ["string", "null"],
                     "description": "Бизнес-контекст письма"
                 },
                 "summary": {
                     "type": "object",
+                    "required": [
+                        "topic",
+                        "product_interest",
+                        "communication_stage",
+                        "request_type"
+                    ],
                     "properties": {
                         "topic": {"type": ["string", "null"]},
-                        "communication_stage": {"type": ["string", "null"]}
+                        "product_interest": {"type": ["string", "null"]},
+                        "communication_stage": {"type": ["string", "null"]},
+                        "request_type": {"type": ["string", "null"]}
                     },
-                    "additionalProperties": True
+                    "additionalProperties": False
                 },
                 "key_points": {
                     "type": "array",
@@ -359,6 +480,11 @@ class LLMResponseValidator:
                     "type": "array",
                     "items": self.commercial_offer_schema,
                     "description": "Коммерческие предложения"
+                },
+                "interactions": {
+                    "type": "array",
+                    "items": self.interaction_schema,
+                    "description": "Список взаимодействий"
                 },
                 "postprocessing_metadata": {
                     "type": ["object", "null"],
@@ -458,22 +584,61 @@ class LLMResponseValidator:
         if 'organizations' not in corrected:
             corrected['organizations'] = []
             print("🔧 Добавлен пустой массив organizations")
-        
+
         if 'contacts' not in corrected:
             corrected['contacts'] = []
             print("🔧 Добавлен пустой массив contacts")
-        
+
+        if 'commercial_offers' not in corrected:
+            corrected['commercial_offers'] = []
+            print("🔧 Добавлен пустой массив commercial_offers")
+
+        if 'interactions' not in corrected:
+            corrected['interactions'] = []
+            print("🔧 Добавлен пустой массив interactions")
+
+        if 'key_points' not in corrected or not isinstance(corrected['key_points'], list):
+            corrected['key_points'] = []
+            print("🔧 Добавлен пустой список key_points")
+
+        if 'summary' not in corrected or not isinstance(corrected['summary'], dict):
+            corrected['summary'] = {
+                "topic": None,
+                "product_interest": None,
+                "communication_stage": None,
+                "request_type": None
+            }
+            print("🔧 Добавлен пустой объект summary")
+        else:
+            corrected['summary'].setdefault("topic", None)
+            corrected['summary'].setdefault("product_interest", None)
+            corrected['summary'].setdefault("communication_stage", None)
+            corrected['summary'].setdefault("request_type", None)
+
+        if 'business_context' not in corrected or corrected['business_context'] is None:
+            corrected['business_context'] = ""
+
         # Исправляем контакты - добавляем только обязательные поля
         if 'contacts' in corrected:
             for i, contact in enumerate(corrected['contacts']):
                 if not isinstance(contact, dict):
                     continue
-                        
-                # Добавляем обязательные поля контакта
-                if 'confidence' not in contact:
+
+                contact.setdefault('contact_id', i + 1)
+                if not contact.get('name'):
+                    contact['name'] = f"Контакт {i + 1}"
+                    print(f"🔧 Добавлено имя для контакта {i}")
+                contact.setdefault('organization_id', 1)
+                if not contact.get('role_in_message'):
+                    contact['role_in_message'] = 'other'
+                    print(f"🔧 Добавлена роль для контакта {i}")
+                if 'confidence' not in contact or contact['confidence'] is None:
                     contact['confidence'] = 0.5
                     print(f"🔧 Добавлен confidence для контакта {i}")
-        
+                if 'phones' not in contact or not isinstance(contact['phones'], list):
+                    contact['phones'] = []
+                    print(f"🔧 Добавлен список телефонов для контакта {i}")
+
         # Исправляем организации
         if 'organizations' in corrected:
             for i, org in enumerate(corrected['organizations']):
@@ -500,13 +665,51 @@ class LLMResponseValidator:
                     if len(unique_phones) != len(org['phones']):
                         org['phones'] = unique_phones
                         print(f"🔧 Удалены дублирующиеся телефоны в организации {i}")
-        
+
+        # Исправляем взаимодействия
+        if 'interactions' in corrected:
+            allowed_types = {
+                "requested_quote",
+                "sent_quote",
+                "follow_up",
+                "clarification",
+                "complaint",
+                "invoice_sent",
+                "invoice_paid",
+                "contract_sent",
+                "contract_signed",
+                "delivery",
+                "support",
+                "other"
+            }
+            for i, interaction in enumerate(corrected['interactions']):
+                if not isinstance(interaction, dict):
+                    continue
+
+                interaction.setdefault('interaction_local_id', i + 1)
+                interaction.setdefault('contact_id', 1)
+                interaction.setdefault('organization_id', 1)
+                if not interaction.get('role_in_message'):
+                    interaction['role_in_message'] = 'other'
+                if interaction.get('interaction_type') not in allowed_types:
+                    interaction['interaction_type'] = 'other'
+                if 'summary' not in interaction or not interaction['summary']:
+                    interaction['summary'] = ''
+                if 'attachments' not in interaction or not isinstance(interaction['attachments'], list):
+                    interaction['attachments'] = []
+                if 'confidence' not in interaction or interaction['confidence'] is None:
+                    interaction['confidence'] = 0.5
+
         # Исправляем коммерческие предложения
         if 'commercial_offers' in corrected:
             for i, offer in enumerate(corrected['commercial_offers']):
                 if not isinstance(offer, dict):
                     continue
-                
+
+                offer.setdefault('found', False)
+                if offer.get('found') and 'offer_type' not in offer:
+                    offer['offer_type'] = 'Другое'
+
                 # Исправляем equipment_items с unit_price=None
                 if 'equipment_items' in offer and isinstance(offer['equipment_items'], list):
                     for j, item in enumerate(offer['equipment_items']):
@@ -533,9 +736,15 @@ class LLMResponseValidator:
             "organizations": [],
             "contacts": [],
             "business_context": "Ошибка валидации",
-            "summary": {"topic": "Ошибка обработки"},
+            "summary": {
+                "topic": "Ошибка обработки",
+                "product_interest": None,
+                "communication_stage": None,
+                "request_type": None
+            },
             "key_points": [],
             "commercial_offers": [],
+            "interactions": [],
             "validation_error": True,
             "original_response": invalid_response
         }
@@ -676,6 +885,7 @@ class LLMResponseValidator:
                 "contact_schema": bool(self.contact_schema),
                 "phone_schema": bool(self.phone_schema),
                 "commercial_offer_schema": bool(self.commercial_offer_schema),
+                "interaction_schema": bool(self.interaction_schema),
                 "full_response_schema": bool(self.full_response_schema)
             }
         }

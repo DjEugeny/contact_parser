@@ -21,6 +21,8 @@ from datetime import datetime, timedelta
 from enum import Enum
 from statistics import mean, median
 
+from .paths import CONFIG_DIR
+
 
 @dataclass
 class LLMProviderConfig:
@@ -158,7 +160,7 @@ class UnifiedConfigManager:
     """🎛️ Унифицированный менеджер конфигурации"""
 
     def __init__(self, config_dir: Optional[Path] = None):
-        self.config_dir = config_dir or Path(__file__).parent.parent.parent / "config"
+        self.config_dir = config_dir or CONFIG_DIR
         self._env_loaded = False
         self._config_cache: Dict[str, Any] = {}
         
