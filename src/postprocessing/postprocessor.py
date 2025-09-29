@@ -155,6 +155,9 @@ class PostProcessor:
         """Сброс временных структур перед обработкой"""
         self.organization_mapping = {}
         self.contact_mapping = {}
+        # КРИТИЧНО: Очищаем состояние дедупликатора организаций
+        self.org_deduplicator.reset_state()
+        self.logger.info("🔄 Состояние постпроцессора сброшено для нового письма")
 
     def _validate_llm_result(self, llm_result: Dict[str, Any]) -> bool:
         """Валидация структуры LLM результата

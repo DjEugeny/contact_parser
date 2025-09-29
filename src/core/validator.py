@@ -507,9 +507,15 @@ class LLMResponseValidator:
         
         print("🔍 Валидация ответа в новом формате organizations/contacts")
         
+        # КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Нормализуем ключи с пробелами от Replicate LLM
+        corrected_response = self._normalize_keys_with_spaces(corrected_response)
+        
+        # Дополнительная нормализация типов взаимодействий
+        corrected_response = self._normalize_interaction_types(corrected_response)
+        
         try:
             # Проверяем новую схему
-            jsonschema.validate(response, self.full_response_schema)
+            jsonschema.validate(corrected_response, self.full_response_schema)
             print("✅ JSON Schema валидация прошла успешно")
             return True, [], corrected_response
             
@@ -610,10 +616,33 @@ class LLMResponseValidator:
             }
             print("🔧 Добавлен пустой объект summary")
         else:
-            corrected['summary'].setdefault("topic", None)
-            corrected['summary'].setdefault("product_interest", None)
-            corrected['summary'].setdefault("communication_stage", None)
-            corrected['summary'].setdefault("request_type", None)
+            # Исправляем дублирующиеся ключи в summary от Replicate
+            summary = corrected['summary']
+            
+            # Удаляем проблемные ключи с пробелами и переносим их значения в правильные ключи
+            if 'product _ interest' in summary:
+                if not summary.get('product_interest'):
+                    summary['product_interest'] = summary['product _ interest']
+                del summary['product _ interest']
+                print("🔧 Исправлен ключ product _ interest в summary")
+                
+            if 'communication _st age' in summary:
+                if not summary.get('communication_stage'):
+                    summary['communication_stage'] = summary['communication _st age']
+                del summary['communication _st age']
+                print("🔧 Исправлен ключ communication _st age в summary")
+                
+            if 'request _type' in summary:
+                if not summary.get('request_type'):
+                    summary['request_type'] = summary['request _type']
+                del summary['request _type']
+                print("🔧 Исправлен ключ request _type в summary")
+            
+            # Добавляем отсутствующие обязательные поля
+            summary.setdefault("topic", None)
+            summary.setdefault("product_interest", None)
+            summary.setdefault("communication_stage", None)
+            summary.setdefault("request_type", None)
 
         if 'business_context' not in corrected or corrected['business_context'] is None:
             corrected['business_context'] = ""
@@ -623,6 +652,25 @@ class LLMResponseValidator:
             for i, contact in enumerate(corrected['contacts']):
                 if not isinstance(contact, dict):
                     continue
+
+                # Исправляем ключи с пробелами в контактах
+                if 'contact _id' in contact:
+                    if 'contact_id' not in contact:
+                        contact['contact_id'] = contact['contact _id']
+                    del contact['contact _id']
+                    print(f"🔧 Исправлен ключ contact _id для контакта {i}")
+                    
+                if 'organization _id' in contact:
+                    if 'organization_id' not in contact:
+                        contact['organization_id'] = contact['organization _id']
+                    del contact['organization _id']
+                    print(f"🔧 Исправлен ключ organization _id для контакта {i}")
+                    
+                if 'role _in _message' in contact:
+                    if 'role_in_message' not in contact:
+                        contact['role_in_message'] = contact['role _in _message']
+                    del contact['role _in _message']
+                    print(f"🔧 Исправлен ключ role _in _message для контакта {i}")
 
                 contact.setdefault('contact_id', i + 1)
                 if not contact.get('name'):
@@ -638,6 +686,25 @@ class LLMResponseValidator:
                 if 'phones' not in contact or not isinstance(contact['phones'], list):
                     contact['phones'] = []
                     print(f"🔧 Добавлен список телефонов для контакта {i}")
+                
+                # Исправляем формат телефонов (строка → объект)
+                if 'phones' in contact and isinstance(contact['phones'], list):
+                    fixed_phones = []
+                    for j, phone in enumerate(contact['phones']):
+                        if isinstance(phone, str):
+                            # Преобразуем строку в объект
+                            fixed_phones.append({
+                                'number': phone,
+                                'type': 'mobile',
+                                'formatted': phone,
+                                'normalized': None,
+                                'extension': None,
+                                'confidence': 0.8
+                            })
+                            print(f"🔧 Исправлен формат телефона для контакта {i}, телефон {j}")
+                        elif isinstance(phone, dict):
+                            fixed_phones.append(phone)
+                    contact['phones'] = fixed_phones
 
         # Исправляем организации
         if 'organizations' in corrected:
@@ -682,17 +749,40 @@ class LLMResponseValidator:
                 "support",
                 "other"
             }
+            
+            # Маппинг проблемных типов взаимодействий
+            interaction_type_mapping = {
+                'follow _up': 'follow_up',
+                'follow _u p': 'follow_up',
+                'info _request': 'clarification',
+                'requested _quote': 'requested_quote',
+                'sent _quote': 'sent_quote'
+            }
+            
             for i, interaction in enumerate(corrected['interactions']):
                 if not isinstance(interaction, dict):
                     continue
+
+                # Исправляем неправильные имена полей в interactions
+                if 'message_id_h极' in interaction:
+                    if 'message_id_hint' not in interaction:
+                        interaction['message_id_hint'] = interaction['message_id_h极']
+                    del interaction['message_id_h极']
+                    print(f"🔧 Исправлено поле message_id_h极 → message_id_hint для взаимодействия {i}")
 
                 interaction.setdefault('interaction_local_id', i + 1)
                 interaction.setdefault('contact_id', 1)
                 interaction.setdefault('organization_id', 1)
                 if not interaction.get('role_in_message'):
                     interaction['role_in_message'] = 'other'
-                if interaction.get('interaction_type') not in allowed_types:
+                
+                # Нормализуем тип взаимодействия
+                interaction_type = interaction.get('interaction_type', 'other')
+                if interaction_type in interaction_type_mapping:
+                    interaction['interaction_type'] = interaction_type_mapping[interaction_type]
+                elif interaction_type not in allowed_types:
                     interaction['interaction_type'] = 'other'
+                    
                 if 'summary' not in interaction or not interaction['summary']:
                     interaction['summary'] = ''
                 if 'attachments' not in interaction or not isinstance(interaction['attachments'], list):
@@ -748,6 +838,135 @@ class LLMResponseValidator:
             "validation_error": True,
             "original_response": invalid_response
         }
+
+    def _normalize_keys_with_spaces(self, data: Dict[str, Any]) -> Dict[str, Any]:
+        """🔧 Нормализация ключей с пробелами от Replicate LLM"""
+        if not isinstance(data, dict):
+            return data
+        
+        normalized = {}
+        
+        # Маппинг проблемных ключей
+        key_mappings = {
+            # Основные ключи
+            'organ izations': 'organizations',
+            'organization _id': 'organization_id',
+            'contact _id': 'contact_id',
+            'business _context': 'business_context',
+            'key _points': 'key_points',
+            'commercial_offers': 'commercial_offers',
+            'inter actions': 'interactions',
+            
+            # Ключи контактов
+            'role _in _message': 'role_in_message',
+            
+            # Ключи summary
+            'product _ interest': 'product_interest',
+            'communication _st age': 'communication_stage',
+            'communication _stage': 'communication_stage',
+            'request _type': 'request_type',
+            
+            # Ключи взаимодействий
+            'inter action _local _id': 'interaction_local_id',
+            'interaction _local _id': 'interaction_local_id',
+            'message _sub ject': 'message_subject',
+            'message _date': 'message_date',
+            'role _in _message': 'role_in_message',
+            'inter action _type': 'interaction_type',
+            'interaction _type': 'interaction_type',
+            'att achments': 'attachments',
+            'follow _up': 'follow_up',
+            'follow _u p': 'follow_up',
+            'info _request': 'clarification',
+            'requested _quote': 'requested_quote',
+            'sent _quote': 'sent_quote',
+            
+            # Ключи КП
+            'offer _type': 'offer_type',
+            'offer _number': 'offer_number',
+            'offer _date': 'offer_date',
+            'end _user': 'end_user',
+            'end_user_inn': 'end_user_inn',
+            'inter medi ary': 'intermediary',
+            'inter medi ary _date': 'intermediary_date',
+            'intermediary _date': 'intermediary_date',
+            'payment _ terms': 'payment_terms',
+            'payment _terms': 'payment_terms',
+            'del ivery _time': 'delivery_time',
+            'delivery _time': 'delivery_time',
+            'delivery_terms': 'delivery_terms',
+            'valid_until': 'valid_until',
+            'equ ipment _items': 'equipment_items',
+            'equipment _items': 'equipment_items',
+            'total _cost': 'total_cost',
+            'unit _price': 'unit_price',
+            'total _price': 'total_price'
+        }
+        
+        for key, value in data.items():
+            # Нормализуем ключ
+            normalized_key = key_mappings.get(key, key)
+            
+            # Если ключ не найден в маппинге, пробуем удалить пробелы
+            if normalized_key == key and ' ' in key:
+                # Удаляем все пробелы из ключа
+                normalized_key = key.replace(' ', '')
+                
+                # Проверяем, есть ли такой ключ в ожидаемых
+                expected_keys = {
+                    'organizations', 'contacts', 'business_context', 'summary', 
+                    'key_points', 'commercial_offers', 'interactions',
+                    'organization_id', 'contact_id', 'role_in_message',
+                    'product_interest', 'communication_stage', 'request_type',
+                    'interaction_local_id', 'message_subject', 'message_date',
+                    'interaction_type', 'attachments', 'offer_type', 'offer_number',
+                    'offer_date', 'end_user', 'intermediary', 'intermediary_date',
+                    'payment_terms', 'delivery_time', 'delivery_terms',
+                    'valid_until', 'equipment_items', 'total_cost', 'unit_price',
+                    'total_price'
+                }
+                
+                if normalized_key not in expected_keys:
+                    # Возвращаем исходный ключ, если нормализованный не ожидается
+                    normalized_key = key
+            
+            # Рекурсивно обрабатываем вложенные структуры
+            if isinstance(value, dict):
+                normalized[normalized_key] = self._normalize_keys_with_spaces(value)
+            elif isinstance(value, list):
+                normalized[normalized_key] = [
+                    self._normalize_keys_with_spaces(item) if isinstance(item, dict) else item
+                    for item in value
+                ]
+            else:
+                normalized[normalized_key] = value
+        
+        return normalized
+
+    def _normalize_interaction_types(self, data: Dict[str, Any]) -> Dict[str, Any]:
+        """🔧 Нормализация типов взаимодействий с пробелами"""
+        if not isinstance(data, dict):
+            return data
+        
+        # Маппинг проблемных типов взаимодействий
+        interaction_type_mapping = {
+            'follow _up': 'follow_up',
+            'follow _u p': 'follow_up',
+            'info _request': 'clarification',
+            'requested _quote': 'requested_quote',
+            'sent _quote': 'sent_quote'
+        }
+        
+        # Обрабатываем взаимодействия
+        if 'interactions' in data and isinstance(data['interactions'], list):
+            for interaction in data['interactions']:
+                if isinstance(interaction, dict) and 'interaction_type' in interaction:
+                    interaction_type = interaction['interaction_type']
+                    if interaction_type in interaction_type_mapping:
+                        interaction['interaction_type'] = interaction_type_mapping[interaction_type]
+                        print(f"🔧 Нормализован тип взаимодействия: {interaction_type} -> {interaction_type_mapping[interaction_type]}")
+        
+        return data
 
     def validate_organizations(self, organizations: List[Dict[str, Any]]) -> Tuple[bool, List[str]]:
         """🏢 Валидация массива организаций"""

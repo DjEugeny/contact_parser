@@ -5,8 +5,10 @@
 Фаза 5: Архитектурная оптимизация
 """
 
-import requests
+import aiohttp
+import asyncio
 import json
+import time
 from typing import Dict, Any, Optional
 from .base_provider import BaseProvider, ProviderConfig
 
@@ -16,7 +18,12 @@ class OpenRouterProvider(BaseProvider):
 
     def __init__(self, config: ProviderConfig):
         super().__init__(config)
-        self.session = requests.Session()
+        # Убеждаемся что headers установлены правильно
+        if not self.config.headers:
+            self.config.headers = self._get_default_headers()
+        # OpenRouter требует больше времени для длинных запросов
+        if self.config.timeout < 120:
+            self.config.timeout = 120  # 2 минуты для больших промптов
 
     def _get_default_headers(self) -> Dict[str, str]:
         """📋 Стандартные headers для OpenRouter"""
@@ -24,87 +31,159 @@ class OpenRouterProvider(BaseProvider):
             'Authorization': f'Bearer {self.config.api_key}',
             'Content-Type': 'application/json',
             'HTTP-Referer': 'https://localhost:3000',
-            'X-Title': 'Contact Extractor LLM'
+            'X-Title': 'Contact Parser LLM Request'
         }
 
-    def make_request(self, prompt: str, **kwargs) -> Dict[str, Any]:
+    async def make_request(self, request_data: Dict[str, Any], **kwargs) -> Dict[str, Any]:
         """
         🚀 Запрос к OpenRouter API
 
         Args:
-            prompt: Текст для обработки
+            request_data: Данные запроса с messages
             **kwargs: Дополнительные параметры
 
         Returns:
             dict: Ответ от LLM
         """
-        if not self.is_available():
-            raise RuntimeError(f"❌ Провайдер {self.config.name} недоступен")
-
-        # Параметры запроса для DeepSeek V3.1
-        # Оптимизированы под контекстное окно 128K токенов
-        temperature = kwargs.get('temperature', 0.2)  # Повышено для более креативных ответов
-        max_tokens = kwargs.get('max_tokens', 8000)   # Увеличено под возможности модели
-        top_p = kwargs.get('top_p', 0.95)             # Оптимизировано для качества
-        stream = kwargs.get('stream', False)          # Поддержка стриминга
-
-        payload = {
-            "model": self.config.model,
-            "messages": [
-                {
-                    "role": "user",
-                    "content": prompt
-                }
-            ],
-            "temperature": temperature,
-            "max_tokens": max_tokens,
-            "top_p": top_p,
-            "stream": stream
-        }
-
         try:
-            import time
+            # Проверка доступности провайдера
+            if not self.is_available():
+                error_msg = f"❌ Провайдер {self.config.name} недоступен (Circuit Breaker: {self.in_circuit_break}, Active: {self.config.active})"
+                print(f"DEBUG OpenRouter: {error_msg}")
+                raise RuntimeError(error_msg)
+
+            # Валидация входных данных
+            if not isinstance(request_data, dict):
+                error_msg = f"❌ request_data должен быть словарем, получен: {type(request_data)}"
+                print(f"DEBUG OpenRouter: {error_msg}")
+                raise ValueError(error_msg)
+
+            # Извлекаем messages из request_data
+            messages = request_data.get('messages', [])
+            if not messages:
+                error_msg = f"❌ Не найдены messages в request_data. Доступные ключи: {list(request_data.keys())}"
+                print(f"DEBUG OpenRouter: {error_msg}")
+                raise ValueError(error_msg)
+
+            # Валидация messages
+            if not isinstance(messages, list) or len(messages) == 0:
+                error_msg = f"❌ messages должен быть непустым списком, получен: {type(messages)} с длиной {len(messages) if isinstance(messages, list) else 'N/A'}"
+                print(f"DEBUG OpenRouter: {error_msg}")
+                raise ValueError(error_msg)
+
+            # Параметры запроса для DeepSeek V3.1
+            # Оптимизированы под контекстное окно 128K токенов
+            temperature = request_data.get('temperature', kwargs.get('temperature', 0.2))
+            max_tokens = request_data.get('max_tokens', kwargs.get('max_tokens', 8000))
+            top_p = request_data.get('top_p', kwargs.get('top_p', 0.95))
+            stream = request_data.get('stream', kwargs.get('stream', False))
+
+            payload = {
+                "model": self.config.model,
+                "messages": messages,
+                "temperature": temperature,
+                "max_tokens": max_tokens,
+                "top_p": top_p,
+                "stream": stream
+            }
+            # Выполнение HTTP запроса
             start_time = time.time()
 
-            response = self.session.post(
-                self.config.base_url,
-                json=payload,
-                headers=self.config.headers,
-                timeout=self.config.timeout
-            )
-
-            response_time = time.time() - start_time
-
-            if response.status_code == 200:
-                result = response.json()
-
-                # Извлечение ответа
-                if 'choices' in result and result['choices']:
-                    content = result['choices'][0]['message']['content']
-
-                    # Подсчет токенов (примерная оценка)
-                    tokens_used = len(content.split()) * 1.3  # Грубая оценка
-
-                    self.record_success(response_time, int(tokens_used))
-
-                    return {
-                        'content': content,
-                        'provider': 'openrouter',
-                        'model': self.config.model,
-                        'tokens_used': int(tokens_used),
-                        'response_time': response_time
-                    }
+            # Формируем правильный URL
+            url = self.config.base_url
+            if not url.endswith('/chat/completions'):
+                if url.endswith('/'):
+                    url = url + 'chat/completions'
                 else:
-                    raise ValueError("❌ Неверный формат ответа от OpenRouter")
+                    url = url + '/chat/completions'
 
-            else:
-                error_msg = f"HTTP {response.status_code}: {response.text}"
-                self.record_failure("http_error")
-                raise RuntimeError(f"❌ Ошибка OpenRouter API: {error_msg}")
+            print(f"DEBUG OpenRouter: Отправка запроса")
+            print(f"  URL: {url}")
+            print(f"  Model: {payload['model']}")
+            print(f"  Messages: {len(payload['messages'])}")
+            print(f"  Headers: {list(self.config.headers.keys())}")
 
-        except requests.exceptions.RequestException as e:
+            async with aiohttp.ClientSession() as session:
+                async with session.post(
+                    url,
+                    json=payload,
+                    headers=self.config.headers,
+                    timeout=aiohttp.ClientTimeout(total=self.config.timeout)
+                ) as response:
+                    
+                    response_time = time.time() - start_time
+                    print(f"DEBUG OpenRouter: Получен ответ со статусом {response.status} за {response_time:.2f}с")
+                    
+                    if response.status == 200:
+                        try:
+                            result = await response.json()
+                            print(f"DEBUG OpenRouter: JSON ответ получен, размер: {len(str(result))}")
+
+                            # Извлечение ответа
+                            if 'choices' in result and result['choices']:
+                                content = result['choices'][0]['message']['content']
+                                print(f"DEBUG OpenRouter: Извлечен контент длиной {len(content)}")
+
+                                # Подсчет токенов из usage или примерная оценка
+                                usage = result.get('usage', {})
+                                tokens_used = usage.get('total_tokens', len(content.split()) * 1.3)
+
+                                self.record_success(response_time, int(tokens_used))
+                                print(f"DEBUG OpenRouter: Успешный запрос записан")
+
+                                return {
+                                    'content': content,
+                                    'provider': 'OpenRouter',
+                                    'model': self.config.model,
+                                    'usage': usage,
+                                    'response_time': response_time
+                                }
+                            else:
+                                error_msg = f"❌ Неверный формат ответа от OpenRouter. Ключи: {list(result.keys())}"
+                                print(f"DEBUG OpenRouter: {error_msg}")
+                                self.record_failure("response_format_error")
+                                raise ValueError(error_msg)
+                        
+                        except json.JSONDecodeError as e:
+                            error_msg = f"❌ Ошибка парсинга JSON ответа: {str(e)}"
+                            print(f"DEBUG OpenRouter JSON Error: {error_msg}")
+                            self.record_failure("json_parse_error")
+                            raise RuntimeError(error_msg)
+
+                    else:
+                        try:
+                            error_text = await response.text()
+                            error_msg = f"HTTP {response.status}: {error_text}"
+                            print(f"DEBUG OpenRouter HTTP Error: {error_msg}")
+                            self.record_failure("http_error")
+                            raise RuntimeError(f"❌ Ошибка OpenRouter API: {error_msg}")
+                        except Exception as e:
+                            error_msg = f"HTTP {response.status}: Не удалось прочитать тело ответа ({str(e)})"
+                            print(f"DEBUG OpenRouter Response Read Error: {error_msg}")
+                            self.record_failure("http_error")
+                            raise RuntimeError(f"❌ Ошибка OpenRouter API: {error_msg}")
+
+        except asyncio.TimeoutError as e:
+            self.record_failure("timeout_error")
+            error_msg = f"❌ Таймаут OpenRouter: запрос превысил {self.config.timeout}с"
+            print(f"DEBUG OpenRouter Timeout: {error_msg}")
+            raise RuntimeError(error_msg)
+        
+        except aiohttp.ClientError as e:
             self.record_failure("network_error")
-            raise RuntimeError(f"❌ Сетевая ошибка OpenRouter: {str(e)}")
+            error_msg = f"❌ Сетевая ошибка OpenRouter: {str(e)} (тип: {type(e).__name__})"
+            print(f"DEBUG OpenRouter ClientError: {error_msg}")
+            raise RuntimeError(error_msg)
+        
+        except (ValueError, RuntimeError) as e:
+            # Эти ошибки уже обработаны выше, просто перебрасываем
+            raise
+        
         except Exception as e:
             self.record_failure("unknown_error")
-            raise RuntimeError(f"❌ Неожиданная ошибка OpenRouter: {str(e)}")
+            error_msg = f"❌ Неожиданная ошибка OpenRouter: {str(e)} (тип: {type(e).__name__})"
+            print(f"DEBUG OpenRouter Unexpected Exception: {error_msg}")
+            import traceback
+            print("DEBUG OpenRouter Full Traceback:")
+            traceback.print_exc()
+            raise RuntimeError(error_msg)

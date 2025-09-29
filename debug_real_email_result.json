@@ -1,0 +1,189 @@
+{
+  "organizations": [],
+  "contacts": [],
+  "business_context": "Ошибка валидации",
+  "summary": {
+    "topic": "Ошибка обработки",
+    "product_interest": null,
+    "communication_stage": null,
+    "request_type": null
+  },
+  "key_points": [],
+  "commercial_offers": [],
+  "interactions": [],
+  "validation_error": true,
+  "original_response": {
+    "organ izations": [
+      {
+        "organization _id": 1,
+        "name": "ЦентрЛабораторнойДиагностики",
+        "inn": null,
+        "website": null,
+        "city": "Новосибирск",
+        "address": "630075,г.Новосибирск,ул.Народная,3",
+        "emails": [
+          "sklad@centerld.ru"
+        ],
+        "phones": []
+      }
+    ],
+    "contacts": [
+      {
+        "contact _id": 1,
+        "name": "БабиченкоИванСергеевич",
+        "organization _id": 1,
+        "position": "РуководительОМТС",
+        "email": null,
+        "phones": [
+          {
+            "type": "mobile",
+            "number": "+7-913-399-32-72"
+          }
+        ],
+        "city": "Новосибирск",
+        "address": "630075,г.Новосибирск,ул.Народная,3",
+        "role _in _message": "sender",
+        "confidence": 1.0,
+        "contact_id": 1,
+        "organization_id": 1,
+        "role_in_message": "other"
+      }
+    ],
+    "business _context": "ПисьмосодержитзапросотЦентраЛабораторнойДиагностикиобуточнениисроковотгрузкитоварапосчетунаоплату№8164от16июля2025года.Отправительпроситоперативнопредоставитьинформациюопланируемойдатепоставки,чтоуказываетнаактивнуюстадиювыполнениязаказа.",
+    "summary": {
+      "topic": "Уточнениесроковотгрузкитовара",
+      "product _ interest": null,
+      "communication _st age": "постпродажноесопровождение",
+      "request _type": "уточнениесроков",
+      "product_interest": null,
+      "communication_stage": null,
+      "request_type": null
+    },
+    "key _points": [
+      "Запросинформацииопланируемойдатеотгрузкитовара",
+      "Ссылканасчетнаоплату№8164от16июля2025г.",
+      "Указаниеграфикаработыорганизации:Пн-Птс9:00до16: 00,обедс12:00до13:00"
+    ],
+    "commercial_offers": [],
+    "inter actions": [
+      {
+        "inter action _local _id": 1,
+        "contact _id": 1,
+        "organization _id": 1,
+        "message _sub ject": "Заказ.",
+        "message _date": "2025-07-29T10:10:51+07:00",
+        "message_id_hint": "<127-68883b80-41-64f24d00@99640895>",
+        "role _in _message": "sender",
+        "inter action _type": "follow _up",
+        "summary": "Запросуточнениясроковотгрузкитоварапосчетунаоплату№8164",
+        "att achments": [],
+        "confidence": 1.0
+      }
+    ]
+  },
+  "postprocessing_metadata": {
+    "processed_at": "2025-09-28T15:54:58.188656",
+    "stats": {
+      "processed_emails": 0,
+      "total_organizations_processed": 0,
+      "total_contacts_processed": 0,
+      "organizations_deduplicated": 0,
+      "contacts_filtered": 0,
+      "contacts_enriched": 0,
+      "data_normalized": 0
+    },
+    "version": "1.1.0",
+    "organization_mapping": {},
+    "contact_mapping": {}
+  },
+  "provider_used": "replicate",
+  "processing_time": 10.423951864242554,
+  "text_length": 804,
+  "chunks_processed": 1,
+  "total_contacts_found": 0,
+  "unique_contacts_found": 0,
+  "raw_llm_result": {
+    "organizations": [],
+    "contacts": [],
+    "business_context": "Ошибка валидации",
+    "summary": {
+      "topic": "Ошибка обработки",
+      "product_interest": null,
+      "communication_stage": null,
+      "request_type": null
+    },
+    "key_points": [],
+    "commercial_offers": [],
+    "interactions": [],
+    "validation_error": true,
+    "original_response": {
+      "organ izations": [
+        {
+          "organization _id": 1,
+          "name": "ЦентрЛабораторнойДиагностики",
+          "inn": null,
+          "website": null,
+          "city": "Новосибирск",
+          "address": "630075,г.Новосибирск,ул.Народная,3",
+          "emails": [
+            "sklad@centerld.ru"
+          ],
+          "phones": []
+        }
+      ],
+      "contacts": [
+        {
+          "contact _id": 1,
+          "name": "БабиченкоИванСергеевич",
+          "organization _id": 1,
+          "position": "РуководительОМТС",
+          "email": null,
+          "phones": [
+            {
+              "type": "mobile",
+              "number": "+7-913-399-32-72"
+            }
+          ],
+          "city": "Новосибирск",
+          "address": "630075,г.Новосибирск,ул.Народная,3",
+          "role _in _message": "sender",
+          "confidence": 1.0,
+          "contact_id": 1,
+          "organization_id": 1,
+          "role_in_message": "other"
+        }
+      ],
+      "business _context": "ПисьмосодержитзапросотЦентраЛабораторнойДиагностикиобуточнениисроковотгрузкитоварапосчетунаоплату№8164от16июля2025года.Отправительпроситоперативнопредоставитьинформациюопланируемойдатепоставки,чтоуказываетнаактивнуюстадиювыполнениязаказа.",
+      "summary": {
+        "topic": "Уточнениесроковотгрузкитовара",
+        "product _ interest": null,
+        "communication _st age": "постпродажноесопровождение",
+        "request _type": "уточнениесроков",
+        "product_interest": null,
+        "communication_stage": null,
+        "request_type": null
+      },
+      "key _points": [
+        "Запросинформацииопланируемойдатеотгрузкитовара",
+        "Ссылканасчетнаоплату№8164от16июля2025г.",
+        "Указаниеграфикаработыорганизации:Пн-Птс9:00до16: 00,обедс12:00до13:00"
+      ],
+      "commercial_offers": [],
+      "inter actions": [
+        {
+          "inter action _local _id": 1,
+          "contact _id": 1,
+          "organization _id": 1,
+          "message _sub ject": "Заказ.",
+          "message _date": "2025-07-29T10:10:51+07:00",
+          "message_id_hint": "<127-68883b80-41-64f24d00@99640895>",
+          "role _in _message": "sender",
+          "inter action _type": "follow _up",
+          "summary": "Запросуточнениясроковотгрузкитоварапосчетунаоплату№8164",
+          "att achments": [],
+          "confidence": 1.0
+        }
+      ]
+    }
+  }
+}

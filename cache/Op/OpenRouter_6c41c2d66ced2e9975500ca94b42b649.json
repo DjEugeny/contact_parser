@@ -1,0 +1,12 @@
+{
+  "content": "Конечно, вот извлеченные контакты:\n\n*   **Имя:** Иван Петров\n*   **Email:** ivan@test.com\n*   **Телефон:** +7-123-456-78-90",
+  "provider": "OpenRouter",
+  "model": "deepseek/deepseek-chat-v3.1:free",
+  "usage": {
+    "prompt_tokens": 32,
+    "completion_tokens": 52,
+    "total_tokens": 84,
+    "prompt_tokens_details": null
+  },
+  "response_time": 0.9826147556304932
+}

@@ -9,9 +9,13 @@
 - [ ] Реализовать запись результатов в `crm.db` (DAO + миграция)
 
 ## IN-PROGRESS
+- [x] Исправление JSON Schema валидатора для обработки ключей с подчеркиваниями от Replicate LLM
 - [ ] Подготовка отчётов и артефактов после каждого этапа (см. `memory-bank/reports/plan_mini_crm_mvp_2025-09-28.md`)
 
 ## DONE
+- [x] **КРИТИЧЕСКИЙ ПРОРЫВ:** Исправлен парсер JSON для Replicate LLM - теперь успешно извлекаются данные из писем (см. `memory-bank/reports/implementation_json_parser_fix_2025-09-28.md`)
+- [x] Временно отключено кэширование в `src/core/extractor.py` для получения свежих результатов от LLM
+- [x] Добавлен специальный фикс `_fix_replicate_spaces()` для обработки JSON с лишними пробелами
 - [x] Унифицированы пути загрузки конфигурации и обновлены модули (`src/config/paths.py`, `advanced_email_fetcher`, экспортеры)
 - [x] Превратить `api_pipeline_validator.py` в тонкий слой над `main_new.py`, добавить режимы `first10|batch|range|dry-run` (см. `memory-bank/reports/implementation_api_pipeline_validator_refactor_2025-09-28.md`)
 - [x] Реализованы нормализация, scoring и fuzzy-дедуп по `11_DEDUP_ENRICH_RULES.md` с переиспользованием модулей `src/postprocessing`

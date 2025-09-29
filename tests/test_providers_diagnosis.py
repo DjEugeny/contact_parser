@@ -19,7 +19,7 @@ def check_environment_variables():
     # Сначала пробуем загрузить .env файл
     try:
         from dotenv import load_dotenv
-        project_root = Path(__file__).parent
+        project_root = Path(__file__).parent.parent  # Поднимаемся на уровень выше из tests/
         env_path = project_root / ".env"
         
         print(f"   🔄 Попытка загрузки .env из: {env_path}")
@@ -60,7 +60,7 @@ def check_dotenv_file():
     print("=" * 30)
     
     # Исправленные пути - ищем .env в корне проекта
-    project_root = Path(__file__).parent  # Корень проекта
+    project_root = Path(__file__).parent.parent  # Корень проекта (поднимаемся из tests/)
     env_files = [
         project_root / ".env",
         project_root / ".env.local",
@@ -103,35 +103,58 @@ def test_openrouter_direct():
     print(f"   🔑 Используем реальный ключ: {api_key[:15]}...{api_key[-8:]}")
     
     try:
-        # Тест авторизации
-        auth_url = "https://openrouter.ai/api/v1/auth/key"
+        # Проверяем лимиты и баланс через новый API endpoint
+        print("   🔍 Проверка лимитов и баланса...")
+        key_info_url = "https://openrouter.ai/api/v1/key"
         headers = {"Authorization": f"Bearer {api_key}"}
         
-        response = requests.get(auth_url, headers=headers, timeout=10)
-        print(f"   📡 Статус авторизации: {response.status_code}")
+        response = requests.get(key_info_url, headers=headers, timeout=10)
+        print(f"   📡 Статус запроса лимитов: {response.status_code}")
         
         if response.status_code == 200:
-            data = response.json()
-            print(f"   ✅ Авторизация успешна: {data}")
+            key_data = response.json()
+            print(f"   ✅ Информация о ключе получена:")
             
-            # Проверяем использование и лимиты
-            usage_data = data.get('data', {})
-            if usage_data:
-                usage = usage_data.get('usage', 'N/A')
-                limit = usage_data.get('limit', 'N/A') 
-                is_free = usage_data.get('is_free_tier', False)
-                print(f"   📊 Использование: {usage}")
-                print(f"   📊 Лимит: {limit}")
-                print(f"   📊 Free tier: {is_free}")
+            # Извлекаем данные о лимитах и балансе
+            limit = key_data.get('limit', 'N/A')
+            usage = key_data.get('usage', 'N/A')
+            is_free_tier = key_data.get('is_free_tier', False)
+            balance = key_data.get('balance', 'N/A')
             
-            # Тест генерации
-            test_completion(api_key)
+            print(f"   📊 Лимит запросов в сутки: {limit}")
+            print(f"   📊 Использовано кредитов: {usage}")
+            print(f"   📊 Бесплатный уровень: {'Да' if is_free_tier else 'Нет'}")
+            print(f"   💰 Текущий баланс: {balance}")
+            
+            # Проверяем доступность для запросов
+            if is_free_tier and isinstance(limit, (int, float)) and isinstance(usage, (int, float)):
+                remaining = limit - usage
+                print(f"   🔢 Осталось запросов: {remaining}")
+                if remaining <= 0:
+                    print(f"   🚫 ДНЕВНОЙ ЛИМИТ ИСЧЕРПАН!")
+                else:
+                    print(f"   ✅ Запросы доступны")
+            
+            # Тест авторизации (старый endpoint для совместимости)
+            auth_url = "https://openrouter.ai/api/v1/auth/key"
+            auth_response = requests.get(auth_url, headers=headers, timeout=10)
+            print(f"   📡 Статус авторизации: {auth_response.status_code}")
+            
+            if auth_response.status_code == 200:
+                print(f"   ✅ Авторизация успешна")
+                # Тест генерации
+                test_completion(api_key)
+            else:
+                print(f"   ⚠️ Проблема с авторизацией: {auth_response.text}")
             
         elif response.status_code == 401:
             print(f"   ❌ Ошибка авторизации: {response.text}")
-            error_data = response.json()
-            if 'User not found' in error_data.get('error', {}).get('message', ''):
-                print(f"   💡 Ключ недействителен или заблокирован")
+            try:
+                error_data = response.json()
+                if 'User not found' in error_data.get('error', {}).get('message', ''):
+                    print(f"   💡 Ключ недействителен или заблокирован")
+            except:
+                pass
         elif response.status_code == 429:
             print(f"   🚫 ЛИМИТ ИСЧЕРПАН! {response.text}")
         else:
@@ -225,7 +248,7 @@ def check_api_pipeline_validator_setup():
     
     try:
         # Добавляем путь к src
-        sys.path.insert(0, str(Path(__file__).parent / "src"))
+        sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
         
         from api_pipeline_validator import RealLLMProcessor
         

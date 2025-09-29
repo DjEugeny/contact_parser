@@ -109,7 +109,8 @@ class ReplicateProvider(BaseProvider):
                 
                 # Обработка случая, когда content является списком
                 if isinstance(content, list):
-                    content = ' '.join(str(item) for item in content)
+                    # ИСПРАВЛЕНИЕ: Replicate возвращает список символов, склеиваем БЕЗ пробелов
+                    content = ''.join(str(item) for item in content)
                 elif not isinstance(content, str):
                     content = str(content)
 

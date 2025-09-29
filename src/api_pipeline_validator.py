@@ -127,6 +127,9 @@ class APIPipelineValidator:
         self.loader = ProcessedEmailLoader()
         self.ocr_manager = get_ocr_manager()
         self.extractor = ExtractorFactory.create_extractor(test_mode=False)
+        
+        # Логирование статуса провайдеров
+        self._log_provider_status()
 
         self.run_summaries: List[Dict[str, Any]] = []
 
@@ -135,6 +138,55 @@ class APIPipelineValidator:
             mode=self.mode,
             dry_run=self.dry_run,
         )
+
+    def _log_provider_status(self) -> None:
+        """📊 Логирует статус всех LLM провайдеров"""
+        try:
+            provider_manager = self.extractor.config.provider_manager
+            providers = provider_manager.get_llm_providers()
+            
+            print(f"\n🤖 СТАТУС LLM ПРОВАЙДЕРОВ:")
+            print("=" * 40)
+            
+            for i, provider in enumerate(providers, 1):
+                # Проверяем доступность провайдера через объект провайдера
+                is_available = True
+                if hasattr(provider_manager, 'providers') and provider.name in provider_manager.providers:
+                    provider_obj = provider_manager.providers[provider.name]
+                    if hasattr(provider_obj, 'is_available'):
+                        is_available = provider_obj.is_available()
+                
+                status_icon = "✅" if is_available else "❌"
+                
+                print(f"{status_icon} {i}. {provider.name} ({provider.model})")
+                
+                if hasattr(provider_manager, 'providers') and provider.name in provider_manager.providers:
+                    provider_obj = provider_manager.providers[provider.name]
+                    if hasattr(provider_obj, 'get_stats'):
+                        stats = provider_obj.get_stats()
+                        success_rate = stats.get('success_rate', 0)
+                        circuit_break = stats.get('in_circuit_break', False)
+                        failure_count = stats.get('failure_count', 0)
+                        
+                        print(f"   📊 Успешность: {success_rate:.1%}")
+                        print(f"   🔄 Circuit Break: {'Да' if circuit_break else 'Нет'}")
+                        if failure_count > 0:
+                            print(f"   ❌ Ошибки подряд: {failure_count}")
+                
+                if not is_available:
+                    print(f"   ⚠️ Провайдер недоступен")
+            
+            # Подсчитываем доступные провайдеры
+            available_count = 0
+            for provider in providers:
+                if hasattr(provider_manager, 'providers') and provider.name in provider_manager.providers:
+                    provider_obj = provider_manager.providers[provider.name]
+                    if hasattr(provider_obj, 'is_available') and provider_obj.is_available():
+                        available_count += 1
+            print(f"\n📈 Доступно провайдеров: {available_count}/{len(providers)}")
+            
+        except Exception as e:
+            print(f"⚠️ Ошибка получения статуса провайдеров: {e}")
 
     def run(self) -> None:
         """🏁 Запускает обработку в выбранном режиме."""
@@ -150,8 +202,27 @@ class APIPipelineValidator:
             raise ValueError(f"Неизвестный режим: {self.mode}")
 
     def _run_first10(self) -> None:
-        """🧪 Обрабатывает тестовую выборку из 10 писем."""
+        """🧪 Обрабатывает тестовую выборку из 10 писем с поддержкой параметров count и start."""
         filenames = self._load_test_dataset()
+        
+        # Применяем фильтр по start если указан
+        if hasattr(self, 'start_date') and self.start_date:
+            # start_date в режиме first10 используется как имя файла для начала
+            start_filename = self.start_date
+            try:
+                start_index = filenames.index(start_filename)
+                filenames = filenames[start_index:]
+                print(f"🎯 Начинаем с файла: {start_filename} (индекс {start_index})")
+            except ValueError:
+                print(f"⚠️ Файл {start_filename} не найден в тестовом датасете, обрабатываем все")
+        
+        # Применяем ограничение по count
+        if hasattr(self, 'count') and self.count and self.count > 0:
+            filenames = filenames[:self.count]
+            print(f"🎯 Ограничиваем обработку до {self.count} писем")
+        
+        print(f"📧 К обработке: {len(filenames)} писем")
+        
         grouped = self._group_filenames_by_date(filenames)
 
         for date, date_filenames in grouped.items():
@@ -231,6 +302,12 @@ class APIPipelineValidator:
             metadata = self._build_email_metadata(email_data, email_path)
             combined_text = self._compose_combined_text(email_data, date)
             llm_metadata = self._build_llm_metadata(email_data, metadata, combined_text)
+            
+            # Дополнительная информация о письме
+            print(f"   📧 От: {metadata.get('from', 'Неизвестно')}")
+            print(f"   📝 Тема: {metadata.get('subject', 'Без темы')[:60]}...")
+            print(f"   📎 Вложений: {metadata.get('attachments_count', 0)}")
+            print(f"   📏 Размер текста: {len(combined_text)} символов")
 
             log_pipeline_event(
                 event_type="api_validator_email_start",
@@ -244,6 +321,14 @@ class APIPipelineValidator:
             processed_result = self.extractor.extract_all_data(combined_text, llm_metadata)
             duration = time.perf_counter() - extraction_start
 
+            # Извлекаем информацию о провайдере для логирования
+            provider_used = processed_result.get("provider_used", "Unknown")
+            response_time = processed_result.get("processing_time", 0)
+            
+            print(f"🤖 Использован провайдер: {provider_used}")
+            print(f"⏱️ Время ответа LLM: {response_time:.2f}с")
+            print(f"📊 Общее время обработки: {duration:.2f}с")
+
             raw_llm = processed_result.get("raw_llm_result", {})
             processed_copy = copy.deepcopy(processed_result)
             raw_payload = processed_copy.pop("raw_llm_result", raw_llm if isinstance(raw_llm, dict) else {})
@@ -251,6 +336,17 @@ class APIPipelineValidator:
             success = self._determine_success(processed_copy)
             processed_copy["success"] = success
             errors = self._collect_errors(processed_copy)
+            
+            # Детальное логирование результатов
+            contacts_count = len(processed_copy.get('contacts', []))
+            organizations_count = len(processed_copy.get('organizations', []))
+            commercial_offers_count = len(processed_copy.get('commercial_offers', []))
+            
+            print(f"📊 Результаты извлечения:")
+            print(f"   👥 Контакты: {contacts_count}")
+            print(f"   🏢 Организации: {organizations_count}")
+            print(f"   💼 Коммерческие предложения: {commercial_offers_count}")
+            print(f"   {'✅ Успешно' if success else '❌ Ошибки'}: {len(errors)} ошибок")
 
             entry = report_generator.register_email_result(
                 filename=email_path.name,
@@ -275,14 +371,38 @@ class APIPipelineValidator:
         except Exception as exc:  # pylint: disable=broad-except
             elapsed = time.perf_counter() - start_time
             error_message = str(exc)
+            error_type = type(exc).__name__
+            
+            # Детальное логирование ошибки
+            print(f"❌ Ошибка обработки {email_path.name}")
+            print(f"   🔍 Тип ошибки: {error_type}")
+            print(f"   📝 Сообщение: {error_message}")
+            print(f"   ⏱️ Время до ошибки: {elapsed:.2f}с")
+            
+            # Дополнительная диагностика для специфических ошибок
+            if "OpenRouter" in error_message:
+                print(f"   🤖 Проблема с OpenRouter провайдером")
+            elif "Replicate" in error_message:
+                print(f"   🤖 Проблема с Replicate провайдером")
+            elif "Circuit" in error_message or "недоступен" in error_message:
+                print(f"   🔄 Возможная проблема с Circuit Breaker")
+            elif "JSON" in error_message or "валидация" in error_message:
+                print(f"   📋 Проблема с валидацией JSON ответа")
+            
+            # Логирование стека ошибки для отладки
+            import traceback
+            print(f"   📚 Стек ошибки:")
+            for line in traceback.format_exc().split('\n')[-5:]:
+                if line.strip():
+                    print(f"      {line}")
+            
             stats.register_failure(email_path.name, error_message, elapsed)
             log_error_event(
                 error_type="api_validator_email_failed",
-                error_message=error_message,
+                error_message=f"{error_type}: {error_message}",
                 filename=email_path.name,
                 date=date,
             )
-            print(f"❌ Ошибка обработки {email_path.name}: {error_message}")
 
     def _compose_combined_text(self, email_data: Dict[str, Any], date: str) -> str:
         """📝 Собирает текст письма и извлечённые файлы вложений."""
@@ -470,8 +590,8 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="API Pipeline Validator")
     parser.add_argument("--mode", choices=["first10", "batch", "range"], default="first10")
     parser.add_argument("--date", help="Дата обработки для режима batch", default=None)
-    parser.add_argument("--count", type=int, help="Количество писем для режима batch", default=10)
-    parser.add_argument("--start", dest="start_date", help="Начальная дата для режима range", default=None)
+    parser.add_argument("--count", type=int, help="Количество писем (для режимов first10 и batch)", default=10)
+    parser.add_argument("--start", dest="start_date", help="Начальная дата для режима range или имя файла для режима first10", default=None)
     parser.add_argument("--end", dest="end_date", help="Конечная дата для режима range", default=None)
     parser.add_argument("--dry-run", action="store_true", help="Не выполнять запись в БД")
     return parser.parse_args(argv)

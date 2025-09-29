@@ -111,14 +111,16 @@ class ContactExtractor:
         self._prompt_cache: Dict[str, str] = {}
 
         # Инициализация системы кеширования результатов
-        cache_config = CacheConfig(
-            extraction_ttl=3600,  # 1 час для результатов извлечения
-            ocr_ttl=86400,        # 24 часа для OCR результатов
-            prompt_ttl=7200,      # 2 часа для промптов
-            enable_local_cache=True,
-            enable_compression=True
-        )
-        self.result_cache = get_result_cache(cache_config)
+        # ВРЕМЕННО ОТКЛЮЧЕНО: cache_config = CacheConfig(
+        #     extraction_ttl=3600,  # 1 час для результатов извлечения
+        #     ocr_ttl=86400,        # 24 часа для OCR результатов
+        #     prompt_ttl=7200,      # 2 часа для промптов
+        #     enable_local_cache=True,
+        #     enable_compression=True
+        # )
+        # self.result_cache = get_result_cache(cache_config)
+        self.result_cache = None
+        print("💾 EXTRACTOR КЭШИРОВАНИЕ ОТКЛЮЧЕНО ДЛЯ ОТЛАДКИ")
 
         self.postprocessor = PostProcessor()
 
@@ -161,24 +163,26 @@ class ContactExtractor:
 
         Использует новую систему кеширования результатов
         """
-        # 🚀 Проверяем кеш результатов
-        cached_prompt = self.result_cache.get_prompt(filename)
-        if cached_prompt:
-            return cached_prompt
+        # ВРЕМЕННО ОТКЛЮЧЕНО: 🚀 Проверяем кеш результатов
+        # cached_prompt = self.result_cache.get_prompt(filename)
+        # if cached_prompt:
+        #     return cached_prompt
 
-        # 🚀 Сначала пробуем новый кэш (Фаза 6)
-        cached_prompt = self.cache.get_prompt(filename)
-        if cached_prompt:
-            # Кешируем в новой системе
-            self.result_cache.cache_prompt(filename, cached_prompt)
-            return cached_prompt
+        # ВРЕМЕННО ОТКЛЮЧЕНО: 🚀 Сначала пробуем новый кэш (Фаза 6)
+        # cached_prompt = self.cache.get_prompt(filename)
+        # if cached_prompt:
+        #     # Кешируем в новой системе
+        #     self.result_cache.cache_prompt(filename, cached_prompt)
+        #     return cached_prompt
 
-        # 🔄 Fallback на старый метод (для совместимости)
-        if filename in self._prompt_cache:
-            prompt = self._prompt_cache[filename]
-            # Кешируем в новой системе
-            self.result_cache.cache_prompt(filename, prompt)
-            return prompt
+        # ВРЕМЕННО ОТКЛЮЧЕНО: 🔄 Fallback на старый метод (для совместимости)
+        # if filename in self._prompt_cache:
+        #     prompt = self._prompt_cache[filename]
+        #     # Кешируем в новой системе
+        #     self.result_cache.cache_prompt(filename, prompt)
+        #     return prompt
+        
+        print(f"💾 ПРОМПТ КЭШИРОВАНИЕ ОТКЛЮЧЕНО: Загружаем {filename} с диска")
 
         prompts_dir = self.config.prompts_dir or Path(__file__).parent.parent.parent / "prompts"
         prompt_path = prompts_dir / filename
@@ -189,11 +193,13 @@ class ContactExtractor:
         with open(prompt_path, 'r', encoding='utf-8') as f:
             prompt = f.read().strip()
 
-        # Кешируем в новой системе
-        self.result_cache.cache_prompt(filename, prompt)
+        # ВРЕМЕННО ОТКЛЮЧЕНО: Кешируем в новой системе
+        # self.result_cache.cache_prompt(filename, prompt)
         
-        # Кэшируем в старом кэше для совместимости
-        self._prompt_cache[filename] = prompt
+        # ВРЕМЕННО ОТКЛЮЧЕНО: Кэшируем в старом кэше для совместимости
+        # self._prompt_cache[filename] = prompt
+        
+        print(f"💾 ПРОМПТ НЕ КЭШИРУЕТСЯ: {filename}")
         return prompt
 
     def extract_all_data(self, text: str, metadata: dict = None) -> dict:
@@ -233,13 +239,14 @@ class ContactExtractor:
         # Создаем хеш контента для кеширования
         content_hash = hashlib.md5(f"{text}_{metadata}".encode()).hexdigest()
         
-        # Проверяем кеш результатов (если не тестовый режим)
-        if not self.test_mode:
-            cached_result = self.result_cache.get_extraction_result(content_hash)
-            if cached_result and 'result' in cached_result:
-                print(f"💾 Используем кешированный результат: {content_hash[:8]}...")
-                self.stats['cached_requests'] += 1
-                return cached_result['result']
+        # ВРЕМЕННО ОТКЛЮЧЕНО: Проверяем кеш результатов (если не тестовый режим)
+        # if not self.test_mode:
+        #     cached_result = self.result_cache.get_extraction_result(content_hash)
+        #     if cached_result and 'result' in cached_result:
+        #         print(f"💾 Используем кешированный результат: {content_hash[:8]}...")
+        #         self.stats['cached_requests'] += 1
+        #         return cached_result['result']
+        print(f"💾 Cache DISABLED: Всегда делаем свежий запрос к LLM")
 
         # Тестовый режим - возвращаем заранее подготовленный результат
         if self.test_mode:
@@ -344,39 +351,48 @@ class ContactExtractor:
             else:
                 prompt = self._prepare_unified_prompt(text, metadata)
 
-            # 💾 Проверяем кэш перед запросом (Фаза 6)
-            prompt_hash = hashlib.sha256(prompt.encode('utf-8')).hexdigest()
-            cached_result = self.cache.get_llm_response(prompt_hash, "unified_extraction")
+            # ВРЕМЕННО ОТКЛЮЧЕНО: 💾 Проверяем кэш перед запросом (Фаза 6)
+            # prompt_hash = hashlib.sha256(prompt.encode('utf-8')).hexdigest()
+            # cached_result = self.cache.get_llm_response(prompt_hash, "unified_extraction")
 
-            if cached_result:
-                print("💾 Используем кэшированный результат")
-                llm_response = cached_result
-                self.stats['cached_requests'] += 1
-            else:
-                # Запрос к LLM с fallback системой
-                print("🤖 Запрос к LLM провайдерам...")
-                request_data = {
-                    "messages": [{"role": "user", "content": prompt}],
-                    "temperature": 0.1,
-                    "max_tokens": 4000
-                }
-                
-                # Используем синхронную версию fallback системы
-                llm_response = asyncio.run(
-                    self.config.provider_manager.make_request_with_fallback(
-                        request_data=request_data
-                    )
+            # if cached_result:
+            #     print("💾 Используем кэшированный результат")
+            #     llm_response = cached_result
+            #     self.stats['cached_requests'] += 1
+            # else:
+            print("💾 Cache DISABLED: Делаем свежий запрос к LLM")
+            # Запрос к LLM с fallback системой
+            print("🤖 Запрос к LLM провайдерам...")
+            request_data = {
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": 0.1,
+                "max_tokens": 4000
+            }
+            
+            # Используем синхронную версию fallback системы
+            llm_response = asyncio.run(
+                self.config.provider_manager.make_request_with_fallback(
+                    request_data=request_data
                 )
+            )
 
-                # 💾 Кэшируем результат (Фаза 6)
-                self.cache.set_llm_response(prompt_hash, "unified_extraction", llm_response)
+            # ВРЕМЕННО ОТКЛЮЧЕНО: 💾 Кэшируем результат (Фаза 6)
+            # self.cache.set_llm_response(prompt_hash, "unified_extraction", llm_response)
 
             # Парсинг JSON ответа
             raw_content = llm_response.get('content') if isinstance(llm_response, dict) else llm_response
 
+            # ИСПРАВЛЕНИЕ: Сохраняем исходный ответ от LLM ДО обработки
             if isinstance(raw_content, str):
+                try:
+                    # Пытаемся распарсить исходный JSON без обработки
+                    raw_snapshot = json.loads(raw_content)
+                except json.JSONDecodeError:
+                    # Если не получается, сохраняем как строку
+                    raw_snapshot = {"raw_response": raw_content}
                 result = self._parse_llm_response(raw_content)
             else:
+                raw_snapshot = copy.deepcopy(raw_content)
                 result = raw_content
 
             # Валидация через validate_llm_response (с автокоррекцией)
@@ -389,8 +405,6 @@ class ContactExtractor:
             else:
                 print(f"❌ Валидация не удалась: {errors}")
                 result = corrected_result  # Используем fallback результат
-
-            raw_snapshot = copy.deepcopy(result)
             if isinstance(result, dict):
                 result.setdefault('original_response', raw_content)
             processed_result = self._apply_postprocessing(result, metadata)
@@ -418,8 +432,8 @@ class ContactExtractor:
             })
             processed_result['raw_llm_result'] = raw_snapshot
 
-            if not self.test_mode:
-                self.result_cache.cache_extraction_result(content_hash, processed_result)
+            # ВРЕМЕННО ОТКЛЮЧЕНО: if not self.test_mode:
+            #     self.result_cache.cache_extraction_result(content_hash, processed_result)
 
             self.stats['successful_requests'] += 1
             return processed_result
@@ -590,7 +604,13 @@ class ContactExtractor:
         Returns:
             dict: Валидированный и обработанный результат
         """
+        print(f"🔍 Получен ответ LLM длиной {len(response_text)} символов")
+        print(f"🔍 Первые 200 символов: {response_text[:200]}...")
+        print(f"🔍 Последние 200 символов: ...{response_text[-200:]}")
+        
         try:
+            # Удален ошибочный фикс пробелов - Replicate возвращает корректный JSON
+            
             # Попытка парсинга JSON
             if response_text.strip().startswith('{'):
                 result = json.loads(response_text)
@@ -609,16 +629,30 @@ class ContactExtractor:
         except json.JSONDecodeError as e:
             self.stats['json_parsing_errors'] += 1
             print(f"❌ Ошибка парсинга JSON: {e}")
+            print(f"   Позиция ошибки: строка {e.lineno}, колонка {e.colno}")
+            
+            # Показываем контекст ошибки
+            lines = response_text.split('\n')
+            if e.lineno <= len(lines):
+                error_line = lines[e.lineno - 1] if e.lineno > 0 else ""
+                print(f"   Проблемная строка: {error_line}")
+                if e.colno > 0 and e.colno <= len(error_line):
+                    pointer = " " * (e.colno - 1) + "^"
+                    print(f"   Указатель:       {pointer}")
 
             # Попытка исправления распространенных ошибок
+            print(f"🛡️ Применяем graceful degradation fallback")
             fixed_text = self._fix_common_json_errors(response_text)
             try:
-                return json.loads(fixed_text)
-            except Exception:
+                result = json.loads(fixed_text)
+                print(f"✅ JSON успешно исправлен и распарсен")
+                return result
+            except json.JSONDecodeError as e2:
+                print(f"❌ Исправление не помогло: {e2}")
                 # Graceful degradation
                 fallback = self.config.json_validator.graceful_degradation_fallback({})
                 if isinstance(fallback, dict):
-                    fallback.setdefault('original_response', response_text)
+                    fallback.setdefault('original_response', response_text[:500] + "..." if len(response_text) > 500 else response_text)
                 return fallback
 
         except Exception as e:
@@ -629,14 +663,29 @@ class ContactExtractor:
             return fallback
 
     def _fix_common_json_errors(self, text: str) -> str:
-        """🔧 Исправление распространенных ошибок JSON"""
-        # Удаление лишних запятых перед закрывающими скобками
+        """🔧 Базовое исправление JSON ошибок"""
+        print(f"🔧 Попытка исправления JSON ошибок...")
+        
+        original_text = text
+        
+        # 1. Удаление markdown блоков кода
+        text = re.sub(r'```json\s*', '', text)
+        text = re.sub(r'```\s*$', '', text)
+        text = text.strip()
+        
+        # 2. Исправляем числа с пробелами ("1 . 0" -> "1.0")
+        text = re.sub(r'([0-9])\s+\.\s+([0-9])', r'\1.\2', text)
+        
+        # 3. Удаляем trailing запятые
         text = re.sub(r',(\s*[}\]])', r'\1', text)
-
-        # Исправление неэкранированных кавычек
-        text = re.sub(r'(?<!\\)"(?![,\}\]\s])', r'\"', text)
-
+        
+        if text != original_text:
+            print(f"🔧 JSON был изменен для исправления ошибок")
+            print(f"   Длина до: {len(original_text)}, после: {len(text)}")
+        
         return text
+
+    # Удален метод _fix_replicate_spaces - он создавал проблемы, а не решал их
 
     def extract_from_file(self, file_path: str, date: str = None) -> dict:
         """

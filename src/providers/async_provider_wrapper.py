@@ -116,14 +116,13 @@ class AsyncProviderWrapper:
                 self.async_stats.max_concurrent_requests = self.async_stats.concurrent_requests
 
             try:
-                # Выполняем синхронный запрос в отдельном потоке
-                loop = asyncio.get_event_loop()
-                result = await loop.run_in_executor(
-                    self.executor,
-                    self.provider.make_request,
-                    prompt,
+                # Выполняем асинхронный запрос напрямую
+                # Формируем request_data для провайдеров
+                request_data = {
+                    'messages': [{'role': 'user', 'content': prompt}],
                     **kwargs
-                )
+                }
+                result = await self.provider.make_request(request_data, **kwargs)
                 
                 # Сохранение в кеш
                 if self.enable_cache and self.cache and cache_key:

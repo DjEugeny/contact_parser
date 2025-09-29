@@ -70,19 +70,20 @@ class OCRManager:
         self._setup_logging()
         self._load_cache()
         
-        # Инициализация новой системы кеширования
+        # ВРЕМЕННО ОТКЛЮЧЕНО: Инициализация новой системы кеширования
         self.result_cache = None
-        if get_result_cache and CacheConfig:
-            try:
-                cache_config = CacheConfig(
-                    ocr_ttl=86400,  # 24 часа для OCR результатов
-                    enable_local_cache=True,
-                    enable_compression=True
-                )
-                self.result_cache = get_result_cache(cache_config)
-                self.logger.info("Новая система кеширования OCR подключена")
-            except Exception as e:
-                self.logger.warning(f"Не удалось подключить новую систему кеширования: {e}")
+        # if get_result_cache and CacheConfig:
+        #     try:
+        #         cache_config = CacheConfig(
+        #             ocr_ttl=86400,  # 24 часа для OCR результатов
+        #             enable_local_cache=True,
+        #             enable_compression=True
+        #         )
+        #         self.result_cache = get_result_cache(cache_config)
+        #         self.logger.info("Новая система кеширования OCR подключена")
+        #     except Exception as e:
+        #         self.logger.warning(f"Не удалось подключить новую систему кеширования: {e}")
+        self.logger.info("💾 OCR КЭШИРОВАНИЕ ОТКЛЮЧЕНО ДЛЯ ОТЛАДКИ")
         
         # Статистика использования
         self.stats = {
@@ -135,19 +136,20 @@ class OCRManager:
             return hashlib.md5(file_path.encode()).hexdigest()
     
     def _load_cache(self):
-        """Загрузка кеша из файла"""
-        try:
-            if self._cache_file.exists():
-                with open(self._cache_file, 'r', encoding='utf-8') as f:
-                    self._cache = json.load(f)
-                self.logger.info(f"Загружен кеш с {len(self._cache)} записями")
-            else:
-                self._cache = {}
-                # Создаем директорию для кеша
-                self._cache_file.parent.mkdir(parents=True, exist_ok=True)
-        except Exception as e:
-            self.logger.error(f"Ошибка загрузки кеша: {e}")
-            self._cache = {}
+        """ВРЕМЕННО ОТКЛЮЧЕНО: Загрузка кеша из файла"""
+        # try:
+        #     if self._cache_file.exists():
+        #         with open(self._cache_file, 'r', encoding='utf-8') as f:
+        #             self._cache = json.load(f)
+        #         self.logger.info(f"Загружен кеш с {len(self._cache)} записями")
+        #     else:
+        #         self._cache = {}
+        #         # Создаем директорию для кеша
+        #         self._cache_file.parent.mkdir(parents=True, exist_ok=True)
+        # except Exception as e:
+        #     self.logger.error(f"Ошибка загрузки кеша: {e}")
+        self._cache = {}
+        self.logger.info("💾 OCR СТАРЫЙ КЭШ ОТКЛЮЧЕН ДЛЯ ОТЛАДКИ")
     
     def _save_cache(self):
         """Сохранение кеша в файл"""
@@ -220,47 +222,49 @@ class OCRManager:
         # Генерируем хеш файла для новой системы кеширования
         file_hash = self._generate_file_hash(file_path)
         
-        # Сначала проверяем новую систему кеширования
-        if self.result_cache:
-            cached_text = self.result_cache.get_ocr_result(file_hash)
-            if cached_text:
-                self.stats['cache_hits'] += 1
-                self.stats['new_cache_hits'] += 1
-                processing_time = time.time() - start_time
-                
-                self.logger.info(f"New Cache HIT для {Path(file_path).name}")
-                
-                return {
-                    'success': True,
-                    'text': cached_text,
-                    'processing_time': processing_time,
-                    'cached': True,
-                    'cache_type': 'new_system'
-                }
+        # ВРЕМЕННО ОТКЛЮЧЕНО: Проверяем новую систему кеширования
+        # if self.result_cache:
+        #     cached_text = self.result_cache.get_ocr_result(file_hash)
+        #     if cached_text:
+        #         self.stats['cache_hits'] += 1
+        #         self.stats['new_cache_hits'] += 1
+        #         processing_time = time.time() - start_time
+        #         
+        #         self.logger.info(f"New Cache HIT для {Path(file_path).name}")
+        #         
+        #         return {
+        #             'success': True,
+        #             'text': cached_text,
+        #             'processing_time': processing_time,
+        #             'cached': True,
+        #             'cache_type': 'new_system'
+        #         }
         
-        # Fallback на старую систему кеширования
-        cache_key = self._generate_cache_key(file_path, date)
+        # ВРЕМЕННО ОТКЛЮЧЕНО: Fallback на старую систему кеширования
+        # cache_key = self._generate_cache_key(file_path, date)
+        # 
+        # if cache_key in self._cache:
+        #     cache_entry = self._cache[cache_key]
+        #     if self._is_cache_valid(cache_entry, file_path):
+        #         self.stats['cache_hits'] += 1
+        #         self.stats['old_cache_hits'] += 1
+        #         processing_time = time.time() - start_time
+        #         self.stats['processing_time_saved'] += cache_entry.get('original_processing_time', 0) - processing_time
+        #         
+        #         self.logger.info(f"Old Cache HIT для {Path(file_path).name}")
+        #         
+        #         # Мигрируем в новую систему кеширования
+        #         if self.result_cache and 'result' in cache_entry and 'text' in cache_entry['result']:
+        #             self.result_cache.cache_ocr_result(file_hash, cache_entry['result']['text'])
+        #         
+        #         return {
+        #             **cache_entry['result'],
+        #             'cached': True,
+        #             'cache_retrieval_time': processing_time,
+        #             'cache_type': 'old_system'
+        #         }
         
-        if cache_key in self._cache:
-            cache_entry = self._cache[cache_key]
-            if self._is_cache_valid(cache_entry, file_path):
-                self.stats['cache_hits'] += 1
-                self.stats['old_cache_hits'] += 1
-                processing_time = time.time() - start_time
-                self.stats['processing_time_saved'] += cache_entry.get('original_processing_time', 0) - processing_time
-                
-                self.logger.info(f"Old Cache HIT для {Path(file_path).name}")
-                
-                # Мигрируем в новую систему кеширования
-                if self.result_cache and 'result' in cache_entry and 'text' in cache_entry['result']:
-                    self.result_cache.cache_ocr_result(file_hash, cache_entry['result']['text'])
-                
-                return {
-                    **cache_entry['result'],
-                    'cached': True,
-                    'cache_retrieval_time': processing_time,
-                    'cache_type': 'old_system'
-                }
+        self.logger.info(f"💾 КЭШИРОВАНИЕ ОТКЛЮЧЕНО: Выполняем OCR для {Path(file_path).name}")
         
         # Кеш промах - выполняем обработку
         self.stats['cache_misses'] += 1
@@ -273,24 +277,27 @@ class OCRManager:
             
             processing_time = time.time() - start_time
             
-            # Кешируем в новой системе
-            if self.result_cache and result.get('success') and 'text' in result:
-                self.result_cache.cache_ocr_result(file_hash, result['text'])
+            # ВРЕМЕННО ОТКЛЮЧЕНО: Кешируем в новой системе
+            # if self.result_cache and result.get('success') and 'text' in result:
+            #     self.result_cache.cache_ocr_result(file_hash, result['text'])
             
-            # Сохраняем результат в старый кеш для совместимости
-            try:
-                file_mtime = os.path.getmtime(file_path)
-                self._cache[cache_key] = {
-                    'result': result,
-                    'timestamp': datetime.now().isoformat(),
-                    'file_mtime': file_mtime,
-                    'original_processing_time': processing_time,
-                    'file_path': file_path,
-                    'date': date
-                }
-                self._save_cache()
-            except Exception as e:
-                self.logger.error(f"Ошибка сохранения в старый кеш: {e}")
+            # ВРЕМЕННО ОТКЛЮЧЕНО: Сохраняем результат в старый кеш для совместимости
+            # try:
+            #     file_mtime = os.path.getmtime(file_path)
+            #     cache_key = self._generate_cache_key(file_path, date)
+            #     self._cache[cache_key] = {
+            #         'result': result,
+            #         'timestamp': datetime.now().isoformat(),
+            #         'file_mtime': file_mtime,
+            #         'original_processing_time': processing_time,
+            #         'file_path': file_path,
+            #         'date': date
+            #     }
+            #     self._save_cache()
+            # except Exception as e:
+            #     self.logger.error(f"Ошибка сохранения в старый кеш: {e}")
+            
+            self.logger.info(f"💾 КЭШИРОВАНИЕ ОТКЛЮЧЕНО: Результат не сохраняется в кэш")
             
             return {
                 **result,

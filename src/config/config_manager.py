@@ -231,24 +231,24 @@ class UnifiedConfigManager:
 
         providers = []
 
-        # Replicate - приоритет 1 (самый быстрый)
-        if replicate_key := os.getenv('REPLICATE_API_KEY'):
-            providers.append(LLMProviderConfig(
-                name="Replicate",
-                api_key=replicate_key,
-                model=os.getenv('REPLICATE_MODEL', 'meta/llama-3.1-8b-instant'),
-                base_url="https://api.replicate.com/v1/predictions",
-                priority=1,
-                active=True
-            ))
-
-        # OpenRouter - приоритет 2
+        # OpenRouter - приоритет 1 (ПЕРВЫЙ ПРИОРИТЕТ)
         if openrouter_key := os.getenv('OPENROUTER_API_KEY'):
             providers.append(LLMProviderConfig(
                 name="OpenRouter",
                 api_key=openrouter_key,
-                model=os.getenv('OPENROUTER_MODEL', 'qwen/qwen3-235b-a22b:free'),
+                model=os.getenv('OPENROUTER_MODEL', 'deepseek/deepseek-chat-v3.1:free'),
                 base_url=os.getenv('OPENROUTER_BASE_URL', 'https://openrouter.ai/api/v1/chat/completions'),
+                priority=1,
+                active=True
+            ))
+
+        # Replicate - приоритет 2 (резервный)
+        if replicate_key := os.getenv('REPLICATE_API_KEY'):
+            providers.append(LLMProviderConfig(
+                name="Replicate",
+                api_key=replicate_key,
+                model=os.getenv('REPLICATE_MODEL', 'deepseek-ai/deepseek-v3.1'),
+                base_url="https://api.replicate.com/v1/predictions",
                 priority=2,
                 active=True
             ))

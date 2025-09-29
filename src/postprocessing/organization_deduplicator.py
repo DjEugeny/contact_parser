@@ -53,6 +53,17 @@ class OrganizationDeduplicator:
     def get_global_organizations(self) -> Dict[int, Dict[str, Any]]:
         """Возвращает текущий словарь глобальных организаций"""
         return self.global_organizations
+    
+    def reset_state(self) -> None:
+        """Очистка состояния дедупликатора для обработки нового письма"""
+        self.global_organizations = {}
+        self.next_global_id = 1
+        self._stats = {
+            'processed': 0,
+            'created': 0,
+            'merged': 0
+        }
+        self.logger.info("🔄 Состояние OrganizationDeduplicator очищено")
 
     def process_organizations(self, llm_organizations: List[Dict[str, Any]]) -> Dict[int, int]:
         """Обработка организаций из LLM ответа
