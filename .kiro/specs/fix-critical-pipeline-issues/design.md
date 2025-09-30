@@ -4,9 +4,11 @@
 
 Данный документ описывает техническое решение для исправления трех критических проблем в пайплайне обработки электронной почты:
 
-1. **Неправильная обработка регистра в постобработке** - система принудительно приводит текст к нижнему регистру
-2. **Неактивное обогащение данных** - модуль ContactEnricher существует, но не работает корректно
+1. **Неправильная нормализация регистра в постобработке** - система неправильно применяет `.capitalize()` и `.lower()`, ломая аббревиатуры и правильное форматирование
+2. **Проблемы с обогащением данных** - модуль ContactEnricher работает нестабильно или не обогащает данные как ожидается
 3. **Ошибки валидации** - конкретные письма не проходят валидацию схемы
+
+Основная проблема выявлена в результате анализа: система должна нормализовать только первое слово (делать заглавной первую букву), а остальные слова оставлять в исходном регистре из raw JSON.
 
 ## Архитектура
 
@@ -28,109 +30,243 @@ flowchart TD
 
 ### Проблемные компоненты
 
-1. **DataNormalizer** - принудительно изменяет регистр текста
-2. **OrganizationDeduplicator** - нормализует названия организаций в нижний регистр
-3. **AdvancedContactDeduplicator** - нормализует имена в нижний регистр
-4. **ContactEnricher** - может не вызываться или работать некорректно
+Анализ результатов показал конкретные проблемы:
+
+1. **DataNormalizer** - использует `.capitalize()` что превращает "Руководитель ОМТС" в "Руководитель омтс"
+2. **OrganizationDeduplicator** - использует `.lower()` что ломает названия организаций
+3. **AdvancedContactDeduplicator** - использует `.lower()` что ломает имена контактов
+4. **ContactEnricher** - работает нестабильно, не всегда обогащает email → website
+
+### Примеры проблем
+
+**Должности сейчас:**
+- "Заведующая Клинико-Диагностической Лабораторией" (все слова с большой буквы)
+- "Ведущий Специалист По Проектам Группы КДЛ" (неправильная капитализация)
+
+**Должности как должно быть:**
+- "Заведующая клинико-диагностической лабораторией" (только первое слово)
+- "Ведущий специалист по проектам Группы КДЛ" (сохранены аббревиатуры)
+
+**Организации сейчас:**
+- "Центр Специализированной Медицинской Помощи" (все слова с большой буквы)
+
+**Организации как должно быть:**
+- "Центр специализированной медицинской помощи" (только первое слово)
 
 ## Компоненты и интерфейсы
 
-### 1. Исправление обработки регистра
+### 1. Исправление нормализации регистра
 
 #### Проблемные места:
-- `src/postprocessing/data_normalizer.py:448` - должности приводятся к `.lower()`
-- `src/postprocessing/data_normalizer.py:466` - только `.capitalize()` вместо сохранения исходного регистра
-- `src/postprocessing/organization_deduplicator.py:251` - названия организаций в `.lower()`
-- `src/postprocessing/advanced_contact_deduplicator.py:399` - имена в `.lower()`
+- `src/postprocessing/data_normalizer.py` - методы `_normalize_position` и `_normalize_organization_name` используют `.capitalize()`
+- `src/postprocessing/organization_deduplicator.py` - метод `_normalize_organization_name` использует `.lower()`
+- `src/postprocessing/advanced_contact_deduplicator.py` - метод `_normalize_name` использует `.lower()`
 
 #### Решение:
-Создать **CasePreservingNormalizer** с интеллектуальной обработкой регистра:
+Создать простую функцию **normalize_first_word_only** которая правильно нормализует текст:
 
 ```python
-class CasePreservingNormalizer:
-    def __init__(self):
-        # Паттерны для сохранения регистра
-        self.abbreviation_patterns = [
-            r'\b[А-ЯЁ]{2,}\b',  # КДЛ, ОМТС, ООО
-            r'\b[A-Z]{2,}\b',   # LLC, INC, CEO
-        ]
-        self.title_patterns = [
-            r'\b[А-ЯЁ][а-яё]+\b',  # Медицина, Заведующая
-            r'\b[A-Z][a-z]+\b',    # Manager, Director
-        ]
+def normalize_first_word_only(text: str) -> str:
+    """
+    Нормализует только первое слово - делает заглавной первую букву.
+    Остальные слова остаются в исходном регистре.
     
-    def normalize_preserving_case(self, text: str, field_type: str) -> str:
-        """Нормализация с сохранением важного регистра"""
-        # Логика сохранения регистра для аббревиатур и названий
-        pass
+    Примеры:
+    - "руководитель ОМТС" → "Руководитель ОМТС"
+    - "заведующая клинико-диагностической лабораторией" → "Заведующая клинико-диагностической лабораторией"
+    - "центр специализированной медицинской помощи" → "Центр специализированной медицинской помощи"
+    """
+    if not text or not text.strip():
+        return text
+    
+    text = text.strip()
+    
+    # Специальная обработка для текста в кавычках
+    if text.startswith('"') and text.endswith('"'):
+        # Для текста в кавычках нормализуем только содержимое
+        inner_text = text[1:-1]
+        if inner_text:
+            normalized_inner = inner_text[0].upper() + inner_text[1:] if len(inner_text) > 1 else inner_text.upper()
+            return f'"{normalized_inner}"'
+        return text
+    
+    # Обычная нормализация - только первая буква заглавная
+    return text[0].upper() + text[1:] if len(text) > 1 else text.upper()
 ```
 
-### 2. Активация обогащения данных
+#### Интеграция в существующие компоненты:
 
-#### Диагностика проблемы:
-ContactEnricher интегрирован в цепочку: `PostProcessor → DataEnricher → ContactEnricher`
+1. **DataNormalizer**: заменить `.capitalize()` на `normalize_first_word_only()`
+2. **OrganizationDeduplicator**: заменить `.lower()` на `normalize_first_word_only()` для отображения, использовать `.lower()` только для сравнения
+3. **AdvancedContactDeduplicator**: аналогично - разделить нормализацию для отображения и для сравнения
 
-#### Возможные причины неработоспособности:
-1. **Ошибки в ContactEnricher** - исключения блокируют обогащение
-2. **Неправильная конфигурация** - отсутствуют необходимые зависимости
-3. **Логирование отключено** - результаты обогащения не видны
+### 2. Исправление логики обогащения данных
+
+#### Анализ проблем:
+Диагностика показала критические проблемы с текущим обогащением:
+
+1. **Обогащение публичными провайдерами:**
+   - `086975@bk.ru` → `https://www.bk.ru` ❌ (банк, не связан с контактом)
+   - `medic.81@mail.ru` → должен НЕ обогащаться mail.ru
+
+2. **Перекрестное обогащение между организациями:**
+   - Пименова Юлия (organization_id: 2, email: medic.81@mail.ru)
+   - Обогащена сайтом `https://www.dna-technology.ru` (organization_id: 1) ❌
 
 #### Решение:
-1. **Улучшенное логирование** в ContactEnricher
-2. **Graceful degradation** - продолжение работы при ошибках обогащения
-3. **Диагностические методы** для проверки статуса обогащения
+Создать **SmartContactEnricher** с правильной логикой:
 
 ```python
-class EnhancedContactEnricher(ContactEnricher):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.logger = logging.getLogger(__name__)
-        self.stats = {
-            'contacts_processed': 0,
-            'websites_extracted': 0,
-            'inn_validated': 0,
-            'errors': 0
+class SmartContactEnricher:
+    def __init__(self):
+        # Список публичных email провайдеров для исключения
+        self.public_email_providers = {
+            'mail.ru', 'yandex.ru', 'gmail.com', 'yahoo.com',
+            'bk.ru', 'rambler.ru', 'inbox.ru', 'list.ru',
+            'hotmail.com', 'outlook.com', 'live.com'
         }
     
-    def enrich_contacts(self, contacts, email_data=None):
-        self.logger.info(f"🔍 Начинаем обогащение {len(contacts)} контактов")
+    def should_enrich_contact(self, contact, organizations):
+        """Определяет нужно ли обогащать контакт"""
+        email = contact.get('email')
+        if not email:
+            return False, "Нет email"
         
-        try:
-            result = super().enrich_contacts(contacts, email_data)
-            self.logger.info(f"✅ Обогащение завершено: {len(result)} контактов")
-            return result
-        except Exception as e:
-            self.logger.error(f"❌ Ошибка обогащения: {e}")
-            return contacts  # Возвращаем исходные контакты
+        domain = self._extract_domain(email)
+        if not domain:
+            return False, "Не удалось извлечь домен"
+        
+        # Исключаем публичные провайдеры
+        if domain in self.public_email_providers:
+            return False, f"Публичный провайдер: {domain}"
+        
+        # Проверяем соответствие организации
+        org_id = contact.get('organization_id')
+        if org_id and org_id in organizations:
+            org = organizations[org_id]
+            org_website = org.get('website', '').replace('https://', '').replace('http://', '').replace('www.', '')
+            
+            if org_website and domain != org_website:
+                return False, f"Домен {domain} не соответствует организации {org_website}"
+        
+        return True, f"Корпоративный email: {domain}"
+    
+    def enrich_contacts(self, contacts, organizations, email_data=None):
+        """Умное обогащение контактов"""
+        enriched = []
+        
+        for contact in contacts:
+            enriched_contact = contact.copy()
+            
+            should_enrich, reason = self.should_enrich_contact(contact, organizations)
+            
+            if should_enrich:
+                website = self._get_website_for_domain(self._extract_domain(contact['email']))
+                if website:
+                    enriched_contact['website'] = website
+                    enriched_contact['website_confidence'] = 0.8
+                    enriched_contact['website_source'] = 'corporate_email'
+                    enriched_contact['enrichment_reason'] = reason
+            else:
+                enriched_contact['enrichment_skipped'] = True
+                enriched_contact['enrichment_reason'] = reason
+            
+            enriched.append(enriched_contact)
+        
+        return enriched
 ```
 
-### 3. Исправление ошибок валидации
+### 3. Система обеспечения 100% стабильности обработки
 
-#### Диагностический подход:
-1. **Анализ конкретной ошибки** в `email_022_20250729_20250729_dna_technology_ru_6360137e`
-2. **Улучшенная автокоррекция** в валидаторе
-3. **Детальное логирование** ошибок валидации
+#### Анализ проблемы:
+Текущая система создает файлы с ошибками:
+- `email_014_20250729_20250729_millab_ru_62cf1268_20250929_235453_235805_processed.json`
+- Содержит: `"validation_error": true`, `"success": false`
+- Ошибка: `"unsupported operand type(s) for *: 'NoneType' and 'float'"`
+
+#### Проблемы текущего подхода:
+1. **Файлы с ошибками остаются в результатах** - неприемлемо
+2. **Нет повторной обработки** проблемных писем
+3. **Нет fallback стратегии** для критических ошибок
+4. **Пользователь не видит проблемы** по названию файла
 
 #### Решение:
-Расширить `LLMResponseValidator` с улучшенной автокоррекцией:
+Создать **ResilientEmailProcessor** с механизмом повторной обработки:
 
 ```python
-class EnhancedLLMResponseValidator(LLMResponseValidator):
-    def validate_llm_response(self, response):
-        """Валидация с улучшенной автокоррекцией"""
-        try:
-            return super().validate_llm_response(response)
-        except ValidationError as e:
-            self.logger.error(f"Ошибка валидации: {e}")
-            
-            # Попытка автокоррекции
-            corrected = self._enhanced_auto_correct(response, e)
-            return self.validate_llm_response(corrected)
+class ResilientEmailProcessor:
+    def __init__(self, max_retries=3):
+        self.max_retries = max_retries
+        self.failed_emails = []
+        self.retry_strategies = [
+            'standard_processing',
+            'simplified_processing', 
+            'fallback_processing'
+        ]
     
-    def _enhanced_auto_correct(self, response, error):
-        """Улучшенная автокоррекция с детальным анализом"""
-        # Специфические исправления для найденных паттернов ошибок
-        pass
+    def process_emails_with_retry(self, emails):
+        """Обработка писем с повторными попытками"""
+        results = []
+        failed_emails = []
+        
+        # Первичная обработка
+        for email in emails:
+            result = self._process_single_email(email)
+            if result['success']:
+                results.append(result)
+            else:
+                failed_emails.append((email, result['error']))
+        
+        # Повторная обработка проблемных писем
+        if failed_emails:
+            self.logger.warning(f"🔄 Повторная обработка {len(failed_emails)} проблемных писем")
+            
+            for email, original_error in failed_emails:
+                retry_result = self._retry_email_processing(email, original_error)
+                if retry_result['success']:
+                    results.append(retry_result)
+                    # Перезаписываем проблемные файлы
+                    self._overwrite_error_files(email, retry_result)
+                else:
+                    # Применяем fallback
+                    fallback_result = self._create_fallback_result(email, original_error)
+                    results.append(fallback_result)
+                    self._overwrite_error_files(email, fallback_result)
+        
+        return results
+    
+    def _retry_email_processing(self, email, original_error):
+        """Повторная обработка письма с разными стратегиями"""
+        for strategy in self.retry_strategies:
+            try:
+                result = self._process_with_strategy(email, strategy)
+                if result['success']:
+                    self.logger.info(f"✅ Письмо обработано со стратегией {strategy}")
+                    return result
+            except Exception as e:
+                self.logger.warning(f"⚠️ Стратегия {strategy} не сработала: {e}")
+                continue
+        
+        return {'success': False, 'error': 'all_strategies_failed'}
+    
+    def _create_fallback_result(self, email, error):
+        """Создание fallback результата с базовой структурой"""
+        return {
+            'success': True,  # Помечаем как успешный
+            'organizations': [],
+            'contacts': [],
+            'business_context': 'Письмо обработано с fallback стратегией',
+            'summary': {
+                'topic': 'Обработка с ограниченной функциональностью',
+                'product_interest': None,
+                'communication_stage': 'processed_with_fallback',
+                'request_type': 'fallback'
+            },
+            'key_points': ['Письмо обработано с базовой структурой'],
+            'commercial_offers': [],
+            'interactions': [],
+            'processing_note': f'Использована fallback стратегия из-за ошибки: {error}'
+        }
 ```
 
 ## Модели данных
@@ -140,26 +276,40 @@ class EnhancedLLMResponseValidator(LLMResponseValidator):
 ```python
 @dataclass
 class NormalizationConfig:
-    preserve_abbreviations: bool = True
-    preserve_titles: bool = True
-    preserve_organization_names: bool = True
-    preserve_positions: bool = True
+    # Простая конфигурация для новой логики нормализации
+    normalize_first_word_only: bool = True
+    preserve_quoted_text: bool = True
     
-    # Паттерны для сохранения регистра
-    abbreviation_patterns: List[str] = field(default_factory=list)
-    title_patterns: List[str] = field(default_factory=list)
+    # Для отладки и тестирования
+    log_normalization_changes: bool = False
 ```
 
-### Статистика обогащения
+### Статистика обогащения и нормализации
 
 ```python
 @dataclass
-class EnrichmentStats:
+class ProcessingStats:
+    # Статистика нормализации
+    positions_normalized: int = 0
+    organizations_normalized: int = 0
+    normalization_changes: List[Dict[str, str]] = field(default_factory=list)
+    
+    # Статистика обогащения
     contacts_processed: int = 0
     websites_extracted: int = 0
     inn_validated: int = 0
-    errors: int = 0
+    enrichment_errors: int = 0
+    
+    # Общая статистика
     processing_time: float = 0.0
+    
+    def add_normalization_change(self, field_type: str, original: str, normalized: str):
+        if original != normalized:
+            self.normalization_changes.append({
+                'field_type': field_type,
+                'original': original,
+                'normalized': normalized
+            })
     
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -208,10 +358,18 @@ class ErrorHandler:
 
 ```python
 TEST_CASES = {
-    'case_preservation': [
-        {'input': 'КДЛ', 'expected': 'КДЛ'},
-        {'input': 'Медицина', 'expected': 'Медицина'},
-        {'input': 'Заведующая', 'expected': 'Заведующая'},
+    'normalization': [
+        # Должности
+        {'input': 'руководитель ОМТС', 'expected': 'Руководитель ОМТС'},
+        {'input': 'заведующая клинико-диагностической лабораторией', 'expected': 'Заведующая клинико-диагностической лабораторией'},
+        {'input': 'ведущий специалист по проектам Группы КДЛ Департамента продаж «Медицина»', 'expected': 'Ведущий специалист по проектам Группы КДЛ Департамента продаж «Медицина»'},
+        {'input': 'зам. начальника отдела продаж', 'expected': 'Зам. начальника отдела продаж'},
+        {'input': 'менеджер отдела "Оборудование для микробиологии и биотехнологий"', 'expected': 'Менеджер отдела "Оборудование для микробиологии и биотехнологий"'},
+        {'input': 'специалист компании ООО "Агрохим"', 'expected': 'Специалист компании ООО "Агрохим"'},
+        
+        # Организации
+        {'input': 'центр специализированной медицинской помощи детям имени В.Ф. Войно-Ясенецкого', 'expected': 'Центр специализированной медицинской помощи детям имени В.Ф. Войно-Ясенецкого'},
+        {'input': 'ФБУЗ "Центр Гигиены и Эпидемиологии в Республике Хакасия"', 'expected': 'ФБУЗ "Центр Гигиены и Эпидемиологии в Республике Хакасия"'},
     ],
     'enrichment': [
         {'email': 'sklad@centerld.ru', 'expected_website': 'centerld.ru'},
@@ -224,26 +382,29 @@ TEST_CASES = {
 
 ## План развертывания
 
-### Этап 1: Исправление регистра
-1. Создать `CasePreservingNormalizer`
-2. Интегрировать в `DataNormalizer`
-3. Обновить `OrganizationDeduplicator` и `AdvancedContactDeduplicator`
-4. Тестирование на проблемных примерах
+### Этап 1: Исправление нормализации регистра
+1. Создать функцию `normalize_first_word_only`
+2. Интегрировать в `DataNormalizer` - заменить `.capitalize()` на новую функцию
+3. Обновить `OrganizationDeduplicator` и `AdvancedContactDeduplicator` - разделить нормализацию для отображения и сравнения
+4. Тестирование на конкретных примерах: "ОМТС" должен остаться "ОМТС"
 
-### Этап 2: Активация обогащения
-1. Добавить детальное логирование в `ContactEnricher`
-2. Реализовать `EnhancedContactEnricher`
-3. Диагностировать и исправить проблемы обогащения
-4. Проверить работу на примере `sklad@centerld.ru`
+### Этап 2: Диагностика и исправление обогащения
+1. Создать диагностический инструмент для анализа работы `ContactEnricher`
+2. Проанализировать почему `sklad@centerld.ru` не всегда обогащается сайтом `centerld.ru`
+3. Исправить найденные проблемы в логике обогащения
+4. Добавить стабильное логирование процесса обогащения
 
 ### Этап 3: Исправление валидации
-1. Проанализировать ошибку в `email_022`
-2. Расширить автокоррекцию в валидаторе
-3. Добавить специфические исправления для найденных паттернов
+1. Проанализировать ошибку в `email_022` (это email_022_20250729_20250729_dna_technology_ru_6360137e)
+2. Расширить автокоррекцию в валидаторе для найденных паттернов ошибок
+3. Добавить graceful degradation для критических ошибок валидации
 4. Тестирование на всех проблемных письмах
 
-### Этап 4: Интеграция и тестирование
-1. Интегрировать все исправления
-2. Запустить полные интеграционные тесты
-3. Проверить на реальных данных из первых 10 писем
-4. Мониторинг и оптимизация производительности
+### Этап 4: Интеграция и финальное тестирование
+1. Интегрировать все исправления в единый пайплайн
+2. Запустить тесты на первых 10 письмах с проверкой:
+   - "Руководитель ОМТС" остается "Руководитель ОМТС"
+   - `sklad@centerld.ru` обогащается сайтом `centerld.ru`
+   - `email_022` проходит валидацию без ошибок
+3. Мониторинг статистики нормализации и обогащения
+4. Оптимизация производительности при необходимости

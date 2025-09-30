@@ -86,6 +86,10 @@ class ReportGenerator:
         )
         self._write_text_file(markdown_path, markdown_content)
 
+        # Извлекаем информацию о стратегии обработки
+        processing_strategy = processed.get("processing_strategy", "standard")
+        fallback_reason = processed.get("fallback_reason", None)
+        
         entry = {
             "filename": filename,
             "success": processed.get("success", True),
@@ -98,6 +102,9 @@ class ReportGenerator:
             "processed_json": processed_path.name,
             "markdown": markdown_path.name,
             "errors": errors,
+            "processing_strategy": processing_strategy,
+            "fallback_reason": fallback_reason,
+            "was_retried": processing_strategy != "standard",
         }
         self.entries.append(entry)
         self.logger.info(
@@ -492,9 +499,41 @@ class ReportGenerator:
         ]
         for entry in summary_payload["entries"]:
             status_icon = "✅" if entry.get("success") else "❌"
+            strategy_info = ""
+            if entry.get("processing_strategy", "standard") != "standard":
+                strategy_info = f" ({entry.get('processing_strategy', 'unknown')})"
             lines.append(
-                f"| {entry['filename']} | {status_icon} | [{entry['markdown']}](./{entry['markdown']}) |"
+                f"| {entry['filename']} | {status_icon}{strategy_info} | [{entry['markdown']}](./{entry['markdown']}) |"
             )
+        
+        # Добавляем секцию о проблемных письмах
+        problematic_emails = [entry for entry in summary_payload["entries"] if entry.get("was_retried", False)]
+        if problematic_emails:
+            lines.extend([
+                "",
+                "## 🔄 Проблемные письма (потребовали повторной обработки)",
+                ""
+            ])
+            
+            for entry in problematic_emails:
+                strategy = entry.get("processing_strategy", "unknown")
+                fallback_reason = entry.get("fallback_reason", "Неизвестная причина")
+                errors = entry.get("errors", [])
+                
+                lines.append(f"### {entry['filename']}")
+                lines.append(f"- **Стратегия обработки**: {strategy}")
+                
+                if strategy == "fallback":
+                    lines.append(f"- **Причина fallback**: {fallback_reason}")
+                
+                if errors:
+                    lines.append("- **Исходные ошибки**:")
+                    for error in errors:
+                        lines.append(f"  - {error}")
+                
+                lines.append(f"- **Результат**: {entry.get('organizations', 0)} орг., {entry.get('contacts', 0)} контактов")
+                lines.append("")
+        
         lines.append("")
         if summary_payload.get("run_stats"):
             lines.append("## Дополнительная статистика")

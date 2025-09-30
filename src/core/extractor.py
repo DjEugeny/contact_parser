@@ -182,7 +182,7 @@ class ContactExtractor:
         #     self.result_cache.cache_prompt(filename, prompt)
         #     return prompt
         
-        print(f"💾 ПРОМПТ КЭШИРОВАНИЕ ОТКЛЮЧЕНО: Загружаем {filename} с диска")
+        # Загружаем промпт с диска (кэширование отключено)
 
         prompts_dir = self.config.prompts_dir or Path(__file__).parent.parent.parent / "prompts"
         prompt_path = prompts_dir / filename
@@ -199,7 +199,7 @@ class ContactExtractor:
         # ВРЕМЕННО ОТКЛЮЧЕНО: Кэшируем в старом кэше для совместимости
         # self._prompt_cache[filename] = prompt
         
-        print(f"💾 ПРОМПТ НЕ КЭШИРУЕТСЯ: {filename}")
+        # Промпт загружен (кэширование отключено)
         return prompt
 
     def extract_all_data(self, text: str, metadata: dict = None) -> dict:
@@ -246,7 +246,7 @@ class ContactExtractor:
         #         print(f"💾 Используем кешированный результат: {content_hash[:8]}...")
         #         self.stats['cached_requests'] += 1
         #         return cached_result['result']
-        print(f"💾 Cache DISABLED: Всегда делаем свежий запрос к LLM")
+        # Кэш отключен - делаем свежий запрос
 
         # Тестовый режим - возвращаем заранее подготовленный результат
         if self.test_mode:
@@ -360,8 +360,7 @@ class ContactExtractor:
             #     llm_response = cached_result
             #     self.stats['cached_requests'] += 1
             # else:
-            print("💾 Cache DISABLED: Делаем свежий запрос к LLM")
-            # Запрос к LLM с fallback системой
+            # Кэш отключен
             print("🤖 Запрос к LLM провайдерам...")
             request_data = {
                 "messages": [{"role": "user", "content": prompt}],
@@ -605,8 +604,6 @@ class ContactExtractor:
             dict: Валидированный и обработанный результат
         """
         print(f"🔍 Получен ответ LLM длиной {len(response_text)} символов")
-        print(f"🔍 Первые 200 символов: {response_text[:200]}...")
-        print(f"🔍 Последние 200 символов: ...{response_text[-200:]}")
         
         try:
             # Удален ошибочный фикс пробелов - Replicate возвращает корректный JSON

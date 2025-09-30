@@ -26,6 +26,7 @@ from src.core.ocr_manager import get_ocr_manager
 from src.email_loader import ProcessedEmailLoader
 from src.reporting import ReportGenerator
 from src.utils.logger import log_pipeline_event, log_system_event, log_error_event
+from src.postprocessing.resilient_processor import ResilientEmailProcessor
 
 load_dotenv(PROJECT_ROOT / ".env")
 
@@ -127,6 +128,9 @@ class APIPipelineValidator:
         self.loader = ProcessedEmailLoader()
         self.ocr_manager = get_ocr_manager()
         self.extractor = ExtractorFactory.create_extractor(test_mode=False)
+        
+        # Создаем устойчивый процессор с автоматическим повтором
+        self.resilient_processor = ResilientEmailProcessor(self, max_retries=2)
         
         # Логирование статуса провайдеров
         self._log_provider_status()
@@ -265,25 +269,94 @@ class APIPipelineValidator:
             current += timedelta(days=1)
 
     def _process_date(self, date: str, email_paths: Sequence[Path]) -> None:
-        """📅 Обрабатывает все письма за конкретную дату."""
+        """📅 Обрабатывает все письма за конкретную дату с устойчивым процессором."""
         if not email_paths:
             print(f"⚠️  Нет писем для обработки за {date}")
             return
 
-        print(f"\n🎯 Запуск обработки за {date} — найдено {len(email_paths)} писем")
+        print(f"\n🎯 Запуск устойчивой обработки за {date} — найдено {len(email_paths)} писем")
         report_generator = ReportGenerator(base_dir=self.llm_results_dir, date=date)
         stats = PipelineStats()
 
+        # Подготавливаем список файлов для устойчивого процессора
+        email_files = []
         for path in email_paths:
             if not path.exists():
                 stats.register_failure(path.name, "Файл отсутствует", 0.0)
                 continue
-            self._process_single_email(date, path, report_generator, stats)
+            email_files.append(str(path))
+
+        if not email_files:
+            print(f"⚠️  Нет доступных файлов для обработки за {date}")
+            return
+
+        # Используем устойчивый процессор с автоматическим повтором
+        print(f"🔄 Запуск ResilientEmailProcessor для {len(email_files)} писем")
+        resilient_result = self.resilient_processor.process_emails_with_retry(email_files)
+        
+        # Обрабатываем результаты устойчивого процессора
+        for result in resilient_result.get('results', []):
+            if result and isinstance(result, dict):
+                # Создаем entry для статистики
+                entry = {
+                    'filename': result.get('source_file', 'unknown'),
+                    'success': result.get('success', False),
+                    'processing_time_seconds': result.get('processing_time', 0),
+                    'organizations': len(result.get('organizations', [])),
+                    'contacts': len(result.get('contacts', [])),
+                    'commercial_offers': len(result.get('commercial_offers', [])),
+                    'interactions': len(result.get('interactions', [])),
+                    'errors': []
+                }
+                
+                if not entry['success']:
+                    entry['errors'].append(result.get('error', 'Unknown error'))
+                
+                stats.register_email(entry)
+                
+                # Регистрируем результат в генераторе отчетов
+                email_path = Path(result.get('source_file', ''))
+                if email_path.exists():
+                    try:
+                        with email_path.open("r", encoding="utf-8") as handle:
+                            email_data = json.load(handle)
+                        metadata = self._build_email_metadata(email_data, email_path)
+                        
+                        report_generator.register_email_result(
+                            filename=email_path.name,
+                            email_metadata=metadata,
+                            llm_raw=result.get('raw_llm_result', {}),
+                            processed=result,
+                            processing_time_seconds=entry['processing_time_seconds'],
+                            errors=entry['errors'],
+                        )
+                    except Exception as e:
+                        print(f"⚠️ Ошибка при регистрации результата для {email_path.name}: {e}")
+
+        # Логируем статистику устойчивого процессора
+        resilient_stats = resilient_result.get('statistics', {})
+        print(f"\n📊 Статистика устойчивой обработки:")
+        print(f"   📧 Всего писем: {resilient_stats.get('total_emails', 0)}")
+        print(f"   ✅ Успешно: {resilient_stats.get('successful_emails', 0)}")
+        print(f"   🎯 Успешно с первой попытки: {resilient_stats.get('successful_first_attempt', 0)}")
+        print(f"   🔄 Успешно после повтора: {resilient_stats.get('successful_after_retry', 0)}")
+        print(f"   🚫 Окончательно не удалось: {resilient_stats.get('permanently_failed', 0)}")
+        
+        strategies_used = resilient_stats.get('strategies_used', {})
+        if strategies_used:
+            print(f"   🔧 Использованные стратегии:")
+            for strategy, count in strategies_used.items():
+                if count > 0:
+                    print(f"      • {strategy}: {count} писем")
 
         summary_payload = report_generator.finalize(stats.as_dict())
+        
+        # Добавляем статистику устойчивого процессора в summary
+        summary_payload['resilient_processing'] = resilient_stats
+        
         self._update_memory_bank_index(report_generator.summary_path, summary_payload)
         self.run_summaries.append(summary_payload)
-        print(f"✅ Обработка за {date} завершена (успешно: {stats.emails_successful}, ошибки: {stats.emails_failed})")
+        print(f"✅ Устойчивая обработка за {date} завершена (успешно: {stats.emails_successful}, ошибки: {stats.emails_failed})")
 
     def _process_single_email(
         self,
@@ -583,6 +656,84 @@ class APIPipelineValidator:
                 error_message=str(exc),
                 summary_path=str(summary_path),
             )
+    
+    def process_single_email(self, email_file: str, simplified: bool = False) -> Dict[str, Any]:
+        """
+        🤖 Обработка одного письма для ResilientEmailProcessor
+        
+        Args:
+            email_file: Путь к файлу письма
+            simplified: Флаг упрощенной обработки
+            
+        Returns:
+            Dict с результатом обработки
+        """
+        try:
+            # Определяем путь к файлу
+            email_path = Path(email_file)
+            if not email_path.exists():
+                # Пытаемся найти файл в стандартных директориях
+                possible_paths = [
+                    EMAILS_DIR / "2025-07-29" / email_path.name,
+                    EMAILS_DIR / email_path.name,
+                ]
+                
+                for path in possible_paths:
+                    if path.exists():
+                        email_path = path
+                        break
+                
+                if not email_path.exists():
+                    return {
+                        'success': False,
+                        'error': f'Файл не найден: {email_file}',
+                        'source_file': email_file
+                    }
+            
+            # Читаем данные письма
+            with email_path.open("r", encoding="utf-8") as handle:
+                email_data = json.load(handle)
+            
+            # Определяем дату из имени файла
+            date = self._extract_date_from_filename(email_path.name)
+            
+            # Подготавливаем данные для обработки
+            metadata = self._build_email_metadata(email_data, email_path)
+            combined_text = self._compose_combined_text(email_data, date)
+            llm_metadata = self._build_llm_metadata(email_data, metadata, combined_text)
+            
+            # Обрабатываем через экстрактор
+            if simplified:
+                # Упрощенная обработка - используем более простые параметры
+                llm_metadata['simplified'] = True
+                
+            processed_result = self.extractor.extract_all_data(combined_text, llm_metadata)
+            
+            # Определяем успешность
+            success = self._determine_success(processed_result)
+            processed_result['success'] = success
+            processed_result['source_file'] = email_file
+            
+            return processed_result
+            
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e),
+                'source_file': email_file,
+                'validation_error': True
+            }
+    
+    def _extract_date_from_filename(self, filename: str) -> str:
+        """Извлечение даты из имени файла"""
+        # Пытаемся извлечь дату из имени файла типа email_001_20250729_...
+        import re
+        match = re.search(r'(\d{8})', filename)
+        if match:
+            date_str = match.group(1)
+            # Преобразуем YYYYMMDD в YYYY-MM-DD
+            return f"{date_str[:4]}-{date_str[4:6]}-{date_str[6:8]}"
+        return "2025-07-29"  # Дата по умолчанию
 
 
 def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:

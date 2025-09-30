@@ -49,26 +49,22 @@ class OpenRouterProvider(BaseProvider):
             # Проверка доступности провайдера
             if not self.is_available():
                 error_msg = f"❌ Провайдер {self.config.name} недоступен (Circuit Breaker: {self.in_circuit_break}, Active: {self.config.active})"
-                print(f"DEBUG OpenRouter: {error_msg}")
                 raise RuntimeError(error_msg)
 
             # Валидация входных данных
             if not isinstance(request_data, dict):
                 error_msg = f"❌ request_data должен быть словарем, получен: {type(request_data)}"
-                print(f"DEBUG OpenRouter: {error_msg}")
                 raise ValueError(error_msg)
 
             # Извлекаем messages из request_data
             messages = request_data.get('messages', [])
             if not messages:
                 error_msg = f"❌ Не найдены messages в request_data. Доступные ключи: {list(request_data.keys())}"
-                print(f"DEBUG OpenRouter: {error_msg}")
                 raise ValueError(error_msg)
 
             # Валидация messages
             if not isinstance(messages, list) or len(messages) == 0:
                 error_msg = f"❌ messages должен быть непустым списком, получен: {type(messages)} с длиной {len(messages) if isinstance(messages, list) else 'N/A'}"
-                print(f"DEBUG OpenRouter: {error_msg}")
                 raise ValueError(error_msg)
 
             # Параметры запроса для DeepSeek V3.1
@@ -97,11 +93,7 @@ class OpenRouterProvider(BaseProvider):
                 else:
                     url = url + '/chat/completions'
 
-            print(f"DEBUG OpenRouter: Отправка запроса")
-            print(f"  URL: {url}")
-            print(f"  Model: {payload['model']}")
-            print(f"  Messages: {len(payload['messages'])}")
-            print(f"  Headers: {list(self.config.headers.keys())}")
+            # Отправляем запрос к OpenRouter
 
             async with aiohttp.ClientSession() as session:
                 async with session.post(
@@ -112,24 +104,23 @@ class OpenRouterProvider(BaseProvider):
                 ) as response:
                     
                     response_time = time.time() - start_time
-                    print(f"DEBUG OpenRouter: Получен ответ со статусом {response.status} за {response_time:.2f}с")
                     
                     if response.status == 200:
                         try:
                             result = await response.json()
-                            print(f"DEBUG OpenRouter: JSON ответ получен, размер: {len(str(result))}")
+                            # JSON ответ получен
 
                             # Извлечение ответа
                             if 'choices' in result and result['choices']:
                                 content = result['choices'][0]['message']['content']
-                                print(f"DEBUG OpenRouter: Извлечен контент длиной {len(content)}")
+                                # Контент извлечен
 
                                 # Подсчет токенов из usage или примерная оценка
                                 usage = result.get('usage', {})
                                 tokens_used = usage.get('total_tokens', len(content.split()) * 1.3)
 
                                 self.record_success(response_time, int(tokens_used))
-                                print(f"DEBUG OpenRouter: Успешный запрос записан")
+                                # Успешный запрос записан
 
                                 return {
                                     'content': content,
@@ -140,13 +131,11 @@ class OpenRouterProvider(BaseProvider):
                                 }
                             else:
                                 error_msg = f"❌ Неверный формат ответа от OpenRouter. Ключи: {list(result.keys())}"
-                                print(f"DEBUG OpenRouter: {error_msg}")
                                 self.record_failure("response_format_error")
                                 raise ValueError(error_msg)
                         
                         except json.JSONDecodeError as e:
                             error_msg = f"❌ Ошибка парсинга JSON ответа: {str(e)}"
-                            print(f"DEBUG OpenRouter JSON Error: {error_msg}")
                             self.record_failure("json_parse_error")
                             raise RuntimeError(error_msg)
 
@@ -154,25 +143,21 @@ class OpenRouterProvider(BaseProvider):
                         try:
                             error_text = await response.text()
                             error_msg = f"HTTP {response.status}: {error_text}"
-                            print(f"DEBUG OpenRouter HTTP Error: {error_msg}")
                             self.record_failure("http_error")
                             raise RuntimeError(f"❌ Ошибка OpenRouter API: {error_msg}")
                         except Exception as e:
                             error_msg = f"HTTP {response.status}: Не удалось прочитать тело ответа ({str(e)})"
-                            print(f"DEBUG OpenRouter Response Read Error: {error_msg}")
                             self.record_failure("http_error")
                             raise RuntimeError(f"❌ Ошибка OpenRouter API: {error_msg}")
 
         except asyncio.TimeoutError as e:
             self.record_failure("timeout_error")
             error_msg = f"❌ Таймаут OpenRouter: запрос превысил {self.config.timeout}с"
-            print(f"DEBUG OpenRouter Timeout: {error_msg}")
             raise RuntimeError(error_msg)
         
         except aiohttp.ClientError as e:
             self.record_failure("network_error")
             error_msg = f"❌ Сетевая ошибка OpenRouter: {str(e)} (тип: {type(e).__name__})"
-            print(f"DEBUG OpenRouter ClientError: {error_msg}")
             raise RuntimeError(error_msg)
         
         except (ValueError, RuntimeError) as e:
@@ -182,8 +167,4 @@ class OpenRouterProvider(BaseProvider):
         except Exception as e:
             self.record_failure("unknown_error")
             error_msg = f"❌ Неожиданная ошибка OpenRouter: {str(e)} (тип: {type(e).__name__})"
-            print(f"DEBUG OpenRouter Unexpected Exception: {error_msg}")
-            import traceback
-            print("DEBUG OpenRouter Full Traceback:")
-            traceback.print_exc()
             raise RuntimeError(error_msg)

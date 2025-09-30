@@ -100,6 +100,28 @@ class TestOrganizationDeduplicator(unittest.TestCase):
         self.assertEqual(len(set(mapping.values())), 2)
         self.assertNotEqual(mapping[1], mapping[2])
 
+    def test_preserve_case_in_names(self):
+        """Тест сохранения регистра названий при дедупликации"""
+        organizations = [
+            {
+                "organization_id": 1,
+                "name": "кдл центр",
+                "inn": "1234567890"
+            },
+            {
+                "organization_id": 2,
+                "name": "КДЛ Центр Лаборатория",
+                "inn": "1234567890"
+            }
+        ]
+
+        mapping = self.deduplicator.process_organizations(organizations)
+        self.assertEqual(mapping[1], mapping[2])
+
+        global_org = self.deduplicator.get_organization_by_id(mapping[1])
+        self.assertEqual(global_org['name'], "КДЛ Центр Лаборатория")
+        self.assertNotIn('__match_key__', global_org)
+
 
 class TestContactFilter(unittest.TestCase):
     """Тесты фильтра контактов"""
@@ -394,6 +416,46 @@ class TestAdvancedContactDeduplicator(unittest.TestCase):
         self.assertEqual(merged_contact['email'], "p.petrov@company.ru")
         self.assertEqual(merged_contact['position'], "Директор")
         self.assertIn('phones', merged_contact)
+
+    def test_preserve_case_after_merge(self):
+        """Тест сохранения регистра после объединения контактов"""
+        contacts = [
+            {
+                "contact_id": 1,
+                "name": "иванов и.и.",
+                "position": "директор по продажам",
+                "phones": [
+                    {
+                        "type": "main",
+                        "number": "+7 (495) 123-45-67",
+                        "normalized": "+74951234567",
+                        "original": "+7 (495) 123-45-67"
+                    }
+                ]
+            },
+            {
+                "contact_id": 2,
+                "name": "Иванов И.И.",
+                "position": "Директор По Продажам",
+                "phones": [
+                    {
+                        "type": "main",
+                        "number": "+7 (495) 123-45-67",
+                        "normalized": "+74951234567",
+                        "original": "+7 (495) 123-45-67"
+                    }
+                ]
+            }
+        ]
+
+        deduplicated = self.deduplicator.deduplicate_contacts(contacts)
+        self.assertEqual(len(deduplicated), 1)
+
+        merged_contact = deduplicated[0]
+        self.assertEqual(merged_contact['name'], "Иванов И.И.")
+        self.assertEqual(merged_contact['position'], "Директор По Продажам")
+        self.assertIn('phones', merged_contact)
+        self.assertEqual(merged_contact['phones'][0]['number'], "+7 (495) 123-45-67")
 
 
 if __name__ == '__main__':

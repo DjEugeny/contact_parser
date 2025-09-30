@@ -75,7 +75,9 @@ def calculate_contact_priority(contact_data: Dict[str, Any], business_context: D
         business_context = {}
 
     region_info = calculate_region_priority(business_context.get('region', ''))
-    score += region_info['score'] * 0.4
+    # Используем safe_multiply для предотвращения ошибки "NoneType * float"
+    from core.safe_math_utils import safe_multiply
+    score += safe_multiply(region_info.get('score'), 0.4)
 
     level_parts = region_info['level'].split()
     if len(level_parts) > 1:

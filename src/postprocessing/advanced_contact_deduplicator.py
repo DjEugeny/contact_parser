@@ -9,9 +9,11 @@ Created: 2025-09-13 (адаптировано из advanced_deduplication.py)
 """
 
 import re
-from typing import List, Dict, Set, Tuple
+from typing import Any, Dict, List, Tuple
 from difflib import SequenceMatcher
 from collections import defaultdict
+
+from .text_normalizer import normalize_first_word_only
 
 
 class AdvancedContactDeduplicator:
@@ -27,6 +29,7 @@ class AdvancedContactDeduplicator:
         self.similarity_threshold = 0.3  # Порог схожести для имен (понижен для тестов)
         self.phone_similarity_threshold = 0.9  # Порог для телефонов
         self.last_mapping: Dict[int, int] = {}
+        # Используем простую нормализацию: только первое слово заглавное
 
     def deduplicate_contacts(self, contacts: List[Dict]) -> List[Dict]:
         """🎯 Основной метод дедупликации с многоуровневым анализом"""
@@ -54,7 +57,9 @@ class AdvancedContactDeduplicator:
             print(f"   ✅ Удалено {duplicates_removed} дубликатов (продвинутый алгоритм)")
             print(f"   📊 Итого уникальных контактов: {len(unique_contacts)}")
 
-        return unique_contacts
+        normalized_contacts = [self._apply_case_formatting(contact) for contact in unique_contacts]
+
+        return normalized_contacts
 
     def get_last_mapping(self) -> Dict[int, int]:
         """Возвращает маппинг контактных ID после последней дедупликации"""
@@ -188,7 +193,9 @@ class AdvancedContactDeduplicator:
             return 0.0
         
         total_weight = sum(weight for _, _, weight in scores)
-        weighted_sum = sum(score * weight for _, score, weight in scores)
+        # Используем safe_multiply для предотвращения ошибки "NoneType * float"
+        from core.safe_math_utils import safe_multiply
+        weighted_sum = sum(safe_multiply(score, weight) for _, score, weight in scores)
         
         return weighted_sum / total_weight if total_weight > 0 else 0.0
     
@@ -346,24 +353,68 @@ class AdvancedContactDeduplicator:
             return ''
         
         if len(values) == 1:
-            return values[0]
-        
-        # Для email выбираем самый короткий (обычно основной)
-        if field_type == 'email':
-            return min(values, key=len)
-        
-        # Для телефона выбираем самый длинный (наиболее полный)
-        if field_type == 'phone':
-            return max(values, key=len)
-        
-        # Для остальных полей выбираем самое длинное (наиболее информативное)
-        return max(values, key=len)
+            best_value = values[0]
+        else:
+            # Для email выбираем самый короткий (обычно основной)
+            if field_type == 'email':
+                best_value = min(values, key=len)
+            # Для телефона выбираем самый длинный (наиболее полный)
+            elif field_type == 'phone':
+                best_value = max(values, key=len)
+            else:
+                # Для остальных полей выбираем самое длинное (наиболее информативное)
+                best_value = max(values, key=len)
+
+        if field_type == 'name':
+            return normalize_first_word_only(best_value)
+        if field_type == 'position':
+            return normalize_first_word_only(best_value)
+        if field_type == 'organization':
+            if best_value.isdigit():
+                return best_value
+            return normalize_first_word_only(best_value)
+
+        return best_value
     
     def _normalize_email(self, email: str) -> str:
         """📧 Нормализация email для сравнения"""
         if not email:
             return ''
         return email.lower().strip()
+
+    def _build_match_key(self, value: str, field_type: str = 'general') -> str:
+        """🔑 Создание ключа для сравнения текстовых полей"""
+        if not value:
+            return ''
+
+        field_type = field_type if field_type in ('name', 'position', 'organization') else 'general'
+        formatted = normalize_first_word_only(value)
+        cleaned = ' '.join(formatted.strip().split()).lower()
+        return cleaned
+
+    def _apply_case_formatting(self, contact: Dict[str, Any]) -> Dict[str, Any]:
+        """✅ Приведение текстовых полей контакта к целевому регистру"""
+        if not contact:
+            return contact
+
+        updated = contact.copy()
+
+        if updated.get('name'):
+            formatted_name = normalize_first_word_only(updated['name'])
+            if formatted_name != updated['name']:
+                updated['name'] = formatted_name
+
+        if updated.get('position'):
+            formatted_position = normalize_first_word_only(updated['position'])
+            if formatted_position != updated['position']:
+                updated['position'] = formatted_position
+
+        if updated.get('organization') and not str(updated['organization']).isdigit():
+            formatted_org = normalize_first_word_only(updated['organization'])
+            if formatted_org != updated['organization']:
+                updated['organization'] = formatted_org
+
+        return updated
     
     def _normalize_phone(self, phone_data) -> str:
         """📞 Нормализация телефона для сравнения (поддержка новой структуры)"""
@@ -395,8 +446,7 @@ class AdvancedContactDeduplicator:
         """👤 Нормализация имени для сравнения"""
         if not name:
             return ''
-        # Убираем лишние пробелы и приводим к нижнему регистру
-        normalized = ' '.join(name.lower().strip().split())
+        normalized = self._build_match_key(name, field_type='name')
         # Убираем общие сокращения и титулы
         common_titles = ['г-н', 'г-жа', 'мр', 'мс', 'др', 'проф', 'инж']
         words = normalized.split()
@@ -458,7 +508,8 @@ class AdvancedContactDeduplicator:
         """🏢 Очистка названия организации от сокращений"""
         # Убираем общие сокращения и формы собственности
         common_abbreviations = ['ооо', 'зао', 'оао', 'ип', 'пао', 'ао', 'тоо', 'лтд', 'ltd', 'llc', 'inc']
-        words = org_name.lower().split()
+        normalized = self._build_match_key(org_name, field_type='organization')
+        words = normalized.split()
         filtered_words = [w for w in words if w not in common_abbreviations]
         return ' '.join(filtered_words)
     
@@ -521,37 +572,48 @@ class AdvancedContactDeduplicator:
     def _remove_exact_duplicates_in_source(self, contacts: List[Dict]) -> List[Dict]:
         """🔍 Удаление точных дубликатов в рамках одного источника"""
         unique_contacts = []
-        seen_signatures = set()
+        signature_index: Dict[str, int] = {}
         
         for contact in contacts:
             # Создаем подпись контакта
             signature = self._create_contact_signature(contact)
             
-            if signature not in seen_signatures:
-                seen_signatures.add(signature)
+            if signature not in signature_index:
+                signature_index[signature] = len(unique_contacts)
                 unique_contacts.append(contact)
+            else:
+                existing_idx = signature_index[signature]
+                existing_contact = unique_contacts[existing_idx]
+                if self._calculate_contact_completeness(contact) > self._calculate_contact_completeness(existing_contact):
+                    unique_contacts[existing_idx] = contact
         
         return unique_contacts
-    
+
     def _remove_signature_duplicates(self, contacts: List[Dict]) -> List[Dict]:
         """✂️ Удаление контактов с идентичными подписями"""
         unique_contacts = []
-        seen_signatures = set()
+        signature_index: Dict[str, int] = {}
         
         for contact in contacts:
             # Создаем расширенную подпись для межисточникового сравнения
             signature = self._create_extended_contact_signature(contact)
             
-            if signature not in seen_signatures:
-                seen_signatures.add(signature)
+            if signature not in signature_index:
+                signature_index[signature] = len(unique_contacts)
                 unique_contacts.append(contact)
+            else:
+                existing_idx = signature_index[signature]
+                existing_contact = unique_contacts[existing_idx]
+                if self._calculate_contact_completeness(contact) > self._calculate_contact_completeness(existing_contact):
+                    unique_contacts[existing_idx] = contact
         
         return unique_contacts
     
     def _create_contact_signature(self, contact: Dict) -> str:
         """🔑 Создание подписи контакта для обнаружения дубликатов"""
         email = self._normalize_email(contact.get('email', ''))
-        phone = self._normalize_phone(contact.get('phone', ''))
+        phone_data = contact.get('phones', contact.get('phone', ''))
+        phone = self._normalize_phone(phone_data)
         name = self._normalize_name(contact.get('name', ''))
         
         # Основная подпись: email + телефон + имя

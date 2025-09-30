@@ -158,6 +158,8 @@ class FallbackConfig:
 
 class UnifiedConfigManager:
     """🎛️ Унифицированный менеджер конфигурации"""
+    
+    _providers_logged = False  # Класс-переменная для отслеживания логирования
 
     def __init__(self, config_dir: Optional[Path] = None):
         self.config_dir = config_dir or CONFIG_DIR
@@ -267,9 +269,12 @@ class UnifiedConfigManager:
         # Сортировка по приоритету (выше приоритет - раньше в списке)
         providers.sort(key=lambda p: p.priority)
 
-        print(f"🎛️ Загружено {len(providers)} LLM провайдеров из .env")
-        for provider in providers:
-            print(f"   {provider.priority}. {provider.name} ({provider.model})")
+        # Логируем провайдеров только один раз
+        if not UnifiedConfigManager._providers_logged:
+            print(f"🎛️ Загружено {len(providers)} LLM провайдеров из .env")
+            for provider in providers:
+                print(f"   {provider.priority}. {provider.name} ({provider.model})")
+            UnifiedConfigManager._providers_logged = True
 
         return providers
 
@@ -1547,6 +1552,9 @@ class UnifiedConfigManager:
                                response_time=response_time,
                                attempt=attempt + 1)
                 
+                # Добавляем консольное логирование времени ответа
+                print(f"✅ Ответ получен за {response_time:.2f}с")
+                
                 return response
                 
             except Exception as e:
@@ -1613,6 +1621,9 @@ class UnifiedConfigManager:
                                provider=provider.name,
                                attempt=i + 1,
                                total_providers=len(providers))
+                
+                # Добавляем консольное логирование для лучшей видимости
+                print(f"🎯 Используется провайдер: {provider.name} ({provider.model})")
                 
                 response = await self.make_request_async(provider, request_data, request_id)
                 

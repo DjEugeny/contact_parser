@@ -86,12 +86,14 @@ class OCRProcessor:
         self._cache_dir.mkdir(parents=True, exist_ok=True)
         self._load_pdf_structure_cache()
         
-        self.vision_client = vision.ImageAnnotatorClient() if GOOGLE_VISION_AVAILABLE else None
+        # Инициализируем Google Vision клиент только при необходимости
+        self.vision_client = None
+        self._vision_initialized = False
         
-        if GOOGLE_VISION_AVAILABLE and self.vision_client:
-            self.logger.info("Google Cloud Vision API успешно инициализирован")
+        if GOOGLE_VISION_AVAILABLE:
+            self.logger.info("Google Cloud Vision API доступен (будет инициализирован при необходимости)")
         else:
-            self.logger.error("Google Cloud Vision API не инициализирован")
+            self.logger.info("Google Cloud Vision API недоступен (только локальная обработка)")
         
         self._show_capabilities()
         print("\n" + "=" * 70)
@@ -193,8 +195,8 @@ class OCRProcessor:
     def _show_capabilities(self):
         antiword_ok = shutil.which('antiword') is not None
         print("📋 ВОЗМОЖНОСТИ СИСТЕМЫ:")
-        if GOOGLE_VISION_AVAILABLE and self.vision_client:
-            print("   ☁️ Google Cloud Vision: ✅ Готов к работе!")
+        if GOOGLE_VISION_AVAILABLE:
+            print("   ☁️ Google Cloud Vision: ✅ Доступен (инициализируется при необходимости)")
         else:
             print("   ☁️ Google Cloud Vision: ❌ НЕ НАСТРОЕН!")
         local_status = [f"PDF (текст) {'✅' if PYMUPDF_AVAILABLE else '❌'}", f"DOCX {'✅' if PYTHON_DOCX_AVAILABLE else '❌'}", f"XLSX {'✅' if OPENPYXL_AVAILABLE else '❌'}", f"DOC (antiword) {'✅' if antiword_ok else '❌ (brew install antiword)'}", f"XLS (xlrd) {'✅' if XLRD_AVAILABLE else '❌'}"]
@@ -2004,8 +2006,23 @@ class OCRProcessor:
                 'complexity_score': 1.0
             }
 
+    def _ensure_vision_client(self):
+        """Ленивая инициализация Google Vision клиента"""
+        if not self._vision_initialized and GOOGLE_VISION_AVAILABLE:
+            try:
+                self.vision_client = vision.ImageAnnotatorClient()
+                self._vision_initialized = True
+                self.logger.info("Google Cloud Vision API успешно инициализирован")
+            except Exception as e:
+                self.logger.error(f"Ошибка инициализации Google Vision API: {e}")
+                self.vision_client = None
+                self._vision_initialized = True  # Помечаем как инициализированный чтобы не пытаться снова
+    
     def run_google_vision_ocr(self, content: bytes) -> Tuple[str, float]:
-        if not self.vision_client: raise RuntimeError("Клиент Google Vision не инициализирован.")
+        self._ensure_vision_client()
+        if not self.vision_client: 
+            raise RuntimeError("Клиент Google Vision не инициализирован. Проверьте настройки Application Default Credentials.")
+        
         print("   ☁️ Отправка в Google Cloud Vision... (может занять несколько секунд)")
         ts = time.time()
         image = vision.Image(content=content)
@@ -2352,8 +2369,9 @@ class OCRProcessor:
         Отправка в Google Vision с адаптивным интеллектуальным сжатием
         """
         start_time = time.time()
+        self._ensure_vision_client()
         if not self.vision_client:
-            raise RuntimeError("Клиент Google Vision не инициализирован.")
+            raise RuntimeError("Клиент Google Vision не инициализирован. Проверьте настройки Application Default Credentials.")
 
         max_size_bytes = int(max_size_mb * 1024 * 1024)
 
@@ -2805,9 +2823,16 @@ class OCRProcessor:
         parts = file_stem.split('_')
         existing_files = []
 
-        if len(parts) >= 4 and parts[-2] == 'attach':
+        # Ищем позицию 'attach' в частях имени файла
+        attach_index = -1
+        for i, part in enumerate(parts):
+            if part == 'attach':
+                attach_index = i
+                break
+        
+        if attach_index != -1 and attach_index < len(parts) - 1:
             # Это файл вложения с правильным форматом
-            original_name = '_'.join(parts[3:])  # parts[3:] содержит оригинальное имя
+            original_name = '_'.join(parts[attach_index + 1:])  # Все после '_attach_'
 
             # Ищем все файлы, содержащие оригинальное имя
             all_txt_files = list(date_texts_dir.glob("*.txt"))

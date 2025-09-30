@@ -18,7 +18,9 @@ class PromptTester:
     
     def __init__(self):
         """Инициализация тестера промптов"""
-        self.prompts_dir = Path("/Users/evgenyzach/contact_parser/prompts")
+        # Определяем корневую директорию проекта динамически
+        project_root = Path(__file__).resolve().parent.parent
+        self.prompts_dir = project_root / "prompts"
         self.results = []
         
     def load_prompt(self, prompt_file: str) -> str:

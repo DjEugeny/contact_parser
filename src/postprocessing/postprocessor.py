@@ -16,6 +16,8 @@ from .contact_filter import ContactFilter
 from .data_enricher import DataEnricher
 from .data_normalizer import DataNormalizer
 from .advanced_contact_deduplicator import AdvancedContactDeduplicator
+from .smart_contact_enricher import SmartContactEnricher
+from ..core.safe_math_utils import fix_none_values_in_data, sanitize_json_fields
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +49,9 @@ class PostProcessor:
         """
         self.org_deduplicator = organization_deduplicator or OrganizationDeduplicator()
         self.contact_filter = contact_filter or ContactFilter()
+        # Используем SmartContactEnricher вместо обычного DataEnricher
         self.data_enricher = data_enricher or DataEnricher()
+        self.smart_enricher = SmartContactEnricher()
         self.data_normalizer = data_normalizer or DataNormalizer()
         self.contact_deduplicator = contact_deduplicator or AdvancedContactDeduplicator()
         self.logger = logging.getLogger(__name__)
@@ -85,6 +89,9 @@ class PostProcessor:
             # Валидация входных данных
             if not self._validate_llm_result(llm_result):
                 raise ValueError("Некорректная структура LLM результата")
+
+            # Применяем критические исправления в начале обработки
+            llm_result = self._apply_critical_fixes(llm_result)
 
             if existing_organizations:
                 self.org_deduplicator.load_existing_organizations(existing_organizations)
@@ -254,15 +261,19 @@ class PostProcessor:
             contacts, current_organizations
         )
         
-        # Обновляем организации в дедупликаторе
-        self.org_deduplicator.global_organizations.update(updated_organizations)
+        # Обновляем организации в дедупликаторе без служебных полей
+        sanitized_updates = {
+            org_id: self.org_deduplicator._strip_internal_fields(org)
+            for org_id, org in updated_organizations.items()
+        }
+        self.org_deduplicator.global_organizations.update(sanitized_updates)
         
         filtered_count = len(contacts) - len(valuable_contacts)
         self.stats['total_contacts_processed'] += len(contacts)
         self.stats['contacts_filtered'] += filtered_count
         
         self.logger.info(f"✅ Отфильтровано {filtered_count} неценных контактов")
-        return valuable_contacts, updated_organizations
+        return valuable_contacts, sanitized_updates
 
     def _deduplicate_contacts(self, contacts: List[Dict[str, Any]]) -> Tuple[List[Dict[str, Any]], Dict[int, int]]:
         """Дедупликация контактов с сохранением маппинга ID"""
@@ -288,13 +299,27 @@ class PostProcessor:
         """
         self.logger.info(f"💎 Этап 4: Обогащение {len(contacts)} контактов")
         
-        enriched_contacts = self.data_enricher.enrich_contacts(
+        # Используем SmartContactEnricher для улучшенного обогащения
+        enriched_contacts = self.smart_enricher.enrich_contacts(
             contacts, organizations, email_data
         )
         
+        # Дополнительное обогащение через стандартный enricher
+        enriched_contacts = self.data_enricher.enrich_contacts(
+            enriched_contacts, organizations, email_data
+        )
+
         self.stats['contacts_enriched'] += len(enriched_contacts)
-        
-        self.logger.info(f"✅ Обогащено {len(enriched_contacts)} контактов")
+
+        enrichment_stats = self.data_enricher.get_enrichment_stats()
+        websites_found = enrichment_stats.get('websites_extracted', 0)
+        inns_validated = enrichment_stats.get('inns_validated', 0)
+        self.logger.info(
+            "✅ Обогащено %s контактов (🌐 сайтов: %s, 🧾 ИНН: %s)",
+            len(enriched_contacts),
+            websites_found,
+            inns_validated,
+        )
         return enriched_contacts
     
     def _normalize_data(self, contacts: List[Dict[str, Any]], 
@@ -494,6 +519,37 @@ class PostProcessor:
         self.logger.info(f"📊 Статистика обработки:")
         self.logger.info(f"  Организации: {original_orgs} -> {final_orgs}")
         self.logger.info(f"  Контакты: {original_contacts} -> {final_contacts}")
+    
+    def _apply_critical_fixes(self, llm_result: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        🔧 Применение критических исправлений к результату LLM
+        
+        Исправляет:
+        1. None значения в числовых полях (ошибка "NoneType * float")
+        2. Некорректные символы в полях JSON (китайские символы)
+        
+        Args:
+            llm_result: Результат от LLM
+            
+        Returns:
+            Dict: Исправленный результат
+        """
+        self.logger.debug("🔧 Применяю критические исправления")
+        
+        try:
+            # 1. Очистка полей от некорректных символов (email_022 fix)
+            cleaned_result = sanitize_json_fields(llm_result)
+            
+            # 2. Исправление None значений в числовых полях (email_014 fix)
+            fixed_result = fix_none_values_in_data(cleaned_result)
+            
+            self.logger.debug("✅ Критические исправления применены успешно")
+            return fixed_result
+            
+        except Exception as e:
+            self.logger.warning(f"⚠️ Ошибка при применении критических исправлений: {e}")
+            # Возвращаем оригинальный результат если исправления не удались
+            return llm_result
     
     def _get_current_timestamp(self) -> str:
         """Получение текущего timestamp

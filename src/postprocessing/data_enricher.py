@@ -12,7 +12,8 @@ from typing import List, Dict, Optional, Any
 try:
     from ..core.inn_validator import RussianINNValidator
     from ..core.website_extractor import WebsiteExtractor
-    from ..core.contact_enricher import ContactEnricher
+    from ..core.contact_enricher import ContactEnricher, EnhancedContactEnricher
+    from .smart_contact_enricher import SmartContactEnricher
 except ImportError:
     import sys
     import os
@@ -20,7 +21,8 @@ except ImportError:
     try:
         from inn_validator import RussianINNValidator
         from website_extractor import WebsiteExtractor
-        from contact_enricher import ContactEnricher
+        from contact_enricher import ContactEnricher, EnhancedContactEnricher
+        from smart_contact_enricher import SmartContactEnricher
     except ImportError:
         class RussianINNValidator:
             def validate_inn(self, inn):
@@ -39,6 +41,19 @@ except ImportError:
 
             def enrich_contacts(self, contacts, email_data=None):
                 return contacts
+
+        class EnhancedContactEnricher(ContactEnricher):
+            pass
+        
+        class SmartContactEnricher:
+            def __init__(self, *args, **kwargs):
+                pass
+            
+            def enrich_contacts(self, contacts, organizations=None, email_data=None):
+                return contacts
+            
+            def get_enrichment_stats(self):
+                return {}
 
 logger = logging.getLogger(__name__)
 
@@ -66,10 +81,8 @@ class DataEnricher:
         """
         self.inn_validator = inn_validator or RussianINNValidator()
         self.website_extractor = website_extractor or WebsiteExtractor()
-        self.contact_enricher = contact_enricher or ContactEnricher(
-            inn_validator=self.inn_validator,
-            website_extractor=self.website_extractor
-        )
+        # Используем SmartContactEnricher вместо EnhancedContactEnricher
+        self.contact_enricher = contact_enricher or SmartContactEnricher()
         self.logger = logging.getLogger(__name__)
         self._stats = {
             'contacts_enriched': 0,
@@ -93,7 +106,8 @@ class DataEnricher:
         if not contacts:
             return []
         
-        base_enriched = self.contact_enricher.enrich_contacts(contacts, email_data)
+        # SmartContactEnricher принимает organizations для правильной логики обогащения
+        base_enriched = self.contact_enricher.enrich_contacts(contacts, organizations, email_data)
         enriched_contacts: List[Dict[str, Any]] = []
 
         for contact in base_enriched:

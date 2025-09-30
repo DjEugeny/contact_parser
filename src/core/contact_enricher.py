@@ -8,11 +8,59 @@ Created: 2025-09-08
 
 import re
 import logging
-from typing import List, Dict, Optional, Any
+from dataclasses import dataclass, asdict, field
+from datetime import datetime, timezone
+from time import perf_counter
+from typing import Any, Dict, List, Optional
+
 from .inn_validator import RussianINNValidator
 from .website_extractor import WebsiteExtractor
 
 logger = logging.getLogger(__name__)
+
+
+@dataclass
+class EnrichmentStats:
+    """📊 Статистика работы обогатителя контактов"""
+
+    contacts_processed: int = 0
+    websites_extracted: int = 0
+    inns_validated: int = 0
+    corporate_profiles: int = 0
+    errors: int = 0
+    total_runtime_seconds: float = 0.0
+    sources: Dict[str, int] = field(default_factory=dict)
+
+    def to_dict(self) -> Dict[str, Any]:
+        """📊 Возвращает статистику в формате словаря"""
+        data = asdict(self)
+        data['sources'] = dict(self.sources)
+        return data
+
+    def record_source(self, source: Optional[str]) -> None:
+        """📌 Регистрирует источник найденного сайта"""
+        if not source:
+            source = 'unknown'
+        self.sources[source] = self.sources.get(source, 0) + 1
+
+
+class EnrichmentErrorHandler:
+    """🛡️ Обработчик ошибок обогащения контактов"""
+
+    def __init__(self, logger: logging.Logger) -> None:
+        self.logger = logger
+        self.error_stats: Dict[str, int] = {}
+
+    def handle_enrichment_error(self, error: Exception, contact: Dict[str, Any]) -> None:
+        """⚠️ Логирует ошибку обогащения и обновляет статистику"""
+        contact_name = contact.get('name', 'Unknown')
+        error_type = error.__class__.__name__
+        self.logger.error(f"❌ Ошибка обогащения контакта {contact_name}: {error}")
+        self.error_stats[error_type] = self.error_stats.get(error_type, 0) + 1
+
+    def get_error_stats(self) -> Dict[str, int]:
+        """📊 Возвращает собранную статистику ошибок"""
+        return dict(self.error_stats)
 
 
 class ContactEnricher:
@@ -159,13 +207,18 @@ class ContactEnricher:
         if website:
             # Валидация сайта (опционально, может быть дорого)
             # validation = self.website_extractor.validate_website(website)
-            
+
             contact['website'] = website
             contact['website_confidence'] = confidence
+            if isinstance(website_info, dict):
+                contact['website_source'] = website_info.get('source')
+                contact['website_method'] = website_info.get('method')
         else:
             contact['website'] = None
             contact['website_confidence'] = 0.0
-        
+            contact.pop('website_source', None)
+            contact.pop('website_method', None)
+
         return contact
     
     def _enrich_corporate_intelligence(self, contact: Dict[str, Any], 
@@ -262,9 +315,9 @@ class ContactEnricher:
             sender_website = self.website_extractor.extract_from_email_domain(email_data['from'])
             if sender_website:
                 return sender_website
-        
+
         return None
-    
+
     def _is_likely_inn(self, candidate: str, context: str) -> bool:
         """
         Проверка, является ли кандидат ИНН (а не чем-то другим)
@@ -320,18 +373,97 @@ class ContactEnricher:
         return True
     
     def get_enrichment_stats(self) -> Dict[str, Any]:
-        """
-        Получение статистики обогащения
-        
-        Returns:
-            Dict: Статистика работы обогатителя
-        """
+        """📊 Возвращает базовую статистику обогащения"""
         return {
-            'inn_validated_count': getattr(self, '_inn_validated_count', 0),
-            'websites_extracted_count': getattr(self, '_websites_extracted_count', 0),
-            'contacts_enriched_count': getattr(self, '_contacts_enriched_count', 0),
-            'errors_count': getattr(self, '_errors_count', 0)
+            'contacts_processed': getattr(self, '_contacts_enriched_count', 0),
+            'websites_extracted': getattr(self, '_websites_extracted_count', 0),
+            'inns_validated': getattr(self, '_inn_validated_count', 0),
+            'errors': getattr(self, '_errors_count', 0),
         }
+
+
+class EnhancedContactEnricher(ContactEnricher):
+    """🚀 Расширенный обогатитель контактов с диагностикой"""
+
+    def __init__(self, inn_validator: Optional[RussianINNValidator] = None,
+                 website_extractor: Optional[WebsiteExtractor] = None,
+                 error_handler: Optional[EnrichmentErrorHandler] = None) -> None:
+        super().__init__(inn_validator=inn_validator, website_extractor=website_extractor)
+        self.logger = logging.getLogger(__name__)
+        self.error_handler = error_handler or EnrichmentErrorHandler(self.logger)
+        self.stats = EnrichmentStats()
+        self._last_run_summary: Dict[str, Any] = {}
+
+    def enrich_contacts(self, contacts: List[Dict[str, Any]],
+                        email_data: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
+        """🔍 Обогащает контакты с логированием и обработкой ошибок"""
+        if not contacts:
+            self.logger.info("⚠️ Нет контактов для обогащения")
+            return []
+
+        start_time = perf_counter()
+        self.logger.info(f"🔍 Запуск обогащения {len(contacts)} контактов")
+
+        enriched_contacts: List[Dict[str, Any]] = []
+
+        for contact in contacts:
+            self.stats.contacts_processed += 1
+            try:
+                enriched = self._enrich_single_contact(contact.copy(), email_data)
+                self._update_stats(enriched)
+                enriched_contacts.append(enriched)
+            except Exception as error:  # pylint: disable=broad-except
+                self.stats.errors += 1
+                self.error_handler.handle_enrichment_error(error, contact)
+                enriched_contacts.append(contact)
+
+        duration = perf_counter() - start_time
+        self.stats.total_runtime_seconds += duration
+        self._last_run_summary = {
+            'timestamp': datetime.now(timezone.utc).isoformat(),
+            'contacts_requested': len(contacts),
+            'contacts_returned': len(enriched_contacts),
+            'duration_seconds': round(duration, 6),
+            'errors': self.stats.errors,
+        }
+
+        self.logger.info(
+            f"✅ Обогащение завершено: {len(enriched_contacts)} контактов за {duration:.3f} сек."
+        )
+
+        return enriched_contacts
+
+    def get_enrichment_stats(self) -> Dict[str, Any]:
+        """📊 Возвращает агрегированную статистику обогащения"""
+        stats = self.stats.to_dict()
+        stats['error_types'] = self.error_handler.get_error_stats()
+        if self._last_run_summary:
+            stats['last_run'] = self._last_run_summary
+        return stats
+
+    def get_diagnostic_info(self) -> Dict[str, Any]:
+        """🩺 Возвращает расширенную диагностическую информацию"""
+        diagnostics = self.get_enrichment_stats()
+        diagnostics['diagnostic_timestamp'] = datetime.now(timezone.utc).isoformat()
+        return diagnostics
+
+    def reset_stats(self) -> None:
+        """🔄 Сбрасывает накопленную статистику"""
+        self.stats = EnrichmentStats()
+        self._last_run_summary = {}
+        self.error_handler = EnrichmentErrorHandler(self.logger)
+
+    def _update_stats(self, contact: Dict[str, Any]) -> None:
+        """📈 Обновляет статистику по результатам обогащения"""
+        if contact.get('website'):
+            self.stats.websites_extracted += 1
+            self.stats.record_source(contact.get('website_source'))
+
+        if contact.get('inn') and contact.get('inn_validated'):
+            self.stats.inns_validated += 1
+
+        if contact.get('organization_type'):
+            self.stats.corporate_profiles += 1
 
 
 # Пример использования

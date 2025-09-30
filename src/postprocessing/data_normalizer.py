@@ -12,6 +12,8 @@ import re
 import logging
 from typing import Dict, List, Any, Optional
 
+from .text_normalizer import normalize_first_word_only
+
 logger = logging.getLogger(__name__)
 
 
@@ -41,6 +43,9 @@ class DataNormalizer:
             self.logger.warning(f"⚠️ Не удалось импортировать phone_normalizer: {e}")
             self.phone_normalizer_available = False
             self.phone_normalizer = None
+
+        # Простая нормализация регистра - только первое слово заглавное
+        self.logger.info("📝 Используем простую нормализацию: только первое слово с заглавной буквы")
     
     def normalize_contacts(self, contacts: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """Нормализация списка контактов
@@ -146,8 +151,11 @@ class DataNormalizer:
                             # Используем новый метод для обработки множественных номеров
                             multiple_results = self.phone_normalizer.normalize_multiple_phones(original_phone)
                             for result in multiple_results:
-                                if result.get('formatted'):
-                                    normalized_phones.append(result['formatted'])
+                                normalized_digits = result.get('normalized') or ''
+                                normalized_formatted = result.get('formatted') or ''
+                                value = self._ensure_plus_format(normalized_digits) or self._ensure_plus_format(normalized_formatted)
+                                if value:
+                                    normalized_phones.append(value)
                         else:
                             # Fallback: простая нормализация без phone_normalizer
                             normalized_phone = self._simple_phone_cleanup(original_phone)
@@ -159,8 +167,11 @@ class DataNormalizer:
                 if self.phone_normalizer_available:
                     multiple_results = self.phone_normalizer.normalize_multiple_phones(original_phone)
                     for result in multiple_results:
-                        if result.get('formatted'):
-                            normalized_phones.append(result['formatted'])
+                        normalized_digits = result.get('normalized') or ''
+                        normalized_formatted = result.get('formatted') or ''
+                        value = self._ensure_plus_format(normalized_digits) or self._ensure_plus_format(normalized_formatted)
+                        if value:
+                            normalized_phones.append(value)
                 else:
                     # Fallback: простая нормализация без phone_normalizer
                     normalized_phone = self._simple_phone_cleanup(original_phone)
@@ -181,7 +192,11 @@ class DataNormalizer:
         
         # 3. Нормализация названия организации
         if normalized.get('name'):
-            normalized['name'] = self._normalize_organization_name(normalized['name'])
+            original_name = normalized['name']
+            normalized_name = normalize_first_word_only(original_name)
+            if normalized_name != original_name:
+                self.logger.debug(f"Нормализация организации: '{original_name}' → '{normalized_name}'")
+            normalized['name'] = normalized_name
         
         return normalized
     
@@ -204,26 +219,31 @@ class DataNormalizer:
                     if self.phone_normalizer_available:
                         normalized_result = self.phone_normalizer.normalize_contact_phone(original_number)
                         normalized_number = normalized_result.get('formatted_phone', '')
+                        normalized_digits = normalized_result.get('normalized_phone', '')
                         phone_type = normalized_result.get('phone_type', 'unknown')
                         extension = normalized_result.get('phone_extension', '')
                     else:
                         normalized_number = self._simple_phone_cleanup(original_number)
+                        normalized_digits = ''.join(filter(str.isdigit, normalized_number))
                         phone_type = 'unknown'
                         extension = ''
-                    
+
                     if normalized_number:
                         normalized_phone_obj = phone_obj.copy()
                         normalized_phone_obj['number'] = normalized_number
+                        normalized_phone_obj['normalized'] = self._ensure_plus_format(
+                            normalized_digits or normalized_number
+                        )
                         normalized_phone_obj['original'] = original_number
-                        
+
                         # Добавляем добавочный номер если есть
                         if extension:
                             normalized_phone_obj['extension'] = extension
-                        
+
                         # Определяем тип телефона, если не указан
                         if not normalized_phone_obj.get('type'):
                             normalized_phone_obj['type'] = phone_type
-                        
+
                         normalized_phones.append(normalized_phone_obj)
                 elif isinstance(phone_obj, str) and phone_obj.strip():
                     # Поддержка старого формата в массиве
@@ -231,24 +251,29 @@ class DataNormalizer:
                     if self.phone_normalizer_available:
                         normalized_result = self.phone_normalizer.normalize_contact_phone(original_number)
                         normalized_number = normalized_result.get('formatted_phone', '')
+                        normalized_digits = normalized_result.get('normalized_phone', '')
                         phone_type = normalized_result.get('phone_type', 'unknown')
                         extension = normalized_result.get('phone_extension', '')
                     else:
                         normalized_number = self._simple_phone_cleanup(original_number)
+                        normalized_digits = ''.join(filter(str.isdigit, normalized_number))
                         phone_type = 'unknown'
                         extension = ''
-                    
+
                     if normalized_number:
                         phone_obj_dict = {
                             'type': phone_type,
                             'number': normalized_number,
+                            'normalized': self._ensure_plus_format(
+                                normalized_digits or normalized_number
+                            ),
                             'original': original_number
                         }
-                        
+
                         # Добавляем добавочный номер если есть
                         if extension:
                             phone_obj_dict['extension'] = extension
-                            
+
                         normalized_phones.append(phone_obj_dict)
             
             contact['phones'] = normalized_phones
@@ -271,6 +296,7 @@ class DataNormalizer:
                 phone_obj = {
                     'type': phone_type,
                     'number': normalized_phone,
+                    'normalized': self._ensure_plus_format(normalized_phone),
                     'original': original_phone
                 }
                 
@@ -318,9 +344,10 @@ class DataNormalizer:
         """
         if contact.get('name'):
             original_name = contact['name']
-            normalized_name = self._normalize_person_name(original_name)
+            normalized_name = normalize_first_word_only(original_name)
             
             if normalized_name and normalized_name != original_name:
+                self.logger.debug(f"Нормализация имени: '{original_name}' → '{normalized_name}'")
                 contact['name'] = normalized_name
                 contact['name_original'] = original_name
         
@@ -337,9 +364,10 @@ class DataNormalizer:
         """
         if contact.get('position'):
             original_position = contact['position']
-            normalized_position = self._normalize_position_title(original_position)
+            normalized_position = normalize_first_word_only(original_position)
             
             if normalized_position and normalized_position != original_position:
+                self.logger.debug(f"Нормализация должности: '{original_position}' → '{normalized_position}'")
                 contact['position'] = normalized_position
                 contact['position_original'] = original_position
         
@@ -347,7 +375,7 @@ class DataNormalizer:
     
     def _simple_phone_cleanup(self, phone: str) -> str:
         """Простая очистка телефона для fallback случаев
-        
+
         Args:
             phone: Исходный телефон
             
@@ -365,8 +393,35 @@ class DataNormalizer:
             normalized = '+7' + normalized[1:]
         elif normalized.startswith('7') and len(normalized) == 11:
             normalized = '+' + normalized
-        
+
         return normalized
+
+    def _ensure_plus_format(self, digits: str) -> str:
+        """☎️ Преобразование цифр телефона в формат с плюсом"""
+        if not digits:
+            return ''
+
+        value = digits.strip()
+        if not value:
+            return ''
+
+        if value.startswith('+'):
+            return value
+
+        digits_only = ''.join(filter(str.isdigit, value))
+        if not digits_only:
+            return value
+
+        if digits_only.startswith('8') and len(digits_only) == 11:
+            return '+7' + digits_only[1:]
+
+        if digits_only.startswith('7') and len(digits_only) == 11:
+            return '+' + digits_only
+
+        if value.startswith('00'):
+            return '+' + value[2:]
+
+        return '+' + digits_only
      
     def _normalize_email(self, email: str) -> str:
         """Нормализация email адреса
@@ -453,17 +508,13 @@ class DataNormalizer:
             'зам. директора': 'заместитель директора',
             'нач. отдела': 'начальник отдела',
             'рук.': 'руководитель',
-            'менеджер по продажам': 'менеджер по продажам',
-            'коммерческий директор': 'коммерческий директор'
         }
-        
+
         # Применяем сокращения
         for abbr, full in position_abbreviations.items():
-            if abbr in normalized:
-                normalized = normalized.replace(abbr, full)
-        
-        # Приводим первую букву к заглавной
-        return normalized.capitalize()
+            normalized = normalized.replace(abbr, full)
+
+        return ' '.join(word.capitalize() for word in normalized.split())
     
     def _normalize_organization_name(self, name: str) -> str:
         """Нормализация названия организации

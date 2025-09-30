@@ -38,7 +38,9 @@ class CentralizedLogger:
         if self._initialized:
             return
             
-        self.log_dir = Path("/Users/evgenyzach/contact_parser/data/logs")
+        # Определяем корневую директорию проекта динамически
+        project_root = Path(__file__).resolve().parent.parent.parent
+        self.log_dir = project_root / "data" / "logs"
         self.log_dir.mkdir(parents=True, exist_ok=True)
         
         # 🔧 Настройка структурированного логирования
