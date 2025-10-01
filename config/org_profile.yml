@@ -1,0 +1,59 @@
+internal_domains:
+  - dna-technology.ru
+
+shared_mailboxes_prefixes:
+  - info
+  - sales
+  - support
+  - service
+  - office
+  - pr
+  - hr
+  - it
+  - help
+  - supportdesk
+  - warranty
+  - billing
+  - finance
+  - accounting
+  - buh
+  - kadr
+  - zakup
+  - zakupki
+  - tender
+  - torgi
+  - sklad
+  - omts
+  - deals
+  - tenders
+  - press
+  - marketing
+
+department_prefixes:
+  - team
+  - dept
+  - department
+  - marketing
+  - sales
+  - support
+  - service
+  - hr
+  - finance
+  - accounting
+  - buh
+  - press
+  - pr
+
+technical_prefixes:
+  - noreply
+  - no-reply
+  - robot
+  - do-not-reply
+
+group_alias_suffixes:
+  - -all
+  - .all
+  - -team
+  - .team
+  - -group
+  - .group

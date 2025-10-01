@@ -9,10 +9,11 @@ Created: 2025-09-13
 """
 
 import logging
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Set, Optional
 from difflib import SequenceMatcher
 
 from .text_normalizer import normalize_first_word_only
+from .email_classifier import MailboxType, classify_mailbox
 
 logger = logging.getLogger(__name__)
 
@@ -39,6 +40,16 @@ class OrganizationDeduplicator:
         }
         # Используем простую нормализацию: только первое слово заглавное
 
+        self.email_classifier_cfg: Dict[str, Any] = {}
+        self.corporate_domains: Set[str] = set()
+        self.allowed_org_mail_types: Set[MailboxType] = {
+            MailboxType.SHARED_ORG,
+            MailboxType.DEPARTMENT,
+            MailboxType.GROUP_ALIAS,
+            MailboxType.TECHNICAL,
+        }
+        self.email_classifier_enabled = False
+
         if initial_organizations:
             self.load_existing_organizations(initial_organizations)
 
@@ -55,6 +66,8 @@ class OrganizationDeduplicator:
                 display_name = normalize_first_word_only(original_name)
                 normalized_payload['name'] = display_name
             normalized_payload['__match_key__'] = self._build_matching_key(display_name or original_name)
+            if isinstance(normalized_payload.get('emails'), list):
+                normalized_payload['emails'] = self._filter_emails(normalized_payload.get('emails', []))
             self.global_organizations[numeric_id] = normalized_payload
         if self.global_organizations:
             self.next_global_id = max(self.global_organizations.keys()) + 1
@@ -76,6 +89,48 @@ class OrganizationDeduplicator:
             'merged': 0
         }
         self.logger.info("🔄 Состояние OrganizationDeduplicator очищено")
+
+    def configure_email_classifier(
+        self,
+        cfg: Dict[str, Any],
+        corp_domains: Set[str],
+        allowed_types: Optional[Set[MailboxType]] = None,
+    ) -> None:
+        self.email_classifier_cfg = cfg or {}
+        self.corporate_domains = {str(domain).lower() for domain in (corp_domains or set())}
+        if allowed_types:
+            self.allowed_org_mail_types = allowed_types
+        self.email_classifier_enabled = True
+
+    def _filter_emails(self, emails: List[Any]) -> List[str]:
+        if not emails:
+            return []
+
+        normalized: List[str] = []
+        seen: Set[str] = set()
+
+        for item in emails:
+            email_str = str(item or '').strip()
+            if not email_str:
+                continue
+            email_lower = email_str.lower()
+            if email_lower in seen:
+                continue
+
+            if self.email_classifier_enabled:
+                mailbox_type = classify_mailbox(
+                    email_str,
+                    None,
+                    self.corporate_domains,
+                    self.email_classifier_cfg,
+                )
+                if mailbox_type not in self.allowed_org_mail_types:
+                    continue
+
+            normalized.append(email_str)
+            seen.add(email_lower)
+
+        return normalized
 
     def process_organizations(self, llm_organizations: List[Dict[str, Any]]) -> Dict[int, int]:
         """Обработка организаций из LLM ответа
@@ -189,7 +244,7 @@ class OrganizationDeduplicator:
         new_emails = set(new_org.get('emails', []))
         merged_emails = list(existing_emails | new_emails)
         if merged_emails:
-            existing_org['emails'] = merged_emails
+            existing_org['emails'] = self._filter_emails(merged_emails)
 
         # Объединяем телефоны
         existing_phones = set(existing_org.get('phones', []))
@@ -234,6 +289,9 @@ class OrganizationDeduplicator:
             new_org['emails'] = []
         if 'phones' not in new_org:
             new_org['phones'] = []
+
+        if isinstance(new_org.get('emails'), list):
+            new_org['emails'] = self._filter_emails(new_org['emails'])
 
         # Приводим название к нормализованному виду и сохраняем match key
         normalized_name = new_org.get('name', '')
@@ -320,6 +378,9 @@ class OrganizationDeduplicator:
             prepared['__match_key__'] = self._build_matching_key(formatted_name)
         else:
             prepared['__match_key__'] = ''
+
+        if 'emails' in prepared and isinstance(prepared['emails'], list):
+            prepared['emails'] = self._filter_emails(prepared['emails'])
         return prepared
 
     def _update_organization_name(self, existing_org: Dict[str, Any], new_name: str) -> None:

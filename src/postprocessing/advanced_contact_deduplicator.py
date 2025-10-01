@@ -194,7 +194,10 @@ class AdvancedContactDeduplicator:
         
         total_weight = sum(weight for _, _, weight in scores)
         # Используем safe_multiply для предотвращения ошибки "NoneType * float"
-        from core.safe_math_utils import safe_multiply
+        try:
+            from ..core.safe_math_utils import safe_multiply
+        except ImportError:
+            from core.safe_math_utils import safe_multiply
         weighted_sum = sum(safe_multiply(score, weight) for _, score, weight in scores)
         
         return weighted_sum / total_weight if total_weight > 0 else 0.0

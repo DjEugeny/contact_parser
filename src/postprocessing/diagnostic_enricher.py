@@ -287,7 +287,24 @@ class DiagnosticContactEnricher:
         if self.stats['domains_extracted'] > 0:
             website_success_rate = (self.stats['websites_found'] / self.stats['domains_extracted']) * 100
             self.logger.info(f"   Успешность поиска сайтов: {website_success_rate:.1f}%")
-    
+
+    def log_email_classification_summary(self, report: Optional[Dict[str, Any]]) -> None:
+        """Логирование статистики классификации почтовых ящиков."""
+        if not report:
+            return
+
+        counts = report.get('counts', {})
+        removed_total = report.get('removed_total')
+        kept_total = report.get('kept_total')
+
+        self.logger.info("📬 Сводка классификации email адресов:")
+        if removed_total is not None or kept_total is not None:
+            self.logger.info("   оставлено: %s, удалено: %s", kept_total, removed_total)
+
+        if counts:
+            for mailbox_type, count in counts.items():
+                self.logger.info("   %s: %s", mailbox_type, count)
+
     def get_diagnostic_info(self) -> Dict[str, Any]:
         """
         Получение диагностической информации
