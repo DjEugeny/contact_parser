@@ -13,7 +13,7 @@ import re
 import socket
 import urllib.request
 import urllib.error
-from typing import Dict, List, Any, Optional, Tuple
+from typing import Dict, List, Any, Optional, Tuple, Iterable
 import time
 
 logger = logging.getLogger(__name__)
@@ -113,16 +113,51 @@ class SmartContactEnricher:
             Dict: Обогащенный контакт
         """
         enriched = contact.copy()
-        
+
+        org_id = contact.get('organization_id')
+        org_data = organizations.get(org_id) if isinstance(organizations, dict) else {}
+        org_emails = []
+        org_website = None
+        if isinstance(org_data, dict):
+            org_emails = org_data.get('emails', []) or []
+            org_website = org_data.get('website')
+
         # 1. Извлекаем email
         email = self._extract_contact_email(contact)
         if not email:
+            fallback_email = self._select_fallback_email(org_emails)
+            if fallback_email:
+                email = fallback_email
+                enriched['email'] = fallback_email
+                enriched['email_source'] = 'organization_email_fallback'
+                self.logger.info(f"   📧 Использую корпоративный email организации: {fallback_email}")
+
+        if not email:
+            website_candidate = self._normalize_website_url(org_website)
+            if website_candidate:
+                self.logger.info("   🌐 Используем сайт организации для контакта без email")
+                enriched['website'] = website_candidate
+                enriched['website_confidence'] = 0.6
+                enriched['website_source'] = 'organization_profile'
+                enriched['enrichment_skipped'] = False
+                enriched['enrichment_reason'] = 'organization_website_used'
+                enriched['smart_enrichment'] = {
+                    'source_email': None,
+                    'extracted_domain': self._normalize_domain(org_website) if org_website else None,
+                    'website_found': website_candidate,
+                    'enriched_at': time.time(),
+                    'version': '1.0.0',
+                    'source': 'organization_website'
+                }
+                self.stats['enrichments_applied'] += 1
+                return enriched
+
             self.logger.info("   📧 Email не найден - пропускаем обогащение")
             enriched['enrichment_skipped'] = True
             enriched['enrichment_reason'] = 'no_email'
             self.stats['enrichments_skipped'] += 1
             return enriched
-        
+
         self.logger.info(f"   📧 Email: {email}")
         
         # 2. Проверяем нужно ли обогащать
@@ -139,6 +174,9 @@ class SmartContactEnricher:
         domain = self._extract_domain(email)
         if domain:
             website_url = self._get_website_for_domain(domain)
+            if not website_url and org_website:
+                website_url = self._normalize_website_url(org_website)
+
             if website_url:
                 enriched = self._apply_enrichment(enriched, website_url, domain, email, reason)
                 self.stats['enrichments_applied'] += 1
@@ -148,7 +186,7 @@ class SmartContactEnricher:
                 enriched['enrichment_skipped'] = True
                 enriched['enrichment_reason'] = f'website_not_found_for_{domain}'
                 self.stats['enrichments_skipped'] += 1
-        
+
         return enriched
     
     def _should_enrich_contact(self, contact: Dict[str, Any], organizations: Dict[int, Dict[str, Any]]) -> Tuple[bool, str]:
@@ -228,50 +266,97 @@ class SmartContactEnricher:
         return domain.lower() if domain else None
     
     def _get_website_for_domain(self, domain: str) -> Optional[str]:
-        """
-        Получение веб-сайта для домена
-        
-        Args:
-            domain: Доменное имя
-            
-        Returns:
-            Optional[str]: URL веб-сайта или None
-        """
+        """Возвращает рабочий URL сайта для корпоративного домена."""
         if not domain:
             return None
-        
-        # Сначала проверяем DNS
-        try:
-            socket.gethostbyname(domain)
-        except socket.gaierror:
+
+        normalized_domain = domain.lower().strip()
+        if not normalized_domain or '.' not in normalized_domain:
             return None
-        
-        # Проверяем варианты URL
+
         urls_to_check = [
-            f"https://www.{domain}",
-            f"https://{domain}",
-            f"http://www.{domain}",
-            f"http://{domain}"
+            f"https://www.{normalized_domain}",
+            f"https://{normalized_domain}",
+            f"http://www.{normalized_domain}",
+            f"http://{normalized_domain}"
         ]
-        
+
         for url in urls_to_check:
             try:
                 req = urllib.request.Request(
                     url,
                     headers={'User-Agent': 'Mozilla/5.0 (compatible; SmartContactEnricher/1.0)'}
                 )
-                
+
                 with urllib.request.urlopen(req, timeout=5) as response:
                     if response.getcode() < 400:
                         return url
-                        
+
             except (urllib.error.URLError, urllib.error.HTTPError, socket.timeout):
                 continue
             except Exception:
                 continue
-            
-            time.sleep(0.1)  # Пауза между запросами
-        
+
+            time.sleep(0.1)
+
+        # Если прямой запрос не удался, возвращаем нормализованный HTTPS URL
+        return self._normalize_website_url(normalized_domain)
+
+    def _normalize_website_url(self, website: Optional[str]) -> Optional[str]:
+        """Нормализует строку сайта до пригодного URL."""
+        if not website:
+            return None
+
+        value = website.strip()
+        if not value:
+            return None
+
+        if not value.startswith(('http://', 'https://')):
+            value = value[1:] if value.startswith('/') else value
+            if not value.startswith('www.') and '.' in value:
+                value = f"www.{value}"
+            value = f"https://{value}"
+
+        return value
+
+    def _select_fallback_email(self, organization_emails: Any) -> Optional[str]:
+        """Возвращает корпоративный email организации для контакта без собственного адреса."""
+        if not isinstance(organization_emails, list):
+            return None
+
+        corporate_emails: List[str] = []
+        for item in organization_emails:
+            if not isinstance(item, str):
+                continue
+            email = item.strip()
+            if not email or '@' not in email:
+                continue
+            domain = self._extract_domain(email)
+            if domain and domain not in self.public_email_providers:
+                corporate_emails.append(email)
+
+        if len(corporate_emails) == 1:
+            return corporate_emails[0]
+
+        return None
+
+    def infer_website_from_emails(self, emails: Iterable[str]) -> Optional[str]:
+        """Пытается определить сайт организации на основе корпоративных email."""
+        if not emails:
+            return None
+
+        for email in emails:
+            if not isinstance(email, str):
+                continue
+            domain = self._extract_domain(email)
+            if not domain or domain in self.public_email_providers:
+                continue
+            website = self._get_website_for_domain(domain)
+            if not website:
+                website = self._normalize_website_url(domain)
+            if website:
+                return website
+
         return None
     
     def _apply_enrichment(self, contact: Dict[str, Any], website_url: str, domain: str, email: str, reason: str) -> Dict[str, Any]:
@@ -283,6 +368,7 @@ class SmartContactEnricher:
         enriched['website_source'] = 'smart_corporate_email'
         enriched['website_method'] = 'domain_extraction'
         enriched['enrichment_reason'] = reason
+        enriched['enrichment_skipped'] = False
         
         # Диагностическая информация
         enriched['smart_enrichment'] = {

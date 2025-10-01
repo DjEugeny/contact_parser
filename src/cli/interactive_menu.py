@@ -264,7 +264,6 @@ class InteractiveMenu:
         print("\n📁 Проверка файлов:")
         files_to_check = [
             ("prompts/unified_contact_extraction_structured.txt", PROJECT_ROOT / "prompts" / "unified_contact_extraction_structured.txt"),
-            ("config/providers.json", get_config_path("providers.json")),
             (".env", PROJECT_ROOT / ".env"),
         ]
 

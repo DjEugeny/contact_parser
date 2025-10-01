@@ -179,19 +179,21 @@ class ResilientEmailProcessor:
                 
                 # Пробуем разные стратегии
                 strategies = [ProcessingStrategy.SIMPLIFIED, ProcessingStrategy.FALLBACK]
+                current_error = None
                 
                 for strategy in strategies:
                     if success:
                         break
                         
                     start_time = time.time()
+                    strategy_error = None
                     
                     try:
                         if strategy == ProcessingStrategy.FALLBACK:
-                            logger.warning(f"🆘 Используем fallback стратегию для {email_file} - все остальные методы не сработали")
+                            logger.warning(f"🆘 Используем fallback стратегию для {email_file} из-за ошибки: {current_error or 'неизвестная'}")
                         else:
                             logger.info(f"🔧 Повтор {email_file} со стратегией {strategy.value}")
-                        result = self._process_with_strategy(email_file, strategy)
+                        result = self._process_with_strategy(email_file, strategy, original_error=current_error)
                         processing_time = time.time() - start_time
                         
                         if not self._has_errors(result):
@@ -214,11 +216,15 @@ class ResilientEmailProcessor:
                             
                             success = True
                         else:
-                            logger.debug(f"❌ Стратегия {strategy.value} не помогла для {email_file}")
+                            strategy_error = self._extract_error_message(result)
+                            logger.debug(f"❌ Стратегия {strategy.value} не помогла для {email_file}: {strategy_error}")
+                            current_error = strategy_error  # Обновляем для следующей стратегии
                             
                     except Exception as e:
                         processing_time = time.time() - start_time
-                        logger.error(f"💥 Ошибка при повторе {email_file} со стратегией {strategy.value}: {e}")
+                        strategy_error = str(e)
+                        logger.error(f"💥 Ошибка при повторе {email_file} со стратегией {strategy.value}: {strategy_error}")
+                        current_error = strategy_error
                 
                 # Если все стратегии не помогли
                 if not success:
@@ -230,13 +236,13 @@ class ResilientEmailProcessor:
             self._mark_as_error(email_file)
             self.retry_statistics['permanently_failed'] += 1
     
-    def _process_with_strategy(self, email_file: str, strategy: ProcessingStrategy) -> Dict[str, Any]:
+    def _process_with_strategy(self, email_file: str, strategy: ProcessingStrategy, original_error: Optional[str] = None) -> Dict[str, Any]:
         """Обработка письма с определенной стратегией"""
         
         if strategy == ProcessingStrategy.SIMPLIFIED:
             return self._process_simplified(email_file)
         elif strategy == ProcessingStrategy.FALLBACK:
-            return self._process_fallback(email_file)
+            return self._process_fallback(email_file, original_error=original_error)
         else:
             return self.processor.process_single_email(email_file)
     
@@ -268,9 +274,9 @@ class ResilientEmailProcessor:
             logger.error(f"❌ Ошибка в упрощенной обработке {email_file}: {e}")
             raise
     
-    def _process_fallback(self, email_file: str) -> Dict[str, Any]:
+    def _process_fallback(self, email_file: str, original_error: Optional[str] = None) -> Dict[str, Any]:
         """Fallback стратегия - минимальная обработка с извлечением базовой информации"""
-        logger.warning(f"🆘 Fallback обработка {email_file} - попытка извлечь базовую информацию")
+        logger.warning(f"🆘 Fallback обработка {email_file} - попытка извлечь базовую информацию. Причина: {original_error or 'неизвестная ошибка'}")
         
         try:
             # Пытаемся извлечь базовую информацию из письма
@@ -291,9 +297,12 @@ class ResilientEmailProcessor:
                 'key_points': basic_info.get('key_points', []),
                 'commercial_offers': [],
                 'interactions': basic_info.get('interactions', []),
-                'success': True,
+                'success': False,
+                'validation_error': True,
                 'processing_strategy': 'fallback',
-                'fallback_reason': basic_info.get('fallback_reason', 'Неизвестная ошибка')
+                'fallback_reason': basic_info.get('fallback_reason', 'Неизвестная ошибка'),
+                'original_error': original_error,
+                'errors': [original_error or 'Fallback processing triggered due to validation failure']
             }
             
             # Применяем исправления к fallback результату
@@ -305,7 +314,7 @@ class ResilientEmailProcessor:
             except ImportError:
                 logger.warning("⚠️ Модуль safe_math_utils недоступен для fallback")
             
-            logger.info(f"🆘 Создан fallback результат для {email_file}")
+            logger.info(f"🆘 Создан fallback результат для {email_file} с сохранением исходной ошибки")
             fallback_result['processing_strategy'] = 'fallback'
             return fallback_result
             

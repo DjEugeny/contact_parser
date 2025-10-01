@@ -5,14 +5,22 @@
 Поддерживает только новый формат согласно мини-ТЗ
 """
 
+import copy
 import json
 import jsonschema
-from typing import Dict, List, Optional, Any, Tuple
+from typing import Dict, List, Optional, Any, Tuple, TypedDict
 from jsonschema import ValidationError, SchemaError
 
 class InvalidStructureError(Exception):
     """Исключение для полностью невалидной структуры данных"""
     pass
+
+class Participants(TypedDict, total=False):
+    """🧑‍🤝‍🧑 Структура участников взаимодействия."""
+
+    actor: Optional[str]
+    audience: Optional[List[str]]
+
 
 class LLMResponseValidator:
     """🔍 Валидатор JSON Schema для новой структуры organizations/contacts"""
@@ -23,6 +31,7 @@ class LLMResponseValidator:
         self.organization_schema = self._create_organization_schema()
         self.contact_schema = self._create_contact_schema()
         self.commercial_offer_schema = self._create_commercial_offer_schema()
+        self.participants_schema = self._create_participants_schema()
         self.interaction_schema = self._create_interaction_schema()
         self.full_response_schema = self._create_full_response_schema()
 
@@ -51,6 +60,14 @@ class LLMResponseValidator:
                 "normalized": {
                     "type": ["string", "null"],
                     "description": "Нормализованный номер"
+                },
+                "formatted": {
+                    "type": ["string", "null"],
+                    "description": "Форматированный номер"
+                },
+                "original": {
+                    "type": ["string", "null"],
+                    "description": "Первоначальное значение номера"
                 },
                 "extension": {
                     "type": ["string", "null"],
@@ -341,6 +358,25 @@ class LLMResponseValidator:
             "additionalProperties": True
         }
 
+    def _create_participants_schema(self) -> Dict[str, Any]:
+        """🧑‍🤝‍🧑 Создаёт схему блока участников."""
+        return {
+            "type": ["object", "null"],
+            "description": "Участники взаимодействия",
+            "properties": {
+                "actor": {
+                    "type": ["string", "null"],
+                    "description": "Основной инициатор взаимодействия"
+                },
+                "audience": {
+                    "type": ["array", "null"],
+                    "items": {"type": "string"},
+                    "description": "Целевая аудитория или получатели"
+                }
+            },
+            "additionalProperties": False
+        }
+
     def _create_interaction_schema(self) -> Dict[str, Any]:
         """🔁 Создание схемы для взаимодействий"""
         allowed_types = [
@@ -417,6 +453,11 @@ class LLMResponseValidator:
                     "items": {"type": "string"},
                     "description": "Список вложений"
                 },
+                "human_note": {
+                    "type": ["string", "null"],
+                    "description": "Комментарий модератора или оператора"
+                },
+                "participants": self.participants_schema,
                 "confidence": {
                     "type": "number",
                     "minimum": 0,
@@ -503,7 +544,8 @@ class LLMResponseValidator:
     def validate_llm_response(self, response: Dict[str, Any]) -> Tuple[bool, List[str], Dict[str, Any]]:
         """🔍 Валидация ответа LLM в новом формате organizations/contacts"""
         errors = []
-        corrected_response = response.copy()
+        corrected_response = copy.deepcopy(response)
+        corrected_response = self._upgrade_legacy_response(corrected_response)
         
         print("🔍 Валидация ответа в новом формате organizations/contacts")
         
@@ -528,7 +570,7 @@ class LLMResponseValidator:
             
             # Попытка автокоррекции
             try:
-                corrected_response = self._auto_correct_response(response, e)
+                corrected_response = self._auto_correct_response(corrected_response, e)
                 
                 # Повторная валидация исправленного ответа
                 jsonschema.validate(corrected_response, self.full_response_schema)
@@ -574,250 +616,777 @@ class LLMResponseValidator:
         
         return errors
 
+    def _upgrade_legacy_response(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        """🕰️ Приводит ответы старого формата к новой структуре."""
+        if not isinstance(payload, dict):
+            return payload
+
+        contacts = payload.get('contacts')
+        if not isinstance(contacts, list):
+            return payload
+
+        legacy_contacts = [
+            contact for contact in contacts
+            if isinstance(contact, dict)
+            and (contact.get('organization') is not None or contact.get('phone') is not None)
+        ]
+
+        has_legacy_structure = bool(legacy_contacts) or not isinstance(payload.get('organizations'), list)
+        if not has_legacy_structure:
+            return payload
+
+        organizations = payload.get('organizations')
+        if not isinstance(organizations, list):
+            organizations = []
+            payload['organizations'] = organizations
+
+        org_by_name: Dict[str, Dict[str, Any]] = {}
+        max_org_id = 0
+        for org in organizations:
+            if not isinstance(org, dict):
+                continue
+            org_id = org.get('organization_id')
+            if isinstance(org_id, int):
+                max_org_id = max(max_org_id, org_id)
+            name = self._normalize_optional_string(org.get('name'))
+            if name:
+                org_by_name[name.lower()] = org
+
+        if not organizations:
+            max_org_id = 1
+            default_org = {
+                'organization_id': max_org_id,
+                'name': 'Организация 1',
+                'emails': [],
+                'phones': [],
+            }
+            organizations.append(default_org)
+            org_by_name[default_org['name'].lower()] = default_org
+
+        for index, contact in enumerate(contacts):
+            if not isinstance(contact, dict):
+                continue
+
+            legacy_org_name = self._normalize_optional_string(contact.pop('organization', None))
+            if not isinstance(contact.get('organization_id'), int):
+                resolved_org_id: Optional[int] = None
+                if legacy_org_name:
+                    lookup_key = legacy_org_name.lower()
+                    if lookup_key in org_by_name:
+                        resolved_org_id = org_by_name[lookup_key].get('organization_id')
+                    else:
+                        max_org_id += 1
+                        new_org = {
+                            'organization_id': max_org_id,
+                            'name': legacy_org_name,
+                            'emails': [],
+                            'phones': [],
+                        }
+                        organizations.append(new_org)
+                        org_by_name[lookup_key] = new_org
+                        resolved_org_id = max_org_id
+                if resolved_org_id is None:
+                    resolved_org_id = organizations[0].get('organization_id', 1)
+                contact['organization_id'] = resolved_org_id
+
+            if not isinstance(contact.get('contact_id'), int):
+                contact['contact_id'] = index + 1
+
+            legacy_phone = contact.pop('phone', None)
+            if legacy_phone and not contact.get('phones'):
+                contact['phones'] = [{'number': str(legacy_phone).strip()}]
+            elif 'phones' not in contact:
+                contact['phones'] = []
+
+            if 'role_in_message' not in contact:
+                contact['role_in_message'] = 'other'
+
+        if 'interactions' not in payload or not isinstance(payload['interactions'], list):
+            payload['interactions'] = []
+        if 'key_points' not in payload or not isinstance(payload['key_points'], list):
+            payload['key_points'] = []
+        if 'commercial_offers' not in payload or not isinstance(payload['commercial_offers'], list):
+            payload['commercial_offers'] = []
+
+        raw_business_context = payload.get('business_context')
+        summary_defaults: Dict[str, Optional[str]] = {
+            'topic': None,
+            'product_interest': None,
+            'communication_stage': None,
+            'request_type': None,
+        }
+
+        if isinstance(raw_business_context, dict):
+            summary_defaults['topic'] = self._normalize_optional_string(raw_business_context.get('topic'))
+            summary_defaults['product_interest'] = self._normalize_optional_string(raw_business_context.get('product_interest'))
+            summary_defaults['communication_stage'] = self._normalize_optional_string(raw_business_context.get('communication_stage'))
+            summary_defaults['request_type'] = self._normalize_optional_string(raw_business_context.get('request_type'))
+            payload['business_context'] = self._normalize_optional_string(raw_business_context.get('context')) or summary_defaults['topic'] or ''
+        else:
+            payload['business_context'] = self._normalize_optional_string(raw_business_context) or ''
+
+        summary_block = payload.get('summary') if isinstance(payload.get('summary'), dict) else {}
+        for key, value in summary_defaults.items():
+            summary_block.setdefault(key, value)
+        payload['summary'] = summary_block
+
+        return payload
+
     def _auto_correct_response(self, response: Dict[str, Any], error: ValidationError) -> Dict[str, Any]:
         """🔧 Автокоррекция ответа"""
-        corrected = response.copy()
-        
-        # Проверяем, есть ли хотя бы одно валидное поле
-        valid_fields = {'organizations', 'contacts', 'commercial_offers'}
-        has_valid_structure = any(field in corrected for field in valid_fields)
-        
-        if not has_valid_structure:
-            # Если нет валидной структуры, не исправляем - пусть идет в graceful degradation
+        corrected = copy.deepcopy(response)
+
+        valid_fields = {"organizations", "contacts", "commercial_offers", "interactions"}
+        if not any(field in corrected for field in valid_fields):
             raise InvalidStructureError("Полностью невалидная структура данных")
-        
-        # Добавляем отсутствующие обязательные поля только если их нет
-        if 'organizations' not in corrected:
-            corrected['organizations'] = []
-            print("🔧 Добавлен пустой массив organizations")
 
-        if 'contacts' not in corrected:
-            corrected['contacts'] = []
-            print("🔧 Добавлен пустой массив contacts")
+        changes_applied = False
 
-        if 'commercial_offers' not in corrected:
-            corrected['commercial_offers'] = []
-            print("🔧 Добавлен пустой массив commercial_offers")
+        if self._ensure_base_structure(corrected):
+            changes_applied = True
 
-        if 'interactions' not in corrected:
-            corrected['interactions'] = []
-            print("🔧 Добавлен пустой массив interactions")
+        if self._normalize_summary(corrected):
+            changes_applied = True
 
-        if 'key_points' not in corrected or not isinstance(corrected['key_points'], list):
-            corrected['key_points'] = []
-            print("🔧 Добавлен пустой список key_points")
+        if self._normalize_business_context(corrected):
+            changes_applied = True
 
-        if 'summary' not in corrected or not isinstance(corrected['summary'], dict):
-            corrected['summary'] = {
-                "topic": None,
-                "product_interest": None,
-                "communication_stage": None,
-                "request_type": None
-            }
-            print("🔧 Добавлен пустой объект summary")
-        else:
-            # Исправляем дублирующиеся ключи в summary от Replicate
-            summary = corrected['summary']
-            
-            # Удаляем проблемные ключи с пробелами и переносим их значения в правильные ключи
-            if 'product _ interest' in summary:
-                if not summary.get('product_interest'):
-                    summary['product_interest'] = summary['product _ interest']
-                del summary['product _ interest']
-                print("🔧 Исправлен ключ product _ interest в summary")
-                
-            if 'communication _st age' in summary:
-                if not summary.get('communication_stage'):
-                    summary['communication_stage'] = summary['communication _st age']
-                del summary['communication _st age']
-                print("🔧 Исправлен ключ communication _st age в summary")
-                
-            if 'request _type' in summary:
-                if not summary.get('request_type'):
-                    summary['request_type'] = summary['request _type']
-                del summary['request _type']
-                print("🔧 Исправлен ключ request _type в summary")
-            
-            # Добавляем отсутствующие обязательные поля
-            summary.setdefault("topic", None)
-            summary.setdefault("product_interest", None)
-            summary.setdefault("communication_stage", None)
-            summary.setdefault("request_type", None)
+        org_ids, orgs_changed = self._normalize_organizations(corrected)
+        if orgs_changed:
+            changes_applied = True
 
-        if 'business_context' not in corrected or corrected['business_context'] is None:
-            corrected['business_context'] = ""
+        contact_ids, contacts_changed = self._normalize_contacts(corrected, org_ids)
+        if contacts_changed:
+            changes_applied = True
 
-        # Исправляем контакты - добавляем только обязательные поля
-        if 'contacts' in corrected:
-            for i, contact in enumerate(corrected['contacts']):
-                if not isinstance(contact, dict):
-                    continue
+        if self._normalize_interactions(corrected, org_ids, contact_ids):
+            changes_applied = True
 
-                # Исправляем ключи с пробелами в контактах
-                if 'contact _id' in contact:
-                    if 'contact_id' not in contact:
-                        contact['contact_id'] = contact['contact _id']
-                    del contact['contact _id']
-                    print(f"🔧 Исправлен ключ contact _id для контакта {i}")
-                    
-                if 'organization _id' in contact:
-                    if 'organization_id' not in contact:
-                        contact['organization_id'] = contact['organization _id']
-                    del contact['organization _id']
-                    print(f"🔧 Исправлен ключ organization _id для контакта {i}")
-                    
-                if 'role _in _message' in contact:
-                    if 'role_in_message' not in contact:
-                        contact['role_in_message'] = contact['role _in _message']
-                    del contact['role _in _message']
-                    print(f"🔧 Исправлен ключ role _in _message для контакта {i}")
+        if self._normalize_commercial_offers(corrected):
+            changes_applied = True
 
-                contact.setdefault('contact_id', i + 1)
-                if not contact.get('name'):
-                    contact['name'] = f"Контакт {i + 1}"
-                    print(f"🔧 Добавлено имя для контакта {i}")
-                contact.setdefault('organization_id', 1)
-                if not contact.get('role_in_message'):
-                    contact['role_in_message'] = 'other'
-                    print(f"🔧 Добавлена роль для контакта {i}")
-                if 'confidence' not in contact or contact['confidence'] is None:
-                    contact['confidence'] = 0.5
-                    print(f"🔧 Добавлен confidence для контакта {i}")
-                if 'phones' not in contact or not isinstance(contact['phones'], list):
-                    contact['phones'] = []
-                    print(f"🔧 Добавлен список телефонов для контакта {i}")
-                
-                # Исправляем формат телефонов (строка → объект)
-                if 'phones' in contact and isinstance(contact['phones'], list):
-                    fixed_phones = []
-                    for j, phone in enumerate(contact['phones']):
-                        if isinstance(phone, str):
-                            # Преобразуем строку в объект
-                            fixed_phones.append({
-                                'number': phone,
-                                'type': 'mobile',
-                                'formatted': phone,
-                                'normalized': None,
-                                'extension': None,
-                                'confidence': 0.8
-                            })
-                            print(f"🔧 Исправлен формат телефона для контакта {i}, телефон {j}")
-                        elif isinstance(phone, dict):
-                            fixed_phones.append(phone)
-                    contact['phones'] = fixed_phones
+        if self._normalize_key_points(corrected):
+            changes_applied = True
 
-        # Исправляем организации
-        if 'organizations' in corrected:
-            for i, org in enumerate(corrected['organizations']):
-                if not isinstance(org, dict):
-                    continue
-                    
-                # Добавляем обязательные поля организации
-                if 'organization_id' not in org:
-                    org['organization_id'] = i + 1
-                    print(f"🔧 Добавлен organization_id для организации {i}")
-                    
-                if 'name' not in org or not org['name']:
-                    org['name'] = f"Организация {i + 1}"
-                    print(f"🔧 Добавлено название для организации {i}")
-                
-                # Удаляем дублирующиеся телефоны в организациях
-                if 'phones' in org and isinstance(org['phones'], list):
-                    unique_phones = []
-                    seen_phones = set()
-                    for phone in org['phones']:
-                        if phone not in seen_phones:
-                            unique_phones.append(phone)
-                            seen_phones.add(phone)
-                    if len(unique_phones) != len(org['phones']):
-                        org['phones'] = unique_phones
-                        print(f"🔧 Удалены дублирующиеся телефоны в организации {i}")
+        if changes_applied:
+            corrected['auto_corrected'] = True
+            corrected['validation_error'] = False
 
-        # Исправляем взаимодействия
-        if 'interactions' in corrected:
-            allowed_types = {
-                "requested_quote",
-                "sent_quote",
-                "follow_up",
-                "clarification",
-                "complaint",
-                "invoice_sent",
-                "invoice_paid",
-                "contract_sent",
-                "contract_signed",
-                "delivery",
-                "support",
-                "other"
-            }
-            
-            # Маппинг проблемных типов взаимодействий
-            interaction_type_mapping = {
-                'follow _up': 'follow_up',
-                'follow _u p': 'follow_up',
-                'info _request': 'clarification',
-                'requested _quote': 'requested_quote',
-                'sent _quote': 'sent_quote'
-            }
-            
-            for i, interaction in enumerate(corrected['interactions']):
-                if not isinstance(interaction, dict):
-                    continue
-
-                # Исправляем неправильные имена полей в interactions
-                if 'message_id_h极' in interaction:
-                    if 'message_id_hint' not in interaction:
-                        interaction['message_id_hint'] = interaction['message_id_h极']
-                    del interaction['message_id_h极']
-                    print(f"🔧 Исправлено поле message_id_h极 → message_id_hint для взаимодействия {i}")
-
-                interaction.setdefault('interaction_local_id', i + 1)
-                interaction.setdefault('contact_id', 1)
-                interaction.setdefault('organization_id', 1)
-                if not interaction.get('role_in_message'):
-                    interaction['role_in_message'] = 'other'
-                
-                # Нормализуем тип взаимодействия
-                interaction_type = interaction.get('interaction_type', 'other')
-                if interaction_type in interaction_type_mapping:
-                    interaction['interaction_type'] = interaction_type_mapping[interaction_type]
-                elif interaction_type not in allowed_types:
-                    interaction['interaction_type'] = 'other'
-                    
-                if 'summary' not in interaction or not interaction['summary']:
-                    interaction['summary'] = ''
-                if 'attachments' not in interaction or not isinstance(interaction['attachments'], list):
-                    interaction['attachments'] = []
-                if 'confidence' not in interaction or interaction['confidence'] is None:
-                    interaction['confidence'] = 0.5
-
-        # Исправляем коммерческие предложения
-        if 'commercial_offers' in corrected:
-            for i, offer in enumerate(corrected['commercial_offers']):
-                if not isinstance(offer, dict):
-                    continue
-
-                offer.setdefault('found', False)
-                if offer.get('found') and 'offer_type' not in offer:
-                    offer['offer_type'] = 'Другое'
-
-                # Исправляем equipment_items с unit_price=None
-                if 'equipment_items' in offer and isinstance(offer['equipment_items'], list):
-                    for j, item in enumerate(offer['equipment_items']):
-                        if isinstance(item, dict):
-                            # Исправляем unit_price=None
-                            if item.get('unit_price') is None:
-                                item['unit_price'] = 0.0
-                                print(f"🔧 Исправлен unit_price=None в предложении {i}, товаре {j}")
-                            
-                            # Исправляем total_price=None
-                            if item.get('total_price') is None:
-                                quantity = item.get('quantity', 1)
-                                unit_price = item.get('unit_price', 0.0)
-                                item['total_price'] = quantity * unit_price
-                                print(f"🔧 Исправлен total_price=None в предложении {i}, товаре {j}")
-        
         return corrected
 
+    def _ensure_base_structure(self, payload: Dict[str, Any]) -> bool:
+        """🧱 Гарантирует наличие базовых структур в ответе."""
+        changed = False
+
+        list_fields = {
+            'organizations': [],
+            'contacts': [],
+            'commercial_offers': [],
+            'interactions': [],
+            'key_points': [],
+        }
+
+        for field, default_value in list_fields.items():
+            if not isinstance(payload.get(field), list):
+                payload[field] = default_value.copy()
+                print(f"🔧 Добавлена базовая структура для {field}")
+                changed = True
+
+        summary = payload.get('summary')
+        if not isinstance(summary, dict):
+            payload['summary'] = {
+                'topic': None,
+                'product_interest': None,
+                'communication_stage': None,
+                'request_type': None,
+            }
+            print("🔧 Добавлен объект summary по умолчанию")
+            changed = True
+
+        return changed
+
+    def _normalize_summary(self, payload: Dict[str, Any]) -> bool:
+        """📝 Нормализует блок summary."""
+        summary = payload.get('summary')
+        if not isinstance(summary, dict):
+            return False
+
+        changed = False
+        for field in ('topic', 'product_interest', 'communication_stage', 'request_type'):
+            value = summary.get(field)
+            normalized = self._normalize_optional_string(value)
+            if summary.get(field) != normalized:
+                summary[field] = normalized
+                changed = True
+                print(f"🔧 Нормализовано поле summary.{field}")
+
+        return changed
+
+    def _normalize_business_context(self, payload: Dict[str, Any]) -> bool:
+        """🏢 Приводит business_context к строке."""
+        value = payload.get('business_context')
+        normalized = self._normalize_optional_string(value) or ''
+        if value != normalized:
+            payload['business_context'] = normalized
+            print("🔧 Нормализован business_context")
+            return True
+        return False
+
+    def _normalize_organizations(self, payload: Dict[str, Any]) -> Tuple[List[int], bool]:
+        """🏭 Нормализует организации и возвращает их ID."""
+        organizations = payload.get('organizations', [])
+        normalized_orgs: List[Dict[str, Any]] = []
+        changed = False
+
+        for index, organization in enumerate(organizations):
+            if not isinstance(organization, dict):
+                print(f"⚠️ Пропускаю невалидную организацию {index}")
+                changed = True
+                continue
+
+            normalized = organization.copy()
+
+            fallback_id = index + 1
+            org_id, id_changed = self._coerce_positive_int(
+                normalized.get('organization_id'),
+                fallback=fallback_id,
+                context=f"organization {index} organization_id",
+            )
+            normalized['organization_id'] = org_id
+            changed = changed or id_changed
+
+            name_value = normalized.get('name')
+            normalized_name = self._normalize_optional_string(name_value) or f"Организация {org_id}"
+            if normalized_name != name_value:
+                normalized['name'] = normalized_name
+                changed = True
+
+            confidence_value = normalized.get('website_confidence')
+            confidence, confidence_changed = self._coerce_float_in_range(
+                confidence_value,
+                minimum=0.0,
+                maximum=1.0,
+                fallback=None,
+                context=f"organization {index} website_confidence",
+            )
+            if confidence_changed:
+                normalized['website_confidence'] = confidence
+                changed = True
+
+            normalized_orgs.append(normalized)
+
+        payload['organizations'] = normalized_orgs
+        org_ids = [org['organization_id'] for org in normalized_orgs] or [1]
+        return org_ids, changed
+
+    def _normalize_contacts(self, payload: Dict[str, Any], available_org_ids: List[int]) -> Tuple[List[int], bool]:
+        """👥 Нормализует контакты и возвращает их ID."""
+        contacts = payload.get('contacts', [])
+        normalized_contacts: List[Dict[str, Any]] = []
+        changed = False
+        primary_org_id = available_org_ids[0] if available_org_ids else 1
+
+        for index, contact in enumerate(contacts):
+            if not isinstance(contact, dict):
+                print(f"⚠️ Пропускаю невалидный контакт {index}")
+                changed = True
+                continue
+
+            normalized = contact.copy()
+
+            contact_id, contact_changed = self._coerce_positive_int(
+                normalized.get('contact_id'),
+                fallback=index + 1,
+                context=f"contact {index} contact_id",
+            )
+            normalized['contact_id'] = contact_id
+            changed = changed or contact_changed
+
+            organization_id, org_changed = self._coerce_positive_int(
+                normalized.get('organization_id'),
+                fallback=primary_org_id,
+                context=f"contact {index} organization_id",
+            )
+            normalized['organization_id'] = organization_id
+            changed = changed or org_changed
+
+            name_value = normalized.get('name')
+            normalized_name = self._normalize_optional_string(name_value) or f"Контакт {contact_id}"
+            if normalized_name != name_value:
+                normalized['name'] = normalized_name
+                changed = True
+
+            role_value = normalized.get('role_in_message')
+            normalized_role = self._normalize_optional_string(role_value) or 'other'
+            if normalized_role != role_value:
+                normalized['role_in_message'] = normalized_role
+                changed = True
+
+            confidence_value = normalized.get('confidence')
+            confidence, confidence_changed = self._coerce_float_in_range(
+                confidence_value,
+                minimum=0.0,
+                maximum=1.0,
+                fallback=0.5,
+                context=f"contact {index} confidence",
+            )
+            if confidence_changed:
+                normalized['confidence'] = confidence
+                changed = True
+
+            phones, phones_changed = self._normalize_phone_list(
+                normalized.get('phones'),
+                context=f"contact {index}",
+            )
+            if phones_changed:
+                normalized['phones'] = phones
+                changed = True
+
+            value_score = normalized.get('value_score')
+            if value_score is not None:
+                score, score_changed = self._coerce_positive_int(
+                    value_score,
+                    fallback=0,
+                    context=f"contact {index} value_score",
+                )
+                if score_changed:
+                    normalized['value_score'] = score
+                    changed = True
+
+            normalized_contacts.append(normalized)
+
+        payload['contacts'] = normalized_contacts
+        contact_ids = [contact['contact_id'] for contact in normalized_contacts] or [1]
+        return contact_ids, changed
+
+    def _normalize_interactions(
+        self,
+        payload: Dict[str, Any],
+        available_org_ids: List[int],
+        available_contact_ids: List[int],
+    ) -> bool:
+        """🔁 Нормализует взаимодействия."""
+        interactions = payload.get('interactions', [])
+        normalized_interactions: List[Dict[str, Any]] = []
+        changed = False
+
+        primary_org_id = available_org_ids[0] if available_org_ids else 1
+        primary_contact_id = available_contact_ids[0] if available_contact_ids else 1
+
+        allowed_types = {
+            "requested_quote",
+            "sent_quote",
+            "follow_up",
+            "clarification",
+            "complaint",
+            "invoice_sent",
+            "invoice_paid",
+            "contract_sent",
+            "contract_signed",
+            "delivery",
+            "support",
+            "other",
+        }
+
+        type_mapping = {
+            'follow _up': 'follow_up',
+            'follow _u p': 'follow_up',
+            'info _request': 'clarification',
+            'requested _quote': 'requested_quote',
+            'sent _quote': 'sent_quote',
+        }
+
+        for index, interaction in enumerate(interactions):
+            if not isinstance(interaction, dict):
+                print(f"⚠️ Пропускаю невалидное взаимодействие {index}")
+                changed = True
+                continue
+
+            normalized = interaction.copy()
+
+            local_id, local_changed = self._coerce_positive_int(
+                normalized.get('interaction_local_id'),
+                fallback=index + 1,
+                context=f"interaction {index} interaction_local_id",
+            )
+            normalized['interaction_local_id'] = local_id
+            changed = changed or local_changed
+
+            contact_id, contact_changed = self._coerce_positive_int(
+                normalized.get('contact_id'),
+                fallback=primary_contact_id,
+                context=f"interaction {index} contact_id",
+            )
+            normalized['contact_id'] = contact_id
+            changed = changed or contact_changed
+
+            organization_id, org_changed = self._coerce_positive_int(
+                normalized.get('organization_id'),
+                fallback=primary_org_id,
+                context=f"interaction {index} organization_id",
+            )
+            normalized['organization_id'] = organization_id
+            changed = changed or org_changed
+
+            role_value = normalized.get('role_in_message')
+            normalized_role = self._normalize_optional_string(role_value) or 'other'
+            if normalized_role != role_value:
+                normalized['role_in_message'] = normalized_role
+                changed = True
+
+            interaction_type = normalized.get('interaction_type')
+            normalized_type = type_mapping.get(interaction_type, interaction_type)
+            if normalized_type not in allowed_types:
+                normalized_type = 'other'
+            if normalized_type != interaction_type:
+                normalized['interaction_type'] = normalized_type
+                changed = True
+
+            summary_value = normalized.get('summary')
+            summary_text = self._normalize_optional_string(summary_value) or ''
+            if summary_text != summary_value:
+                normalized['summary'] = summary_text
+                changed = True
+
+            attachments_value = normalized.get('attachments')
+            if isinstance(attachments_value, str):
+                attachments_value = [attachments_value]
+            if not isinstance(attachments_value, list):
+                attachments_value = []
+            attachments = [
+                str(attachment).strip()
+                for attachment in attachments_value
+                if not self._is_missing(attachment)
+            ]
+            if attachments != attachments_value:
+                normalized['attachments'] = attachments
+                changed = True
+
+            confidence_value = normalized.get('confidence')
+            confidence, confidence_changed = self._coerce_float_in_range(
+                confidence_value,
+                minimum=0.0,
+                maximum=1.0,
+                fallback=0.5,
+                context=f"interaction {index} confidence",
+            )
+            if confidence_changed:
+                normalized['confidence'] = confidence
+                changed = True
+
+            original_note = normalized.get('human_note')
+            normalized_note = self._normalize_optional_string(original_note)
+            if normalized_note is None:
+                if original_note is not None:
+                    normalized.pop('human_note', None)
+                    changed = True
+            else:
+                if original_note != normalized_note:
+                    normalized['human_note'] = normalized_note
+                    changed = True
+
+            original_participants = normalized.get('participants')
+            participants_value = self._normalize_participants(original_participants)
+            if participants_value is None:
+                if original_participants is not None:
+                    normalized.pop('participants', None)
+                    changed = True
+            else:
+                if original_participants != participants_value:
+                    normalized['participants'] = participants_value
+                    changed = True
+
+            normalized_interactions.append(normalized)
+
+        payload['interactions'] = normalized_interactions
+        return changed
+
+    def _normalize_participants(self, value: Any) -> Optional[Participants]:
+        """🧑‍🤝‍🧑 Нормализует структуру участников взаимодействия."""
+        if value is None:
+            return None
+        if not isinstance(value, dict):
+            return None
+
+        normalized: Participants = {}
+
+        actor = self._normalize_optional_string(value.get('actor'))
+        if actor:
+            normalized['actor'] = actor
+
+        audience_raw = value.get('audience')
+        audience: List[str] = []
+        if isinstance(audience_raw, (list, tuple, set)):
+            for entry in audience_raw:
+                normalized_entry = self._normalize_optional_string(entry)
+                if normalized_entry:
+                    audience.append(normalized_entry)
+        elif isinstance(audience_raw, str):
+            normalized_entry = self._normalize_optional_string(audience_raw)
+            if normalized_entry:
+                audience.append(normalized_entry)
+
+        if audience:
+            normalized['audience'] = audience
+
+        return normalized or None
+
+    def _normalize_commercial_offers(self, payload: Dict[str, Any]) -> bool:
+        """💼 Нормализует коммерческие предложения."""
+        offers = payload.get('commercial_offers', [])
+        normalized_offers: List[Dict[str, Any]] = []
+        changed = False
+
+        for index, offer in enumerate(offers):
+            if not isinstance(offer, dict):
+                print(f"⚠️ Пропускаю невалидное КП {index}")
+                changed = True
+                continue
+
+            normalized = offer.copy()
+
+            found_value = normalized.get('found')
+            if not isinstance(found_value, bool):
+                normalized['found'] = bool(found_value)
+                changed = True
+                print(f"🔧 Нормализован флаг found для КП {index}")
+
+            equipment, equipment_changed, calculated_total = self._normalize_equipment_items(
+                normalized.get('equipment_items'),
+                offer_index=index,
+            )
+            if equipment_changed:
+                normalized['equipment_items'] = equipment
+                changed = True
+
+            total_value = normalized.get('total_cost')
+            if self._is_missing(total_value) and calculated_total is not None:
+                normalized['total_cost'] = calculated_total
+                changed = True
+            elif not self._is_missing(total_value):
+                coerced_total, total_changed = self._coerce_non_negative_float(
+                    total_value,
+                    fallback=calculated_total or 0.0,
+                    context=f"commercial_offer {index} total_cost",
+                )
+                if total_changed:
+                    normalized['total_cost'] = coerced_total
+                    changed = True
+
+            currency_value = normalized.get('currency')
+            currency = self._normalize_optional_string(currency_value)
+            if currency != currency_value:
+                normalized['currency'] = currency
+                changed = True
+
+            normalized_offers.append(normalized)
+
+        payload['commercial_offers'] = normalized_offers
+        return changed
+
+    def _normalize_equipment_items(
+        self,
+        equipment_items: Any,
+        offer_index: int,
+    ) -> Tuple[List[Dict[str, Any]], bool, Optional[float]]:
+        """🧮 Нормализует позиции оборудования и возвращает рассчитанную сумму."""
+        if not isinstance(equipment_items, list):
+            return [], True, None
+
+        normalized_items: List[Dict[str, Any]] = []
+        changed = False
+        total_cost = 0.0
+
+        for index, item in enumerate(equipment_items):
+            if not isinstance(item, dict):
+                print(f"⚠️ Пропускаю невалидную позицию оборудования {offer_index}:{index}")
+                changed = True
+                continue
+
+            normalized = item.copy()
+
+            quantity, quantity_changed = self._coerce_positive_int(
+                normalized.get('quantity'),
+                fallback=1,
+                context=f"equipment {offer_index}:{index} quantity",
+            )
+            if quantity_changed:
+                normalized['quantity'] = quantity
+                changed = True
+
+            unit_price, unit_changed = self._coerce_non_negative_float(
+                normalized.get('unit_price'),
+                fallback=0.0,
+                context=f"equipment {offer_index}:{index} unit_price",
+            )
+            if unit_changed:
+                normalized['unit_price'] = unit_price
+                changed = True
+
+            total_price, total_changed = self._coerce_non_negative_float(
+                normalized.get('total_price'),
+                fallback=quantity * unit_price,
+                context=f"equipment {offer_index}:{index} total_price",
+            )
+            if total_changed or self._is_missing(normalized.get('total_price')):
+                normalized['total_price'] = total_price
+                changed = True
+
+            total_cost += total_price
+            normalized_items.append(normalized)
+
+        calculated_total = total_cost if normalized_items else None
+        return normalized_items, changed, calculated_total
+
+    def _normalize_key_points(self, payload: Dict[str, Any]) -> bool:
+        """📌 Приводит key_points к списку строк."""
+        key_points = payload.get('key_points', [])
+        normalized_points: List[str] = []
+        changed = False
+
+        for index, point in enumerate(key_points):
+            if self._is_missing(point):
+                print(f"⚠️ Пропущена пустая запись key_points[{index}]")
+                changed = True
+                continue
+            text = str(point).strip()
+            if text != point:
+                changed = True
+            normalized_points.append(text)
+
+        payload['key_points'] = normalized_points
+        return changed
+
+    def _normalize_phone_list(self, phones: Any, context: str) -> Tuple[List[Dict[str, Any]], bool]:
+        """📞 Приведение массива телефонов к унифицированному виду."""
+        if not isinstance(phones, list):
+            return [], True
+
+        normalized: List[Dict[str, Any]] = []
+        changed = False
+
+        for index, phone in enumerate(phones):
+            if isinstance(phone, str):
+                number = phone.strip()
+                normalized.append({
+                    'number': number,
+                    'type': 'mobile',
+                    'formatted': number,
+                    'normalized': None,
+                    'extension': None,
+                    'confidence': 0.8,
+                })
+                changed = True
+                print(f"🔧 Преобразован телефон {context}[{index}] из строки")
+            elif isinstance(phone, dict):
+                normalized.append(phone)
+            else:
+                changed = True
+                print(f"⚠️ Пропускаю невалидный телефон {context}[{index}]")
+
+        return normalized, changed
+
+    def _coerce_positive_int(self, value: Any, fallback: int, context: str) -> Tuple[int, bool]:
+        """🔢 Безопасное приведение числа к положительному целому."""
+        original_value = value
+        if self._is_missing(value):
+            print(f"🔧 Установлено значение по умолчанию для {context}: {fallback}")
+            return fallback, True
+
+        try:
+            if isinstance(value, bool):
+                coerced = int(value)
+            elif isinstance(value, (int, float)):
+                coerced = int(round(value))
+            elif isinstance(value, str):
+                cleaned = value.replace(',', '.').strip()
+                coerced = int(round(float(cleaned)))
+            else:
+                raise TypeError
+        except (TypeError, ValueError):
+            print(f"⚠️ Не удалось привести {context}='{original_value}', использую {fallback}")
+            return fallback, True
+
+        if coerced <= 0:
+            coerced = abs(coerced) or fallback
+
+        changed = coerced != original_value
+        if changed:
+            print(f"🔧 Нормализован {context}: {original_value} → {coerced}")
+        return coerced, changed
+
+    def _coerce_non_negative_float(self, value: Any, fallback: float, context: str) -> Tuple[float, bool]:
+        """💰 Приведение значения к неотрицательному float."""
+        original_value = value
+        if self._is_missing(value):
+            return fallback, True
+
+        try:
+            if isinstance(value, bool):
+                coerced = float(int(value))
+            elif isinstance(value, (int, float)):
+                coerced = float(value)
+            elif isinstance(value, str):
+                cleaned = value.replace(',', '.').strip()
+                coerced = float(cleaned)
+            else:
+                raise TypeError
+        except (TypeError, ValueError):
+            print(f"⚠️ Не удалось привести {context}='{original_value}', использую {fallback}")
+            return fallback, True
+
+        if coerced < 0:
+            coerced = abs(coerced)
+
+        changed = coerced != original_value
+        if changed:
+            print(f"🔧 Нормализован {context}: {original_value} → {coerced}")
+        return coerced, changed
+
+    def _coerce_float_in_range(
+        self,
+        value: Any,
+        minimum: float,
+        maximum: float,
+        fallback: Optional[float],
+        context: str,
+    ) -> Tuple[Optional[float], bool]:
+        """📈 Приведение float к допустимому диапазону."""
+        if self._is_missing(value):
+            if fallback is None:
+                return None, False
+            return fallback, True
+
+        candidate, changed = self._coerce_non_negative_float(value, fallback if fallback is not None else 0.0, context)
+        clamped = max(min(candidate, maximum), minimum)
+        if clamped != candidate:
+            changed = True
+            candidate = clamped
+
+        if fallback is None and candidate == 0.0:
+            return None, changed
+
+        return candidate, changed
+
+    def _normalize_optional_string(self, value: Any) -> Optional[str]:
+        """🪄 Приводит значение к строке или None."""
+        if value is None:
+            return None
+        if isinstance(value, str):
+            stripped = value.strip()
+            return stripped or None
+        text = str(value).strip()
+        return text or None
+
+    def _is_missing(self, value: Any) -> bool:
+        """❓ Проверяет, является ли значение отсутствующим."""
+        if value is None:
+            return True
+        if isinstance(value, str):
+            return value.strip() == ''
+        if isinstance(value, (list, tuple, set, dict)):
+            return len(value) == 0
+        return False
     def graceful_degradation_fallback(self, invalid_response: Dict[str, Any]) -> Dict[str, Any]:
         """🛡️ Fallback для невалидных ответов"""
         print("🛡️ Применяем graceful degradation fallback")

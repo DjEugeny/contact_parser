@@ -9,6 +9,7 @@
 import os
 import re
 import ssl
+import sys
 import imaplib
 import email
 import email.message
@@ -25,11 +26,21 @@ from pathlib import Path
 from typing import Dict, List, Optional, Set
 from dotenv import load_dotenv
 from PIL import Image
-from .text_cleaner import EmailTextCleaner
-from .config.paths import CONFIG_DIR, DATA_DIR, LOGS_DIR, ensure_config_structure
+
+
+CURRENT_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = CURRENT_DIR.parent
+
+if str(CURRENT_DIR) not in sys.path:
+    sys.path.insert(0, str(CURRENT_DIR))
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from src.text_cleaner import EmailTextCleaner
+from src.config.paths import CONFIG_DIR, DATA_DIR, LOGS_DIR, ensure_config_structure
 
 # Загружаем переменные окружения
-load_dotenv()
+load_dotenv(PROJECT_ROOT / ".env")
 
 # Настройки подключения
 IMAP_SERVER = os.getenv('IMAP_SERVER')

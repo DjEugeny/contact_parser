@@ -135,6 +135,10 @@ class PostProcessor:
             summary = self._sanitize_summary(llm_result.get('summary'))
             key_points = self._sanitize_key_points(llm_result.get('key_points'))
             business_context = llm_result.get('business_context') or ""
+            filtered_offers = self._filter_commercial_offers(
+                llm_result.get('commercial_offers', []),
+                email_data
+            )
 
             # Формирование финального результата
             processed_result = self._build_final_result(
@@ -144,7 +148,8 @@ class PostProcessor:
                 processed_interactions,
                 summary,
                 key_points,
-                business_context
+                business_context,
+                filtered_offers
             )
             
             # Обновление статистики
@@ -459,6 +464,81 @@ class PostProcessor:
                 break
 
         return sanitized
+
+    def _filter_commercial_offers(self, offers: Any, email_metadata: Optional[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Фильтрация коммерческих предложений по наличию фактических КП."""
+        if not isinstance(offers, list) or not offers:
+            return []
+
+        attachments_count = 0
+        if isinstance(email_metadata, dict):
+            attachments_count = email_metadata.get('attachments_count') or 0
+        if attachments_count <= 0:
+            self.logger.info("   💼 КП отклонены: вложения отсутствуют")
+            return []
+
+        filtered: List[Dict[str, Any]] = []
+        for offer in offers:
+            if not isinstance(offer, dict):
+                continue
+            if not offer.get('found'):
+                continue
+
+            equipment_items = offer.get('equipment_items') or []
+            if not isinstance(equipment_items, list):
+                continue
+
+            normalized_items: List[Dict[str, Any]] = []
+            for item in equipment_items:
+                if not isinstance(item, dict):
+                    continue
+
+                quantity = self._coerce_positive_float(item.get('quantity'))
+                unit_price = self._coerce_positive_float(item.get('unit_price'))
+                total_price = self._coerce_positive_float(item.get('total_price'))
+
+                if quantity is None or unit_price is None:
+                    continue
+
+                if total_price is None:
+                    total_price = round(quantity * unit_price, 2)
+
+                normalized_item = item.copy()
+                normalized_item['quantity'] = int(round(quantity))
+                normalized_item['unit_price'] = unit_price
+                normalized_item['total_price'] = total_price
+                normalized_items.append(normalized_item)
+
+            if not normalized_items:
+                continue
+
+            normalized_offer = offer.copy()
+            normalized_offer['equipment_items'] = normalized_items
+            filtered.append(normalized_offer)
+
+        if not filtered:
+            self.logger.info("   💼 КП отклонены: не обнаружены позиции с ценами")
+
+        return filtered
+
+    def _coerce_positive_float(self, value: Any) -> Optional[float]:
+        """Безопасное преобразование значения в положительное число."""
+        if value in (None, "", [], {}):
+            return None
+
+        try:
+            if isinstance(value, str):
+                cleaned = value.replace(' ', '').replace(',', '.').strip()
+                result = float(cleaned)
+            else:
+                result = float(value)
+        except (TypeError, ValueError):
+            return None
+
+        if result <= 0:
+            return None
+
+        return result
     
     def _build_final_result(self, original_result: Dict[str, Any], 
                           final_contacts: List[Dict[str, Any]],
@@ -466,7 +546,8 @@ class PostProcessor:
                           interactions: List[Dict[str, Any]],
                           summary: Dict[str, Optional[str]],
                           key_points: List[str],
-                          business_context: str) -> Dict[str, Any]:
+                          business_context: str,
+                          commercial_offers: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Формирование финального результата
         
         Args:
@@ -487,6 +568,7 @@ class PostProcessor:
         processed_result['summary'] = summary
         processed_result['key_points'] = key_points
         processed_result['business_context'] = business_context
+        processed_result['commercial_offers'] = commercial_offers
         
         # Добавляем метаданные постобработки
         processed_result['postprocessing_metadata'] = {
@@ -496,7 +578,7 @@ class PostProcessor:
             'organization_mapping': self.organization_mapping,
             'contact_mapping': self.contact_mapping
         }
-        
+
         return processed_result
     
     def _update_stats(self, original_result: Dict[str, Any], 

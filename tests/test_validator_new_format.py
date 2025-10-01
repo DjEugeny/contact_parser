@@ -70,11 +70,13 @@ class TestValidatorNewFormat(unittest.TestCase):
                     "organization_id": 1,
                     "position": "Менеджер по продажам",
                     "email": "m.gogoleva@dna-technology.ru",
+                    "role_in_message": "sender",
                     "phones": [
                         {
                             "type": "main",
                             "number": "+7(495) 640-17-71",
                             "normalized": "+74956401771",
+                            "formatted": "+7 (495) 640-17-71",
                             "original": "+7(495) 640-17-71"
                         }
                     ],
@@ -86,10 +88,31 @@ class TestValidatorNewFormat(unittest.TestCase):
             "business_context": "Запрос коммерческого предложения",
             "summary": {
                 "topic": "Коммерческое предложение",
-                "communication_stage": "Коммерческие переговоры"
+                "product_interest": "Амплификаторы",
+                "communication_stage": "Коммерческие переговоры",
+                "request_type": "Запрос КП"
             },
             "key_points": ["Запрос КП на оборудование"],
             "commercial_offers": [],
+            "interactions": [
+                {
+                    "interaction_local_id": 1,
+                    "contact_id": 101,
+                    "organization_id": 1,
+                    "message_subject": "Re: Коммерческое предложение",
+                    "message_date": "2025-01-27T10:00:00+03:00",
+                    "role_in_message": "sender",
+                    "interaction_type": "requested_quote",
+                    "summary": "Запросил отправку обновлённого КП",
+                    "attachments": [],
+                    "confidence": 0.9,
+                    "human_note": "Проверить наличие вложений",
+                    "participants": {
+                        "actor": "Гоголева Мария",
+                        "audience": ["Центр Лабораторной Диагностики"]
+                    }
+                }
+            ],
             "postprocessing_metadata": {
                 "processed_at": "2025-01-27T19:00:00",
                 "stats": {"organizations_deduplicated": 0},
@@ -102,6 +125,31 @@ class TestValidatorNewFormat(unittest.TestCase):
         self.assertTrue(is_valid, f"Валидация не прошла: {errors}")
         self.assertEqual(len(errors), 0)
         self.assertEqual(corrected, new_format_response)
+
+    def test_interaction_schema_supports_participants(self):
+        """Проверяет поддержку human_note и participants в interactions"""
+        import jsonschema
+
+        interaction = {
+            "interaction_local_id": 1,
+            "contact_id": 5,
+            "organization_id": 2,
+            "role_in_message": "recipient",
+            "interaction_type": "follow_up",
+            "summary": "Ответил на запрос",
+            "attachments": ["reply.pdf"],
+            "confidence": 0.8,
+            "human_note": "Ответ согласован",
+            "participants": {
+                "actor": "Иван Иванов",
+                "audience": ["Менеджер ОМТС", "Финансовый отдел"]
+            }
+        }
+
+        try:
+            jsonschema.validate(interaction, self.validator.interaction_schema)
+        except jsonschema.ValidationError as error:
+            self.fail(f"Interaction с участниками не прошёл валидацию: {error}")
     
     def test_old_format_validation_success(self):
         """Тест успешной валидации старого формата"""
@@ -157,8 +205,11 @@ class TestValidatorNewFormat(unittest.TestCase):
         
         # Контакт с новым форматом телефонов
         contact_with_phones = {
+            "contact_id": 777,
             "name": "Тестовый Контакт",
             "email": "test@example.com",
+            "organization_id": 12,
+            "role_in_message": "sender",
             "phones": [
                 {
                     "type": "main",
@@ -167,8 +218,7 @@ class TestValidatorNewFormat(unittest.TestCase):
                 {
                     "type": "mobile",
                     "number": "+7-916-987-65-43",
-                    "normalized": "+79169876543",
-                    "original": "+7-916-987-65-43"
+                    "normalized": "+79169876543"
                 }
             ],
             "confidence": 0.9

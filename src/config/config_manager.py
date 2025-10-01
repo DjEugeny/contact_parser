@@ -1044,21 +1044,19 @@ class UnifiedConfigManager:
         """🎯 Получение провайдеров в порядке приоритета (лучшие первыми)"""
         providers = self.get_llm_providers()
         
-        # Сортируем по priority_score (убывание) и доступности
-        def sort_key(provider):
-            if provider.name not in self.provider_stats:
-                # Новые провайдеры получают средний приоритет
-                return (0.5, provider.name)
-            
-            stats = self.provider_stats[provider.name]
-            
-            # Недоступные провайдеры идут в конец
-            if not self.is_provider_available(provider.name):
-                return (-1.0, provider.name)
-            
-            return (stats.priority_score, provider.name)
-        
-        sorted_providers = sorted(providers, key=sort_key, reverse=True)
+        def sort_key(provider: LLMProviderConfig):
+            stats = self.provider_stats.get(provider.name)
+            score = stats.priority_score if stats else 1.0
+            availability_flag = 0 if self.is_provider_available(provider.name) else 1
+            # Главный критерий — статический приоритет (меньше значение => выше приоритет)
+            return (
+                availability_flag,
+                provider.priority,
+                -score,
+                provider.name,
+            )
+
+        sorted_providers = sorted(providers, key=sort_key)
         
         self.logger.debug("providers_sorted_by_priority",
                          providers=[p.name for p in sorted_providers[:5]],  # Топ-5
@@ -1528,12 +1526,15 @@ class UnifiedConfigManager:
         request_id = request_id or f"req_{int(time.time() * 1000)}"
         start_time = time.time()
         
+        max_attempts = self._get_provider_retry_attempts(provider.name)
+
         self.logger.info("provider_request_start", 
                         provider=provider.name,
                         request_id=request_id,
-                        model=provider.model)
+                        model=provider.model,
+                        max_attempts=max_attempts)
         
-        for attempt in range(self.retry_config.max_attempts):
+        for attempt in range(max_attempts):
             try:
                 # Проверка доступности провайдера
                 if not self.is_provider_available(provider.name):
@@ -1573,7 +1574,7 @@ class UnifiedConfigManager:
                 self.record_provider_failure(provider.name, str(e), is_rate_limit)
                 
                 # Если это последняя попытка, поднимаем исключение
-                if attempt == self.retry_config.max_attempts - 1:
+                if attempt == max_attempts - 1:
                     raise e
                 
                 # Вычисление задержки с экспоненциальным backoff
@@ -1583,7 +1584,8 @@ class UnifiedConfigManager:
                                provider=provider.name,
                                request_id=request_id,
                                delay=delay,
-                               next_attempt=attempt + 2)
+                               next_attempt=attempt + 2,
+                               max_attempts=max_attempts)
                 
                 await asyncio.sleep(delay)
     
@@ -1675,7 +1677,27 @@ class UnifiedConfigManager:
         }
         
         return result
-    
+
+    def _get_provider_retry_attempts(self, provider_name: str) -> int:
+        """🔁 Возвращает количество попыток для конкретного провайдера."""
+        self._ensure_env_loaded()
+
+        def _safe_int(value: str, fallback: int) -> int:
+            try:
+                parsed = int(value)
+                return max(1, parsed)
+            except (TypeError, ValueError):
+                return fallback
+
+        default_attempts = max(1, self.retry_config.max_attempts)
+
+        if provider_name == "OpenRouter":
+            return _safe_int(os.getenv('OPENROUTER_MAX_ATTEMPTS', '5'), 5)
+        if provider_name == "Replicate":
+            return _safe_int(os.getenv('REPLICATE_MAX_ATTEMPTS', str(default_attempts)), default_attempts)
+
+        return default_attempts
+
     def _calculate_retry_delay(self, attempt: int, is_rate_limit: bool = False) -> float:
         """🔧 Вычисление задержки для retry с экспоненциальным backoff"""
         if is_rate_limit:
@@ -1696,7 +1718,7 @@ class UnifiedConfigManager:
             delay += jitter
         
         return delay
-    
+
     def _classify_error(self, error_message: str) -> str:
         """🔧 Классификация типа ошибки"""
         error_lower = error_message.lower()
@@ -1994,17 +2016,20 @@ class UnifiedConfigManager:
         
         # Фильтруем исключенных провайдеров
         available_providers = [
-            p for p in providers 
+            p for p in providers
             if p.name not in exclude_providers and self.is_provider_available(p.name)
         ]
-        
-        # Сортируем по динамическому приоритету (выше приоритет = раньше в списке)
-        def get_priority_score(provider: LLMProviderConfig) -> float:
-            if provider.name in self.provider_stats:
-                return self.provider_stats[provider.name].priority_score
-            return 1.0  # Базовый приоритет для новых провайдеров
-        
-        available_providers.sort(key=get_priority_score, reverse=True)
+
+        def sort_key(provider: LLMProviderConfig):
+            stats = self.provider_stats.get(provider.name)
+            score = stats.priority_score if stats else 1.0
+            return (
+                provider.priority,
+                -score,
+                provider.name,
+            )
+
+        available_providers.sort(key=sort_key)
         
         return available_providers
     

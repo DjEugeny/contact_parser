@@ -5,7 +5,9 @@
 from __future__ import annotations
 
 import argparse
+import atexit
 import copy
+import io
 import json
 import sys
 import time
@@ -15,6 +17,42 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence
 
 from dotenv import load_dotenv
+
+
+class TeeStream(io.TextIOBase):
+    """🪢 Дублирует поток в файл и консоль."""
+
+    def __init__(self, original: io.TextIOBase, mirror: io.TextIOBase) -> None:
+        self.original = original
+        self.mirror = mirror
+
+    @property
+    def encoding(self) -> str:  # type: ignore[override]
+        return getattr(self.original, "encoding", "utf-8")
+
+    def write(self, data: str) -> int:  # type: ignore[override]
+        text = str(data)
+        self.original.write(text)
+        self.mirror.write(text)
+        self.mirror.flush()
+        return len(text)
+
+    def flush(self) -> None:  # type: ignore[override]
+        self.original.flush()
+        self.mirror.flush()
+
+    def fileno(self) -> int:  # type: ignore[override]
+        return self.original.fileno()
+
+    def isatty(self) -> bool:  # type: ignore[override]
+        return self.original.isatty()
+
+    def readable(self) -> bool:  # type: ignore[override]
+        return False
+
+    def writable(self) -> bool:  # type: ignore[override]
+        return True
+
 
 # Добавляем корень проекта в PYTHONPATH до локальных импортов
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -112,7 +150,7 @@ class APIPipelineValidator:
 
     def __init__(self, args: argparse.Namespace) -> None:
         """🔧 Подготавливает окружение и зависимости."""
-        self.mode = args.mode
+        self.mode = args.mode if args.mode != "interactive" else None
         self.date = args.date
         self.count = args.count
         self.start_date = args.start_date
@@ -124,6 +162,14 @@ class APIPipelineValidator:
         self.emails_dir = EMAILS_DIR
         self.llm_results_dir = LLM_RESULTS_DIR
         self.llm_results_dir.mkdir(parents=True, exist_ok=True)
+
+        self.run_started_at = datetime.now()
+        self.run_id = self.run_started_at.strftime("%Y%m%d_%H%M%S")
+        self._original_stdout = sys.stdout
+        self._original_stderr = sys.stderr
+        self._run_log_handle: Optional[io.TextIOWrapper] = None
+        self._logging_teardown_done = False
+        self._setup_run_logging()
 
         self.loader = ProcessedEmailLoader()
         self.ocr_manager = get_ocr_manager()
@@ -143,6 +189,52 @@ class APIPipelineValidator:
             dry_run=self.dry_run,
         )
 
+    def _setup_run_logging(self) -> None:
+        """🪵 Настраивает файл лога с дублированием консоли."""
+        try:
+            log_dir = self.data_dir / "logs"
+            log_dir.mkdir(parents=True, exist_ok=True)
+
+            mode_suffix = self.mode or "unknown"
+            log_name = f"api_pipeline_validator_{self.run_id}_{mode_suffix}.log"
+            self.run_log_path = log_dir / log_name
+
+            handle = self.run_log_path.open("a", encoding="utf-8")
+            self._run_log_handle = handle
+
+            sys.stdout = TeeStream(self._original_stdout, handle)
+            sys.stderr = TeeStream(self._original_stderr, handle)
+
+            atexit.register(self._teardown_run_logging)
+            print(f"🪵 Лог запуска: {self.run_log_path}")
+        except Exception as exc:  # pylint: disable=broad-except
+            sys.stdout = self._original_stdout
+            sys.stderr = self._original_stderr
+            self._run_log_handle = None
+            print(f"⚠️ Не удалось инициализировать файл лога запуска: {exc}")
+
+    def _teardown_run_logging(self) -> None:
+        """🧹 Восстанавливает стандартные потоки вывода."""
+        if getattr(self, "_logging_teardown_done", False):
+            return
+
+        self._logging_teardown_done = True
+
+        if hasattr(self, "_run_log_handle") and self._run_log_handle:
+            try:
+                self._run_log_handle.flush()
+            except Exception:  # pylint: disable=broad-except
+                pass
+
+        try:
+            sys.stdout = self._original_stdout
+            sys.stderr = self._original_stderr
+        finally:
+            if hasattr(self, "_run_log_handle") and self._run_log_handle:
+                try:
+                    self._run_log_handle.close()
+                except Exception:  # pylint: disable=broad-except
+                    pass
     def _log_provider_status(self) -> None:
         """📊 Логирует статус всех LLM провайдеров"""
         try:
@@ -207,45 +299,13 @@ class APIPipelineValidator:
 
     def _run_first10(self) -> None:
         """🧪 Обрабатывает тестовую выборку из 10 писем с поддержкой параметров count и start."""
-        filenames = self._load_test_dataset()
-        
-        # Применяем фильтр по start если указан
-        if hasattr(self, 'start_date') and self.start_date:
-            # start_date в режиме first10 используется как имя файла для начала
-            start_filename = self.start_date
-            try:
-                start_index = filenames.index(start_filename)
-                filenames = filenames[start_index:]
-                print(f"🎯 Начинаем с файла: {start_filename} (индекс {start_index})")
-            except ValueError:
-                print(f"⚠️ Файл {start_filename} не найден в тестовом датасете, обрабатываем все")
-        
-        # Применяем ограничение по count
-        if hasattr(self, 'count') and self.count and self.count > 0:
-            filenames = filenames[:self.count]
-            print(f"🎯 Ограничиваем обработку до {self.count} писем")
-        
-        print(f"📧 К обработке: {len(filenames)} писем")
-        
-        grouped = self._group_filenames_by_date(filenames)
-
-        for date, date_filenames in grouped.items():
-            email_paths = [self._resolve_email_path(date, name) for name in date_filenames]
-            self._process_date(date, [path for path in email_paths if path is not None])
+        self.process_test_dataset(self.count, self.start_date)
 
     def _run_batch_mode(self) -> None:
         """📦 Обрабатывает первые N писем за указанную дату."""
         if not self.date:
             raise ValueError("Для режима batch требуется параметр --date")
-        if not self.count or self.count <= 0:
-            raise ValueError("Для режима batch требуется положительное значение --count")
-
-        date_dir = self.emails_dir / self.date
-        if not date_dir.exists():
-            raise FileNotFoundError(f"Директория с письмами за {self.date} не найдена: {date_dir}")
-
-        email_paths = sorted(date_dir.glob("email_*.json"))[: self.count]
-        self._process_date(self.date, email_paths)
+        self.process_date(self.date, self.count)
 
     def _run_range_mode(self) -> None:
         """📆 Обрабатывает письма в диапазоне дат."""
@@ -294,44 +354,67 @@ class APIPipelineValidator:
         print(f"🔄 Запуск ResilientEmailProcessor для {len(email_files)} писем")
         resilient_result = self.resilient_processor.process_emails_with_retry(email_files)
         
-        # Обрабатываем результаты устойчивого процессора
+        # Объединяем результаты по письмам, чтобы не плодить артефакты при повторах
+        consolidated_results: Dict[str, Dict[str, Any]] = {}
         for result in resilient_result.get('results', []):
-            if result and isinstance(result, dict):
-                # Создаем entry для статистики
-                entry = {
-                    'filename': result.get('source_file', 'unknown'),
-                    'success': result.get('success', False),
-                    'processing_time_seconds': result.get('processing_time', 0),
-                    'organizations': len(result.get('organizations', [])),
-                    'contacts': len(result.get('contacts', [])),
-                    'commercial_offers': len(result.get('commercial_offers', [])),
-                    'interactions': len(result.get('interactions', [])),
-                    'errors': []
-                }
-                
-                if not entry['success']:
-                    entry['errors'].append(result.get('error', 'Unknown error'))
-                
-                stats.register_email(entry)
-                
-                # Регистрируем результат в генераторе отчетов
-                email_path = Path(result.get('source_file', ''))
-                if email_path.exists():
-                    try:
-                        with email_path.open("r", encoding="utf-8") as handle:
-                            email_data = json.load(handle)
-                        metadata = self._build_email_metadata(email_data, email_path)
-                        
-                        report_generator.register_email_result(
-                            filename=email_path.name,
-                            email_metadata=metadata,
-                            llm_raw=result.get('raw_llm_result', {}),
-                            processed=result,
-                            processing_time_seconds=entry['processing_time_seconds'],
-                            errors=entry['errors'],
-                        )
-                    except Exception as e:
-                        print(f"⚠️ Ошибка при регистрации результата для {email_path.name}: {e}")
+            if not isinstance(result, dict):
+                continue
+            source_file = result.get('source_file')
+            if not source_file:
+                continue
+            consolidated_results[source_file] = result
+
+        for source_file, result in consolidated_results.items():
+            processing_time = (
+                result.get('processing_time_seconds')
+                or result.get('processing_time')
+                or 0
+            )
+            errors_raw = result.get('errors') or []
+            if isinstance(errors_raw, str):
+                errors_list = [errors_raw]
+            else:
+                errors_list = list(errors_raw)
+
+            filename_only = Path(source_file).name
+            entry = {
+                'filename': filename_only,
+                'success': result.get('success', False),
+                'processing_time_seconds': processing_time,
+                'organizations': len(result.get('organizations', [])),
+                'contacts': len(result.get('contacts', [])),
+                'commercial_offers': len(result.get('commercial_offers', [])),
+                'interactions': len(result.get('interactions', [])),
+                'errors': errors_list,
+            }
+
+            stats.register_email(entry)
+
+            email_path = Path(source_file)
+            if not email_path.exists():
+                potential_path = self.project_root / source_file
+                if potential_path.exists():
+                    email_path = potential_path
+
+            if not email_path.exists():
+                print(f"⚠️ Не удалось найти файл письма для отчёта: {source_file}")
+                continue
+
+            try:
+                with email_path.open("r", encoding="utf-8") as handle:
+                    email_data = json.load(handle)
+                metadata = self._build_email_metadata(email_data, email_path)
+
+                report_generator.register_email_result(
+                    filename=email_path.name,
+                    email_metadata=metadata,
+                    llm_raw=result.get('raw_llm_result', {}),
+                    processed=result,
+                    processing_time_seconds=entry['processing_time_seconds'],
+                    errors=entry['errors'],
+                )
+            except Exception as e:
+                print(f"⚠️ Ошибка при регистрации результата для {email_path.name}: {e}")
 
         # Логируем статистику устойчивого процессора
         resilient_stats = resilient_result.get('statistics', {})
@@ -582,6 +665,10 @@ class APIPipelineValidator:
             return False
         if processed.get("error"):
             return False
+        if processed.get("validation_error"):
+            return False
+        if processed.get("processing_strategy") == "fallback":
+            return False
         has_entities = bool(
             processed.get("organizations")
             or processed.get("contacts")
@@ -657,6 +744,50 @@ class APIPipelineValidator:
                 summary_path=str(summary_path),
             )
     
+    def process_test_dataset(self, count: Optional[int] = None, start_filename: Optional[str] = None) -> None:
+        """🧪 Обрабатывает тестовую выборку из датасета с опциями."""
+        filenames = self._load_test_dataset()
+        
+        if start_filename:
+            try:
+                start_index = filenames.index(start_filename)
+                filenames = filenames[start_index:]
+                print(f"🎯 Начинаем с файла: {start_filename} (индекс {start_index})")
+            except ValueError:
+                print(f"⚠️ Файл {start_filename} не найден в тестовом датасете, обрабатываем все")
+        
+        if count is not None:
+            filenames = filenames[:count]
+            print(f"🎯 Ограничиваем обработку до {count} писем")
+        
+        print(f"📧 К обработке: {len(filenames)} писем")
+        
+        grouped = self._group_filenames_by_date(filenames)
+    
+        for date, date_filenames in grouped.items():
+            email_paths = [self._resolve_email_path(date, name) for name in date_filenames]
+            self._process_date(date, [path for path in email_paths if path is not None])
+    
+    
+    def process_date(self, date: str, count: Optional[int] = None, exclude_test: bool = False) -> None:
+        """📦 Обрабатывает письма за конкретную дату с опциями count и exclude_test."""
+        date_dir = self.emails_dir / date
+        if not date_dir.exists():
+            raise FileNotFoundError(f"Директория с письмами за {date} не найдена: {date_dir}")
+        
+        all_paths = sorted(date_dir.glob("email_*.json"))
+        
+        if exclude_test:
+            test_filenames = set(self._load_test_dataset())
+            all_paths = [p for p in all_paths if p.name not in test_filenames]
+            print(f"📧 После исключения тестовых файлов: {len(all_paths)} писем")
+        
+        if count is not None:
+            all_paths = all_paths[:count]
+        
+        self._process_date(date, all_paths)
+    
+    
     def process_single_email(self, email_file: str, simplified: bool = False) -> Dict[str, Any]:
         """
         🤖 Обработка одного письма для ResilientEmailProcessor
@@ -682,7 +813,7 @@ class APIPipelineValidator:
                     if path.exists():
                         email_path = path
                         break
-                
+                    
                 if not email_path.exists():
                     return {
                         'success': False,
@@ -723,7 +854,7 @@ class APIPipelineValidator:
                 'source_file': email_file,
                 'validation_error': True
             }
-    
+        
     def _extract_date_from_filename(self, filename: str) -> str:
         """Извлечение даты из имени файла"""
         # Пытаемся извлечь дату из имени файла типа email_001_20250729_...
@@ -750,9 +881,102 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
 
 def main(argv: Optional[Sequence[str]] = None) -> None:
     """🏃 Точка входа CLI."""
-    args = parse_args(argv)
-    validator = APIPipelineValidator(args)
-    validator.run()
+    if argv is None:
+        argv = sys.argv[1:]
+    if len(argv) == 0:
+        run_interactive_menu()
+    else:
+        args = parse_args(argv)
+        validator = APIPipelineValidator(args)
+        validator.run()
+
+def run_interactive_menu() -> None:
+    """🖥️ Интерактивное меню для API Pipeline Validator"""
+    from argparse import Namespace
+    
+    dummy_args = Namespace(
+        mode="interactive",
+        date=None,
+        count=None,
+        start_date=None,
+        end_date=None,
+        dry_run=False
+    )
+    validator = APIPipelineValidator(dummy_args)
+    
+    while True:
+        print("\n" + "=" * 50)
+        print("МЕНЮ API PIPELINE VALIDATOR")
+        print("=" * 50)
+        print("1. Стартовый датасет 2025-07-29")
+        print("2. Выбор конкретной даты из data/emails")
+        print("3. Выход")
+        print("=" * 50)
+        choice = input("Выберите опцию (1-3): ").strip()
+        
+        if choice == "3":
+            print("👋 До свидания!")
+            break
+        
+        elif choice == "1":
+            print("\n--- Подменю для датасета 2025-07-29 ---")
+            print("1. Режим first10 (первые 10 из тестового датасета)")
+            print("2. Оставшиеся письма за 2025-07-29 (исключая first10)")
+            sub_choice = input("Выберите подопцию (1-2): ").strip()
+            
+            if sub_choice == "1":
+                print("\n🚀 Запуск first10...")
+                validator.process_test_dataset(count=10)
+            elif sub_choice == "2":
+                print("\n🚀 Запуск оставшихся писем за 2025-07-29...")
+                validator.process_date("2025-07-29", exclude_test=True)
+            else:
+                print("❌ Неверный выбор")
+                continue
+        
+        elif choice == "2":
+            dates = sorted([d.name for d in validator.emails_dir.iterdir() if d.is_dir()])
+            if not dates:
+                print("❌ Нет доступных директорий с письмами в data/emails")
+                continue
+            
+            print("\nДоступные даты:")
+            for i, date in enumerate(dates, 1):
+                print(f"{i}. {date}")
+            
+            try:
+                date_idx = int(input("Выберите дату (номер): ")) - 1
+                if 0 <= date_idx < len(dates):
+                    selected_date = dates[date_idx]
+                else:
+                    print("❌ Неверный номер")
+                    continue
+            except ValueError:
+                print("❌ Введите число")
+                continue
+            
+            print(f"\n--- Подменю для {selected_date} ---")
+            print("1. Первые 3 письма")
+            print("2. Первые 10 писем")
+            print("3. Все письма за дату")
+            sub_choice = input("Выберите подопцию (1-3): ").strip()
+            
+            count = None
+            if sub_choice == "1":
+                count = 3
+            elif sub_choice == "2":
+                count = 10
+            elif sub_choice == "3":
+                count = None
+            else:
+                print("❌ Неверный выбор")
+                continue
+            
+            print(f"\n🚀 Запуск обработки {'всех' if count is None else f'{count} первых'} писем за {selected_date}...")
+            validator.process_date(selected_date, count=count)
+        
+        else:
+            print("❌ Неверный выбор. Попробуйте снова.")
 
 
 if __name__ == "__main__":

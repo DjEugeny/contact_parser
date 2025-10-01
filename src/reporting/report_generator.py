@@ -62,6 +62,8 @@ class ReportGenerator:
         slug = self._build_slug(filename)
         timestamp_suffix = datetime.now().strftime("%H%M%S")
 
+        self._cleanup_previous_artifacts(slug)
+
         raw_path = self.run_dir / f"{slug}_{self.run_id}_{timestamp_suffix}_raw.json"
         processed_path = self.run_dir / f"{slug}_{self.run_id}_{timestamp_suffix}_processed.json"
         markdown_path = self.run_dir / f"{slug}_{self.run_id}_{timestamp_suffix}.md"
@@ -118,6 +120,25 @@ class ReportGenerator:
         )
 
         return entry
+
+    def _cleanup_previous_artifacts(self, slug: str) -> None:
+        """🧹 Удаляет артефакты повтора для одного письма в рамках запуска."""
+        patterns = [
+            f"{slug}_{self.run_id}_*_raw.json",
+            f"{slug}_{self.run_id}_*_processed.json",
+            f"{slug}_{self.run_id}_*.md",
+        ]
+        for pattern in patterns:
+            for path in self.run_dir.glob(pattern):
+                try:
+                    path.unlink()
+                except Exception as cleanup_error:  # pylint: disable=broad-except
+                    self.logger.warning(
+                        "report_generator_cleanup_failed",
+                        message="⚠️ Не удалось удалить старый артефакт",
+                        path=str(path),
+                        error=str(cleanup_error),
+                    )
 
     def finalize(self, run_stats: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """🏁 Завершает формирование отчётов и выпускает сводки."""
@@ -332,6 +353,11 @@ class ReportGenerator:
         if errors:
             diagnostics.append("- **Ошибки:**")
             diagnostics.extend([f"  - {err}" for err in errors])
+        
+        original_error = processed.get('original_error')
+        if original_error:
+            diagnostics.append(f"- **Исходная ошибка (fallback):** {original_error}")
+        
         provider = llm_raw.get("provider") or llm_raw.get("provider_used") or processed.get("provider_used")
         if provider:
             diagnostics.append(f"- **Провайдер:** {provider}")
@@ -358,6 +384,15 @@ class ReportGenerator:
         lines.append("| ID | Название | ИНН | Город | Адрес | Сайт | Emails | Телефоны |")
         lines.append("|----|----------|-----|-------|-------|------|--------|----------|")
         for org in organizations:
+            phone_values: List[str] = []
+            for phone in org.get("phones", []):
+                if isinstance(phone, dict):
+                    number = phone.get("number") or phone.get("formatted") or phone.get("original") or "—"
+                    phone_type = phone.get("type") or "main"
+                    phone_values.append(f"{phone_type}: {number}")
+                else:
+                    phone_values.append(str(phone))
+            phones_display = ", ".join(phone_values) if phone_values else "—"
             lines.append(
                 "| {oid} | {name} | {inn} | {city} | {address} | {website} | {emails} | {phones} |".format(
                     oid=org.get("organization_id", "—"),
@@ -367,7 +402,7 @@ class ReportGenerator:
                     address=org.get("address", "—"),
                     website=org.get("website", "—"),
                     emails=", ".join(org.get("emails", [])) if org.get("emails") else "—",
-                    phones=", ".join(org.get("phones", [])) if org.get("phones") else "—",
+                    phones=phones_display,
                 )
             )
         return lines

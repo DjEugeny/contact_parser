@@ -3852,10 +3852,8 @@ def main():
         print(f"❌ Критическая ошибка при инициализации: {e}")
         return
         
-    if not tester.vision_client:
-        print("\n⚠️ Пожалуйста, настройте Google Cloud Vision и перезапустите скрипт.")
-        return
-        
+    print("\n⚠️ Google Cloud Vision будет инициализирован при необходимости. Если возникнут ошибки аутентификации, проверьте переменную GOOGLE_APPLICATION_CREDENTIALS или файл service_account.json.")
+    
     available_dates = tester.get_available_dates()
     if not available_dates:
         print("🤷 В папке 'data/attachments' не найдено папок с датами (YYYY-MM-DD).")

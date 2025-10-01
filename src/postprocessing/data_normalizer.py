@@ -10,9 +10,11 @@ Created: 2025-01-27
 
 import re
 import logging
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Optional, Tuple
 
 from .text_normalizer import normalize_first_word_only
+from .smart_contact_enricher import SmartContactEnricher
+from ..utils.city_registry import CityRegistry
 
 logger = logging.getLogger(__name__)
 
@@ -46,6 +48,10 @@ class DataNormalizer:
 
         # Простая нормализация регистра - только первое слово заглавное
         self.logger.info("📝 Используем простую нормализацию: только первое слово с заглавной буквы")
+
+        # Помощник для доменов/сайтов
+        self.smart_enricher = SmartContactEnricher()
+        self.city_registry = CityRegistry()
     
     def normalize_contacts(self, contacts: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """Нормализация списка контактов
@@ -111,19 +117,22 @@ class DataNormalizer:
             Dict: Нормализованный контакт
         """
         normalized = contact.copy()
-        
+
         # 1. Нормализация телефонов в новом формате phones[]
         normalized = self._normalize_contact_phones(normalized)
-        
+
         # 2. Нормализация email
         normalized = self._normalize_contact_email(normalized)
-        
+
         # 3. Нормализация имени
         normalized = self._normalize_contact_name(normalized)
         
         # 4. Нормализация должности
         normalized = self._normalize_contact_position(normalized)
         
+        # 4. Нормализация города через реестр
+        normalized = self._normalize_city_field(normalized)
+
         return normalized
     
     def _normalize_single_organization(self, organization: Dict[str, Any]) -> Dict[str, Any]:
@@ -138,48 +147,8 @@ class DataNormalizer:
         normalized = organization.copy()
         
         # 1. Нормализация массива телефонов
-        if 'phones' in normalized and normalized['phones']:
-            normalized_phones = []
-            phones_list = normalized['phones']
-            
-            # Если phones - это список, обрабатываем каждый элемент
-            if isinstance(phones_list, list):
-                for phone in phones_list:
-                    if isinstance(phone, str) and phone.strip():
-                        original_phone = phone.strip()
-                        if self.phone_normalizer_available:
-                            # Используем новый метод для обработки множественных номеров
-                            multiple_results = self.phone_normalizer.normalize_multiple_phones(original_phone)
-                            for result in multiple_results:
-                                normalized_digits = result.get('normalized') or ''
-                                normalized_formatted = result.get('formatted') or ''
-                                value = self._ensure_plus_format(normalized_digits) or self._ensure_plus_format(normalized_formatted)
-                                if value:
-                                    normalized_phones.append(value)
-                        else:
-                            # Fallback: простая нормализация без phone_normalizer
-                            normalized_phone = self._simple_phone_cleanup(original_phone)
-                            if normalized_phone:
-                                normalized_phones.append(normalized_phone)
-            # Если phones - это строка, преобразуем в список
-            elif isinstance(phones_list, str) and phones_list.strip():
-                original_phone = phones_list.strip()
-                if self.phone_normalizer_available:
-                    multiple_results = self.phone_normalizer.normalize_multiple_phones(original_phone)
-                    for result in multiple_results:
-                        normalized_digits = result.get('normalized') or ''
-                        normalized_formatted = result.get('formatted') or ''
-                        value = self._ensure_plus_format(normalized_digits) or self._ensure_plus_format(normalized_formatted)
-                        if value:
-                            normalized_phones.append(value)
-                else:
-                    # Fallback: простая нормализация без phone_normalizer
-                    normalized_phone = self._simple_phone_cleanup(original_phone)
-                    if normalized_phone:
-                        normalized_phones.append(normalized_phone)
-            
-            normalized['phones'] = normalized_phones
-        
+        normalized = self._normalize_organization_phones(normalized)
+
         # 2. Нормализация массива emails
         if 'emails' in normalized and normalized['emails']:
             normalized_emails = []
@@ -198,8 +167,254 @@ class DataNormalizer:
                 self.logger.debug(f"Нормализация организации: '{original_name}' → '{normalized_name}'")
             normalized['name'] = normalized_name
         
+        normalized = self._normalize_organization_city(normalized)
+
+        # Попытка обогатить веб-сайт по корпоративным email
+        normalized = self._enrich_organization_website(normalized)
+
         return normalized
+
+    def _normalize_city_field(self, contact: Dict[str, Any]) -> Dict[str, Any]:
+        original_city = contact.get('city')
+        city_info = self.city_registry.normalize_city_value(
+            original_city,
+            fallback_region=contact.get('region'),
+        )
+        if not city_info:
+            return contact
+
+        contact['city'] = city_info['city']
+        city_enriched = not original_city or not self.city_registry.is_same_city(
+            city_info['city'],
+            original_city,
+        )
+
+        if city_enriched:
+            contact['region'] = city_info['region']
+            contact['timezone'] = city_info['timezone']
+            contact['city_validation_source'] = 'city_registry'
+        else:
+            if not contact.get('region'):
+                contact.pop('region', None)
+            if not contact.get('timezone'):
+                contact.pop('timezone', None)
+            contact.pop('city_validation_source', None)
+
+        return contact
+
+    def _normalize_organization_city(self, organization: Dict[str, Any]) -> Dict[str, Any]:
+        original_city = organization.get('city')
+        original_region = organization.get('region')
+        original_federal = organization.get('federal_district')
+        original_timezone = organization.get('timezone')
+        original_source = organization.get('city_validation_source')
+        original_region_type = organization.get('region_type')
+
+        city_info = self.city_registry.normalize_city_value(
+            original_city,
+            fallback_region=original_region,
+        )
+        if not city_info:
+            return organization
+
+        organization['city'] = city_info['city']
+        city_enriched = not original_city or not self.city_registry.is_same_city(
+            city_info['city'],
+            original_city,
+        )
+
+        if city_enriched:
+            organization['region'] = city_info['region']
+            organization['region_type'] = city_info.get('region_type')
+            organization['federal_district'] = city_info['federal_district']
+            organization['timezone'] = city_info['timezone']
+            organization['city_validation_source'] = 'city_registry'
+        else:
+            if original_region is None:
+                organization.pop('region', None)
+            else:
+                organization['region'] = original_region
+
+            if original_region_type is None:
+                organization.pop('region_type', None)
+            else:
+                organization['region_type'] = original_region_type
+
+            if original_federal is None:
+                organization.pop('federal_district', None)
+            else:
+                organization['federal_district'] = original_federal
+
+            if original_timezone is None:
+                organization.pop('timezone', None)
+            else:
+                organization['timezone'] = original_timezone
+
+            if original_source is None:
+                organization.pop('city_validation_source', None)
+            else:
+                organization['city_validation_source'] = original_source
+
+        return organization
+
+    def _enrich_organization_website(self, organization: Dict[str, Any]) -> Dict[str, Any]:
+        website = organization.get('website')
+        emails = organization.get('emails') or []
+        if website:
+            return organization
+
+        inferred_website = self.smart_enricher.infer_website_from_emails(emails)
+        if inferred_website:
+            organization['website'] = inferred_website
+            organization['website_confidence'] = 0.8
+            organization['website_source'] = 'organization_email_domain'
+
+        return organization
     
+    def _normalize_organization_phones(self, organization: Dict[str, Any]) -> Dict[str, Any]:
+        phones_source = organization.get('phones')
+        if not phones_source and organization.get('phone'):
+            phones_source = [organization['phone']]
+
+        if not phones_source:
+            organization['phones'] = []
+            organization.pop('phone', None)
+            return organization
+
+        if not isinstance(phones_source, list):
+            phones_iterable = [phones_source]
+        else:
+            phones_iterable = phones_source
+
+        normalized_phones: List[Dict[str, Any]] = []
+        seen: set[Tuple[str, Optional[str]]] = set()
+
+        for entry in phones_iterable:
+            for phone_record in self._normalize_phone_entry(entry):
+                normalized_value = phone_record.get('normalized') or self._ensure_plus_format(
+                    phone_record.get('number', '')
+                )
+                dedup_key = (normalized_value, phone_record.get('extension'))
+                if dedup_key in seen:
+                    continue
+                seen.add(dedup_key)
+                if normalized_value:
+                    phone_record['normalized'] = normalized_value
+                normalized_phones.append(phone_record)
+
+        organization['phones'] = normalized_phones
+        organization.pop('phone', None)
+        return organization
+
+    def _normalize_phone_entry(self, entry: Any) -> List[Dict[str, Any]]:
+        if entry is None:
+            return []
+
+        metadata: Dict[str, Any] = {}
+        raw_phone: str = ''
+
+        if isinstance(entry, dict):
+            raw_phone = str(entry.get('number') or entry.get('value') or entry.get('raw') or '').strip()
+            metadata = {
+                key: value
+                for key, value in entry.items()
+                if key not in {'number', 'value', 'raw', 'normalized', 'original'}
+            }
+        elif isinstance(entry, str):
+            raw_phone = entry.strip()
+        else:
+            return []
+
+        if not raw_phone:
+            return []
+
+        if entry and isinstance(entry, dict):
+            extension = entry.get('extension')
+            if extension:
+                metadata.setdefault('extension', extension)
+
+        return self._normalize_phone_variants(raw_phone, metadata)
+
+    def _normalize_phone_variants(self, raw_phone: str, metadata: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
+        metadata = metadata or {}
+        variants: List[Dict[str, Any]] = []
+
+        if self.phone_normalizer_available:
+            try:
+                variants = self.phone_normalizer.normalize_multiple_phones(raw_phone)
+            except Exception as exc:
+                self.logger.error(f"Ошибка нормализации телефона '{raw_phone}': {exc}")
+
+        if not variants:
+            cleaned = self._simple_phone_cleanup(raw_phone)
+            if not cleaned:
+                return []
+            variants = [{
+                'original': raw_phone,
+                'formatted': cleaned,
+                'normalized': ''.join(filter(str.isdigit, cleaned)) or cleaned,
+                'type': metadata.get('type') or 'main',
+                'extension': metadata.get('extension') or '',
+                'confidence': 0.0,
+            }]
+
+        results: List[Dict[str, Any]] = []
+        seen: set[Tuple[str, Optional[str]]] = set()
+
+        for variant in variants:
+            formatted = (variant.get('formatted') or '').strip()
+            normalized_digits = ''.join(filter(str.isdigit, variant.get('normalized') or ''))
+
+            if not formatted:
+                formatted = self._simple_phone_cleanup(raw_phone)
+
+            normalized_value = self._ensure_plus_format(normalized_digits or formatted)
+            if not normalized_value:
+                continue
+
+            display_number = formatted or normalized_value
+            extension = metadata.get('extension') or variant.get('extension')
+            if extension:
+                if 'доб' not in display_number:
+                    display_number = f"{display_number} (доб. {extension})"
+
+            dedup_key = (normalized_value, extension or None)
+            if dedup_key in seen:
+                continue
+            seen.add(dedup_key)
+
+            phone_type = metadata.get('type') or variant.get('type') or 'main'
+            if isinstance(phone_type, str):
+                lowered_type = phone_type.lower()
+                if lowered_type.startswith('неизвест') or lowered_type == 'unknown':
+                    phone_type = 'main'
+
+            record: Dict[str, Any] = {
+                'number': display_number,
+                'normalized': normalized_value,
+                'original': variant.get('original') or raw_phone,
+                'type': phone_type,
+            }
+
+            if extension:
+                record['extension'] = extension
+
+            confidence = variant.get('confidence')
+            if confidence is not None:
+                try:
+                    record['confidence'] = round(float(confidence), 3)
+                except (TypeError, ValueError):
+                    pass
+
+            for key, value in metadata.items():
+                if key in {'type', 'extension'}:
+                    continue
+                record.setdefault(key, value)
+
+            results.append(record)
+
+        return results
+
     def _normalize_contact_phones(self, contact: Dict[str, Any]) -> Dict[str, Any]:
         """Нормализация телефонов контакта в новом формате phones[]
         

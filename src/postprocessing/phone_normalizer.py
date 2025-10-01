@@ -97,26 +97,34 @@ class PhoneNormalizer:
         # Ищем случаи типа "+7 (495) 933 71 47 (48)" где (48) - это второй номер
         
         # Сначала проверяем на наличие нескольких номеров в скобках
-        bracket_pattern = r'\+?7?\s*\(?\d{3}\)?\s*\d{3}[-\s]*\d{2}[-\s]*\d{2}\s*\((\d{2})\)'
-        match = re.search(bracket_pattern, phone)
-        
+        phone_stripped = phone.strip()
+        base_without_extension, extension = self._extract_extension(phone_stripped)
+        match = re.search(r'(.*?)(\((\d{2,})\))\s*$', base_without_extension)
+
         if match:
-            # Извлекаем основной номер и дополнительный
-            base_phone = re.sub(r'\s*\(\d{2}\)', '', phone)
-            additional_digits = match.group(1)
-            
-            # Создаем второй номер, заменив последние две цифры
-            base_digits = re.sub(r'[^\d]', '', base_phone)
-            if len(base_digits) >= 11:
-                second_phone_digits = base_digits[:-2] + additional_digits
-                # Форматируем второй номер
-                if second_phone_digits.startswith('7'):
-                    second_phone = f"+7 ({second_phone_digits[1:4]}) {second_phone_digits[4:7]}-{second_phone_digits[7:9]}-{second_phone_digits[9:11]}"
+            base_without_brackets = match.group(1).rstrip(' ,;')
+            additional_digits = match.group(3)
+            base_without_brackets = re.sub(r'\s{2,}', ' ', base_without_brackets).strip()
+
+            base_digits = re.sub(r'[^\d]', '', base_without_brackets)
+            if len(base_digits) >= len(additional_digits):
+                second_phone_digits = base_digits[:-len(additional_digits)] + additional_digits
+                if len(second_phone_digits) == 11 and second_phone_digits.startswith('7'):
+                    second_phone = f"+{second_phone_digits}"
+                elif second_phone_digits.startswith('+'):
+                    second_phone = second_phone_digits
                 else:
                     second_phone = second_phone_digits
-                
-                return [base_phone, second_phone]
-        
+
+                if extension:
+                    second_phone = f"{second_phone}, доб.{extension}"
+
+                primary_phone = base_without_brackets
+                if extension:
+                    primary_phone = f"{primary_phone}, доб.{extension}"
+
+                return [primary_phone, second_phone]
+
         # Если не найдено несколько номеров, возвращаем исходный
         return [phone]
     
