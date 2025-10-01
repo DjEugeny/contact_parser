@@ -21,4 +21,6 @@
 - [x] Реализованы нормализация, scoring и fuzzy-дедуп по `11_DEDUP_ENRICH_RULES.md` с переиспользованием модулей `src/postprocessing`
 - [x] Рефакторинг `src/core/extractor.py` и валидаторов под новый JSON-шаблон с `role_in_message`, `interactions[]`, фильтрацией КП`
 - [x] Обновлён промпт `prompts/unified_contact_extraction_structured.txt` согласно `09_PROMPTS_AND_VALIDATION.md`
+- [x] Реализован санитайзер валидатора и рефакторинг постпроцессинга (см. `memory-bank/reports/implementation_postprocessing_sanitizer_2025-10-01.md`)
+- [x] Типизация строковых полей и фикса `simplified` стратегии (см. `memory-bank/reports/implementation_simplified_phone_sanitizer_2025-10-01.md`)
 - [x] Создан план работ `memory-bank/reports/plan_mini_crm_mvp_2025-09-28.md`

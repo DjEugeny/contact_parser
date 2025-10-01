@@ -8,6 +8,7 @@
 - **API** (FastAPI, Python) — REST/HTTP для фронтенда и интеграций, генерация XLSX.
 - **Worker** (Celery/RQ) — очереди задач: импорт, OCR, LLM, дедуп, напоминания.
 - **DB** (MySQL 8) — хранилище сущностей и индексов.
+Для подробных правил проектирования схемы, совместимой с MySQL и PostgreSQL, см. документ [15_DB_MIGRATION_SAFE_SCHEMA.md](15_DB_MIGRATION_SAFE_SCHEMA.md).
 - **Storage** — папки `emails/` (JSON/EML) и `attachments/` на VPS.
 - **Web** (React + PWA) — интерфейс: поиск, карточки, реестр КП, модерация.
 

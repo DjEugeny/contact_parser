@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 import json
+import os
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -33,6 +34,11 @@ class ReportGenerator:
 
         self.run_dir = self.base_dir / date
         self.run_dir.mkdir(parents=True, exist_ok=True)
+
+        self.raw_dir = self.run_dir / "raw"
+        self.raw_dir.mkdir(exist_ok=True)
+        self.reports_dir = self.run_dir / "reports"
+        self.reports_dir.mkdir(exist_ok=True)
 
         self.summary_path = self.run_dir / f"_summary_{self.run_id}.json"
         self.summary_md_path = self.run_dir / f"_summary_{self.run_id}.md"
@@ -64,9 +70,9 @@ class ReportGenerator:
 
         self._cleanup_previous_artifacts(slug)
 
-        raw_path = self.run_dir / f"{slug}_{self.run_id}_{timestamp_suffix}_raw.json"
+        raw_path = self.raw_dir / f"{slug}_{self.run_id}_{timestamp_suffix}_raw.json"
         processed_path = self.run_dir / f"{slug}_{self.run_id}_{timestamp_suffix}_processed.json"
-        markdown_path = self.run_dir / f"{slug}_{self.run_id}_{timestamp_suffix}.md"
+        markdown_path = self.reports_dir / f"{slug}_{self.run_id}_{timestamp_suffix}.md"
 
         self.logger.debug(
             "report_generator_prepare_email",
@@ -100,9 +106,9 @@ class ReportGenerator:
             "commercial_offers": len(processed.get("commercial_offers", [])),
             "interactions": len(processed.get("interactions", [])),
             "processing_time_seconds": processing_time_seconds,
-            "raw_json": raw_path.name,
+            "raw_json": str(Path("raw") / raw_path.name),
             "processed_json": processed_path.name,
-            "markdown": markdown_path.name,
+            "markdown": str(Path("reports") / markdown_path.name),
             "errors": errors,
             "processing_strategy": processing_strategy,
             "fallback_reason": fallback_reason,
@@ -123,22 +129,16 @@ class ReportGenerator:
 
     def _cleanup_previous_artifacts(self, slug: str) -> None:
         """🧹 Удаляет артефакты повтора для одного письма в рамках запуска."""
-        patterns = [
-            f"{slug}_{self.run_id}_*_raw.json",
-            f"{slug}_{self.run_id}_*_processed.json",
-            f"{slug}_{self.run_id}_*.md",
-        ]
-        for pattern in patterns:
-            for path in self.run_dir.glob(pattern):
-                try:
-                    path.unlink()
-                except Exception as cleanup_error:  # pylint: disable=broad-except
-                    self.logger.warning(
-                        "report_generator_cleanup_failed",
-                        message="⚠️ Не удалось удалить старый артефакт",
-                        path=str(path),
-                        error=str(cleanup_error),
-                    )
+        raw_pattern = f"{slug}_{self.run_id}_*_raw.json"
+        processed_pattern = f"{slug}_{self.run_id}_*_processed.json"
+        report_pattern = f"{slug}_{self.run_id}_*.md"
+
+        for path in self.raw_dir.glob(raw_pattern):
+            self._safe_unlink(path)
+        for path in self.run_dir.glob(processed_pattern):
+            self._safe_unlink(path)
+        for path in self.reports_dir.glob(report_pattern):
+            self._safe_unlink(path)
 
     def finalize(self, run_stats: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """🏁 Завершает формирование отчётов и выпускает сводки."""
@@ -235,6 +235,8 @@ class ReportGenerator:
         try:
             with path.open("w", encoding="utf-8") as handle:
                 json.dump(payload, handle, ensure_ascii=False, indent=2)
+                self._flush_and_sync(handle)
+            self._sync_directory(path.parent)
         except Exception as error:
             self.logger.error(
                 "report_generator_json_write_failed",
@@ -251,6 +253,8 @@ class ReportGenerator:
             fallback_path = self.fallback_dir / filename
             with fallback_path.open("w", encoding="utf-8") as handle:
                 json.dump(payload, handle, ensure_ascii=False, indent=2)
+                self._flush_and_sync(handle)
+            self._sync_directory(fallback_path.parent)
             self.logger.warning(
                 "report_generator_json_fallback_saved",
                 message="⚠️ JSON сохранён в fallback",
@@ -269,6 +273,8 @@ class ReportGenerator:
         try:
             with path.open("w", encoding="utf-8") as handle:
                 handle.write(content)
+                self._flush_and_sync(handle)
+            self._sync_directory(path.parent)
         except Exception as error:
             self.logger.error(
                 "report_generator_text_write_failed",
@@ -285,6 +291,8 @@ class ReportGenerator:
             fallback_path = self.fallback_dir / filename
             with fallback_path.open("w", encoding="utf-8") as handle:
                 handle.write(content)
+                self._flush_and_sync(handle)
+            self._sync_directory(fallback_path.parent)
             self.logger.warning(
                 "report_generator_text_fallback_saved",
                 message="⚠️ Текст сохранён в fallback",
@@ -297,6 +305,36 @@ class ReportGenerator:
                 filename=filename,
                 error=str(fallback_error),
             )
+
+    def _safe_unlink(self, path: Path) -> None:
+        try:
+            path.unlink()
+        except FileNotFoundError:
+            return
+        except Exception as cleanup_error:  # pylint: disable=broad-except
+            self.logger.warning(
+                "report_generator_cleanup_failed",
+                message="⚠️ Не удалось удалить старый артефакт",
+                path=str(path),
+                error=str(cleanup_error),
+            )
+
+    @staticmethod
+    def _flush_and_sync(handle: Any) -> None:
+        handle.flush()
+        os.fsync(handle.fileno())
+
+    def _sync_directory(self, directory: Path) -> None:
+        try:
+            fd = os.open(directory, os.O_RDONLY)
+        except OSError:
+            return
+        try:
+            os.fsync(fd)
+        except OSError:
+            pass
+        finally:
+            os.close(fd)
 
     def _build_markdown_report(
         self,

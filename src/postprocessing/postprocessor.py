@@ -8,11 +8,13 @@ Author: Contact Parser Team
 Created: 2025-09-13
 """
 
+import copy
 import logging
 import os
+import re
 from collections import Counter, defaultdict
 from pathlib import Path
-from typing import Dict, List, Any, Optional, Tuple, Set
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 try:
     import yaml
@@ -28,10 +30,118 @@ from .data_normalizer import DataNormalizer
 from .advanced_contact_deduplicator import AdvancedContactDeduplicator
 from .smart_contact_enricher import SmartContactEnricher
 from .email_classifier import MailboxType, classify_mailbox
+from ..registry import GlobalIDRegistry
 
 logger = logging.getLogger(__name__)
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 REPO_ROOT = PROJECT_ROOT.parent
+
+SANITIZER_PREVIEW_LIMIT = 120
+
+
+def as_text(value: Any, *, default: str = "", strip: bool = True) -> str:
+    """🔤 Безопасно приводит значение к строке."""
+    if value is None:
+        return default
+    if isinstance(value, str):
+        return value.strip() if strip else value
+    if isinstance(value, bytes):
+        try:
+            text = value.decode("utf-8", errors="ignore")
+        except Exception:  # pragma: no cover - крайне редкий случай
+            text = str(value)
+    else:
+        text = str(value)
+    return text.strip() if strip else text
+
+
+def as_int(value: Any) -> Optional[int]:
+    """🔢 Конвертирует значение в int без исключений."""
+    if value is None or value == "":
+        return None
+    if isinstance(value, bool):
+        return int(value)
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float):
+        if not (value == value):  # NaN check
+            return None
+        return int(value)
+    text = as_text(value)
+    if not text:
+        return None
+    cleaned = text.replace(" ", "")
+    try:
+        return int(cleaned)
+    except ValueError:
+        try:
+            return int(float(cleaned.replace(",", ".")))
+        except ValueError:
+            return None
+
+
+def as_float(value: Any) -> Optional[float]:
+    """🌊 Конвертирует значение в float без исключений."""
+    if value is None or value == "":
+        return None
+    if isinstance(value, bool):
+        return float(value)
+    if isinstance(value, (int, float)):
+        return float(value)
+    text = as_text(value)
+    if not text:
+        return None
+    cleaned = text.replace(" ", "").replace(",", ".")
+    try:
+        return float(cleaned)
+    except ValueError:
+        return None
+
+
+def as_bool(value: Any) -> Optional[bool]:
+    """✅ Конвертирует значение в bool c учётом строк."""
+    if value is None:
+        return None
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)):
+        return bool(value)
+    text = as_text(value).lower()
+    if text in {"true", "1", "yes", "y", "on"}:
+        return True
+    if text in {"false", "0", "no", "n", "off"}:
+        return False
+    return None
+
+
+def as_list(value: Any) -> List[Any]:
+    """📋 Обеспечивает список значений."""
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return list(value)
+    if isinstance(value, tuple):
+        return list(value)
+    return [value]
+
+
+def coerce_phone_list(value: Any) -> List[str]:
+    """📞 Приводит телефон(ы) к списку строк."""
+    phones: List[str] = []
+    for item in as_list(value):
+        text = as_text(item)
+        if text:
+            phones.append(text)
+    return phones
+
+
+def safe_regex_sub(pattern: str, repl: str, value: Any) -> str:
+    """🧪 Безопасная обёртка над re.sub."""
+    text = as_text(value, strip=False)
+    try:
+        return re.sub(pattern, repl, text)
+    except re.error:
+        return text
 
 
 class PostProcessor:
@@ -100,6 +210,7 @@ class PostProcessor:
             'kept_total': 0,
         }
         self.email_classification_log: Dict[int, Dict[str, Any]] = {}
+        self.gid_registry = GlobalIDRegistry()
 
         # Статистика обработки
         self.stats = {
@@ -121,12 +232,10 @@ class PostProcessor:
         raw_value = os.getenv(env_name)
         if raw_value is None:
             return default
-        normalized = raw_value.strip().lower()
-        if normalized in {"1", "true", "yes", "y", "on"}:
-            return True
-        if normalized in {"0", "false", "no", "n", "off"}:
-            return False
-        return default
+        parsed = as_bool(raw_value)
+        if parsed is None:
+            return default
+        return parsed
 
     def _configure_deduplicator_email_filter(self) -> None:
         if not self.keep_only_shared_org_emails:
@@ -292,6 +401,11 @@ class PostProcessor:
                 deduplicated_contacts
             )
 
+            updated_organizations, valuable_contacts, gid_metadata = self._assign_global_ids(
+                updated_organizations,
+                valuable_contacts,
+            )
+
             # Этап 3.1: Мягкий бэкфилл города/адреса из организации (управляемый)
             contacts_after_backfill, provenance = self._backfill_contact_city_address(
                 valuable_contacts,
@@ -340,6 +454,7 @@ class PostProcessor:
                 filtered_offers,
                 provenance,
                 email_classification_log,
+                gid_metadata,
             )
             
             # Обновление статистики
@@ -396,7 +511,7 @@ class PostProcessor:
     
     def _process_organizations(self, organizations: List[Dict[str, Any]]) -> Dict[int, int]:
         """Этап 1: Дедупликация и объединение организаций
-        
+
         Args:
             organizations: Список организаций из LLM
             
@@ -404,9 +519,16 @@ class PostProcessor:
             Dict[int, int]: Маппинг локальных -> глобальных ID
         """
         self.logger.info(f"🏢 Этап 1: Обработка {len(organizations)} организаций")
-        
+
+        for org in organizations:
+            if not isinstance(org, dict):
+                continue
+            org['phones'] = coerce_phone_list(org.get('phones'))
+            org_emails = as_list(org.get('emails'))
+            org['emails'] = [as_text(email) for email in org_emails if as_text(email)]
+
         mapping = self.org_deduplicator.process_organizations(organizations)
-        
+
         self.stats['total_organizations_processed'] += len(organizations)
         self.stats['organizations_deduplicated'] += len(organizations) - len(set(mapping.values()))
         
@@ -485,6 +607,80 @@ class PostProcessor:
         mapping = self.contact_deduplicator.get_last_mapping()
         return deduplicated, mapping
 
+    def _assign_global_ids(
+        self,
+        organizations: Dict[int, Dict[str, Any]],
+        contacts: List[Dict[str, Any]],
+    ) -> Tuple[Dict[int, Dict[str, Any]], List[Dict[str, Any]], Dict[str, Any]]:
+        gid_assignments: List[Dict[str, Any]] = []
+        gid_conflicts: List[Dict[str, Any]] = []
+        org_gid_lookup: Dict[int, str] = {}
+
+        for org_id, org_payload in organizations.items():
+            try:
+                result = self.gid_registry.resolve_organization(org_payload)
+            except ValueError:
+                continue
+            org_payload['gid'] = result.gid
+            org_gid_lookup[org_id] = result.gid
+            gid_assignments.append(
+                {
+                    'entity': 'organization',
+                    'local_id': org_id,
+                    'gid': result.gid,
+                    'match_rule': result.match_rule,
+                    'key_tuple': list(result.key_tuple),
+                    'alias_added': result.alias_added,
+                    'source': result.source,
+                }
+            )
+            for conflict in result.conflicts:
+                conflict_entry = {
+                    'entity': conflict.get('entity', 'organization'),
+                    'key': conflict.get('key'),
+                    'existing_gid': conflict.get('existing_gid'),
+                    'target_gid': conflict.get('target_gid', result.gid),
+                }
+                gid_conflicts.append(conflict_entry)
+
+        for contact in contacts:
+            org_id = contact.get('organization_id')
+            org_gid = org_gid_lookup.get(org_id)
+            if not org_gid:
+                continue
+            try:
+                result = self.gid_registry.resolve_contact(contact, org_gid)
+            except ValueError:
+                continue
+            contact['gid'] = result.gid
+            gid_assignments.append(
+                {
+                    'entity': 'contact',
+                    'local_id': contact.get('contact_id'),
+                    'organization_id': org_id,
+                    'organization_gid': org_gid,
+                    'gid': result.gid,
+                    'match_rule': result.match_rule,
+                    'key_tuple': list(result.key_tuple),
+                    'alias_added': result.alias_added,
+                    'source': result.source,
+                }
+            )
+            for conflict in result.conflicts:
+                conflict_entry = {
+                    'entity': conflict.get('entity', 'contact'),
+                    'key': conflict.get('key'),
+                    'existing_gid': conflict.get('existing_gid'),
+                    'target_gid': conflict.get('target_gid', result.gid),
+                }
+                gid_conflicts.append(conflict_entry)
+
+        gid_metadata = {
+            'assigned': gid_assignments,
+            'conflicts': gid_conflicts,
+        }
+        return organizations, contacts, gid_metadata
+
     def _backfill_contact_city_address(
         self,
         contacts: List[Dict[str, Any]],
@@ -500,6 +696,18 @@ class PostProcessor:
 
         for contact in contacts:
             normalized_contact = dict(contact)
+            for field in ("name", "position", "email", "city", "address", "inn", "role_in_message"):
+                if field in normalized_contact and normalized_contact[field] is not None:
+                    coerced_value = as_text(normalized_contact[field])
+                    normalized_contact[field] = coerced_value if coerced_value else None
+            if isinstance(normalized_contact.get('phones'), list):
+                for phone_entry in normalized_contact['phones']:
+                    if not isinstance(phone_entry, dict):
+                        continue
+                    for phone_key in ("number", "formatted", "normalized", "original", "extension", "type"):
+                        if phone_key in phone_entry and phone_entry[phone_key] is not None:
+                            coerced_phone = as_text(phone_entry[phone_key], strip=True)
+                            phone_entry[phone_key] = coerced_phone if coerced_phone else None
             cid = normalized_contact.get('contact_id')
             oid = normalized_contact.get('organization_id')
             organization = organizations.get(oid) if isinstance(oid, int) else None
@@ -507,15 +715,15 @@ class PostProcessor:
 
             if organization:
                 if self.backfill_city_from_org and not self._has_value(normalized_contact.get('city')):
-                    org_city = organization.get('city')
-                    if self._has_value(org_city):
-                        normalized_contact['city'] = org_city.strip()
+                    org_city = as_text(organization.get('city'))
+                    if org_city:
+                        normalized_contact['city'] = org_city
                         provenance_entry['city_source'] = 'org_fallback'
 
                 if self.backfill_address_from_org and not self._has_value(normalized_contact.get('address')):
-                    org_address = organization.get('address')
-                    if self._has_value(org_address):
-                        normalized_contact['address'] = org_address.strip()
+                    org_address = as_text(organization.get('address'))
+                    if org_address:
+                        normalized_contact['address'] = org_address
                         provenance_entry['address_source'] = 'org_fallback'
 
             if provenance_entry and isinstance(cid, int):
@@ -531,7 +739,7 @@ class PostProcessor:
         if value is None:
             return False
         if isinstance(value, str):
-            return bool(value.strip())
+            return bool(as_text(value))
         return True
 
     def _enrich_contact_data(self, contacts: List[Dict[str, Any]], 
@@ -645,26 +853,32 @@ class PostProcessor:
                 item['organization_id'] = fallback_org_id
 
             item['interaction_local_id'] = item.get('interaction_local_id') or index
-            item['role_in_message'] = str(item.get('role_in_message') or 'other').lower()
+            role = as_text(item.get('role_in_message'), default='other').lower()
+            item['role_in_message'] = role or 'other'
 
-            interaction_type = str(item.get('interaction_type') or 'other').lower()
+            interaction_type = as_text(item.get('interaction_type'), default='other').lower()
             if interaction_type not in allowed_types:
                 interaction_type = 'other'
             item['interaction_type'] = interaction_type
 
-            attachments = item.get('attachments', [])
-            if not isinstance(attachments, list):
-                attachments = [attachments] if attachments else []
-            item['attachments'] = [str(att).strip() for att in attachments if att]
+            attachments_list = [
+                as_text(att) for att in as_list(item.get('attachments')) if as_text(att)
+            ]
+            item['attachments'] = attachments_list
 
-            try:
-                confidence = float(item.get('confidence', 0.0))
-            except (TypeError, ValueError):
+            confidence = as_float(item.get('confidence', 0.0))
+            if confidence is None:
                 confidence = 0.0
             item['confidence'] = max(0.0, min(1.0, confidence))
 
             if item.get('message_date'):
-                item['message_date'] = str(item['message_date']).strip()
+                item['message_date'] = as_text(item['message_date'])
+
+            if item.get('message_subject'):
+                item['message_subject'] = as_text(item['message_subject'])
+
+            if item.get('message_id_hint'):
+                item['message_id_hint'] = safe_regex_sub(r'[<>]', '', item['message_id_hint'])
 
             processed.append(item)
 
@@ -688,7 +902,7 @@ class PostProcessor:
             if value is None:
                 sanitized[key] = None
             else:
-                text = str(value).strip()
+                text = as_text(value)
                 sanitized[key] = text if text else None
 
         return sanitized
@@ -702,7 +916,7 @@ class PostProcessor:
         for point in key_points:
             if point is None:
                 continue
-            text = str(point).strip()
+            text = as_text(point)
             if text:
                 sanitized.append(text)
             if len(sanitized) >= 5:
@@ -717,7 +931,8 @@ class PostProcessor:
 
         attachments_count = 0
         if isinstance(email_metadata, dict):
-            attachments_count = email_metadata.get('attachments_count') or 0
+            inferred = as_int(email_metadata.get('attachments_count'))
+            attachments_count = inferred if inferred is not None else 0
         if attachments_count <= 0:
             self.logger.info("   💼 КП отклонены: вложения отсутствуют")
             return []
@@ -745,11 +960,18 @@ class PostProcessor:
                 if quantity is None or unit_price is None:
                     continue
 
+                computed_total = round(quantity * unit_price, 2)
                 if total_price is None:
-                    total_price = round(quantity * unit_price, 2)
+                    total_price = computed_total
+                elif abs(total_price - computed_total) > 0.01:
+                    total_price = computed_total
+
+                normalized_quantity = int(round(quantity))
+                if normalized_quantity <= 0:
+                    continue
 
                 normalized_item = item.copy()
-                normalized_item['quantity'] = int(round(quantity))
+                normalized_item['quantity'] = normalized_quantity
                 normalized_item['unit_price'] = unit_price
                 normalized_item['total_price'] = total_price
                 normalized_items.append(normalized_item)
@@ -768,22 +990,10 @@ class PostProcessor:
 
     def _coerce_positive_float(self, value: Any) -> Optional[float]:
         """Безопасное преобразование значения в положительное число."""
-        if value in (None, "", [], {}):
+        number = as_float(value)
+        if number is None or number <= 0:
             return None
-
-        try:
-            if isinstance(value, str):
-                cleaned = value.replace(' ', '').replace(',', '.').strip()
-                result = float(cleaned)
-            else:
-                result = float(value)
-        except (TypeError, ValueError):
-            return None
-
-        if result <= 0:
-            return None
-
-        return result
+        return round(number, 2)
     
     def _build_final_result(self, original_result: Dict[str, Any], 
                           final_contacts: List[Dict[str, Any]],
@@ -794,7 +1004,8 @@ class PostProcessor:
                           business_context: str,
                           commercial_offers: List[Dict[str, Any]],
                           provenance: Optional[Dict[int, Dict[str, str]]] = None,
-                          email_classification: Optional[Dict[int, Dict[str, Any]]] = None) -> Dict[str, Any]:
+                          email_classification: Optional[Dict[int, Dict[str, Any]]] = None,
+                          gid_metadata: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Формирование финального результата
         
         Args:
@@ -818,13 +1029,20 @@ class PostProcessor:
         processed_result['commercial_offers'] = commercial_offers
         
         # Добавляем метаданные постобработки
-        processed_result['postprocessing_metadata'] = {
+        base_metadata: Dict[str, Any] = {}
+        original_metadata = original_result.get('postprocessing_metadata')
+        if isinstance(original_metadata, dict):
+            base_metadata = copy.deepcopy(original_metadata)
+
+        base_metadata.update({
             'processed_at': self._get_current_timestamp(),
             'stats': self.stats.copy(),
-            'version': '1.1.0',
+            'version': '1.3.0',
             'organization_mapping': self.organization_mapping,
-            'contact_mapping': self.contact_mapping
-        }
+            'contact_mapping': self.contact_mapping,
+        })
+
+        processed_result['postprocessing_metadata'] = base_metadata
 
         if provenance:
             processed_result['postprocessing_metadata']['provenance'] = {
@@ -832,6 +1050,8 @@ class PostProcessor:
             }
         if email_classification:
             processed_result['postprocessing_metadata']['email_classification'] = email_classification
+        if gid_metadata is not None:
+            processed_result['postprocessing_metadata']['gid'] = gid_metadata
 
         return processed_result
     

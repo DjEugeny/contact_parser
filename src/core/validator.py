@@ -8,7 +8,7 @@
 import copy
 import json
 import jsonschema
-from typing import Dict, List, Optional, Any, Tuple, TypedDict
+from typing import Dict, List, Optional, Any, Tuple, TypedDict, Sequence
 from jsonschema import ValidationError, SchemaError
 
 class InvalidStructureError(Exception):
@@ -25,6 +25,142 @@ class Participants(TypedDict, total=False):
 class LLMResponseValidator:
     """🔍 Валидатор JSON Schema для новой структуры organizations/contacts"""
 
+    _SANITIZER_VERSION = "1.0.0"
+    _SANITIZER_PREVIEW_LIMIT = 120
+
+    _ROOT_ALLOWED_KEYS = {
+        "organizations",
+        "contacts",
+        "business_context",
+        "summary",
+        "key_points",
+        "commercial_offers",
+        "interactions",
+        "postprocessing_metadata",
+        "original_response",
+        "validation_error",
+        "errors",
+        "error",
+        "processing_strategy",
+        "fallback_reason",
+        "success",
+        "provider_used",
+        "processing_time",
+        "processing_time_seconds",
+        "text_length",
+        "chunks_processed",
+        "total_contacts_found",
+        "unique_contacts_found",
+        "raw_llm_result",
+        "resilient_processing",
+        "stats",
+        "pipeline_version",
+        "quality_report",
+        "diagnostics",
+        "warnings",
+        "source_file",
+    }
+
+    _ORGANIZATION_ALLOWED_KEYS = {
+        "organization_id",
+        "name",
+        "inn",
+        "inn_validated",
+        "website",
+        "website_confidence",
+        "website_source",
+        "website_method",
+        "city",
+        "address",
+        "emails",
+        "phones",
+    }
+
+    _CONTACT_ALLOWED_KEYS = {
+        "contact_id",
+        "name",
+        "organization_id",
+        "position",
+        "email",
+        "email_valid",
+        "phones",
+        "city",
+        "address",
+        "inn",
+        "role_in_message",
+        "confidence",
+        "value_score",
+        "priority",
+    }
+
+    _PHONE_ALLOWED_KEYS = {
+        "type",
+        "number",
+        "formatted",
+        "normalized",
+        "original",
+        "extension",
+        "confidence",
+    }
+
+    _COMMERCIAL_OFFER_ALLOWED_KEYS = {
+        "found",
+        "offer_type",
+        "offer_number",
+        "offer_date",
+        "end_user",
+        "end_user_inn",
+        "intermediary",
+        "intermediary_date",
+        "payment_terms",
+        "delivery_time",
+        "delivery_terms",
+        "valid_until",
+        "equipment_items",
+        "total_cost",
+        "currency",
+        "comments",
+        "reason",
+    }
+
+    _EQUIPMENT_ITEM_ALLOWED_KEYS = {
+        "name",
+        "model",
+        "article",
+        "quantity",
+        "unit_price",
+        "total_price",
+        "vat",
+    }
+
+    _INTERACTION_ALLOWED_KEYS = {
+        "interaction_local_id",
+        "contact_id",
+        "organization_id",
+        "message_subject",
+        "message_date",
+        "message_id_hint",
+        "role_in_message",
+        "interaction_type",
+        "summary",
+        "attachments",
+        "human_note",
+        "participants",
+        "confidence",
+    }
+
+    _PARTICIPANTS_ALLOWED_KEYS = {
+        "actor",
+        "audience",
+    }
+
+    _SUMMARY_ALLOWED_KEYS = {
+        "topic",
+        "product_interest",
+        "communication_stage",
+        "request_type",
+    }
+
     def __init__(self):
         """Инициализация валидатора только для новой структуры"""
         self.phone_schema = self._create_phone_schema()
@@ -36,6 +172,404 @@ class LLMResponseValidator:
         self.full_response_schema = self._create_full_response_schema()
 
         print("✅ LLMResponseValidator инициализирован для новой структуры organizations/contacts")
+
+    def _sanitize_response(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        """🧼 Удаление неизвестных полей перед JSON Schema валидацией."""
+        if not isinstance(payload, dict):
+            return payload
+
+        sanitized = copy.deepcopy(payload)
+        removed: List[Dict[str, Any]] = []
+        stats: Dict[str, int] = {"converted_to_string": 0}
+
+        self._sanitize_root_level(sanitized, removed, stats)
+
+        if removed:
+            metadata = sanitized.get("postprocessing_metadata")
+            if not isinstance(metadata, dict):
+                metadata = {} if metadata is None else {"_original": self._make_value_preview(metadata)}
+                sanitized["postprocessing_metadata"] = metadata
+
+            sanitizer_meta = metadata.get("sanitizer")
+            if not isinstance(sanitizer_meta, dict):
+                sanitizer_meta = {}
+                metadata["sanitizer"] = sanitizer_meta
+
+            sanitizer_meta["version"] = self._SANITIZER_VERSION
+            sanitizer_meta["removed_count"] = len(removed)
+            sanitizer_meta["removed_props"] = removed
+            sanitizer_meta["converted_to_string"] = stats["converted_to_string"]
+        else:
+            if stats["converted_to_string"]:
+                metadata = sanitized.get("postprocessing_metadata")
+                if not isinstance(metadata, dict):
+                    metadata = {}
+                    sanitized["postprocessing_metadata"] = metadata
+                sanitizer_meta = metadata.get("sanitizer")
+                if not isinstance(sanitizer_meta, dict):
+                    sanitizer_meta = {}
+                    metadata["sanitizer"] = sanitizer_meta
+                sanitizer_meta["version"] = self._SANITIZER_VERSION
+                sanitizer_meta["removed_count"] = sanitizer_meta.get("removed_count", 0)
+                sanitizer_meta["removed_props"] = sanitizer_meta.get("removed_props", [])
+                sanitizer_meta["converted_to_string"] = stats["converted_to_string"]
+
+        return sanitized
+
+    def _sanitize_root_level(self, payload: Dict[str, Any], removed: List[Dict[str, Any]], stats: Dict[str, int]) -> None:
+        for key in list(payload.keys()):
+            if key != "postprocessing_metadata" and key not in self._ROOT_ALLOWED_KEYS:
+                value = payload.pop(key)
+                self._register_removed_property(removed, [], key, value)
+                continue
+
+            if key == "organizations":
+                organizations = payload.get(key)
+                cleaned_list = self._sanitize_list_of_objects(
+                    organizations,
+                    self._ORGANIZATION_ALLOWED_KEYS,
+                    ["organizations"],
+                    removed,
+                    stats,
+                    item_sanitizer=self._sanitize_organization,
+                )
+                payload[key] = cleaned_list
+
+            elif key == "contacts":
+                contacts = payload.get(key)
+                cleaned_list = self._sanitize_list_of_objects(
+                    contacts,
+                    self._CONTACT_ALLOWED_KEYS,
+                    ["contacts"],
+                    removed,
+                    stats,
+                    item_sanitizer=self._sanitize_contact,
+                )
+                payload[key] = cleaned_list
+
+            elif key == "commercial_offers":
+                offers = payload.get(key)
+                cleaned_list = self._sanitize_list_of_objects(
+                    offers,
+                    self._COMMERCIAL_OFFER_ALLOWED_KEYS,
+                    ["commercial_offers"],
+                    removed,
+                    stats,
+                    item_sanitizer=self._sanitize_commercial_offer,
+                )
+                payload[key] = cleaned_list
+
+            elif key == "interactions":
+                interactions = payload.get(key)
+                cleaned_list = self._sanitize_list_of_objects(
+                    interactions,
+                    self._INTERACTION_ALLOWED_KEYS,
+                    ["interactions"],
+                    removed,
+                    stats,
+                    item_sanitizer=self._sanitize_interaction,
+                )
+                payload[key] = cleaned_list
+
+            elif key == "summary":
+                summary_value = payload.get(key)
+                sanitized_summary = self._sanitize_known_dict(
+                    summary_value,
+                    self._SUMMARY_ALLOWED_KEYS,
+                    ["summary"],
+                    removed,
+                )
+                for summary_field in list(sanitized_summary.keys()):
+                    sanitized_summary[summary_field] = self._coerce_string(
+                        sanitized_summary.get(summary_field),
+                        stats,
+                    )
+                payload[key] = sanitized_summary
+
+            elif key == "business_context":
+                coerced = self._coerce_string(payload.get(key), stats)
+                payload[key] = coerced
+
+            elif key == "key_points":
+                key_points = payload.get(key)
+                if key_points is None:
+                    payload[key] = []
+                elif isinstance(key_points, list):
+                    normalized_points = []
+                    for idx, point in enumerate(key_points):
+                        value = self._coerce_string(point, stats)
+                        if value:
+                            normalized_points.append(value)
+                        else:
+                            if point not in (None, ""):
+                                self._register_removed_property(removed, ["key_points", idx], str(idx), point)
+                    payload[key] = normalized_points
+                else:
+                    value = self._coerce_string(key_points, stats)
+                    payload[key] = [value] if value else []
+
+    def _sanitize_list_of_objects(
+        self,
+        value: Any,
+        allowed_keys: Sequence[str],
+        path: List[Any],
+        removed: List[Dict[str, Any]],
+        stats: Dict[str, int],
+        item_sanitizer: Optional[Any] = None,
+    ) -> List[Dict[str, Any]]:
+        if value is None:
+            return []
+
+        if not isinstance(value, list):
+            value = [value]
+
+        cleaned_items: List[Dict[str, Any]] = []
+        for index, item in enumerate(value):
+            if not isinstance(item, dict):
+                self._register_removed_property(removed, path, str(index), item)
+                continue
+
+            cleaned_item = self._sanitize_known_dict(item, allowed_keys, path + [index], removed)
+            if callable(item_sanitizer):
+                cleaned_item = item_sanitizer(cleaned_item, path + [index], removed, stats)
+            cleaned_items.append(cleaned_item)
+        return cleaned_items
+
+    def _sanitize_known_dict(
+        self,
+        value: Any,
+        allowed_keys: Sequence[str],
+        path: List[Any],
+        removed: List[Dict[str, Any]],
+    ) -> Dict[str, Any]:
+        if not isinstance(value, dict):
+            if value is not None:
+                self._register_removed_property(removed, path[:-1], str(path[-1]) if path else "", value)
+            return {}
+
+        allowed_set = set(allowed_keys)
+        for key in list(value.keys()):
+            if key not in allowed_set:
+                self._register_removed_property(removed, path, key, value.pop(key))
+        return value
+
+    def _sanitize_organization(
+        self,
+        organization: Dict[str, Any],
+        path: List[Any],
+        removed: List[Dict[str, Any]],
+        stats: Dict[str, int],
+    ) -> Dict[str, Any]:
+        emails = organization.get("emails")
+        if emails is None:
+            organization["emails"] = []
+        elif not isinstance(emails, list):
+            organization["emails"] = [emails]
+        normalized_emails: List[str] = []
+        for email in organization.get("emails", []):
+            coerced = self._coerce_string(email, stats)
+            if coerced:
+                normalized_emails.append(coerced)
+        organization["emails"] = normalized_emails
+
+        phones = organization.get("phones")
+        if phones is None:
+            organization["phones"] = []
+        elif not isinstance(phones, list):
+            organization["phones"] = [phones]
+        normalized_phones: List[str] = []
+        for phone in organization.get("phones", []):
+            coerced = self._coerce_string(phone, stats)
+            if coerced:
+                normalized_phones.append(coerced)
+        organization["phones"] = normalized_phones
+
+        for key in ("name", "inn", "website", "website_source", "website_method", "city", "address"):
+            if key in organization:
+                organization[key] = self._coerce_string(organization.get(key), stats)
+
+        return organization
+
+    def _sanitize_contact(
+        self,
+        contact: Dict[str, Any],
+        path: List[Any],
+        removed: List[Dict[str, Any]],
+        stats: Dict[str, int],
+    ) -> Dict[str, Any]:
+        phones = contact.get("phones")
+        normalized_phones: List[Any] = []
+        if phones is None:
+            normalized_phones = []
+        elif isinstance(phones, list):
+            for phone_entry in phones:
+                if isinstance(phone_entry, dict):
+                    normalized_phones.append(phone_entry)
+                elif phone_entry is not None:
+                    normalized_phones.append({"number": phone_entry})
+        else:
+            coerced_single = self._coerce_string(phones, stats)
+            normalized_phones = [{"number": coerced_single}] if coerced_single else []
+
+        contact["phones"] = self._sanitize_list_of_objects(
+            normalized_phones,
+            self._PHONE_ALLOWED_KEYS,
+            path + ["phones"],
+            removed,
+            stats,
+            item_sanitizer=None,
+        )
+
+        for phone_entry in contact.get("phones", []):
+            for phone_key in ("number", "formatted", "normalized", "original", "extension", "type"):
+                if phone_key in phone_entry:
+                    phone_entry[phone_key] = self._coerce_string(phone_entry.get(phone_key), stats)
+
+        for field in ("name", "position", "email", "city", "address", "inn", "role_in_message"):
+            if field in contact:
+                contact[field] = self._coerce_string(contact.get(field), stats)
+
+        return contact
+
+    def _sanitize_commercial_offer(
+        self,
+        offer: Dict[str, Any],
+        path: List[Any],
+        removed: List[Dict[str, Any]],
+        stats: Dict[str, int],
+    ) -> Dict[str, Any]:
+        offer["equipment_items"] = self._sanitize_list_of_objects(
+            offer.get("equipment_items"),
+            self._EQUIPMENT_ITEM_ALLOWED_KEYS,
+            path + ["equipment_items"],
+            removed,
+            stats,
+            item_sanitizer=None,
+        )
+
+        for item in offer.get("equipment_items", []):
+            for key in ("name", "model", "article", "vat"):
+                if key in item:
+                    item[key] = self._coerce_string(item.get(key), stats)
+
+        for offer_field in (
+            "offer_type",
+            "offer_number",
+            "offer_date",
+            "end_user",
+            "end_user_inn",
+            "intermediary",
+            "intermediary_date",
+            "payment_terms",
+            "delivery_time",
+            "delivery_terms",
+            "valid_until",
+            "currency",
+            "comments",
+            "reason",
+        ):
+            if offer_field in offer:
+                offer[offer_field] = self._coerce_string(offer.get(offer_field), stats)
+
+        return offer
+
+    def _sanitize_interaction(
+        self,
+        interaction: Dict[str, Any],
+        path: List[Any],
+        removed: List[Dict[str, Any]],
+        stats: Dict[str, int],
+    ) -> Dict[str, Any]:
+        attachments = interaction.get("attachments")
+        if attachments is None:
+            interaction["attachments"] = []
+        elif not isinstance(attachments, list):
+            interaction["attachments"] = [attachments]
+
+        normalized_attachments: List[str] = []
+        for item in interaction.get("attachments", []):
+            coerced = self._coerce_string(item, stats)
+            if coerced:
+                normalized_attachments.append(coerced)
+        interaction["attachments"] = normalized_attachments
+
+        for field in ("summary", "message_subject", "message_date", "message_id_hint", "role_in_message"):
+            if field in interaction:
+                interaction[field] = self._coerce_string(interaction.get(field), stats)
+
+        participants = interaction.get("participants")
+        if isinstance(participants, dict):
+            interaction["participants"] = self._sanitize_known_dict(
+                participants,
+                self._PARTICIPANTS_ALLOWED_KEYS,
+                path + ["participants"],
+                removed,
+            )
+            actor = interaction["participants"].get("actor")
+            interaction["participants"]["actor"] = self._coerce_string(actor, stats)
+
+            audience = interaction["participants"].get("audience")
+            if isinstance(audience, list):
+                normalized_audience: List[str] = []
+                for member in audience:
+                    coerced = self._coerce_string(member, stats)
+                    if coerced:
+                        normalized_audience.append(coerced)
+                interaction["participants"]["audience"] = normalized_audience
+            elif audience is not None:
+                coerced_audience = self._coerce_string(audience, stats)
+                interaction["participants"]["audience"] = [coerced_audience] if coerced_audience else []
+        elif participants is not None:
+            self._register_removed_property(removed, path, "participants", participants)
+            interaction.pop("participants", None)
+
+        return interaction
+
+    def _coerce_string(self, value: Any, stats: Dict[str, int]) -> Optional[str]:
+        if value is None:
+            return None
+        if isinstance(value, str):
+            text = value.strip()
+            return text if text else None
+        stats["converted_to_string"] += 1
+        text = str(value).strip()
+        return text if text else None
+
+    def _register_removed_property(
+        self,
+        removed: List[Dict[str, Any]],
+        path: List[Any],
+        key: str,
+        value: Any,
+    ) -> None:
+        preview = self._make_value_preview(value)
+        path_parts = list(path)
+        if key:
+            path_parts.append(key)
+        path_str = "/" + "/".join(str(part) for part in path_parts) if path_parts else "/"
+        removed.append({
+            "path": path_str,
+            "key": key,
+            "value_preview": preview,
+        })
+
+    def _make_value_preview(self, value: Any) -> Any:
+        if value is None:
+            return None
+        if isinstance(value, (int, float)):
+            return value
+        if isinstance(value, bool):
+            return value
+        if isinstance(value, str):
+            text = value.strip()
+            if len(text) > self._SANITIZER_PREVIEW_LIMIT:
+                return text[: self._SANITIZER_PREVIEW_LIMIT - 3] + "..."
+            return text
+        if isinstance(value, list):
+            return f"<list:{len(value)}>"
+        if isinstance(value, dict):
+            return f"<dict:{len(value)}>"
+        return f"<{type(value).__name__}>"
 
     def _create_phone_schema(self) -> Dict[str, Any]:
         """📞 Создание схемы для телефона в новом формате"""
@@ -552,6 +1086,9 @@ class LLMResponseValidator:
         # КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Нормализуем ключи с пробелами от Replicate LLM
         corrected_response = self._normalize_keys_with_spaces(corrected_response)
         
+        # Санитизация структуры перед схемой
+        corrected_response = self._sanitize_response(corrected_response)
+
         # Дополнительная нормализация типов взаимодействий
         corrected_response = self._normalize_interaction_types(corrected_response)
         

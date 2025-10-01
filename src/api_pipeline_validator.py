@@ -337,6 +337,20 @@ class APIPipelineValidator:
         print(f"\n🎯 Запуск устойчивой обработки за {date} — найдено {len(email_paths)} писем")
         report_generator = ReportGenerator(base_dir=self.llm_results_dir, date=date)
         stats = PipelineStats()
+        processed_sources: set[str] = set()
+
+        def handle_result(result: Dict[str, Any]) -> None:
+            """📡 Регистрирует артефакты сразу после обработки письма."""
+            try:
+                self._register_result_artifacts(
+                    date=date,
+                    result=result,
+                    report_generator=report_generator,
+                    stats=stats,
+                    processed_sources=processed_sources,
+                )
+            except Exception as callback_exc:  # pylint: disable=broad-except
+                print(f"⚠️ Ошибка постобработки результата {result.get('source_file')}: {callback_exc}")
 
         # Подготавливаем список файлов для устойчивого процессора
         email_files = []
@@ -352,7 +366,10 @@ class APIPipelineValidator:
 
         # Используем устойчивый процессор с автоматическим повтором
         print(f"🔄 Запуск ResilientEmailProcessor для {len(email_files)} писем")
-        resilient_result = self.resilient_processor.process_emails_with_retry(email_files)
+        resilient_result = self.resilient_processor.process_emails_with_retry(
+            email_files,
+            result_callback=handle_result,
+        )
         
         # Объединяем результаты по письмам, чтобы не плодить артефакты при повторах
         consolidated_results: Dict[str, Dict[str, Any]] = {}
@@ -365,56 +382,16 @@ class APIPipelineValidator:
             consolidated_results[source_file] = result
 
         for source_file, result in consolidated_results.items():
-            processing_time = (
-                result.get('processing_time_seconds')
-                or result.get('processing_time')
-                or 0
-            )
-            errors_raw = result.get('errors') or []
-            if isinstance(errors_raw, str):
-                errors_list = [errors_raw]
-            else:
-                errors_list = list(errors_raw)
-
-            filename_only = Path(source_file).name
-            entry = {
-                'filename': filename_only,
-                'success': result.get('success', False),
-                'processing_time_seconds': processing_time,
-                'organizations': len(result.get('organizations', [])),
-                'contacts': len(result.get('contacts', [])),
-                'commercial_offers': len(result.get('commercial_offers', [])),
-                'interactions': len(result.get('interactions', [])),
-                'errors': errors_list,
-            }
-
-            stats.register_email(entry)
-
-            email_path = Path(source_file)
-            if not email_path.exists():
-                potential_path = self.project_root / source_file
-                if potential_path.exists():
-                    email_path = potential_path
-
-            if not email_path.exists():
-                print(f"⚠️ Не удалось найти файл письма для отчёта: {source_file}")
-                continue
-
             try:
-                with email_path.open("r", encoding="utf-8") as handle:
-                    email_data = json.load(handle)
-                metadata = self._build_email_metadata(email_data, email_path)
-
-                report_generator.register_email_result(
-                    filename=email_path.name,
-                    email_metadata=metadata,
-                    llm_raw=result.get('raw_llm_result', {}),
-                    processed=result,
-                    processing_time_seconds=entry['processing_time_seconds'],
-                    errors=entry['errors'],
+                self._register_result_artifacts(
+                    date=date,
+                    result=result,
+                    report_generator=report_generator,
+                    stats=stats,
+                    processed_sources=processed_sources,
                 )
             except Exception as e:
-                print(f"⚠️ Ошибка при регистрации результата для {email_path.name}: {e}")
+                print(f"⚠️ Ошибка при регистрации результата для {Path(source_file).name}: {e}")
 
         # Логируем статистику устойчивого процессора
         resilient_stats = resilient_result.get('statistics', {})
@@ -440,6 +417,105 @@ class APIPipelineValidator:
         self._update_memory_bank_index(report_generator.summary_path, summary_payload)
         self.run_summaries.append(summary_payload)
         print(f"✅ Устойчивая обработка за {date} завершена (успешно: {stats.emails_successful}, ошибки: {stats.emails_failed})")
+
+    def _register_result_artifacts(
+        self,
+        date: str,
+        result: Dict[str, Any],
+        report_generator: ReportGenerator,
+        stats: PipelineStats,
+        processed_sources: set[str],
+    ) -> None:
+        """📦 Создаёт артефакты и обновляет статистику по письму."""
+        source_file = result.get('source_file')
+        if not source_file:
+            print("⚠️ Результат без указания исходного файла, пропуск")
+            return
+        if source_file in processed_sources:
+            return
+
+        email_path = Path(source_file)
+        if not email_path.exists():
+            potential_path = self.project_root / source_file
+            if potential_path.exists():
+                email_path = potential_path
+            else:
+                resolved = self._resolve_email_path(date, Path(source_file).name)
+                if resolved:
+                    email_path = resolved
+
+        if not email_path.exists():
+            print(f"⚠️ Не удалось найти файл письма для артефактов: {source_file}")
+            return
+
+        with email_path.open("r", encoding="utf-8") as handle:
+            email_data = json.load(handle)
+        metadata = self._build_email_metadata(email_data, email_path)
+
+        processed_copy = copy.deepcopy(result)
+        raw_payload = processed_copy.pop("raw_llm_result", {})
+        if raw_payload is None:
+            raw_payload = {}
+        elif isinstance(raw_payload, list):
+            raw_payload = {"responses": raw_payload}
+        elif not isinstance(raw_payload, dict):
+            raw_payload = {"value": raw_payload}
+
+        processing_time_raw = (
+            processed_copy.get("processing_time_seconds")
+            or result.get("processing_time")
+            or 0.0
+        )
+        try:
+            processing_time = float(processing_time_raw)
+        except (TypeError, ValueError):
+            processing_time = 0.0
+
+        processed_copy.setdefault("processing_strategy", result.get("processing_strategy", "standard"))
+        processed_copy["success"] = bool(processed_copy.get("success", False))
+        processed_copy.setdefault("source_file", source_file)
+
+        for section in ("organizations", "contacts", "commercial_offers", "interactions"):
+            value = processed_copy.get(section)
+            if value is None:
+                processed_copy[section] = []
+
+        errors = self._collect_result_errors(result)
+        processing_time_value = round(processing_time, 3)
+        entry = report_generator.register_email_result(
+            filename=email_path.name,
+            email_metadata=metadata,
+            llm_raw=raw_payload,
+            processed=processed_copy,
+            processing_time_seconds=processing_time_value,
+            errors=errors,
+        )
+        stats.register_email(entry)
+        processed_sources.add(source_file)
+
+    def _collect_result_errors(self, result: Dict[str, Any]) -> List[str]:
+        """🧹 Сводит ошибки результата в уникальный список."""
+        errors: List[str] = []
+        raw_errors = result.get("errors")
+        if isinstance(raw_errors, list):
+            errors.extend(str(err) for err in raw_errors if err)
+        elif isinstance(raw_errors, str):
+            errors.append(raw_errors)
+
+        for key in ("error", "fallback_reason", "original_error"):
+            value = result.get(key)
+            if value:
+                errors.append(str(value))
+
+        unique_errors: List[str] = []
+        seen: set[str] = set()
+        for err in errors:
+            normalized = err.strip()
+            if not normalized or normalized in seen:
+                continue
+            seen.add(normalized)
+            unique_errors.append(normalized)
+        return unique_errors
 
     def _process_single_email(
         self,

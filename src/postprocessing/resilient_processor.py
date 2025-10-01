@@ -12,7 +12,7 @@ import logging
 import json
 import time
 from pathlib import Path
-from typing import List, Dict, Any, Optional, Tuple
+from typing import Callable, Dict, List, Any, Optional, Tuple
 from dataclasses import dataclass
 from enum import Enum
 
@@ -61,6 +61,8 @@ class ResilientEmailProcessor:
         self.max_retries = max_retries
         self.failed_emails: List[str] = []
         self.processing_results: List[ProcessingResult] = []
+        self.result_callback: Optional[Callable[[Dict[str, Any]], None]] = None
+        self._emitted_emails: set[str] = set()
         self.retry_statistics = {
             'total_emails': 0,
             'successful_first_attempt': 0,
@@ -73,7 +75,11 @@ class ResilientEmailProcessor:
             }
         }
     
-    def process_emails_with_retry(self, emails: List[str]) -> Dict[str, Any]:
+    def process_emails_with_retry(
+        self,
+        emails: List[str],
+        result_callback: Optional[Callable[[Dict[str, Any]], None]] = None,
+    ) -> Dict[str, Any]:
         """
         Обработка писем с автоматическим повтором
         
@@ -84,7 +90,9 @@ class ResilientEmailProcessor:
             Dict с результатами обработки и статистикой
         """
         logger.info(f"🔄 Начинаю устойчивую обработку {len(emails)} писем")
-        
+
+        self.result_callback = result_callback
+        self._emitted_emails = set()
         self.retry_statistics['total_emails'] = len(emails)
         self.failed_emails = []
         self.processing_results = []
@@ -135,15 +143,17 @@ class ResilientEmailProcessor:
                     results.append(result)
                     self.retry_statistics['successful_first_attempt'] += 1
                     self.retry_statistics['strategies_used'][ProcessingStrategy.STANDARD] += 1
-                    
-                    self.processing_results.append(ProcessingResult(
+
+                    processing_result = ProcessingResult(
                         email_file=email_file,
                         success=True,
                         strategy_used=ProcessingStrategy.STANDARD,
                         attempt_number=1,
                         processing_time=processing_time,
                         result_data=result
-                    ))
+                    )
+                    self.processing_results.append(processing_result)
+                    self._emit_result(processing_result)
                     
             except Exception as e:
                 processing_time = time.time() - start_time
@@ -205,15 +215,18 @@ class ResilientEmailProcessor:
                             self.retry_statistics['successful_after_retry'] += 1
                             self.retry_statistics['strategies_used'][strategy] += 1
                             
-                            self.processing_results.append(ProcessingResult(
+                            processing_result = ProcessingResult(
                                 email_file=email_file,
                                 success=True,
                                 strategy_used=strategy,
                                 attempt_number=attempt + 1,
                                 processing_time=processing_time,
                                 result_data=result
-                            ))
-                            
+                            )
+
+                            self.processing_results.append(processing_result)
+                            self._emit_result(processing_result)
+
                             success = True
                         else:
                             strategy_error = self._extract_error_message(result)
@@ -235,7 +248,78 @@ class ResilientEmailProcessor:
             logger.error(f"🚫 Окончательно не удалось обработать {email_file}")
             self._mark_as_error(email_file)
             self.retry_statistics['permanently_failed'] += 1
-    
+            last_attempt = next(
+                (
+                    record
+                    for record in reversed(self.processing_results)
+                    if record.email_file == email_file
+                ),
+                None,
+            )
+            self._emit_failure(email_file, last_attempt)
+
+    def _emit_result(self, processing_result: ProcessingResult) -> None:
+        """📡 Передаёт финальный результат письма внешнему обработчику."""
+        if not self.result_callback:
+            return
+        email_file = processing_result.email_file
+        if email_file in self._emitted_emails:
+            return
+
+        result_payload: Dict[str, Any] = {}
+        if processing_result.result_data and isinstance(processing_result.result_data, dict):
+            result_payload = dict(processing_result.result_data)
+        result_payload.setdefault('source_file', email_file)
+        result_payload['success'] = processing_result.success
+        result_payload.setdefault('processing_strategy', processing_result.strategy_used.value)
+        result_payload['processing_time_seconds'] = round(processing_result.processing_time, 3)
+
+        if not processing_result.success:
+            errors: List[str] = []
+            existing_errors = result_payload.get('errors')
+            if isinstance(existing_errors, list):
+                errors.extend(str(err) for err in existing_errors)
+            elif isinstance(existing_errors, str):
+                errors.append(existing_errors)
+            if processing_result.error_message:
+                if processing_result.error_message not in errors:
+                    errors.append(processing_result.error_message)
+            if errors:
+                result_payload['errors'] = errors
+        self.result_callback(result_payload)
+        self._emitted_emails.add(email_file)
+
+    def _emit_failure(self, email_file: str, last_attempt: Optional[ProcessingResult]) -> None:
+        """❌ Сообщает о окончательном провале обработки письма."""
+        if not self.result_callback or email_file in self._emitted_emails:
+            return
+
+        strategy = ProcessingStrategy.FALLBACK
+        processing_time = 0.0
+        error_message: Optional[str] = None
+
+        if last_attempt:
+            strategy = last_attempt.strategy_used
+            processing_time = last_attempt.processing_time
+            error_message = last_attempt.error_message
+
+        errors: List[str] = []
+        if error_message:
+            errors.append(error_message)
+
+        result_payload: Dict[str, Any] = {
+            'source_file': email_file,
+            'success': False,
+            'processing_strategy': strategy.value,
+            'processing_time_seconds': round(processing_time, 3),
+            'errors': errors,
+            'validation_error': True,
+        }
+        if error_message:
+            result_payload['error'] = error_message
+        self.result_callback(result_payload)
+        self._emitted_emails.add(email_file)
+
     def _process_with_strategy(self, email_file: str, strategy: ProcessingStrategy, original_error: Optional[str] = None) -> Dict[str, Any]:
         """Обработка письма с определенной стратегией"""
         

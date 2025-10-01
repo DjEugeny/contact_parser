@@ -21,5 +21,6 @@
 - `12_API_CONTRACTS.md` — контракты REST/HTTP для фронтенда (минимально достаточные).
 - `13_STEP_BY_STEP_PLAN.md` — план работ, фазы, сроки, задачи.
 - `14_TECHNICAL_SPECIFICATION.md` — архитектурный дизайн, стек, схема БД, API, конвейер.
+- `15_DB_MIGRATION_SAFE_SCHEMA.md` — правила миграции БД с MySQL на PostgreSQL.
 
 > Формат — Markdown. Готово к использованию в Visual Studio Code и для работы с AI‑агентами.
