@@ -54,3 +54,5 @@
 {"event": "alias", "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f", "alias": ["CONTACT", "NAME_POSITION", "58a49494-b44e-5b2f-9263-0ce9005f10e3", "воронова", ""], "created_at": "2025-10-02T11:12:39Z"}
 {"event": "alias", "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f", "alias": ["CONTACT", "NAME_POSITION", "58a49494-b44e-5b2f-9263-0ce9005f10e3", "воронова с ", ""], "created_at": "2025-10-02T11:35:37Z"}
 {"event": "alias", "gid": "fa907d19-d7a5-5243-9319-b0e649c84a7d", "alias": ["CONTACT", "NAME_POSITION", "dc827ae5-f14c-5fa1-8397-e0c32aa5757a", "акутин иван алексеевич", "менеджер отдела оборудование для микробиологии и биотехнологий"], "created_at": "2025-10-02T11:42:25Z"}
+{"event": "alias", "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631", "alias": ["CONTACT", "PHONE", "58a49494-b44e-5b2f-9263-0ce9005f10e3", "+74956401771"], "created_at": "2025-10-02T17:47:12Z"}
+{"event": "alias", "gid": "855e8894-eef0-5543-8c9f-de498b553ed8", "alias": ["CONTACT", "PHONE", "58a49494-b44e-5b2f-9263-0ce9005f10e3", "+74959804555"], "created_at": "2025-10-02T18:05:06Z"}

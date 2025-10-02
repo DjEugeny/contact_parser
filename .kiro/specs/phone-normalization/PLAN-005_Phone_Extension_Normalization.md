@@ -57,9 +57,6 @@
    - Добавочный **включается** в `number`/`formatted`
    - Должен быть только в `extension`
 
-3. **LLM Prompt** ([`prompts/unified_contact_extraction_structured.txt:28`](../../prompts/unified_contact_extraction_structured.txt:28)):
-   - Нет инструкций по обработке добавочных номеров
-
 ---
 
 ## 🎯 Цель решения
@@ -148,24 +145,8 @@
    - Поддержка всех форм: `доб.`, `доб:`, `ext`, `x`, `доп.`, `вн.`
    - Извлекать только последний (самый правый) добавочный
 
-### 3. LLM Prompt
-**Файл**: [`prompts/unified_contact_extraction_structured.txt`](../../prompts/unified_contact_extraction_structured.txt)
 
-**Добавить** после строки 28:
-
-```
-📞 ПРАВИЛА ДЛЯ ТЕЛЕФОНОВ:
-- НЕ включай добавочные номера (доб., ext) в поле `number`
-- Указывай телефоны БЕЗ добавочных: `"+7 (495) 640-17-71"` вместо `"+7 (495) 640-17-71 (доб. 2026)"`
-- Если в строке несколько номеров (например: `+7 (495) 933 71 47 (48)`) — это два номера: 
-  * `+7 (495) 933-71-47` 
-  * `+7 (495) 933-71-48`
-- Примеры ПРАВИЛЬНО:
-  * `"phones": ["+7 (495) 640-17-71", "8 800 200-75-15"]`
-  * `"phones": [{"type": "office", "number": "+7 (495) 640-17-71"}]`
-```
-
-### 4. PostProcessor Integration
+### 3. PostProcessor Integration
 **Файл**: [`src/postprocessing/postprocessor.py`](../../src/postprocessing/postprocessor.py)
 
 **Новый этап** (после `_cleanup_organization_emails`, перед `_assign_global_ids`):
