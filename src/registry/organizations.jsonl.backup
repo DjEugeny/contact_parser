@@ -2,34 +2,31 @@
 {"event": "create", "gid": "8977c8c4-1bbf-5db2-9988-c4703a2743b1", "key": ["ORG", "NAME_CITY", "мсч клиницист-клиника претор", "новосибирск"], "aliases": [["ORG", "FALLBACK", "ef173ef767781792"]], "created_at": "2025-10-02T03:30:38Z", "source": "new"}
 {"event": "create", "gid": "033f9b49-657b-5fe5-b086-7fa8eb77efff", "key": ["ORG", "FALLBACK", "9ca19daa6f65bdef"], "aliases": [], "created_at": "2025-10-02T03:30:38Z", "source": "new"}
 {"event": "create", "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3", "key": ["ORG", "DOMAIN", "dna-technology.ru"], "aliases": [["ORG", "FALLBACK", "ea4f1f3cf4766e62"]], "created_at": "2025-10-02T03:30:38Z", "source": "new"}
+{"event": "alias", "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3", "alias": ["ORG", "INN", "7723537840"], "created_at": "2025-10-02T03:31:43Z"}
+{"event": "alias", "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3", "alias": ["ORG", "NAME_CITY", "днк-технология", "москва"], "created_at": "2025-10-02T03:31:43Z"}
+{"event": "alias", "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3", "alias": ["ORG", "FALLBACK", "bdf7a3c4b01845b1"], "created_at": "2025-10-02T03:31:43Z"}
 {"event": "create", "gid": "dc827ae5-f14c-5fa1-8397-e0c32aa5757a", "key": ["ORG", "DOMAIN", "millab.ru"], "aliases": [["ORG", "FALLBACK", "9a1960c36cb34ae0"]], "created_at": "2025-10-02T03:31:43Z", "source": "new"}
 {"event": "create", "gid": "d5fe73ec-73c1-5eb7-8af0-0278a764a70e", "key": ["ORG", "INN", "1901066506"], "aliases": [["ORG", "NAME_CITY", "центр гигиены и эпидемиологии в республике хакасия", "абакан"], ["ORG", "FALLBACK", "b2e6b279a5ab1550"]], "created_at": "2025-10-02T03:31:43Z", "source": "new"}
 {"event": "create", "gid": "941277e9-82a4-590a-ab3b-be08f9db30e9", "key": ["ORG", "INN", "7721531360"], "aliases": [["ORG", "NAME_CITY", "агродиагностика", "москва"], ["ORG", "FALLBACK", "f74a978a06b7b796"]], "created_at": "2025-10-02T03:32:27Z", "source": "new"}
 {"event": "create", "gid": "ac12ae29-7a6b-5c7b-858d-0c26108cfc88", "key": ["ORG", "INN", "2225068322"], "aliases": [["ORG", "NAME_CITY", "центр гигиены и эпидемиологии в алтайском крае", "барнаул"], ["ORG", "FALLBACK", "1c47ed3ad843f909"]], "created_at": "2025-10-02T03:32:27Z", "source": "new"}
+{"event": "alias", "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3", "alias": ["ORG", "EMAIL_DOMAIN", "dna-technology.ru"], "created_at": "2025-10-02T03:33:03Z"}
 {"event": "create", "gid": "79ef90eb-b1bc-547f-9121-003d2b620b71", "key": ["ORG", "DOMAIN", "helicon.ru"], "aliases": [["ORG", "NAME_CITY", "компания хеликон", "новосибирск"], ["ORG", "FALLBACK", "164584f5a6463efc"]], "created_at": "2025-10-02T03:33:03Z", "source": "new"}
 {"event": "create", "gid": "d96503ac-116d-5310-811d-9c092b922506", "key": ["ORG", "INN", "1901074000"], "aliases": [["ORG", "NAME_CITY", "мц днк", "абакан"], ["ORG", "FALLBACK", "d8683b6d5bc037c0"]], "created_at": "2025-10-02T03:33:03Z", "source": "new"}
+{"event": "alias", "gid": "79ef90eb-b1bc-547f-9121-003d2b620b71", "alias": ["ORG", "NAME_CITY", "компания хеликон", "москва"], "created_at": "2025-10-02T03:34:00Z"}
+{"event": "alias", "gid": "79ef90eb-b1bc-547f-9121-003d2b620b71", "alias": ["ORG", "FALLBACK", "183e9abff91550db"], "created_at": "2025-10-02T03:34:00Z"}
 {"event": "create", "gid": "eec22f30-33db-5b8f-b7b4-2ab261ee67d5", "key": ["ORG", "INN", "7731147890"], "aliases": [["ORG", "FALLBACK", "c390c49491da429b"]], "created_at": "2025-10-02T03:34:00Z", "source": "new"}
 {"event": "create", "gid": "9eafe350-6460-59f1-a7e5-12056b76f61d", "key": ["ORG", "NAME_CITY", "экомед", "красноярск"], "aliases": [["ORG", "FALLBACK", "c9eb3da165dc6500"]], "created_at": "2025-10-02T03:34:00Z", "source": "new"}
+{"event": "alias", "gid": "dc827ae5-f14c-5fa1-8397-e0c32aa5757a", "alias": ["ORG", "FALLBACK", "942d27ede01b0325"], "created_at": "2025-10-02T03:36:29Z"}
 {"event": "create", "gid": "25eab71a-64f5-5bdb-a3e6-0f9667ab4b3d", "key": ["ORG", "NAME_CITY", "агрохим", "казань"], "aliases": [["ORG", "FALLBACK", "f8160479a4f801b3"]], "created_at": "2025-10-02T03:37:16Z", "source": "new"}
+{"event": "alias", "gid": "d5fe73ec-73c1-5eb7-8af0-0278a764a70e", "alias": ["ORG", "FALLBACK", "20910180c8825ccd"], "created_at": "2025-10-02T03:37:16Z"}
 {"event": "create", "gid": "a0606115-f157-5da7-8d77-2097fb4b2a07", "key": ["ORG", "DOMAIN", "asu.ru"], "aliases": [["ORG", "EMAIL_DOMAIN", "asu.ru"], ["ORG", "FALLBACK", "1b96bc60551c4739"]], "created_at": "2025-10-02T03:39:01Z", "source": "new"}
+{"event": "alias", "gid": "a0606115-f157-5da7-8d77-2097fb4b2a07", "alias": ["ORG", "NAME_CITY", "алтайский государственный университет", "барнаул"], "created_at": "2025-10-02T03:39:39Z"}
+{"event": "alias", "gid": "a0606115-f157-5da7-8d77-2097fb4b2a07", "alias": ["ORG", "FALLBACK", "2df4f49c5654645d"], "created_at": "2025-10-02T03:39:39Z"}
 {"event": "create", "gid": "98c97226-8c75-5cab-a309-86ed11e33c45", "key": ["ORG", "INN", "5408287373"], "aliases": [["ORG", "NAME_CITY", "биосинтек", "новосибирск"], ["ORG", "FALLBACK", "df88f8052ea9e356"]], "created_at": "2025-10-02T03:40:09Z", "source": "new"}
 {"event": "create", "gid": "ef485f15-63ee-5569-bf4d-c62b0ab12067", "key": ["ORG", "DOMAIN", "medcongress.ru"], "aliases": [["ORG", "NAME_CITY", "мед конгресс", "новосибирск"], ["ORG", "FALLBACK", "9c12b4a7b4a9e833"]], "created_at": "2025-10-02T03:41:28Z", "source": "new"}
 {"event": "create", "gid": "a28b07bc-03b5-5bb6-9ccc-ccd0b6bb8b5e", "key": ["ORG", "FALLBACK", "9a87d2100aef088d"], "aliases": [], "created_at": "2025-10-02T03:45:16Z", "source": "new"}
 {"event": "create", "gid": "e6a8d101-4d25-5962-bd5a-3d69eb3ee84f", "key": ["ORG", "INN", "4205385870"], "aliases": [["ORG", "FALLBACK", "b799804f7a443c53"]], "created_at": "2025-10-02T03:47:35Z", "source": "new"}
 {"event": "create", "gid": "ca6c70be-7806-5c8f-b930-8f07161abb65", "key": ["ORG", "DOMAIN", "biochemmack.ru"], "aliases": [["ORG", "FALLBACK", "e1f0f4db7294b654"]], "created_at": "2025-10-02T03:47:35Z", "source": "new"}
 {"event": "create", "gid": "6a8f8ae1-f84a-5583-935c-5c1201d32519", "key": ["ORG", "INN", "5402537179"], "aliases": [["ORG", "NAME_CITY", "медико-санитарная часть клиницист-клиника претор", "новосибирск"], ["ORG", "FALLBACK", "7c542b8f67b12f54"]], "created_at": "2025-10-02T03:48:11Z", "source": "new"}
+{"event": "alias", "gid": "25eab71a-64f5-5bdb-a3e6-0f9667ab4b3d", "alias": ["ORG", "DOMAIN", "gost.ru"], "created_at": "2025-10-02T03:49:45Z"}
 {"event": "create", "gid": "d4f9af71-626d-5525-9597-7daff1782b97", "key": ["ORG", "NAME_CITY", "алтайский центр прикладной биотехнологии алтайского государственного университета", "барнаул"], "aliases": [["ORG", "FALLBACK", "b70c38c4d485be7a"]], "created_at": "2025-10-02T03:50:16Z", "source": "new"}
-{"event": "alias", "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3", "alias": ["ORG", "EMAIL_DOMAIN", "dna-technology.ru"], "created_at": "2025-10-02T05:03:36Z"}
-{"event": "alias", "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3", "alias": ["ORG", "NAME_CITY", "днк-технология", "москва"], "created_at": "2025-10-02T05:11:20Z"}
-{"event": "alias", "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3", "alias": ["ORG", "FALLBACK", "bdf7a3c4b01845b1"], "created_at": "2025-10-02T05:11:20Z"}
-{"event": "alias", "gid": "a0606115-f157-5da7-8d77-2097fb4b2a07", "alias": ["ORG", "NAME_CITY", "алтайский государственный университет", "барнаул"], "created_at": "2025-10-02T05:11:55Z"}
-{"event": "alias", "gid": "a0606115-f157-5da7-8d77-2097fb4b2a07", "alias": ["ORG", "FALLBACK", "2df4f49c5654645d"], "created_at": "2025-10-02T05:11:55Z"}
-{"event": "alias", "gid": "a0606115-f157-5da7-8d77-2097fb4b2a07", "alias": ["ORG", "NAME_CITY", "фгбоу во алтайский государственный университет", "барнаул"], "created_at": "2025-10-02T05:31:42Z"}
-{"event": "alias", "gid": "a0606115-f157-5da7-8d77-2097fb4b2a07", "alias": ["ORG", "FALLBACK", "24a154fa85354e94"], "created_at": "2025-10-02T05:31:42Z"}
-{"event": "alias", "gid": "d5fe73ec-73c1-5eb7-8af0-0278a764a70e", "alias": ["ORG", "FALLBACK", "20910180c8825ccd"], "created_at": "2025-10-02T05:38:15Z"}
-{"event": "alias", "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3", "alias": ["ORG", "DOMAIN", "gost.ru"], "created_at": "2025-10-02T05:38:15Z"}
-{"event": "alias", "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3", "alias": ["ORG", "INN", "7723537840"], "created_at": "2025-10-02T08:22:35Z"}
-{"event": "alias", "gid": "79ef90eb-b1bc-547f-9121-003d2b620b71", "alias": ["ORG", "NAME_CITY", "компания хеликон", "москва"], "created_at": "2025-10-02T08:22:35Z"}
-{"event": "alias", "gid": "79ef90eb-b1bc-547f-9121-003d2b620b71", "alias": ["ORG", "FALLBACK", "183e9abff91550db"], "created_at": "2025-10-02T08:22:35Z"}
-{"event": "alias", "gid": "dc827ae5-f14c-5fa1-8397-e0c32aa5757a", "alias": ["ORG", "FALLBACK", "942d27ede01b0325"], "created_at": "2025-10-02T08:30:20Z"}
-{"event": "alias", "gid": "d5fe73ec-73c1-5eb7-8af0-0278a764a70e", "alias": ["ORG", "FALLBACK", "fe230b3b7fd578f3"], "created_at": "2025-10-02T08:45:07Z"}

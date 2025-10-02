@@ -5,6 +5,7 @@
 import os
 import sys
 import unittest
+from typing import Dict
 
 BASE_DIR = os.path.dirname(__file__)
 PROJECT_ROOT = os.path.join(BASE_DIR, '..')
@@ -64,6 +65,31 @@ class TestPostProcessorBackfill(unittest.TestCase):
         self.assertIn(3, provenance)
         self.assertNotIn('address_source', provenance[3])
 
+    def test_address_scrubbed_if_matches_org(self) -> None:
+        contacts = [
+            {
+                "contact_id": 6,
+                "organization_id": 15,
+                "name": "Test",
+                "city": "Новосибирск",
+                "address": "Варшавское шоссе, дом 125Ж, корпус 6, этаж 5",
+            }
+        ]
+        organizations = {
+            15: {
+                "organization_id": 15,
+                "name": "ДНК-Технология",
+                "city": "Москва",
+                "address": "Варшавское шоссе, дом 125Ж, корпус 6, этаж 5",
+            }
+        }
+
+        provenance: Dict[int, Dict[str, str]] = {}
+        self.processor._scrub_contact_addresses(contacts, organizations, provenance)
+
+        self.assertIsNone(contacts[0]['address'])
+        self.assertEqual(provenance[6]['address_removed'], 'org_hq_match')
+
     def test_address_backfill_when_enabled(self) -> None:
         self.processor.backfill_address_from_org = True
         contacts = [
@@ -109,6 +135,7 @@ class TestPostProcessorBackfill(unittest.TestCase):
             business_context="",
             commercial_offers=[],
             provenance=provenance,
+            gid_metadata=None,
         )
 
         provenance_block = result['postprocessing_metadata']['provenance']

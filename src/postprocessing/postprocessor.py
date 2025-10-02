@@ -37,6 +37,22 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 REPO_ROOT = PROJECT_ROOT.parent
 
 SANITIZER_PREVIEW_LIMIT = 120
+PHONE_OVERRIDES_FILENAME = "phone_overrides.yml"
+
+AREA_CODE_CITY_MAP = {
+    "495": "москва",
+    "499": "москва",
+    "383": "новосибирск",
+    "812": "санкт-петербург",
+    "343": "екатеринбург",
+    "351": "челябинск",
+    "861": "краснодар",
+    "423": "владивосток",
+    "391": "красноярск",
+    "4722": "липецк",
+    "831": "нижний новгород",
+    "3462": "сургут",
+}
 
 
 def as_text(value: Any, *, default: str = "", strip: bool = True) -> str:
@@ -161,7 +177,8 @@ class PostProcessor:
                  contact_filter: Optional[ContactFilter] = None,
                  data_enricher: Optional[DataEnricher] = None,
                  data_normalizer: Optional[DataNormalizer] = None,
-                 contact_deduplicator: Optional[AdvancedContactDeduplicator] = None):
+                 contact_deduplicator: Optional[AdvancedContactDeduplicator] = None,
+                 phone_overrides_path: Optional[Path] = None):
         """Инициализация постпроцессора
         
         Args:
@@ -178,6 +195,11 @@ class PostProcessor:
         self.data_normalizer = data_normalizer or DataNormalizer()
         self.contact_deduplicator = contact_deduplicator or AdvancedContactDeduplicator()
         self.logger = logging.getLogger(__name__)
+        self.phone_overrides_path = (
+            Path(phone_overrides_path)
+            if phone_overrides_path is not None
+            else PROJECT_ROOT / 'registry' / PHONE_OVERRIDES_FILENAME
+        )
 
         # Управляемый бэкфилл города/адреса контактов из организации
         self.backfill_city_from_org = self._read_bool_env(
@@ -211,6 +233,7 @@ class PostProcessor:
         }
         self.email_classification_log: Dict[int, Dict[str, Any]] = {}
         self.gid_registry = GlobalIDRegistry()
+        self.phone_overrides = self._load_phone_overrides()
 
         # Статистика обработки
         self.stats = {
@@ -249,6 +272,24 @@ class PostProcessor:
         }
         if hasattr(self.org_deduplicator, 'configure_email_classifier'):
             self.org_deduplicator.configure_email_classifier(cfg, corp_domains, allowed_types)
+
+    def _load_phone_overrides(self) -> Dict[str, str]:
+        overrides: Dict[str, str] = {}
+        if not self.phone_overrides_path.exists():
+            return overrides
+        try:
+            with self.phone_overrides_path.open('r', encoding='utf-8') as handle:
+                data = yaml.safe_load(handle) or {}
+        except Exception as exc:
+            self.logger.warning("⚠️ Не удалось загрузить phone_overrides: %s", exc)
+            return overrides
+
+        for item in data.get('phone_overrides', []) or []:
+            phone = self._normalize_phone_key(item.get('phone'))
+            gid = as_text(item.get('owner_gid'))
+            if phone and gid:
+                overrides[phone] = gid
+        return overrides
 
     def _get_email_classifier_assets(self) -> Tuple[Dict[str, Any], Set[str]]:
         if self._email_classifier_assets is not None:
@@ -406,11 +447,18 @@ class PostProcessor:
                 valuable_contacts,
             )
 
+            phone_conflicts = self._resolve_phone_conflicts(
+                updated_organizations,
+                valuable_contacts,
+            )
+
             # Этап 3.1: Мягкий бэкфилл города/адреса из организации (управляемый)
             contacts_after_backfill, provenance = self._backfill_contact_city_address(
                 valuable_contacts,
                 updated_organizations
             )
+
+            self._scrub_contact_addresses(contacts_after_backfill, updated_organizations, provenance)
 
             email_classification_log = self._cleanup_organization_emails(
                 updated_organizations,
@@ -455,6 +503,7 @@ class PostProcessor:
                 provenance,
                 email_classification_log,
                 gid_metadata,
+                phone_conflicts,
             )
             
             # Обновление статистики
@@ -464,7 +513,9 @@ class PostProcessor:
             return processed_result
             
         except Exception as e:
+            import traceback
             self.logger.error(f"❌ Ошибка при постобработке: {str(e)}")
+            self.logger.error(f"📚 Traceback:\n{traceback.format_exc()}")
             # Возвращаем оригинальный результат в случае ошибки
             return llm_result
 
@@ -681,6 +732,88 @@ class PostProcessor:
         }
         return organizations, contacts, gid_metadata
 
+    def _resolve_phone_conflicts(
+        self,
+        organizations: Dict[int, Dict[str, Any]],
+        contacts: List[Dict[str, Any]],
+    ) -> Dict[str, List[Dict[str, Any]]]:
+        conflicts: Dict[str, List[Dict[str, Any]]] = {
+            'resolved': [],
+            'unresolved': [],
+        }
+
+        phone_map: Dict[str, List[Tuple[int, Dict[str, Any], Any]]] = {}
+        for org_id, org in organizations.items():
+            for phone_entry in org.get('phones', []) or []:
+                # phone_entry может быть строкой или dict
+                if isinstance(phone_entry, dict):
+                    phone_value = phone_entry.get('normalized') or phone_entry.get('number')
+                elif isinstance(phone_entry, str):
+                    phone_value = phone_entry
+                else:
+                    continue
+                    
+                key = self._normalize_phone_key(phone_value)
+                if not key:
+                    continue
+                phone_map.setdefault(key, []).append((org_id, org, phone_entry))
+
+        if not phone_map:
+            return conflicts
+
+        contact_map = self._build_contact_phone_map(contacts)
+
+        for phone_key, owners in phone_map.items():
+            if len(owners) <= 1:
+                continue
+
+            override_gid = self.phone_overrides.get(phone_key)
+            if override_gid:
+                entry = self._apply_phone_override(phone_key, owners, override_gid)
+                conflicts.setdefault(entry['status'], []).append(entry)
+                continue
+
+            owner_scores: List[Dict[str, Any]] = []
+            for org_id, org, phone_entry in owners:
+                score, reasons = self._score_phone_owner(
+                    phone_key, org, org_id, contact_map
+                )
+                owner_scores.append(
+                    {
+                        'org_id': org_id,
+                        'gid': org.get('gid'),
+                        'score': score,
+                        'reasons': reasons,
+                    }
+                )
+
+            max_score = max(item['score'] for item in owner_scores)
+            top = [item for item in owner_scores if item['score'] == max_score]
+
+            if max_score > 0 and len(top) == 1:
+                winner = top[0]
+                removed_gids = self._remove_phone_from_others(
+                    phone_key, owners, winner['org_id']
+                )
+                entry = {
+                    'phone': phone_key,
+                    'status': 'resolved',
+                    'kept_gid': winner.get('gid'),
+                    'removed_gids': removed_gids,
+                    'reason': self._pick_reason(winner['reasons']),
+                }
+                conflicts['resolved'].append(entry)
+            else:
+                entry = {
+                    'phone': phone_key,
+                    'status': 'unresolved',
+                    'owners': [org.get('gid') for _, org, _ in owners if org.get('gid')],
+                    'reason': 'ambiguous',
+                }
+                conflicts['unresolved'].append(entry)
+
+        return conflicts
+
     def _backfill_contact_city_address(
         self,
         contacts: List[Dict[str, Any]],
@@ -732,6 +865,185 @@ class PostProcessor:
             updated_contacts.append(normalized_contact)
 
         return updated_contacts, provenance
+
+    def _scrub_contact_addresses(
+        self,
+        contacts: List[Dict[str, Any]],
+        organizations: Dict[int, Dict[str, Any]],
+        provenance: Dict[int, Dict[str, str]],
+    ) -> None:
+        for contact in contacts:
+            address = contact.get('address')
+            if not address:
+                continue
+            org = organizations.get(contact.get('organization_id'))
+            if not org:
+                continue
+            org_address = org.get('address')
+            if not org_address:
+                continue
+            if self._normalized_equals(address, org_address):
+                contact['address'] = None
+                cid = contact.get('contact_id')
+                if isinstance(cid, int):
+                    entry = provenance.setdefault(cid, {})
+                    entry['address_removed'] = 'org_hq_match'
+
+    @staticmethod
+    def _normalized_equals(left: str, right: str) -> bool:
+        if not left or not right:
+            return False
+        return as_text(left).lower() == as_text(right).lower()
+
+    @staticmethod
+    def _normalize_phone_key(phone_value: Any) -> Optional[str]:
+        if not phone_value:
+            return None
+        text = as_text(phone_value)
+        if not text:
+            return None
+        digits = re.sub(r'\D+', '', text)
+        if not digits:
+            return None
+        if digits.startswith('8') and len(digits) == 11:
+            digits = '7' + digits[1:]
+        if digits.startswith('7') and not digits.startswith('+'):
+            digits = '+' + digits
+        if not digits.startswith('+'):
+            digits = '+' + digits
+        return digits
+
+    @staticmethod
+    def _normalize_city_label(value: Optional[str]) -> Optional[str]:
+        if not value:
+            return None
+        return as_text(value).strip().lower().replace('ё', 'е') or None
+
+    def _extract_area_code(self, phone_key: str) -> Optional[str]:
+        digits = re.sub(r'\D+', '', phone_key)
+        if digits.startswith('7'):
+            digits = digits[1:]
+        for length in (4, 3):
+            if len(digits) >= length:
+                code = digits[:length]
+                if code in AREA_CODE_CITY_MAP:
+                    return code
+        return None
+
+    def _match_area_code(self, area_code: str, city: Optional[str]) -> bool:
+        normalized_city = self._normalize_city_label(city)
+        if not area_code or not normalized_city:
+            return False
+        expected = AREA_CODE_CITY_MAP.get(area_code)
+        if not expected:
+            return False
+        return expected == normalized_city
+
+    def _build_contact_phone_map(self, contacts: List[Dict[str, Any]]) -> Dict[str, Set[int]]:
+        mapping: Dict[str, Set[int]] = defaultdict(set)
+        for contact in contacts:
+            org_id = contact.get('organization_id')
+            if not isinstance(org_id, int):
+                continue
+            for phone_entry in contact.get('phones', []) or []:
+                normalized = None
+                if isinstance(phone_entry, dict):
+                    normalized = phone_entry.get('normalized') or phone_entry.get('number')
+                else:
+                    normalized = phone_entry
+                key = self._normalize_phone_key(normalized)
+                if key:
+                    mapping[key].add(org_id)
+        return mapping
+
+    def _score_phone_owner(
+        self,
+        phone_key: str,
+        org: Dict[str, Any],
+        org_id: int,
+        contact_map: Dict[str, Set[int]],
+    ) -> Tuple[int, List[str]]:
+        score = 0
+        reasons: List[str] = []
+
+        area_code = self._extract_area_code(phone_key)
+        if area_code and self._match_area_code(area_code, org.get('city')):
+            score += 100
+            reasons.append('area_match')
+
+        contact_orgs = contact_map.get(phone_key, set())
+        if org_id in contact_orgs:
+            score += 20
+            reasons.append('contact_match')
+
+        return score, reasons
+
+    def _remove_phone_from_others(
+        self,
+        phone_key: str,
+        owners: List[Tuple[int, Dict[str, Any], Dict[str, Any]]],
+        winner_org_id: int,
+    ) -> List[str]:
+        removed_gids: List[str] = []
+        for org_id, org, _ in owners:
+            if org_id == winner_org_id:
+                continue
+            phones = org.get('phones') or []
+            new_list: List[Dict[str, Any]] = []
+            removed = False
+            for phone_entry in phones:
+                entry_key = self._normalize_phone_key(
+                    phone_entry.get('normalized') or phone_entry.get('number')
+                )
+                if not removed and entry_key == phone_key:
+                    removed = True
+                    continue
+                new_list.append(phone_entry)
+            if removed:
+                org['phones'] = new_list
+                gid = org.get('gid')
+                if gid:
+                    removed_gids.append(gid)
+        return removed_gids
+
+    def _apply_phone_override(
+        self,
+        phone_key: str,
+        owners: List[Tuple[int, Dict[str, Any], Dict[str, Any]]],
+        override_gid: str,
+    ) -> Dict[str, Any]:
+        kept = None
+        winner_org_id = None
+        for org_id, org, _ in owners:
+            if org.get('gid') == override_gid:
+                kept = override_gid
+                winner_org_id = org_id
+                break
+        if kept is None:
+            return {
+                'phone': phone_key,
+                'status': 'unresolved',
+                'owners': [org.get('gid') for _, org, _ in owners if org.get('gid')],
+                'reason': 'override_missing',
+            }
+        removed_gids = self._remove_phone_from_others(phone_key, owners, winner_org_id)
+        return {
+            'phone': phone_key,
+            'status': 'resolved',
+            'kept_gid': kept,
+            'removed_gids': removed_gids,
+            'reason': 'override',
+        }
+
+    @staticmethod
+    def _pick_reason(reasons: List[str]) -> str:
+        if not reasons:
+            return 'unknown'
+        if 'area_match' in reasons:
+            return 'area_match'
+        if 'contact_match' in reasons:
+            return 'contact_match'
+        return reasons[0]
 
     @staticmethod
     def _has_value(value: Any) -> bool:
@@ -995,7 +1307,7 @@ class PostProcessor:
             return None
         return round(number, 2)
     
-    def _build_final_result(self, original_result: Dict[str, Any], 
+    def _build_final_result(self, original_result: Dict[str, Any],
                           final_contacts: List[Dict[str, Any]],
                           final_organizations: Dict[int, Dict[str, Any]],
                           interactions: List[Dict[str, Any]],
@@ -1005,7 +1317,8 @@ class PostProcessor:
                           commercial_offers: List[Dict[str, Any]],
                           provenance: Optional[Dict[int, Dict[str, str]]] = None,
                           email_classification: Optional[Dict[int, Dict[str, Any]]] = None,
-                          gid_metadata: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+                          gid_metadata: Optional[Dict[str, Any]] = None,
+                          phone_conflicts: Optional[Dict[str, List[Dict[str, Any]]]] = None) -> Dict[str, Any]:
         """Формирование финального результата
         
         Args:
@@ -1052,6 +1365,8 @@ class PostProcessor:
             processed_result['postprocessing_metadata']['email_classification'] = email_classification
         if gid_metadata is not None:
             processed_result['postprocessing_metadata']['gid'] = gid_metadata
+        if phone_conflicts is not None:
+            processed_result['postprocessing_metadata']['phone_conflicts'] = phone_conflicts
 
         return processed_result
     

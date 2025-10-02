@@ -128,6 +128,9 @@ class DataEnricher:
                                          organizations: Dict[int, Dict[str, Any]] = None) -> Dict[str, Any]:
         """Обогащение полей city и address из организации согласно мини-ТЗ п.5
         
+        ВАЖНО: Адрес НЕ копируется, если город контакта отличается от города организации.
+        Это предотвращает попадание адреса HQ к контактам в других городах.
+        
         Args:
             contact: Контакт для обогащения
             organizations: Словарь организаций
@@ -149,10 +152,24 @@ class DataEnricher:
             contact['city'] = organization['city']
             self.logger.debug(f"Обогащен city для контакта {contact.get('name', 'Unknown')}: {organization['city']}")
             
-        # Обогащаем address, если у контакта не указан
+        # Обогащаем address ТОЛЬКО если город контакта совпадает с городом организации
+        # Это предотвращает попадание адреса HQ к региональным представителям
         if not contact.get('address') and organization.get('address'):
-            contact['address'] = organization['address']
-            self.logger.debug(f"Обогащен address для контакта {contact.get('name', 'Unknown')}: {organization['address']}")
+            contact_city = contact.get('city', '').strip().lower() if contact.get('city') else ''
+            org_city = organization.get('city', '').strip().lower() if organization.get('city') else ''
+            
+            # Копируем адрес только если города совпадают
+            if contact_city and org_city and contact_city == org_city:
+                contact['address'] = organization['address']
+                self.logger.debug(
+                    f"Обогащен address для контакта {contact.get('name', 'Unknown')}: "
+                    f"{organization['address']} (город совпадает: {contact_city})"
+                )
+            elif contact_city and org_city and contact_city != org_city:
+                self.logger.debug(
+                    f"Адрес НЕ обогащен для контакта {contact.get('name', 'Unknown')}: "
+                    f"город контакта ({contact_city}) отличается от города организации ({org_city})"
+                )
             
         return contact
     

@@ -1,4 +1,15 @@
 import copy
+import sys
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = BASE_DIR.parent
+SRC_DIR = PROJECT_ROOT / "src"
+
+for candidate in (PROJECT_ROOT, SRC_DIR):
+    candidate_str = str(candidate)
+    if candidate_str not in sys.path:
+        sys.path.append(candidate_str)
 
 from src.core.validator import LLMResponseValidator
 from src.postprocessing.postprocessor import PostProcessor

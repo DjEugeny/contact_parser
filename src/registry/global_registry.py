@@ -672,28 +672,53 @@ class GlobalIDRegistry:
         gid = record.get("gid")
         if not gid:
             return
+
         if event_type == "create":
             primary_key = tuple(record.get("key", []))
             aliases = [tuple(alias) for alias in record.get("aliases", [])]
-            self.key_index[primary_key] = gid
-            gid_entry = self.gid_index.setdefault(
-                gid,
-                {
-                    "gid": gid,
-                    "key": list(primary_key),
-                    "aliases": [],
-                    "created_at": record.get("created_at"),
-                    "source": record.get("source", "registry"),
-                },
-            )
-            gid_entry["key"] = list(primary_key)
-            gid_entry.setdefault("aliases", [])
-            self._gid_keys.setdefault(gid, set()).add(primary_key)
-            for alias in aliases:
-                self.key_index[alias] = gid
-                if list(alias) not in gid_entry["aliases"]:
-                    gid_entry["aliases"].append(list(alias))
-                self._gid_keys[gid].add(alias)
+
+            # Проверяем, существует ли уже такая запись
+            if gid in self.gid_index:
+                # Запись уже существует, добавляем только новые ключи как aliases
+                existing_entry = self.gid_index[gid]
+                existing_keys = self._gid_keys.get(gid, set())
+
+                # Добавляем primary key если его нет
+                if primary_key not in existing_keys:
+                    self.key_index[primary_key] = gid
+                    self._gid_keys.setdefault(gid, set()).add(primary_key)
+                    if list(primary_key) not in existing_entry["aliases"]:
+                        existing_entry["aliases"].append(list(primary_key))
+
+                # Добавляем aliases если их нет
+                for alias in aliases:
+                    if alias not in existing_keys:
+                        self.key_index[alias] = gid
+                        self._gid_keys[gid].add(alias)
+                        if list(alias) not in existing_entry["aliases"]:
+                            existing_entry["aliases"].append(list(alias))
+            else:
+                # Новая запись - создаём её
+                self.key_index[primary_key] = gid
+                gid_entry = self.gid_index.setdefault(
+                    gid,
+                    {
+                        "gid": gid,
+                        "key": list(primary_key),
+                        "aliases": [],
+                        "created_at": record.get("created_at"),
+                        "source": record.get("source", "registry"),
+                    },
+                )
+                gid_entry["key"] = list(primary_key)
+                gid_entry.setdefault("aliases", [])
+                self._gid_keys.setdefault(gid, set()).add(primary_key)
+                for alias in aliases:
+                    self.key_index[alias] = gid
+                    if list(alias) not in gid_entry["aliases"]:
+                        gid_entry["aliases"].append(list(alias))
+                    self._gid_keys[gid].add(alias)
+
         elif event_type == "alias":
             alias = tuple(record.get("alias", []))
             if alias:

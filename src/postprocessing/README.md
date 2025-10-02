@@ -147,6 +147,29 @@ deduplicator = AdvancedContactDeduplicator()
 unique_contacts = deduplicator.deduplicate_contacts(contacts)
 ```
 
+### 7. Phone Disambiguation (PLAN-004)
+**Файл:** `postprocessor.py` (метод `_resolve_phone_conflicts`)
+**Назначение:** Разделение телефонов между организациями, защита от HQ-утечек (LLM дублирует номера, напр. +7(383) МЕД КОНГРЕСС в ДНК-Технология).
+
+**Эвристики (приоритет: city > domain > contact):**
+- `area_match` (city_weight=100): код города номера (+7(383) → Новосибирск) совпадает с org.city
+- `domain_match` (domain_weight=50): домен email/website org содержит поддомен/сопадает с источником (извлекается из emails/website)
+- `contact_match` (contact_weight=20): номер привязан к контактам этой org
+
+**Логика разрешения:**
+- Группировка телефонов по нормализованному ключу (E.164)
+- Scoring владельцев, winner если max_score > sum(others) + 0.1
+- Unresolved при равенстве/низкой уверенности
+- Overrides из `registry/phone_overrides.yml` имеют приоритет (reason="override")
+
+**Метаданные:** `postprocessing_metadata.phone_conflicts = {'resolved': [...], 'unresolved': [...]}`
+- Каждый: `{'phone': '+7...', 'status': 'resolved', 'kept_gid': '...', 'removed_gids': [...], 'reason': 'area_match'}`
+
+**DevOps инструкции:**
+- **Просмотр конфликтов:** В логах/метаданных: `processed['postprocessing_metadata']['phone_conflicts']`. Unresolved — для ручного вмешательства.
+- **Добавление overrides:** Редактируйте `registry/phone_overrides.yml` (E.164 номер → owner_gid). Запустите `python scripts/check_registry_health.py` для валидации (дубли, GID existence).
+- **Мониторинг:** В health-check отчёт по overrides count/duplicates. После прогона проверяйте DoD: в email_018/019 телефоны разделены правильно.
+
 ## Новая структура данных
 
 ### Входной формат (от LLM)

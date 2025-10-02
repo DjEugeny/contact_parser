@@ -18,6 +18,31 @@ from ..utils.city_registry import CityRegistry
 
 logger = logging.getLogger(__name__)
 
+COMMON_FIRST_NAMES = {
+    'александр', 'алексей', 'андрей', 'анна', 'артем', 'арсений', 'алена', 'алёна',
+    'алиса', 'алия', 'алия', 'богдан', 'борис', 'вадим', 'варвара', 'вера',
+    'вероника', 'виктор', 'виктория', 'виталий', 'владимир', 'владислав', 'вячеслав',
+    'галина', 'гарик', 'глеб', 'данил', 'даниил', 'денис', 'диана', 'евгений',
+    'евгения', 'екатерина', 'елена', 'елизавета', 'зоя', 'иван', 'игорь', 'илия',
+    'илья', 'инна', 'ирина', 'кирилл', 'константин', 'ксения', 'лариса', 'леонид',
+    'лилия', 'лидия', 'любовь', 'людмила', 'маргарита', 'марина', 'мария', 'максим',
+    'матвей', 'михаил', 'наталья', 'никита', 'николай', 'оксана', 'олег', 'ольга',
+    'павел', 'полина', 'ростислав', 'светлана', 'семен', 'сергей', 'софия', 'степан',
+    'таисия', 'таисса', 'тамара', 'татьяна', 'тимур', 'улла', 'ульяна', 'федор',
+    'фёдор', 'харитон', 'эдуард', 'элеонора', 'элина', 'юлия', 'яна', 'ян',
+    'евграф', 'ростислав', 'руслан', 'роман', 'вадим', 'георгий', 'григорий', 'елиссей',
+    'елисей', 'евлампий', 'арина', 'аделина', 'валентина', 'валентин', 'валерий',
+    'владлена', 'жана', 'ждан', 'зарина', 'илона', 'карина', 'кристина', 'лариса',
+    'маргарита', 'мирослава', 'нелли', 'радмила', 'рафаэль', 'самуил', 'станислав',
+    'тамара', 'етр', 'юрий', 'элина', 'юлиан', 'ярослав', 'ярослава'
+}
+
+SURNAME_SUFFIXES = (
+    'ов', 'ова', 'ев', 'ева', 'ин', 'ина', 'ын', 'ына', 'ский', 'ская', 'цкий', 'цкая',
+    'швили', 'дзе', 'ко', 'юк', 'чук', 'як', 'ский', 'ская', 'ман', 'ина', 'ян', 'янц',
+    'оглы', 'улы', 'ашвили', 'их', 'ая', 'сий', 'сяя', 'цева', 'чёва'
+)
+
 
 class DataNormalizer:
     """Нормализатор данных постобработки
@@ -52,6 +77,46 @@ class DataNormalizer:
         # Помощник для доменов/сайтов
         self.smart_enricher = SmartContactEnricher()
         self.city_registry = CityRegistry()
+
+    @staticmethod
+    def _is_first_name(token: str) -> bool:
+        if not token:
+            return False
+        base = token.split('-')[0].strip().lower()
+        return base in COMMON_FIRST_NAMES
+
+    @staticmethod
+    def _is_surname(token: str) -> bool:
+        if not token:
+            return False
+        clean = token.split('-')[-1].strip().lower()
+        for suffix in SURNAME_SUFFIXES:
+            if clean.endswith(suffix):
+                return True
+        return False
+
+    def _normalize_name_order(self, name: str) -> str:
+        tokens = [token for token in name.split() if token]
+        if len(tokens) < 2:
+            return name
+
+        first = tokens[0]
+        if not self._is_first_name(first):
+            return name
+
+        surname_index = None
+        if len(tokens) >= 2 and self._is_surname(tokens[1]):
+            surname_index = 1
+        elif len(tokens) >= 3 and self._is_surname(tokens[-1]):
+            surname_index = len(tokens) - 1
+
+        if surname_index is None:
+            return name
+
+        surname = tokens[surname_index]
+        remaining = [tokens[i] for i in range(len(tokens)) if i != surname_index]
+        reordered = [surname] + remaining
+        return " ".join(reordered)
     
     def normalize_contacts(self, contacts: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """Нормализация списка контактов
@@ -322,6 +387,7 @@ class DataNormalizer:
             }
         elif isinstance(entry, str):
             raw_phone = entry.strip()
+            metadata = {'confidence': 1.0, 'type': 'main'}
         else:
             return []
 
@@ -550,7 +616,7 @@ class DataNormalizer:
     
     def _normalize_contact_name(self, contact: Dict[str, Any]) -> Dict[str, Any]:
         """Нормализация имени контакта
-        
+
         Args:
             contact: Контакт с именем
             
@@ -560,12 +626,17 @@ class DataNormalizer:
         if contact.get('name'):
             original_name = contact['name']
             normalized_name = normalize_first_word_only(original_name)
-            
+            normalized_name = self._normalize_name_order(normalized_name)
+
             if normalized_name and normalized_name != original_name:
-                self.logger.debug(f"Нормализация имени: '{original_name}' → '{normalized_name}'")
+                self.logger.debug(
+                    "Нормализация имени: '%s' → '%s'",
+                    original_name,
+                    normalized_name,
+                )
                 contact['name'] = normalized_name
-                contact['name_original'] = original_name
-        
+                contact.setdefault('name_original', original_name)
+
         return contact
     
     def _normalize_contact_position(self, contact: Dict[str, Any]) -> Dict[str, Any]:
@@ -615,28 +686,47 @@ class DataNormalizer:
         """☎️ Преобразование цифр телефона в формат с плюсом"""
         if not digits:
             return ''
-
+        
         value = digits.strip()
         if not value:
             return ''
-
+        
         if value.startswith('+'):
             return value
-
+    
         digits_only = ''.join(filter(str.isdigit, value))
         if not digits_only:
             return value
-
+    
         if digits_only.startswith('8') and len(digits_only) == 11:
             return '+7' + digits_only[1:]
-
+    
         if digits_only.startswith('7') and len(digits_only) == 11:
             return '+' + digits_only
-
+    
         if value.startswith('00'):
             return '+' + value[2:]
-
+    
         return '+' + digits_only
+    
+    @staticmethod
+    def _normalize_phone_key(phone_value: Any) -> Optional[str]:
+        """Нормализация телефона для ключа (как в PostProcessor)."""
+        if not phone_value:
+            return None
+        text = as_text(phone_value)
+        if not text:
+            return None
+        digits = re.sub(r'\D+', '', text)
+        if not digits:
+            return None
+        if digits.startswith('8') and len(digits) == 11:
+            digits = '7' + digits[1:]
+        if digits.startswith('7') and not digits.startswith('+'):
+            digits = '+' + digits
+        if not digits.startswith('+'):
+            digits = '+' + digits
+        return digits
      
     def _normalize_email(self, email: str) -> str:
         """Нормализация email адреса
