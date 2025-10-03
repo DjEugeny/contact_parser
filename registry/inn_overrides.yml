@@ -1,0 +1,17 @@
+# Ручные переопределения ИНН для организаций
+# Manual INN overrides for organizations
+
+org_overrides: []
+
+metadata:
+  created_at: '2025-10-03T10:00:00Z'
+  version: '1.0.0'
+  description: 'Ручные переопределения ИНН для организаций'
+  
+# Пример записи:
+# org_overrides:
+#   - org_gid: "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+#     inn: "7723537840"
+#     reason: "ручное подтверждение через ФНС"
+#     confirmed_by: "user@example.com"
+#     confirmed_at: "2025-10-03T10:30:00Z"

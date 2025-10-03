@@ -2819,54 +2819,37 @@ class OCRProcessor:
         date_texts_dir = self.texts_dir / normalized_date
         file_stem = file_path.stem
 
-        # 🆕 ИСПРАВЛЕНИЕ: Используем ту же логику, что и в _check_existing_results
-        parts = file_stem.split('_')
-        existing_files = []
-
-        # Ищем позицию 'attach' в частях имени файла
-        attach_index = -1
-        for i, part in enumerate(parts):
-            if part == 'attach':
-                attach_index = i
-                break
+        # ПРОСТОЕ И НАДЕЖНОЕ РЕШЕНИЕ: точное совпадение имени файлов
+        # Поскольку файл PDF и файл TXT должны иметь одинаковые стемы,
+        # просто ищем файл с таким же стемом + .txt
+        exact_match_file = date_texts_dir / f"{file_stem}.txt"
         
-        if attach_index != -1 and attach_index < len(parts) - 1:
-            # Это файл вложения с правильным форматом
-            original_name = '_'.join(parts[attach_index + 1:])  # Все после '_attach_'
-
-            # Ищем все файлы, содержащие оригинальное имя
-            all_txt_files = list(date_texts_dir.glob("*.txt"))
-
-            for txt_file in all_txt_files:
-                txt_stem = txt_file.stem
-                # Убираем суффиксы методов и ошибок для сравнения
-                clean_txt_stem = txt_stem.replace('___google_vision_pdf_optimized', '').replace('___local_pdf_text', '').replace('_ERROR', '')
-
-                # Проверяем, содержит ли имя файла оригинальное имя вложения
-                if original_name in clean_txt_stem:
-                    existing_files.append(txt_file)
+        if exact_match_file.exists():
+            self.logger.debug(f"Найден точно соответствующий файл: {exact_match_file.name}")
+            existing_files = [exact_match_file]
         else:
-            # Файл не соответствует формату - используем старую логику
-            exact_match_files = list(date_texts_dir.glob(f"{file_stem}.txt")) + list(date_texts_dir.glob(f"{file_stem}_ERROR.txt"))
-
-            if not exact_match_files:
+            # Фоллбэк: ищем файлы с ошибками или старыми суффиксами
+            error_file = date_texts_dir / f"{file_stem}_ERROR.txt"
+            if error_file.exists():
+                existing_files = [error_file]
+            else:
+                # Последняя попытка: старые файлы с суффиксами методов
                 old_format_files = list(date_texts_dir.glob(f"{file_stem}___*.txt"))
                 existing_files = old_format_files
-            else:
-                existing_files = exact_match_files
         
         if not existing_files:
-            # Если файлов нет, возвращаем пустой результат
+            # ЛОГИЧЕСКАЯ ОШИБКА ИСПРАВЛЕНА: Если _check_existing_results вернул True, 
+            # но мы здесь не нашли файлы - это означает ошибку в логике
             return {
                 "file_name": file_path.name,
                 "file_path": str(file_path),
                 "file_size_mb": round(file_path.stat().st_size / (1024 * 1024), 2),
                 "success": False,
                 "text": "",
-                "method": "not_found",
+                "method": "logic_error_fixed",
                 "confidence": 0.0,
                 "processing_time_sec": 0.0,
-                "error": "Existing result not found"
+                "error": "LOGIC ERROR FIXED: No matching result files found despite _check_existing_results returning True"
             }
         
         # Разделяем файлы на успешные и файлы-маркеры ошибок

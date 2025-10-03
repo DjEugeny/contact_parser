@@ -30,6 +30,7 @@ from .data_normalizer import DataNormalizer
 from .advanced_contact_deduplicator import AdvancedContactDeduplicator
 from .smart_contact_enricher import SmartContactEnricher
 from .email_classifier import MailboxType, classify_mailbox
+from .org_inn_resolver import OrganizationINNResolver
 from ..registry import GlobalIDRegistry
 
 logger = logging.getLogger(__name__)
@@ -247,6 +248,14 @@ class PostProcessor:
         self.email_classification_log: Dict[int, Dict[str, Any]] = {}
         self.gid_registry = GlobalIDRegistry()
         self.phone_overrides = self._load_phone_overrides()
+        
+        # Инициализация ИНН резолвера
+        try:
+            self.inn_resolver = OrganizationINNResolver()
+            self.logger.info("✅ INN resolver initialized")
+        except Exception as e:
+            self.logger.warning(f"⚠️ Failed to initialize INN resolver: {e}")
+            self.inn_resolver = None
 
         # Статистика обработки
         self.stats = {
@@ -460,6 +469,9 @@ class PostProcessor:
                 valuable_contacts,
             )
 
+            # Этап 3.1: Обогащение ИНН организаций
+            inn_enrichment_metadata = self._enrich_organizations_inn(updated_organizations)
+
             phone_conflicts = self._resolve_phone_conflicts(
                 updated_organizations,
                 valuable_contacts,
@@ -517,6 +529,7 @@ class PostProcessor:
                 email_classification_log,
                 gid_metadata,
                 phone_conflicts,
+                inn_enrichment_metadata,
             )
             
             # Обновление статистики
@@ -1069,6 +1082,39 @@ class PostProcessor:
             return bool(as_text(value))
         return True
 
+    def _enrich_organizations_inn(self, organizations: Dict[int, Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
+        """
+        Этап 3.1: Обогащение ИНН организаций
+        
+        Args:
+            organizations: Словарь организаций для обогащения
+            
+        Returns:
+            Dict: Метаданные обогащения ИНН
+        """
+        if not self.inn_resolver:
+            self.logger.debug("INN resolver not available, skipping INN enrichment")
+            return {}
+        
+        try:
+            self.logger.info(f"🏛️ Начинаем обогащение ИНН для {len(organizations)} организаций")
+            
+            # Обогащение через INN resolver
+            inn_metadata = self.inn_resolver.enrich_organizations(organizations)
+            
+            # Обновление статистики
+            enriched_count = sum(1 for meta in inn_metadata.values() 
+                               if meta.get('decision') == 'auto_accept')
+            
+            self.stats['organizations_inn_enriched'] = enriched_count
+            
+            self.logger.info(f"✅ Обогащение ИНН завершено: {enriched_count} организаций обогащено")
+            return inn_metadata
+            
+        except Exception as e:
+            self.logger.error(f"❌ Ошибка при обогащении ИНН: {e}")
+            return {}
+
     def _enrich_contact_data(self, contacts: List[Dict[str, Any]], 
                            organizations: Dict[int, Dict[str, Any]],
                            email_data: Optional[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -1333,7 +1379,8 @@ class PostProcessor:
                           provenance: Optional[Dict[int, Dict[str, str]]] = None,
                           email_classification: Optional[Dict[int, Dict[str, Any]]] = None,
                           gid_metadata: Optional[Dict[str, Any]] = None,
-                          phone_conflicts: Optional[Dict[str, List[Dict[str, Any]]]] = None) -> Dict[str, Any]:
+                          phone_conflicts: Optional[Dict[str, List[Dict[str, Any]]]] = None,
+                          inn_enrichment_metadata: Optional[Dict[str, Dict[str, Any]]] = None) -> Dict[str, Any]:
         """Формирование финального результата
         
         Args:
@@ -1382,6 +1429,10 @@ class PostProcessor:
             processed_result['postprocessing_metadata']['gid'] = gid_metadata
         if phone_conflicts is not None:
             processed_result['postprocessing_metadata']['phone_conflicts'] = phone_conflicts
+        if inn_enrichment_metadata is not None:
+            processed_result['postprocessing_metadata']['enrichment'] = {
+                'org_inn': inn_enrichment_metadata
+            }
 
         return processed_result
     

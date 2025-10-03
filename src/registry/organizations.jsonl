@@ -34,3 +34,33 @@
 {"event": "alias", "gid": "dc827ae5-f14c-5fa1-8397-e0c32aa5757a", "alias": ["ORG", "FALLBACK", "942d27ede01b0325"], "created_at": "2025-10-02T08:30:20Z"}
 {"event": "alias", "gid": "d5fe73ec-73c1-5eb7-8af0-0278a764a70e", "alias": ["ORG", "FALLBACK", "fe230b3b7fd578f3"], "created_at": "2025-10-02T08:45:07Z"}
 {"event": "create", "gid": "be8b4449-01dc-5354-a323-88cfd7da7cb2", "key": ["ORG", "FALLBACK", "129515a4dae25ad7"], "aliases": [], "created_at": "2025-10-02T11:31:51Z", "source": "new"}
+{"event": "create", "gid": "d59d5883-e17c-57ad-98a2-656705f35aae", "key": ["ORG", "INN", "4217162879"], "aliases": [["ORG", "DOMAIN", "gm.clinic"], ["ORG", "NAME_CITY", "гранд медика", "новокузнецк"], ["ORG", "FALLBACK", "c91215235b8cf662"]], "created_at": "2025-10-03T08:33:16Z", "source": "new"}
+{"event": "alias", "gid": "79ef90eb-b1bc-547f-9121-003d2b620b71", "alias": ["ORG", "INN", "7704543951"], "created_at": "2025-10-03T08:34:30Z"}
+{"event": "create", "gid": "7b6ab8c8-8c68-5a44-b7d3-20afbcb32ced", "key": ["ORG", "FALLBACK", "e9bc77ab81802a5b"], "aliases": [], "created_at": "2025-10-03T08:34:30Z", "source": "new"}
+{"event": "create", "gid": "39a75f89-609f-5015-9566-725b107c909b", "key": ["ORG", "INN", "2463075247"], "aliases": [["ORG", "NAME_CITY", "служба по ветеринарному надзору красноярского края", "красноярск"], ["ORG", "FALLBACK", "6e598917a294dc6c"]], "created_at": "2025-10-03T08:35:27Z", "source": "new"}
+{"event": "create", "gid": "256f0078-2f3c-5dba-819e-3a7763cc3d9a", "key": ["ORG", "FALLBACK", "2ba47b4e24115f26"], "aliases": [], "created_at": "2025-10-03T08:38:40Z", "source": "new"}
+{"event": "create", "gid": "2cd5f32f-ca74-5a7f-b5ce-9e204ebafc9f", "key": ["ORG", "INN", "7729133509"], "aliases": [["ORG", "NAME_CITY", "цок апк, филиал в г.барнаул", "барнаул"], ["ORG", "FALLBACK", "4f9c74689613018d"]], "created_at": "2025-10-03T08:38:40Z", "source": "new"}
+{"event": "create", "gid": "f410a6de-a277-528c-b524-55cd6bfdd74c", "key": ["ORG", "DOMAIN", "medgenetics.ru"], "aliases": [["ORG", "FALLBACK", "72ba47b4edc830fd"]], "created_at": "2025-10-03T08:39:53Z", "source": "new"}
+{"event": "create", "gid": "14ef8ac7-9e30-57a5-8573-e8b1bcd7a75f", "key": ["ORG", "NAME_CITY", "томский нимц", "томск"], "aliases": [["ORG", "FALLBACK", "fbbc22d1e08b2f87"]], "created_at": "2025-10-03T08:42:29Z", "source": "new"}
+{"event": "create", "gid": "2ecf126d-30e6-53a4-bcad-385092ea7523", "key": ["ORG", "DOMAIN", "himlabservice.ru"], "aliases": [["ORG", "NAME_CITY", "химлабсервис", "томск"], ["ORG", "FALLBACK", "532c6e11708428b9"]], "created_at": "2025-10-03T08:43:09Z", "source": "new"}
+{"event": "create", "gid": "f373ba91-9676-50c6-9760-457b63ded9f3", "key": ["ORG", "FALLBACK", "70b379b243ffdac7"], "aliases": [], "created_at": "2025-10-03T08:43:09Z", "source": "new"}
+{"event": "create", "gid": "7a6b097d-ab02-574d-961a-e56394391855", "key": ["ORG", "NAME_CITY", "ренда", "красноярск"], "aliases": [["ORG", "FALLBACK", "03735b2652e48efc"]], "created_at": "2025-10-03T08:44:26Z", "source": "new"}
+{"event": "alias", "gid": "39a75f89-609f-5015-9566-725b107c909b", "alias": ["ORG", "FALLBACK", "03939d8487bba6ba"], "created_at": "2025-10-03T08:44:26Z"}
+{"event": "create", "gid": "9b25954c-ed22-5fb9-83d9-0265c363d18b", "key": ["ORG", "INN", "5403181503"], "aliases": [["ORG", "NAME_CITY", "цлд", "новосибирск"], ["ORG", "FALLBACK", "c39940871188bb85"]], "created_at": "2025-10-03T08:47:34Z", "source": "new"}
+{"event": "alias", "gid": "9b25954c-ed22-5fb9-83d9-0265c363d18b", "alias": ["ORG", "NAME_CITY", "цлд г.новосибирск", "новосибирск"], "created_at": "2025-10-03T08:48:41Z"}
+{"event": "alias", "gid": "9b25954c-ed22-5fb9-83d9-0265c363d18b", "alias": ["ORG", "FALLBACK", "781508817b7e47eb"], "created_at": "2025-10-03T08:48:41Z"}
+{"event": "create", "gid": "b142f9a2-b30f-5a31-be96-fd8cc00ade21", "key": ["ORG", "DOMAIN", "assa-group.ru"], "aliases": [["ORG", "NAME_CITY", "асса лабораторные системы", "томск"], ["ORG", "FALLBACK", "9be4cc0c883e7df9"]], "created_at": "2025-10-03T08:49:48Z", "source": "new"}
+{"event": "create", "gid": "3a0c350d-860f-5a0f-9afb-bda11245eb04", "key": ["ORG", "INN", "7736055393"], "aliases": [["ORG", "FALLBACK", "72bffffd37bf4ff4"]], "created_at": "2025-10-03T08:49:48Z", "source": "new"}
+{"event": "alias", "gid": "7fd2e423-23ef-5814-adcd-ae26b2748956", "alias": ["ORG", "FALLBACK", "9078375bf2aa7f1f"], "created_at": "2025-10-03T08:50:34Z"}
+{"event": "create", "gid": "d2401c85-5ab4-5857-bcfe-0e9f3c5a89f0", "key": ["ORG", "FALLBACK", "ddf73a147a986d94"], "aliases": [], "created_at": "2025-10-03T08:52:44Z", "source": "new"}
+{"event": "alias", "gid": "d59d5883-e17c-57ad-98a2-656705f35aae", "alias": ["ORG", "FALLBACK", "eedf91ab2c3badfe"], "created_at": "2025-10-03T11:53:36Z"}
+{"event": "alias", "gid": "f410a6de-a277-528c-b524-55cd6bfdd74c", "alias": ["ORG", "FALLBACK", "e9939de34d894424"], "created_at": "2025-10-03T11:56:23Z"}
+{"event": "create", "gid": "a8e88e8a-41f7-5ea6-a077-aa00d3f88d06", "key": ["ORG", "DOMAIN", "tnimc.ru"], "aliases": [["ORG", "FALLBACK", "5db4f1a9b00bc009"]], "created_at": "2025-10-03T11:56:23Z", "source": "new"}
+{"event": "create", "gid": "bee1f6d0-724f-55d7-907d-7f19c634176d", "key": ["ORG", "INN", "0326036852"], "aliases": [["ORG", "NAME_CITY", "мц диамед", "улан-удэ"], ["ORG", "FALLBACK", "5e6749d8c3ec0b3d"]], "created_at": "2025-10-03T12:00:36Z", "source": "new"}
+{"event": "alias", "gid": "a8e88e8a-41f7-5ea6-a077-aa00d3f88d06", "alias": ["ORG", "FALLBACK", "f7ada3e6d3e17ceb"], "created_at": "2025-10-03T12:03:51Z"}
+{"event": "create", "gid": "e60e4d91-8102-510b-9e6f-24b10a25a242", "key": ["ORG", "FALLBACK", "b67513e50452d3c2"], "aliases": [], "created_at": "2025-10-03T12:08:32Z", "source": "new"}
+{"event": "create", "gid": "bdb8fdf6-42d1-5af6-8aa8-39b6c23801d2", "key": ["ORG", "FALLBACK", "f82fd300a2d5585c"], "aliases": [], "created_at": "2025-10-03T12:08:32Z", "source": "new"}
+{"event": "create", "gid": "e9fbb5e6-4fd0-5b98-b72a-a167365e325c", "key": ["ORG", "FALLBACK", "d5d5c18e5ba42577"], "aliases": [], "created_at": "2025-10-03T12:08:32Z", "source": "new"}
+{"event": "create", "gid": "e4eaf077-a63c-54ff-8216-ab243d8aba06", "key": ["ORG", "DOMAIN", "amplitest.ru"], "aliases": [["ORG", "FALLBACK", "a3ead1dd372a845a"]], "created_at": "2025-10-03T12:08:32Z", "source": "new"}
+{"event": "alias", "gid": "bee1f6d0-724f-55d7-907d-7f19c634176d", "alias": ["ORG", "NAME_CITY", "диагрупп", "улан-удэ"], "created_at": "2025-10-03T12:23:50Z"}
+{"event": "alias", "gid": "bee1f6d0-724f-55d7-907d-7f19c634176d", "alias": ["ORG", "FALLBACK", "455f72cccbcaee18"], "created_at": "2025-10-03T12:23:50Z"}

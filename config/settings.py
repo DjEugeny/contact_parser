@@ -67,3 +67,38 @@ COMPANY_CONFIG = {
         'low_priority': ['Красноярск', 'Иркутск']
     }
 }
+
+# 🏛️ ИНН обогащение организаций
+INN_ENRICHMENT_CONFIG = {
+    'enabled': True,
+    'auto_accept_threshold': 0.85,
+    'review_threshold': 0.65,
+    'providers': {
+        'fns_integration': {
+            'enabled': False,  # Будет включен когда получим API
+            'timeout_ms': 6000
+        },
+        'fns_public': {
+            'enabled': True,
+            'timeout_ms': 6000
+        },
+        'dadata': {
+            'enabled': True,
+            'api_key': os.getenv('DADATA_API_KEY'),
+            'timeout_ms': 3000
+        },
+        'rusprofile': {
+            'enabled': False,  # Добавим позже если нужно
+            'timeout_ms': 4000
+        }
+    },
+    'cache': {
+        'path': PROJECT_ROOT / 'registry' / 'inn_cache.jsonl',
+        'ttl_days': 180
+    },
+    'overrides_path': PROJECT_ROOT / 'registry' / 'inn_overrides.yml',
+    'legal': {
+        'allow_ip_inn': True,
+        'store_personal_data': 'minimal'
+    }
+}

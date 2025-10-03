@@ -65,6 +65,7 @@ from src.email_loader import ProcessedEmailLoader
 from src.reporting import ReportGenerator
 from src.utils.logger import log_pipeline_event, log_system_event, log_error_event
 from src.postprocessing.resilient_processor import ResilientEmailProcessor
+from src.utils.portable_paths import get_portable_paths
 
 load_dotenv(PROJECT_ROOT / ".env")
 
@@ -157,10 +158,12 @@ class APIPipelineValidator:
         self.end_date = args.end_date
         self.dry_run = args.dry_run
 
-        self.project_root = PROJECT_ROOT
-        self.data_dir = DATA_DIR
-        self.emails_dir = EMAILS_DIR
-        self.llm_results_dir = LLM_RESULTS_DIR
+        # 🔧 ПОРТИРУЕМЫЕ ПУТИ: Используем централизованную систему путей
+        self.portable_paths = get_portable_paths()
+        self.project_root = self.portable_paths.get_project_root()
+        self.data_dir = self.portable_paths.get_data_dir()
+        self.emails_dir = self.portable_paths.get_emails_dir()
+        self.llm_results_dir = self.portable_paths.get_results_dir()
         self.llm_results_dir.mkdir(parents=True, exist_ok=True)
 
         self.run_started_at = datetime.now()
@@ -665,25 +668,47 @@ class APIPipelineValidator:
         if existing_text and isinstance(existing_text, str) and existing_text.strip():
             return existing_text
 
-        file_path = attachment.get("file_path") or attachment.get("relative_path")
+        # ИСПРАВЛЕНО: ищем правильное поле для пути к файлу
+        file_path = attachment.get("path") or attachment.get("file_path") or attachment.get("relative_path")
         if not file_path:
+            print(f"⚠️ У вложения '{attachment.get('filename', 'unknown')}' отсутствует путь к файлу")
             return None
 
-        attachment_path = Path(file_path)
-        if not attachment_path.is_absolute():
-            attachment_path = self.project_root / file_path
+        # 🔧 ПОРТИРУЕМЫЕ ПУТИ: Используем нормализацию путей вложений
+        attachment_path = self.portable_paths.normalize_attachment_path(attachment)
+        if not attachment_path:
+            print(f"⚠️ У вложения '{attachment.get('filename', 'unknown')}' отсутствует путь к файлу")
+            return None
+        
         if not attachment_path.exists():
             # Пробуем восстановить путь через ProcessedEmailLoader
             recovered_path = self.loader.get_attachment_file_path(email, attachment)
             attachment_path = recovered_path if recovered_path else attachment_path
 
+        print(f"📎 Попытка извлечения текста из вложения: {attachment.get('filename', 'unknown')}")
+        print(f"   Путь к файлу: {attachment_path}")
+        print(f"   Файл существует: {attachment_path.exists()}")
+        
         if attachment_path.exists() and self.ocr_manager:
             try:
+                print(f"   🔍 Запуск OCR для файла: {attachment_path.name}")
                 ocr_result = self.ocr_manager.extract_text_from_file(str(attachment_path), date)
                 if ocr_result.get("success") and ocr_result.get("text"):
-                    return ocr_result["text"]
+                    extracted_text = ocr_result["text"]
+                    print(f"   ✅ OCR успешно: извлечено {len(extracted_text)} символов")
+                    # Показываем превью извлеченного текста
+                    preview = extracted_text[:200].replace('\n', ' ')
+                    print(f"   📄 Превью: {preview}...")
+                    return extracted_text
+                else:
+                    print(f"   ❌ OCR не удалось: {ocr_result}")
             except Exception as exc:  # pylint: disable=broad-except
                 print(f"⚠️  OCR не удалось для {attachment_path.name}: {exc}")
+        else:
+            if not attachment_path.exists():
+                print(f"   ❌ Файл не найден: {attachment_path}")
+            if not self.ocr_manager:
+                print(f"   ❌ OCR manager не инициализирован")
         return None
 
     def _build_email_metadata(self, email_data: Dict[str, Any], email_path: Path) -> Dict[str, Any]:
@@ -802,10 +827,15 @@ class APIPipelineValidator:
         return path
 
     def _update_memory_bank_index(self, summary_path: Path, summary_payload: Dict[str, Any]) -> None:
-        """🗂️ Добавляет ссылку на сводку в memory-bank/reports/index.md."""
+        """🗂️ Добавляет ссылку на сводку в memory-bank/reports/index.md с портируемыми путями."""
         try:
-            index_path = REPORTS_DIR / "index.md"
-            relative_path = Path(summary_path).relative_to(self.project_root)
+            # 🔧 ПОРТИРУЕМЫЕ ПУТИ: Используем относительные пути для переносимости
+            reports_dir = self.portable_paths.to_absolute("memory-bank/reports")
+            index_path = reports_dir / "index.md"
+            
+            # Создаем относительный путь от корня проекта
+            relative_path = self.portable_paths.to_relative(summary_path)
+            
             entry = (
                 f"- {datetime.now().isoformat(timespec='seconds')} · API Validator "
                 f"{summary_payload['date']} ({summary_payload['run_id']}) — "

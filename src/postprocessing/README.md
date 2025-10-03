@@ -19,6 +19,12 @@ src/postprocessing/
 ├── data_enricher.py                 # Обогащение данных
 ├── data_normalizer.py               # Нормализация данных
 ├── advanced_contact_deduplicator.py # Продвинутая дедупликация контактов
+├── org_inn_resolver.py              # Система обогащения ИНН
+├── inn_validator.py                 # Валидатор ИНН
+├── inn_search_normalizer.py         # Нормализатор для поиска ИНН
+├── inn_cache_system.py              # Кэш и переопределения ИНН
+├── dadata_provider.py               # Провайдер DaData API
+├── inn_data_types.py                # Структуры данных ИНН
 └── README.md                        # Документация
 ```
 
@@ -169,6 +175,325 @@ unique_contacts = deduplicator.deduplicate_contacts(contacts)
 - **Просмотр конфликтов:** В логах/метаданных: `processed['postprocessing_metadata']['phone_conflicts']`. Unresolved — для ручного вмешательства.
 - **Добавление overrides:** Редактируйте `registry/phone_overrides.yml` (E.164 номер → owner_gid). Запустите `python scripts/check_registry_health.py` для валидации (дубли, GID existence).
 - **Мониторинг:** В health-check отчёт по overrides count/duplicates. После прогона проверяйте DoD: в email_018/019 телефоны разделены правильно.
+
+## 8. Система обогащения ИНН (PLAN-006)
+
+**Файлы:** `org_inn_resolver.py`, `inn_validator.py`, `inn_search_normalizer.py`, `inn_cache_system.py`, `dadata_provider.py`  
+**Назначение:** Автоматическое обогащение организаций ИНН с приоритетом официального источника ФНС
+
+### Архитектура системы ИНН
+
+```
+🏛️ INN Enrichment System
+├── 📊 Структуры данных (inn_data_types.py)
+├── 🔍 Валидатор ИНН (inn_validator.py) 
+├── 🔧 Нормализатор (inn_search_normalizer.py)
+├── 🌐 DaData провайдер (dadata_provider.py)
+├── 💾 Кэш и переопределения (inn_cache_system.py)
+└── 🎯 Основной резолвер (org_inn_resolver.py)
+```
+
+### Основные принципы
+
+- **Источник истины — ФНС (ЕГРЮЛ/ЕГРИП):** Приоритет официального источника
+- **Агрегатор (DaData):** Используется как ускоритель кандидатов
+- **Двухпороговая логика принятия решений:**
+  - `score ≥ 0.85` и единственный кандидат → auto-accept
+  - `0.65–0.85` или несколько кандидатов → needs-review
+  - `< 0.65` → reject
+- **Один ИНН на GID:** ИНН хранится в карточке организации и переиспользуется
+- **Прозрачность:** Полное отслеживание решений в метаданных
+
+### Алгоритм обогащения
+
+1. **Skip-rule:** Пропуск организаций с валидным ИНН
+2. **Overrides:** Проверка ручных переопределений
+3. **Cache:** Поиск в кэше с TTL
+4. **Providers:** Параллельный запрос к провайдерам (DaData)
+5. **Scoring:** Оценка кандидатов по множественным критериям
+6. **Decision:** Принятие решения по двухпороговой логике
+7. **Provenance:** Сохранение метаданных решения
+
+### Конфигурация
+
+```python
+# config/settings.py
+INN_ENRICHMENT_CONFIG = {
+    'enabled': True,
+    'auto_accept_threshold': 0.85,
+    'review_threshold': 0.65,
+    'providers': {
+        'dadata': {
+            'enabled': True,
+            'api_key': os.getenv('DADATA_API_KEY'),
+            'timeout_ms': 3000
+        }
+    },
+    'cache': {
+        'path': 'registry/inn_cache.jsonl',
+        'ttl_days': 180
+    },
+    'overrides_path': 'registry/inn_overrides.yml'
+}
+```
+
+### Использование
+
+```python
+from postprocessing import OrganizationINNResolver
+
+resolver = OrganizationINNResolver()
+metadata = resolver.enrich_organizations(organizations)
+```
+
+### Структура метаданных
+
+```json
+"postprocessing_metadata": {
+  "enrichment": {
+    "org_inn": {
+      "<org_gid>": {
+        "decision": "auto_accept",
+        "inn": "7701234567",
+        "confidence": 0.91,
+        "source": "dadata",
+        "method": "name_city_search",
+        "score": 0.91,
+        "candidates": [{...}],
+        "checked_at": "2025-10-03T10:10:00Z"
+      }
+    }
+  }
+}
+```
+
+### Система кэширования
+
+- **Файл:** `registry/inn_cache.jsonl` (append-only)
+- **TTL:** 180 дней (настраиваемо)
+- **Ключ:** `md5(name_norm|city_norm|domain)`
+- **Атомарные операции:** Блокировка файлов, fsync
+
+### Ручные переопределения
+
+```yaml
+# registry/inn_overrides.yml
+org_overrides:
+  - org_gid: "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+    inn: "7723537840"
+    reason: "ручное подтверждение через ЕГРЮЛ"
+    confirmed_by: "user@example.com"
+    confirmed_at: "2025-10-03T10:30:00Z"
+```
+
+### Провайдеры
+
+#### DaData API
+- **Поиск компаний:** По названию, городу, адресу
+- **Лукап по ИНН:** Валидация существующих ИНН
+- **Лимиты:** 10,000 запросов/день (бесплатный тариф)
+- **Таймауты:** 3 секунды (настраиваемо)
+
+#### ФНС (будущее)
+- **Официальный источник:** ЕГРЮЛ/ЕГРИП
+- **Системная интеграция:** API доступ
+- **Публичный поиск:** egrul.nalog.ru (резерв)
+
+### Нормализация данных
+
+- **Названия:** Удаление юр. форм, кавычек, спецсимволов
+- **Города:** Синонимы (СПб→санкт-петербург), префиксы
+- **Адреса:** Извлечение улицы+дома без корпусов/офисов
+- **Домены:** e2LD извлечение, punycode
+
+### Валидация ИНН
+
+- **10 цифр:** ИНН юридического лица (контрольная сумма)
+- **12 цифр:** ИНН физического лица/ИП (две контрольные суммы)
+- **Алгоритм:** Проверка по стандартным коэффициентам
+
+### Мониторинг и отладка
+
+```python
+# Получение статистики
+stats = cache_manager.get_cache_stats()
+validation = override_manager.validate_overrides()
+
+# Логи
+self.logger.info(f"INN enriched: {count} organizations")
+self.logger.debug(f"DaData candidates: {len(candidates)}")
+```
+
+### Настройка провайдеров
+
+#### Конфигурация DaData API
+
+Для работы с DaData API необходимо добавить ключи в файл `.env`:
+
+```bash
+# DaData API ключи для обогащения ИНН
+DADATA_API_KEY=0d49abad18ccd8b891c3cc0247c31fb20ac14db5
+DADATA_SECRET_KEY=66028a531900322903f4ebdacaa450685e3228b1
+```
+
+**Формат ключей:**
+- `DADATA_API_KEY` — основной API ключ DaData
+- `DADATA_SECRET_KEY` — секретный ключ для подписи запросов
+
+**Получение ключей:**
+1. Зарегистрируйтесь на [dadata.ru](https://dadata.ru)
+2. Перейдите в личный кабинет → API → Ключи
+3. Скопируйте API ключ и секретный ключ
+4. Добавьте их в `.env` файл проекта
+
+### Тестирование системы ИНН
+
+#### Подготовка к тестированию
+
+1. **Убедитесь, что DaData ключи настроены:**
+   ```bash
+   cp .env.example .env
+   # Отредактируйте .env с вашими ключами
+   ```
+
+2. **Установите зависимости:**
+   ```bash
+   pip install requests
+   ```
+
+#### Тестирование с реальными данными
+
+Используйте специальный скрипт для тестирования:
+
+```bash
+python test_inn_enrichment_real.py
+```
+
+**Что тестирует скрипт:**
+- ✅ Валидация ИНН (корректные и некорректные)
+- ✅ Работа кэша (создание, поиск, TTL)
+- ✅ DaData API (поиск организаций)
+- ✅ Полный цикл обогащения для тестовых организаций
+
+**Тестовые организации:**
+- **Яндекс** (Москва) — ожидается автоматическое принятие
+- **Сбербанк** (Москва) — ожидается автоматическое принятие  
+- **Газпром** (Санкт-Петербург) — ожидается автоматическое принятие
+- **Неизвестная компания** — ожидается отклонение
+
+#### Интерпретация результатов
+
+**Успешное тестирование должно показать:**
+```
+🔍 Тестирование валидатора ИНН...
+✅ Валидный ИНН 7707083893 прошёл проверку
+❌ Невалидный ИНН 1234567890 не прошёл проверку
+
+💾 Тестирование кэша...
+✅ Кэш работает корректно
+
+🌐 Тестирование DaData провайдера...
+✅ Найдено 3 кандидатов для 'Яндекс' в 'Москва'
+
+🎯 Тестирование полного обогащения...
+🏢 Тестирование: Яндекс (Москва)
+  └─ Результат: auto_accept, ИНН: 7707083893, Уверенность: 0.95
+
+🏢 Тестирование: Сбербанк (Москва)  
+  └─ Результат: auto_accept, ИНН: 7707083893, Уверенность: 0.91
+
+✅ Все тесты прошли успешно!
+```
+
+**Возможные проблемы:**
+- `HTTP 403`: Неверные API ключи DaData
+- `HTTP 429`: Превышен лимит запросов (подождите или используйте платный тариф)
+- `ConnectionError`: Проблемы с сетью
+- `Timeout`: Медленное соединение с API
+
+#### Ручное тестирование
+
+```python
+from src.postprocessing.org_inn_resolver import OrganizationINNResolver
+
+# Создание резолвера
+resolver = OrganizationINNResolver()
+
+# Тестовые данные
+organizations = [
+    {
+        "organization_id": "test_001",
+        "name": "Яндекс",
+        "city": "Москва",
+        "inn": None
+    }
+]
+
+# Обогащение
+metadata = resolver.enrich_organizations(organizations)
+
+# Проверка результата
+print(f"ИНН: {organizations[0].get('inn')}")
+print(f"Метаданные: {metadata}")
+```
+
+#### Мониторинг производительности
+
+**Проверка кэша:**
+```python
+from src.postprocessing.inn_cache_system import INNCacheManager
+
+cache = INNCacheManager()
+stats = cache.get_cache_stats()
+print(f"Записей в кэше: {stats['total_entries']}")
+print(f"Просроченных: {stats['expired_entries']}")
+```
+
+**Логирование запросов:**
+```python
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
+# Включит детальные логи всех запросов к DaData
+```
+
+### Решение проблем
+
+#### Частые ошибки
+
+1. **"Invalid API key"**
+   - Проверьте корректность ключей в `.env`
+   - Убедитесь, что файл `.env` находится в корне проекта
+
+2. **"Rate limit exceeded"**
+   - Подождите несколько минут
+   - Рассмотрите переход на платный тариф DaData
+
+3. **"No candidates found"**
+   - Проверьте корректность названия организации
+   - Убедитесь, что город указан правильно
+   - Организация может отсутствовать в базе DaData
+
+4. **Медленная работа**
+   - Проверьте настройки таймаутов в конфигурации
+   - Убедитесь, что кэш работает корректно
+
+#### Отладочные команды
+
+```bash
+# Проверка конфигурации
+python -c "from src.postprocessing.org_inn_resolver import OrganizationINNResolver; print(OrganizationINNResolver().config)"
+
+# Очистка кэша
+rm registry/inn_cache.jsonl
+
+# Проверка ключей API
+curl -X POST \
+  https://dadata.ru/api/v2/suggest/party \
+  -H "Authorization: Token YOUR_API_KEY" \
+  -H "X-Secret: YOUR_SECRET_KEY" \
+  -d '{"query": "Яндекс"}'
+```
 
 ## Новая структура данных
 

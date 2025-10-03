@@ -16,6 +16,7 @@ from .contact_filter import ContactFilter
 from .data_enricher import DataEnricher
 from .data_normalizer import DataNormalizer
 from .advanced_contact_deduplicator import AdvancedContactDeduplicator
+from .org_inn_resolver import OrganizationINNResolver
 
 __all__ = [
     'PostProcessor',
@@ -23,7 +24,8 @@ __all__ = [
     'ContactFilter',
     'DataEnricher',
     'DataNormalizer',
-    'AdvancedContactDeduplicator'
+    'AdvancedContactDeduplicator',
+    'OrganizationINNResolver'
 ]
 
 __version__ = '1.0.0'
