@@ -85,6 +85,7 @@ INN_ENRICHMENT_CONFIG = {
         'dadata': {
             'enabled': True,
             'api_key': os.getenv('DADATA_API_KEY'),
+            'secret_key': os.getenv('DADATA_SECRET_KEY'),
             'timeout_ms': 3000
         },
         'rusprofile': {

@@ -1,0 +1,235 @@
+{
+  "organizations": [
+    {
+      "organization_id": 1,
+      "name": "ЦентрЛабораторнойДиагностики",
+      "inn": null,
+      "website": "https://www.centerld.ru",
+      "city": "Новосибирск",
+      "address": "630075, г. Новосибирск, ул. Народная, 3",
+      "emails": [
+        "sklad@centerld.ru"
+      ],
+      "phones": [],
+      "gid": "7fd2e423-23ef-5814-adcd-ae26b2748956",
+      "website_confidence": 0.8,
+      "website_source": "organization_email_domain"
+    },
+    {
+      "organization_id": 2,
+      "name": "Яндекс",
+      "inn": null,
+      "website": "yandex.ru",
+      "city": "Москва",
+      "address": null,
+      "emails": [],
+      "phones": [],
+      "gid": "e3275650-2a9d-5767-8f24-874a09d5bd9d"
+    },
+    {
+      "organization_id": 3,
+      "name": "ООО \"Неизвестная Компания XYZ999\"",
+      "inn": null,
+      "website": null,
+      "city": "Неизвестный Город",
+      "address": null,
+      "emails": [],
+      "phones": [],
+      "gid": "f07adc61-1b36-5b3c-8056-be652bd7aa01"
+    }
+  ],
+  "contacts": [
+    {
+      "contact_id": 1,
+      "name": "Бабиченко Иван Сергеевич",
+      "organization_id": 1,
+      "position": "Руководитель ОМТС",
+      "email": "sklad@centerld.ru",
+      "phones": [
+        {
+          "type": "mobile",
+          "number": "+7 (913) 399-32-72",
+          "normalized": "+79133993272",
+          "original": "+7-913-399-32-72"
+        }
+      ],
+      "city": "Новосибирск",
+      "address": "630075, г. Новосибирск, ул. Народная, 3",
+      "confidence": 1.0,
+      "value_score": 10,
+      "gid": "6aa672d5-2a74-5e7e-9b00-a277c036fe16",
+      "email_source": "organization_email_fallback",
+      "enrichment_skipped": true,
+      "enrichment_reason": "no_email",
+      "email_valid": true
+    }
+  ],
+  "business_context": {
+    "topic": "Тестирование обогащения ИНН",
+    "product_interest": null,
+    "communication_stage": "тестирование",
+    "request_type": "тест"
+  },
+  "summary": {
+    "topic": "Тестирование обогащения ИНН",
+    "product_interest": null,
+    "communication_stage": "тестирование",
+    "request_type": "тест"
+  },
+  "key_points": [],
+  "commercial_offers": [],
+  "interactions": [],
+  "postprocessing_metadata": {
+    "processed_at": "2025-10-03T21:07:29.947235",
+    "stats": {
+      "processed_emails": 0,
+      "total_organizations_processed": 3,
+      "total_contacts_processed": 1,
+      "organizations_deduplicated": 0,
+      "contacts_filtered": 0,
+      "contacts_enriched": 1,
+      "data_normalized": 4,
+      "organizations_inn_enriched": 0
+    },
+    "version": "1.3.0",
+    "organization_mapping": {
+      "1": 1,
+      "2": 2,
+      "3": 3
+    },
+    "contact_mapping": {
+      "1": 1
+    },
+    "provenance": {
+      "contacts": {
+        "1": {
+          "address_removed": "org_hq_match"
+        }
+      }
+    },
+    "email_classification": {
+      "1": {
+        "kept": [
+          "sklad@centerld.ru"
+        ],
+        "removed": [],
+        "removed_types": {}
+      },
+      "2": {
+        "kept": [],
+        "removed": [],
+        "removed_types": {}
+      },
+      "3": {
+        "kept": [],
+        "removed": [],
+        "removed_types": {}
+      }
+    },
+    "gid": {
+      "assigned": [
+        {
+          "entity": "organization",
+          "local_id": 1,
+          "gid": "7fd2e423-23ef-5814-adcd-ae26b2748956",
+          "match_rule": "DOMAIN",
+          "key_tuple": [
+            "ORG",
+            "DOMAIN",
+            "centerld.ru"
+          ],
+          "alias_added": false,
+          "source": "registry"
+        },
+        {
+          "entity": "organization",
+          "local_id": 2,
+          "gid": "e3275650-2a9d-5767-8f24-874a09d5bd9d",
+          "match_rule": "DOMAIN",
+          "key_tuple": [
+            "ORG",
+            "DOMAIN",
+            "yandex.ru"
+          ],
+          "alias_added": false,
+          "source": "registry"
+        },
+        {
+          "entity": "organization",
+          "local_id": 3,
+          "gid": "f07adc61-1b36-5b3c-8056-be652bd7aa01",
+          "match_rule": "NAME_CITY",
+          "key_tuple": [
+            "ORG",
+            "NAME_CITY",
+            "неизвестная компания xyz999",
+            "неизвестный город"
+          ],
+          "alias_added": false,
+          "source": "registry"
+        },
+        {
+          "entity": "contact",
+          "local_id": 1,
+          "organization_id": 1,
+          "organization_gid": "7fd2e423-23ef-5814-adcd-ae26b2748956",
+          "gid": "6aa672d5-2a74-5e7e-9b00-a277c036fe16",
+          "match_rule": "PHONE",
+          "key_tuple": [
+            "CONTACT",
+            "PHONE",
+            "7fd2e423-23ef-5814-adcd-ae26b2748956",
+            "+79133993272"
+          ],
+          "alias_added": false,
+          "source": "registry"
+        }
+      ],
+      "conflicts": []
+    },
+    "phone_conflicts": {
+      "resolved": [],
+      "unresolved": []
+    },
+    "enrichment": {
+      "org_inn": {
+        "7fd2e423-23ef-5814-adcd-ae26b2748956": {
+          "decision": "reject",
+          "inn": null,
+          "confidence": 0.0,
+          "source": "none",
+          "method": "no_candidates_found",
+          "score": 0.0,
+          "candidates": [],
+          "checked_at": "2025-10-03T21:07:29.534138",
+          "auto_accept_threshold": 0.85,
+          "review_threshold": 0.65
+        },
+        "e3275650-2a9d-5767-8f24-874a09d5bd9d": {
+          "decision": "reject",
+          "inn": null,
+          "confidence": 0.0,
+          "source": "none",
+          "method": "no_candidates_found",
+          "score": 0.0,
+          "candidates": [],
+          "checked_at": "2025-10-03T21:07:29.535475",
+          "auto_accept_threshold": 0.85,
+          "review_threshold": 0.65
+        },
+        "f07adc61-1b36-5b3c-8056-be652bd7aa01": {
+          "decision": "reject",
+          "inn": null,
+          "confidence": 0.0,
+          "source": "none",
+          "method": "no_candidates_found",
+          "score": 0.0,
+          "candidates": [],
+          "checked_at": "2025-10-03T21:07:29.536744",
+          "auto_accept_threshold": 0.85,
+          "review_threshold": 0.65
+        }
+      }
+    }
+  }
+}

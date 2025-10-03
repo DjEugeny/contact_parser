@@ -64,3 +64,7 @@
 {"event": "create", "gid": "e4eaf077-a63c-54ff-8216-ab243d8aba06", "key": ["ORG", "DOMAIN", "amplitest.ru"], "aliases": [["ORG", "FALLBACK", "a3ead1dd372a845a"]], "created_at": "2025-10-03T12:08:32Z", "source": "new"}
 {"event": "alias", "gid": "bee1f6d0-724f-55d7-907d-7f19c634176d", "alias": ["ORG", "NAME_CITY", "диагрупп", "улан-удэ"], "created_at": "2025-10-03T12:23:50Z"}
 {"event": "alias", "gid": "bee1f6d0-724f-55d7-907d-7f19c634176d", "alias": ["ORG", "FALLBACK", "455f72cccbcaee18"], "created_at": "2025-10-03T12:23:50Z"}
+{"event": "alias", "gid": "7fd2e423-23ef-5814-adcd-ae26b2748956", "alias": ["ORG", "NAME_CITY", "центрлабораторнойдиагностики", "новосибирск"], "created_at": "2025-10-03T14:06:22Z"}
+{"event": "alias", "gid": "7fd2e423-23ef-5814-adcd-ae26b2748956", "alias": ["ORG", "FALLBACK", "5633a433a3396b0a"], "created_at": "2025-10-03T14:06:22Z"}
+{"event": "create", "gid": "e3275650-2a9d-5767-8f24-874a09d5bd9d", "key": ["ORG", "DOMAIN", "yandex.ru"], "aliases": [["ORG", "NAME_CITY", "яндекс", "москва"], ["ORG", "FALLBACK", "0a6cc266dae96e8a"]], "created_at": "2025-10-03T14:06:22Z", "source": "new"}
+{"event": "create", "gid": "f07adc61-1b36-5b3c-8056-be652bd7aa01", "key": ["ORG", "NAME_CITY", "неизвестная компания xyz999", "неизвестный город"], "aliases": [["ORG", "FALLBACK", "7bd46b5a1b12b0cc"]], "created_at": "2025-10-03T14:06:22Z", "source": "new"}

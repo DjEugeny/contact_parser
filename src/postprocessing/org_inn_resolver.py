@@ -79,11 +79,13 @@ class OrganizationINNResolver:
         dadata_config = self.config.get('providers', {}).get('dadata', {})
         if dadata_config.get('enabled', False):
             api_key = dadata_config.get('api_key')
+            secret_key = dadata_config.get('secret_key')
             if api_key:
                 try:
                     from .dadata_provider import DaDataProviderAdapter
                     providers['dadata'] = DaDataProviderAdapter(
                         api_key=api_key,
+                        secret_key=secret_key,
                         timeout_ms=dadata_config.get('timeout_ms', 3000)
                     )
                     self.logger.info("✅ DaData provider initialized")

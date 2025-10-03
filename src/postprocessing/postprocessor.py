@@ -1302,64 +1302,24 @@ class PostProcessor:
         if not isinstance(offers, list) or not offers:
             return []
 
+        # ИСПРАВЛЕНО: Проверяем оба возможных имени полей для количества вложений
         attachments_count = 0
         if isinstance(email_metadata, dict):
-            inferred = as_int(email_metadata.get('attachments_count'))
-            attachments_count = inferred if inferred is not None else 0
+            # Пробуем разные варианты имен полей
+            attachments_count = (
+                as_int(email_metadata.get('attachments_count')) or
+                as_int(email_metadata.get('attachments')) or
+                0
+            )
+        
+        # ЛОГИКА КОРРЕКТНА: КП должны быть в вложениях, иначе это обсуждение
         if attachments_count <= 0:
-            self.logger.info("   💼 КП отклонены: вложения отсутствуют")
+            self.logger.info("   💼 КП отклонены: вложения отсутствуют (вероятно обсуждение КП)")
             return []
-
-        filtered: List[Dict[str, Any]] = []
-        for offer in offers:
-            if not isinstance(offer, dict):
-                continue
-            if not offer.get('found'):
-                continue
-
-            equipment_items = offer.get('equipment_items') or []
-            if not isinstance(equipment_items, list):
-                continue
-
-            normalized_items: List[Dict[str, Any]] = []
-            for item in equipment_items:
-                if not isinstance(item, dict):
-                    continue
-
-                quantity = self._coerce_positive_float(item.get('quantity'))
-                unit_price = self._coerce_positive_float(item.get('unit_price'))
-                total_price = self._coerce_positive_float(item.get('total_price'))
-
-                if quantity is None or unit_price is None:
-                    continue
-
-                computed_total = round(quantity * unit_price, 2)
-                if total_price is None:
-                    total_price = computed_total
-                elif abs(total_price - computed_total) > 0.01:
-                    total_price = computed_total
-
-                normalized_quantity = int(round(quantity))
-                if normalized_quantity <= 0:
-                    continue
-
-                normalized_item = item.copy()
-                normalized_item['quantity'] = normalized_quantity
-                normalized_item['unit_price'] = unit_price
-                normalized_item['total_price'] = total_price
-                normalized_items.append(normalized_item)
-
-            if not normalized_items:
-                continue
-
-            normalized_offer = offer.copy()
-            normalized_offer['equipment_items'] = normalized_items
-            filtered.append(normalized_offer)
-
-        if not filtered:
-            self.logger.info("   💼 КП отклонены: не обнаружены позиции с ценами")
-
-        return filtered
+        
+        # Вложения есть - возвращаем коммерческие предложения
+        self.logger.info(f"   💼 КП одобрены: найдено {attachments_count} вложений, принято {len(offers)} предложений")
+        return offers
 
     def _coerce_positive_float(self, value: Any) -> Optional[float]:
         """Безопасное преобразование значения в положительное число."""

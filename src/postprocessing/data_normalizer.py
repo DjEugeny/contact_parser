@@ -401,13 +401,25 @@ class DataNormalizer:
             # Phone объект должен иметь поля: type, number, normalized, original, extension
             llm_phone_fields = {'type', 'number', 'normalized', 'original'}
             if llm_phone_fields.issubset(entry.keys()):
-                # Это уже готовый phone объект от LLM - возвращаем его как есть
-                self.logger.debug(f"Обнаружен готовый phone объект от LLM: {entry}")
-                # Убеждаемся, что extension присутствует (может быть None)
-                result_entry = dict(entry)
-                if 'extension' not in result_entry:
-                    result_entry['extension'] = None
-                return [result_entry]
+                # Проверяем, есть ли корректная нормализация
+                if entry.get('normalized') and entry['normalized'].strip():
+                    # Это уже готовый phone объект от LLM с корректной нормализацией - возвращаем его как есть
+                    self.logger.debug(f"Обнаружен готовый phone объект от LLM с нормализацией: {entry}")
+                    # Убеждаемся, что extension присутствует (может быть None)
+                    result_entry = dict(entry)
+                    if 'extension' not in result_entry:
+                        result_entry['extension'] = None
+                    return [result_entry]
+                else:
+                    # LLM phone объект без корректной нормализации - нужно нормализовать
+                    self.logger.debug(f"Обнаружен LLM phone объект без нормализации: {entry}")
+                    raw_phone = str(entry.get('number', '')).strip()
+                    # Сохраняем все метаданные кроме тех, что будут пересчитаны
+                    metadata = {
+                        key: value for key, value in entry.items()
+                        if key not in {'normalized'}  # Оставляем number, original, но пересчитываем normalized
+                    }
+                    # Переходим к нормализации этого номера
             elif 'number' in entry:
                 # Это контейнер с номером телефона в поле 'number'
                 if isinstance(entry['number'], str):
@@ -444,8 +456,24 @@ class DataNormalizer:
                 # Обогащаем результат метаданными
                 results = []
                 for phone_obj in normalized_phones:
-                    # Объединяем с исходными метаданными, приоритет новым полям
-                    final_phone = {**metadata, **phone_obj}
+                    # Объединяем с исходными метаданными, приоритет исходным для type
+                    final_phone = {**phone_obj, **metadata}  # Приоритет metadata (включая type от LLM)
+                    
+                    # КРИТИЧЕСКИ ВАЖНО: Проверяем, что normalized корректен для российских номеров
+                    normalized_value = final_phone.get('normalized', '')
+                    if normalized_value and not normalized_value.startswith('+7'):
+                        # Убираем все нецифровые символы
+                        digits_only = ''.join(filter(str.isdigit, normalized_value))
+                        if len(digits_only) == 10:  # 10 цифр без кода страны
+                            final_phone['normalized'] = f'+7{digits_only}'
+                            self.logger.debug(f"Исправлена нормализация номера: {normalized_value} → {final_phone['normalized']}")
+                        elif digits_only.startswith('8') and len(digits_only) == 11:
+                            final_phone['normalized'] = f'+7{digits_only[1:]}'
+                            self.logger.debug(f"Исправлена нормализация номера: {normalized_value} → {final_phone['normalized']}")
+                        elif digits_only.startswith('7') and len(digits_only) == 11:
+                            final_phone['normalized'] = f'+{digits_only}'
+                            self.logger.debug(f"Исправлена нормализация номера: {normalized_value} → {final_phone['normalized']}")
+                    
                     results.append(final_phone)
                     
                 return results

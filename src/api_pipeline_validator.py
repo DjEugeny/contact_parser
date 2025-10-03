@@ -742,6 +742,7 @@ class APIPipelineValidator:
             "thread_id": metadata.get("thread_id"),
             "message_id": metadata.get("message_id"),
             "attachments": metadata.get("attachments_count"),
+            "attachments_count": metadata.get("attachments_count"),  # ИСПРАВЛЕНО: добавлено правильное поле
             "text_length": len(combined_text),
             "char_count_original": metadata.get("char_count", 0),
             "email_headers": email_data.get("headers"),
@@ -892,6 +893,27 @@ class APIPipelineValidator:
             all_paths = all_paths[:count]
         
         self._process_date(date, all_paths)
+
+    def process_specific_emails(self, date: str, email_files: List[str]) -> None:
+        """📧 Обрабатывает конкретные письма за указанную дату по именам файлов."""
+        date_dir = self.emails_dir / date
+        if not date_dir.exists():
+            raise FileNotFoundError(f"Директория с письмами за {date} не найдена: {date_dir}")
+        
+        email_paths = []
+        for filename in email_files:
+            email_path = date_dir / filename
+            if email_path.exists():
+                email_paths.append(email_path)
+            else:
+                print(f"⚠️ Файл не найден: {filename}")
+        
+        if not email_paths:
+            print(f"❌ Не найдено ни одного файла для обработки")
+            return
+        
+        print(f"📧 К обработке: {len(email_paths)} из {len(email_files)} запрошенных файлов")
+        self._process_date(date, email_paths)
     
     
     def process_single_email(self, email_file: str, simplified: bool = False) -> Dict[str, Any]:
@@ -997,8 +1019,17 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         validator.run()
 
 def run_interactive_menu() -> None:
-    """🖥️ Интерактивное меню для API Pipeline Validator"""
+    """🖥️ Интерактивное меню для API Pipeline Validator - обновленная версия"""
     from argparse import Namespace
+    import sys
+    from pathlib import Path
+    
+    # Добавляем корневую директорию проекта в sys.path
+    project_root = Path(__file__).parent.parent
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
+    
+    from src.validator_menu import main_menu
     
     dummy_args = Namespace(
         mode="interactive",
@@ -1010,79 +1041,8 @@ def run_interactive_menu() -> None:
     )
     validator = APIPipelineValidator(dummy_args)
     
-    while True:
-        print("\n" + "=" * 50)
-        print("МЕНЮ API PIPELINE VALIDATOR")
-        print("=" * 50)
-        print("1. Стартовый датасет 2025-07-29")
-        print("2. Выбор конкретной даты из data/emails")
-        print("3. Выход")
-        print("=" * 50)
-        choice = input("Выберите опцию (1-3): ").strip()
-        
-        if choice == "3":
-            print("👋 До свидания!")
-            break
-        
-        elif choice == "1":
-            print("\n--- Подменю для датасета 2025-07-29 ---")
-            print("1. Режим first10 (первые 10 из тестового датасета)")
-            print("2. Оставшиеся письма за 2025-07-29 (исключая first10)")
-            sub_choice = input("Выберите подопцию (1-2): ").strip()
-            
-            if sub_choice == "1":
-                print("\n🚀 Запуск first10...")
-                validator.process_test_dataset(count=10)
-            elif sub_choice == "2":
-                print("\n🚀 Запуск оставшихся писем за 2025-07-29...")
-                validator.process_date("2025-07-29", exclude_test=True)
-            else:
-                print("❌ Неверный выбор")
-                continue
-        
-        elif choice == "2":
-            dates = sorted([d.name for d in validator.emails_dir.iterdir() if d.is_dir()])
-            if not dates:
-                print("❌ Нет доступных директорий с письмами в data/emails")
-                continue
-            
-            print("\nДоступные даты:")
-            for i, date in enumerate(dates, 1):
-                print(f"{i}. {date}")
-            
-            try:
-                date_idx = int(input("Выберите дату (номер): ")) - 1
-                if 0 <= date_idx < len(dates):
-                    selected_date = dates[date_idx]
-                else:
-                    print("❌ Неверный номер")
-                    continue
-            except ValueError:
-                print("❌ Введите число")
-                continue
-            
-            print(f"\n--- Подменю для {selected_date} ---")
-            print("1. Первые 3 письма")
-            print("2. Первые 10 писем")
-            print("3. Все письма за дату")
-            sub_choice = input("Выберите подопцию (1-3): ").strip()
-            
-            count = None
-            if sub_choice == "1":
-                count = 3
-            elif sub_choice == "2":
-                count = 10
-            elif sub_choice == "3":
-                count = None
-            else:
-                print("❌ Неверный выбор")
-                continue
-            
-            print(f"\n🚀 Запуск обработки {'всех' if count is None else f'{count} первых'} писем за {selected_date}...")
-            validator.process_date(selected_date, count=count)
-        
-        else:
-            print("❌ Неверный выбор. Попробуйте снова.")
+    # Запускаем новое меню с динамическим выбором дат
+    main_menu(validator)
 
 
 if __name__ == "__main__":
