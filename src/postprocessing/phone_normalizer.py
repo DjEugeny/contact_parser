@@ -6,7 +6,7 @@
 """
 
 import re
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional, Tuple, Any
 import phonenumbers
 
 class PhoneNormalizer:
@@ -27,7 +27,7 @@ class PhoneNormalizer:
 
         print("✅ PhoneNormalizer инициализирован")
 
-    def normalize_contact_phone(self, phone: str) -> Dict[str, str]:
+    def normalize_contact_phone(self, phone: str) -> Dict[str, Any]:
         """
         🔄 Полная нормализация телефона для контакта
         Возвращает словарь с различными вариантами нормализации
@@ -75,9 +75,10 @@ class PhoneNormalizer:
         # Определяем уверенность
         confidence = self._calculate_phone_confidence(raw_phone, normalized)
 
-        # Если есть добавочный, добавляем его к форматированному номеру
-        if extension:
-            formatted = f"{formatted} (доб. {extension})"
+        # КРИТИЧЕСКИ ВАЖНО: НЕ добавляем extension к formatted номеру!
+        # Extension должен быть только в отдельном поле
+        # if extension:
+        #     formatted = f"{formatted} (доб. {extension})"
 
         return {
             'raw_phone': raw_phone,
@@ -311,7 +312,7 @@ class PhoneNormalizer:
 
         return contacts
 
-    def normalize_multiple_phones(self, phone: str) -> List[Dict[str, str]]:
+    def normalize_multiple_phones(self, phone: str) -> List[Dict[str, Any]]:
         """
         📞 Нормализация строки с несколькими номерами
         Возвращает список словарей с нормализованными данными для каждого номера
@@ -340,9 +341,10 @@ class PhoneNormalizer:
             # Рассчитываем уверенность
             confidence = self._calculate_phone_confidence(individual_phone, normalized_digits)
             
-            # Если есть добавочный, добавляем его к форматированному номеру
-            if extension:
-                formatted_display = f"{formatted_display} (доб. {extension})"
+            # КРИТИЧЕСКИ ВАЖНО: НЕ добавляем extension к formatted номеру!
+            # Extension должен быть только в отдельном поле
+            # if extension:
+            #     formatted_display = f"{formatted_display} (доб. {extension})"
             
             results.append({
                 'original': individual_phone,
@@ -354,6 +356,90 @@ class PhoneNormalizer:
             })
         
         return results
+
+    def normalize_phone_to_object(self, phone: str) -> List[Dict[str, Any]]:
+        """
+        📞 Главная функция нормализации телефона в объект
+        Возвращает список объектов с полями: number, normalized, original, type, extension
+        
+        КРИТИЧЕСКИ ВАЖНО: 
+        - number НЕ содержит добавочный номер
+        - extension всегда в отдельном поле
+        - normalized в формате E.164 БЕЗ добавочного
+        """
+        if not phone or not phone.strip():
+            return []
+        
+        # Разделяем на отдельные номера (поддержка множественных)
+        phone_list = self._split_multiple_phones(phone.strip())
+        
+        results = []
+        for individual_phone in phone_list:
+            # Извлекаем добавочный номер
+            phone_clean, extension = self._extract_extension(individual_phone)
+            
+            # Нормализуем основной номер
+            normalized_digits, formatted_display, phone_type = self._normalize_phone_number(phone_clean)
+            
+            # Рассчитываем уверенность
+            confidence = self._calculate_phone_confidence(individual_phone, normalized_digits)
+            
+            # Создаем объект телефона согласно целевой структуре
+            phone_obj = {
+                'type': self._map_phone_type(phone_type),
+                'number': formatted_display,  # БЕЗ добавочного!
+                'normalized': self._normalize_to_e164(normalized_digits),  # E.164 формат
+                'original': individual_phone,
+                'confidence': confidence
+            }
+            
+            # Добавляем extension только если он есть
+            if extension:
+                phone_obj['extension'] = extension
+            else:
+                phone_obj['extension'] = None
+                
+            results.append(phone_obj)
+        
+        return results
+    
+    def _normalize_to_e164(self, digits: str) -> str:
+        """
+        🌍 Нормализация в E.164 формат без добавочного
+        """
+        if not digits:
+            return ''
+        
+        # Убираем все нецифровые символы
+        clean_digits = ''.join(filter(str.isdigit, digits))
+        
+        if not clean_digits:
+            return ''
+        
+        # Для российских номеров
+        if len(clean_digits) == 11 and clean_digits.startswith('7'):
+            return f'+{clean_digits}'
+        elif len(clean_digits) == 11 and clean_digits.startswith('8'):
+            return f'+7{clean_digits[1:]}'
+        elif len(clean_digits) == 10:
+            return f'+7{clean_digits}'
+        elif clean_digits.startswith('7'):
+            return f'+{clean_digits}'
+        else:
+            return f'+{clean_digits}'
+    
+    def _map_phone_type(self, internal_type: str) -> str:
+        """
+        🔄 Маппинг внутренних типов на стандартные
+        """
+        type_mapping = {
+            'мобильный': 'mobile',
+            'городской': 'office', 
+            'неизвестный': 'office',
+            'неизвестно': 'main',
+            'короткий': 'other'
+        }
+        return type_mapping.get(internal_type, 'main')
 
     def get_phone_stats(self, contacts: List[Dict]) -> Dict:
         """📊 Статистика по телефонам в контактах"""

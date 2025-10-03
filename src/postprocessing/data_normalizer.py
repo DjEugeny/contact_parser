@@ -16,6 +16,22 @@ from .text_normalizer import normalize_first_word_only
 from .smart_contact_enricher import SmartContactEnricher
 from ..utils.city_registry import CityRegistry
 
+# Import as_text from postprocessor to avoid circular import issues
+def as_text(value, *, default: str = "", strip: bool = True) -> str:
+    """🔤 Безопасно приводит значение к строке."""
+    if value is None:
+        return default
+    if isinstance(value, str):
+        return value.strip() if strip else value
+    if isinstance(value, bytes):
+        try:
+            text = value.decode("utf-8", errors="ignore")
+        except Exception:
+            text = str(value)
+    else:
+        text = str(value)
+    return text.strip() if strip else text
+
 logger = logging.getLogger(__name__)
 
 COMMON_FIRST_NAMES = {
@@ -372,19 +388,45 @@ class DataNormalizer:
         return organization
 
     def _normalize_phone_entry(self, entry: Any) -> List[Dict[str, Any]]:
+        """Нормализация одного телефонного входа с использованием нового PhoneNormalizer.normalize_phone_to_object"""
         if entry is None:
             return []
 
-        metadata: Dict[str, Any] = {}
+        # Получаем исходную строку телефона
         raw_phone: str = ''
+        metadata: Dict[str, Any] = {}
 
         if isinstance(entry, dict):
-            raw_phone = str(entry.get('number') or entry.get('value') or entry.get('raw') or '').strip()
-            metadata = {
-                key: value
-                for key, value in entry.items()
-                if key not in {'number', 'value', 'raw', 'normalized', 'original'}
-            }
+            # КРИТИЧЕСКИ ВАЖНО: Проверяем, является ли entry уже готовым phone объектом от LLM
+            # Phone объект должен иметь поля: type, number, normalized, original, extension
+            llm_phone_fields = {'type', 'number', 'normalized', 'original'}
+            if llm_phone_fields.issubset(entry.keys()):
+                # Это уже готовый phone объект от LLM - возвращаем его как есть
+                self.logger.debug(f"Обнаружен готовый phone объект от LLM: {entry}")
+                # Убеждаемся, что extension присутствует (может быть None)
+                result_entry = dict(entry)
+                if 'extension' not in result_entry:
+                    result_entry['extension'] = None
+                return [result_entry]
+            elif 'number' in entry:
+                # Это контейнер с номером телефона в поле 'number'
+                if isinstance(entry['number'], str):
+                    raw_phone = entry['number'].strip()
+                else:
+                    # Если number не строка - пытаемся преобразовать в строку
+                    raw_phone = str(entry['number']).strip()
+                # Сохраняем метаданные, но убираем поля, которые будут пересчитаны
+                metadata = {
+                    key: value for key, value in entry.items() 
+                    if key not in {'number', 'normalized', 'original', 'formatted'}
+                }
+                # Если extension уже включен в number - убираем его
+                if 'extension' in entry and entry['extension']:
+                    ext_pattern = rf"\s*\(\s*доб\.?\s*{re.escape(str(entry['extension']))}\s*\)"
+                    raw_phone = re.sub(ext_pattern, '', raw_phone, flags=re.IGNORECASE).strip()
+            else:
+                # Fallback для некорректных объектов
+                raw_phone = str(entry.get('value') or entry.get('raw') or '').strip()
         elif isinstance(entry, str):
             raw_phone = entry.strip()
             metadata = {'confidence': 1.0, 'type': 'main'}
@@ -394,11 +436,24 @@ class DataNormalizer:
         if not raw_phone:
             return []
 
-        if entry and isinstance(entry, dict):
-            extension = entry.get('extension')
-            if extension:
-                metadata.setdefault('extension', extension)
-
+        # Используем новый метод normalize_phone_to_object для корректной нормализации
+        if self.phone_normalizer_available:
+            try:
+                normalized_phones = self.phone_normalizer.normalize_phone_to_object(raw_phone)
+                
+                # Обогащаем результат метаданными
+                results = []
+                for phone_obj in normalized_phones:
+                    # Объединяем с исходными метаданными, приоритет новым полям
+                    final_phone = {**metadata, **phone_obj}
+                    results.append(final_phone)
+                    
+                return results
+            except Exception as exc:
+                self.logger.error(f"Ошибка нормализации телефона через PhoneNormalizer '{raw_phone}': {exc}")
+                # Fallback к старому методу
+                
+        # Fallback нормализация если PhoneNormalizer недоступен
         return self._normalize_phone_variants(raw_phone, metadata)
 
     def _normalize_phone_variants(self, raw_phone: str, metadata: Optional[Dict[str, Any]] = None) -> List[Dict[str, Any]]:

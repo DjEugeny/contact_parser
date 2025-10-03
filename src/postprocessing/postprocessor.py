@@ -141,13 +141,26 @@ def as_list(value: Any) -> List[Any]:
     return [value]
 
 
-def coerce_phone_list(value: Any) -> List[str]:
-    """📞 Приводит телефон(ы) к списку строк."""
-    phones: List[str] = []
+def coerce_phone_list(value: Any) -> List[Any]:
+    """📞 Приводит телефон(ы) к списку.
+    
+    КРИТИЧЕСКИ ВАЖНО: НЕ повреждает phone objects от LLM!
+    Если получаем phone объекты - возвращаем как есть.
+    
+    Примечание: Эта функция больше не используется для организаций,
+    чтобы избежать повреждения LLM phone objects.
+    """
+    phones: List[Any] = []
     for item in as_list(value):
-        text = as_text(item)
-        if text:
-            phones.append(text)
+        # КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: Проверяем, является ли item phone объектом от LLM
+        if isinstance(item, dict) and 'type' in item and 'number' in item:
+            # Это phone объект от LLM - сохраняем как есть
+            phones.append(item)
+        else:
+            # Это строка или другой тип - конвертируем в строку
+            text = as_text(item)
+            if text:
+                phones.append(text)
     return phones
 
 
@@ -574,7 +587,9 @@ class PostProcessor:
         for org in organizations:
             if not isinstance(org, dict):
                 continue
-            org['phones'] = coerce_phone_list(org.get('phones'))
+            # КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: НЕ конвертируем phone objects от LLM в строки!
+            # Оставляем phones как есть - DataNormalizer корректно их обработает
+            # org['phones'] = coerce_phone_list(org.get('phones'))  # УДАЛЕНО!
             org_emails = as_list(org.get('emails'))
             org['emails'] = [as_text(email) for email in org_emails if as_text(email)]
 

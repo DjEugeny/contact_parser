@@ -377,11 +377,18 @@ class LLMResponseValidator:
             organization["phones"] = []
         elif not isinstance(phones, list):
             organization["phones"] = [phones]
-        normalized_phones: List[str] = []
+        
+        # Нормализуем телефоны: поддерживаем как строки, так и объекты
+        normalized_phones: List[Any] = []
         for phone in organization.get("phones", []):
-            coerced = self._coerce_string(phone, stats)
-            if coerced:
-                normalized_phones.append(coerced)
+            if isinstance(phone, dict):
+                # Объект телефона - оставляем как есть
+                normalized_phones.append(phone)
+            elif phone is not None:
+                # Строка - преобразуем в объект
+                coerced = self._coerce_string(phone, stats)
+                if coerced:
+                    normalized_phones.append({"number": coerced, "type": "main"})
         organization["phones"] = normalized_phones
 
         for key in ("name", "inn", "website", "website_source", "website_method", "city", "address"):
@@ -674,12 +681,8 @@ class LLMResponseValidator:
                 },
                 "phones": {
                     "type": "array",
-                    "items": {
-                        "type": "string",
-                        "minLength": 1
-                    },
-                    "uniqueItems": True,
-                    "description": "Массив телефонов организации"
+                    "items": self.phone_schema,
+                    "description": "Массив телефонов организации (объекты с полями number, normalized, extension)"
                 }
             },
             "additionalProperties": False
