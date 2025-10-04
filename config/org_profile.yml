@@ -3,6 +3,7 @@ internal_domains:
 
 shared_mailboxes_prefixes:
   - info
+  - mail
   - sales
   - support
   - service

@@ -31,6 +31,7 @@ from .advanced_contact_deduplicator import AdvancedContactDeduplicator
 from .smart_contact_enricher import SmartContactEnricher
 from .email_classifier import MailboxType, classify_mailbox
 from .org_inn_resolver import OrganizationINNResolver
+from .org_email_enricher import OrganizationEmailEnricher
 from ..registry import GlobalIDRegistry
 
 logger = logging.getLogger(__name__)
@@ -252,10 +253,12 @@ class PostProcessor:
         # Инициализация ИНН резолвера
         try:
             self.inn_resolver = OrganizationINNResolver()
+            self.email_enricher = OrganizationEmailEnricher()
             self.logger.info("✅ INN resolver initialized")
         except Exception as e:
-            self.logger.warning(f"⚠️ Failed to initialize INN resolver: {e}")
+            self.logger.warning(f"⚠️ Failed to initialize INN/Email enrichers: {e}")
             self.inn_resolver = None
+            self.email_enricher = None
 
         # Статистика обработки
         self.stats = {
@@ -471,6 +474,9 @@ class PostProcessor:
 
             # Этап 3.1: Обогащение ИНН организаций
             inn_enrichment_metadata = self._enrich_organizations_inn(updated_organizations)
+            
+            # Этап 3.2: Обогащение email-адресов организаций (TASK-007B)
+            org_email_enrichment_metadata = self._enrich_organizations_emails(updated_organizations, email_data)
 
             phone_conflicts = self._resolve_phone_conflicts(
                 updated_organizations,
@@ -530,6 +536,7 @@ class PostProcessor:
                 gid_metadata,
                 phone_conflicts,
                 inn_enrichment_metadata,
+                org_email_enrichment_metadata,
             )
             
             # Обновление статистики
@@ -1114,6 +1121,47 @@ class PostProcessor:
         except Exception as e:
             self.logger.error(f"❌ Ошибка при обогащении ИНН: {e}")
             return {}
+    
+    def _enrich_organizations_emails(
+        self, 
+        organizations: Dict[int, Dict[str, Any]], 
+        email_data: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Dict[str, Any]]:
+        """
+        Этап 3.2: Обогащение email-адресов организаций (TASK-007B)
+        
+        Args:
+            organizations: Словарь организаций для обогащения
+            email_data: Данные исходного email для извлечения адресов
+            
+        Returns:
+            Dict: Метаданные обогащения email
+        """
+        if not self.email_enricher:
+            self.logger.debug("Email enricher not available, skipping email enrichment")
+            return {}
+        
+        if not email_data:
+            self.logger.debug("No email data provided, skipping email enrichment")
+            return {}
+            
+        try:
+            self.logger.info(f"📧 Начинаем обогащение email для {len(organizations)} организаций")
+            
+            # Обогащение через email enricher
+            email_metadata = self.email_enricher.enrich_organizations_emails(organizations, email_data)
+            
+            # Обновление статистики
+            enriched_count = len([meta for meta in email_metadata.values() if meta.get('added')])
+            
+            self.stats['organizations_email_enriched'] = enriched_count
+            
+            self.logger.info(f"✅ Обогащение email завершено: {enriched_count} организаций обогащено")
+            return email_metadata
+            
+        except Exception as e:
+            self.logger.error(f"❌ Ошибка при обогащении email: {e}")
+            return {}
 
     def _enrich_contact_data(self, contacts: List[Dict[str, Any]], 
                            organizations: Dict[int, Dict[str, Any]],
@@ -1340,7 +1388,8 @@ class PostProcessor:
                           email_classification: Optional[Dict[int, Dict[str, Any]]] = None,
                           gid_metadata: Optional[Dict[str, Any]] = None,
                           phone_conflicts: Optional[Dict[str, List[Dict[str, Any]]]] = None,
-                          inn_enrichment_metadata: Optional[Dict[str, Dict[str, Any]]] = None) -> Dict[str, Any]:
+                          inn_enrichment_metadata: Optional[Dict[str, Dict[str, Any]]] = None,
+                          org_email_enrichment_metadata: Optional[Dict[str, Dict[str, Any]]] = None) -> Dict[str, Any]:
         """Формирование финального результата
         
         Args:
@@ -1393,6 +1442,11 @@ class PostProcessor:
             processed_result['postprocessing_metadata']['enrichment'] = {
                 'org_inn': inn_enrichment_metadata
             }
+        
+        if org_email_enrichment_metadata is not None:
+            if 'enrichment' not in processed_result['postprocessing_metadata']:
+                processed_result['postprocessing_metadata']['enrichment'] = {}
+            processed_result['postprocessing_metadata']['enrichment']['org_email_enrichment'] = org_email_enrichment_metadata
 
         return processed_result
     

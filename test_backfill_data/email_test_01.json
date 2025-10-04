@@ -1,0 +1,38 @@
+{
+  "organizations": [
+    {
+      "organization_id": 1,
+      "name": "Медконгресс",
+      "website": "medcongress.ru",
+      "city": "Москва",
+      "emails": []
+    },
+    {
+      "organization_id": 2,
+      "name": "Поставщик Оборудования",
+      "website": "supplier-equip.ru",
+      "emails": ["info@supplier-equip.ru"]
+    }
+  ],
+  "contacts": [
+    {
+      "contact_id": 1,
+      "name": "Иван Петров",
+      "organization_id": 1,
+      "email": "ivan.petrov@medcongress.ru"
+    }
+  ],
+  "headers": {
+    "from": "ivan.petrov@medcongress.ru",
+    "to": "partner@dna-technology.ru",
+    "reply-to": "mail@medcongress.ru",
+    "cc": "info@medcongress.ru"
+  },
+  "body": "Письмо от Медконгресс с предложением сотрудничества. Общие вопросы: mail@medcongress.ru, техподдержка: support@medcongress.ru",
+  "attachments": [
+    {
+      "filename": "proposal.pdf",
+      "ocr_text": "ООО Поставщик Оборудования\\nКонтакты: sales@supplier-equip.ru, office@supplier-equip.ru"
+    }
+  ]
+}

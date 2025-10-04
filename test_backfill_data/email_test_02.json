@@ -1,0 +1,17 @@
+{
+  "organizations": [
+    {
+      "organization_id": 1,
+      "name": "Внешняя Компания",
+      "website": "external-corp.com",
+      "emails": ["contact@external-corp.com"]
+    }
+  ],
+  "contacts": [],
+  "headers": {
+    "from": "manager@external-corp.com",
+    "to": "sales@dna-technology.ru"
+  },
+  "body": "Письмо от внешней компании. Наши контакты: info@external-corp.com, support@external-corp.com",
+  "attachments": []
+}

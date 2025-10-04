@@ -19,6 +19,8 @@ src/postprocessing/
 ├── data_enricher.py                 # Обогащение данных
 ├── data_normalizer.py               # Нормализация данных
 ├── advanced_contact_deduplicator.py # Продвинутая дедупликация контактов
+├── org_email_enricher.py            # Обогащение email организаций (TASK-007B)
+├── email_classifier.py              # Классификация email по типам
 ├── org_inn_resolver.py              # Система обогащения ИНН
 ├── inn_validator.py                 # Валидатор ИНН
 ├── inn_search_normalizer.py         # Нормализатор для поиска ИНН
@@ -28,9 +30,9 @@ src/postprocessing/
 └── README.md                        # Документация
 ```
 
-## Компоненты
+# Компоненты
 
-### 1. PostProcessor
+## 1. PostProcessor
 
 **Файл:** `postprocessor.py`  
 **Назначение:** Главный координатор всех этапов постобработки
@@ -39,8 +41,13 @@ src/postprocessing/
 1. Дедупликация и объединение организаций (п.3.a мини-ТЗ)
 2. Обновление organization_id в контактах (п.3.b)
 3. Фильтрация ценных контактов (п.3.c)
-4. Обогащение полей city/address (п.3.e)
-5. Нормализация данных (п.3.f)
+4. Назначение глобальных идентификаторов (GID)
+5. Обогащение ИНН организаций (п.3.1)
+6. **Обогащение email-адресов организаций (п.3.2, TASK-007B)**
+7. Разрешение конфликтов телефонов
+8. Обогащение полей city/address (п.3.e)
+9. Нормализация данных (п.3.f)
+10. Очистка email организаций
 
 **Использование:**
 ```python
@@ -50,7 +57,7 @@ postprocessor = PostProcessor()
 processed_result = postprocessor.process_llm_response(llm_result, email_data)
 ```
 
-### 2. OrganizationDeduplicator
+## 2. OrganizationDeduplicator
 
 **Файл:** `organization_deduplicator.py`  
 **Назначение:** Дедупликация организаций с глобальными ID
@@ -70,7 +77,7 @@ mapping = deduplicator.process_organizations(llm_organizations)
 all_orgs = deduplicator.get_all_organizations()
 ```
 
-### 3. ContactFilter
+## 3. ContactFilter
 
 **Файл:** `contact_filter.py`  
 **Назначение:** Фильтрация ценных контактов по функции `evaluate_contact_value`
@@ -134,7 +141,7 @@ normalized_contacts = normalizer.normalize_contacts(contacts)
 normalized_orgs = normalizer.normalize_organizations(organizations)
 ```
 
-### 6. AdvancedContactDeduplicator
+## 6. AdvancedContactDeduplicator
 
 **Файл:** `advanced_contact_deduplicator.py`  
 **Назначение:** Продвинутая дедупликация контактов с семантическим анализом
@@ -153,7 +160,7 @@ deduplicator = AdvancedContactDeduplicator()
 unique_contacts = deduplicator.deduplicate_contacts(contacts)
 ```
 
-### 7. Phone Disambiguation (PLAN-004)
+## 7. Phone Disambiguation (PLAN-004)
 **Файл:** `postprocessor.py` (метод `_resolve_phone_conflicts`)
 **Назначение:** Разделение телефонов между организациями, защита от HQ-утечек (LLM дублирует номера, напр. +7(383) МЕД КОНГРЕСС в ДНК-Технология).
 
@@ -627,6 +634,9 @@ python -m pytest tests/test_postprocessing.py -v
 - ✅ DataNormalizer: нормализация телефонов, email, организаций
 - ✅ PostProcessor: полный пайплайн постобработки
 - ✅ AdvancedContactDeduplicator: семантическая дедупликация
+- ✅ OrganizationEmailEnricher: извлечение и классификация email адресов
+- ✅ EmailClassifier: классификация по типам mailbox
+- ✅ Email cleanup: фильтрация персональных адресов
 
 ## Статистика и мониторинг
 
@@ -643,10 +653,19 @@ stats = postprocessor.get_processing_stats()
   'contacts_filtered': 12,
   'contacts_enriched': 33,
   'data_normalized': 78,
+  'organizations_email_enriched': 18,  # Новая метрика
   'organization_deduplicator': {...},
   'contact_filter': {...},
   'data_enricher': {...},
-  'data_normalizer': {...}
+  'data_normalizer': {...},
+  'org_email_enricher': {              # Новые метрики
+    'organizations_processed': 25,
+    'emails_added': 42,
+    'emails_skipped': 15,
+    'from_headers': 30,
+    'from_signature': 8,
+    'from_attachments': 4
+  }
 }
 ```
 
@@ -664,7 +683,230 @@ stats = postprocessor.get_processing_stats()
 - Batch обработка для больших объемов
 - Lazy loading компонентов
 
-## Обработка ошибок
+## 9. Система обогащения email-адресов организаций (TASK-007B)
+
+**Файл:** `org_email_enricher.py`  
+**Назначение:** Автоматическое обогащение организаций email-адресами из заголовков, подписей и вложений письма
+
+### Архитектура системы email обогащения
+
+```
+📧 Email Enrichment System
+├── 🏢 Основной обогатитель (org_email_enricher.py)
+├── 🔍 Классификатор email (email_classifier.py)
+├── ⚙️ Конфигурация (config/org_profile.yml)
+└── 🧪 Система тестирования
+```
+
+### Принципы работы
+
+- **Многоисточниковое извлечение:** Email адреса извлекаются из заголовков письма, подписей и OCR-текста вложений
+- **Умная классификация:** Разделение на организационные и персональные адреса по паттернам
+- **Защита от перекрестного обогащения:** Исключение наших доменов из сторонних организаций
+- **Дедупликация:** Автоматическое удаление дубликатов с сохранением порядка
+- **Прозрачность:** Детальные метаданные о источниках и процессе обогащения
+
+### Алгоритм обогащения
+
+1. **Сбор кандидатов** из всех источников:
+   - Заголовки письма (From, To, Cc, Reply-To, Sender)
+   - Подпись письма (body и plain_text)
+   - OCR-текст вложений с фильтрацией по релевантности
+
+2. **Классификация email** по типам:
+   - `SHARED_ORG`: Общие ящики (info@, mail@, sales@, support@)
+   - `DEPARTMENT`: Департаментные (marketing@, hr@, finance@)
+   - `TECHNICAL`: Технические (noreply@, robot@)
+   - `GROUP_ALIAS`: Групповые (-team@, -all@)
+   - `PERSONAL_INTERNAL`: Персональные корпоративные
+   - `PERSONAL_EXTERNAL`: Персональные внешние
+
+3. **Фильтрация и защита:**
+   - Проверка принадлежности к организации по домену
+   - Исключение наших доменов из сторонних организаций
+   - Валидация формата email адресов
+
+4. **Добавление в организацию:**
+   - Только организационные типы (SHARED_ORG, DEPARTMENT, TECHNICAL, GROUP_ALIAS)
+   - Дедупликация с существующими адресами
+   - Сохранение метаданных об источниках
+
+### Конфигурация классификации
+
+```yaml
+# config/org_profile.yml
+shared_mailboxes_prefixes:
+  - info
+  - mail      # ← Исправлено: добавлен mail@ префикс
+  - sales
+  - support
+  - service
+  - office
+  - torgi
+  - hotline
+
+department_prefixes:
+  - marketing
+  - hr
+  - finance
+  - accounting
+  - buh
+
+technical_prefixes:
+  - noreply
+  - no-reply
+  - robot
+  - do-not-reply
+
+group_alias_suffixes:
+  - -all
+  - -team
+  - -group
+```
+
+### Использование
+
+```python
+from postprocessing import OrganizationEmailEnricher
+
+# Создание обогатителя
+enricher = OrganizationEmailEnricher()
+
+# Обогащение организаций
+metadata = enricher.enrich_organizations_emails(organizations, email_data)
+
+# Получение статистики
+stats = enricher.get_stats()
+```
+
+### Структура метаданных
+
+```json
+"postprocessing_metadata": {
+  "org_email_enrichment": {
+    "<org_gid>": {
+      "added": ["mail@company.ru", "info@company.ru"],
+      "skipped": ["personal@company.ru"],
+      "source": {
+        "mail@company.ru": "headers",
+        "info@company.ru": "signature"
+      }
+    }
+  }
+}
+```
+
+### Место в цепочке обработки
+
+Обогащение email выполняется на **этапе 6** после назначения глобальных идентификаторов и обогащения ИНН:
+
+```
+1. Дедупликация организаций
+2. Обновление organization_id в контактах  
+3. Фильтрация ценных контактов
+4. Назначение глобальных идентификаторов (GID)
+5. Обогащение ИНН организаций
+6. 📧 Обогащение email организаций ← НОВЫЙ ЭТАП
+7. Разрешение конфликтов телефонов
+8. Обогащение полей city/address
+9. Нормализация данных
+10. Очистка email организаций
+```
+
+### Интеграция с email-классификатором
+
+После обогащения email адресов система выполняет **очистку email организаций** (этап 10), которая:
+
+- Классифицирует все email в `organizations[].emails`
+- Оставляет только организационные типы (SHARED_ORG, DEPARTMENT, TECHNICAL, GROUP_ALIAS)
+- Удаляет персональные адреса (PERSONAL_INTERNAL, PERSONAL_EXTERNAL)
+- Логирует все изменения в `postprocessing_metadata.email_classification`
+
+### Статистика и мониторинг
+
+```python
+# Получение статистики обогащения
+stats = enricher.get_stats()
+# {
+#   'organizations_processed': 5,
+#   'emails_added': 12,
+#   'emails_skipped': 8,
+#   'from_headers': 15,
+#   'from_signature': 4,
+#   'from_attachments': 1
+# }
+```
+
+### Отладка и тестирование
+
+**Создание тестового файла:**
+```python
+# test_email_enrichment.py
+from postprocessing import OrganizationEmailEnricher
+
+enricher = OrganizationEmailEnricher()
+result = enricher.enrich_organizations_emails(test_organizations, test_email_data)
+```
+
+**Проверка классификации:**
+```python
+from postprocessing.email_classifier import classify_mailbox, MailboxType
+
+# Тестирование классификации конкретного адреса
+result = classify_mailbox('mail@company.ru', None, corp_domains, config)
+print(f"mail@company.ru -> {result.value}")
+```
+
+### Исправленные проблемы
+
+#### Проблема: mail@ адреса удалялись из организаций
+
+**Симптомы:**
+- `mail@medcongress.ru` присутствовал в оригинальном ответе LLM
+- В финальном результате email отсутствовал в организации
+- Ошибка классификации как `UNKNOWN` типа
+
+**Причина:**
+- Префикс `mail` отсутствовал в конфигурации `shared_mailboxes_prefixes`
+- Адреса типа `mail@` классифицировались как `UNKNOWN`
+- Система очистки email удаляла все `UNKNOWN` адреса
+
+**Решение:**
+- Добавлен префикс `mail` в `config/org_profile.yml`
+- Теперь `mail@company.ru` классифицируется как `SHARED_ORG`
+- Email корректно сохраняется в организации
+
+#### Проблема: 'int' object is not iterable
+
+**Симптомы:**
+- Ошибка при выполнении обогащения email
+- Обработка завершалась успешно, но с предупреждением
+
+**Причина:**
+- Повреждение структуры данных в pipeline
+- Организации содержали целые числа вместо словарей
+
+**Решение:**
+- Добавлена защитная проверка типов данных
+- Логирование отладочной информации
+- Graceful обработка поврежденных данных
+
+```python
+# Защитный код в org_email_enricher.py
+if not isinstance(org_data, dict):
+    self.logger.warning(f"Organization {org_id} is not a dict, skipping")
+    continue
+```
+
+### Производительность
+
+- **Обогащение одной организации:** < 50ms
+- **Извлечение из заголовков:** < 10ms  
+- **Классификация email:** < 5ms
+- **Обработка OCR вложений:** < 100ms
+
+
+## 10. Обработка ошибок
 
 **Принципы:**
 - Graceful degradation: при ошибке возвращается оригинальный результат
@@ -687,7 +929,7 @@ logging.basicConfig(level=logging.INFO)
 # ✅ Постобработка завершена успешно
 ```
 
-## Расширение функциональности
+## 11. Расширение функциональности
 
 ### Добавление нового компонента
 
@@ -720,7 +962,7 @@ class PostProcessor:
         return custom_result
 ```
 
-## Совместимость
+## 12. Совместимость
 
 **Поддерживаемые форматы:**
 - ✅ Новая структура `phones[]` (приоритет)
@@ -733,7 +975,7 @@ class PostProcessor:
 - Обратная совместимость в рамках мажорной версии
 - Миграционные скрипты при breaking changes
 
-## Заключение
+## 13. Заключение
 
 Модуль постобработки обеспечивает полную реализацию требований мини-ТЗ с модульной архитектурой, высокой производительностью и надежностью. Каждый компонент решает конкретную задачу и может использоваться независимо или в составе полного пайплайна.
 

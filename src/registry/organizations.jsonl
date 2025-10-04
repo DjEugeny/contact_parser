@@ -68,3 +68,4 @@
 {"event": "alias", "gid": "7fd2e423-23ef-5814-adcd-ae26b2748956", "alias": ["ORG", "FALLBACK", "5633a433a3396b0a"], "created_at": "2025-10-03T14:06:22Z"}
 {"event": "create", "gid": "e3275650-2a9d-5767-8f24-874a09d5bd9d", "key": ["ORG", "DOMAIN", "yandex.ru"], "aliases": [["ORG", "NAME_CITY", "яндекс", "москва"], ["ORG", "FALLBACK", "0a6cc266dae96e8a"]], "created_at": "2025-10-03T14:06:22Z", "source": "new"}
 {"event": "create", "gid": "f07adc61-1b36-5b3c-8056-be652bd7aa01", "key": ["ORG", "NAME_CITY", "неизвестная компания xyz999", "неизвестный город"], "aliases": [["ORG", "FALLBACK", "7bd46b5a1b12b0cc"]], "created_at": "2025-10-03T14:06:22Z", "source": "new"}
+{"event": "alias", "gid": "ef485f15-63ee-5569-bf4d-c62b0ab12067", "alias": ["ORG", "EMAIL_DOMAIN", "medcongress.ru"], "created_at": "2025-10-04T11:00:29Z"}
