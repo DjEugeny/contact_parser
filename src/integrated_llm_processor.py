@@ -215,7 +215,8 @@ class IntegratedLLMProcessor:
                 'date': email.get('date', ''),
                 'thread_id': email.get('thread_id', ''),
                 'has_attachments': len(email.get('attachments', [])) > 0,
-                'attachments_count': len(email.get('attachments', []))
+                'attachments_count': len(email.get('attachments', [])),
+                'attachments': email.get('attachments', [])  # Добавляем полные данные о вложениях
             }
             
             # 4. Извлекаем контакты через LLM

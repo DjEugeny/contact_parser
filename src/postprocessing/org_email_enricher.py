@@ -212,6 +212,12 @@ class OrganizationEmailEnricher:
         emails = []
         
         attachments = email_data.get('attachments', [])
+        
+        # ИСПРАВЛЕНИЕ: Защита от случая, когда attachments - это число вместо списка
+        if not isinstance(attachments, list):
+            self.logger.warning(f"⚠️ attachments is not a list (type: {type(attachments)}), skipping attachment email extraction")
+            return []
+        
         for attachment in attachments:
             if not isinstance(attachment, dict):
                 continue

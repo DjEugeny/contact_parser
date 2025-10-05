@@ -32,6 +32,9 @@ from .smart_contact_enricher import SmartContactEnricher
 from .email_classifier import MailboxType, classify_mailbox
 from .org_inn_resolver import OrganizationINNResolver
 from .org_email_enricher import OrganizationEmailEnricher
+from .attachment_evidence_extractor import AttachmentEvidenceExtractor
+from .org_location_enrichment import OrgLocationEnrichment
+from .contact_location_safety import ContactLocationSafety
 from ..registry import GlobalIDRegistry
 
 logger = logging.getLogger(__name__)
@@ -259,6 +262,24 @@ class PostProcessor:
             self.logger.warning(f"⚠️ Failed to initialize INN/Email enrichers: {e}")
             self.inn_resolver = None
             self.email_enricher = None
+        
+        # Инициализация компонентов обогащения локации из вложений (TASK-008A)
+        try:
+            self.attachment_evidence_extractor = AttachmentEvidenceExtractor()
+            self.org_location_enrichment = OrgLocationEnrichment()
+            self.logger.info("✅ Attachment evidence extractors initialized")
+        except Exception as e:
+            self.logger.warning(f"⚠️ Failed to initialize attachment evidence extractors: {e}")
+            self.attachment_evidence_extractor = None
+            self.org_location_enrichment = None
+        
+        # Инициализация компонента безопасности локации контактов (TASK-008B)
+        try:
+            self.contact_location_safety = ContactLocationSafety()
+            self.logger.info("✅ Contact location safety initialized")
+        except Exception as e:
+            self.logger.warning(f"⚠️ Failed to initialize contact location safety: {e}")
+            self.contact_location_safety = None
 
         # Статистика обработки
         self.stats = {
@@ -478,6 +499,16 @@ class PostProcessor:
             # Этап 3.2: Обогащение email-адресов организаций (TASK-007B)
             org_email_enrichment_metadata = self._enrich_organizations_emails(updated_organizations, email_data)
 
+            # Этап 3.3: Обогащение локации организаций из вложений (TASK-008A)
+            location_enrichment_metadata = self._enrich_organizations_location_from_attachments(
+                updated_organizations, email_data
+            )
+            
+            # Этап 3.4: Безопасное обогащение локации контактов (TASK-008B)
+            contact_location_metadata = self._apply_contact_location_safety(
+                valuable_contacts, email_data, updated_organizations
+            )
+
             phone_conflicts = self._resolve_phone_conflicts(
                 updated_organizations,
                 valuable_contacts,
@@ -537,6 +568,7 @@ class PostProcessor:
                 phone_conflicts,
                 inn_enrichment_metadata,
                 org_email_enrichment_metadata,
+                location_enrichment_metadata,
             )
             
             # Обновление статистики
@@ -854,13 +886,24 @@ class PostProcessor:
         contacts: List[Dict[str, Any]],
         organizations: Dict[int, Dict[str, Any]],
     ) -> Tuple[List[Dict[str, Any]], Dict[int, Dict[str, str]]]:
-        """🌐 Мягкое обогащение города/адреса контактов из организации."""
+        """🌐 Мягкое обогащение города/адреса контактов из организации.
+        
+        TASK-008B: Не применяет backfill для контактов с внутренними доменами,
+        чтобы предотвратить ложное обогащение HQ-адресами.
+        """
+        
+        self.logger.info(f"🔍 TASK-008B: _backfill_contact_city_address вызван для {len(contacts)} контактов")
 
         if not contacts:
             return [], {}
 
         provenance: Dict[int, Dict[str, str]] = {}
         updated_contacts: List[Dict[str, Any]] = []
+        
+        # Получаем список внутренних доменов из конфигурации contact_location_safety
+        internal_domains = set()
+        if self.contact_location_safety:
+            internal_domains = self.contact_location_safety.internal_domains
 
         for contact in contacts:
             normalized_contact = dict(contact)
@@ -880,8 +923,29 @@ class PostProcessor:
             oid = normalized_contact.get('organization_id')
             organization = organizations.get(oid) if isinstance(oid, int) else None
             provenance_entry: Dict[str, str] = {}
+            
+            # TASK-008B: Проверяем, был ли контакт уже обработан contact_location_safety
+            # Если у контакта уже есть city/address, значит они были применены безопасно
+            # Если полей нет, значит персонального сигнала не было найдено
+            # В этом случае НЕ применяем backfill, чтобы избежать HQ-протечек
+            
+            has_personal_location = (
+                self._has_value(normalized_contact.get('city')) or 
+                self._has_value(normalized_contact.get('address'))
+            )
+            
+            # Backfill применяется только если:
+            # 1. У контакта УЖЕ есть персональная локация (частичная) - можем дополнить
+            # 2. ИЛИ это внешний контакт (не связан с организацией с HQ-адресом)
+            allow_backfill = has_personal_location
+            
+            if not allow_backfill:
+                self.logger.debug(
+                    f"🔒 Контакт {normalized_contact.get('name', 'unknown')} без персональной локации. "
+                    f"Backfill HQ-локации пропущен для предотвращения ложного обогащения."
+                )
 
-            if organization:
+            if organization and allow_backfill:
                 if self.backfill_city_from_org and not self._has_value(normalized_contact.get('city')):
                     org_city = as_text(organization.get('city'))
                     if org_city:
@@ -893,6 +957,9 @@ class PostProcessor:
                     if org_address:
                         normalized_contact['address'] = org_address
                         provenance_entry['address_source'] = 'org_fallback'
+            elif organization and not allow_backfill:
+                # Для контактов без персональной локации записываем в provenance, что backfill был пропущен
+                provenance_entry['backfill_skipped'] = 'no_personal_location_signal'
 
             if provenance_entry and isinstance(cid, int):
                 provenance[cid] = provenance_entry
@@ -1389,7 +1456,8 @@ class PostProcessor:
                           gid_metadata: Optional[Dict[str, Any]] = None,
                           phone_conflicts: Optional[Dict[str, List[Dict[str, Any]]]] = None,
                           inn_enrichment_metadata: Optional[Dict[str, Dict[str, Any]]] = None,
-                          org_email_enrichment_metadata: Optional[Dict[str, Dict[str, Any]]] = None) -> Dict[str, Any]:
+                          org_email_enrichment_metadata: Optional[Dict[str, Dict[str, Any]]] = None,
+                          location_enrichment_metadata: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Формирование финального результата
         
         Args:
@@ -1447,6 +1515,11 @@ class PostProcessor:
             if 'enrichment' not in processed_result['postprocessing_metadata']:
                 processed_result['postprocessing_metadata']['enrichment'] = {}
             processed_result['postprocessing_metadata']['enrichment']['org_email_enrichment'] = org_email_enrichment_metadata
+        
+        if location_enrichment_metadata is not None:
+            if 'enrichment' not in processed_result['postprocessing_metadata']:
+                processed_result['postprocessing_metadata']['enrichment'] = {}
+            processed_result['postprocessing_metadata']['enrichment']['org_location_from_attachments'] = location_enrichment_metadata
 
         return processed_result
     
@@ -1553,6 +1626,163 @@ class PostProcessor:
             'data_normalized': 0
         }
         self.logger.info("📊 Статистика сброшена")
+
+    def _enrich_organizations_location_from_attachments(self, organizations: Dict[int, Dict[str, Any]], 
+                                                      email_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """
+        Обогащение локации организаций из вложений (TASK-008A)
+        
+        Args:
+            organizations: Словарь организаций для обогащения
+            email_data: Данные письма с вложениями
+            
+        Returns:
+            Dict: Метаданные обогащения локации
+        """
+        if not self.attachment_evidence_extractor or not self.org_location_enrichment:
+            self.logger.warning("⚠️ Attachment evidence extractors not initialized, skipping location enrichment")
+            return {}
+        
+        # ОТЛАДКА: Логируем что получили
+        self.logger.info(f"🔍 DEBUG: email_data type: {type(email_data)}")
+        if email_data:
+            self.logger.info(f"🔍 DEBUG: email_data keys: {list(email_data.keys())}")
+            attachments = email_data.get('attachments')
+            self.logger.info(f"🔍 DEBUG: attachments type: {type(attachments)}, value: {attachments if not isinstance(attachments, list) else f'list of {len(attachments)} items'}")
+        
+        if not email_data or not email_data.get('attachments'):
+            self.logger.warning(f"📎 No attachments found in email_data, skipping location enrichment")
+            return {}
+        
+        try:
+            self.logger.info("🔍 Starting location enrichment from attachments")
+            
+            # Извлекаем доказательства локации из вложений
+            evidence_list = self.attachment_evidence_extractor.extract(email_data)
+            
+            if not evidence_list:
+                self.logger.info("📎 No location evidence found in attachments")
+                return {}
+            
+            self.logger.info(f"📍 Found {len(evidence_list)} location evidence items")
+            
+            # Применяем обогащение к организациям
+            postprocessing_metadata = {}
+            enriched_organizations = self.org_location_enrichment.enrich_organizations(
+                organizations, evidence_list, postprocessing_metadata
+            )
+            
+            # Обновляем организации in-place
+            for org_gid, enriched_org in enriched_organizations.items():
+                if org_gid in organizations:
+                    organizations[org_gid] = enriched_org
+            
+            # Получаем статистику
+            enrichment_stats = self.org_location_enrichment.get_stats()
+            self.logger.info(f"✅ Location enrichment completed: {enrichment_stats}")
+            
+            return {
+                'evidence_count': len(evidence_list),
+                'organizations_enriched': enrichment_stats.get('organizations_enriched', 0),
+                'cities_added': enrichment_stats.get('cities_added', 0),
+                'addresses_added': enrichment_stats.get('addresses_added', 0),
+                'conflicts_detected': enrichment_stats.get('conflicts_detected', 0),
+                'location_evidence': postprocessing_metadata.get('location_evidence', {})
+            }
+            
+        except Exception as e:
+            self.logger.error(f"❌ Error during location enrichment from attachments: {e}")
+            import traceback
+            self.logger.error(f"📚 Traceback:\n{traceback.format_exc()}")
+            return {}
+    
+    def _apply_contact_location_safety(
+        self,
+        contacts: List[Dict[str, Any]],
+        email_data: Optional[Dict[str, Any]] = None,
+        organizations: Optional[Dict[int, Dict[str, Any]]] = None
+    ) -> Dict[str, Any]:
+        """
+        Безопасное обогащение локации контактов (TASK-008B)
+        
+        Предотвращает ложное обогащение контактов локационными данными из HQ-блоков.
+        Заполняет contacts.city/address только при явных персональных сигналах.
+        
+        Args:
+            contacts: Список контактов для обработки
+            email_data: Данные письма
+            organizations: Словарь организаций (для определения HQ-блоков)
+            
+        Returns:
+            Dict: Метаданные обогащения локации контактов
+        """
+        self.logger.info(f"🔍 TASK-008B: _apply_contact_location_safety вызван для {len(contacts) if contacts else 0} контактов")
+        
+        if not self.contact_location_safety:
+            self.logger.warning("⚠️ Contact location safety not initialized, skipping")
+            return {}
+        
+        if not contacts:
+            self.logger.info("⚠️ No contacts to process for location safety")
+            return {}
+        
+        try:
+            self.logger.info(f"🔒 Starting contact location safety check for {len(contacts)} contacts")
+            
+            # Подготавливаем данные сообщения
+            message = {
+                'body': email_data.get('body', '') if email_data else '',
+                'text': email_data.get('text', '') if email_data else '',
+                'organizations': list(organizations.values()) if organizations else []
+            }
+            
+            # Извлекаем персональные локационные сигналы
+            # TODO: В будущем можно добавить signature_blocks_by_person из email_data
+            evidence_map = self.contact_location_safety.extract_contact_location_evidence(
+                message, contacts, signature_blocks_by_person=None
+            )
+            
+            self.logger.info(f"📍 Found location evidence for {len(evidence_map)} contacts")
+            
+            # Применяем локацию к контактам
+            postprocessing_metadata = {}
+            applied_count = 0
+            
+            for contact in contacts:
+                contact_gid = contact.get('gid', '')
+                if not contact_gid:
+                    continue
+                
+                evidence = evidence_map.get(contact_gid)
+                if evidence:
+                    applied = self.contact_location_safety.apply_contact_location(
+                        contact, evidence, postprocessing_metadata
+                    )
+                    if applied:
+                        applied_count += 1
+            
+            # Получаем статистику
+            safety_stats = self.contact_location_safety.get_stats()
+            self.logger.info(
+                f"✅ Contact location safety completed: "
+                f"{safety_stats.get('locations_applied', 0)} applied, "
+                f"{safety_stats.get('locations_rejected', 0)} rejected, "
+                f"{safety_stats.get('hq_blocks_detected', 0)} HQ blocks detected"
+            )
+            
+            return {
+                'contacts_processed': safety_stats.get('contacts_processed', 0),
+                'locations_applied': safety_stats.get('locations_applied', 0),
+                'locations_rejected': safety_stats.get('locations_rejected', 0),
+                'hq_blocks_detected': safety_stats.get('hq_blocks_detected', 0),
+                'location_evidence': postprocessing_metadata.get('location_evidence', {})
+            }
+            
+        except Exception as e:
+            self.logger.error(f"❌ Error during contact location safety check: {e}")
+            import traceback
+            self.logger.error(f"📚 Traceback:\n{traceback.format_exc()}")
+            return {}
 
 
 # Пример использования

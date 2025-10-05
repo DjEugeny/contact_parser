@@ -741,8 +741,8 @@ class APIPipelineValidator:
             "date": metadata.get("date"),
             "thread_id": metadata.get("thread_id"),
             "message_id": metadata.get("message_id"),
-            "attachments": metadata.get("attachments_count"),
-            "attachments_count": metadata.get("attachments_count"),  # ИСПРАВЛЕНО: добавлено правильное поле
+            "attachments": email_data.get("attachments", []),  # ИСПРАВЛЕНО: передаем список вложений, а не число
+            "attachments_count": metadata.get("attachments_count"),
             "text_length": len(combined_text),
             "char_count_original": metadata.get("char_count", 0),
             "email_headers": email_data.get("headers"),

@@ -69,3 +69,9 @@
 {"event": "create", "gid": "e3275650-2a9d-5767-8f24-874a09d5bd9d", "key": ["ORG", "DOMAIN", "yandex.ru"], "aliases": [["ORG", "NAME_CITY", "яндекс", "москва"], ["ORG", "FALLBACK", "0a6cc266dae96e8a"]], "created_at": "2025-10-03T14:06:22Z", "source": "new"}
 {"event": "create", "gid": "f07adc61-1b36-5b3c-8056-be652bd7aa01", "key": ["ORG", "NAME_CITY", "неизвестная компания xyz999", "неизвестный город"], "aliases": [["ORG", "FALLBACK", "7bd46b5a1b12b0cc"]], "created_at": "2025-10-03T14:06:22Z", "source": "new"}
 {"event": "alias", "gid": "ef485f15-63ee-5569-bf4d-c62b0ab12067", "alias": ["ORG", "EMAIL_DOMAIN", "medcongress.ru"], "created_at": "2025-10-04T11:00:29Z"}
+{"event": "alias", "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3", "alias": ["ORG", "INN", "7728469349"], "created_at": "2025-10-05T03:55:03Z"}
+{"event": "alias", "gid": "dc827ae5-f14c-5fa1-8397-e0c32aa5757a", "alias": ["ORG", "NAME_CITY", "миллаб", "москва"], "created_at": "2025-10-05T03:55:40Z"}
+{"event": "alias", "gid": "dc827ae5-f14c-5fa1-8397-e0c32aa5757a", "alias": ["ORG", "FALLBACK", "9e8567c67ae01bfd"], "created_at": "2025-10-05T03:55:40Z"}
+{"event": "create", "gid": "7183ab8d-ec6b-56f1-8008-ecb4007d6558", "key": ["ORG", "NAME_CITY", "фгбоу во красгму им. проф. в.ф. войно-ясенецкого минздрава россии", "красноярск"], "aliases": [["ORG", "FALLBACK", "5bc9e88660ac729d"]], "created_at": "2025-10-05T03:56:12Z", "source": "new"}
+{"event": "alias", "gid": "ac12ae29-7a6b-5c7b-858d-0c26108cfc88", "alias": ["ORG", "NAME_CITY", "федеральное бюджетное учреждение здравоохранения центр гигиены и эпидемиологии в алтайском крае", "барнаул"], "created_at": "2025-10-05T04:00:03Z"}
+{"event": "alias", "gid": "ac12ae29-7a6b-5c7b-858d-0c26108cfc88", "alias": ["ORG", "FALLBACK", "a241bfd5e066839f"], "created_at": "2025-10-05T04:00:03Z"}

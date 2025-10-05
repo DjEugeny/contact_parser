@@ -128,6 +128,9 @@ class DataEnricher:
                                          organizations: Dict[int, Dict[str, Any]] = None) -> Dict[str, Any]:
         """Обогащение полей city и address из организации согласно мини-ТЗ п.5
         
+        TASK-008B: НЕ применяет обогащение локации, если у контакта нет персонального сигнала.
+        Это предотвращает ложное обогащение HQ-адресами.
+        
         ВАЖНО: Адрес НЕ копируется, если город контакта отличается от города организации.
         Это предотвращает попадание адреса HQ к контактам в других городах.
         
@@ -138,6 +141,8 @@ class DataEnricher:
         Returns:
             Dict: Контакт с обогащенными полями
         """
+        self.logger.info(f"🔍 TASK-008B: _enrich_location_from_organization вызван для контакта {contact.get('name', 'unknown')}")
+        
         if not organizations:
             return contact
             
@@ -147,7 +152,29 @@ class DataEnricher:
             
         organization = organizations[org_id]
         
-        # Обогащаем city, если у контакта не указан
+        # TASK-008B: Проверяем, есть ли у контакта персональная локация
+        # Если у контакта УЖЕ есть city или address, значит был найден персональный сигнал
+        # В этом случае можем дополнить недостающее поле
+        # Если оба поля пустые - НЕ применяем обогащение, чтобы избежать HQ-протечек
+        
+        def _has_value(val):
+            """Проверка наличия значения (аналогично postprocessor)"""
+            if val is None or val == "":
+                return False
+            if isinstance(val, str):
+                return bool(val.strip())
+            return True
+        
+        has_personal_location = _has_value(contact.get('city')) or _has_value(contact.get('address'))
+        
+        if not has_personal_location:
+            self.logger.debug(
+                f"🔒 Контакт {contact.get('name', 'Unknown')} без персональной локации. "
+                f"Обогащение HQ-локации пропущено (TASK-008B)."
+            )
+            return contact
+        
+        # Обогащаем city, если у контакта не указан (но есть address)
         if not contact.get('city') and organization.get('city'):
             contact['city'] = organization['city']
             self.logger.debug(f"Обогащен city для контакта {contact.get('name', 'Unknown')}: {organization['city']}")

@@ -94,6 +94,27 @@ class DataNormalizer:
         self.smart_enricher = SmartContactEnricher()
         self.city_registry = CityRegistry()
 
+    def _sanitize_phone_keys(self, phone: dict) -> dict:
+        """Удаляет лишние ключи из phone объекта (whitelist)
+        
+        Разрешенные ключи: type, number, normalized, original, extension
+        Все остальные поля (например, confidence, source) удаляются.
+        
+        Args:
+            phone: Phone объект для санитизации
+            
+        Returns:
+            dict: Санитизированный phone объект с только whitelist полями
+        """
+        ALLOWED_KEYS = {'type', 'number', 'normalized', 'original', 'extension'}
+        removed = set(phone.keys()) - ALLOWED_KEYS
+        
+        if removed:
+            normalized_id = phone.get('normalized', 'unknown')
+            self.logger.debug(f"🧹 Sanitized phone keys: {removed} from {normalized_id}")
+        
+        return {k: v for k, v in phone.items() if k in ALLOWED_KEYS}
+
     @staticmethod
     def _is_first_name(token: str) -> bool:
         if not token:
@@ -403,12 +424,16 @@ class DataNormalizer:
             if llm_phone_fields.issubset(entry.keys()):
                 # Проверяем, есть ли корректная нормализация
                 if entry.get('normalized') and entry['normalized'].strip():
-                    # Это уже готовый phone объект от LLM с корректной нормализацией - возвращаем его как есть
+                    # Это уже готовый phone объект от LLM с корректной нормализацией
                     self.logger.debug(f"Обнаружен готовый phone объект от LLM с нормализацией: {entry}")
                     # Убеждаемся, что extension присутствует (может быть None)
                     result_entry = dict(entry)
                     if 'extension' not in result_entry:
                         result_entry['extension'] = None
+                    
+                    # Санитизация: удаляем лишние поля
+                    result_entry = self._sanitize_phone_keys(result_entry)
+                    
                     return [result_entry]
                 else:
                     # LLM phone объект без корректной нормализации - нужно нормализовать
@@ -473,6 +498,9 @@ class DataNormalizer:
                         elif digits_only.startswith('7') and len(digits_only) == 11:
                             final_phone['normalized'] = f'+{digits_only}'
                             self.logger.debug(f"Исправлена нормализация номера: {normalized_value} → {final_phone['normalized']}")
+                    
+                    # Санитизация: удаляем лишние поля
+                    final_phone = self._sanitize_phone_keys(final_phone)
                     
                     results.append(final_phone)
                     
@@ -560,6 +588,9 @@ class DataNormalizer:
                     continue
                 record.setdefault(key, value)
 
+            # Санитизация: удаляем лишние поля
+            record = self._sanitize_phone_keys(record)
+            
             results.append(record)
 
         return results

@@ -32,5 +32,33 @@
     "max_concurrent_chunks": 3,
     "api_rate_limit_delay": 1.0,
     "comment": "Optimized for DeepSeek V3.1 with 128K context window"
+  },
+  "contact_location_safety": {
+    "enabled": true,
+    "min_confidence": 0.7,
+    "internal_domains": [
+      "dna-technology.ru"
+    ],
+    "personal_markers": [
+      "г.",
+      "город",
+      "регион",
+      "представитель",
+      "офис в",
+      "территориальный менеджер",
+      "региональный представитель",
+      "региональный менеджер",
+      "представитель в",
+      "менеджер в"
+    ],
+    "hq_markers": [
+      "ИНН",
+      "ОГРН",
+      "р/с",
+      "к/с",
+      "БИК",
+      "ОКПО"
+    ],
+    "comment": "TASK-008B: Предотвращает ложное обогащение контактов локационными данными из HQ-блоков организаций"
   }
 }
