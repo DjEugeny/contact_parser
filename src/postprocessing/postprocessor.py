@@ -537,6 +537,11 @@ class PostProcessor:
                 enriched_contacts, updated_organizations
             )
             
+            # Сбор статистики phone UI форматирования
+            phone_ui_stats = self._collect_phone_ui_stats(
+                final_organizations, final_contacts
+            )
+            
             # Этап 6: Обновление interactions
             processed_interactions = self._process_interactions(
                 llm_result.get('interactions', []),
@@ -569,6 +574,7 @@ class PostProcessor:
                 inn_enrichment_metadata,
                 org_email_enrichment_metadata,
                 location_enrichment_metadata,
+                phone_ui_stats,
             )
             
             # Обновление статистики
@@ -1289,6 +1295,69 @@ class PostProcessor:
         self.logger.info(f"✅ Нормализовано {len(normalized_contacts)} контактов и {len(normalized_organizations)} организаций")
         return normalized_contacts, normalized_organizations
 
+    def _collect_phone_ui_stats(self, organizations: Dict[int, Dict[str, Any]], 
+                                contacts: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """Собирает статистику UI-форматирования телефонов
+        
+        Args:
+            organizations: Словарь организаций
+            contacts: Список контактов
+            
+        Returns:
+            dict: Статистика обработки phone UI форматирования
+        """
+        stats = {
+            'phones_processed': 0,
+            'organizations_processed': 0,
+            'contacts_processed': 0,
+            'ui_format_applied': 0,
+            'phones_sanitized': 0
+        }
+        
+        # Подсчет для организаций
+        for org in organizations.values():
+            phones = org.get('phones', [])
+            if phones:
+                stats['organizations_processed'] += 1
+                stats['phones_processed'] += len(phones)
+                
+                # Проверяем, что все phones имеют только whitelist поля
+                for phone in phones:
+                    if isinstance(phone, dict):
+                        allowed_keys = {'type', 'number', 'normalized', 'original', 'extension'}
+                        if set(phone.keys()).issubset(allowed_keys):
+                            stats['phones_sanitized'] += 1
+                        
+                        # Проверяем, что number отформатирован из normalized
+                        if phone.get('normalized') and phone.get('number'):
+                            # Для RU номеров проверяем формат +7 (XXX)
+                            if phone['normalized'].startswith('+7') and '(' in phone['number']:
+                                stats['ui_format_applied'] += 1
+                            # Для международных - просто наличие форматирования
+                            elif not phone['normalized'].startswith('+7'):
+                                stats['ui_format_applied'] += 1
+        
+        # Аналогично для контактов
+        for contact in contacts:
+            phones = contact.get('phones', [])
+            if phones:
+                stats['contacts_processed'] += 1
+                stats['phones_processed'] += len(phones)
+                
+                for phone in phones:
+                    if isinstance(phone, dict):
+                        allowed_keys = {'type', 'number', 'normalized', 'original', 'extension'}
+                        if set(phone.keys()).issubset(allowed_keys):
+                            stats['phones_sanitized'] += 1
+                        
+                        if phone.get('normalized') and phone.get('number'):
+                            if phone['normalized'].startswith('+7') and '(' in phone['number']:
+                                stats['ui_format_applied'] += 1
+                            elif not phone['normalized'].startswith('+7'):
+                                stats['ui_format_applied'] += 1
+        
+        return stats
+
     def _process_interactions(self, interactions: Optional[List[Dict[str, Any]]],
                               contacts: List[Dict[str, Any]],
                               organizations: Dict[int, Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -1457,7 +1526,8 @@ class PostProcessor:
                           phone_conflicts: Optional[Dict[str, List[Dict[str, Any]]]] = None,
                           inn_enrichment_metadata: Optional[Dict[str, Dict[str, Any]]] = None,
                           org_email_enrichment_metadata: Optional[Dict[str, Dict[str, Any]]] = None,
-                          location_enrichment_metadata: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+                          location_enrichment_metadata: Optional[Dict[str, Any]] = None,
+                          phone_ui_stats: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Формирование финального результата
         
         Args:
@@ -1520,6 +1590,9 @@ class PostProcessor:
             if 'enrichment' not in processed_result['postprocessing_metadata']:
                 processed_result['postprocessing_metadata']['enrichment'] = {}
             processed_result['postprocessing_metadata']['enrichment']['org_location_from_attachments'] = location_enrichment_metadata
+        
+        if phone_ui_stats is not None:
+            processed_result['postprocessing_metadata']['phone_ui_formatting'] = phone_ui_stats
 
         return processed_result
     

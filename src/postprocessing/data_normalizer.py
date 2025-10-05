@@ -115,6 +115,49 @@ class DataNormalizer:
         
         return {k: v for k, v in phone.items() if k in ALLOWED_KEYS}
 
+    def _format_ui_from_e164(self, e164: str) -> str:
+        """Форматирует E.164 номер в UI-формат
+        
+        Для RU номеров: +7 (XXX) XXX-XX-XX
+        Для других стран: INTERNATIONAL формат (libphonenumber)
+        
+        Args:
+            e164: Номер в формате E.164 (например, +74956401771)
+            
+        Returns:
+            str: Отформатированный номер для UI
+        """
+        if not e164 or not isinstance(e164, str):
+            return e164 or ''
+        
+        try:
+            import phonenumbers
+            
+            # Парсим номер
+            num = phonenumbers.parse(e164, None)
+            region = phonenumbers.region_code_for_number(num)
+            
+            # Форматируем в INTERNATIONAL
+            formatted = phonenumbers.format_number(
+                num, phonenumbers.PhoneNumberFormat.INTERNATIONAL
+            )
+            
+            # Специальный формат для RU: +7 (XXX) XXX-XX-XX
+            if region == "RU":
+                # libphonenumber возвращает "+7 495 640-17-71"
+                # Преобразуем в "+7 (495) 640-17-71"
+                match = re.match(r'\+7\s+(\d{3})\s+(.+)', formatted)
+                if match:
+                    area_code = match.group(1)
+                    rest = match.group(2)
+                    return f"+7 ({area_code}) {rest}"
+            
+            return formatted
+            
+        except Exception as e:
+            self.logger.warning(f"⚠️ Failed to format {e164}: {e}")
+            return e164  # Fallback на исходное значение
+
     @staticmethod
     def _is_first_name(token: str) -> bool:
         if not token:
@@ -431,6 +474,13 @@ class DataNormalizer:
                     if 'extension' not in result_entry:
                         result_entry['extension'] = None
                     
+                    # Регенерация UI-формата из normalized
+                    if result_entry.get('normalized'):
+                        ui_formatted = self._format_ui_from_e164(result_entry['normalized'])
+                        if ui_formatted:
+                            result_entry['number'] = ui_formatted
+                            self.logger.debug(f"📱 Regenerated UI format: {result_entry['normalized']} → {ui_formatted}")
+                    
                     # Санитизация: удаляем лишние поля
                     result_entry = self._sanitize_phone_keys(result_entry)
                     
@@ -498,6 +548,13 @@ class DataNormalizer:
                         elif digits_only.startswith('7') and len(digits_only) == 11:
                             final_phone['normalized'] = f'+{digits_only}'
                             self.logger.debug(f"Исправлена нормализация номера: {normalized_value} → {final_phone['normalized']}")
+                    
+                    # Регенерация UI-формата из normalized
+                    if final_phone.get('normalized'):
+                        ui_formatted = self._format_ui_from_e164(final_phone['normalized'])
+                        if ui_formatted:
+                            final_phone['number'] = ui_formatted
+                            self.logger.debug(f"📱 Regenerated UI format: {final_phone['normalized']} → {ui_formatted}")
                     
                     # Санитизация: удаляем лишние поля
                     final_phone = self._sanitize_phone_keys(final_phone)
@@ -588,6 +645,13 @@ class DataNormalizer:
                     continue
                 record.setdefault(key, value)
 
+            # Регенерация UI-формата из normalized
+            if record.get('normalized'):
+                ui_formatted = self._format_ui_from_e164(record['normalized'])
+                if ui_formatted:
+                    record['number'] = ui_formatted
+                    self.logger.debug(f"📱 Regenerated UI format (fallback): {record['normalized']} → {ui_formatted}")
+            
             # Санитизация: удаляем лишние поля
             record = self._sanitize_phone_keys(record)
             
@@ -609,97 +673,19 @@ class DataNormalizer:
             normalized_phones = []
             
             for phone_obj in contact['phones']:
-                if isinstance(phone_obj, dict) and phone_obj.get('number'):
-                    original_number = phone_obj['number']
-                    if self.phone_normalizer_available:
-                        normalized_result = self.phone_normalizer.normalize_contact_phone(original_number)
-                        normalized_number = normalized_result.get('formatted_phone', '')
-                        normalized_digits = normalized_result.get('normalized_phone', '')
-                        phone_type = normalized_result.get('phone_type', 'unknown')
-                        extension = normalized_result.get('phone_extension', '')
-                    else:
-                        normalized_number = self._simple_phone_cleanup(original_number)
-                        normalized_digits = ''.join(filter(str.isdigit, normalized_number))
-                        phone_type = 'unknown'
-                        extension = ''
-
-                    if normalized_number:
-                        normalized_phone_obj = phone_obj.copy()
-                        normalized_phone_obj['number'] = normalized_number
-                        normalized_phone_obj['normalized'] = self._ensure_plus_format(
-                            normalized_digits or normalized_number
-                        )
-                        normalized_phone_obj['original'] = original_number
-
-                        # Добавляем добавочный номер если есть
-                        if extension:
-                            normalized_phone_obj['extension'] = extension
-
-                        # Определяем тип телефона, если не указан
-                        if not normalized_phone_obj.get('type'):
-                            normalized_phone_obj['type'] = phone_type
-
-                        normalized_phones.append(normalized_phone_obj)
-                elif isinstance(phone_obj, str) and phone_obj.strip():
-                    # Поддержка старого формата в массиве
-                    original_number = phone_obj.strip()
-                    if self.phone_normalizer_available:
-                        normalized_result = self.phone_normalizer.normalize_contact_phone(original_number)
-                        normalized_number = normalized_result.get('formatted_phone', '')
-                        normalized_digits = normalized_result.get('normalized_phone', '')
-                        phone_type = normalized_result.get('phone_type', 'unknown')
-                        extension = normalized_result.get('phone_extension', '')
-                    else:
-                        normalized_number = self._simple_phone_cleanup(original_number)
-                        normalized_digits = ''.join(filter(str.isdigit, normalized_number))
-                        phone_type = 'unknown'
-                        extension = ''
-
-                    if normalized_number:
-                        phone_obj_dict = {
-                            'type': phone_type,
-                            'number': normalized_number,
-                            'normalized': self._ensure_plus_format(
-                                normalized_digits or normalized_number
-                            ),
-                            'original': original_number
-                        }
-
-                        # Добавляем добавочный номер если есть
-                        if extension:
-                            phone_obj_dict['extension'] = extension
-
-                        normalized_phones.append(phone_obj_dict)
+                # Используем _normalize_phone_entry для единообразной обработки
+                # Это обеспечивает санитизацию и регенерацию UI-формата
+                normalized_results = self._normalize_phone_entry(phone_obj)
+                normalized_phones.extend(normalized_results)
             
             contact['phones'] = normalized_phones
         
         # Поддержка старого формата phone (для совместимости)
         elif 'phone' in contact and contact['phone']:
-            original_phone = contact['phone']
-            if self.phone_normalizer_available:
-                normalized_result = self.phone_normalizer.normalize_contact_phone(original_phone)
-                normalized_phone = normalized_result.get('formatted_phone', '')
-                phone_type = normalized_result.get('phone_type', 'unknown')
-                extension = normalized_result.get('phone_extension', '')
-            else:
-                normalized_phone = self._simple_phone_cleanup(original_phone)
-                phone_type = 'unknown'
-                extension = ''
-            
-            if normalized_phone:
-                # Конвертируем в новый формат
-                phone_obj = {
-                    'type': phone_type,
-                    'number': normalized_phone,
-                    'normalized': self._ensure_plus_format(normalized_phone),
-                    'original': original_phone
-                }
-                
-                # Добавляем добавочный номер если есть
-                if extension:
-                    phone_obj['extension'] = extension
-                    
-                contact['phones'] = [phone_obj]
+            # Используем _normalize_phone_entry для единообразной обработки
+            normalized_results = self._normalize_phone_entry(contact['phone'])
+            if normalized_results:
+                contact['phones'] = normalized_results
                 # Оставляем старое поле для совместимости
                 contact['phone_normalized'] = normalized_phone
         

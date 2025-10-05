@@ -137,6 +137,8 @@ enriched_contacts = enricher.enrich_contacts(contacts, organizations, email_data
 
 **Функции:**
 - Нормализация телефонов в новом формате `phones[]`
+- **UI-форматирование телефонов из E.164 (TASK-Phones-UI-Format)**
+- **Санитизация phone объектов (удаление лишних полей)**
 - Интеграция с `phone_normalizer.py`
 - Валидация и нормализация email адресов
 - Очистка и стандартизация имен, должностей
@@ -149,6 +151,77 @@ from postprocessing import DataNormalizer
 normalizer = DataNormalizer()
 normalized_contacts = normalizer.normalize_contacts(contacts)
 normalized_orgs = normalizer.normalize_organizations(organizations)
+```
+
+### 5.1. Phone UI Formatting (TASK-Phones-UI-Format)
+
+**Назначение:** Обеспечение единого UI-формата для телефонов и санитизация данных
+
+**Ключевые функции:**
+
+1. **Санитизация phone объектов** (`_sanitize_phone_keys()`):
+   - Удаляет все поля кроме whitelist: `type`, `number`, `normalized`, `original`, `extension`
+   - Предотвращает утечку метаданных (например, `confidence`, `source`)
+   - Применяется ко всем phone объектам автоматически
+
+2. **UI-форматирование из E.164** (`_format_ui_from_e164()`):
+   - Для RU номеров: `+7 (XXX) XXX-XX-XX`
+   - Для международных: INTERNATIONAL формат (libphonenumber)
+   - Graceful degradation при ошибках
+
+**Примеры:**
+
+```python
+# До санитизации и форматирования
+{
+    'type': 'office',
+    'number': '+7 495 640-17-71',
+    'normalized': '+74956401771',
+    'original': '+7 (495) 640-17-71',
+    'confidence': 0.95,  # УДАЛЯЕТСЯ
+    'source': 'llm'      # УДАЛЯЕТСЯ
+}
+
+# После санитизации и форматирования
+{
+    'type': 'office',
+    'number': '+7 (495) 640-17-71',  # РЕГЕНЕРИРОВАН
+    'normalized': '+74956401771',
+    'original': '+7 (495) 640-17-71',
+    'extension': None
+}
+```
+
+**Метаданные:**
+
+PostProcessor собирает статистику в `postprocessing_metadata.phone_ui_formatting`:
+
+```json
+{
+  "phones_processed": 15,
+  "organizations_processed": 5,
+  "contacts_processed": 10,
+  "ui_format_applied": 15,
+  "phones_sanitized": 15
+}
+```
+
+**Контракт данных:**
+
+- `original` — исходная строка (не изменяется)
+- `normalized` — E.164 формат или `null` (источник истины)
+- `number` — UI-формат, **всегда** генерируется из `normalized`
+- `extension` — добавочный номер (только цифры/DTMF) или `null`
+- `type` — тип телефона: `mobile`, `office`, `fax`, `main`, `other`, `null`
+
+**Тестирование:**
+
+```bash
+# Unit-тесты
+python -m pytest tests/test_phone_ui_format.py -v
+
+# Интеграционные тесты
+python -m pytest tests/test_phone_ui_integration.py -v
 ```
 
 ## 6. AdvancedContactDeduplicator
