@@ -79,3 +79,4 @@
 {"event": "alias", "gid": "a45444da-86fc-5ccb-b46f-d58807a7e784", "alias": ["ORG", "NAME_CITY", "компания 1", "москва"], "created_at": "2025-10-05T12:23:00Z"}
 {"event": "alias", "gid": "a45444da-86fc-5ccb-b46f-d58807a7e784", "alias": ["ORG", "FALLBACK", "b0d20d781724a028"], "created_at": "2025-10-05T12:23:00Z"}
 {"event": "create", "gid": "64ac2a7d-04de-579c-8691-d26cfc57f8ad", "key": ["ORG", "DOMAIN", "uscompany.com"], "aliases": [["ORG", "NAME_CITY", "us company", "washington"], ["ORG", "EMAIL_DOMAIN", "uscompany.com"], ["ORG", "FALLBACK", "0e65092093810ba6"]], "created_at": "2025-10-05T12:23:00Z", "source": "new"}
+{"event": "alias", "gid": "a0606115-f157-5da7-8d77-2097fb4b2a07", "alias": ["ORG", "FALLBACK", "f9ee45d241500d55"], "created_at": "2025-10-06T13:42:35Z"}

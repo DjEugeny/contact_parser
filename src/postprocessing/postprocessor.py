@@ -35,6 +35,7 @@ from .org_email_enricher import OrganizationEmailEnricher
 from .attachment_evidence_extractor import AttachmentEvidenceExtractor
 from .org_location_enrichment import OrgLocationEnrichment
 from .contact_location_safety import ContactLocationSafety
+from .contact_phone_enricher import ContactPhoneEnricher
 from ..registry import GlobalIDRegistry
 
 logger = logging.getLogger(__name__)
@@ -280,6 +281,14 @@ class PostProcessor:
         except Exception as e:
             self.logger.warning(f"⚠️ Failed to initialize contact location safety: {e}")
             self.contact_location_safety = None
+        
+        # Инициализация компонента обогащения телефонов контактов
+        try:
+            self.contact_phone_enricher = ContactPhoneEnricher()
+            self.logger.info("✅ Contact phone enricher initialized")
+        except Exception as e:
+            self.logger.warning(f"⚠️ Failed to initialize contact phone enricher: {e}")
+            self.contact_phone_enricher = None
 
         # Статистика обработки
         self.stats = {
@@ -513,6 +522,12 @@ class PostProcessor:
                 updated_organizations,
                 valuable_contacts,
             )
+            
+            # Этап 3.5: Обогащение телефонов контактов от организаций
+            # Добавленные телефоны будут нормализованы на этапе 5 (_normalize_data)
+            contact_phone_enrichment_metadata = self._enrich_contacts_phones(
+                valuable_contacts, updated_organizations
+            )
 
             # Этап 3.1: Мягкий бэкфилл города/адреса из организации (управляемый)
             contacts_after_backfill, provenance = self._backfill_contact_city_address(
@@ -575,6 +590,7 @@ class PostProcessor:
                 org_email_enrichment_metadata,
                 location_enrichment_metadata,
                 phone_ui_stats,
+                contact_phone_enrichment_metadata,
             )
             
             # Обновление статистики
@@ -1235,6 +1251,56 @@ class PostProcessor:
         except Exception as e:
             self.logger.error(f"❌ Ошибка при обогащении email: {e}")
             return {}
+    
+    def _enrich_contacts_phones(
+        self,
+        contacts: List[Dict[str, Any]],
+        organizations: Dict[int, Dict[str, Any]]
+    ) -> Dict[str, Any]:
+        """
+        Этап 3.5: Обогащение телефонов контактов от связанных организаций
+        
+        Args:
+            contacts: Список контактов для обогащения
+            organizations: Словарь организаций
+            
+        Returns:
+            Dict: Метаданные обогащения телефонов контактов
+        """
+        if not self.contact_phone_enricher:
+            self.logger.debug("Contact phone enricher not available, skipping phone enrichment")
+            return {}
+        
+        try:
+            self.logger.info(f"📞 Начинаем обогащение телефонов для {len(contacts)} контактов")
+            
+            # Конвертируем organizations dict в list для enricher
+            organizations_list = list(organizations.values())
+            
+            # Обогащение через contact phone enricher
+            enrichment_result = self.contact_phone_enricher.enrich_contacts_phones(
+                contacts, organizations_list
+            )
+            
+            # Обновление статистики
+            stats = enrichment_result.get('statistics', {})
+            enriched_count = stats.get('contacts_enriched', 0)
+            phones_added = stats.get('phones_added_total', 0)
+            
+            self.stats['contacts_phone_enriched'] = enriched_count
+            self.stats['phones_added_to_contacts'] = phones_added
+            
+            self.logger.info(
+                f"✅ Обогащение телефонов завершено: {enriched_count} контактов обогащено, "
+                f"{phones_added} телефонов добавлено"
+            )
+            
+            return enrichment_result
+            
+        except Exception as e:
+            # Обработка ошибок с продолжением пайплайна (Requirement 6.5)
+            self.logger.error(f"❌ Ошибка при обогащении телефонов контактов: {e}", exc_info=True)
+            return {}
 
     def _enrich_contact_data(self, contacts: List[Dict[str, Any]], 
                            organizations: Dict[int, Dict[str, Any]],
@@ -1527,7 +1593,8 @@ class PostProcessor:
                           inn_enrichment_metadata: Optional[Dict[str, Dict[str, Any]]] = None,
                           org_email_enrichment_metadata: Optional[Dict[str, Dict[str, Any]]] = None,
                           location_enrichment_metadata: Optional[Dict[str, Any]] = None,
-                          phone_ui_stats: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+                          phone_ui_stats: Optional[Dict[str, Any]] = None,
+                          contact_phone_enrichment_metadata: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Формирование финального результата
         
         Args:
@@ -1593,6 +1660,11 @@ class PostProcessor:
         
         if phone_ui_stats is not None:
             processed_result['postprocessing_metadata']['phone_ui_formatting'] = phone_ui_stats
+        
+        if contact_phone_enrichment_metadata is not None:
+            if 'enrichment' not in processed_result['postprocessing_metadata']:
+                processed_result['postprocessing_metadata']['enrichment'] = {}
+            processed_result['postprocessing_metadata']['enrichment']['contact_phone_enrichment'] = contact_phone_enrichment_metadata
 
         return processed_result
     

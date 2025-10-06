@@ -103,3 +103,75 @@ INN_ENRICHMENT_CONFIG = {
         'store_personal_data': 'minimal'
     }
 }
+# 📞 Обогащение телефонов контактов от организаций
+CONTACT_PHONE_ENRICHMENT_CONFIG = {
+    # ========== ОСНОВНЫЕ НАСТРОЙКИ ==========
+    
+    # Включение/выключение всего модуля обогащения
+    'enabled': True,  # False - полностью отключить обогащение телефонами
+    
+    # Пороги confidence для обычных телефонов (main, office, fax)
+    'min_confidence_threshold': 0.5,  # Минимальный порог для обогащения (0.0-1.0)
+    'review_threshold': 0.75,  # Порог для автоматического принятия без проверки
+    
+    # Разрешенные типы телефонов для обогащения (без mobile по умолчанию)
+    'allowed_phone_types': ['main', 'office', 'fax'],
+    
+    # Режим обогащения (влияет на пороги confidence)
+    # - 'conservative': высокие требования (min_threshold >= 0.75)
+    # - 'balanced': стандартные пороги (по умолчанию)
+    # - 'aggressive': низкие требования (min_threshold <= 0.4)
+    'enrichment_mode': 'balanced',
+    
+    # ========== ОБОГАЩЕНИЕ МОБИЛЬНЫМИ ТЕЛЕФОНАМИ ==========
+    
+    'mobile_enrichment': {
+        # ГЛАВНЫЙ ФЛАГ: разрешить обогащение мобильными телефонами организаций
+        # Используйте с осторожностью! Mobile телефоны могут быть персональными.
+        'enabled': True,  # True - разрешить добавление mobile телефонов контактам
+        
+        # Пониженный порог confidence для mobile (т.к. это более рискованно)
+        # Рекомендуется держать ниже основного порога, но не слишком низко
+        'min_confidence_threshold': 0.3,  # Минимум 0.3 для безопасности
+        
+        # Требовать упоминание имени контакта во вложении для mobile обогащения
+        # True - строже (только если имя найдено в тексте вложения)
+        # False - мягче (достаточно других факторов confidence)
+        'require_name_in_attachment': False,
+        
+        # Учитывать близость телефона к имени во вложении (proximity boost)
+        # Добавляет +0.2 к confidence если телефон рядом с именем контакта
+        'proximity_boost': True,
+    },
+    
+    # ========== ВЕСА ФАКТОРОВ ДЛЯ РАСЧЕТА CONFIDENCE ==========
+    
+    # Настройка весов для каждого фактора при расчете уверенности обогащения
+    # Сумма может быть > 1.0, т.к. не все факторы применяются одновременно
+    'scoring_factors': {
+        'corporate_email': 0.3,      # Корпоративный email с доменом организации
+        'position': 0.2,              # Наличие должности у контакта
+        'role_in_message': 0.2,       # Активная роль (sender, recipient)
+        'city_match': 0.15,           # Совпадение города контакта и организации
+        'high_value_score': 0.15,     # Высокий value_score (≥ 7)
+        'name_in_attachment': 0.3,    # Имя контакта найдено во вложении
+        'phone_proximity': 0.2,       # Телефон рядом с именем во вложении (2-3 строки)
+    }
+    
+    # ========== ПРИМЕРЫ КОНФИГУРАЦИЙ ==========
+    
+    # Консервативный режим (только офисные, высокий порог):
+    # 'enrichment_mode': 'conservative',
+    # 'min_confidence_threshold': 0.75,
+    # 'mobile_enrichment': {'enabled': False}
+    
+    # Сбалансированный режим (офисные + избранные mobile):
+    # 'enrichment_mode': 'balanced',
+    # 'min_confidence_threshold': 0.5,
+    # 'mobile_enrichment': {'enabled': True, 'min_confidence_threshold': 0.4}
+    
+    # Агрессивный режим (максимум обогащения):
+    # 'enrichment_mode': 'aggressive',
+    # 'min_confidence_threshold': 0.3,
+    # 'mobile_enrichment': {'enabled': True, 'min_confidence_threshold': 0.2}
+}

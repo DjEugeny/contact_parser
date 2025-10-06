@@ -77,18 +77,13 @@ principles:
 - GOOGLE_VISION_KEY  
 - SHEETS_CREDENTIALS (по необходимости)
 
-## Команды (пример)
-- `python api_pipeline_validator.py --mode first10 --date 2025-05-05`
-- `python api_pipeline_validator.py --mode batch --count 20 --date 2025-05-05`
-- `python api_pipeline_validator.py --mode range --start 2025-05-01 --end 2025-05-12`
-
 ## Качество и логи
 - Логи в `data/logs/` с уровнями INFO/WARN/ERROR.  
 - Отчёт по качеству: доля валидных JSON, число сущностей, размер Inbox.  
 - Idempotency: повторный запуск не должен плодить дубли.
 
 ## Процедура запуска (тонкий слой → основной пайплайн)
-1) Запусти `api_pipeline_validator.py` в режимах `first10` → `batch` → `range` (см. 12_API_PIPELINE_VALIDATOR.md).  
+1) Запусти `api_pipeline_validator.py` (см. 12_API_PIPELINE_VALIDATOR.md).  
 2) Проведи 1–2 итерации качества, оформи отчёты в `contact_parser/memory-bank/reports/`.  
 3) После стабилизации — **перейди на `main_new.py`** и используй его режимы (`interactive/test/full-pipeline/async-*`) для полноценной обработки.  
 4) Убедись, что ядро конвейера не дублируется, а импортируется общими модулями.
