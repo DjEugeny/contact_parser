@@ -175,3 +175,44 @@ CONTACT_PHONE_ENRICHMENT_CONFIG = {
     # 'min_confidence_threshold': 0.3,
     # 'mobile_enrichment': {'enabled': True, 'min_confidence_threshold': 0.2}
 }
+
+# 📧 Фильтры для обработки писем
+EMAIL_FILTERS_CONFIG = {
+    # ========== ФИЛЬТР МАССОВОЙ РАССЫЛКИ ==========
+    
+    'mass_mailing': {
+        # Включение/выключение фильтра массовой рассылки
+        'enabled': True,
+        
+        # Максимальное количество внутренних получателей для фильтрации
+        # Если письмо от внутреннего отправителя (@dna-technology.ru) и
+        # количество внутренних получателей >= этого порога, письмо отсекается
+        'max_internal_recipients': 10,
+        
+        # Применять ли фильтр к письмам от внешних отправителей
+        # False (рекомендуется) - НЕ фильтровать внешние письма по количеству получателей
+        # True - фильтровать все письма с большим количеством получателей
+        'apply_to_external_senders': False,
+    },
+    
+    # ========== ПРИМЕРЫ ИСПОЛЬЗОВАНИЯ ==========
+    
+    # Пример 1: Строгий режим (фильтровать все массовые рассылки)
+    # 'mass_mailing': {
+    #     'enabled': True,
+    #     'max_internal_recipients': 5,
+    #     'apply_to_external_senders': True,
+    # }
+    
+    # Пример 2: Мягкий режим (только очень большие внутренние рассылки)
+    # 'mass_mailing': {
+    #     'enabled': True,
+    #     'max_internal_recipients': 20,
+    #     'apply_to_external_senders': False,
+    # }
+    
+    # Пример 3: Отключить фильтр
+    # 'mass_mailing': {
+    #     'enabled': False,
+    # }
+}

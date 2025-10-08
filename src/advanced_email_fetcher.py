@@ -330,22 +330,65 @@ class EmailFilters:
 
 
     def is_internal_mass_mailing(self, from_addr: str, to_addrs: List[str], cc_addrs: List[str] = None) -> Optional[str]:
-        """🚫 Проверка на внутреннюю массовую рассылку"""
-        if not from_addr or f"@{COMPANY_DOMAIN}" not in from_addr.lower():
+        """
+        🚫 Проверка на внутреннюю массовую рассылку
+        
+        Фильтрует письма с большим количеством внутренних получателей.
+        Логика:
+        - Если отправитель ВНЕШНИЙ (@dna-technology.ru) - НЕ фильтруем (по умолчанию)
+        - Если отправитель ВНУТРЕННИЙ - фильтруем при превышении порога
+        
+        Args:
+            from_addr: Email отправителя
+            to_addrs: Список получателей (To)
+            cc_addrs: Список получателей (CC)
+            
+        Returns:
+            str: Причина фильтрации или None если не фильтруется
+        """
+        # Импортируем настройки
+        try:
+            from config.settings import EMAIL_FILTERS_CONFIG
+            config = EMAIL_FILTERS_CONFIG['mass_mailing']
+        except (ImportError, KeyError):
+            # Fallback на старые значения если настройки недоступны
+            config = {
+                'enabled': True,
+                'max_internal_recipients': 10,
+                'apply_to_external_senders': False
+            }
+        
+        # Проверяем включен ли фильтр
+        if not config.get('enabled', True):
             return None
-
+        
+        # Получаем настройки
+        max_recipients = config.get('max_internal_recipients', 10)
+        apply_to_external = config.get('apply_to_external_senders', False)
+        
+        # Проверяем домен отправителя
+        is_internal_sender = from_addr and f"@{COMPANY_DOMAIN}" in from_addr.lower()
+        
+        # Если отправитель внешний и фильтр не применяется к внешним - пропускаем
+        if not is_internal_sender and not apply_to_external:
+            self.logger.debug(f"Внешний отправитель {from_addr}, фильтр массовой рассылки не применяется")
+            return None
+        
+        # Считаем внутренних получателей
         all_recipients = []
         all_recipients.extend(to_addrs or [])
         all_recipients.extend(cc_addrs or [])
-
+        
         internal_recipients = 0
         for recipient in all_recipients:
             if f"@{COMPANY_DOMAIN}" in recipient.lower():
                 internal_recipients += 1
-
-        if internal_recipients >= 10:
-            return f"массовая внутренняя рассылка ({internal_recipients} получателей)"
-
+        
+        # Проверяем порог
+        if internal_recipients >= max_recipients:
+            sender_type = "внутренняя" if is_internal_sender else "внешняя"
+            return f"массовая {sender_type} рассылка ({internal_recipients} получателей, порог: {max_recipients})"
+        
         return None
 
 class AdvancedEmailFetcherV2:
@@ -2288,39 +2331,207 @@ def test_inline_exclusion():
     print(f"📊 РЕЗУЛЬТАТЫ ТЕСТА: {passed}/{total} пройдено")
     return passed == total
 
+def parse_date_flexible(date_str: str) -> datetime:
+    """
+    Парсинг даты в различных форматах
+    
+    Поддерживаемые форматы:
+    - 2025-07-12 (ISO формат)
+    - 12.07.2025 (точки)
+    - 12-7-25 (короткий формат)
+    - 12 июля 25 (текстовый формат на русском)
+    
+    Args:
+        date_str: Строка с датой
+        
+    Returns:
+        datetime объект
+        
+    Raises:
+        ValueError: Если формат даты не распознан
+    """
+    date_str = date_str.strip()
+    
+    # Формат: 2025-07-12 (ISO)
+    try:
+        return datetime.strptime(date_str, '%Y-%m-%d')
+    except ValueError:
+        pass
+    
+    # Формат: 12.07.2025
+    try:
+        return datetime.strptime(date_str, '%d.%m.%Y')
+    except ValueError:
+        pass
+    
+    # Формат: 12-7-25
+    try:
+        dt = datetime.strptime(date_str, '%d-%m-%y')
+        # Корректируем год (25 → 2025)
+        if dt.year < 2000:
+            dt = dt.replace(year=dt.year + 2000)
+        return dt
+    except ValueError:
+        pass
+    
+    # Формат: 12 июля 25
+    months_ru = {
+        'января': 1, 'февраля': 2, 'марта': 3, 'апреля': 4,
+        'мая': 5, 'июня': 6, 'июля': 7, 'августа': 8,
+        'сентября': 9, 'октября': 10, 'ноября': 11, 'декабря': 12
+    }
+    
+    pattern = r'(\d{1,2})\s+(\w+)\s+(\d{2,4})'
+    match = re.match(pattern, date_str.lower())
+    if match:
+        day = int(match.group(1))
+        month_name = match.group(2)
+        year = int(match.group(3))
+        
+        if month_name in months_ru:
+            month = months_ru[month_name]
+            if year < 100:
+                year += 2000
+            return datetime(year, month, day)
+    
+    raise ValueError(f"Не удалось распознать формат даты: {date_str}")
+
+
+def cli_menu() -> tuple[datetime, datetime]:
+    """
+    Интерактивное CLI меню для выбора диапазона дат
+    
+    Returns:
+        Tuple[datetime, datetime]: (start_date, end_date)
+    """
+    print("="*70)
+    print("📧 ADVANCED EMAIL FETCHER - Выбор диапазона дат")
+    print("="*70)
+    print()
+    print("Выберите режим работы:")
+    print("  1. Диапазон дат (от-до)")
+    print("  2. Одна конкретная дата")
+    print("  3. Весь месяц текущего года")
+    print()
+    
+    choice = input("Ваш выбор (1-3): ").strip()
+    
+    if choice == '1':
+        print("\nВведите начальную дату:")
+        print("  Примеры: 2025-07-12, 12.07.2025, 12-7-25, 12 июля 25")
+        start_str = input("Начальная дата: ").strip()
+        
+        try:
+            start_date = parse_date_flexible(start_str)
+        except ValueError as e:
+            print(f"❌ Ошибка: {e}")
+            return None, None
+        
+        print("\nВведите конечную дату:")
+        end_str = input("Конечная дата: ").strip()
+        
+        try:
+            end_date = parse_date_flexible(end_str)
+        except ValueError as e:
+            print(f"❌ Ошибка: {e}")
+            return None, None
+        
+        if start_date > end_date:
+            print("❌ Ошибка: начальная дата больше конечной!")
+            return None, None
+        
+        return start_date, end_date
+    
+    elif choice == '2':
+        print("\nВведите дату:")
+        print("  Примеры: 2025-07-12, 12.07.2025, 12-7-25, 12 июля 25")
+        date_str = input("Дата: ").strip()
+        
+        try:
+            date = parse_date_flexible(date_str)
+            return date, date
+        except ValueError as e:
+            print(f"❌ Ошибка: {e}")
+            return None, None
+    
+    elif choice == '3':
+        print("\nВведите месяц (1-12):")
+        try:
+            month = int(input("Месяц: ").strip())
+        except ValueError:
+            print("❌ Ошибка: введите число от 1 до 12!")
+            return None, None
+        
+        if month < 1 or month > 12:
+            print("❌ Ошибка: месяц должен быть от 1 до 12!")
+            return None, None
+        
+        year = datetime.now().year
+        start_date = datetime(year, month, 1)
+        
+        # Последний день месяца
+        if month == 12:
+            end_date = datetime(year, 12, 31)
+        else:
+            end_date = datetime(year, month + 1, 1) - timedelta(days=1)
+        
+        return start_date, end_date
+    
+    else:
+        print("❌ Неверный выбор!")
+        return None, None
+
+
 def main():
     """🚀 Главная функция для тестирования парсера v2.12 - ИСПРАВЛЕНИЕ КРИТИЧЕСКИХ БАГОВ"""
     
     # Парсинг аргументов командной строки
     parser = argparse.ArgumentParser(description='Advanced Email Fetcher v2.12')
-    parser.add_argument('--date', type=str, help='Дата для загрузки писем в формате YYYY-MM-DD')
-    parser.add_argument('--start-date', type=str, help='Начальная дата диапазона в формате YYYY-MM-DD')
-    parser.add_argument('--end-date', type=str, help='Конечная дата диапазона в формате YYYY-MM-DD')
+    parser.add_argument('--interactive', '-i', action='store_true',
+                       help='Интерактивный режим выбора дат')
+    parser.add_argument('--date', type=str, help='Дата для загрузки писем (различные форматы)')
+    parser.add_argument('--start-date', type=str, help='Начальная дата диапазона (различные форматы)')
+    parser.add_argument('--end-date', type=str, help='Конечная дата диапазона (различные форматы)')
     
     args = parser.parse_args()
     
     # Определяем период для обработки
-    if args.date:
-        # Если указана конкретная дата
+    if args.interactive:
+        # Интерактивный режим
+        start_date, end_date = cli_menu()
+        if not start_date:
+            print("❌ Не удалось получить даты. Завершение.")
+            return
+    elif args.date:
+        # Если указана конкретная дата (с поддержкой различных форматов)
         try:
-            target_date = datetime.strptime(args.date, '%Y-%m-%d')
+            target_date = parse_date_flexible(args.date)
             start_date = target_date
             end_date = target_date
-        except ValueError:
-            print(f"❌ Неверный формат даты: {args.date}. Используйте YYYY-MM-DD")
+        except ValueError as e:
+            print(f"❌ Ошибка парсинга даты: {e}")
+            print("Поддерживаемые форматы: 2025-07-12, 12.07.2025, 12-7-25, 12 июля 25")
             return
     elif args.start_date and args.end_date:
-        # Если указан диапазон дат
+        # Если указан диапазон дат (с поддержкой различных форматов)
         try:
-            start_date = datetime.strptime(args.start_date, '%Y-%m-%d')
-            end_date = datetime.strptime(args.end_date, '%Y-%m-%d')
-        except ValueError:
-            print(f"❌ Неверный формат дат. Используйте YYYY-MM-DD")
+            start_date = parse_date_flexible(args.start_date)
+            end_date = parse_date_flexible(args.end_date)
+            
+            if start_date > end_date:
+                print("❌ Ошибка: начальная дата больше конечной!")
+                return
+        except ValueError as e:
+            print(f"❌ Ошибка парсинга дат: {e}")
+            print("Поддерживаемые форматы: 2025-07-12, 12.07.2025, 12-7-25, 12 июля 25")
             return
     else:
         # Настройки периода для тестирования по умолчанию
-        start_date = datetime(2025, 7, 29)
-        end_date = datetime(2025, 7, 29)
+        start_date = datetime(2025, 7, 1)
+        end_date = datetime(2025, 9, 30)
+        print("⚠️ Даты не указаны, используется период по умолчанию")
+        print(f"   Для интерактивного выбора используйте: python {sys.argv[0]} --interactive")
+        print(f"   Или укажите даты: python {sys.argv[0]} --start-date 12.07.2025 --end-date 15.07.2025")
 
     # Настраиваем логирование ПЕРЕД созданием fetcher'а
     logs_dir = Path("data/logs")
