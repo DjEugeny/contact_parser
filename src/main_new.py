@@ -281,10 +281,10 @@ async def run_async_mode():
             # Создаем базовый провайдер
             if llm_config.name.lower() == 'openrouter':
                 from src.providers.openrouter import OpenRouterProvider
-                base_provider = OpenRouterProvider(provider_config)
+                base_provider = OpenRouterProvider(provider_config, config_manager=config_manager)
             elif llm_config.name.lower() == 'replicate':
                 from src.providers.replicate import ReplicateProvider
-                base_provider = ReplicateProvider(provider_config)
+                base_provider = ReplicateProvider(provider_config, config_manager=config_manager)
             elif llm_config.name.lower() == 'groq':
                 from src.providers.groq import GroqProvider
                 base_provider = GroqProvider(provider_config)

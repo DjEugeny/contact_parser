@@ -61,6 +61,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from src.core.extractor_factory import ExtractorFactory
 from src.core.ocr_manager import get_ocr_manager
+from src.core.ocr_cache_manager import OCRCacheManager
 from src.email_loader import ProcessedEmailLoader
 from src.reporting import ReportGenerator
 from src.utils.logger import log_pipeline_event, log_system_event, log_error_event
@@ -175,7 +176,8 @@ class APIPipelineValidator:
         self._setup_run_logging()
 
         self.loader = ProcessedEmailLoader()
-        self.ocr_manager = get_ocr_manager()
+        self.ocr_cache = OCRCacheManager()  # Легковесный кеш-менеджер
+        self.ocr_manager = None  # Ленивая инициализация OCR модуля
         self.extractor = ExtractorFactory.create_extractor(test_mode=False)
         
         # Создаем устойчивый процессор с автоматическим повтором
@@ -183,6 +185,9 @@ class APIPipelineValidator:
         
         # Логирование статуса провайдеров
         self._log_provider_status()
+        
+        # Логирование статуса моделей из ModelsManager
+        self._log_models_status()
 
         self.run_summaries: List[Dict[str, Any]] = []
 
@@ -286,6 +291,22 @@ class APIPipelineValidator:
             
         except Exception as e:
             print(f"⚠️ Ошибка получения статуса провайдеров: {e}")
+
+    def _log_models_status(self) -> None:
+        """🤖 Логирует статус моделей из ModelsManager"""
+        try:
+            # Получаем config_manager из extractor
+            config_manager = self.extractor.config.provider_manager
+            
+            # Проверяем наличие models_manager
+            if hasattr(config_manager, 'models_manager') and config_manager.models_manager:
+                print(f"\n🤖 СТАТУС МОДЕЛЕЙ (ModelsManager):")
+                print("=" * 40)
+                config_manager.models_manager.print_status()
+            else:
+                print(f"\n⚠️ ModelsManager не инициализирован (используется конфигурация из .env)")
+        except Exception as e:
+            print(f"⚠️ Ошибка получения статуса моделей: {e}")
 
     def run(self) -> None:
         """🏁 Запускает обработку в выбранном режиме."""
@@ -685,30 +706,44 @@ class APIPipelineValidator:
             recovered_path = self.loader.get_attachment_file_path(email, attachment)
             attachment_path = recovered_path if recovered_path else attachment_path
 
-        print(f"📎 Попытка извлечения текста из вложения: {attachment.get('filename', 'unknown')}")
+        # Фаза 1: Проверка кеша БЕЗ инициализации OCR модуля
+        # Используем полное имя файла из пути (с префиксом даты и домена)
+        filename = attachment_path.name  # Полное имя файла
+        cached_text = self.ocr_cache.get_cached_result(filename, date)
+        
+        if cached_text:
+            print(f"✅ OCR кеш: {filename} ({len(cached_text)} символов)")
+            return cached_text
+        
+        # Фаза 2: Кеш промах - нужна OCR обработка
+        print(f"📎 OCR кеш промах для {filename}, требуется обработка")
         print(f"   Путь к файлу: {attachment_path}")
         print(f"   Файл существует: {attachment_path.exists()}")
         
-        if attachment_path.exists() and self.ocr_manager:
-            try:
-                print(f"   🔍 Запуск OCR для файла: {attachment_path.name}")
-                ocr_result = self.ocr_manager.extract_text_from_file(str(attachment_path), date)
-                if ocr_result.get("success") and ocr_result.get("text"):
-                    extracted_text = ocr_result["text"]
-                    print(f"   ✅ OCR успешно: извлечено {len(extracted_text)} символов")
-                    # Показываем превью извлеченного текста
-                    preview = extracted_text[:200].replace('\n', ' ')
-                    print(f"   📄 Превью: {preview}...")
-                    return extracted_text
-                else:
-                    print(f"   ❌ OCR не удалось: {ocr_result}")
-            except Exception as exc:  # pylint: disable=broad-except
-                print(f"⚠️  OCR не удалось для {attachment_path.name}: {exc}")
-        else:
-            if not attachment_path.exists():
-                print(f"   ❌ Файл не найден: {attachment_path}")
-            if not self.ocr_manager:
-                print(f"   ❌ OCR manager не инициализирован")
+        if not attachment_path.exists():
+            print(f"   ❌ Файл не найден: {attachment_path}")
+            return None
+        
+        # Ленивая инициализация OCR модуля
+        if self.ocr_manager is None:
+            print(f"   🔍 Инициализация OCR модуля (первый запуск)...")
+            self.ocr_manager = get_ocr_manager()
+        
+        try:
+            print(f"   🔍 Запуск OCR для файла: {attachment_path.name}")
+            ocr_result = self.ocr_manager.extract_text_from_file(str(attachment_path), date)
+            if ocr_result.get("success") and ocr_result.get("text"):
+                extracted_text = ocr_result["text"]
+                print(f"   ✅ OCR успешно: извлечено {len(extracted_text)} символов")
+                # Показываем превью извлеченного текста
+                preview = extracted_text[:200].replace('\n', ' ')
+                print(f"   📄 Превью: {preview}...")
+                return extracted_text
+            else:
+                print(f"   ❌ OCR не удалось: {ocr_result}")
+        except Exception as exc:  # pylint: disable=broad-except
+            print(f"⚠️  OCR не удалось для {attachment_path.name}: {exc}")
+        
         return None
 
     def _build_email_metadata(self, email_data: Dict[str, Any], email_path: Path) -> Dict[str, Any]:

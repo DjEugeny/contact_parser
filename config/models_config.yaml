@@ -1,0 +1,62 @@
+# Конфигурация моделей для провайдеров LLM
+# Модели пробуются по порядку (fallback при ошибке)
+
+openrouter:
+  models:
+    - name: "google/gemini-2.0-flash-exp:free"
+      priority: 1
+      description: "Google Gemini 2.0 Flash - огромный контекст, НЕ публикует данные ✅"
+      requires_prompt_publication: false
+      context_window: 1000000
+      notes: "Тестируем качество на русской бизнес-переписке. Не требует публикации промптов."
+      
+    - name: "meta-llama/llama-3.3-70b-instruct:free"
+      priority: 2
+      description: "Meta Llama 3.3 70B - новая модель, НЕ публикует данные ✅"
+      requires_prompt_publication: false
+      context_window: 128000
+      notes: "Тестируем качество. Большой context window, хорошо работает с многоязычными текстами."
+      
+    - name: "deepseek/deepseek-chat-v3.1:free"
+      priority: 3
+      description: "DeepSeek Chat v3.1 - ПУБЛИКУЕТ ДАННЫЕ ⚠️"
+      requires_prompt_publication: true
+      context_window: 64000
+      notes: "⚠️ Публикует данные. Хорошее качество на русском, но только для тестов без реальных данных."
+      
+    - name: "anthropic/claude-3-haiku:free"
+      priority: 4
+      description: "Claude 3 Haiku - быстрая модель, НЕ публикует данные ✅"
+      requires_prompt_publication: false
+      context_window: 200000
+      notes: "Тестируем качество. Быстрая, но может быть менее точной на русском."
+
+replicate:
+  models:
+    - name: "deepseek-ai/deepseek-v3.1"
+      priority: 1
+      description: "DeepSeek v3.1 на Replicate"
+      
+    - name: "meta/llama-3.1-405b-instruct"
+      priority: 2
+      description: "Meta Llama 3.1 405B"
+      
+    - name: "mistralai/mixtral-8x7b-instruct-v0.1"
+      priority: 3
+      description: "Mixtral 8x7B"
+
+# Настройки fallback
+fallback:
+  enabled: true
+  max_retries_per_model: 1  # Быстрое переключение между моделями для тестирования
+  switch_on_errors:
+    - "404"  # Модель недоступна
+    - "429"  # Rate limit
+    - "data policy"  # Проблемы с приватностью
+    - "error"  # Любые ошибки от API
+    - "неверный формат"  # Ошибки формата ответа
+  
+# Логирование переключений моделей
+logging:
+  log_model_switches: true
+  log_file: "data/logs/model_fallback.log"

@@ -230,6 +230,37 @@ class OrganizationDeduplicator:
 
         return None
     
+    def _extract_phone_strings(self, phones: List[Any]) -> List[str]:
+        """Извлечение строк телефонов из различных форматов
+        
+        Args:
+            phones: Список телефонов (может быть list[str] или list[dict])
+            
+        Returns:
+            List[str]: Список строк с номерами телефонов
+        """
+        if not phones:
+            return []
+        
+        phone_strings = []
+        for phone in phones:
+            if isinstance(phone, str):
+                # Уже строка
+                if phone.strip():
+                    phone_strings.append(phone.strip())
+            elif isinstance(phone, dict):
+                # Dict формат - извлекаем номер
+                phone_number = phone.get('number') or phone.get('phone') or phone.get('value')
+                if phone_number and isinstance(phone_number, str) and phone_number.strip():
+                    phone_strings.append(phone_number.strip())
+            else:
+                # Другой тип - пробуем преобразовать в строку
+                phone_str = str(phone).strip()
+                if phone_str:
+                    phone_strings.append(phone_str)
+        
+        return phone_strings
+
     def _merge_organization_data(self, global_id: int, new_org: Dict[str, Any]) -> None:
         """Объединение данных организации
 
@@ -246,9 +277,12 @@ class OrganizationDeduplicator:
         if merged_emails:
             existing_org['emails'] = self._filter_emails(merged_emails)
 
-        # Объединяем телефоны
-        existing_phones = set(existing_org.get('phones', []))
-        new_phones = set(new_org.get('phones', []))
+        # Объединяем телефоны (безопасно обрабатываем dict и str форматы)
+        existing_phones_raw = existing_org.get('phones', [])
+        new_phones_raw = new_org.get('phones', [])
+        
+        existing_phones = set(self._extract_phone_strings(existing_phones_raw))
+        new_phones = set(self._extract_phone_strings(new_phones_raw))
         merged_phones = list(existing_phones | new_phones)
         if merged_phones:
             existing_org['phones'] = merged_phones

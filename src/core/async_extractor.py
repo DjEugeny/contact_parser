@@ -146,6 +146,7 @@ class AsyncContactExtractor:
                 'commercial_offers': offers_result,
                 'business_context': business_context,
                 'provider_used': self.config.provider_manager.get_active_provider_name(),
+                'model': 'Unknown',
                 'text_length': len(text),
                 'total_contacts_found': len(contacts_result),
                 'total_organizations_found': len(organizations_result),
@@ -285,6 +286,7 @@ class AsyncContactExtractor:
             'commercial_offers': offers,
             'business_context': business_context_data,  # Теперь это dict, а не строка
             'provider_used': self.config.provider_manager.get_active_provider_name(),
+            'model': 'Unknown',
             'text_length': len(text),
             'total_contacts_found': len(contacts),
             'total_organizations_found': len(organizations),
@@ -519,6 +521,7 @@ class AsyncContactExtractor:
                 'confidence': 0.95
             }],
             'provider_used': 'async_test_mode',
+            'model': 'test_mode',
             'processing_time': 0.1,
             'text_length': len(text),
             'chunks_processed': 1,

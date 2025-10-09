@@ -22,6 +22,7 @@ from enum import Enum
 from statistics import mean, median
 
 from .paths import CONFIG_DIR
+from .models_manager import ModelsManager
 
 
 @dataclass
@@ -78,7 +79,7 @@ class CircuitBreakerState(Enum):
 @dataclass
 class CircuitBreakerConfig:
     """⚙️ Конфигурация Circuit Breaker"""
-    failure_threshold: int = 5          # Количество ошибок для открытия
+    failure_threshold: int = 15         # Количество ошибок для открытия (увеличено для тестирования моделей)
     recovery_timeout: int = 60          # Время до попытки восстановления (сек)
     half_open_max_calls: int = 3        # Максимум вызовов в half-open состоянии
     success_threshold: int = 2          # Успехов для закрытия circuit breaker
@@ -197,6 +198,15 @@ class UnifiedConfigManager:
         self.logger = structlog.get_logger(__name__)
         self.std_logger = logging.getLogger(__name__)  # Для обратной совместимости
         
+        # 🤖 ModelsManager для динамической конфигурации моделей
+        self.models_manager: Optional[ModelsManager] = None
+        try:
+            self.models_manager = ModelsManager()
+            self.logger.info("✅ ModelsManager успешно инициализирован")
+        except Exception as e:
+            self.logger.warning(f"⚠️ ModelsManager не инициализирован: {e}. Используется конфигурация из .env")
+            self.models_manager = None
+        
         # 🎯 Адаптивные пороги Circuit Breaker
         self.adaptive_thresholds = {
             "failure_threshold_min": 3,
@@ -235,10 +245,17 @@ class UnifiedConfigManager:
 
         # OpenRouter - приоритет 1 (ПЕРВЫЙ ПРИОРИТЕТ)
         if openrouter_key := os.getenv('OPENROUTER_API_KEY'):
+            # Получаем модель из ModelsManager если доступен
+            model_name = os.getenv('OPENROUTER_MODEL', 'deepseek/deepseek-chat-v3.1:free')
+            if self.models_manager:
+                current_model = self.models_manager.get_current_model('openrouter')
+                if current_model:
+                    model_name = current_model.name
+            
             providers.append(LLMProviderConfig(
                 name="OpenRouter",
                 api_key=openrouter_key,
-                model=os.getenv('OPENROUTER_MODEL', 'deepseek/deepseek-chat-v3.1:free'),
+                model=model_name,
                 base_url=os.getenv('OPENROUTER_BASE_URL', 'https://openrouter.ai/api/v1/chat/completions'),
                 priority=1,
                 active=True
@@ -246,10 +263,17 @@ class UnifiedConfigManager:
 
         # Replicate - приоритет 2 (резервный)
         if replicate_key := os.getenv('REPLICATE_API_KEY'):
+            # Получаем модель из ModelsManager если доступен
+            model_name = os.getenv('REPLICATE_MODEL', 'deepseek-ai/deepseek-v3.1')
+            if self.models_manager:
+                current_model = self.models_manager.get_current_model('replicate')
+                if current_model:
+                    model_name = current_model.name
+            
             providers.append(LLMProviderConfig(
                 name="Replicate",
                 api_key=replicate_key,
-                model=os.getenv('REPLICATE_MODEL', 'deepseek-ai/deepseek-v3.1'),
+                model=model_name,
                 base_url="https://api.replicate.com/v1/predictions",
                 priority=2,
                 active=True
@@ -468,7 +492,11 @@ class UnifiedConfigManager:
                     )
                     
                     provider_class = provider_classes[provider_config.name]
-                    self.providers[provider_config.name] = provider_class(base_config)
+                    # Передаем config_manager для OpenRouter и Replicate для поддержки fallback
+                    if provider_config.name in ['OpenRouter', 'Replicate']:
+                        self.providers[provider_config.name] = provider_class(base_config, config_manager=self)
+                    else:
+                        self.providers[provider_config.name] = provider_class(base_config)
                     self.logger.info(f"🔧 Инициализирован провайдер: {provider_config.name}")
                 except Exception as e:
                     self.logger.error(f"❌ Ошибка инициализации провайдера {provider_config.name}: {e}")
@@ -496,8 +524,12 @@ class UnifiedConfigManager:
                     stats.consecutive_successes = 0
                     self.logger.info(f"🔄 Circuit Breaker для {provider_name} переведен в HALF_OPEN")
                     return True
+                # Circuit breaker открыт и время восстановления не прошло
                 return False
+            # Circuit breaker открыт но нет времени открытия (не должно происходить)
+            return False
         
+        # Circuit breaker закрыт или в half-open состоянии
         return stats.circuit_breaker_state != CircuitBreakerState.OPEN
 
     def record_provider_success(self, provider_name: str):
@@ -519,8 +551,16 @@ class UnifiedConfigManager:
                 stats.circuit_breaker_opened_at = None
                 self.logger.info(f"✅ Circuit Breaker для {provider_name} закрыт (восстановлен)")
 
-    def record_provider_failure(self, provider_name: str, error: str, is_rate_limit: bool = False):
-        """❌ Записать ошибку провайдера"""
+    def record_provider_failure(self, provider_name: str, error: str, is_rate_limit: bool = False, is_model_error: bool = False):
+        """
+        ❌ Записать ошибку провайдера
+        
+        Args:
+            provider_name: Имя провайдера
+            error: Сообщение об ошибке
+            is_rate_limit: True если это rate limit ошибка
+            is_model_error: True если это ошибка конкретной модели (не провайдера)
+        """
         if provider_name not in self.provider_stats:
             self.provider_stats[provider_name] = ProviderStats()
         
@@ -528,23 +568,44 @@ class UnifiedConfigManager:
         stats.total_requests += 1
         stats.failed_requests += 1
         stats.consecutive_successes = 0
-        stats.consecutive_failures += 1
         stats.last_request_time = datetime.now()
         stats.last_error_time = datetime.now()
         stats.last_error = error
         
         if is_rate_limit:
             stats.rate_limit_errors += 1
-            # Установка cooldown для rate limit
-            stats.cooldown_until = datetime.now() + timedelta(seconds=60)
-            self.logger.warning(f"⏳ Rate limit для {provider_name}, cooldown до {stats.cooldown_until}")
+            # Для rate limit НЕ увеличиваем consecutive_failures
+            # Это ошибка модели, а не провайдера
+            self.logger.warning(
+                f"⏳ Rate limit для модели в {provider_name}. "
+                f"Переключение на следующую модель. "
+                f"Провайдер остается доступным."
+            )
+            # НЕ устанавливаем cooldown для провайдера при rate limit модели
+            # ModelsManager сам переключит модель
+            return
         
-        # Логика Circuit Breaker
+        # Для ошибок модели (не провайдера) не увеличиваем consecutive_failures
+        if is_model_error:
+            self.logger.warning(
+                f"⚠️ Ошибка модели в {provider_name}: {error}. "
+                f"Переключение на следующую модель. "
+                f"Провайдер остается доступным."
+            )
+            return
+        
+        # Только для критических ошибок провайдера увеличиваем счетчик
+        stats.consecutive_failures += 1
+        
+        # Логика Circuit Breaker - открываем только при критических ошибках провайдера
         if stats.consecutive_failures >= self.circuit_breaker_config.failure_threshold:
             if stats.circuit_breaker_state == CircuitBreakerState.CLOSED:
                 stats.circuit_breaker_state = CircuitBreakerState.OPEN
                 stats.circuit_breaker_opened_at = datetime.now()
-                self.logger.error(f"🚨 Circuit Breaker для {provider_name} открыт после {stats.consecutive_failures} ошибок")
+                self.logger.error(
+                    f"🚨 Circuit Breaker для {provider_name} открыт после "
+                    f"{stats.consecutive_failures} критических ошибок провайдера"
+                )
 
     def get_next_available_provider(self, exclude_providers: List[str] = None) -> Optional[LLMProviderConfig]:
         """🔄 Получить следующий доступный провайдер по приоритету"""
@@ -1878,45 +1939,9 @@ class UnifiedConfigManager:
                         duration_seconds=duration_seconds,
                         until=force_until.isoformat())
     
-    def is_provider_available(self, provider_name: str) -> bool:
-        """🔍 Проверка доступности провайдера с учетом всех факторов"""
-        # Проверяем принудительное включение
-        if hasattr(self, 'forced_available_until') and provider_name in self.forced_available_until:
-            if datetime.now() < self.forced_available_until[provider_name]:
-                return True
-            else:
-                # Время принудительного включения истекло
-                del self.forced_available_until[provider_name]
-        
-        # Проверяем Circuit Breaker
-        circuit_state = self.circuit_breaker_states.get(provider_name, "closed")
-        
-        if circuit_state == "closed":
-            return True
-        elif circuit_state == "open":
-            # Проверяем, не пора ли перейти в half-open
-            if provider_name in self.circuit_breaker_failure_times:
-                failure_time = self.circuit_breaker_failure_times[provider_name]
-                recovery_timeout = self.circuit_breaker_config.recovery_timeout
-                
-                # Адаптивный recovery timeout
-                if provider_name in self.provider_stats:
-                    stats = self.provider_stats[provider_name]
-                    if stats.consecutive_failures > 5:
-                        # Увеличиваем timeout для часто падающих провайдеров
-                        recovery_timeout *= min(3.0, stats.consecutive_failures / 5.0)
-                
-                if datetime.now() - failure_time > timedelta(seconds=recovery_timeout):
-                    self.circuit_breaker_states[provider_name] = "half-open"
-                    self.logger.info("circuit_breaker_half_open",
-                                   provider=provider_name,
-                                   recovery_timeout=recovery_timeout)
-                    return True
-            return False
-        elif circuit_state == "half-open":
-            return True
-        
-        return False
+    # REMOVED: Duplicate is_provider_available method
+    # The correct implementation is earlier in the file (around line 505)
+    # This duplicate was causing issues by overriding the correct implementation
     
     def update_circuit_breaker_state(self, provider_name: str, success: bool):
         """🔄 Обновление состояния Circuit Breaker"""

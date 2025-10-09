@@ -184,7 +184,8 @@ class OrgLocationEnrichment:
             needs_address = True
         
         if not needs_city and not needs_address:
-            return {'organization': enriched_org, 'metadata': metadata}
+            from dataclasses import asdict
+            return {'organization': enriched_org, 'metadata': asdict(metadata)}
         
         # Собираем кандидатов для обогащения
         city_candidates = []

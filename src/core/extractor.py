@@ -329,6 +329,7 @@ class ContactExtractor:
             raw_snapshot = copy.deepcopy(test_result)
             test_result.update({
                 "provider_used": "test_mode",
+                "model": "test_mode",
                 "processing_time": 0.1,
                 "text_length": len(text),
                 "chunks_processed": 1,
@@ -417,12 +418,16 @@ class ContactExtractor:
             provider_name = (
                 llm_response.get('provider') if isinstance(llm_response, dict) else None
             )
+            model_name = (
+                llm_response.get('model', 'Unknown') if isinstance(llm_response, dict) else 'Unknown'
+            )
             response_time = (
                 llm_response.get('response_time', 0) if isinstance(llm_response, dict) else 0
             )
 
             processed_result.update({
                 'provider_used': provider_name,
+                'model': model_name,
                 'processing_time': response_time,
                 'text_length': len(text),
                 'chunks_processed': 1,
@@ -476,6 +481,7 @@ class ContactExtractor:
                     fallback = self._build_empty_result()
                     fallback.update({
                         'provider_used': 'async_timeout_error',
+                        'model': 'Unknown',
                         'processing_time': 120.0,
                         'error': 'Превышен таймаут асинхронной обработки',
                         'attempts_made': attempt + 1
@@ -490,6 +496,7 @@ class ContactExtractor:
                     fallback = self._build_empty_result()
                     fallback.update({
                         'provider_used': 'async_error',
+                        'model': 'Unknown',
                         'processing_time': 0,
                         'error': f'Асинхронная обработка не удалась: {str(e)}',
                         'attempts_made': attempt + 1
@@ -510,6 +517,7 @@ class ContactExtractor:
             'business_context': '',
             'commercial_offers': [],
             'provider_used': 'async_fallback_error',
+            'model': 'Unknown',
             'processing_time': 0,
             'error': 'Неожиданная ошибка в асинхронной обработке'
         }
@@ -559,6 +567,7 @@ class ContactExtractor:
             fallback = self._build_empty_result()
             fallback.update({
                 'provider_used': 'error_handler',
+                'model': 'Unknown',
                 'processing_time': 0,
                 'error': f'Критическая ошибка обработки: {str(e)}'
             })
@@ -836,6 +845,7 @@ class ContactExtractor:
         processed_aggregated = self._apply_postprocessing(aggregated_result, metadata)
         processed_aggregated.update({
             'provider_used': 'chunked_processing',
+            'model': 'Unknown',
             'processing_time': total_processing_time,
             'text_length': sum(len(chunk) for chunk in chunks),
             'chunks_processed': len(chunks),
@@ -860,6 +870,7 @@ class ContactExtractor:
             chunk_result = self._build_empty_result()
             chunk_result.update({
                 'provider_used': 'test_mode_chunk',
+                'model': 'test_mode',
                 'processing_time': 0.05
             })
             return chunk_result
@@ -898,12 +909,16 @@ class ContactExtractor:
             provider_name = (
                 llm_response.get('provider') if isinstance(llm_response, dict) else None
             )
+            model_name = (
+                llm_response.get('model', 'Unknown') if isinstance(llm_response, dict) else 'Unknown'
+            )
             response_time = (
                 llm_response.get('response_time', 0) if isinstance(llm_response, dict) else 0
             )
 
             corrected_result.update({
                 'provider_used': provider_name,
+                'model': model_name,
                 'processing_time': response_time,
                 'text_length': len(text),
                 'chunks_processed': 1
@@ -916,6 +931,7 @@ class ContactExtractor:
             fallback = self._build_empty_result()
             fallback.update({
                 'provider_used': 'chunk_error',
+                'model': 'Unknown',
                 'processing_time': 0,
                 'error': str(e)
             })

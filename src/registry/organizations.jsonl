@@ -80,3 +80,24 @@
 {"event": "alias", "gid": "a45444da-86fc-5ccb-b46f-d58807a7e784", "alias": ["ORG", "FALLBACK", "b0d20d781724a028"], "created_at": "2025-10-05T12:23:00Z"}
 {"event": "create", "gid": "64ac2a7d-04de-579c-8691-d26cfc57f8ad", "key": ["ORG", "DOMAIN", "uscompany.com"], "aliases": [["ORG", "NAME_CITY", "us company", "washington"], ["ORG", "EMAIL_DOMAIN", "uscompany.com"], ["ORG", "FALLBACK", "0e65092093810ba6"]], "created_at": "2025-10-05T12:23:00Z", "source": "new"}
 {"event": "alias", "gid": "a0606115-f157-5da7-8d77-2097fb4b2a07", "alias": ["ORG", "FALLBACK", "f9ee45d241500d55"], "created_at": "2025-10-06T13:42:35Z"}
+{"event": "create", "gid": "7f53080d-67b4-5ca0-8295-b30dcb892d5d", "key": ["ORG", "FALLBACK", "0e408cb9adff2fef"], "aliases": [], "created_at": "2025-10-08T15:08:24Z", "source": "new"}
+{"event": "create", "gid": "e5f7e102-ac30-5839-8921-69f543098d2f", "key": ["ORG", "INN", "2222903832"], "aliases": [["ORG", "NAME_CITY", "снабтрейд", "барнаул"], ["ORG", "FALLBACK", "1e80538a2085863c"]], "created_at": "2025-10-08T15:10:01Z", "source": "new"}
+{"event": "create", "gid": "e8644295-49b7-5ad7-92aa-b3671d1fd108", "key": ["ORG", "INN", "5406345862"], "aliases": [["ORG", "FALLBACK", "18b24dc01bd3677e"]], "created_at": "2025-10-08T15:10:01Z", "source": "new"}
+{"event": "create", "gid": "c955535e-93bf-5bd7-843a-21ebc4099e72", "key": ["ORG", "FALLBACK", "bbb2cd3ec925194f"], "aliases": [], "created_at": "2025-10-08T15:12:03Z", "source": "new"}
+{"event": "create", "gid": "f5091c8b-55a7-5406-b383-842e8a0768af", "key": ["ORG", "FALLBACK", "71f14f68ae5d9970"], "aliases": [], "created_at": "2025-10-08T15:12:03Z", "source": "new"}
+{"event": "alias", "gid": "e8644295-49b7-5ad7-92aa-b3671d1fd108", "alias": ["ORG", "FALLBACK", "8480c4eda435b696"], "created_at": "2025-10-08T15:14:09Z"}
+{"event": "create", "gid": "c9e54b34-f668-5aac-991c-49c48459a83d", "key": ["ORG", "INN", "5408100233"], "aliases": [["ORG", "NAME_CITY", "институт химической биологии и фундаментальной медицины сибирского отделения российской академии наук", "новосибирск"], ["ORG", "FALLBACK", "840bc8f735cbedeb"]], "created_at": "2025-10-08T15:20:59Z", "source": "new"}
+{"event": "create", "gid": "48fe0107-cdd8-5a25-8a19-42abb71fbf94", "key": ["ORG", "DOMAIN", "ya.ru"], "aliases": [["ORG", "EMAIL_DOMAIN", "ya.ru"], ["ORG", "FALLBACK", "73a5e45c2391d794"]], "created_at": "2025-10-08T15:37:20Z", "source": "new"}
+{"event": "create", "gid": "ee52284f-ec93-5fa0-b078-db9852a9e76a", "key": ["ORG", "NAME_CITY", "клиника цмд", "иркутск"], "aliases": [["ORG", "FALLBACK", "7a8ee8ff8d0ab3ad"]], "created_at": "2025-10-08T15:37:59Z", "source": "new"}
+{"event": "alias", "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3", "alias": ["ORG", "FALLBACK", "4d7d4cd7d133fe1e"], "created_at": "2025-10-08T15:38:32Z"}
+{"event": "create", "gid": "1b7ce63f-4fc8-5f2b-a709-62901a767d72", "key": ["ORG", "NAME_CITY", "рх республиканский центр профилактики и борьбы со спид", "абакан"], "aliases": [["ORG", "FALLBACK", "d5d852fb28efbdf3"]], "created_at": "2025-10-08T17:21:51Z", "source": "new"}
+{"event": "create", "gid": "cef854ba-b02e-5dc4-a4f8-0d884f0846f3", "key": ["ORG", "NAME_CITY", "сеченовский университет", "москва"], "aliases": [["ORG", "FALLBACK", "edeecbb3913426e2"]], "created_at": "2025-10-08T17:24:35Z", "source": "new"}
+{"event": "create", "gid": "cfb2d9dd-c2e1-54e1-aef4-8e9cda4d7702", "key": ["ORG", "NAME_CITY", "км-клиник", "москва"], "aliases": [["ORG", "FALLBACK", "7be4fd86167aa04a"]], "created_at": "2025-10-08T17:25:14Z", "source": "new"}
+{"event": "alias", "gid": "ca6c70be-7806-5c8f-b930-8f07161abb65", "alias": ["ORG", "FALLBACK", "2f239cb0697d4a3d"], "created_at": "2025-10-08T17:26:01Z"}
+{"event": "create", "gid": "e4a92525-b053-5a8f-a6b4-1817412146b2", "key": ["ORG", "NAME_CITY", "мед конгресс", "москва"], "aliases": [["ORG", "FALLBACK", "86cf98b7b24f2c22"]], "created_at": "2025-10-09T04:16:19Z", "source": "new"}
+{"event": "create", "gid": "e330183c-40c1-57f3-ac17-d0364718985d", "key": ["ORG", "FALLBACK", "9e402b023ff805d8"], "aliases": [], "created_at": "2025-10-09T04:16:19Z", "source": "new"}
+{"event": "alias", "gid": "6a8f8ae1-f84a-5583-935c-5c1201d32519", "alias": ["ORG", "NAME_CITY", "клиницист-клиника претор", "новосибирск"], "created_at": "2025-10-09T04:17:44Z"}
+{"event": "alias", "gid": "6a8f8ae1-f84a-5583-935c-5c1201d32519", "alias": ["ORG", "FALLBACK", "1a58ebd299d1a3e8"], "created_at": "2025-10-09T04:17:44Z"}
+{"event": "alias", "gid": "f410a6de-a277-528c-b524-55cd6bfdd74c", "alias": ["ORG", "DOMAIN", "med-congress.ru"], "created_at": "2025-10-09T04:20:35Z"}
+{"event": "alias", "gid": "f410a6de-a277-528c-b524-55cd6bfdd74c", "alias": ["ORG", "EMAIL_DOMAIN", "med-congress.ru"], "created_at": "2025-10-09T04:20:35Z"}
+{"event": "create", "gid": "6acdbe55-a42e-5d87-8cac-36c4d2788506", "key": ["ORG", "FALLBACK", "d941f99fe99a35ed"], "aliases": [], "created_at": "2025-10-09T05:23:43Z", "source": "new"}
