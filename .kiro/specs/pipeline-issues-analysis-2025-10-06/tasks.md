@@ -229,7 +229,7 @@
   - Обновление статистики missing_attachment_paths
   - _Requirements: analysis-report.md пункт 5_
 
-- [ ] 9. Оптимизировать таймауты LLM
+- [x] 9. Оптимизировать таймауты LLM
   - Реализовать функцию calculate_dynamic_timeout()
   - Учитывать размер текста письма
   - Учитывать количество вложений
@@ -238,7 +238,7 @@
   - Добавить метрики времени ответа LLM
   - _Requirements: analysis-report.md пункт 7_
 
-- [ ] 9.1 Реализовать calculate_dynamic_timeout
+- [x] 9.1 Реализовать calculate_dynamic_timeout
   - Базовый таймаут 60 секунд
   - +1 сек на каждые 1000 символов текста
   - +30 сек на каждое вложение
@@ -246,7 +246,7 @@
   - Максимум 300 секунд
   - _Requirements: technical-details.md раздел 5_
 
-- [ ] 9.2 Реализовать retry_with_backoff
+- [x] 9.2 Реализовать retry_with_backoff
   - Использовать динамический таймаут
   - Увеличивать таймаут на 50% при повторе
   - Exponential backoff между попытками
@@ -254,7 +254,7 @@
   - Логирование каждой попытки
   - _Requirements: technical-details.md раздел 5_
 
-- [ ] 10. Улучшить обработку ошибок и логирование
+- [x] 10. Улучшить обработку ошибок и логирование
   - Создать функцию log_processing_error()
   - Добавить полный traceback для всех исключений
   - Сохранять debug данные в data/errors/
@@ -262,7 +262,7 @@
   - Настроить ротацию логов
   - _Requirements: technical-details.md раздел 6_
 
-- [ ] 10.1 Реализовать log_processing_error
+- [x] 10.1 Реализовать log_processing_error
   - Сбор информации об ошибке (type, message, traceback)
   - Сбор контекста (email_file, input_data, llm_request)
   - Сохранение в JSON файл
