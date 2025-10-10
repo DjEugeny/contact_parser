@@ -177,6 +177,10 @@ class INNSearchNormalizer:
         for quote in quotes:
             normalized = normalized.replace(quote, ' ')
         
+        # Замена дефисов на пробелы для лучшего сравнения
+        # "днк-технология" -> "днк технология"
+        normalized = normalized.replace('-', ' ')
+        
         # Удаление скобок и их содержимого в некоторых случаях
         # Оставляем скобки если они содержат важную информацию
         normalized = re.sub(r'\([^)]*\)', ' ', normalized)

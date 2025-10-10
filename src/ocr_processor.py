@@ -67,11 +67,17 @@ except ImportError:
 class OCRProcessor:
     # ... (init, _show_capabilities, get_available_dates, get_files_for_date, run_google_vision_ocr - без изменений) ...
     def __init__(self):
+        # Импортируем централизованные пути
+        from config.paths import DataPaths
+        
+        # Выполняем автомиграцию если необходимо
+        DataPaths.migrate_if_needed()
+        
         self.data_dir = Path("data")
         self.attachments_dir = self.data_dir / "attachments"
-        self.base_results_dir = self.data_dir / "final_results"
-        self.texts_dir = self.base_results_dir / "texts"
-        self.reports_dir = self.base_results_dir / "reports"
+        self.base_results_dir = DataPaths.OCR_DIR
+        self.texts_dir = DataPaths.OCR_TEXTS_DIR
+        self.reports_dir = DataPaths.OCR_REPORTS_DIR
         self.logs_dir = self.data_dir / "logs" / "ocr"
         self.texts_dir.mkdir(parents=True, exist_ok=True)
         self.reports_dir.mkdir(parents=True, exist_ok=True)

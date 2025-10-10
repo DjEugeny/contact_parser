@@ -7,9 +7,12 @@
 
 import yaml
 import logging
+import json
 from pathlib import Path
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Any
 from dataclasses import dataclass
+from datetime import datetime
+from logging.handlers import RotatingFileHandler
 import tiktoken
 
 logger = logging.getLogger(__name__)
@@ -61,6 +64,17 @@ class ModelsManager:
         
         self._parse_models()
         
+        # Инициализация логгеров для переключений моделей
+        self._init_fallback_loggers()
+        
+        # Статистика для summary
+        self.stats = {
+            'model_switches': 0,
+            'models_used': {},  # {model_name: count}
+            'errors_by_type': {},  # {error_type: count}
+            'success_by_model': {}  # {model_name: {'success': count, 'total': count}}
+        }
+        
         logger.info(f"📋 ModelsManager инициализирован")
         logger.info(f"   OpenRouter: {len(self.openrouter_models)} моделей")
         logger.info(f"   Replicate: {len(self.replicate_models)} моделей")
@@ -108,6 +122,44 @@ class ModelsManager:
             }
         }
     
+    def _init_fallback_logger(self):
+        """Инициализация JSON логгера с rotation для переключений моделей"""
+        logging_config = self.config.get('logging', {})
+        
+        if not logging_config.get('log_model_switches', True):
+            self.fallback_logger = None
+            return
+        
+        log_file = logging_config.get('log_file', 'data/logs/model_fallback.log')
+        log_path = Path(log_file)
+        
+        # Создаем директорию если нужно
+        log_path.parent.mkdir(parents=True, exist_ok=True)
+        
+        # Создаем отдельный логгер для fallback
+        self.fallback_logger = logging.getLogger('models_fallback')
+        self.fallback_logger.setLevel(logging.INFO)
+        self.fallback_logger.propagate = False  # Не передавать в root logger
+        
+        # Удаляем существующие handlers
+        self.fallback_logger.handlers.clear()
+        
+        # Добавляем RotatingFileHandler (max 10MB, keep 5 files)
+        handler = RotatingFileHandler(
+            log_path,
+            maxBytes=10 * 1024 * 1024,  # 10 MB
+            backupCount=5,
+            encoding='utf-8'
+        )
+        
+        # Формат: только сообщение (JSON будет в самом сообщении)
+        formatter = logging.Formatter('%(message)s')
+        handler.setFormatter(formatter)
+        
+        self.fallback_logger.addHandler(handler)
+        
+        logger.info(f"📝 Fallback logger инициализирован: {log_path}")
+    
     def _parse_models(self):
         """Парсинг моделей из конфигурации"""
         # OpenRouter модели
@@ -140,6 +192,65 @@ class ModelsManager:
         
         # Сортируем по приоритету
         self.replicate_models.sort(key=lambda x: x.priority)
+    
+    def _init_fallback_loggers(self):
+        """Инициализация логгеров для переключений моделей (текстовый + JSON)"""
+        logging_config = self.config.get('logging', {})
+        
+        if not logging_config.get('log_model_switches', True):
+            self.fallback_logger_text = None
+            self.fallback_logger_json = None
+            return
+        
+        # Путь к логам
+        log_dir = Path(logging_config.get('log_dir', 'data/logs'))
+        log_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Текстовый лог для человека
+        text_log_path = log_dir / 'model_fallback.log'
+        self.fallback_logger_text = logging.getLogger('model_fallback_text')
+        self.fallback_logger_text.setLevel(logging.INFO)
+        self.fallback_logger_text.propagate = False
+        
+        # Удаляем старые handlers если есть
+        self.fallback_logger_text.handlers.clear()
+        
+        # RotatingFileHandler для текстового лога (max 10MB, keep 5 files)
+        text_handler = RotatingFileHandler(
+            text_log_path,
+            maxBytes=10 * 1024 * 1024,  # 10MB
+            backupCount=5,
+            encoding='utf-8'
+        )
+        text_formatter = logging.Formatter(
+            '%(asctime)s - %(message)s',
+            datefmt='%Y-%m-%d %H:%M:%S'
+        )
+        text_handler.setFormatter(text_formatter)
+        self.fallback_logger_text.addHandler(text_handler)
+        
+        # JSON лог для анализа
+        json_log_path = log_dir / 'model_fallback.jsonl'
+        self.fallback_logger_json = logging.getLogger('model_fallback_json')
+        self.fallback_logger_json.setLevel(logging.INFO)
+        self.fallback_logger_json.propagate = False
+        
+        # Удаляем старые handlers если есть
+        self.fallback_logger_json.handlers.clear()
+        
+        # RotatingFileHandler для JSON лога (max 10MB, keep 5 files)
+        json_handler = RotatingFileHandler(
+            json_log_path,
+            maxBytes=10 * 1024 * 1024,  # 10MB
+            backupCount=5,
+            encoding='utf-8'
+        )
+        # Для JSON не нужен formatter, будем писать сами
+        self.fallback_logger_json.addHandler(json_handler)
+        
+        logger.info(f"📝 Логирование переключений моделей:")
+        logger.info(f"   Текстовый: {text_log_path}")
+        logger.info(f"   JSON: {json_log_path}")
     
     def estimate_tokens(self, text: str, encoding_name: str = "cl100k_base") -> int:
         """
@@ -268,34 +379,65 @@ class ModelsManager:
             return self.replicate_models.copy()
         return []
     
-    def report_error(self, provider: str, error_message: str) -> bool:
+    def report_error(self, provider: str, error_message: str, error_details: Optional[Dict[str, Any]] = None) -> bool:
         """
         Сообщить об ошибке модели
         
         Args:
             provider: Провайдер
             error_message: Сообщение об ошибке
+            error_details: Дополнительные детали ошибки (input_length, response_length, estimated_tokens, etc.)
             
         Returns:
             True если произошло переключение на следующую модель
         """
+        if error_details is None:
+            error_details = {}
         fallback_config = self.config.get('fallback', {})
         max_retries = fallback_config.get('max_retries_per_model', 3)
         switch_on_errors = fallback_config.get('switch_on_errors', [])
         
-        # Классифицируем ошибку
+        # Классифицируем ошибку и определяем error_type
         error_lower = error_message.lower()
-        is_rate_limit = '429' in error_message or 'rate limit' in error_lower or 'rate_limit' in error_lower
-        is_model_error = any(pattern.lower() in error_lower for pattern in [
-            'data policy', 'empty response', 'context length', 'model not found',
-            'invalid model', 'model error'
-        ])
+        
+        # Определяем тип ошибки
+        if '429' in error_message or 'rate limit' in error_lower or 'rate_limit' in error_lower:
+            error_type = 'rate_limit'
+            is_rate_limit = True
+            is_model_error = False
+        elif 'empty response' in error_lower or 'empty_response' in error_lower:
+            error_type = 'empty_response'
+            is_rate_limit = False
+            is_model_error = True
+        elif 'context length' in error_lower or 'context_length' in error_lower:
+            error_type = 'context_length'
+            is_rate_limit = False
+            is_model_error = True
+        elif 'data policy' in error_lower:
+            error_type = 'data_policy'
+            is_rate_limit = False
+            is_model_error = True
+        elif 'model not found' in error_lower or 'invalid model' in error_lower:
+            error_type = 'model_not_found'
+            is_rate_limit = False
+            is_model_error = True
+        elif 'model error' in error_lower:
+            error_type = 'model_error'
+            is_rate_limit = False
+            is_model_error = True
+        else:
+            error_type = 'provider_error'
+            is_rate_limit = False
+            is_model_error = False
+        
+        # Обновляем статистику ошибок
+        self.stats['errors_by_type'][error_type] = self.stats['errors_by_type'].get(error_type, 0) + 1
         
         # Логируем тип ошибки
         if is_rate_limit:
             logger.warning(f"⏳ Rate limit для модели в {provider}: {error_message}")
         elif is_model_error:
-            logger.warning(f"⚠️ Ошибка модели в {provider}: {error_message}")
+            logger.warning(f"⚠️ Ошибка модели в {provider} ({error_type}): {error_message}")
         else:
             logger.error(f"❌ Критическая ошибка провайдера {provider}: {error_message}")
         
@@ -320,23 +462,33 @@ class ModelsManager:
             self.openrouter_error_count += 1
             
             if self.openrouter_error_count >= max_retries:
-                return self._switch_to_next_model('openrouter')
+                return self._switch_to_next_model('openrouter', error_type, error_message, error_details)
         
         elif provider.lower() == 'replicate':
             self.replicate_error_count += 1
             
             if self.replicate_error_count >= max_retries:
-                return self._switch_to_next_model('replicate')
+                return self._switch_to_next_model('replicate', error_type, error_message, error_details)
         
         return False
     
-    def _switch_to_next_model(self, provider: str) -> bool:
+    def _switch_to_next_model(self, provider: str, error_type: str, error_message: str, 
+                             error_details: Optional[Dict[str, Any]] = None) -> bool:
         """
         Переключиться на следующую модель
+        
+        Args:
+            provider: Провайдер
+            error_type: Тип ошибки (rate_limit, empty_response, context_length, etc.)
+            error_message: Сообщение об ошибке
+            error_details: Дополнительные детали ошибки
         
         Returns:
             True если переключение успешно
         """
+        if error_details is None:
+            error_details = {}
+        
         if provider.lower() == 'openrouter':
             current_model = self.get_current_model('openrouter')
             
@@ -348,11 +500,16 @@ class ModelsManager:
                 logger.warning(
                     f"🔄 OpenRouter: переключение модели\n"
                     f"   ❌ Было: {current_model.name}\n"
-                    f"   ✅ Стало: {next_model.name}"
+                    f"   ✅ Стало: {next_model.name}\n"
+                    f"   Причина: {error_type}"
                 )
                 
-                # Логируем в файл
-                self._log_model_switch('openrouter', current_model, next_model)
+                # Обновляем статистику
+                self.stats['model_switches'] += 1
+                
+                # Логируем в файлы (текстовый + JSON)
+                self._log_model_switch('openrouter', current_model, next_model, 
+                                      error_type, error_message, error_details)
                 return True
             else:
                 logger.error(f"❌ OpenRouter: все модели исчерпаны!")
@@ -369,11 +526,16 @@ class ModelsManager:
                 logger.warning(
                     f"🔄 Replicate: переключение модели\n"
                     f"   ❌ Было: {current_model.name}\n"
-                    f"   ✅ Стало: {next_model.name}"
+                    f"   ✅ Стало: {next_model.name}\n"
+                    f"   Причина: {error_type}"
                 )
                 
-                # Логируем в файл
-                self._log_model_switch('replicate', current_model, next_model)
+                # Обновляем статистику
+                self.stats['model_switches'] += 1
+                
+                # Логируем в файлы (текстовый + JSON)
+                self._log_model_switch('replicate', current_model, next_model,
+                                      error_type, error_message, error_details)
                 return True
             else:
                 logger.error(f"❌ Replicate: все модели исчерпаны!")
@@ -381,32 +543,65 @@ class ModelsManager:
         
         return False
     
-    def _log_model_switch(self, provider: str, old_model: ModelConfig, new_model: ModelConfig):
-        """Логирование переключения модели в файл"""
-        logging_config = self.config.get('logging', {})
+    def _log_model_switch(self, provider: str, old_model: ModelConfig, new_model: ModelConfig,
+                         error_type: str, error_message: str, error_details: Dict[str, Any]):
+        """
+        Логирование переключения модели в файлы (текстовый + JSON)
         
-        if not logging_config.get('log_model_switches', True):
+        Args:
+            provider: Провайдер
+            old_model: Старая модель
+            new_model: Новая модель
+            error_type: Тип ошибки
+            error_message: Сообщение об ошибке
+            error_details: Дополнительные детали
+        """
+        if not hasattr(self, 'fallback_logger_text') or self.fallback_logger_text is None:
             return
         
-        log_file = logging_config.get('log_file', 'data/logs/model_fallback.log')
-        log_path = Path(log_file)
-        
-        # Создаем директорию если нужно
-        log_path.parent.mkdir(parents=True, exist_ok=True)
-        
         try:
-            from datetime import datetime
             timestamp = datetime.now().isoformat()
             
-            with open(log_path, 'a', encoding='utf-8') as f:
-                f.write(f"\n{'='*60}\n")
-                f.write(f"Timestamp: {timestamp}\n")
-                f.write(f"Provider: {provider}\n")
-                f.write(f"Old Model: {old_model.name} (priority {old_model.priority})\n")
-                f.write(f"New Model: {new_model.name} (priority {new_model.priority})\n")
-                f.write(f"Reason: Max retries exceeded\n")
+            # 1. Текстовый лог для человека
+            text_message = (
+                f"\n{'='*70}\n"
+                f"🔄 ПЕРЕКЛЮЧЕНИЕ МОДЕЛИ\n"
+                f"{'='*70}\n"
+                f"Провайдер:    {provider}\n"
+                f"Старая модель: {old_model.name} (priority {old_model.priority})\n"
+                f"Новая модель:  {new_model.name} (priority {new_model.priority})\n"
+                f"Тип ошибки:   {error_type}\n"
+                f"Сообщение:    {error_message}\n"
+            )
+            
+            # Добавляем детали если есть
+            if error_details:
+                text_message += "Детали:\n"
+                for key, value in error_details.items():
+                    text_message += f"  - {key}: {value}\n"
+            
+            self.fallback_logger_text.info(text_message)
+            
+            # 2. JSON лог для анализа
+            json_record = {
+                'timestamp': timestamp,
+                'event_type': 'model_switch',
+                'provider': provider,
+                'old_model': old_model.name,
+                'old_model_priority': old_model.priority,
+                'new_model': new_model.name,
+                'new_model_priority': new_model.priority,
+                'error_type': error_type,
+                'error_message': error_message,
+                'details': error_details
+            }
+            
+            # Записываем JSON как одну строку (JSONL формат)
+            json_line = json.dumps(json_record, ensure_ascii=False)
+            self.fallback_logger_json.info(json_line)
+            
         except Exception as e:
-            logger.error(f"❌ Ошибка записи в лог: {e}")
+            logger.error(f"❌ Ошибка записи в лог переключений: {e}")
     
     def reset_to_first_model(self, provider: str):
         """Сбросить на первую модель (например, после успешного запроса)"""
@@ -421,6 +616,70 @@ class ModelsManager:
                 logger.info(f"🔄 Replicate: сброс на первую модель")
                 self.current_replicate_index = 0
                 self.replicate_error_count = 0
+    
+    def track_model_usage(self, provider: str, model_name: str, success: bool = True):
+        """
+        Отслеживать использование модели для статистики
+        
+        Args:
+            provider: Провайдер
+            model_name: Имя модели
+            success: Успешно ли обработан запрос
+        """
+        # Счетчик использований модели
+        self.stats['models_used'][model_name] = self.stats['models_used'].get(model_name, 0) + 1
+        
+        # Статистика успешности по модели
+        if model_name not in self.stats['success_by_model']:
+            self.stats['success_by_model'][model_name] = {'success': 0, 'total': 0}
+        
+        self.stats['success_by_model'][model_name]['total'] += 1
+        if success:
+            self.stats['success_by_model'][model_name]['success'] += 1
+    
+    def print_summary(self):
+        """Вывести summary статистику после обработки batch"""
+        if not self.stats['models_used']:
+            logger.info("📊 Нет данных для статистики")
+            return
+        
+        logger.info("\n" + "="*70)
+        logger.info("📊 СТАТИСТИКА ИСПОЛЬЗОВАНИЯ МОДЕЛЕЙ")
+        logger.info("="*70)
+        
+        # Переключения моделей
+        logger.info(f"\n🔄 Переключений моделей: {self.stats['model_switches']}")
+        
+        # Использование моделей
+        logger.info(f"\n🤖 Использование моделей:")
+        for model_name, count in sorted(self.stats['models_used'].items(), key=lambda x: x[1], reverse=True):
+            logger.info(f"   {model_name}: {count} раз")
+        
+        # Success rate по моделям
+        logger.info(f"\n✅ Success rate по моделям:")
+        for model_name, stats in sorted(self.stats['success_by_model'].items()):
+            success_rate = (stats['success'] / stats['total'] * 100) if stats['total'] > 0 else 0
+            logger.info(
+                f"   {model_name}: {success_rate:.1f}% "
+                f"({stats['success']}/{stats['total']})"
+            )
+        
+        # Ошибки по типам
+        if self.stats['errors_by_type']:
+            logger.info(f"\n⚠️ Ошибки по типам:")
+            for error_type, count in sorted(self.stats['errors_by_type'].items(), key=lambda x: x[1], reverse=True):
+                logger.info(f"   {error_type}: {count} раз")
+        
+        logger.info("="*70 + "\n")
+    
+    def reset_stats(self):
+        """Сбросить статистику (например, перед новым batch)"""
+        self.stats = {
+            'model_switches': 0,
+            'models_used': {},
+            'errors_by_type': {},
+            'success_by_model': {}
+        }
     
     def get_status(self) -> dict:
         """Получить статус всех моделей"""

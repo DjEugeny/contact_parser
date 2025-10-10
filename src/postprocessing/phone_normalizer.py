@@ -357,7 +357,7 @@ class PhoneNormalizer:
         
         return results
 
-    def normalize_phone_to_object(self, phone: str) -> List[Dict[str, Any]]:
+    def normalize_phone_to_object(self, phone: str, city_context: Optional[str] = None) -> List[Dict[str, Any]]:
         """
         📞 Главная функция нормализации телефона в объект
         Возвращает список объектов с полями: number, normalized, original, type, extension
@@ -366,6 +366,13 @@ class PhoneNormalizer:
         - number НЕ содержит добавочный номер
         - extension всегда в отдельном поле
         - normalized в формате E.164 БЕЗ добавочного
+        
+        Args:
+            phone: Телефонный номер для нормализации
+            city_context: Опциональный контекст города для коротких номеров
+        
+        Returns:
+            List[Dict]: Список нормализованных телефонных объектов
         """
         if not phone or not phone.strip():
             return []
@@ -378,11 +385,42 @@ class PhoneNormalizer:
             # Извлекаем добавочный номер
             phone_clean, extension = self._extract_extension(individual_phone)
             
+            # Проверяем, является ли номер коротким (неполным)
+            digits_only = ''.join(filter(str.isdigit, phone_clean))
+            
+            # Если номер короткий (< 7 цифр) и есть контекст города
+            if len(digits_only) < 7 and city_context:
+                # Пытаемся обогатить номер кодом города
+                enriched_phone = self._enrich_short_phone_with_city(phone_clean, city_context)
+                if enriched_phone:
+                    phone_clean = enriched_phone
+                    digits_only = ''.join(filter(str.isdigit, phone_clean))
+            
             # Нормализуем основной номер
             normalized_digits, formatted_display, phone_type = self._normalize_phone_number(phone_clean)
             
             # Рассчитываем уверенность
             confidence = self._calculate_phone_confidence(individual_phone, normalized_digits)
+            
+            # Для коротких номеров без успешной нормализации
+            if len(digits_only) < 7:
+                phone_obj = {
+                    'type': 'incomplete',
+                    'number': individual_phone,
+                    'normalized': None,  # Не можем нормализовать
+                    'original': individual_phone,
+                    'confidence': 0.0,
+                    'needs_manual_review': True,
+                    'incomplete_reason': f'Неполный номер ({len(digits_only)} цифр, требуется минимум 7)'
+                }
+                
+                if extension:
+                    phone_obj['extension'] = extension
+                else:
+                    phone_obj['extension'] = None
+                    
+                results.append(phone_obj)
+                continue
             
             # Создаем объект телефона согласно целевой структуре
             phone_obj = {
@@ -402,6 +440,120 @@ class PhoneNormalizer:
             results.append(phone_obj)
         
         return results
+    
+    def _enrich_short_phone_with_city(self, phone: str, city: str) -> Optional[str]:
+        """
+        🏙️ Обогащение короткого номера кодом города
+        
+        Пытается добавить код города к короткому номеру на основе контекста.
+        Например: "28-54-83" + "Новосибирск" → "8(383)28-54-83"
+        
+        Args:
+            phone: Короткий телефонный номер
+            city: Название города для определения кода
+            
+        Returns:
+            Optional[str]: Обогащенный номер или None если не удалось
+        """
+        # Словарь кодов городов России (основные города)
+        city_codes = {
+            'москва': '495',
+            'санкт-петербург': '812',
+            'спб': '812',
+            'новосибирск': '383',
+            'екатеринбург': '343',
+            'нижний новгород': '831',
+            'казань': '843',
+            'челябинск': '351',
+            'омск': '381',
+            'самара': '846',
+            'ростов-на-дону': '863',
+            'уфа': '347',
+            'красноярск': '391',
+            'воронеж': '473',
+            'пермь': '342',
+            'волгоград': '844',
+            'краснодар': '861',
+            'саратов': '845',
+            'тюмень': '345',
+            'тольятти': '8482',
+            'ижевск': '3412',
+            'барнаул': '3852',
+            'ульяновск': '8422',
+            'иркутск': '3952',
+            'хабаровск': '4212',
+            'ярославль': '4852',
+            'владивосток': '423',
+            'махачкала': '8722',
+            'томск': '3822',
+            'оренбург': '3532',
+            'кемерово': '3842',
+            'новокузнецк': '3843',
+            'рязань': '4912',
+            'астрахань': '8512',
+            'набережные челны': '8552',
+            'пенза': '8412',
+            'липецк': '4742',
+            'киров': '8332',
+            'чебоксары': '8352',
+            'калининград': '4012',
+            'тула': '4872',
+            'курск': '4712',
+            'сочи': '8622',
+            'ставрополь': '8652',
+            'улан-удэ': '3012',
+            'тверь': '4822',
+            'магнитогорск': '3519',
+            'иваново': '4932',
+            'брянск': '4832',
+            'белгород': '4722',
+            'сургут': '3462',
+            'владимир': '4922',
+            'нижний тагил': '3435',
+            'архангельск': '8182',
+            'чита': '3022',
+            'калуга': '4842',
+            'смоленск': '4812',
+            'волжский': '8443',
+            'курган': '3522',
+            'орел': '4862',
+            'череповец': '8202',
+            'вологда': '8172',
+            'владикавказ': '8672',
+            'мурманск': '8152',
+            'саранск': '8342',
+            'тамбов': '4752',
+            'стерлитамак': '3473',
+            'грозный': '8712',
+            'якутск': '4112',
+            'кострома': '4942',
+            'петрозаводск': '8142',
+            'нижневартовск': '3466',
+            'новороссийск': '8617',
+            'йошкар-ола': '8362',
+        }
+        
+        if not city:
+            return None
+        
+        # Нормализуем название города
+        city_normalized = city.lower().strip()
+        
+        # Ищем код города
+        area_code = city_codes.get(city_normalized)
+        
+        if not area_code:
+            # Не нашли код города
+            return None
+        
+        # Извлекаем только цифры из короткого номера
+        digits = ''.join(filter(str.isdigit, phone))
+        
+        # Формируем полный номер: +7 (код_города) номер
+        # Важно: добавляем код города ПЕРЕД цифрами номера
+        enriched = f"+7{area_code}{digits}"
+        
+        return enriched
     
     def _normalize_to_e164(self, digits: str) -> str:
         """

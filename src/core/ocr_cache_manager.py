@@ -4,7 +4,7 @@
 🎯 OCRCacheManager - Легковесный менеджер кеша OCR результатов
 
 Проверяет наличие результатов OCR ПЕРЕД инициализацией тяжелого OCR модуля.
-Использует файловую систему как кеш (data/final_results/texts/).
+Использует файловую систему как кеш (data/ocr/texts/).
 """
 
 import json
@@ -18,20 +18,31 @@ class OCRCacheManager:
     Легковесный менеджер кеша OCR результатов
     
     Основная идея:
-    - Проверяет наличие файлов результатов в data/final_results/texts/
+    - Проверяет наличие файлов результатов в data/ocr/texts/
     - НЕ инициализирует OCR модуль для проверки
     - Возвращает текст из файла если он есть
     - Возвращает None если файла нет (тогда нужен OCR)
     """
     
-    def __init__(self, results_dir: str = "data/final_results/texts"):
+    def __init__(self, results_dir: str = None):
         """
         Инициализация менеджера кеша
         
         Args:
-            results_dir: Путь к папке с результатами OCR
+            results_dir: Путь к папке с результатами OCR (если None, используется DataPaths)
         """
-        self.results_dir = Path(results_dir)
+        # Импортируем централизованные пути
+        from config.paths import DataPaths
+        
+        # Выполняем автомиграцию если необходимо
+        DataPaths.migrate_if_needed()
+        
+        # Используем централизованный путь если не указан явно
+        if results_dir is None:
+            self.results_dir = DataPaths.OCR_TEXTS_DIR
+        else:
+            self.results_dir = Path(results_dir)
+            
         self._cache = {}  # In-memory кеш для быстрого доступа
         self.logger = logging.getLogger('OCRCacheManager')
         

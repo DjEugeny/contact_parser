@@ -1260,6 +1260,9 @@ class PostProcessor:
         """
         Этап 3.5: Обогащение телефонов контактов от связанных организаций
         
+        ВАЖНО: Телефоны организаций нормализуются ДО обогащения контактов,
+        чтобы избежать предупреждений о missing normalized field.
+        
         Args:
             contacts: Список контактов для обогащения
             organizations: Словарь организаций
@@ -1276,6 +1279,14 @@ class PostProcessor:
             
             # Конвертируем organizations dict в list для enricher
             organizations_list = list(organizations.values())
+            
+            # КРИТИЧЕСКИ ВАЖНО: Нормализуем телефоны организаций ДО обогащения
+            # Это предотвращает предупреждения "Телефон без normalized поля"
+            self.logger.debug("🔧 Пре-нормализация телефонов организаций перед обогащением")
+            organizations_normalized = self.data_normalizer.normalize_organizations(
+                {org.get('organization_id'): org for org in organizations_list}
+            )
+            organizations_list = list(organizations_normalized.values())
             
             # Обогащение через contact phone enricher
             enrichment_result = self.contact_phone_enricher.enrich_contacts_phones(

@@ -441,6 +441,10 @@ class APIPipelineValidator:
         self._update_memory_bank_index(report_generator.summary_path, summary_payload)
         self.run_summaries.append(summary_payload)
         print(f"✅ Устойчивая обработка за {date} завершена (успешно: {stats.emails_successful}, ошибки: {stats.emails_failed})")
+        
+        # Выводим summary статистику использования моделей
+        if hasattr(self, 'config_manager') and hasattr(self.config_manager, 'models_manager') and self.config_manager.models_manager:
+            self.config_manager.models_manager.print_summary()
 
     def _register_result_artifacts(
         self,

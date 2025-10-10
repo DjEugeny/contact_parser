@@ -13,14 +13,14 @@ from datetime import datetime
 from typing import Dict, List, Optional
 
 from dotenv import load_dotenv
-from email_loader import ProcessedEmailLoader
+from src.email_loader import ProcessedEmailLoader
 # from attachment_processor import AttachmentProcessor  # АРХИВИРОВАН
-from ocr_processor_adapter import OCRProcessorAdapter
-from core.extractor_factory import ExtractorFactory
-from rate_limit_manager import RateLimitManager
-from config.regions import calculate_contact_priority
-from advanced_deduplication import AdvancedContactDeduplicator
-from postprocessing import PostProcessor
+from src.ocr_processor_adapter import OCRProcessorAdapter
+from src.core.extractor_factory import ExtractorFactory
+from src.rate_limit_manager import RateLimitManager
+from src.config.regions import calculate_contact_priority
+from src.advanced_deduplication import AdvancedContactDeduplicator
+from src.postprocessing import PostProcessor
 
 # Загружаем переменные окружения
 load_dotenv()
@@ -292,7 +292,10 @@ class IntegratedLLMProcessor:
                 contacts_to_process = llm_result.get('contacts', [])
                 for contact in contacts_to_process:
                     if contact and isinstance(contact, dict):
-                        business_context = llm_result.get('business_context', {}) or {}
+                        business_context = llm_result.get('business_context', {})
+                        # Проверяем что business_context это словарь, а не строка
+                        if not isinstance(business_context, dict):
+                            business_context = {}
                         priority_info = calculate_contact_priority(contact, business_context)
                         contact['priority'] = priority_info
             
@@ -340,7 +343,9 @@ class IntegratedLLMProcessor:
                     priority = contact.get('priority', {})
                     conf = contact.get('confidence', 0)
                     org_id = contact.get('organization_id', 'N/A')
-                    print(f"      • {contact.get('name', 'N/A')} (org_id: {org_id}, confidence: {conf}, приоритет: {priority.get('level', 'N/A')})")
+                    # Безопасное получение уровня приоритета
+                    priority_level = priority.get('level', 'N/A') if isinstance(priority, dict) else str(priority)
+                    print(f"      • {contact.get('name', 'N/A')} (org_id: {org_id}, confidence: {conf}, приоритет: {priority_level})")
             else:
                 print(f"   👤 Контакты не найдены")
             

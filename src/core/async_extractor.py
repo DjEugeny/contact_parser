@@ -301,11 +301,35 @@ class AsyncContactExtractor:
 
     async def _load_prompt_async(self, filename: str) -> str:
         """
-        📝 Асинхронная загрузка промпта
+        📝 Асинхронная загрузка промпта с поддержкой версионирования
+        
+        Если filename = "unified_contact_extraction_structured.txt", 
+        использует систему версионирования (загружает текущую версию из version.json).
+        Для других промптов - загружает напрямую.
         """
+        # Проверяем кэш
         if filename in self._prompt_cache:
             return self._prompt_cache[filename]
         
+        # Для unified промпта используем систему версионирования
+        if filename == "unified_contact_extraction_structured.txt":
+            try:
+                from src.utils.prompt_loader import load_prompt as load_versioned_prompt
+                loop = asyncio.get_event_loop()
+                content = await loop.run_in_executor(
+                    None,
+                    load_versioned_prompt  # Загружает текущую версию из version.json
+                )
+                self._prompt_cache[filename] = content
+                return content
+            except Exception as e:
+                # Fallback на старый метод если версионирование не работает
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.warning(f"⚠️ Ошибка загрузки версионированного промпта: {e}")
+                logger.warning("⚠️ Используется fallback на прямую загрузку файла")
+        
+        # Для других промптов или fallback - загружаем напрямую
         prompts_dir = self.config.prompts_dir or Path(__file__).parent.parent.parent / "prompts"
         prompt_path = prompts_dir / filename
         
@@ -358,8 +382,27 @@ class AsyncContactExtractor:
 }}"""
     
     def load_prompt(self, filename: str) -> str:
-        """📝 Синхронная загрузка промпта из файла (для совместимости)"""
+        """
+        📝 Синхронная загрузка промпта с поддержкой версионирования
+        
+        Если filename = "unified_contact_extraction_structured.txt", 
+        использует систему версионирования (загружает текущую версию из version.json).
+        Для других промптов - загружает напрямую.
+        """
         try:
+            # Для unified промпта используем систему версионирования
+            if filename == "unified_contact_extraction_structured.txt":
+                try:
+                    from src.utils.prompt_loader import load_prompt as load_versioned_prompt
+                    return load_versioned_prompt()  # Загружает текущую версию из version.json
+                except Exception as e:
+                    # Fallback на старый метод если версионирование не работает
+                    import logging
+                    logger = logging.getLogger(__name__)
+                    logger.warning(f"⚠️ Ошибка загрузки версионированного промпта: {e}")
+                    logger.warning("⚠️ Используется fallback на прямую загрузку файла")
+            
+            # Для других промптов или fallback - загружаем напрямую
             prompts_dir = self.config.prompts_dir or Path(__file__).parent.parent.parent / "prompts"
             prompt_path = prompts_dir / filename
             

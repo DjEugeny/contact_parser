@@ -61,11 +61,7 @@ python src/file_tokens.py
 
 ## Структура данных
 
-### Входные данные
-
-- **Письма**: `data/emails/<DATE>/<email_file.json>`
-- **Вложения**: `data/attachments/<DATE>/<attachment_file>`
-- **OCR-результаты**: `data/final_results/texts/<DATE>/<attachment_file.txt>`
+### Входны
 
 ### Выходные данные
 
@@ -112,7 +108,7 @@ HTML-таблица содержит:
 - Подсчёт символов и токенов для тела письма
 
 ### 3. Обработка вложений
-- Поиск OCR-результатов в `data/final_results/texts/`
+- Поиск OCR-результатов в `data/ocr/texts/`
 - Подсчёт символов и токенов для обработанных вложений
 - Отметка необработанных вложений
 
@@ -198,7 +194,7 @@ src/
 data/
 ├── emails/                 # JSON-файлы писем
 ├── attachments/            # Оригинальные вложения
-├── final_results/texts/    # OCR-результаты
+├── ocr/texts/              # OCR-результаты
 ├── file_tokens/            # Генерируемые отчёты
 └── .processed_file_tokens.json  # Кэш обработанных файлов
 ```

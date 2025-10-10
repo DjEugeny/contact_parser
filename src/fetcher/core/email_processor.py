@@ -23,6 +23,7 @@ from typing import Dict, List, Optional, Tuple
 # Импорты из новой архитектуры
 from ..utils.date_utils import get_local_time, parse_email_date, format_email_date_for_log
 from ..utils.email_utils import decode_header_value, parse_recipients, generate_thread_id
+from ..utils.enhanced_text_cleaner import EnhancedTextCleaner
 
 
 class EmailProcessor:
@@ -391,12 +392,21 @@ class EmailProcessor:
             stats["errors"] = stats.get("errors", 0) + 1
             return None
         
-        # Извлекаем текст
+        # Извлекаем текст с использованием EnhancedTextCleaner БЕЗ ОБРЕЗКИ
         try:
             body_text = email_parser.extract_plain_text(msg, include_attachment_data)
             if body_text:
-                body_text = text_cleaner.remove_signatures(body_text)
-                body_text = text_cleaner.extract_meaningful_content(body_text)
+                # Используем EnhancedTextCleaner вместо стандартного
+                enhanced_cleaner = EnhancedTextCleaner(self.logger)
+                
+                # Очищаем текст БЕЗ ОБРЕЗКИ
+                clean_result = enhanced_cleaner.clean_email_body_full(body_text)
+                body_text = clean_result['cleaned_text']
+                
+                # Логируем результат очистки
+                self.logger.info(f"📝 Текст письма обработан: {clean_result['original_length']} → {clean_result['final_length']} символов")
+                self.logger.info(f"   📊 Сокращение: {clean_result['reduction_percent']:.1f}% (БЕЗ ОБРЕЗКИ КОНТАКТОВ)")
+                
         except Exception as e:
             self.logger.warning(f"⚠️ Ошибка извлечения текста: {e}")
             body_text = "[ОШИБКА ИЗВЛЕЧЕНИЯ ТЕКСТА]"

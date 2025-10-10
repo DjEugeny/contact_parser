@@ -36,10 +36,16 @@ class FileTokenCounter:
     с генерацией интерактивного HTML-отчета.
     """
     def __init__(self):
+        # Импортируем централизованные пути
+        from config.paths import DataPaths
+        
+        # Выполняем автомиграцию если необходимо
+        DataPaths.migrate_if_needed()
+        
         self.base_path = Path("data")
         self.emails_path = self.base_path / "emails"
         self.attachments_path = self.base_path / "attachments"
-        self.final_results_path = self.base_path / "final_results" / "texts"
+        self.final_results_path = DataPaths.OCR_TEXTS_DIR
         self.output_path = self.base_path / "file_tokens"
         self.cache_file = self.base_path / ".processed_file_tokens.json"
         
@@ -111,7 +117,7 @@ class FileTokenCounter:
             }
 
     def get_available_dates(self) -> List[str]:
-        """Получает отсортированный список доступных дат из папок emails и final_results/texts."""
+        """Получает отсортированный список доступных дат из папок emails и data/ocr/texts."""
         dates = set()
         
         # Добавляем даты из папки emails
@@ -120,7 +126,7 @@ class FileTokenCounter:
                 if date_folder.is_dir() and not date_folder.name.startswith('.'):
                     dates.add(date_folder.name)
         
-        # Добавляем даты из папки final_results/texts (для случаев, когда есть только OCR-файлы)
+        # Добавляем даты из папки data/ocr/texts (для случаев, когда есть только OCR-файлы)
         if self.final_results_path.exists():
             for date_folder in self.final_results_path.iterdir():
                 if date_folder.is_dir() and not date_folder.name.startswith('.'):
@@ -525,7 +531,7 @@ class FileTokenCounter:
             else:
                 attachments_count = 0
 
-            # Подсчет файлов в final_results (только .txt файлы)
+            # Подсчет файлов в data/ocr (только .txt файлы)
             ocr_dir = self.final_results_path / date
             ocr_count = len(list(ocr_dir.glob("*.txt"))) if ocr_dir.exists() else 0
 

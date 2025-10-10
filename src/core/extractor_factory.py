@@ -138,12 +138,41 @@ class ExtractorFactory:
 
         # Проверка наличия промптов
         prompts_dir = Path(__file__).parent.parent.parent / "prompts"
-        required_prompts = [
-            "unified_contact_extraction_structured.txt",
-            "contact_extraction.txt"
-        ]
-
-        for prompt_file in required_prompts:
+        
+        # Проверка unified промпта с поддержкой версионирования
+        version_file = prompts_dir / "version.json"
+        if version_file.exists():
+            # Если есть version.json, проверяем версионированные промпты
+            try:
+                import json
+                with open(version_file, 'r', encoding='utf-8') as f:
+                    version_data = json.load(f)
+                current_version = version_data.get('current_version')
+                if current_version:
+                    version_info = version_data.get('versions', {}).get(current_version)
+                    if version_info:
+                        prompt_file = version_info.get('file')
+                        if prompt_file:
+                            prompt_path = prompts_dir / prompt_file
+                            if not prompt_path.exists():
+                                issues.append(f"Отсутствует версионированный промпт: {prompt_path}")
+                        else:
+                            issues.append("В version.json не указан файл для текущей версии")
+                    else:
+                        issues.append(f"Версия {current_version} не найдена в version.json")
+                else:
+                    issues.append("В version.json не указана current_version")
+            except Exception as e:
+                issues.append(f"Ошибка чтения version.json: {e}")
+        else:
+            # Fallback: проверяем старый файл
+            prompt_path = prompts_dir / "unified_contact_extraction_structured.txt"
+            if not prompt_path.exists():
+                issues.append(f"Отсутствует промпт: {prompt_path} (и нет version.json)")
+        
+        # Проверка других промптов
+        other_prompts = ["contact_extraction.txt"]
+        for prompt_file in other_prompts:
             prompt_path = prompts_dir / prompt_file
             if not prompt_path.exists():
                 issues.append(f"Отсутствует промпт: {prompt_path}")

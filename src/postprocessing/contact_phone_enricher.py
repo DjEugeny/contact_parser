@@ -587,10 +587,25 @@ class ContactPhoneEnricher:
         # Получаем normalized номер нового телефона
         new_normalized = new_phone.get("normalized")
 
-        # Если нет normalized, не можем проверить дубликат (Requirement 8.4)
+        # Если нет normalized, анализируем причину
         if not new_normalized:
+            phone_number = new_phone.get("number") or new_phone.get("original", "")
+            
+            # Проверяем длину номера - если слишком короткий (< 7 цифр), это невалидный номер
+            digits_only = ''.join(filter(str.isdigit, phone_number))
+            if len(digits_only) < 7:
+                self.logger.info(
+                    f"  ⚠️ Невалидный телефон (неполный номер без кода): {phone_number} "
+                    f"({len(digits_only)} цифр, требуется минимум 7)"
+                )
+                result["is_duplicate"] = True
+                result["reason"] = "invalid_phone_incomplete"
+                return result
+            
+            # Для номеров с достаточным количеством цифр - это ошибка нормализации
             self.logger.warning(
-                f"  ⚠️ Телефон без normalized поля: {new_phone.get('number', 'unknown')}"
+                f"  ⚠️ Телефон без normalized поля (ошибка нормализации): {phone_number} "
+                f"({len(digits_only)} цифр)"
             )
             result["is_duplicate"] = True
             result["reason"] = "no_normalized_field"

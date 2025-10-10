@@ -6,7 +6,7 @@
 
 УПРОЩЕННАЯ ЛОГИКА:
 1. Берем ВСЕ вложения из конкретного письма
-2. Ищем для них OCR-тексты в data/final_results/texts/YYYY-MM-DD/
+2. Ищем для них OCR-тексты в data/ocr/texts/YYYY-MM-DD/
 3. Анализируем ВСЕ найденные тексты на предмет организаций и их локации
 4. Обогащаем данные из любых найденных источников
 
@@ -14,7 +14,7 @@
 
 Author: Contact Parser Team
 Created: 2025-09-29
-Updated: 2025-10-05 - упрощена логика
+Updated: 2025-10-10 - миграция на data/ocr
 """
 
 import re
@@ -98,7 +98,7 @@ class AttachmentEvidenceExtractor:
         
         УПРОЩЕННАЯ ЛОГИКА:
         1. Берем ВСЕ вложения из письма
-        2. Ищем для них OCR-тексты в data/final_results/texts/YYYY-MM-DD/
+        2. Ищем для них OCR-тексты в data/ocr/texts/YYYY-MM-DD/
         3. Анализируем ВСЕ найденные тексты на предмет организаций и их локации
         4. Обогащаем данные из любых найденных источников
         
@@ -207,11 +207,14 @@ class AttachmentEvidenceExtractor:
             # Извлекаем дату из пути или имени файла
             if 'attachments' in file_path and '2025-' in file_path:
                 # Извлекаем дату из пути: .../2025-07-29/...
+                from config.paths import DataPaths
+                DataPaths.migrate_if_needed()
+                
                 parts = file_path.split('/')
                 for part in parts:
                     if part.startswith('2025-'):
                         date_folder = part
-                        ocr_text_path = Path(f"data/final_results/texts/{date_folder}/{txt_filename}")
+                        ocr_text_path = DataPaths.get_ocr_text_path(date_folder, txt_filename)
                         if ocr_text_path.exists():
                             with open(ocr_text_path, 'r', encoding='utf-8') as f:
                                 content = f.read()
@@ -281,10 +284,13 @@ class AttachmentEvidenceExtractor:
             # Ищем в актуальной папке с OCR-текстами
             # Извлекаем дату из имени файла (формат: 20250729_...)
             if filename.startswith('202'):
+                from config.paths import DataPaths
+                DataPaths.migrate_if_needed()
+                
                 date_part = filename[:8]  # 20250729
                 formatted_date = f"{date_part[:4]}-{date_part[4:6]}-{date_part[6:8]}"  # 2025-07-29
                 
-                ocr_text_path = Path(f"data/final_results/texts/{formatted_date}/{filename}")
+                ocr_text_path = DataPaths.get_ocr_text_path(formatted_date, filename)
                 if ocr_text_path.exists():
                     with open(ocr_text_path, 'r', encoding='utf-8') as f:
                         content = f.read()

@@ -75,26 +75,56 @@ class OrganizationINNResolver:
         """Инициализация провайдеров для поиска ИНН"""
         providers = {}
         
+        self.logger.info("🔧 Инициализация провайдеров для поиска ИНН...")
+        
         # DaData провайдер
         dadata_config = self.config.get('providers', {}).get('dadata', {})
+        
+        # Детальное логирование конфигурации DaData
+        self.logger.info(f"   DaData конфигурация:")
+        self.logger.info(f"   - enabled: {dadata_config.get('enabled', False)}")
+        
         if dadata_config.get('enabled', False):
             api_key = dadata_config.get('api_key')
             secret_key = dadata_config.get('secret_key')
+            timeout_ms = dadata_config.get('timeout_ms', 3000)
+            
+            # Логирование статуса ключей
+            self.logger.info(f"   - api_key: {'✅ Установлен' if api_key else '❌ Не установлен'}")
+            self.logger.info(f"   - secret_key: {'✅ Установлен' if secret_key else '⚠️  Не установлен (опционально)'}")
+            self.logger.info(f"   - timeout_ms: {timeout_ms}")
+            
             if api_key:
                 try:
                     from .dadata_provider import DaDataProviderAdapter
                     providers['dadata'] = DaDataProviderAdapter(
                         api_key=api_key,
                         secret_key=secret_key,
-                        timeout_ms=dadata_config.get('timeout_ms', 3000)
+                        timeout_ms=timeout_ms
                     )
-                    self.logger.info("✅ DaData provider initialized")
+                    self.logger.info("   ✅ DaData provider успешно инициализирован")
+                    
+                    # Получение информации об API
+                    api_info = providers['dadata'].get_api_info()
+                    self.logger.info(f"   - base_url: {api_info.get('base_url')}")
+                    
                 except Exception as e:
-                    self.logger.error(f"❌ Failed to initialize DaData provider: {e}")
+                    self.logger.error(f"   ❌ Ошибка инициализации DaData provider: {e}")
+                    import traceback
+                    self.logger.debug(traceback.format_exc())
             else:
-                self.logger.warning("⚠️ DaData enabled but no API key provided")
+                self.logger.warning("   ⚠️  DaData включен, но API ключ не предоставлен")
+                self.logger.warning("   💡 Проверьте переменную окружения DADATA_API_KEY в .env файле")
+        else:
+            self.logger.info("   ⏸️  DaData отключен в конфигурации")
         
         # TODO: Добавить другие провайдеры (ФНС, Rusprofile)
+        
+        # Итоговая статистика
+        if providers:
+            self.logger.info(f"✅ Инициализировано провайдеров: {len(providers)} ({', '.join(providers.keys())})")
+        else:
+            self.logger.warning("⚠️  Не инициализировано ни одного провайдера для поиска ИНН")
         
         return providers
     

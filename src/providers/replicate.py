@@ -58,6 +58,13 @@ class ReplicateProvider(BaseProvider):
             'invalid model', 'model error'
         ])
         
+        # Отслеживаем использование модели (неуспешное)
+        self.config_manager.models_manager.track_model_usage(
+            'replicate',
+            self.config.model,
+            success=False
+        )
+        
         # Сообщаем об ошибке в ModelsManager
         switched = self.config_manager.models_manager.report_error('replicate', error_message)
         
@@ -261,9 +268,15 @@ class ReplicateProvider(BaseProvider):
 
                 self.record_success(response_time, int(tokens_used))
                 
-                # Сброс на первую модель после успешного запроса
+                # Отслеживаем использование модели для статистики
                 if self.config_manager and hasattr(self.config_manager, 'models_manager'):
                     if self.config_manager.models_manager:
+                        self.config_manager.models_manager.track_model_usage(
+                            'replicate',
+                            self.config.model,
+                            success=True
+                        )
+                        # Сброс на первую модель после успешного запроса
                         self.config_manager.models_manager.reset_to_first_model('replicate')
 
                 return {

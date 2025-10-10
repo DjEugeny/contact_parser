@@ -159,31 +159,26 @@ class ContactExtractor:
             return result
     def load_prompt(self, filename: str) -> str:
         """
-        📝 Загрузка промпта с многоуровневым кэшированием через ResultCache
-
-        Использует новую систему кеширования результатов
-        """
-        # ВРЕМЕННО ОТКЛЮЧЕНО: 🚀 Проверяем кеш результатов
-        # cached_prompt = self.result_cache.get_prompt(filename)
-        # if cached_prompt:
-        #     return cached_prompt
-
-        # ВРЕМЕННО ОТКЛЮЧЕНО: 🚀 Сначала пробуем новый кэш (Фаза 6)
-        # cached_prompt = self.cache.get_prompt(filename)
-        # if cached_prompt:
-        #     # Кешируем в новой системе
-        #     self.result_cache.cache_prompt(filename, cached_prompt)
-        #     return cached_prompt
-
-        # ВРЕМЕННО ОТКЛЮЧЕНО: 🔄 Fallback на старый метод (для совместимости)
-        # if filename in self._prompt_cache:
-        #     prompt = self._prompt_cache[filename]
-        #     # Кешируем в новой системе
-        #     self.result_cache.cache_prompt(filename, prompt)
-        #     return prompt
+        📝 Загрузка промпта с поддержкой версионирования
         
-        # Загружаем промпт с диска (кэширование отключено)
-
+        Если filename = "unified_contact_extraction_structured.txt", 
+        использует систему версионирования (загружает текущую версию из version.json).
+        Для других промптов - загружает напрямую.
+        """
+        # Для unified промпта используем систему версионирования
+        if filename == "unified_contact_extraction_structured.txt":
+            try:
+                from src.utils.prompt_loader import load_prompt as load_versioned_prompt
+                prompt = load_versioned_prompt()  # Загружает текущую версию из version.json
+                return prompt
+            except Exception as e:
+                # Fallback на старый метод если версионирование не работает
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.warning(f"⚠️ Ошибка загрузки версионированного промпта: {e}")
+                logger.warning("⚠️ Используется fallback на прямую загрузку файла")
+        
+        # Для других промптов или fallback - загружаем напрямую
         prompts_dir = self.config.prompts_dir or Path(__file__).parent.parent.parent / "prompts"
         prompt_path = prompts_dir / filename
 
@@ -192,14 +187,7 @@ class ContactExtractor:
 
         with open(prompt_path, 'r', encoding='utf-8') as f:
             prompt = f.read().strip()
-
-        # ВРЕМЕННО ОТКЛЮЧЕНО: Кешируем в новой системе
-        # self.result_cache.cache_prompt(filename, prompt)
         
-        # ВРЕМЕННО ОТКЛЮЧЕНО: Кэшируем в старом кэше для совместимости
-        # self._prompt_cache[filename] = prompt
-        
-        # Промпт загружен (кэширование отключено)
         return prompt
 
     def extract_all_data(self, text: str, metadata: dict = None) -> dict:

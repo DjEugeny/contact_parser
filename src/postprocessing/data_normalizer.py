@@ -594,11 +594,14 @@ class DataNormalizer:
         else:
             phones_iterable = phones_source
 
+        # Извлекаем контекст города для обогащения коротких номеров
+        city_context = organization.get("city")
+
         normalized_phones: List[Dict[str, Any]] = []
         seen: set[Tuple[str, Optional[str]]] = set()
 
         for entry in phones_iterable:
-            for phone_record in self._normalize_phone_entry(entry):
+            for phone_record in self._normalize_phone_entry(entry, city_context=city_context):
                 normalized_value = phone_record.get(
                     "normalized"
                 ) or self._ensure_plus_format(phone_record.get("number", ""))
@@ -614,8 +617,17 @@ class DataNormalizer:
         organization.pop("phone", None)
         return organization
 
-    def _normalize_phone_entry(self, entry: Any) -> List[Dict[str, Any]]:
-        """Нормализация одного телефонного входа с использованием нового PhoneNormalizer.normalize_phone_to_object"""
+    def _normalize_phone_entry(self, entry: Any, city_context: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        Нормализация одного телефонного входа с использованием нового PhoneNormalizer.normalize_phone_to_object
+        
+        Args:
+            entry: Телефонный вход для нормализации
+            city_context: Опциональный контекст города для обогащения коротких номеров
+            
+        Returns:
+            List[Dict]: Список нормализованных телефонных объектов
+        """
         if entry is None:
             return []
 
@@ -707,7 +719,7 @@ class DataNormalizer:
         if self.phone_normalizer_available:
             try:
                 normalized_phones = self.phone_normalizer.normalize_phone_to_object(
-                    raw_phone
+                    raw_phone, city_context=city_context
                 )
 
                 # Обогащаем результат метаданными
@@ -873,6 +885,9 @@ class DataNormalizer:
         Returns:
             Dict: Контакт с нормализованными телефонами
         """
+        # Извлекаем контекст города для обогащения коротких номеров
+        city_context = contact.get("city")
+        
         # Обработка нового формата phones[]
         if "phones" in contact and contact["phones"]:
             normalized_phones = []
@@ -880,7 +895,7 @@ class DataNormalizer:
             for phone_obj in contact["phones"]:
                 # Используем _normalize_phone_entry для единообразной обработки
                 # Это обеспечивает санитизацию и регенерацию UI-формата
-                normalized_results = self._normalize_phone_entry(phone_obj)
+                normalized_results = self._normalize_phone_entry(phone_obj, city_context=city_context)
                 normalized_phones.extend(normalized_results)
 
             contact["phones"] = normalized_phones
@@ -888,7 +903,7 @@ class DataNormalizer:
         # Поддержка старого формата phone (для совместимости)
         elif "phone" in contact and contact["phone"]:
             # Используем _normalize_phone_entry для единообразной обработки
-            normalized_results = self._normalize_phone_entry(contact["phone"])
+            normalized_results = self._normalize_phone_entry(contact["phone"], city_context=city_context)
             if normalized_results:
                 contact["phones"] = normalized_results
                 # Оставляем старое поле для совместимости
