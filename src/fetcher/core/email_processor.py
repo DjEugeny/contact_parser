@@ -23,7 +23,10 @@ from typing import Dict, List, Optional, Tuple
 # Импорты из новой архитектуры
 from ..utils.date_utils import get_local_time, parse_email_date, format_email_date_for_log
 from ..utils.email_utils import decode_header_value, parse_recipients, generate_thread_id
-from ..utils.enhanced_text_cleaner import EnhancedTextCleaner
+from ..utils.enhanced_text_cleaner_with_precleaner import (
+    EnhancedTextCleanerWithPreCleaner,
+    create_text_cleaner,
+)
 
 
 class EmailProcessor:
@@ -35,15 +38,15 @@ class EmailProcessor:
     - Интегрируется с AttachmentRegistry для точного отслеживания
     """
     
-    def __init__(self, logger: logging.Logger):
-        """
-        Инициализация обработчика писем.
-        
-        Args:
-            logger: Экземпляр логгера
-        """
+    def __init__(
+        self,
+        logger: logging.Logger,
+        text_cleaner: Optional[EnhancedTextCleanerWithPreCleaner] = None,
+    ):
+        """🛠️ Подготавливает обработчик писем нового конвейера."""
         self.logger = logger
         self.logger.info("📧 EmailProcessor инициализирован")
+        self.text_cleaner = text_cleaner or create_text_cleaner(logger, enable_precleaner=True)
     
     def process_email(
         self,
@@ -81,41 +84,66 @@ class EmailProcessor:
             self.logger.error("❌ Отсутствуют необходимые компоненты для обработки письма")
             return None
         
-        self.logger.info("_" * 70)
         stats["processed"] = stats.get("processed", 0) + 1
-        
+        self.logger.info("=" * 70)
+
         try:
-            # ШАГ 1: Получаем заголовки
+            # ШАГ 1: Заголовки
             headers_msg = self._get_email_headers(msg_id, connection_manager)
             if not headers_msg:
                 self.logger.error("❌ Не удалось загрузить заголовки")
                 stats["errors"] = stats.get("errors", 0) + 1
+                self.logger.info("=" * 70)
                 return None
-            
-            # ШАГ 2: Извлекаем базовую информацию из заголовков
+
+            # ШАГ 2: Базовая информация
             email_info = self._extract_header_info(headers_msg, date_str)
-            
-            # ШАГ 3: Проверяем сценарий обработки
+            email_info["email_num_in_day"] = email_num_in_day
+            email_info["total_emails_in_day"] = total_emails_in_day
+
+            filename_preview = (
+                f"email_{email_num_in_day:03d}_"
+                f"{email_info['date_folder'].replace('-', '')}_"
+                f"{email_info['thread_id']}"
+            )
+
+            self.logger.info(
+                "📧 ПИСЬМО %d/%d: %s.json",
+                email_num_in_day,
+                total_emails_in_day,
+                filename_preview,
+            )
+            self.logger.info("   От: %s", email_info["from"])
+            self.logger.info("   Тема: %s", email_info["subject"])
+            self.logger.info("   Message-ID: %s", email_info["message_id"])
+
+            # ШАГ 3: Сценарий
             processing_scenario = self._get_processing_scenario(
-                email_info["message_id"], 
+                email_info["message_id"],
                 email_info["date_folder"],
                 attachment_registry,
-                email_storage
+                email_storage,
             )
-            
-            # ШАГ 4: Применяем фильтры
-            if not self._apply_filters(email_info, filters, stats):
+
+            # ШАГ 4: Фильтры
+            filter_ok, filter_reason = self._apply_filters(email_info, filters, stats)
+            if not filter_ok:
+                self.logger.info("🚫 ПИСЬМО ПРОПУЩЕНО: %s", filter_reason)
+                self.logger.info("=" * 70)
                 return None
-            
-            # ШАГ 5: Проверяем размер письма
+
+            # ШАГ 5: Проверка размера
             email_size = self._check_email_size(msg_id, connection_manager)
             if email_size and email_size > 100_000_000:  # 100MB
-                self.logger.warning(f"⚠️ Очень большое письмо ({email_size} байт), пропускаем")
+                self.logger.warning(
+                    f"⚠️ Очень большое письмо ({email_size} байт), пропускаем"
+                )
                 stats["skipped_large_emails"] = stats.get("skipped_large_emails", 0) + 1
+                self.logger.info("=" * 70)
                 return None
-            
-            # ШАГ 6: Обрабатываем письмо в зависимости от сценария
-            email_data = self._process_by_scenario(
+
+            # ШАГ 6: Основная обработка
+            return self._process_by_scenario(
                 processing_scenario,
                 msg_id,
                 email_info,
@@ -129,15 +157,10 @@ class EmailProcessor:
                 stats
             )
             
-            if email_data:
-                stats["saved"] = stats.get("saved", 0) + 1
-                self._log_processing_result(processing_scenario, email_info)
-            
-            return email_data
-            
         except Exception as e:
             self.logger.error(f"❌ КРИТИЧЕСКАЯ ОШИБКА обработки письма: {e}")
             stats["errors"] = stats.get("errors", 0) + 1
+            self.logger.info("=" * 70)
             return None
     
     def _get_email_headers(self, msg_id: bytes, connection_manager) -> Optional[email.message.Message]:
@@ -293,21 +316,21 @@ class EmailProcessor:
         else:
             return "download_all"  # Ничего нет - загрузить всё
     
-    def _apply_filters(self, email_info: Dict, filters, stats: Dict) -> bool:
+    def _apply_filters(self, email_info: Dict, filters, stats: Dict) -> Tuple[bool, Optional[str]]:
         """Применение фильтров к письму."""
         # Фильтр по теме
         subject_filter = filters.is_subject_filtered(email_info["subject"])
         if subject_filter:
             self.logger.info(f"🚫 ИСКЛЮЧЕНО ПО ТЕМЕ: {subject_filter}")
             stats["filtered_subject"] = stats.get("filtered_subject", 0) + 1
-            return False
+            return False, subject_filter
         
         # Фильтр по черному списку
         blacklist_filter = filters.is_sender_blacklisted(email_info["from"])
         if blacklist_filter:
             self.logger.info(f"🚫 ИСКЛЮЧЕНО ПО АДРЕСУ: {blacklist_filter}")
             stats["filtered_blacklist"] = stats.get("filtered_blacklist", 0) + 1
-            return False
+            return False, blacklist_filter
         
         # Фильтр массовых рассылок
         mass_mailing_filter = filters.is_internal_mass_mailing(
@@ -318,9 +341,9 @@ class EmailProcessor:
         if mass_mailing_filter:
             self.logger.info(f"🚫 ИСКЛЮЧЕНО ПО РАССЫЛКЕ: {mass_mailing_filter}")
             stats["filtered_mass_mailing"] = stats.get("filtered_mass_mailing", 0) + 1
-            return False
+            return False, mass_mailing_filter
         
-        return True
+        return True, None
     
     def _check_email_size(self, msg_id: bytes, connection_manager) -> Optional[int]:
         """Проверка размера письма."""
@@ -352,29 +375,24 @@ class EmailProcessor:
     ) -> Optional[Dict]:
         """Обработка письма в зависимости от сценария."""
         
-        self.logger.info(
-            f"🔍 ОБРАБОТКА ПИСЬМА, {email_info['email_date_formatted']}"
-        )
-        self.logger.info(f"📧 От: {email_info['from']}")
-        self.logger.info(f"   Тема: {email_info['subject'][:100]}...")
-        self.logger.info(f"   Message-ID: {email_info['message_id']}")
-        
         if scenario == "skip_all":
             self.logger.info("📁 ✅ ПИСЬМО УЖЕ ПОЛНОСТЬЮ ОБРАБОТАНО")
             stats["already_exists"] = stats.get("already_exists", 0) + 1
+            self.logger.info("=" * 70)
             return None
         elif scenario == "download_attachments":
-            self.logger.info("📎 ⬇️ ЗАГРУЖАЕМ ТОЛЬКО НЕДОСТАЮЩИЕ ВЛОЖЕНИЯ")
+            self.logger.info("📎 ⬇️ РЕЖИМ: только недостающие вложения")
         elif scenario == "download_json":
-            self.logger.info("📄 ЗАГРУЖАЕМ ТОЛЬКО JSON")
+            self.logger.info("📄 РЕЖИМ: только JSON")
         else:  # download_all
-            self.logger.info("📧📎 ⬇️ ЗАГРУЖАЕМ ВСЁ (JSON + вложения)")
+            self.logger.info("📧📎 ⬇️ РЕЖИМ: JSON + вложения")
         
         # Получаем полное письмо
         fetch_data = connection_manager.safe_fetch(msg_id)
         if not fetch_data:
             self.logger.error("❌ Не удалось загрузить письмо")
             stats["errors"] = stats.get("errors", 0) + 1
+            self.logger.info("=" * 70)
             return None
         
         # Извлекаем сырые данные
@@ -382,6 +400,7 @@ class EmailProcessor:
         if not raw_email:
             self.logger.error("❌ Не удалось извлечь сырой email")
             stats["errors"] = stats.get("errors", 0) + 1
+            self.logger.info("=" * 70)
             return None
         
         # Парсим письмо
@@ -390,26 +409,120 @@ class EmailProcessor:
         except Exception as e:
             self.logger.error(f"❌ Ошибка парсинга email: {e}")
             stats["errors"] = stats.get("errors", 0) + 1
+            self.logger.info("=" * 70)
             return None
         
-        # Извлекаем текст с использованием EnhancedTextCleaner БЕЗ ОБРЕЗКИ
+        # Извлекаем текст с использованием EnhancedTextCleanerWithPreCleaner БЕЗ ОБРЕЗКИ
         try:
             body_text = email_parser.extract_plain_text(msg, include_attachment_data)
             if body_text:
-                # Используем EnhancedTextCleaner вместо стандартного
-                enhanced_cleaner = EnhancedTextCleaner(self.logger)
-                
-                # Очищаем текст БЕЗ ОБРЕЗКИ
-                clean_result = enhanced_cleaner.clean_email_body_full(body_text)
-                body_text = clean_result['cleaned_text']
+                clean_result = self.text_cleaner.clean_email_body_full(
+                    body_text,
+                    thread_id=email_info["thread_id"],
+                    sender_email=email_info.get("from", ""),
+                )
+                cleaned_text = clean_result["cleaned_text"]
                 
                 # Логируем результат очистки
-                self.logger.info(f"📝 Текст письма обработан: {clean_result['original_length']} → {clean_result['final_length']} символов")
-                self.logger.info(f"   📊 Сокращение: {clean_result['reduction_percent']:.1f}% (БЕЗ ОБРЕЗКИ КОНТАКТОВ)")
+                self.logger.info(
+                    "📝 Текст письма обработан: %d → %d символов",
+                    clean_result["original_length"],
+                    clean_result["final_length"],
+                )
+                self.logger.info(
+                    "   📊 Сокращение: %.1f%%",
+                    clean_result["reduction_percent"],
+                )
+                if clean_result.get("precleaner_enabled"):
+                    self.logger.info("   🧼 PreCleaner активен")
+                else:
+                    self.logger.info("   🧼 PreCleaner отключен — используется базовая очистка")
+                
+                email_data = {
+                    "thread_id": email_info["thread_id"],
+                    "message_id": email_info["message_id"],
+                    "email_num_in_day": email_info.get("email_num_in_day", 1),
+                    "total_emails_in_day": email_info.get(
+                        "total_emails_in_day", 1
+                    ),
+                    "from": email_info["from"],
+                    "to": email_info["to"],
+                    "cc": email_info["cc"],
+                    "to_emails": email_info["to_emails"],
+                    "cc_emails": email_info["cc_emails"],
+                    "subject": email_info["subject"],
+                    "date": email_info["date"],
+                    "parsed_date": parse_email_date(email_info["date"]).isoformat()
+                    if email_info["date"]
+                    else None,
+                    "body_raw": body_text,
+                    "body_clean": cleaned_text,
+                    "char_count": len(cleaned_text),
+                    "attachments": [],  # временно, будет заполнено ниже
+                    "attachments_stats": {},
+                    "processed_at": get_local_time().isoformat(),
+                    "raw_size": len(raw_email),
+                    "date_folder": email_info["date_folder"],
+                }
+
+                body_text = cleaned_text
+            else:
+                email_data = {
+                    "thread_id": email_info["thread_id"],
+                    "message_id": email_info["message_id"],
+                    "email_num_in_day": email_info.get("email_num_in_day", 1),
+                    "total_emails_in_day": email_info.get(
+                        "total_emails_in_day", 1
+                    ),
+                    "from": email_info["from"],
+                    "to": email_info["to"],
+                    "cc": email_info["cc"],
+                    "to_emails": email_info["to_emails"],
+                    "cc_emails": email_info["cc_emails"],
+                    "subject": email_info["subject"],
+                    "date": email_info["date"],
+                    "parsed_date": parse_email_date(email_info["date"]).isoformat()
+                    if email_info["date"]
+                    else None,
+                    "body_raw": "",
+                    "body_clean": "",
+                    "char_count": 0,
+                    "attachments": [],
+                    "attachments_stats": {},
+                    "processed_at": get_local_time().isoformat(),
+                    "raw_size": len(raw_email),
+                    "date_folder": email_info["date_folder"],
+                }
                 
         except Exception as e:
             self.logger.warning(f"⚠️ Ошибка извлечения текста: {e}")
             body_text = "[ОШИБКА ИЗВЛЕЧЕНИЯ ТЕКСТА]"
+            email_data = {
+                "thread_id": email_info["thread_id"],
+                "message_id": email_info["message_id"],
+                "email_num_in_day": email_info.get("email_num_in_day", 1),
+                "total_emails_in_day": email_info.get(
+                    "total_emails_in_day", 1
+                ),
+                "from": email_info["from"],
+                "to": email_info["to"],
+                "cc": email_info["cc"],
+                "to_emails": email_info["to_emails"],
+                "cc_emails": email_info["cc_emails"],
+                "subject": email_info["subject"],
+                "date": email_info["date"],
+                "parsed_date": parse_email_date(email_info["date"]).isoformat()
+                if email_info["date"]
+                else None,
+                "body_raw": body_text,
+                "body_clean": body_text,
+                "char_count": len(body_text),
+                "attachments": [],
+                "attachments_stats": {},
+                "processed_at": get_local_time().isoformat(),
+                "raw_size": len(raw_email),
+                "date_folder": email_info["date_folder"],
+            }
         
         # Обрабатываем вложения
         attachments = []
@@ -432,35 +545,32 @@ class EmailProcessor:
                 email_info["thread_id"],
                 email_info["date_folder"],
                 attachment_registry,
-                stats
+                stats,
             )
         
         # Собираем данные письма
-        email_data = {
-            "thread_id": email_info["thread_id"],
-            "message_id": email_info["message_id"],
-            "from": email_info["from"],
-            "to": email_info["to"],
-            "cc": email_info["cc"],
-            "to_emails": email_info["to_emails"],
-            "cc_emails": email_info["cc_emails"],
-            "subject": email_info["subject"],
-            "date": email_info["date"],
-            "parsed_date": parse_email_date(email_info["date"]).isoformat() if email_info["date"] else None,
-            "body": body_text,
-            "char_count": len(body_text),
-            "attachments": attachments,
-            "attachments_stats": attachments_stats,
-            "processed_at": get_local_time().isoformat(),
-            "raw_size": len(raw_email),
-            "date_folder": email_info["date_folder"],
-        }
-        
+        email_data["attachments"] = attachments
+        email_data["attachments_stats"] = attachments_stats
+        email_data["char_count"] = len(email_data.get("body_clean", ""))
+
         # Сохраняем результаты
         saved = self._save_email_data(email_data, scenario, email_storage, attachment_registry)
         
         if saved:
+            stats["saved"] = stats.get("saved", 0) + 1
+            
+            # Обновляем общую статистику вложений
+            stats["saved_attachments"] = stats.get("saved_attachments", 0) + attachments_stats["saved"]
+            stats["saved_inline_images"] = stats.get("saved_inline_images", 0) + attachments_stats["inline_images"]
+            stats["excluded_attachments"] = stats.get("excluded_attachments", 0) + attachments_stats["excluded"]
+            stats["excluded_filenames"] = stats.get("excluded_filenames", 0) + attachments_stats["excluded_filenames"]
+            stats["excluded_by_size"] = stats.get("excluded_by_size", 0) + attachments_stats["excluded_by_size"]
+            stats["excluded_by_image_dimensions"] = stats.get("excluded_by_image_dimensions", 0) + attachments_stats["excluded_by_image_dimensions"]
+            stats["unsupported_attachments"] = stats.get("unsupported_attachments", 0) + attachments_stats["unsupported"]
+            
             self._log_attachments_stats(attachments_stats)
+            self.logger.info("✅ ПИСЬМО ПОЛНОСТЬЮ СОХРАНЕНО")
+        self.logger.info("=" * 70)
         
         return email_data if saved else None
     
@@ -472,7 +582,8 @@ class EmailProcessor:
         thread_id: str,
         date_folder: str,
         attachment_registry,
-        stats: Dict
+        stats: Dict,
+        **kwargs
     ) -> Tuple[List[Dict], Dict]:
         """Обработка вложений с использованием message_id."""
         attachments = []
@@ -535,23 +646,38 @@ class EmailProcessor:
                             if attachment_info:
                                 attachments.append(attachment_info)
                                 status = attachment_info.get("status", "unknown")
+                                filename = attachment_info.get("original_filename", "unknown")
+                                file_size = attachment_info.get("file_size", 0)
                                 
+                                # Детальное логирование каждого вложения
                                 if status == "saved":
                                     attachments_stats["saved"] += 1
                                     if is_inline:
                                         attachments_stats["inline_images"] += 1
+                                        self.logger.info(f"   📎 Вложение СОХРАНЕНО (встроенное): {filename} ({file_size} байт)")
+                                    else:
+                                        self.logger.info(f"   📎 Вложение СОХРАНЕНО: {filename} ({file_size} байт)")
                                 elif status == "already_exists":
                                     attachments_stats["saved"] += 1
+                                    self.logger.info(f"   📎 Вложение УЖЕ СУЩЕСТВУЕТ: {filename} ({file_size} байт)")
                                 elif status in ["excluded", "excluded_by_filter", "excluded_inline_image"]:
                                     attachments_stats["excluded"] += 1
+                                    reason = "встроенное изображение" if is_inline else "фильтр"
+                                    self.logger.info(f"   🚫 Вложение ОТБРОШЕНО ({reason}): {filename} ({file_size} байт)")
                                 elif status == "excluded_filename":
                                     attachments_stats["excluded_filenames"] += 1
+                                    self.logger.info(f"   📝 Вложение ОТБРОШЕНО (имя файла): {filename} ({file_size} байт)")
                                 elif status == "excluded_by_size":
                                     attachments_stats["excluded_by_size"] += 1
+                                    self.logger.info(f"   📏 Вложение ОТБРОШЕНО (размер): {filename} ({file_size} байт)")
                                 elif status == "excluded_by_image_dimensions":
                                     attachments_stats["excluded_by_image_dimensions"] += 1
+                                    self.logger.info(f"   🖼️ Вложение ОТБРОШЕНО (размеры изображения): {filename} ({file_size} байт)")
                                 elif status == "unsupported":
                                     attachments_stats["unsupported"] += 1
+                                    self.logger.info(f"   ⚠️ Вложение НЕ ПОДДЕРЖИВАЕТСЯ: {filename} ({file_size} байт)")
+                                else:
+                                    self.logger.warning(f"   ❌ Неизвестный статус вложения '{status}': {filename} ({file_size} байт)")
                     
                     except Exception as e:
                         self.logger.warning(f"⚠️ Ошибка обработки части {part_num}: {e}")
@@ -604,9 +730,25 @@ class EmailProcessor:
                 if attachments_stats["excluded_by_size"] > 0
                 else ""
             )
-            self.logger.info(
-                f"📎 Вложений: {attachments_stats['saved']}✅ + {attachments_stats['excluded']}🚫 + {attachments_stats['unsupported']}⚠️{inline_info}{filename_excluded}{size_excluded} из {attachments_stats['total']}"
+            dimensions_excluded = (
+                f" + {attachments_stats['excluded_by_image_dimensions']}🖼️"
+                if attachments_stats["excluded_by_image_dimensions"] > 0
+                else ""
             )
+            
+            self.logger.info(
+                f"📎 Вложений: {attachments_stats['saved']}✅ + {attachments_stats['excluded']}🚫 + {attachments_stats['unsupported']}⚠️{inline_info}{filename_excluded}{size_excluded}{dimensions_excluded} из {attachments_stats['total']}"
+            )
+            
+            # Детальная статистика по причинам исключения
+            if attachments_stats["excluded_filenames"] > 0:
+                self.logger.info(f"   📝 Отброшено по имени файла: {attachments_stats['excluded_filenames']}")
+            if attachments_stats["excluded_by_size"] > 0:
+                self.logger.info(f"   📏 Отброшено по размеру: {attachments_stats['excluded_by_size']}")
+            if attachments_stats["excluded_by_image_dimensions"] > 0:
+                self.logger.info(f"   🖼️ Отброшено по размерам изображения: {attachments_stats['excluded_by_image_dimensions']}")
+            if attachments_stats["unsupported"] > 0:
+                self.logger.info(f"   ⚠️ Неподдерживаемых форматов: {attachments_stats['unsupported']}")
     
     def _log_processing_result(self, scenario: str, email_info: Dict):
         """Логирование результата обработки."""

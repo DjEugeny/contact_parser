@@ -17,18 +17,9 @@
 
 ## Документация
 Основной пакет документации находится в папке `memory-bank/mini_crm_prd/`:
-- 01_PRD_OVERVIEW.md — цели и рамки.
-- 02_REQUIREMENTS.md — детальные требования.
-- 07_FRONTEND_UI.md — экраны и UX.
-- 08_MVP_PLAN.md — фазы реализации.
-- 09_PROMPTS_AND_VALIDATION.md — промпт и валидация.
-- 10_GOOGLE_SHEETS_INTERIM.md — временные таблицы.
-- 11_DEDUP_ENRICH_RULES.md — дедуп/маппинг/обогащение.
-- 12_API_PIPELINE_VALIDATOR.md — сквозной тест-раннер.
-- 13_STEP_BY_STEP_PLAN.md — пошаговый план.
-- 14_TECHNICAL_SPECIFICATION.md — архитектурный дизайн, стек, схема БД, API, конвейер.
+- 00_README.md — карта файлов описания проекта.
 
-Рабочие исходники: `advanced_email_fetcher.py`, `ocr_processor.py`, `extractor.py`, `api_pipeline_validator.py`, `optimized_api_pipeline_validator.py`, `main_new.py` и все файлы в папке src, тесты в папке tests, данные в папке data
+Рабочие исходники: `advanced_email_fetcher.py` - устарел, монолитный модуль, заменён на `src/fetcher/`, `ocr_processor.py`, `extractor.py`, `api_pipeline_validator.py`, `main_new.py` и все файлы в папке src, тесты в папке tests, данные в папке data
 
 ## Обязательные артефакты и отчётность
 - После **каждой важной стадии имплементации** создавай отчёт:

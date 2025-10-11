@@ -1,0 +1,9 @@
+precleaner:
+  max_signature_lines: 5
+  fold_quote_over_chars: 1200
+  fold_on_repeat: true
+  keep_first_signature_per_sender: true
+  keep_first_disclaimer_per_thread: true
+  languages: [ru, en]
+  sig_markers: ["--","—","с уважением","best regards","kind regards"]
+  disclaimer_markers: ["confidentiality notice","настоящее сообщение","this message may contain confidential","unsubscribe","privacy policy"]

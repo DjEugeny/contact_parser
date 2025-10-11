@@ -9,6 +9,7 @@
 - Отчётность и контроль качества перед переключением на полноценный пайплайн (`main_new.py`).
 
 ## 🚀 Основные режимы CLI
+устарело это!!!
 ```bash
 python api_pipeline_validator.py --mode first10
 python api_pipeline_validator.py --mode batch --date 2025-07-29 --count 20

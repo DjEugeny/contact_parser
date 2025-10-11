@@ -18,12 +18,7 @@ quick_start = """# 🚀 Orchids Mini-CRM — Quick Start Guide
 - Переходы между карточками
 
 ❌ **Что нужно исправить:**
-- 4 таблицы пустые (emails, phones, offer_items, interactions)
-- Формы создания не работают
-- Карточка КП не существует
-- Страницы Модерация и Настройки не работают
 - Поиск case-sensitive
-- Нет table view для контактов и организаций
 
 ---
 

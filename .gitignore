@@ -46,6 +46,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 data/
+data_backup_20251010_231603/
 build/
 develop-eggs/
 dist/

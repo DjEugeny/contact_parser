@@ -22,10 +22,28 @@ from ..attachments.attachment_registry import AttachmentRegistry
 from ..storage.email_storage import EmailStorage
 from ..parsers.email_parser import EmailParser
 from ..utils.date_utils import parse_date_flexible, get_local_time
+from ..utils.enhanced_text_cleaner_with_precleaner import (
+    EnhancedTextCleanerWithPreCleaner,
+    create_text_cleaner,
+)
 
-# Импорты конфигурации
-from ...config.paths import DATA_DIR, LOGS_DIR, ensure_config_structure
-from ...text_cleaner import EmailTextCleaner
+# Импорты конфигурации с fallback
+try:
+    from ...config.paths import CONFIG_DIR, DATA_DIR, LOGS_DIR, ensure_config_structure
+except ImportError:
+    # Fallback если модуль конфигурации недоступен
+    from pathlib import Path
+    PROJECT_ROOT = Path(__file__).resolve().parents[3]
+    CONFIG_DIR = PROJECT_ROOT / "config"
+    DATA_DIR = PROJECT_ROOT / "data"
+    LOGS_DIR = PROJECT_ROOT / "data" / "logs"
+    
+    def ensure_config_structure():
+        """Упрощенная версия функции создания структуры директорий"""
+        DATA_DIR.mkdir(parents=True, exist_ok=True)
+        (DATA_DIR / "emails").mkdir(parents=True, exist_ok=True)
+        (DATA_DIR / "attachments").mkdir(parents=True, exist_ok=True)
+        LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 class EmailFetcher:
@@ -40,27 +58,28 @@ class EmailFetcher:
     """
     
     def __init__(self, logger: logging.Logger):
-        """
-        Инициализация EmailFetcher.
-        
-        Args:
-            logger: Экземпляр логгера
-        """
+        """🚀 Инициализирует фасад новой архитектуры email fetcher."""
         self.logger = logger
         
         # Создаем необходимые директории
         ensure_config_structure()
-        
+
         # Инициализация компонентов
         self.connection_manager = ConnectionManager(logger)
-        self.email_processor = EmailProcessor(logger)
+        self.precleaner_config_path = CONFIG_DIR / "precleaner.yaml"
+        enable_precleaner = self.precleaner_config_path.exists()
+        self.text_cleaner: EnhancedTextCleanerWithPreCleaner = create_text_cleaner(
+            logger=logger,
+            enable_precleaner=enable_precleaner,
+            config_path=str(self.precleaner_config_path),
+        )
+        self.email_processor = EmailProcessor(logger, text_cleaner=self.text_cleaner)
         self.attachment_registry = AttachmentRegistry(logger)
         self.email_storage = EmailStorage(logger)
         self.email_parser = EmailParser(logger)
         
         # Фильтры и очиститель текста
         self.filters = EmailFilters(logger)
-        self.text_cleaner = EmailTextCleaner(logger)
         
         # Директории
         self.data_dir = DATA_DIR
@@ -93,6 +112,12 @@ class EmailFetcher:
         
         self.logger.info("🔧 EmailFetcher инициализирован с новой архитектурой")
         self.logger.info("✅ Используется message_id для маппинга вложений")
+        if enable_precleaner:
+            self.logger.info("🧼 PreCleaner активирован (config/precleaner.yaml)")
+        else:
+            self.logger.info(
+                "ℹ️ PreCleaner отключен (config/precleaner.yaml не найден, используется базовый очиститель)"
+            )
     
     def fetch_emails_by_date_range(
         self, start_date: datetime, end_date: datetime
@@ -207,7 +232,7 @@ class EmailFetcher:
         date_display = date.strftime("%Y-%m-%d")
         
         # Получаем список писем за дату
-        msg_ids = self.connection_manager.search_emails(f'(ON "{date_imap}")')
+        msg_ids = self.connection_manager.safe_search(f'(ON "{date_imap}")')
         
         if not msg_ids:
             return []

@@ -268,12 +268,14 @@ class EmailStorage:
         message_id = email_data.get("message_id", "")
         
         # Находим следующий номер
-        existing_files = list(emails_date_dir.glob("email_*.json"))
-        next_num = len(existing_files) + 1
-        
-        # Генерируем имя файла
-        filename = f"email_{next_num:03d}_{date_str}_{thread_id}.json"
-        
+        seq_num = email_data.get("email_num_in_day")
+        if seq_num is not None:
+            filename = f"email_{int(seq_num):03d}_{date_str}_{thread_id}.json"
+        else:
+            existing_files = list(emails_date_dir.glob("email_*.json"))
+            next_num = len(existing_files) + 1
+            filename = f"email_{next_num:03d}_{date_str}_{thread_id}.json"
+
         return filename
     
     def _find_email_by_message_id(self, message_id: str, date_folder: str) -> Optional[Path]:

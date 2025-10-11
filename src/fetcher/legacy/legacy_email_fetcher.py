@@ -11,14 +11,8 @@ from datetime import datetime
 from typing import Dict, List, Optional
 
 from ..core.email_fetcher import EmailFetcher
-from ..core.connection_manager import ConnectionManager
-from ..core.email_processor import EmailProcessor
-from ..filters.email_filters import EmailFilters
-from ..parsers.email_parser import EmailParser
-from ..storage.email_storage import EmailStorage
-from ..attachments.attachment_registry import AttachmentRegistry
-from ...text_cleaner import EmailTextCleaner
-from ...config.paths import ensure_config_structure
+from ..utils.email_utils import generate_thread_id as build_thread_id
+from ...config.paths import CONFIG_DIR, ensure_config_structure
 
 
 class LegacyEmailFetcherV2:
@@ -41,46 +35,28 @@ class LegacyEmailFetcherV2:
         # Создаем папки для данных
         ensure_config_structure()
         
-        # Инициализируем компоненты новой архитектуры
-        self.connection_manager = ConnectionManager(logger)
-        self.email_storage = EmailStorage(logger)
-        self.attachment_registry = AttachmentRegistry(logger)
-        self.email_filters = EmailFilters(logger)
-        self.email_parser = EmailParser(logger)
-        self.text_cleaner = EmailTextCleaner(logger)
-        
         # Создаем основной фасад
-        self.email_fetcher = EmailFetcher(
-            connection_manager=self.connection_manager,
-            email_storage=self.email_storage,
-            attachment_registry=self.attachment_registry,
-            email_filters=self.email_filters,
-            email_parser=self.email_parser,
-            text_cleaner=self.text_cleaner,
-            logger=logger
-        )
-        
-        # Инициализируем обработчик писем
-        self.email_processor = EmailProcessor(
-            connection_manager=self.connection_manager,
-            email_storage=self.email_storage,
-            attachment_registry=self.attachment_registry,
-            email_filters=self.email_filters,
-            email_parser=self.email_parser,
-            text_cleaner=self.text_cleaner,
-            logger=logger
-        )
+        self.email_fetcher = EmailFetcher(logger)
+
+        # Выгружаем компоненты для совместимости со старым кодом
+        self.connection_manager = self.email_fetcher.connection_manager
+        self.email_storage = self.email_fetcher.email_storage
+        self.attachment_registry = self.email_fetcher.attachment_registry
+        self.email_filters = self.email_fetcher.filters
+        self.email_parser = self.email_fetcher.email_parser
+        self.text_cleaner = self.email_fetcher.text_cleaner
+        self.email_processor = self.email_fetcher.email_processor
         
         # Совместимость со старыми атрибутами
         self.stats = self.email_fetcher.stats.copy()
         self.enable_size_logging = False
         
         # Дополнительные атрибуты для совместимости
-        self.data_dir = self.email_storage.data_dir
-        self.emails_dir = self.email_storage.emails_dir
-        self.attachments_dir = self.attachment_registry.attachments_dir
-        self.logs_dir = self.email_storage.data_dir / "logs"
-        self.config_dir = self.email_storage.data_dir.parent / "config"
+        self.data_dir = self.email_fetcher.data_dir
+        self.emails_dir = self.email_fetcher.emails_dir
+        self.attachments_dir = self.email_fetcher.attachments_dir
+        self.logs_dir = self.email_fetcher.logs_dir
+        self.config_dir = CONFIG_DIR
         
         # Фильтры
         self.filters = self.email_filters
@@ -103,7 +79,7 @@ class LegacyEmailFetcherV2:
         """
         Закрытие соединения (совместимый метод).
         """
-        self.connection_manager.disconnect()
+        self.email_fetcher.close()
         self.logger.info("🔐 Соединение закрыто (legacy режим)")
     
     def fetch_emails_by_date_range(
@@ -151,12 +127,19 @@ class LegacyEmailFetcherV2:
             Данные письма или None
         """
         # Используем новый обработчик
-        email_data = self.email_processor.process_single_email(
+        email_data = self.email_processor.process_email(
             msg_id=msg_id,
             date_str=date_str,
             email_num_in_day=email_num_in_day,
             total_emails_in_day=total_emails_in_day,
-            include_attachment_data=include_attachment_data
+            include_attachment_data=include_attachment_data,
+            connection_manager=self.connection_manager,
+            attachment_registry=self.attachment_registry,
+            email_storage=self.email_storage,
+            email_parser=self.email_parser,
+            filters=self.email_filters,
+            text_cleaner=self.text_cleaner,
+            stats=self.stats
         )
         
         # Обновляем статистику для совместимости
@@ -192,7 +175,7 @@ class LegacyEmailFetcherV2:
         Returns:
             Статус обработки
         """
-        return self.email_fetcher.check_email_processing_status(message_id, date_folder)
+        return self.attachment_registry.check_email_processing_status(message_id, date_folder)
     
     def get_processing_scenario(self, message_id: str, date_folder: str) -> str:
         """
@@ -205,7 +188,12 @@ class LegacyEmailFetcherV2:
         Returns:
             Сценарий обработки
         """
-        return self.email_fetcher.get_processing_scenario(message_id, date_folder)
+        return self.email_processor._get_processing_scenario(  # noqa: SLF001 - совместимость
+            message_id,
+            date_folder,
+            self.attachment_registry,
+            self.email_storage,
+        )
     
     def generate_thread_id(self, from_addr: str, subject: str, date: str) -> str:
         """
@@ -219,7 +207,7 @@ class LegacyEmailFetcherV2:
         Returns:
             ID треда
         """
-        return self.email_fetcher.generate_thread_id(from_addr, subject, date)
+        return build_thread_id(from_addr, subject, date)
     
     def get_local_time(self, dt: datetime = None) -> datetime:
         """
@@ -309,6 +297,8 @@ class LegacyEmailFetcherV2:
         thread_id: str,
         date_folder: str,
         is_inline: bool = False,
+        *,
+        message_id: Optional[str] = None,
     ) -> Optional[Dict]:
         """
         Сохранение вложения (совместимый метод).
@@ -318,44 +308,51 @@ class LegacyEmailFetcherV2:
             thread_id: ID треда
             date_folder: Папка даты
             is_inline: Является ли встроенным
+            message_id: Уникальный message-id письма (при наличии)
             
         Returns:
             Информация о вложении
         """
-        # Используем реестр вложений с message_id
-        # Для совместимости передаем thread_id, но реестр будет использовать message_id
+        effective_message_id = (message_id or thread_id or "unknown-message-id")
+        if not message_id:
+            self.logger.warning(
+                "⚠️ message_id не передан в save_attachment_or_inline; fallback на thread_id %s",
+                thread_id,
+            )
+
         return self.attachment_registry.save_attachment(
             part=part,
-            message_id=thread_id,  # Временно используем thread_id для совместимости
+            message_id=effective_message_id,
+            thread_id=thread_id,
             date_folder=date_folder,
-            is_inline=is_inline
+            is_inline=is_inline,
         )
     
     def retry_skipped_emails(self):
         """
         Повторная обработка пропущенных писем (совместимый метод).
         """
-        self.email_fetcher.retry_skipped_emails()
-        self._update_stats_from_fetcher()
-    
+        self.logger.warning("⚠️ retry_skipped_emails пока не поддерживается в новой архитектуре")
+
     def list_dead_letters(self):
         """
         Просмотр писем в мертвой очереди (совместимый метод).
         """
-        return self.email_fetcher.list_dead_letters()
-    
+        self.logger.warning("⚠️ list_dead_letters пока не поддерживается в новой архитектуре")
+        return []
+
     def clear_dead_letters(self):
         """
         Очистка мертвой очереди (совместимый метод).
         """
-        self.email_fetcher.clear_dead_letters()
-    
+        self.logger.warning("⚠️ clear_dead_letters пока не поддерживается в новой архитектуре")
+
     def print_final_stats(self):
         """
         Вывод итоговой статистики (совместимый метод).
         """
-        self.email_fetcher.print_final_stats()
-    
+        self.email_fetcher._print_final_stats()  # noqa: SLF001
+
     def save_processing_stats(self, start_date: datetime, end_date: datetime):
         """
         Сохранение статистики обработки (совместимый метод).
@@ -364,7 +361,7 @@ class LegacyEmailFetcherV2:
             start_date: Начальная дата
             end_date: Конечная дата
         """
-        self.email_fetcher.save_processing_stats(start_date, end_date)
+        self.email_fetcher._save_processing_stats(start_date, end_date)  # noqa: SLF001
     
     def _update_stats_from_processor(self):
         """Обновление статистики из процессора."""

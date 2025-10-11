@@ -18,7 +18,7 @@ from .legacy.legacy_email_fetcher import LegacyEmailFetcherV2
 __all__ = [
     # Новая архитектура
     "EmailFetcher",
-    "ConnectionManager", 
+    "ConnectionManager",
     "EmailProcessor",
     "EmailFilters",
     "EmailParser",
@@ -57,10 +57,14 @@ __architecture_info__ = {
         "legacy": [
             "LegacyEmailFetcherV2 - Обратная совместимость",
         ],
+        "cli": [
+            "CLI интерфейс с интерактивным меню",
+        ],
     },
     "key_fixes": [
         "Исправлен маппинг вложений: thread_id → message_id",
         "Модульная архитектура для лучшей поддерживаемости",
         "Сохранена обратная совместимость через LegacyEmailFetcherV2",
+        "Добавлен CLI интерфейс для удобного запуска",
     ],
 }

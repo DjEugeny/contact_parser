@@ -58,24 +58,16 @@ REQUEST_DELAY = 0.5
 
 # 🆕 ПОДДЕРЖИВАЕМЫЕ типы вложений (только разрешенные)
 SUPPORTED_ATTACHMENTS = {
-    # PDF документы
+    # Документы
     ".pdf": "application/pdf",
-    
-    # Microsoft Office документы
     ".doc": "application/msword",
     ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ".txt": "text/plain",
+    # Excel файлы (все варианты)
     ".xls": "application/vnd.ms-excel",
     ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     ".xlsm": "application/vnd.ms-excel.sheet.macroEnabled.12",
-    
-    # 🆕 OpenDocument форматы (LibreOffice/OpenOffice) - только избранные
-    ".odt": "application/vnd.oasis.opendocument.text",  # Текстовые документы
-    ".ods": "application/vnd.oasis.opendocument.spreadsheet",  # Электронные таблицы
-    
-    # Текстовые файлы
-    ".txt": "text/plain",
-    
-    # Изображения
+    # Изображения (все форматы)
     ".jpg": "image/jpeg",
     ".jpeg": "image/jpeg",
     ".png": "image/png",
@@ -88,40 +80,22 @@ SUPPORTED_ATTACHMENTS = {
 
 # 🚫 ИСКЛЮЧЕННЫЕ расширения (НЕ скачиваем вообще)
 EXCLUDED_EXTENSIONS = {
-    # Архивы
     ".zip",
     ".rar",
-    ".7z",
-    
-    # Исполняемые файлы
-    ".exe",
-    ".msi",
-    ".dmg",
-    
-    # Образы дисков
-    ".iso",
-    ".img",
-    
-    # 🆕 Презентации (обычно содержат графику, мало текста)
+    ".7z",  # Архивы
     ".pptx",
-    ".ppt",
-    ".ppsx",
-    ".pps",
-    
-    # 🆕 Технические и системные форматы
+    ".ppt",  # PowerPoint презентации
     ".rt",
+    ".rtf",  # Rich Text (устаревший)
     ".trt",
     ".tr",
-    ".r96",
-    
-    # 🆕 Мультимедиа (обычно не содержат текстовую информацию)
-    ".mp3",
-    ".mp4",
-    ".avi",
-    ".mov",
-    ".wmv",
-    ".flv",
-    ".mkv",
+    ".r96",  # Технические форматы
+    ".exe",
+    ".msi",
+    ".dmg",  # Исполняемые файлы
+    ".iso",
+    ".img",  # Образы дисков
+    ".gif",  # GIF изображения
 }
 
 # Настройка местного времени UTC+7
