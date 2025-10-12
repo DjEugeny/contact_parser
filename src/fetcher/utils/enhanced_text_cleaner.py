@@ -95,6 +95,74 @@ class EnhancedTextCleaner:
             if removed > 0:
                 self.logger.debug(f"   🗑️ Удалено HTML блоков: {removed} символов")
 
+        # 3.1. Сохраняем содержимое псевдо-тегов (контакты в угловых скобках)
+        pseudo_tag_whitelist = {
+            "html",
+            "body",
+            "head",
+            "meta",
+            "style",
+            "link",
+            "script",
+            "title",
+            "table",
+            "tbody",
+            "thead",
+            "tfoot",
+            "tr",
+            "td",
+            "th",
+            "colgroup",
+            "col",
+            "div",
+            "span",
+            "p",
+            "br",
+            "hr",
+            "li",
+            "ul",
+            "ol",
+            "strong",
+            "em",
+            "b",
+            "i",
+            "u",
+            "font",
+            "a",
+            "img",
+            "blockquote",
+            "pre",
+            "code",
+            "center",
+            "o:p",
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
+        }
+
+        def _restore_pseudo_tag(match: re.Match[str]) -> str:
+            content = match.group(1).strip()
+            if not content:
+                return ""
+
+            # Пропускаем комментарии и спец-конструкции
+            if content.startswith(("!--", "![CDATA", "?")) or content.endswith("--"):
+                return match.group(0)
+
+            tag_candidate = content.split()[0].lstrip("/").lower()
+            if tag_candidate in pseudo_tag_whitelist:
+                return match.group(0)
+
+            if "=" in content and "@" not in content:
+                return match.group(0)
+
+            return content
+
+        text = re.sub(r"<([^<>]+)>", _restore_pseudo_tag, text)
+
         # 4. Сохраняем переносы строк для блочных элементов перед удалением тегов
         block_break_patterns = (
             (r'<\s*br\s*/?>', '\n'),
@@ -177,18 +245,10 @@ class EnhancedTextCleaner:
         # Фильтруем строки по содержанию
         meaningful_lines = []
         for line in lines:
-            # Пропускаем очень короткие строки (менее 3 символов)
-            if len(line) < 3:
-                continue
-            
             # Пропускаем строки, состоящие только из символов пунктуации
             if re.match(r'^[^a-zA-Zа-яА-Я0-9]*$', line):
                 continue
             
-            # Пропускаем строки с только цифрами и точками (возможно, номера страниц)
-            if re.match(r'^[0-9\.\s]*$', line):
-                continue
-                
             # Пропускаем повторяющиеся строки
             if line not in meaningful_lines:
                 meaningful_lines.append(line)

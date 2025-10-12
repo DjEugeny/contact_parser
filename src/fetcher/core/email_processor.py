@@ -565,6 +565,15 @@ class EmailProcessor:
                 attachment_registry,
                 stats,
             )
+
+        if not attachments:
+            existing_attachments = attachment_registry.get_attachments_for_message(
+                email_info["message_id"],
+                email_info["date_folder"],
+            )
+            if existing_attachments:
+                attachments = existing_attachments
+                attachments_stats = self._build_attachments_stats_from_records(existing_attachments)
         
         # Собираем данные письма
         email_data["attachments"] = attachments
@@ -705,6 +714,49 @@ class EmailProcessor:
             self.logger.error(f"❌ Ошибка обработки вложений: {e}")
         
         return attachments, attachments_stats
+
+    def _build_attachments_stats_from_records(self, records: List[Dict]) -> Dict[str, int]:
+        """Формирует статистику вложений из записей реестра без повторной загрузки."""
+        stats = {
+            "total": 0,
+            "saved": 0,
+            "excluded": 0,
+            "excluded_filenames": 0,
+            "excluded_by_size": 0,
+            "excluded_by_image_dimensions": 0,
+            "unsupported": 0,
+            "inline_images": 0,
+        }
+
+        for record in records:
+            stats["total"] += 1
+            status = (record.get("status") or "saved").lower()
+            is_inline = bool(record.get("is_inline"))
+
+            if status in {"saved", "already_exists"}:
+                stats["saved"] += 1
+                if is_inline:
+                    stats["inline_images"] += 1
+            elif status in {"excluded", "excluded_by_filter"}:
+                stats["excluded"] += 1
+            elif status == "excluded_inline_image":
+                stats["excluded"] += 1
+                stats["inline_images"] += 1
+            elif status == "excluded_filename":
+                stats["excluded"] += 1
+                stats["excluded_filenames"] += 1
+            elif status == "excluded_by_size":
+                stats["excluded"] += 1
+                stats["excluded_by_size"] += 1
+            elif status == "excluded_by_image_dimensions":
+                stats["excluded"] += 1
+                stats["excluded_by_image_dimensions"] += 1
+            elif status == "unsupported":
+                stats["unsupported"] += 1
+            else:
+                stats["excluded"] += 1
+
+        return stats
     
     def _save_email_data(
         self,

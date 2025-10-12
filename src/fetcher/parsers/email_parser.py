@@ -159,18 +159,19 @@ class EmailParser:
                     self.logger.warning(f"⚠️ Ошибка извлечения простого текста: {e}")
             
             selected_text = ""
-            is_html = False
             if plain_parts:
                 full_text = "\n\n".join(plain_parts)
                 selected_text = self._basic_text_cleanup(full_text)
             elif html_parts:
-                selected_text = "\n\n".join(html_parts)
-                is_html = True
+                full_html = "\n\n".join(html_parts)
+                selected_text = self._basic_html_cleanup(full_html)
             else:
                 selected_text = ""
             
-            final_text = selected_text[:max_len]
-            return final_text if is_html else final_text.strip()
+            cleaned_text = selected_text.strip()
+            if len(cleaned_text) > max_len:
+                cleaned_text = cleaned_text[:max_len]
+            return cleaned_text
             
         except Exception as e:
             self.logger.error(f"❌ Критическая ошибка извлечения текста: {e}")

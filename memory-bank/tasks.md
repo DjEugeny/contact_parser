@@ -53,6 +53,11 @@
 - [x] Расширить `config/precleaner.yaml` сигнатурами `c уважением` и `"--\u00A0"`.
 - [x] Переобработать `data/emails/2025-04-01/email_016_...himlabservice...json`, обновить `body_clean`, `char_count`, `eml_path`.
 - [ ] Прогнать ночной срез 2025-04-01 → 2025-04-02 и собрать отчёт качества (в планах после стабилизации выборки).
+- [x] Сохранить текст в угловых скобках (`<СибЛабСервис>`, `<mail@...>`) до удаления HTML — правка `EnhancedTextCleaner.clean_html_aggressively`, регрессия на письма 2025-04-02.
+- [x] Ослабить фильтр числовых строк в `extract_meaningful_content`, чтобы не терять нумерацию таблиц и списки контактов (email_013/email_025).
+- [x] Пересмотреть лимит в `EmailParser.extract_plain_text` (очищать HTML до среза или поднять `max_len`), чтобы подпись Фетисовой не обрезалась.
+- [x] Синхронизировать `attachments` в JSON с реестром SQLite при повторных прогонах (добавить автозаполнение при `download_json`/`skip_all`).
+- [x] Добавить новые кейсы 2025-04-02 в `scripts/run_precleaner_regression.py` (SibLabService, Samruni, med3843, лонг-лист контактов) и smoke по вложениям.
 
 ## 🧪 Тестирование
 

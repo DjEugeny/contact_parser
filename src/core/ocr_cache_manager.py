@@ -32,7 +32,7 @@ class OCRCacheManager:
             results_dir: Путь к папке с результатами OCR (если None, используется DataPaths)
         """
         # Импортируем централизованные пути
-        from config.paths import DataPaths
+        from src.config.paths import DataPaths
         
         # Выполняем автомиграцию если необходимо
         DataPaths.migrate_if_needed()

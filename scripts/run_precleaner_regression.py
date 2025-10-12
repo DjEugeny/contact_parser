@@ -27,12 +27,14 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from src.fetcher.parsers.email_parser import EmailParser
+from src.fetcher.attachments.attachment_registry import AttachmentRegistry
 from src.fetcher.utils.enhanced_text_cleaner_with_precleaner import (
     EnhancedTextCleanerWithPreCleaner,
 )
 
 
 logging.basicConfig(level=logging.WARNING)
+ATTACHMENT_REGISTRY = AttachmentRegistry(logging.getLogger("attachments-regression"))
 
 
 @dataclass
@@ -47,6 +49,7 @@ class RegressionCase:
     min_length: int = 500
     max_length: int | None = None
     json_path: Path | None = None
+    min_attachments: int | None = None
 
 
 def _resolve_eml_path(case: RegressionCase) -> Path:
@@ -182,7 +185,7 @@ CASES: Iterable[RegressionCase] = [
             "Дубровских Даниил Сергеевич",
         ],
         min_length=2000,
-        max_length=7000,
+        max_length=10000,
     ),
     RegressionCase(
         name="DNA Technology follow-up (19)",
@@ -197,7 +200,7 @@ CASES: Iterable[RegressionCase] = [
             "Роман Куропаткин",
         ],
         min_length=2000,
-        max_length=7000,
+        max_length=10000,
     ),
     RegressionCase(
         name="DNA Technology follow-up (21)",
@@ -212,7 +215,87 @@ CASES: Iterable[RegressionCase] = [
             "Форат Оксана Николаевна",
         ],
         min_length=2000,
+        max_length=10000,
+    ),
+    RegressionCase(
+        name="SibLabService request",
+        eml_path=None,
+        json_path=REPO_ROOT
+        / "data"
+        / "emails"
+        / "2025-04-02"
+        / "email_002_20250402_20250402_siblabservice_ru_4a146063.json",
+        must_contain=[
+            "Менеджер ООО СибЛабСервис",
+            "Клебанова Ирина",
+            "Г. Иркутск",
+        ],
+        min_length=200,
+        max_length=2000,
+    ),
+    RegressionCase(
+        name="Forwarded request with emails",
+        eml_path=None,
+        json_path=REPO_ROOT
+        / "data"
+        / "emails"
+        / "2025-04-02"
+        / "email_004_20250402_20250402_dna-technology_ru_8ec7fb4e.json",
+        must_contain=[
+            "s.voronova@dna-technology.ru",
+            "bortsova@dna-technology.ru",
+            "tkachenko@dna-technology.ru",
+        ],
+        min_length=500,
+        max_length=4000,
+        min_attachments=1,
+    ),
+    RegressionCase(
+        name="Med3843 thread",
+        eml_path=None,
+        json_path=REPO_ROOT
+        / "data"
+        / "emails"
+        / "2025-04-02"
+        / "email_006_20250402_20250402_med3843_ru_fd77b42b.json",
+        must_contain=[
+            "corp@med3843.ru",
+            "m9@med3843.ru",
+            "m.gogoleva@dna-technology.ru",
+        ],
+        min_length=1500,
         max_length=7000,
+    ),
+    RegressionCase(
+        name="DNA forward Mironenko",
+        eml_path=None,
+        json_path=REPO_ROOT
+        / "data"
+        / "emails"
+        / "2025-04-02"
+        / "email_009_20250402_20250402_dna-technology_ru_224cb438.json",
+        must_contain=[
+            "olgmironenko@mail.ru",
+            "mail@dna-technology.ru",
+        ],
+        min_length=1000,
+        max_length=6000,
+    ),
+    RegressionCase(
+        name="SFO guests list",
+        eml_path=None,
+        json_path=REPO_ROOT
+        / "data"
+        / "emails"
+        / "2025-04-02"
+        / "email_025_20250402_20250402_dna-technology_ru_c5036846.json",
+        must_contain=[
+            "ООО Лабора г. Иркутск Ветрова Екатерина Владиславовна",
+            "8-964-359-83-97",
+            "Дата рождения: 09.07.02",
+        ],
+        min_length=2000,
+        max_length=9000,
     ),
 ]
 
@@ -257,6 +340,24 @@ def run_case(case: RegressionCase, parser: EmailParser, cleaner: EnhancedTextCle
     for snippet in case.optional_contains:
         if snippet not in cleaned_text:
             issues.append(f"⚠️ {case.name}: нет ожидаемого индикатора «{snippet}»")
+
+    if case.min_attachments is not None and case.json_path and case.json_path.exists():
+        try:
+            email_payload = json.loads(case.json_path.read_text(encoding="utf-8"))
+            attachments = email_payload.get("attachments") or []
+            attachments_count = len(attachments)
+            if attachments_count < case.min_attachments:
+                registry_records = ATTACHMENT_REGISTRY.get_attachments_for_message(
+                    email_payload.get("message_id", ""),
+                    email_payload.get("date_folder", ""),
+                )
+                attachments_count = len(registry_records)
+            if attachments_count < case.min_attachments:
+                issues.append(
+                    f"❌ {case.name}: вложений {attachments_count} < ожидаемых {case.min_attachments}"
+                )
+        except json.JSONDecodeError as exc:
+            issues.append(f"❌ {case.name}: ошибка чтения JSON для проверки вложений ({exc})")
 
     return issues, eml_path
 
