@@ -188,13 +188,22 @@ class EmailParser:
         """
         try:
             import re
+            import html as html_module
             
-            # Удаляем HTML теги
-            text = re.sub(r'<[^>]+>', ' ', html_text)
-            
+            text = html_text
+            # Заменяем блочные теги на переносы строк
+            text = re.sub(r'<\s*(br|/div|div|/p|p|/li|li|/tr|tr|/table|table)[^>]*>', '\n', text, flags=re.IGNORECASE)
+            # Удаляем остальные теги
+            text = re.sub(r'<[^>]+>', ' ', text)
+            # Декодируем HTML сущности и небуквенные пробелы
+            text = html_module.unescape(text)
+            text = text.replace('\xa0', ' ')
+            # Унифицируем переносы строк
+            text = text.replace('\r\n', '\n').replace('\r', '\n')
             # Заменяем множественные пробелы
-            text = re.sub(r'\s+', ' ', text)
-            
+            text = re.sub(r'[ \t]+', ' ', text)
+            # Сжимаем лишние пустые строки
+            text = re.sub(r'\n{3,}', '\n\n', text)
             return text.strip()
             
         except Exception as e:

@@ -68,13 +68,20 @@ class EmailStorage:
         folder_path.mkdir(parents=True, exist_ok=True)
 
         sanitized = self._sanitize_message_id(message_id)
+        
+        # Проверяем, существует ли уже файл с таким message_id
+        existing_files = list(folder_path.glob(f"{sanitized}_*.eml"))
+        if existing_files:
+            # Файл с таким message_id уже существует, возвращаем путь к нему
+            existing_file = existing_files[0]  # Берем первый найденный файл
+            relative_path = f"eml/{date_folder}/{existing_file.name}"
+            self.logger.debug("📁 .eml файл уже существует: %s", existing_file)
+            return relative_path
+
+        # Файла не существует, создаем новый
         timestamp = get_local_time().strftime("%H%M%S_%f")
         filename = f"{sanitized}_{timestamp}.eml"
         file_path = folder_path / filename
-
-        if file_path.exists():
-            # уже сохранено в текущем прогоне
-            return f"eml/{date_folder}/{filename}"
 
         try:
             with open(file_path, "wb") as handler:

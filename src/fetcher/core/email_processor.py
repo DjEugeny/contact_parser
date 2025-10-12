@@ -412,12 +412,20 @@ class EmailProcessor:
             self.logger.info("=" * 70)
             return None
         
-        # Сохраняем исходный .eml
+        # Сохраняем исходный .eml (проверка на дубликаты внутри save_eml)
         eml_relative_path = email_storage.save_eml(
             email_info.get("message_id", ""),
             email_info.get("date_folder", ""),
             raw_email,
         )
+        
+        # Проверяем, был ли файл создан заново или уже существовал
+        if eml_relative_path:
+            eml_file_path = Path(email_storage.eml_dir) / eml_relative_path.replace("eml/", "")
+            if eml_file_path.exists():
+                # Логируем информацию о файле .eml
+                file_size = eml_file_path.stat().st_size
+                self.logger.debug(f"📄 .eml файл: {eml_relative_path} ({file_size} байт)")
         
         # Извлекаем текст с использованием EnhancedTextCleanerWithPreCleaner БЕЗ ОБРЕЗКИ
         try:

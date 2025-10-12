@@ -218,8 +218,7 @@ def parse_arguments() -> argparse.Namespace:
 
 def cli_menu() -> Tuple[Optional[datetime], Optional[datetime]]:
     """Интерактивный выбор диапазона дат."""
-    print("
-" + "=" * 70)
+    print("\n" + "=" * 70)
     print("📧 EMAIL FETCHER v2.0 - НОВАЯ МОДУЛЬНАЯ АРХИТЕКТУРА")
     print("=" * 70)
     print("✅ Исправлен маппинг вложений (message_id вместо thread_id)")
@@ -243,8 +242,7 @@ def cli_menu() -> Tuple[Optional[datetime], Optional[datetime]]:
     end_date: Optional[datetime] = None
 
     if choice == "1":
-        print("
-Введите начальную дату:")
+        print("\nВведите начальную дату:")
         print(f"  {DATE_TIPS}")
         start_str = input("Начальная дата: ").strip()
         try:
@@ -253,8 +251,7 @@ def cli_menu() -> Tuple[Optional[datetime], Optional[datetime]]:
             print(f"❌ Ошибка: {exc}")
             return None, None
 
-        print("
-Введите конечную дату:")
+        print("\nВведите конечную дату:")
         end_str = input("Конечная дата: ").strip()
         try:
             end_date = parse_date_flexible(end_str)
@@ -267,8 +264,7 @@ def cli_menu() -> Tuple[Optional[datetime], Optional[datetime]]:
             return None, None
 
     elif choice == "2":
-        print("
-Введите дату:")
+        print("\nВведите дату:")
         print(f"  {DATE_TIPS}")
         date_str = input("Дата: ").strip()
         try:
@@ -280,8 +276,7 @@ def cli_menu() -> Tuple[Optional[datetime], Optional[datetime]]:
             return None, None
 
     elif choice == "3":
-        print("
-Введите месяц (1-12):")
+        print("\nВведите месяц (1-12):")
         try:
             month = int(input("Месяц: ").strip())
         except ValueError:
@@ -298,35 +293,30 @@ def cli_menu() -> Tuple[Optional[datetime], Optional[datetime]]:
             end_date = datetime(year, month + 1, 1) - timedelta(days=1)
 
     elif choice == "4":
-        print("
-📅 Последние 7 дней")
+        print("\n📅 Последние 7 дней")
         end_date = get_local_time().replace(hour=23, minute=59, second=59, microsecond=0)
         start_date = end_date - timedelta(days=7)
         start_date = start_date.replace(hour=0, minute=0, second=0, microsecond=0)
 
     elif choice == "5":
-        print("
-📅 Последние 30 дней")
+        print("\n📅 Последние 30 дней")
         end_date = get_local_time().replace(hour=23, minute=59, second=59, microsecond=0)
         start_date = end_date - timedelta(days=30)
         start_date = start_date.replace(hour=0, minute=0, second=0, microsecond=0)
 
     elif choice == "6":
-        print("
-🧪 Тестовый запуск за сегодня")
+        print("\n🧪 Тестовый запуск за сегодня")
         today = get_local_time().replace(hour=0, minute=0, second=0, microsecond=0)
         start_date = today
         end_date = today
 
     elif choice == "0":
-        print("
-👋 Выход из программы")
+        print("\n👋 Выход из программы")
         return None, None
 
     else:
         print("❌ Неверный выбор!")
-        retry = input("
-Попробовать снова? (д/н): ").strip().lower()
+        retry = input("\nПопробовать снова? (д/н): ").strip().lower()
         if retry in ['д', 'да', 'y', 'yes']:
             return cli_menu()
         return None, None
@@ -436,7 +426,7 @@ def main() -> None:
     logger = setup_logging(start_date, end_date)
     
     # Выводим информацию о выбранном режиме
-    print_fetcher_info()
+    print_fetcher_info(False)  # Всегда используем новую архитектуру
     
     # Проверяем доступность реального фетчера
     if not REAL_FETCHER_AVAILABLE:
