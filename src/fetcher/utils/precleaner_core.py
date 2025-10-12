@@ -148,28 +148,38 @@ def preclean_email_for_llm(
         if block.kind in ("signature", "disclaimer"):
             seen_count = thread_cache.get(fingerprint, 0) + sender_cache.get(fingerprint, 0)
             if seen_count >= 1:
+                # Полностью удаляем повторяющиеся подписи/дисклеймеры
                 placeholder = f"[{block.kind} elided:{sender_email}#{fingerprint}]"
                 spans.append({"placeholder": placeholder, "hash": fingerprint, "kind": block.kind})
                 cleaned_chunks.append(placeholder)
             else:
+                # Для первого вхождения: обрезаем до max_signature_lines
                 lines = block.text.splitlines()
-                trimmed = "\n".join(lines[:max_signature_lines])
                 if len(lines) > max_signature_lines:
+                    # Сохраняем только первые строки, остальное полностью удаляем
+                    trimmed = "\n".join(lines[:max_signature_lines])
                     marker = f"[{block.kind} truncated #{fingerprint}]"
-                    trimmed += f"\n{marker}"
+                    cleaned_chunks.append(trimmed)  # Убираем marker из контента!
                     spans.append({"placeholder": marker, "hash": fingerprint, "kind": block.kind})
-                cleaned_chunks.append(trimmed)
+                else:
+                    # Короткие блоки сохраняем полностью
+                    cleaned_chunks.append(block.text)
             thread_cache[fingerprint] = thread_cache.get(fingerprint, 0) + 1
             sender_cache[fingerprint] = sender_cache.get(fingerprint, 0) + 1
             continue
 
         if block.kind == "quote":
             if thread_cache.get(fingerprint, 0) >= 1 or len(block.text) > fold_quote_over_chars:
+                # Полностью удаляем повторяющиеся или длинные цитаты
                 placeholder = f"[quoted message elided #{fingerprint}]"
                 spans.append({"placeholder": placeholder, "hash": fingerprint, "kind": "quote"})
                 cleaned_chunks.append(placeholder)
                 thread_cache[fingerprint] = thread_cache.get(fingerprint, 0) + 1
                 continue
+            # Для коротких цитат - сохраняем как есть
+            cleaned_chunks.append(block.text)
+            thread_cache[fingerprint] = thread_cache.get(fingerprint, 0) + 1
+            continue
 
         cleaned_chunks.append(block.text)
         thread_cache[fingerprint] = thread_cache.get(fingerprint, 0) + 1

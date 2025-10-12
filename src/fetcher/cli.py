@@ -346,24 +346,27 @@ def cli_menu() -> Tuple[Optional[datetime], Optional[datetime], bool]:
         print("=" * 50)
         print()
         print("Выберите режим работы:")
-        print("  1. Новая архитектура (рекомендуется)")
+        print("  1. Новая архитектура с PreCleaner (рекомендуется) 🆕")
         print("     ✅ Исправленный маппинг вложений")
         print("     ✅ Модульная структура")
         print("     ✅ Улучшенная обработка ошибок")
+        print("     🧼 PreCleaner - экономия ~33% токенов LLM")
+        print("     📄 Единое поле body для совместимости")
         print()
         print("  2. Legacy режим (обратная совместимость)")
         print("     🔄 Полная совместимость со старым кодом")
         print("     🔄 Проверенная временем логика")
+        print("     ⚠️ Без PreCleaner (менее эффективно)")
         print()
         print("  0. Выход")
         print()
         
-        arch_choice = input("Ваш выбор (0-2): ").strip()
+        arch_choice = input("Ваш выбор (0-2, по умолчанию 1): ").strip()
         
         if arch_choice == "0":
             print("\n👋 Выход из программы")
             return None, None, False
-        elif arch_choice == "1":
+        elif arch_choice == "" or arch_choice == "1":
             use_legacy = False
         elif arch_choice == "2":
             use_legacy = True
@@ -448,12 +451,15 @@ def print_fetcher_info(use_legacy: bool):
         print("\n🔄 ИСПОЛЬЗУЕТСЯ LEGACY РЕЖИМ (обратная совместимость)")
         print("   - Новый движок с исправленным маппингом вложений")
         print("   - Старый интерфейс для совместимости")
+        print("   ⚠️ Без PreCleaner (менее эффективно)")
     else:
-        print("\n🚀 ИСПОЛЬЗУЕТСЯ НОВАЯ АРХИТЕКТУРА v2.0")
+        print("\n🚀 ИСПОЛЬЗУЕТСЯ НОВАЯ АРХИТЕКТУРА v2.0 С PRECLEANER")
         print("   ✅ Корректный маппинг вложений по message_id")
         print("   ✅ Модульная архитектура")
         print("   ✅ Улучшенная обработка ошибок")
         print("   ✅ Централизованный реестр вложений")
+        print("   🧼 PreCleaner активен (экономия ~33% токенов)")
+        print("   📄 Единое поле body для совместимости")
 
 
 def main() -> None:

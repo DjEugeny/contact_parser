@@ -1,0 +1,41 @@
+precleaner:
+  disclaimer_markers:
+  - confidentiality notice
+  - privacy policy
+  - this e-mail is for the intended recipient
+  - this message may contain confidential
+  - unsubscribe
+  - данное электронное сообщение
+  - запрещено
+  - информация, содержащаяся в данном
+  - конфиденциальная информация
+  - любое рассмотрение, повторная передача
+  - может содержать конфиденциальную информацию
+  - настоящее сообщение
+  - не влечет за собой возникновение
+  - не может служить основанием
+  - не является договорённостью сторон
+  - предназначено только для адресата
+  - распространение или иное использование
+  fold_on_repeat: true
+  fold_quote_over_chars: 1200
+  keep_first_disclaimer_per_thread: false
+  keep_first_signature_per_sender: true
+  languages:
+  - ru
+  - en
+  max_signature_lines: 4
+  sig_markers:
+  - --
+  - best regards
+  - cheers
+  - cordially
+  - kind regards
+  - regards
+  - sincerely
+  - thank you
+  - thanks
+  - yours sincerely
+  - с наилучшими пожеланиями
+  - с уважением
+  - —
