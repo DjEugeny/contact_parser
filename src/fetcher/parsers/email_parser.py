@@ -100,8 +100,9 @@ class EmailParser:
         Returns:
             Очищенный текст письма
         """
-        text_parts = []
         max_len = 500_000
+        plain_parts = []
+        html_parts = []
         
         try:
             if msg.is_multipart():
@@ -120,17 +121,17 @@ class EmailParser:
                         try:
                             raw = part.get_payload(decode=True)
                             charset = part.get_content_charset() or "utf-8"
-                            chunk = raw.decode(charset, errors="ignore")
+                            chunk = raw.decode(charset, errors="ignore") if raw else ""
                             
-                            # Базовая очистка
-                            if ctype == "text/html":
-                                # TODO: Интегрировать EmailTextCleaner
-                                chunk = self._basic_html_cleanup(chunk)
-                            else:
-                                chunk = chunk.strip()
+                            if not chunk:
+                                continue
                             
-                            if chunk.strip():  # Добавляем только непустые части
-                                text_parts.append(chunk)
+                            if ctype == "text/plain":
+                                stripped = chunk.strip()
+                                if stripped:
+                                    plain_parts.append(stripped)
+                            else:  # text/html
+                                html_parts.append(chunk)
                         except Exception as e:
                             self.logger.warning(f"⚠️ Ошибка извлечения текста: {e}")
                             continue
@@ -140,26 +141,36 @@ class EmailParser:
                     if raw:
                         charset = msg.get_content_charset() or "utf-8"
                         chunk = raw.decode(charset, errors="ignore")
+                        if not chunk:
+                            chunk = ""
                         
-                        # Определяем тип контента и очищаем соответственно
                         ctype = msg.get_content_type()
-                        if ctype == "text/html":
-                            chunk = self._basic_html_cleanup(chunk)
+                        if ctype == "text/plain":
+                            stripped = chunk.strip()
+                            if stripped:
+                                plain_parts.append(stripped)
+                        elif ctype == "text/html":
+                            html_parts.append(chunk)
                         else:
-                            chunk = chunk.strip()
-                        
-                        if chunk.strip():
-                            text_parts.append(chunk)
+                            stripped = chunk.strip()
+                            if stripped:
+                                plain_parts.append(stripped)
                 except Exception as e:
                     self.logger.warning(f"⚠️ Ошибка извлечения простого текста: {e}")
             
-            # Объединяем все части
-            full_text = "\n".join(text_parts)
+            selected_text = ""
+            is_html = False
+            if plain_parts:
+                full_text = "\n\n".join(plain_parts)
+                selected_text = self._basic_text_cleanup(full_text)
+            elif html_parts:
+                selected_text = "\n\n".join(html_parts)
+                is_html = True
+            else:
+                selected_text = ""
             
-            # Базовая очистка
-            full_text = self._basic_text_cleanup(full_text)
-            
-            return full_text[:max_len].strip()
+            final_text = selected_text[:max_len]
+            return final_text if is_html else final_text.strip()
             
         except Exception as e:
             self.logger.error(f"❌ Критическая ошибка извлечения текста: {e}")

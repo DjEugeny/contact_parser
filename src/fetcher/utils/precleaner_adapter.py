@@ -170,11 +170,26 @@ class PreCleanerAdapter:
     def _load_config(self, config_path: Optional[Path]) -> Dict[str, Any]:
         """📋 Загружает YAML-конфигурацию PreCleaner."""
         default_config = {
-            "max_signature_lines": 5,
+            "max_signature_lines": 8,
             "fold_quote_over_chars": 1200,
             "fold_on_repeat": True,
             "keep_first_signature_per_sender": True,
             "keep_first_disclaimer_per_thread": True,
+            "max_disclaimer_lines": 6,
+            "quote_preview_non_empty_lines": 30,
+            "quote_preview_tail_non_empty_lines": 12,
+            "quote_preview_header_markers": ["from:", "to:", "subject:", "sent:", "cc:"],
+            "quote_preview_min_lines": 6,
+            "quote_preview_context_lines": 0,
+            "quote_preview_max_chars": 600,
+            "quote_preview_markers": [
+                " пишет",
+                "wrote:",
+                "forwarded message",
+                "original message",
+                "ответил",
+                "написал",
+            ],
             "languages": ["ru", "en"],
             "sig_markers": ["--", "—", "с уважением", "best regards", "kind regards"],
             "disclaimer_markers": [

@@ -7,6 +7,7 @@ EmailStorage - Хранение email данных.
 
 import json
 import logging
+import re
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
@@ -36,8 +37,58 @@ class EmailStorage:
         self.data_dir = DATA_DIR
         self.emails_dir = self.data_dir / "emails"
         self.emails_dir.mkdir(parents=True, exist_ok=True)
+        self.eml_dir = self.data_dir / "eml"
+        self.eml_dir.mkdir(parents=True, exist_ok=True)
         
         self.logger.info("💾 EmailStorage инициализирован")
+    
+    # ------------------------------------------------------------------
+    # EML handling
+    # ------------------------------------------------------------------
+    def save_eml(self, message_id: str, date_folder: str, raw_email: bytes) -> Optional[str]:
+        """
+        Сохранение исходного .eml файла.
+
+        Args:
+            message_id: Message-ID письма
+            date_folder: папка даты (YYYY-MM-DD)
+            raw_email: исходные байты письма
+
+        Returns:
+            Относительный путь к сохранённому .eml или None, если не сохранено.
+        """
+        if not message_id or not raw_email:
+            self.logger.warning("⚠️ Невозможно сохранить .eml: отсутствует message_id или содержимое")
+            return None
+        if not date_folder:
+            self.logger.warning("⚠️ Невозможно сохранить .eml: отсутствует date_folder")
+            return None
+
+        folder_path = self.eml_dir / date_folder
+        folder_path.mkdir(parents=True, exist_ok=True)
+
+        sanitized = self._sanitize_message_id(message_id)
+        timestamp = get_local_time().strftime("%H%M%S_%f")
+        filename = f"{sanitized}_{timestamp}.eml"
+        file_path = folder_path / filename
+
+        if file_path.exists():
+            # уже сохранено в текущем прогоне
+            return f"eml/{date_folder}/{filename}"
+
+        try:
+            with open(file_path, "wb") as handler:
+                handler.write(raw_email)
+            self.logger.debug("💾 Исходное письмо сохранено: %s", file_path)
+            return f"eml/{date_folder}/{filename}"
+        except Exception as exc:
+            self.logger.error("❌ Ошибка сохранения .eml (%s): %s", filename, exc)
+            return None
+    
+    def _sanitize_message_id(self, message_id: str) -> str:
+        without_brackets = message_id.strip("<>")
+        sanitized = re.sub(r"[^\w\-.]+", "_", without_brackets)
+        return sanitized or "unknown_message"
     
     def save_email(self, email_data: Dict) -> bool:
         """

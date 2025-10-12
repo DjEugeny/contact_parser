@@ -39,7 +39,7 @@ IMPORT_ERROR_DETAILS = None
 
 try:
     print("🔍 Пытаемся импортировать реальные компоненты...")
-    from src.fetcher import EmailFetcher, LegacyEmailFetcherV2
+    from src.fetcher import EmailFetcher
     REAL_FETCHER_AVAILABLE = True
     print("✅ Реальные компоненты успешно импортированы")
 except ImportError as e:
@@ -57,27 +57,24 @@ except ImportError as e:
         missing_components.append(f"EmailFetcher: {ce}")
         print(f"❌ EmailFetcher: {ce}")
     
-    try:
-        from src.fetcher.legacy.legacy_email_fetcher import LegacyEmailFetcherV2
-        print("✅ LegacyEmailFetcherV2 импортирован")
-    except ImportError as le:
-        missing_components.append(f"LegacyEmailFetcherV2: {le}")
-        print(f"❌ LegacyEmailFetcherV2: {le}")
-    
     print(f"🔧 Всего отсутствует компонентов: {len(missing_components)}")
     for comp in missing_components:
         print(f"   - {comp}")
     
-    # Создаем упрощенный CLI для демонстрации
+    # Создаем демонстрационный fetcher
     def create_demo_fetcher(logger):
-        """Создает демонстрационный фетчер для тестирования CLI"""
+        """Создаёт демонстрационный fetcher для тестирования CLI."""
         class DemoEmailFetcher:
             def __init__(self, logger):
                 self.logger = logger
                 self.stats = {"processed": 0, "saved": 0, "errors": 0}
                 
             def fetch_emails_by_date_range(self, start_date, end_date):
-                self.logger.info(f"🎯 ДЕМО: Загрузка писем за период {start_date.strftime('%Y-%m-%d')} - {end_date.strftime('%Y-%m-%d')}")
+                self.logger.info(
+                    "🎯 ДЕМО: Загрузка писем за период %s - %s",
+                    start_date.strftime("%Y-%m-%d"),
+                    end_date.strftime("%Y-%m-%d"),
+                )
                 self.logger.info("✅ ДЕМО: Это демонстрационный режим для тестирования CLI")
                 self.logger.info("🔧 Для полноценной работы установите необходимые зависимости")
                 return []
@@ -87,9 +84,7 @@ except ImportError as e:
         
         return DemoEmailFetcher(logger)
 
-    # Используем демонстрационный фетчер
     EmailFetcher = create_demo_fetcher
-    LegacyEmailFetcherV2 = create_demo_fetcher
 
 try:
     from src.fetcher.utils.date_utils import parse_date_flexible, get_local_time
@@ -214,7 +209,6 @@ def parse_arguments() -> argparse.Namespace:
     """Парсинг аргументов командной строки."""
     parser = argparse.ArgumentParser(description="New Email Fetcher CLI v2.0")
     parser.add_argument("--interactive", "-i", action="store_true", help="Интерактивный режим")
-    parser.add_argument("--legacy", "-l", action="store_true", help="Использовать legacy режим")
     parser.add_argument("--date", type=str, help="Дата для загрузки (см. подсказки)")
     parser.add_argument("--start-date", type=str, help="Начальная дата диапазона")
     parser.add_argument("--end-date", type=str, help="Конечная дата диапазона")
@@ -222,14 +216,10 @@ def parse_arguments() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def cli_menu() -> Tuple[Optional[datetime], Optional[datetime], bool]:
-    """
-    Интерактивное меню выбора диапазона дат и режима.
-    
-    Returns:
-        Tuple[datetime, datetime, bool]: (start_date, end_date, use_legacy)
-    """
-    print("\n" + "=" * 70)
+def cli_menu() -> Tuple[Optional[datetime], Optional[datetime]]:
+    """Интерактивный выбор диапазона дат."""
+    print("
+" + "=" * 70)
     print("📧 EMAIL FETCHER v2.0 - НОВАЯ МОДУЛЬНАЯ АРХИТЕКТУРА")
     print("=" * 70)
     print("✅ Исправлен маппинг вложений (message_id вместо thread_id)")
@@ -249,150 +239,112 @@ def cli_menu() -> Tuple[Optional[datetime], Optional[datetime], bool]:
 
     choice = input("Ваш выбор (0-6): ").strip()
 
-    start_date = None
-    end_date = None
+    start_date: Optional[datetime] = None
+    end_date: Optional[datetime] = None
 
     if choice == "1":
-        print("\nВведите начальную дату:")
+        print("
+Введите начальную дату:")
         print(f"  {DATE_TIPS}")
         start_str = input("Начальная дата: ").strip()
-
         try:
             start_date = parse_date_flexible(start_str)
         except ValueError as exc:
             print(f"❌ Ошибка: {exc}")
-            return None, None, False
+            return None, None
 
-        print("\nВведите конечную дату:")
+        print("
+Введите конечную дату:")
         end_str = input("Конечная дата: ").strip()
-
         try:
             end_date = parse_date_flexible(end_str)
         except ValueError as exc:
             print(f"❌ Ошибка: {exc}")
-            return None, None, False
+            return None, None
 
         if start_date > end_date:
             print("❌ Ошибка: начальная дата больше конечной!")
-            return None, None, False
+            return None, None
 
     elif choice == "2":
-        print("\nВведите дату:")
+        print("
+Введите дату:")
         print(f"  {DATE_TIPS}")
         date_str = input("Дата: ").strip()
-
         try:
             date = parse_date_flexible(date_str)
             start_date = date
             end_date = date
         except ValueError as exc:
             print(f"❌ Ошибка: {exc}")
-            return None, None, False
+            return None, None
 
     elif choice == "3":
-        print("\nВведите месяц (1-12):")
+        print("
+Введите месяц (1-12):")
         try:
             month = int(input("Месяц: ").strip())
         except ValueError:
             print("❌ Ошибка: введите число от 1 до 12!")
-            return None, None, False
-
+            return None, None
         if month < 1 or month > 12:
             print("❌ Ошибка: месяц должен быть от 1 до 12!")
-            return None, None, False
-
+            return None, None
         year = datetime.now().year
         start_date = datetime(year, month, 1)
-
-        # Последний день месяца
         if month == 12:
             end_date = datetime(year, 12, 31)
         else:
             end_date = datetime(year, month + 1, 1) - timedelta(days=1)
 
     elif choice == "4":
-        print("\n📅 Последние 7 дней")
+        print("
+📅 Последние 7 дней")
         end_date = get_local_time().replace(hour=23, minute=59, second=59, microsecond=0)
         start_date = end_date - timedelta(days=7)
         start_date = start_date.replace(hour=0, minute=0, second=0, microsecond=0)
 
     elif choice == "5":
-        print("\n📅 Последние 30 дней")
+        print("
+📅 Последние 30 дней")
         end_date = get_local_time().replace(hour=23, minute=59, second=59, microsecond=0)
         start_date = end_date - timedelta(days=30)
         start_date = start_date.replace(hour=0, minute=0, second=0, microsecond=0)
 
     elif choice == "6":
-        print("\n🧪 Тестовый запуск за сегодня")
+        print("
+🧪 Тестовый запуск за сегодня")
         today = get_local_time().replace(hour=0, minute=0, second=0, microsecond=0)
         start_date = today
         end_date = today
 
     elif choice == "0":
-        print("\n👋 Выход из программы")
-        return None, None, False
+        print("
+👋 Выход из программы")
+        return None, None
 
     else:
         print("❌ Неверный выбор!")
-        retry = input("\nПопробовать снова? (д/н): ").strip().lower()
+        retry = input("
+Попробовать снова? (д/н): ").strip().lower()
         if retry in ['д', 'да', 'y', 'yes']:
-            return cli_menu()  # Рекурсивный вызов для повтора
-        return None, None, False
+            return cli_menu()
+        return None, None
 
-    # Спрашиваем про режим
-    if start_date and end_date:
-        print("\n" + "=" * 50)
-        print("🏗️ ВЫБОР РЕЖИМА АРХИТЕКТУРЫ")
-        print("=" * 50)
-        print()
-        print("Выберите режим работы:")
-        print("  1. Новая архитектура с PreCleaner (рекомендуется) 🆕")
-        print("     ✅ Исправленный маппинг вложений")
-        print("     ✅ Модульная структура")
-        print("     ✅ Улучшенная обработка ошибок")
-        print("     🧼 PreCleaner - экономия ~33% токенов LLM")
-        print("     📄 Единое поле body для совместимости")
-        print()
-        print("  2. Legacy режим (обратная совместимость)")
-        print("     🔄 Полная совместимость со старым кодом")
-        print("     🔄 Проверенная временем логика")
-        print("     ⚠️ Без PreCleaner (менее эффективно)")
-        print()
-        print("  0. Выход")
-        print()
-        
-        arch_choice = input("Ваш выбор (0-2, по умолчанию 1): ").strip()
-        
-        if arch_choice == "0":
-            print("\n👋 Выход из программы")
-            return None, None, False
-        elif arch_choice == "" or arch_choice == "1":
-            use_legacy = False
-        elif arch_choice == "2":
-            use_legacy = True
-        else:
-            print("❌ Неверный выбор!")
-            return None, None, False
-        
-        return start_date, end_date, use_legacy
+    return start_date, end_date
 
-    return None, None, False
-
-
-def resolve_period(args: argparse.Namespace) -> Tuple[Optional[datetime], Optional[datetime], bool]:
-    """Определение периода и режима на основе аргументов."""
-    use_legacy = args.legacy
-
+def resolve_period(args: argparse.Namespace) -> Tuple[Optional[datetime], Optional[datetime]]:
+    """Определение периода на основе аргументов CLI."""
     if args.interactive or (not args.date and not args.start_date and not args.end_date):
         return cli_menu()
 
     if args.date:
         try:
             date = parse_date_flexible(args.date)
-            return date, date, use_legacy
+            return date, date
         except ValueError as exc:
             print(f"❌ Ошибка: {exc}")
-            return None, None, False
+            return None, None
 
     if args.start_date and args.end_date:
         try:
@@ -400,15 +352,14 @@ def resolve_period(args: argparse.Namespace) -> Tuple[Optional[datetime], Option
             end = parse_date_flexible(args.end_date)
             if start > end:
                 print("❌ Ошибка: начальная дата больше конечной")
-                return None, None, False
-            return start, end, use_legacy
+                return None, None
+            return start, end
         except ValueError as exc:
             print(f"❌ Ошибка: {exc}")
-            return None, None, False
+            return None, None
 
     print("⚠️ Укажите либо --date, либо --start-date и --end-date")
-    return None, None, False
-
+    return None, None
 
 def demo_mode():
     """🎭 Демонстрационный режим"""
@@ -474,18 +425,18 @@ def main() -> None:
     # Если нет аргументов - запускаем интерактивный режим
     if not any([args.interactive, args.date, args.start_date, args.end_date]):
         print("🚀 Запуск интерактивного режима...")
-        start_date, end_date, use_legacy = cli_menu()
+        start_date, end_date = cli_menu()
         if not start_date or not end_date:
             return
     else:
-        start_date, end_date, use_legacy = resolve_period(args)
+        start_date, end_date = resolve_period(args)
         if not start_date or not end_date:
             return
 
     logger = setup_logging(start_date, end_date)
     
     # Выводим информацию о выбранном режиме
-    print_fetcher_info(use_legacy)
+    print_fetcher_info()
     
     # Проверяем доступность реального фетчера
     if not REAL_FETCHER_AVAILABLE:
@@ -502,13 +453,10 @@ def main() -> None:
         start_date.strftime("%Y-%m-%d"),
         end_date.strftime("%Y-%m-%d"),
     )
-    logger.info("🏗️ Архитектура: %s", "Legacy" if use_legacy else "New v2.0")
+    logger.info("🏗️ Архитектура: %s", "New v2.0")
 
     # Создаем соответствующий фетчер
-    if use_legacy:
-        fetcher = LegacyEmailFetcherV2(logger)
-    else:
-        fetcher = EmailFetcher(logger)
+    fetcher = EmailFetcher(logger)
 
     try:
         # Выводим дополнительную информацию

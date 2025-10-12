@@ -8,7 +8,10 @@ precleaner:
   - данное электронное сообщение
   - запрещено
   - информация, содержащаяся в данном
+  - информация, содержащаяся в настоящем сообщении
+  - уведомление о конфиденциальности
   - конфиденциальная информация
+  - сообщение содержит конфиденциальную информацию
   - любое рассмотрение, повторная передача
   - может содержать конфиденциальную информацию
   - настоящее сообщение
@@ -17,6 +20,9 @@ precleaner:
   - не является договорённостью сторон
   - предназначено только для адресата
   - распространение или иное использование
+  - убедительная просьба сохраняйте, пожалуйста, историю переписки
+  - не подлежит распространению
+  - строго конфиденциально
   fold_on_repeat: true
   fold_quote_over_chars: 1200
   keep_first_disclaimer_per_thread: false
@@ -24,7 +30,26 @@ precleaner:
   languages:
   - ru
   - en
-  max_signature_lines: 4
+  max_signature_lines: 8
+  max_disclaimer_lines: 6
+  quote_preview_non_empty_lines: 40
+  quote_preview_tail_non_empty_lines: 16
+  quote_preview_header_markers:
+  - from:
+  - to:
+  - cc:
+  - subject:
+  - sent:
+  quote_preview_min_lines: 6
+  quote_preview_context_lines: 3
+  quote_preview_max_chars: 1200
+  quote_preview_markers:
+  -  пишет
+  - wrote:
+  - forwarded message
+  - original message
+  - ответил
+  - написал
   sig_markers:
   - --
   - best regards
@@ -38,4 +63,6 @@ precleaner:
   - yours sincerely
   - с наилучшими пожеланиями
   - с уважением
+  - с признательностью
+  - с почтением
   - —

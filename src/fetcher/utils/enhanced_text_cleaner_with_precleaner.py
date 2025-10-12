@@ -44,7 +44,7 @@ class EnhancedTextCleanerWithPreCleaner:
     
     def clean_html_aggressively(self, html_text: str) -> str:
         """🧹 Агрессивная очистка HTML с сохранением полезного контента"""
-        return self.base_cleaner.clean_html_aggressively(html_text)
+        return self.base_cleaner.clean_html_aggressively(html_text, preserve_signatures=True)
     
     def remove_signatures(self, text: str) -> str:
         """✂️ Удаление подписей из текста"""

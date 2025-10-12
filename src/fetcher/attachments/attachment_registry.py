@@ -286,7 +286,10 @@ class AttachmentRegistry:
             return f"extension_excluded:{extension}"
 
         if extension not in SUPPORTED_ATTACHMENTS:
-            return f"extension_not_supported:{extension}"
+            self.logger.debug(
+                "ℹ️ Расширение %s не в списке SUPPORTED_ATTACHMENTS — сохраняем как есть",
+                extension or "<none>",
+            )
 
         fname_lower = filename.lower()
         for pattern in self.filename_exclude_patterns:
@@ -309,7 +312,7 @@ class AttachmentRegistry:
     ) -> str:
         message_hash = hashlib.md5(message_id.encode("utf-8")).hexdigest()[:8]
         safe_filename = re.sub(r"[^\w\s\-.]", "_", original_filename)
-        timestamp = get_local_time().strftime("%H%M%S")
+        timestamp = get_local_time().strftime("%H%M%S_%f")
         prefix = "inline" if is_inline else "attach"
         return (
             f"{date_folder.replace('-', '')}_{message_hash}_{timestamp}_{prefix}_{safe_filename}"

@@ -47,7 +47,7 @@ class EnhancedTextCleaner:
         # Паттерны для очистки текста (более консервативные)
         self.text_cleanup_patterns = [
             (r'\n\s*\n\s*\n+', '\n\n'),  # Множественные переносы строк
-            (r'\s{3,}', ' '),  # Множественные пробелы
+            (r'[ \t]{3,}', ' '),  # Множественные пробелы без затрагивания переносов
             (r'&[a-zA-Z0-9#]+;', ' '),  # HTML entities
             (r'https://webattach\.mail\.yandex\.net[^\s]*', ''),  # Ссылки на вложения Yandex
         ]
@@ -62,11 +62,11 @@ class EnhancedTextCleaner:
             r'^Regards,?\s*$',
         ]
     
-    def clean_html_aggressively(self, html_text: str) -> str:
+    def clean_html_aggressively(self, html_text: str, preserve_signatures: bool = False) -> str:
         """🧹 Агрессивная очистка HTML с сохранением полезного контента"""
         if not html_text:
             return ""
-        
+
         text = html_text
         original_length = len(text)
         
@@ -86,7 +86,7 @@ class EnhancedTextCleaner:
         removed = before_len - len(text)
         if removed > 0:
             self.logger.debug(f"   🗑️ Удалено blockquote с Base64: {removed} символов")
-        
+
         # 3. Удаляем проблемные HTML блоки
         for pattern, replacement in self.html_cleanup_patterns:
             before_len = len(text)
@@ -94,27 +94,41 @@ class EnhancedTextCleaner:
             removed = before_len - len(text)
             if removed > 0:
                 self.logger.debug(f"   🗑️ Удалено HTML блоков: {removed} символов")
-        
-        # 4. Удаляем все оставшиеся HTML теги
+
+        # 4. Сохраняем переносы строк для блочных элементов перед удалением тегов
+        block_break_patterns = (
+            (r'<\s*br\s*/?>', '\n'),
+            (r'</\s*p\s*>', '\n'),
+            (r'<\s*/?div[^>]*>', '\n'),
+            (r'</\s*li\s*>', '\n'),
+            (r'</\s*tr\s*>', '\n'),
+            (r'</\s*table\s*>', '\n'),
+        )
+        for pattern, replacement in block_break_patterns:
+            text = re.sub(pattern, replacement, text, flags=re.IGNORECASE)
+
+        # 5. Удаляем все оставшиеся HTML теги
         before_len = len(text)
         text = re.sub(r'<[^>]+>', '', text)
         removed = before_len - len(text)
         if removed > 0:
             self.logger.debug(f"   🗑️ Удалено HTML тегов: {removed} символов")
-        
-        # 5. Декодируем HTML entities
+
+        # 6. Декодируем HTML entities
         text = html.unescape(text)
-        
-        # 6. Очищаем текст от мусора
+        text = text.replace('\u00a0', ' ')
+
+        # 7. Очищаем текст от мусора
         for pattern, replacement in self.text_cleanup_patterns:
             text = re.sub(pattern, replacement, text, flags=re.MULTILINE)
-        
-        # 7. Удаляем подписи
-        text = self.remove_signatures(text)
-        
-        # 8. Финальная очистка
+
+        # 8. Удаляем подписи, если это явно разрешено
+        if not preserve_signatures:
+            text = self.remove_signatures(text)
+
+        # 9. Финальная очистка
         text = text.strip()
-        
+
         final_length = len(text)
         reduction = original_length - final_length
         reduction_percent = (reduction / original_length * 100) if original_length > 0 else 0

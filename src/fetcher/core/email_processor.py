@@ -412,6 +412,13 @@ class EmailProcessor:
             self.logger.info("=" * 70)
             return None
         
+        # Сохраняем исходный .eml
+        eml_relative_path = email_storage.save_eml(
+            email_info.get("message_id", ""),
+            email_info.get("date_folder", ""),
+            raw_email,
+        )
+        
         # Извлекаем текст с использованием EnhancedTextCleanerWithPreCleaner БЕЗ ОБРЕЗКИ
         try:
             body_text = email_parser.extract_plain_text(msg, include_attachment_data)
@@ -463,6 +470,7 @@ class EmailProcessor:
                     "processed_at": get_local_time().isoformat(),
                     "raw_size": len(raw_email),
                     "date_folder": email_info["date_folder"],
+                    "eml_path": eml_relative_path,
                 }
 
                 body_text = cleaned_text
@@ -492,6 +500,7 @@ class EmailProcessor:
                     "processed_at": get_local_time().isoformat(),
                     "raw_size": len(raw_email),
                     "date_folder": email_info["date_folder"],
+                    "eml_path": eml_relative_path,
                 }
                 
         except Exception as e:
@@ -522,6 +531,7 @@ class EmailProcessor:
                 "processed_at": get_local_time().isoformat(),
                 "raw_size": len(raw_email),
                 "date_folder": email_info["date_folder"],
+                "eml_path": eml_relative_path,
             }
         
         # Обрабатываем вложения

@@ -1,0 +1,108 @@
+# Конфигурация PreCleaner для писем с длинными цепочками цитат
+# Оптимизировано для обработки деловой переписки с множественными цитатами
+
+# Параметры обработки цитат
+quote_preview_non_empty_lines: 20
+quote_preview_tail_non_empty_lines: 5
+quote_preview_max_chars: 800
+fold_quote_over_chars: 1500
+fold_on_repeat: true
+
+# Параметры обработки подписей
+max_signature_lines: 6
+keep_first_signature_per_sender: true
+keep_first_disclaimer_per_thread: false
+
+# Маркеры подписей (расширенный набор для русской деловой переписки)
+sig_markers:
+  - "--"
+  - "—"
+  - "с уважением"
+  - "с наилучшими пожеланиями"
+  - "best regards"
+  - "kind regards"
+  - "regards"
+  - "уважаем"
+  - "с уважением,"
+  - "с наилучшими пожеланиями,"
+  - "уважаем,"
+  - "уважаемая,"
+  - "уважаемый,"
+  - "тел."
+  - "тел:"
+  - "phone:"
+  - "https://"
+  - "http://"
+  - "www."
+  - "почта:"
+  - "email:"
+  - "адрес:"
+  - "офис:"
+  - "отдел:"
+  - "должность:"
+  - "компания:"
+  - "организация:"
+
+# Маркеры цитат (русскоязычные и англоязычные)
+quote_preview_markers:
+  - "пишет"
+  - "написал"
+  - "писал"
+  - "wrote:"
+  - "writes:"
+  - "forwarded message"
+  - "перенаправленное сообщение"
+  - "ответ на"
+  - "re:"
+  - "ответ:"
+  - "цитата:"
+  - "quote:"
+  - "в письме от"
+  - "in message from"
+
+# Маркеры заголовков цитат
+quote_preview_header_markers:
+  - "Кому:"
+  - "От:"
+  - "Тема:"
+  - "Дата:"
+  - "Копия:"
+  - "Скрытая копия:"
+  - "From:"
+  - "To:"
+  - "Subject:"
+  - "Date:"
+  - "Cc:"
+  - "Bcc:"
+  - "Отправитель:"
+  - "Получатель:"
+  - "Копия:"
+  - "Скрытая копия:"
+
+# Маркеры дисклеймеров
+disclaimer_patterns:
+  - "confidentiality notice"
+  - "настоящее сообщение"
+  - "данное электронное сообщение"
+  - "конфиденциальная информация"
+  - "не является договором"
+  - "не может служить основанием"
+  - "только для адресата"
+  - "unsubscribe"
+  - "privacy policy"
+  - "конфиденциально"
+  - "не подлежит распространению"
+  - "коммерческая тайна"
+  - "внутренняя информация"
+
+# Параметры обработки дисклеймеров
+max_disclaimer_lines: 4
+keep_first_disclaimer_per_thread: false
+
+# Дополнительные параметры
+quote_preview_min_lines: 3
+quote_preview_context_lines: 0
+quote_preview_non_empty_lines: 20
+quote_preview_tail_non_empty_lines: 5
+quote_preview_max_chars: 800
+max_signature_length: 400
