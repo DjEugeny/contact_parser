@@ -11,8 +11,9 @@ import numpy as np
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 import time
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 import subprocess
+import re
 import shutil
 import io
 import logging
@@ -110,6 +111,88 @@ class OCRProcessor:
         print(f"🗂️  Результаты в папке: {self.base_results_dir}")
         print(f"💾 Кэш PDF анализа: {self._cache_dir}")
         print("=" * 70)
+    
+    # Функции для гибкого парсинга дат (из src/fetcher/cli.py)
+    DATE_TIPS = "Примеры: 2025-07-12, 12.07.2025, 12-7-25, 12 июля 25, 7.7.25"
+    
+    @staticmethod
+    def get_local_time(dt=None):
+        """Получение локального времени с часовым поясом +7 (Новосибирск)"""
+        LOCAL_TIMEZONE = timezone(timedelta(hours=7))
+        if dt is None:
+            dt = datetime.now(LOCAL_TIMEZONE)
+        elif dt.tzinfo is None:
+            dt = dt.replace(tzinfo=LOCAL_TIMEZONE)
+        return dt
+    
+    @classmethod
+    def parse_date_flexible(cls, date_str):
+        """
+        📅 Гибкий парсинг даты в различных форматах (как в старом фетчере)
+        
+        Поддерживаемые форматы:
+        - 2025-07-12 (ISO формат)
+        - 12.07.2025 (точки)
+        - 12-7-25 (короткий формат)
+        - 12 июля 25 (текстовый формат на русском)
+        - 7.7.25 (короткий формат с точками)
+        """
+        date_str = date_str.strip()
+        
+        # Формат: 2025-07-12 (ISO)
+        try:
+            return datetime.strptime(date_str, "%Y-%m-%d")
+        except ValueError:
+            pass
+        
+        # Формат: 12.07.2025
+        try:
+            return datetime.strptime(date_str, "%d.%m.%Y")
+        except ValueError:
+            pass
+        
+        # Формат: 7.7.25 (короткий с точками)
+        try:
+            dt = datetime.strptime(date_str, "%d.%m.%y")
+            # Корректируем год (25 → 2025)
+            if dt.year < 2000:
+                dt = dt.replace(year=dt.year + 2000)
+            return dt
+        except ValueError:
+            pass
+        
+        # Формат: 12-7-25
+        try:
+            dt = datetime.strptime(date_str, "%d-%m-%y")
+            # Корректируем год (25 → 2025)
+            if dt.year < 2000:
+                dt = dt.replace(year=dt.year + 2000)
+            return dt
+        except ValueError:
+            pass
+        
+        # Формат: 12 июля 25
+        months_ru = {
+            "января": 1, "февраля": 2, "марта": 3, "апреля": 4,
+            "мая": 5, "июня": 6, "июля": 7, "августа": 8,
+            "сентября": 9, "октября": 10, "ноября": 11, "декабря": 12,
+        }
+        
+        pattern = r"(\d{1,2})\s+(\w+)\s+(\d{2,4})"
+        match = re.match(pattern, date_str.lower())
+        if match:
+            day = int(match.group(1))
+            month_name = match.group(2)
+            year = int(match.group(3))
+            
+            if month_name in months_ru:
+                month = months_ru[month_name]
+                if year < 100:
+                    year += 2000
+                return datetime(year, month, day)
+        
+        raise ValueError(f"Не удалось распознать формат даты: {date_str}")
+    
     def _setup_logging(self):
         """🔧 Настройка системы логирования с ротацией файлов"""
         
@@ -3994,26 +4077,253 @@ def main():
     
     # Интерактивный режим
     while True:
-        print("\n\n" + "="*25 + " 🎯 МЕНЮ ТЕСТИРОВЩИКА 🎯 " + "="*25)
-        print(f"📅 Доступные даты для теста: {', '.join(available_dates)}")
-        print("1. 🧪 Протестировать файлы за конкретную дату")
-        print("2. 🚀 Протестировать ВСЕ файлы из ВСЕХ дат")
-        print("3. 🚪 Выйти")
-        choice = input("👉 Ваш выбор (1-3): ").strip()
+        print("\n" + "=" * 70)
+        print("🎯 OCR ТЕСТЕР С GOOGLE CLOUD VISION v13 - ИНТЕРАКТИВНОЕ МЕНЮ")
+        print("=" * 70)
+        print("✅ Гибридная обработка PDF с интеллектуальным выбором стратегии")
+        print("✅ Адаптивное сжатие изображений для Google Vision API")
+        print("✅ Поддержка множества форматов: PDF, DOCX, XLSX, изображения")
+        print("✅ Автоматическое определение качества текстового слоя")
+        print("=" * 70)
+        print()
+        print("Выберите режим работы:")
+        print("  1. Обработать файлы за конкретную дату")
+        print("  2. Обработать диапазон дат")
+        print("  3. Обработать весь месяц текущего года")
+        print("  4. Обработать последние 7 дней")
+        print("  5. Обработать последние 30 дней")
+        print("  6. Тестовый запуск (сегодня)")
+        print("  7. Обработать ВСЕ файлы из ВСЕХ дат")
+        print("  8. Показать информацию о системе")
+        print("  0. Выход")
+        print()
+
+        choice = input("Ваш выбор (0-8): ").strip()
+
         if choice == "1":
-            date = input("   Введите дату (YYYY-MM-DD): ").strip()
-            if date not in available_dates:
-                print(f"   ❌ Дата '{date}' не найдена!"); continue
-            files_found = tester.get_files_for_date(date)
+            print("\nВведите дату:")
+            print(f"  {tester.DATE_TIPS}")
+            print(f"  Доступные даты: {', '.join(available_dates)}")
+            date_str = input("Дата: ").strip()
+            
+            # Пробуем распарсить дату с использованием гибкого парсера
+            try:
+                parsed_date = tester.parse_date_flexible(date_str)
+                date_str = parsed_date.strftime("%Y-%m-%d")  # Нормализуем в стандартный формат
+            except ValueError as exc:
+                print(f"   ❌ Ошибка: {exc}")
+                retry = input("\nПопробовать снова? (д/н): ").strip().lower()
+                if retry in ['д', 'да', 'y', 'yes']:
+                    continue
+                else:
+                    break
+            
+            if date_str not in available_dates:
+                print(f"   ❌ Дата '{date_str}' не найдена в доступных датах!")
+                retry = input("\nПопробовать снова? (д/н): ").strip().lower()
+                if retry in ['д', 'да', 'y', 'yes']:
+                    continue
+                else:
+                    break
+                    
+            files_found = tester.get_files_for_date(date_str)
             if not files_found:
-                print(f"🤷 В папке за {date} не найдено поддерживаемых файлов.")
+                print(f"🤷 В папке за {date_str} не найдено поддерживаемых файлов.")
                 continue
             print(f"✅ Найдено файлов для обработки: {len(files_found)}")
             limit_input = input(f"   Сколько файлов тестировать? (Enter = все {len(files_found)}): ").strip()
             limit = int(limit_input) if limit_input.isdigit() else None
-            tester.test_files_by_date(date, files_found, limit)
+            tester.test_files_by_date(date_str, files_found, limit)
+
         elif choice == "2":
-            if input("   Вы уверены, что хотите протестировать все файлы? (y/n): ").lower() == 'y':
+            print("\nВведите начальную дату:")
+            print(f"  {tester.DATE_TIPS}")
+            print(f"  Доступные даты: {', '.join(available_dates)}")
+            start_str = input("Начальная дата: ").strip()
+            
+            # Пробуем распарсить дату
+            try:
+                parsed_start = tester.parse_date_flexible(start_str)
+                start_str = parsed_start.strftime("%Y-%m-%d")  # Нормализуем
+            except ValueError as exc:
+                print(f"   ❌ Ошибка: {exc}")
+                retry = input("\nПопробовать снова? (д/н): ").strip().lower()
+                if retry in ['д', 'да', 'y', 'yes']:
+                    continue
+                else:
+                    break
+            
+            print("\nВведите конечную дату:")
+            print(f"  {tester.DATE_TIPS}")
+            print(f"  Доступные даты: {', '.join(available_dates)}")
+            end_str = input("Конечная дата: ").strip()
+            
+            # Пробуем распарсить дату
+            try:
+                parsed_end = tester.parse_date_flexible(end_str)
+                end_str = parsed_end.strftime("%Y-%m-%d")  # Нормализуем
+            except ValueError as exc:
+                print(f"   ❌ Ошибка: {exc}")
+                retry = input("\nПопробовать снова? (д/н): ").strip().lower()
+                if retry in ['д', 'да', 'y', 'yes']:
+                    continue
+                else:
+                    break
+            
+            if start_str not in available_dates:
+                print(f"   ❌ Начальная дата '{start_str}' не найдена в доступных датах!")
+                retry = input("\nПопробовать снова? (д/н): ").strip().lower()
+                if retry in ['д', 'да', 'y', 'yes']:
+                    continue
+                else:
+                    break
+                    
+            if end_str not in available_dates:
+                print(f"   ❌ Конечная дата '{end_str}' не найдена в доступных датах!")
+                retry = input("\nПопробовать снова? (д/н): ").strip().lower()
+                if retry in ['д', 'да', 'y', 'yes']:
+                    continue
+                else:
+                    break
+            
+            if start_str > end_str:
+                print("❌ Ошибка: начальная дата больше конечной!")
+                retry = input("\nПопробовать снова? (д/н): ").strip().lower()
+                if retry in ['д', 'да', 'y', 'yes']:
+                    continue
+                else:
+                    break
+            
+            # Получаем все даты в диапазоне
+            start_idx = available_dates.index(start_str)
+            end_idx = available_dates.index(end_str)
+            selected_dates = available_dates[start_idx:end_idx + 1]
+            
+            print(f"\n🚀 Обработка диапазона дат: {start_str} - {end_str}")
+            for date in selected_dates:
+                print(f"\n\n--- 🚀 Обработка даты: {date} ---")
+                files_found = tester.get_files_for_date(date)
+                if files_found:
+                    tester.test_files_by_date(date, files_found)
+                else:
+                    print(f"🤷 В папке за {date} не найдено поддерживаемых файлов.")
+
+        elif choice == "3":
+            print("\nВведите месяц (1-12):")
+            try:
+                month = int(input("Месяц: ").strip())
+            except ValueError:
+                print("❌ Ошибка: введите число от 1 до 12!")
+                retry = input("\nПопробовать снова? (д/н): ").strip().lower()
+                if retry in ['д', 'да', 'y', 'yes']:
+                    continue
+                else:
+                    break
+            if month < 1 or month > 12:
+                print("❌ Ошибка: месяц должен быть от 1 до 12!")
+                retry = input("\nПопробовать снова? (д/н): ").strip().lower()
+                if retry in ['д', 'да', 'y', 'yes']:
+                    continue
+                else:
+                    break
+            
+            # Фильтруем даты по месяцу текущего года
+            current_year = datetime.now().year
+            month_dates = [date for date in available_dates if date.startswith(f"{current_year}-{month:02d}")]
+            
+            if not month_dates:
+                print(f"🤷 За {month:02d}.{current_year} не найдено дат.")
+                retry = input("\nПопробовать снова? (д/н): ").strip().lower()
+                if retry in ['д', 'да', 'y', 'yes']:
+                    continue
+                else:
+                    break
+            
+            print(f"\n🚀 Обработка месяца: {month:02d}.{current_year}")
+            for date in month_dates:
+                print(f"\n\n--- 🚀 Обработка даты: {date} ---")
+                files_found = tester.get_files_for_date(date)
+                if files_found:
+                    tester.test_files_by_date(date, files_found)
+                else:
+                    print(f"🤷 В папке за {date} не найдено поддерживаемых файлов.")
+
+        elif choice == "4":
+            print("\n📅 Обработка последних 7 дней")
+            # Находим последние 7 доступных дат
+            recent_dates = available_dates[-7:] if len(available_dates) >= 7 else available_dates
+            if not recent_dates:
+                print("🤷 Не найдено доступных дат.")
+                retry = input("\nПопробовать снова? (д/н): ").strip().lower()
+                if retry in ['д', 'да', 'y', 'yes']:
+                    continue
+                else:
+                    break
+            
+            print(f"\n🚀 Обработка последних {len(recent_dates)} дней")
+            for date in recent_dates:
+                print(f"\n\n--- 🚀 Обработка даты: {date} ---")
+                files_found = tester.get_files_for_date(date)
+                if files_found:
+                    tester.test_files_by_date(date, files_found)
+                else:
+                    print(f"🤷 В папке за {date} не найдено поддерживаемых файлов.")
+
+        elif choice == "5":
+            print("\n📅 Обработка последних 30 дней")
+            # Находим последние 30 доступных дат
+            recent_dates = available_dates[-30:] if len(available_dates) >= 30 else available_dates
+            if not recent_dates:
+                print("🤷 Не найдено доступных дат.")
+                retry = input("\nПопробовать снова? (д/н): ").strip().lower()
+                if retry in ['д', 'да', 'y', 'yes']:
+                    continue
+                else:
+                    break
+            
+            print(f"\n🚀 Обработка последних {len(recent_dates)} дней")
+            for date in recent_dates:
+                print(f"\n\n--- 🚀 Обработка даты: {date} ---")
+                files_found = tester.get_files_for_date(date)
+                if files_found:
+                    tester.test_files_by_date(date, files_found)
+                else:
+                    print(f"🤷 В папке за {date} не найдено поддерживаемых файлов.")
+
+        elif choice == "6":
+            print("\n🧪 Тестовый запуск за сегодня")
+            if not available_dates:
+                print("🤷 Не найдено доступных дат.")
+                retry = input("\nПопробовать снова? (д/н): ").strip().lower()
+                if retry in ['д', 'да', 'y', 'yes']:
+                    continue
+                else:
+                    break
+            
+            today = available_dates[-1]  # Предполагаем, что последняя дата - сегодня
+            print(f"\n--- 🧪 Тестовый запуск: {today} ---")
+            files_found = tester.get_files_for_date(today)
+            if files_found:
+                print(f"✅ Найдено файлов для обработки: {len(files_found)}")
+                limit_input = input(f"   Сколько файлов тестировать? (Enter = все {len(files_found)}): ").strip()
+                try:
+                    limit = int(limit_input) if limit_input.isdigit() else None
+                except ValueError:
+                    print("❌ Ошибка: введите число!")
+                    limit = None
+                tester.test_files_by_date(today, files_found, limit)
+            else:
+                print(f"🤷 В папке за {today} не найдено поддерживаемых файлов.")
+                retry = input("\nПопробовать снова? (д/н): ").strip().lower()
+                if retry in ['д', 'да', 'y', 'yes']:
+                    continue
+                else:
+                    break
+
+        elif choice == "7":
+            confirm = input("   Вы уверены, что хотите обработать все файлы? Это может занять много времени. (y/n): ").strip().lower()
+            if confirm in ['y', 'yes', 'д', 'да']:
+                print("\n🚀 Обработка всех файлов из всех дат")
                 for date in available_dates:
                     print(f"\n\n--- 🚀 Обработка даты: {date} ---")
                     files_found = tester.get_files_for_date(date)
@@ -4023,10 +4333,39 @@ def main():
                         print(f"🤷 В папке за {date} не найдено поддерживаемых файлов.")
             else:
                 print("   Отменено.")
-        elif choice == "3":
-            print("👋 До свидания!"); break
+
+        elif choice == "8":
+            print("\n" + "=" * 70)
+            print("📊 ИНФОРМАЦИЯ О СИСТЕМЕ")
+            print("=" * 70)
+            print(f"📁 Папка с вложениями: {tester.attachments_dir}")
+            print(f"🗂️  Папка с результатами: {tester.base_results_dir}")
+            print(f"📝 Папка с текстами: {tester.texts_dir}")
+            print(f"📊 Папка с отчетами: {tester.reports_dir}")
+            print(f"📁 Папка с логами: {tester.logs_dir}")
+            print(f"💾 Папка с кэшем: {tester._cache_dir}")
+            print()
+            print("🔧 ВОЗМОЖНОСТИ СИСТЕМЫ:")
+            tester._show_capabilities()
+            print()
+            print(f"📅 Доступные даты ({len(available_dates)}): {', '.join(available_dates)}")
+            print()
+            total_files = 0
+            for date in available_dates:
+                files = tester.get_files_for_date(date)
+                total_files += len(files)
+            print(f"📄 Всего файлов для обработки: {total_files}")
+            print("=" * 70)
+
+        elif choice == "0":
+            print("\n👋 Выход из программы")
+            break
+
         else:
-            print("   ❌ Неверный выбор. Пожалуйста, введите число от 1 до 3.")
+            print("❌ Неверный выбор!")
+            retry = input("\nПопробовать снова? (д/н): ").strip().lower()
+            if retry not in ['д', 'да', 'y', 'yes']:
+                break
 
 if __name__ == "__main__":
     main()
