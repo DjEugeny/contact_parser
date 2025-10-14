@@ -85,6 +85,7 @@ class FileTokenCounter:
         self.final_results_path = DataPaths.OCR_TEXTS_DIR
         self.output_path = self.base_path / "file_tokens"
         self.cache_file = self.base_path / ".processed_file_tokens.json"
+        self.cache_version = "2025-10-14_v2"
         
         self.output_path.mkdir(exist_ok=True)
         self.processed_files = self._load_cache()
@@ -136,9 +137,12 @@ class FileTokenCounter:
 
         if file_id in self.processed_files:
             cached_info = self.processed_files[file_id]
-            if isinstance(cached_info, dict) and cached_info.get('hash') == current_hash:
-                logger.info(f"Файл '{file_path.name}' не изменился, используем данные из кэша.")
-                return cached_info.get('symbols', 0), cached_info.get('tokens', 0)
+            if isinstance(cached_info, dict):
+                if cached_info.get("version") != self.cache_version:
+                    return None
+                if cached_info.get('hash') == current_hash:
+                    logger.info(f"Файл '{file_path.name}' не изменился, используем данные из кэша.")
+                    return cached_info.get('symbols', 0), cached_info.get('tokens', 0)
         
         logger.info(f"Файл '{file_path.name}' новый или был изменен, будет обработан.")
         return None
@@ -149,34 +153,30 @@ class FileTokenCounter:
         current_hash = self._get_file_hash(file_path)
         if current_hash:
             self.processed_files[file_id] = {
+                'version': self.cache_version,
                 'hash': current_hash,
                 'symbols': symbols,
                 'tokens': tokens
             }
 
     def get_available_dates(self) -> List[str]:
-        """Получает отсортированный список доступных дат из папок emails и data/ocr/texts."""
-        dates = set()
-        
-        # Добавляем даты из папки emails
-        if self.emails_path.exists():
-            for date_folder in self.emails_path.iterdir():
-                if date_folder.is_dir() and not date_folder.name.startswith('.'):
-                    dates.add(date_folder.name)
-        
-        # Добавляем даты из папки data/ocr/texts (для случаев, когда есть только OCR-файлы)
-        if self.final_results_path.exists():
-            for date_folder in self.final_results_path.iterdir():
-                if date_folder.is_dir() and not date_folder.name.startswith('.'):
-                    dates.add(date_folder.name)
-        
-        return sorted(list(dates), reverse=True)
+        """📅 Возвращает доступные даты, основываясь на реальных папках с вложениями."""
+        if not self.attachments_path.exists():
+            logger.warning("📂 Папка с вложениями не найдена, список дат будет пустым.")
+            return []
+
+        dates: List[str] = []
+        for date_folder in self.attachments_path.iterdir():
+            if date_folder.is_dir() and not date_folder.name.startswith('.'):
+                dates.append(date_folder.name)
+
+        return sorted(dates, reverse=True)
 
     def choose_date_menu(self) -> Optional[str]:
         """Отображает интерактивное меню для выбора даты обработки."""
         dates = self.get_available_dates()
         if not dates:
-            logger.error("В директории 'data/emails' не найдено папок с датами для обработки.")
+            logger.error("В директории 'data/attachments' не найдено папок с датами для обработки.")
             return None
 
         print("\n" + "="*50 + "\nДОСТУПНЫЕ ДАТЫ ДЛЯ ОБРАБОТКИ:\n" + "="*50)
@@ -202,6 +202,23 @@ class FileTokenCounter:
                 print("Неверный номер. Попробуйте снова.")
             except ValueError:
                 print("Некорректный ввод. Введите число или 'q'.")
+
+    def _extract_email_body(self, email_data: Dict[str, Any]) -> str:
+        """📝 Извлекает тело письма с учётом возможных вариантов полей."""
+        body_candidates = [
+            email_data.get("body"),
+            email_data.get("body_clean"),
+            email_data.get("body_plain"),
+            email_data.get("body_text"),
+            email_data.get("text"),
+            email_data.get("body_raw"),
+        ]
+
+        for candidate in body_candidates:
+            if isinstance(candidate, str) and candidate.strip():
+                return candidate
+
+        return ""
 
     def count_symbols_tokens(self, text: str) -> Tuple[int, int]:
         """Подсчитывает количество символов и токенов в тексте с нормализацией."""
@@ -334,6 +351,37 @@ class FileTokenCounter:
                 pass
         if attachment.get("original_filename"):
             return attachment["original_filename"]
+        return None
+
+    def _resolve_attachment_disk_path(self, date: str, attachment: Dict[str, Any]) -> Optional[Path]:
+        """🗂️ Возвращает фактический путь к вложению на диске, если он существует."""
+        saved_filename = self._resolve_saved_filename(attachment)
+        if not saved_filename:
+            return None
+
+        candidates: List[Path] = []
+        attachments_dir = self.attachments_path / date
+        candidates.append(attachments_dir / saved_filename)
+
+        for field in ("file_path", "relative_path"):
+            candidate_value = attachment.get(field)
+            if not candidate_value:
+                continue
+            try:
+                candidate_path = Path(candidate_value)
+                if not candidate_path.is_absolute():
+                    candidate_path = self.base_path / candidate_path
+                candidates.append(candidate_path)
+            except Exception:
+                continue
+
+        for candidate in candidates:
+            try:
+                if candidate.exists():
+                    return candidate
+            except Exception:
+                continue
+
         return None
 
     def _locate_ocr_for_attachment(self, date: str, attachment: Dict[str, Any]) -> Optional[Path]:
@@ -531,7 +579,7 @@ class FileTokenCounter:
                     continue
 
                 # Обработка тела письма
-                body_text = email_data.get('body', '')
+                body_text = self._extract_email_body(email_data)
                 cached_body = self._get_cached_data(email_file)
                 if cached_body:
                     body_symbols, body_tokens = cached_body
@@ -548,33 +596,36 @@ class FileTokenCounter:
 
                 # Обработка вложений
                 reconciled_attachments = self._get_reconciled_attachments(email_data, date)
+                allowed_statuses = {"saved", "already_exists"}
                 for attachment in reconciled_attachments:
-                    saved_filename = self._resolve_saved_filename(attachment)
                     att_status = (attachment.get("status") or "unknown").lower()
+                    if att_status not in allowed_statuses:
+                        continue
+
+                    saved_filename = self._resolve_saved_filename(attachment)
+                    if not saved_filename:
+                        logger.warning(
+                            f"❌ Вложение без имени в письме {email_file.name}: {attachment}"
+                        )
+                        continue
+
+                    disk_path = self._resolve_attachment_disk_path(date, attachment)
+                    if not disk_path:
+                        original_name = attachment.get("original_filename")
+                        logger.warning(
+                            f"❌ Файл вложения {saved_filename} "
+                            f"(оригинал: {original_name}) из письма {email_file.name} не найден на диске."
+                        )
+                        continue
+
                     att_result = {
-                        "file": saved_filename or attachment.get("original_filename") or "unknown_attachment",
-                        "status": att_status,
+                        "file": saved_filename,
+                        "status": "saved",
                         "symbols": 0,
                         "tokens": 0,
                         "reason": attachment.get("reason"),
+                        "disk_path": str(disk_path),
                     }
-
-                    # Пропускаем вложения без файлов или исключённые фильтрами
-                    skip_statuses = {
-                        "excluded",
-                        "excluded_filename",
-                        "excluded_by_filter",
-                        "excluded_by_size",
-                        "excluded_inline_image",
-                        "unsupported",
-                    }
-                    if att_status in skip_statuses:
-                        email_result["attachments"].append(att_result)
-                        continue
-
-                    if attachment.get("file_exists") is False or att_status == "missing_file":
-                        email_result["attachments"].append(att_result)
-                        continue
 
                     ocr_file = self._locate_ocr_for_attachment(date, attachment)
                     if ocr_file:
@@ -598,6 +649,7 @@ class FileTokenCounter:
                         if att_result["status"] != "error":
                             att_result["status"] = "processed"
                     else:
+                        att_result["status"] = "saved_no_ocr"
                         logger.info(
                             f"⚠️ Для вложения '{att_result['file']}' в письме {email_file.name} не найден OCR файл"
                         )
@@ -730,6 +782,7 @@ class FileTokenCounter:
             saved_attachments = 0
             missing_attachments = 0
             excluded_attachments = 0
+            allowed_statuses = {"saved", "already_exists"}
             if emails_dir.exists():
                 for email_file in emails_dir.glob("*.json"):
                     try:
@@ -738,9 +791,14 @@ class FileTokenCounter:
                         email_attachments = self._get_reconciled_attachments(email_data, date)
                         for attachment in email_attachments:
                             status = (attachment.get('status') or '').lower()
-                            if status in {'saved', 'already_exists'}:
+                            if status in allowed_statuses:
                                 saved_attachments += 1
-                                if attachment.get('file_exists') is False or status == 'missing_file':
+                                saved_filename = self._resolve_saved_filename(attachment)
+                                disk_path = (
+                                    self._resolve_attachment_disk_path(date, attachment)
+                                    if saved_filename else None
+                                )
+                                if (not saved_filename) or (disk_path is None):
                                     missing_attachments += 1
                             elif status in {
                                 'excluded',
@@ -833,7 +891,8 @@ class FileTokenCounter:
                             'symbols': attachment['symbols'],
                             'tokens': attachment['tokens'],
                             'date': date,
-                            'email': email['file']
+                            'email': email['file'],
+                            'disk_path': attachment.get('disk_path')
                         })
 
         # Сортируем по количеству символов (по убыванию) и берем топ-30
@@ -846,7 +905,10 @@ class FileTokenCounter:
         top_rows = ""
         for i, att in enumerate(top_attachments, 1):
             # Создаем кликабельную ссылку с JavaScript для открытия файла
-            file_path = str((self.attachments_path / att['date'] / att['file']).resolve())
+            if att.get('disk_path'):
+                file_path = str(Path(att['disk_path']).resolve())
+            else:
+                file_path = str((self.attachments_path / att['date'] / att['file']).resolve())
             top_rows += f"""
             <tr class="top-attachment-row">
                 <td class="number">{i}</td>
@@ -975,8 +1037,10 @@ class FileTokenCounter:
                         email_total_tokens += att['tokens']
                         
                         status_text = ""
-                        if att['status'] == 'unprocessed':
-                            status_text = " (не обработано)"
+                        if att['status'] == 'saved_no_ocr':
+                            status_text = " (нет OCR)"
+                        elif att['status'] == 'saved':
+                            status_text = " (ожидает OCR)"
                         elif att['status'] == 'error':
                             status_text = " (ошибка чтения)"
 
