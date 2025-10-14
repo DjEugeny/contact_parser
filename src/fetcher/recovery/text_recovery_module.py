@@ -17,9 +17,20 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from dataclasses import dataclass
 
-from ..core.email_fetcher import EmailFetcher
-from ..core.connection_manager import ConnectionManager
-from ..storage.email_storage import EmailStorage
+try:
+    from ..core.email_fetcher import EmailFetcher
+    from ..core.connection_manager import ConnectionManager
+    from ..storage.email_storage import EmailStorage
+except ImportError:
+    # Fallback для прямого запуска
+    import sys
+    from pathlib import Path
+    project_root = Path(__file__).resolve().parent.parent.parent.parent
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
+    from src.fetcher.core.email_fetcher import EmailFetcher
+    from src.fetcher.core.connection_manager import ConnectionManager
+    from src.fetcher.storage.email_storage import EmailStorage
 
 
 @dataclass

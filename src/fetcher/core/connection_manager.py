@@ -11,6 +11,13 @@ import logging
 import signal
 from typing import List, Optional, Tuple
 
+# Для обработки специфических ошибок подключения
+try:
+    from errno import ECONNRESET
+    ConnectionResetByPeer = ConnectionResetError
+except ImportError:
+    ConnectionResetByPeer = ConnectionError
+
 # Импорты конфигурации
 import os
 from dotenv import load_dotenv
@@ -23,6 +30,9 @@ IMAP_SERVER = os.getenv("IMAP_SERVER")
 IMAP_PORT = int(os.getenv("IMAP_PORT", 143))
 IMAP_USER = os.getenv("IMAP_USER")
 IMAP_PASSWORD = os.getenv("IMAP_PASSWORD")
+
+# Альтернативный порт для автоматического переключения
+IMAP_SSL_PORT = 993
 
 # Настройки устойчивости
 MAX_RETRIES = 5
@@ -57,42 +67,68 @@ class ConnectionManager:
     
     def connect(self) -> bool:
         """
-        Установка соединения с сервером.
+        Установка соединения с сервером с автоматическим переключением на SSL.
         
         Returns:
             True если соединение установлено, иначе False
         """
         max_attempts = 3
         
-        for attempt in range(max_attempts):
-            try:
-                # Закрываем предыдущее соединение если есть
-                if self.mail:
-                    try:
-                        self.mail.logout()
-                    except:
-                        pass
-                
-                self.logger.info(
-                    f"🔌 Подключение к {IMAP_SERVER} (попытка {attempt + 1}/{max_attempts})..."
-                )
-                
-                # Устанавливаем новое соединение
-                self.mail = imaplib.IMAP4(IMAP_SERVER, IMAP_PORT)
-                self.mail.starttls(ssl.create_default_context())
-                self.mail.login(IMAP_USER, IMAP_PASSWORD)
-                self.mail.select("INBOX")
-                
-                self.last_connect_time = time.time()
-                self.is_connected = True
-                
-                self.logger.info("✅ Соединение успешно установлено")
-                return True
-                
-            except Exception as e:
-                self.logger.error(f"❌ Ошибка подключения (попытка {attempt + 1}): {e}")
-                if attempt < max_attempts - 1:
-                    time.sleep(RETRY_DELAY)
+        # Пробуем сначала основной порт, затем SSL порт если основной не работает
+        ports_to_try = [
+            (IMAP_PORT, False, f"IMAP+STARTTLS на порту {IMAP_PORT}"),
+            (IMAP_SSL_PORT, True, f"IMAPS на порту {IMAP_SSL_PORT}")
+        ]
+        
+        for port_index, (port, use_ssl, description) in enumerate(ports_to_try):
+            if port_index > 0:
+                self.logger.info(f"🔄 Переключаемся на {description} (порт {port})")
+            
+            for attempt in range(max_attempts):
+                try:
+                    # Закрываем предыдущее соединение если есть
+                    if self.mail:
+                        try:
+                            self.mail.logout()
+                        except:
+                            pass
+                    
+                    self.logger.info(
+                        f"🔌 Подключение к {IMAP_SERVER}:{port} ({description}) (попытка {attempt + 1}/{max_attempts})..."
+                    )
+                    
+                    # Устанавливаем новое соединение
+                    if use_ssl:
+                        self.mail = imaplib.IMAP4_SSL(IMAP_SERVER, port)
+                    else:
+                        self.mail = imaplib.IMAP4(IMAP_SERVER, port)
+                        self.mail.starttls(ssl.create_default_context())
+                    
+                    self.mail.login(IMAP_USER, IMAP_PASSWORD)
+                    self.mail.select("INBOX")
+                    
+                    self.last_connect_time = time.time()
+                    self.is_connected = True
+                    
+                    self.logger.info(f"✅ Соединение успешно установлено ({description})")
+                    return True
+                    
+                except (ConnectionResetByPeer, ConnectionResetError, OSError) as e:
+                    error_msg = str(e)
+                    self.logger.error(f"❌ Ошибка подключения ({description}, попытка {attempt + 1}): {e}")
+                    
+                    # Если это Connection reset by peer и мы на основном порту, переключаемся на SSL
+                    if "Connection reset by peer" in error_msg and port_index == 0:
+                        self.logger.info(f"🔄 Сервер разрывает соединение на порту {port}, переключаемся на SSL...")
+                        break  # Выходим из цикла попыток и переключаемся на следующий порт
+                    
+                    if attempt < max_attempts - 1:
+                        time.sleep(RETRY_DELAY)
+                        
+                except Exception as e:
+                    self.logger.error(f"❌ Ошибка подключения ({description}, попытка {attempt + 1}): {e}")
+                    if attempt < max_attempts - 1:
+                        time.sleep(RETRY_DELAY)
         
         self.is_connected = False
         return False

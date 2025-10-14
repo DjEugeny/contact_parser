@@ -265,6 +265,30 @@ class AttachmentsRepository:
             ).fetchall()
         return [(row["stored_name"], row["email_date"]) for row in rows]
 
+    def update_status(self, attachment_id: int, status: str) -> None:
+        with self._get_connection() as conn:
+            conn.execute(
+                "UPDATE attachments SET status = ?, saved_at = saved_at WHERE id = ?",
+                (status, attachment_id),
+            )
+    
+    def update_file_reference(
+        self,
+        attachment_id: int,
+        stored_name: str,
+        file_size: int,
+        sha256: str,
+    ) -> None:
+        with self._get_connection() as conn:
+            conn.execute(
+                """
+                UPDATE attachments
+                SET stored_name = ?, file_size = ?, sha256 = ?, saved_at = datetime('now')
+                WHERE id = ?
+                """,
+                (stored_name, file_size, sha256, attachment_id),
+            )
+
     # ------------------------------------------------------------------
     # Events
     # ------------------------------------------------------------------
@@ -351,4 +375,3 @@ class AttachmentsRepository:
             rows = conn.execute("SELECT * FROM attachments ORDER BY id ASC").fetchall()
         for row in rows:
             yield self._row_to_attachment(row)
-

@@ -5,14 +5,30 @@ Email Fetcher - Новая модульная архитектура.
 Архитектура разделена на компоненты для лучшей поддерживаемости.
 """
 
-from .core.email_fetcher import EmailFetcher
-from .core.connection_manager import ConnectionManager
-from .core.email_processor import EmailProcessor
-from .filters.email_filters import EmailFilters
-from .parsers.email_parser import EmailParser
-from .storage.email_storage import EmailStorage
-from .attachments.attachment_registry import AttachmentRegistry
-from .legacy.legacy_email_fetcher import LegacyEmailFetcherV2
+try:
+    from .core.email_fetcher import EmailFetcher
+    from .core.connection_manager import ConnectionManager
+    from .core.email_processor import EmailProcessor
+    from .filters.email_filters import EmailFilters
+    from .parsers.email_parser import EmailParser
+    from .storage.email_storage import EmailStorage
+    from .attachments.attachment_registry import AttachmentRegistry
+    from .legacy.legacy_email_fetcher import LegacyEmailFetcherV2
+except ImportError:
+    # Fallback для прямого запуска
+    import sys
+    from pathlib import Path
+    project_root = Path(__file__).resolve().parent.parent
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
+    from src.fetcher.core.email_fetcher import EmailFetcher
+    from src.fetcher.core.connection_manager import ConnectionManager
+    from src.fetcher.core.email_processor import EmailProcessor
+    from src.fetcher.filters.email_filters import EmailFilters
+    from src.fetcher.parsers.email_parser import EmailParser
+    from src.fetcher.storage.email_storage import EmailStorage
+    from src.fetcher.attachments.attachment_registry import AttachmentRegistry
+    from src.fetcher.legacy.legacy_email_fetcher import LegacyEmailFetcherV2
 
 # Экспортируем основные компоненты
 __all__ = [

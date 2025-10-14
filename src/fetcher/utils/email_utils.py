@@ -10,7 +10,16 @@ from typing import List, Optional
 from email.header import decode_header, make_header
 from email.utils import getaddresses
 
-from .date_utils import parse_email_date
+try:
+    from .date_utils import parse_email_date
+except ImportError:
+    # Fallback для прямого запуска
+    import sys
+    from pathlib import Path
+    project_root = Path(__file__).resolve().parent.parent.parent.parent
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
+    from src.fetcher.utils.date_utils import parse_email_date
 
 
 def decode_header_value(val: str) -> str:
@@ -83,7 +92,16 @@ def generate_thread_id(from_addr: str, subject: str, date: str) -> str:
         short_hash = hash_obj.hexdigest()[:8]
         return f"{date_part}_{domain.replace('.', '_')}_{short_hash}"
     except:
-        from .date_utils import get_local_time
+        try:
+            from .date_utils import get_local_time
+        except ImportError:
+            # Fallback для прямого запуска
+            import sys
+            from pathlib import Path
+            project_root = Path(__file__).resolve().parent.parent.parent.parent
+            if str(project_root) not in sys.path:
+                sys.path.insert(0, str(project_root))
+            from src.fetcher.utils.date_utils import get_local_time
         return f"unknown_{get_local_time().strftime('%Y%m%d_%H%M%S')}"
 
 

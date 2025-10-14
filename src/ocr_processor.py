@@ -21,6 +21,8 @@ from logging.handlers import RotatingFileHandler
 import re
 import asyncio
 import hashlib
+import zipfile
+import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from PIL import Image
@@ -205,7 +207,15 @@ class OCRProcessor:
             print("   ☁️ Google Cloud Vision: ✅ Доступен (инициализируется при необходимости)")
         else:
             print("   ☁️ Google Cloud Vision: ❌ НЕ НАСТРОЕН!")
-        local_status = [f"PDF (текст) {'✅' if PYMUPDF_AVAILABLE else '❌'}", f"DOCX {'✅' if PYTHON_DOCX_AVAILABLE else '❌'}", f"XLSX {'✅' if OPENPYXL_AVAILABLE else '❌'}", f"DOC (antiword) {'✅' if antiword_ok else '❌ (brew install antiword)'}", f"XLS (xlrd) {'✅' if XLRD_AVAILABLE else '❌'}"]
+        local_status = [
+            f"PDF (текст) {'✅' if PYMUPDF_AVAILABLE else '❌'}",
+            f"DOCX {'✅' if PYTHON_DOCX_AVAILABLE else '❌'}",
+            "ODT ✅ (встроено)",
+            f"XLSX {'✅' if OPENPYXL_AVAILABLE else '❌'}",
+            "ODS ✅ (встроено)",
+            f"DOC (antiword) {'✅' if antiword_ok else '❌ (brew install antiword)'}",
+            f"XLS (xlrd) {'✅' if XLRD_AVAILABLE else '❌'}"
+        ]
         print(f"   📄 Локальные форматы: {' | '.join(local_status)}")
     def get_available_dates(self) -> List[str]:
         if not self.attachments_dir.exists(): return []
@@ -511,6 +521,112 @@ class OCRProcessor:
         # Если ничего не сработало
         raise RuntimeError(f"Все методы обработки {expected_format.upper()} файла неудачны. Реальный формат: {real_format.upper()}")
 
+    def _process_odt_file(self, file_path: Path) -> Tuple[str, str, float]:
+        """📝 Извлечение текста из ODT с использованием стандартной библиотеки"""
+        try:
+            with zipfile.ZipFile(file_path, 'r') as archive:
+                try:
+                    with archive.open('content.xml') as content_file:
+                        content_xml = content_file.read()
+                except KeyError as error:
+                    raise RuntimeError("Файл ODT не содержит content.xml") from error
+        except zipfile.BadZipFile as error:
+            raise RuntimeError("Файл ODT поврежден или не является корректным архивом") from error
+
+        try:
+            root = ET.fromstring(content_xml)
+        except ET.ParseError as error:
+            raise RuntimeError("Не удалось распарсить XML внутри ODT") from error
+
+        ns = {
+            'text': 'urn:oasis:names:tc:opendocument:xmlns:text:1.0',
+            'table': 'urn:oasis:names:tc:opendocument:xmlns:table:1.0'
+        }
+        table_ns = ns['table']
+
+        text_blocks: List[str] = []
+
+        for xpath in ('.//text:h', './/text:p'):
+            for node in root.findall(xpath, ns):
+                fragment = ' '.join(part.strip() for part in node.itertext() if part.strip())
+                if fragment:
+                    text_blocks.append(fragment)
+
+        for table_node in root.findall('.//table:table', ns):
+            for row_node in table_node.findall('./table:table-row', ns):
+                row_cells: List[str] = []
+                for cell_node in row_node.findall('./table:table-cell', ns):
+                    repeat = int(cell_node.get(f'{{{table_ns}}}number-columns-repeated', '1'))
+                    cell_text = ' '.join(part.strip() for part in cell_node.itertext() if part.strip())
+                    if not cell_text:
+                        cell_text = ""
+                    row_cells.extend([cell_text] * repeat)
+                if row_cells:
+                    text_blocks.append(" | ".join(row_cells))
+
+        text_content = "\n".join(text_blocks).strip()
+
+        if not text_content:
+            raise RuntimeError("ODT файл не содержит извлекаемого текста")
+
+        self.logger.debug(f"✅ Извлечено {len(text_content)} символов из ODT: {file_path.name}")
+        return text_content, "local_odt", 1.0
+
+    def _process_ods_file(self, file_path: Path) -> Tuple[str, str, float]:
+        """📊 Извлечение текста из ODS с преобразованием таблиц в строки"""
+        try:
+            with zipfile.ZipFile(file_path, 'r') as archive:
+                try:
+                    with archive.open('content.xml') as content_file:
+                        content_xml = content_file.read()
+                except KeyError as error:
+                    raise RuntimeError("Файл ODS не содержит content.xml") from error
+        except zipfile.BadZipFile as error:
+            raise RuntimeError("Файл ODS поврежден или не является корректным архивом") from error
+
+        try:
+            root = ET.fromstring(content_xml)
+        except ET.ParseError as error:
+            raise RuntimeError("Не удалось распарсить XML внутри ODS") from error
+
+        ns = {
+            'text': 'urn:oasis:names:tc:opendocument:xmlns:text:1.0',
+            'table': 'urn:oasis:names:tc:opendocument:xmlns:table:1.0'
+        }
+        table_ns = ns['table']
+
+        lines: List[str] = []
+
+        for table_node in root.findall('.//table:table', ns):
+            table_name = table_node.get(f'{{{table_ns}}}name', 'Sheet')
+            lines.append(f"=== {table_name} ===")
+
+            for row_node in table_node.findall('./table:table-row', ns):
+                row_cells: List[str] = []
+                repeat_row = int(row_node.get(f'{{{table_ns}}}number-rows-repeated', '1'))
+
+                for cell_node in row_node.findall('./table:table-cell', ns):
+                    repeat = int(cell_node.get(f'{{{table_ns}}}number-columns-repeated', '1'))
+                    cell_text = ' '.join(part.strip() for part in cell_node.itertext() if part.strip())
+                    if not cell_text:
+                        cell_text = ""
+                    row_cells.extend([cell_text] * repeat)
+
+                if not row_cells:
+                    row_cells = [""]
+
+                row_text = " | ".join(row_cells)
+                for _ in range(repeat_row):
+                    lines.append(row_text)
+
+        text_content = "\n".join(lines).strip()
+
+        if not text_content:
+            raise RuntimeError("ODS файл не содержит извлекаемого текста")
+
+        self.logger.debug(f"✅ Извлечено {len(text_content)} символов из ODS: {file_path.name}")
+        return text_content, "local_ods", 1.0
+
     def _analyze_pdf_structure(self, pdf_path: Path) -> dict:
         """
         Улучшенный анализ структуры PDF для точного определения качественного текстового слоя.
@@ -719,6 +835,103 @@ class OCRProcessor:
         self._save_pdf_structure_cache()
         
         return result
+
+    def _extract_original_attachment_name(self, file_stem: str) -> Optional[str]:
+        """🧩 Извлечение оригинального имени вложения без технических префиксов"""
+        parts = file_stem.split('_')
+        for index, part in enumerate(parts):
+            if part == 'attach' and index < len(parts) - 1:
+                original = '_'.join(parts[index + 1:]).strip('_').strip()
+                return original or None
+        return None
+
+    def _normalize_result_stem(self, stem: str) -> str:
+        """🧼 Приведение имени результатного файла к базовому виду"""
+        cleaned = stem
+        if cleaned.endswith('_ERROR'):
+            cleaned = cleaned[:-6]
+        if '___' in cleaned:
+            cleaned = cleaned.split('___')[0]
+        return cleaned
+
+    def _ensure_expected_result_name(
+        self,
+        candidates: List[Path],
+        expected_stem: str,
+        target_dir: Path,
+        is_error: bool
+    ) -> List[Path]:
+        """🔧 Переименовывает устаревшие файлы результатов под новое имя вложения"""
+        suffix = "_ERROR.txt" if is_error else ".txt"
+        target_path = target_dir / f"{expected_stem}{suffix}"
+
+        if target_path.exists():
+            return [target_path]
+
+        for candidate in candidates:
+            if candidate == target_path:
+                return [candidate]
+            try:
+                candidate.rename(target_path)
+                self.logger.info(f"🔧 Переименован результат OCR: {candidate.name} → {target_path.name}")
+                return [target_path]
+            except Exception as error:
+                self.logger.error(f"❌ Не удалось переименовать результат {candidate.name} в {target_path.name}: {error}")
+                break
+
+        return [candidates[0]] if candidates else []
+
+    def _find_existing_result_files(self, file_path: Path, date: str) -> Tuple[List[Path], List[Path]]:
+        """🔍 Поиск сохранённых результатов для вложения с учётом старого нейминга"""
+        normalized_date = self._normalize_date_format(date)
+        date_texts_dir = self.texts_dir / normalized_date
+
+        if not date_texts_dir.exists():
+            self.logger.debug(f"Папка результатов для даты {normalized_date} не найдена: {date_texts_dir}")
+            return [], []
+
+        expected_stem = file_path.stem
+        success_files: List[Path] = []
+        error_files: List[Path] = []
+
+        exact_success = date_texts_dir / f"{expected_stem}.txt"
+        exact_error = date_texts_dir / f"{expected_stem}_ERROR.txt"
+
+        if exact_success.exists():
+            success_files.append(exact_success)
+        if exact_error.exists():
+            error_files.append(exact_error)
+
+        if success_files or error_files:
+            return success_files, error_files
+
+        original_name = self._extract_original_attachment_name(expected_stem)
+        if not original_name:
+            self.logger.debug(f"Не удалось извлечь оригинальное имя вложения из {expected_stem}")
+            return success_files, error_files
+
+        candidate_files: List[Path] = []
+        for txt_file in date_texts_dir.glob("*.txt"):
+            if txt_file.name.startswith('.'):
+                continue
+            cleaned_stem = self._normalize_result_stem(txt_file.stem)
+            if original_name in cleaned_stem:
+                candidate_files.append(txt_file)
+
+        if not candidate_files:
+            return success_files, error_files
+
+        success_candidates = [f for f in candidate_files if not f.name.endswith("_ERROR.txt")]
+        error_candidates = [f for f in candidate_files if f.name.endswith("_ERROR.txt")]
+
+        if success_candidates:
+            success_files.extend(self._ensure_expected_result_name(success_candidates, expected_stem, date_texts_dir, is_error=False))
+        if error_candidates and not success_files:
+            error_files.extend(self._ensure_expected_result_name(error_candidates, expected_stem, date_texts_dir, is_error=True))
+        elif error_candidates:
+            error_files.extend(error_candidates)
+
+        return success_files, error_files
 
     def _analyze_pdf_with_fallback(self, pdf_path: Path) -> dict:
         """
@@ -2631,6 +2844,12 @@ class OCRProcessor:
                             raise RuntimeError("Библиотека python-docx не доступна для резервного метода")
                     except Exception as fallback_error:
                         raise RuntimeError(f"Все методы обработки DOC файла неудачны. Antiword: {process.stderr or 'ошибка'}. Резервный: {str(fallback_error)}")
+            elif ext == ".odt":
+                print("   📄 Обработка ODT локально...")
+                text, method, confidence = self._process_odt_file(file_path)
+            elif ext == ".ods":
+                print("   📄 Обработка ODS локально...")
+                text, method, confidence = self._process_ods_file(file_path)
             elif ext == ".xlsx":
                 print("   📄 Обработка XLSX локально...")
                 text, method, confidence = self._process_excel_file(file_path, 'xlsx')
@@ -2729,123 +2948,35 @@ class OCRProcessor:
     
     def _check_existing_results(self, file_path: Path, date: str) -> bool:
         """🔍 Проверка существования уже обработанных результатов"""
-        # Нормализуем формат даты для создания пути
         normalized_date = self._normalize_date_format(date)
-        date_texts_dir = self.texts_dir / normalized_date
-        if not date_texts_dir.exists():
-            self.logger.debug(f"Папка для даты {date} не существует: {date_texts_dir}")
+        success_files, error_files = self._find_existing_result_files(file_path, normalized_date)
+
+        if success_files:
+            self.logger.debug(f"Найдены готовые результаты для {file_path.name}: {success_files[0].name}")
+            return True
+
+        if error_files:
+            self.logger.debug(f"Для {file_path.name} найден файл-маркер ошибки: {error_files[0].name}")
             return False
-
-        # Получаем точное имя файла без расширения
-        file_stem = file_path.stem
-
-        # 🆕 ИСПРАВЛЕНИЕ: Ищем файлы с учетом возможных временных меток
-        # Формат имени: {thread_id}_{timestamp}_{type}_{original_filename}
-        # Пример: 20250722_dna-technology_ru_17cb0020_033857_attach_реквизиты ООО
-
-        # Разбираем имя файла для извлечения оригинального имени без временных меток
-        parts = file_stem.split('_')
-        
-        # Ищем позицию 'attach' в частях имени файла
-        attach_index = -1
-        for i, part in enumerate(parts):
-            if part == 'attach':
-                attach_index = i
-                break
-        
-        if attach_index != -1 and attach_index < len(parts) - 1:
-            # Это файл вложения с правильным форматом
-            # Извлекаем оригинальное имя: все после '_attach_'
-            original_name = '_'.join(parts[attach_index + 1:])
-            self.logger.debug(f"Распознано имя вложения: {original_name}")
-
-            # Ищем все файлы, содержащие оригинальное имя
-            all_txt_files = list(date_texts_dir.glob("*.txt"))
-            matching_files = []
-
-            for txt_file in all_txt_files:
-                txt_stem = txt_file.stem
-                # Убираем суффиксы методов и ошибок для сравнения
-                clean_txt_stem = txt_stem.replace('___google_vision_pdf_optimized', '').replace('___local_pdf_text', '').replace('_ERROR', '')
-
-                # Проверяем, содержит ли имя файла оригинальное имя вложения
-                if original_name in clean_txt_stem:
-                    matching_files.append(txt_file)
-
-            if matching_files:
-                # Проверяем, есть ли успешные результаты
-                error_files = [f for f in matching_files if '_ERROR.txt' in f.name]
-                success_files = [f for f in matching_files if '_ERROR.txt' not in f.name]
-
-                if success_files:
-                    self.logger.debug(f"Найдены успешные результаты для вложения '{original_name}': {len(success_files)} файлов")
-                    return True  # Есть успешные результаты - пропускаем
-                elif error_files:
-                    self.logger.debug(f"Найдены только файлы-маркеры ошибок для вложения '{original_name}': {len(error_files)} файлов")
-                    return False  # Файлы с ошибками нуждаются в повторной обработке
-        else:
-            # Файл не соответствует ожидаемому формату - используем старую логику
-            self.logger.debug(f"Файл {file_path.name} не соответствует формату вложения, используем точное совпадение")
-
-        # Резервная логика: ищем файлы с точным совпадением имени
-        exact_match_files = list(date_texts_dir.glob(f"{file_stem}.txt")) + list(date_texts_dir.glob(f"{file_stem}_ERROR.txt"))
-
-        if exact_match_files:
-            error_files = [f for f in exact_match_files if '_ERROR.txt' in f.name]
-            success_files = [f for f in exact_match_files if '_ERROR.txt' not in f.name]
-
-            if success_files:
-                self.logger.debug(f"Найдены успешные результаты для {file_path.name}: {len(success_files)} файлов")
-                return True
-            elif error_files:
-                self.logger.debug(f"Найдены только файлы-маркеры ошибок для {file_path.name}: {len(error_files)} файлов")
-                return False
-
-        # Дополнительно проверяем старые файлы с суффиксами методов для совместимости
-        old_format_files = list(date_texts_dir.glob(f"{file_stem}___*.txt"))
-
-        if old_format_files:
-            error_files = [f for f in old_format_files if '_ERROR.txt' in f.name]
-            success_files = [f for f in old_format_files if '_ERROR.txt' not in f.name]
-
-            if success_files:
-                self.logger.debug(f"Найдены старые успешные результаты для {file_path.name}: {len(success_files)} файлов")
-                return True
-            elif error_files:
-                self.logger.debug(f"Найдены старые файлы-маркеры ошибок для {file_path.name}: {len(error_files)} файлов")
-                return False
 
         self.logger.debug(f"Результаты для {file_path.name} не найдены")
         return False
     
     def _get_existing_result(self, file_path: Path, date: str) -> Dict:
         """📄 Получение уже существующего результата обработки"""
-        # Нормализуем формат даты для создания пути
         normalized_date = self._normalize_date_format(date)
-        date_texts_dir = self.texts_dir / normalized_date
-        file_stem = file_path.stem
+        success_files, error_files = self._find_existing_result_files(file_path, normalized_date)
 
-        # ПРОСТОЕ И НАДЕЖНОЕ РЕШЕНИЕ: точное совпадение имени файлов
-        # Поскольку файл PDF и файл TXT должны иметь одинаковые стемы,
-        # просто ищем файл с таким же стемом + .txt
-        exact_match_file = date_texts_dir / f"{file_stem}.txt"
-        
-        if exact_match_file.exists():
-            self.logger.debug(f"Найден точно соответствующий файл: {exact_match_file.name}")
-            existing_files = [exact_match_file]
-        else:
-            # Фоллбэк: ищем файлы с ошибками или старыми суффиксами
-            error_file = date_texts_dir / f"{file_stem}_ERROR.txt"
-            if error_file.exists():
-                existing_files = [error_file]
-            else:
-                # Последняя попытка: старые файлы с суффиксами методов
-                old_format_files = list(date_texts_dir.glob(f"{file_stem}___*.txt"))
-                existing_files = old_format_files
-        
-        if not existing_files:
-            # ЛОГИЧЕСКАЯ ОШИБКА ИСПРАВЛЕНА: Если _check_existing_results вернул True, 
-            # но мы здесь не нашли файлы - это означает ошибку в логике
+        result_file: Optional[Path] = None
+        is_error = False
+
+        if success_files:
+            result_file = success_files[0]
+        elif error_files:
+            result_file = error_files[0]
+            is_error = True
+
+        if not result_file or not result_file.exists():
             return {
                 "file_name": file_path.name,
                 "file_path": str(file_path),
@@ -2857,21 +2988,6 @@ class OCRProcessor:
                 "processing_time_sec": 0.0,
                 "error": "LOGIC ERROR FIXED: No matching result files found despite _check_existing_results returning True"
             }
-        
-        # Разделяем файлы на успешные и файлы-маркеры ошибок
-        error_files = [f for f in existing_files if '_ERROR.txt' in f.name]
-        success_files = [f for f in existing_files if '_ERROR.txt' not in f.name]
-        
-        # Приоритет отдаем успешным файлам
-        if success_files:
-            result_file = success_files[0]
-            is_error = False
-        elif error_files:
-            result_file = error_files[0]
-            is_error = True
-        else:
-            result_file = existing_files[0]
-            is_error = '_ERROR.txt' in result_file.name
         
         # Определяем метод обработки из имени файла или содержимого
         if '___' in result_file.stem:

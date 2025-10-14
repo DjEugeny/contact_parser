@@ -21,12 +21,26 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 # Импорты из новой архитектуры
-from ..utils.date_utils import get_local_time, parse_email_date, format_email_date_for_log
-from ..utils.email_utils import decode_header_value, parse_recipients, generate_thread_id
-from ..utils.enhanced_text_cleaner_with_precleaner import (
-    EnhancedTextCleanerWithPreCleaner,
-    create_text_cleaner,
-)
+try:
+    from ..utils.date_utils import get_local_time, parse_email_date, format_email_date_for_log
+    from ..utils.email_utils import decode_header_value, parse_recipients, generate_thread_id
+    from ..utils.enhanced_text_cleaner_with_precleaner import (
+        EnhancedTextCleanerWithPreCleaner,
+        create_text_cleaner,
+    )
+except ImportError:
+    # Fallback для прямого запуска
+    import sys
+    from pathlib import Path
+    project_root = Path(__file__).resolve().parent.parent.parent.parent
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
+    from src.fetcher.utils.date_utils import get_local_time, parse_email_date, format_email_date_for_log
+    from src.fetcher.utils.email_utils import decode_header_value, parse_recipients, generate_thread_id
+    from src.fetcher.utils.enhanced_text_cleaner_with_precleaner import (
+        EnhancedTextCleanerWithPreCleaner,
+        create_text_cleaner,
+    )
 
 
 class EmailProcessor:
@@ -118,12 +132,13 @@ class EmailProcessor:
             self.logger.info("   Message-ID: %s", email_info["message_id"])
 
             # ШАГ 3: Сценарий
-            processing_scenario = self._get_processing_scenario(
+            processing_scenario, processing_status = self._get_processing_scenario(
                 email_info["message_id"],
                 email_info["date_folder"],
                 attachment_registry,
                 email_storage,
             )
+            email_info["_processing_status"] = processing_status
 
             # ШАГ 4: Фильтры
             filter_ok, filter_reason = self._apply_filters(email_info, filters, stats)
@@ -299,22 +314,24 @@ class EmailProcessor:
         date_folder: str,
         attachment_registry,
         email_storage
-    ) -> str:
+    ) -> Tuple[str, Dict]:
         """Определение сценария обработки письма."""
-        # Проверяем статус через реестр вложений
         status = attachment_registry.check_email_processing_status(message_id, date_folder)
-        
+        missing_attachments = status.get("missing_attachments", False)
+
         if status["json_exists"] and status["attachments_exist"]:
-            return "skip_all"  # JSON и вложения существуют - пропустить
+            scenario = "download_attachments" if missing_attachments else "skip_all"
         elif status["json_exists"] and not status["attachments_exist"]:
-            return "download_attachments"  # Только JSON - загрузить вложения
+            scenario = "download_attachments"
         elif not status["json_exists"] and status["attachments_exist"]:
             self.logger.warning(
                 f"⚠get_processing_scenario: attachments_exist=True для нового письма {message_id}"
             )
-            return "download_json"  # Только вложения - загрузить JSON
+            scenario = "download_json"
         else:
-            return "download_all"  # Ничего нет - загрузить всё
+            scenario = "download_all"
+
+        return scenario, status
     
     def _apply_filters(self, email_info: Dict, filters, stats: Dict) -> Tuple[bool, Optional[str]]:
         """Применение фильтров к письму."""
@@ -374,8 +391,19 @@ class EmailProcessor:
         stats: Dict
     ) -> Optional[Dict]:
         """Обработка письма в зависимости от сценария."""
+        processing_status = email_info.get("_processing_status", {})
         
         if scenario == "skip_all":
+            if processing_status.get("needs_resync"):
+                reconciled_attachments = processing_status.get("attachments_snapshot", [])
+                attachments_stats = self._build_attachments_stats_from_records(reconciled_attachments)
+                if email_storage.update_email_attachments(
+                    email_info["message_id"],
+                    email_info["date_folder"],
+                    reconciled_attachments,
+                    attachments_stats,
+                ):
+                    self.logger.info("🔄 JSON обновлён после reconciliation вложений")
             self.logger.info("📁 ✅ ПИСЬМО УЖЕ ПОЛНОСТЬЮ ОБРАБОТАНО")
             stats["already_exists"] = stats.get("already_exists", 0) + 1
             self.logger.info("=" * 70)

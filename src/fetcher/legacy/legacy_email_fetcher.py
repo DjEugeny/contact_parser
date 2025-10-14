@@ -10,9 +10,40 @@ import logging
 from datetime import datetime
 from typing import Dict, List, Optional
 
-from ..core.email_fetcher import EmailFetcher
-from ..utils.email_utils import generate_thread_id as build_thread_id
-from ...config.paths import CONFIG_DIR, ensure_config_structure
+try:
+    from ..core.email_fetcher import EmailFetcher
+    from ..utils.email_utils import generate_thread_id as build_thread_id
+    try:
+        from ...config.paths import CONFIG_DIR, ensure_config_structure
+    except ImportError:
+        # Fallback для прямого запуска
+        import sys
+        from pathlib import Path
+        project_root = Path(__file__).resolve().parent.parent.parent.parent
+        if str(project_root) not in sys.path:
+            sys.path.insert(0, str(project_root))
+        from src.config.paths import CONFIG_DIR, ensure_config_structure
+except ImportError:
+    # Fallback для прямого запуска
+    import sys
+    from pathlib import Path
+    project_root = Path(__file__).resolve().parent.parent.parent.parent
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
+    from src.fetcher.core.email_fetcher import EmailFetcher
+    from src.fetcher.utils.email_utils import generate_thread_id as build_thread_id
+    try:
+        from src.config.paths import CONFIG_DIR, ensure_config_structure
+    except ImportError:
+        # Если и это не сработало, используем простые значения по умолчанию
+        CONFIG_DIR = project_root / "config"
+        def ensure_config_structure():
+            """Упрощенная версия функции создания структуры директорий"""
+            from pathlib import Path
+            data_dir = project_root / "data"
+            data_dir.mkdir(parents=True, exist_ok=True)
+            (data_dir / "emails").mkdir(parents=True, exist_ok=True)
+            (data_dir / "attachments").mkdir(parents=True, exist_ok=True)
 
 
 class LegacyEmailFetcherV2:
@@ -219,7 +250,16 @@ class LegacyEmailFetcherV2:
         Returns:
             Местное время
         """
-        from ..utils.date_utils import get_local_time
+        try:
+            from ..utils.date_utils import get_local_time
+        except ImportError:
+            # Fallback для прямого запуска
+            import sys
+            from pathlib import Path
+            project_root = Path(__file__).resolve().parent.parent.parent.parent
+            if str(project_root) not in sys.path:
+                sys.path.insert(0, str(project_root))
+            from src.fetcher.utils.date_utils import get_local_time
         return get_local_time(dt)
     
     def parse_email_date(self, date_header: str) -> datetime:
@@ -232,7 +272,16 @@ class LegacyEmailFetcherV2:
         Returns:
             Дата
         """
-        from ..utils.date_utils import parse_email_date
+        try:
+            from ..utils.date_utils import parse_email_date
+        except ImportError:
+            # Fallback для прямого запуска
+            import sys
+            from pathlib import Path
+            project_root = Path(__file__).resolve().parent.parent.parent.parent
+            if str(project_root) not in sys.path:
+                sys.path.insert(0, str(project_root))
+            from src.fetcher.utils.date_utils import parse_email_date
         return parse_email_date(date_header)
     
     def format_email_date_for_log(self, date_header: str) -> str:
@@ -245,7 +294,16 @@ class LegacyEmailFetcherV2:
         Returns:
             Отформатированная дата
         """
-        from ..utils.date_utils import format_email_date_for_log
+        try:
+            from ..utils.date_utils import format_email_date_for_log
+        except ImportError:
+            # Fallback для прямого запуска
+            import sys
+            from pathlib import Path
+            project_root = Path(__file__).resolve().parent.parent.parent.parent
+            if str(project_root) not in sys.path:
+                sys.path.insert(0, str(project_root))
+            from src.fetcher.utils.date_utils import format_email_date_for_log
         return format_email_date_for_log(date_header)
     
     def decode_header_value(self, val: str) -> str:
@@ -258,7 +316,16 @@ class LegacyEmailFetcherV2:
         Returns:
             Декодированное значение
         """
-        from ..utils.email_utils import decode_header_value
+        try:
+            from ..utils.email_utils import decode_header_value
+        except ImportError:
+            # Fallback для прямого запуска
+            import sys
+            from pathlib import Path
+            project_root = Path(__file__).resolve().parent.parent.parent.parent
+            if str(project_root) not in sys.path:
+                sys.path.insert(0, str(project_root))
+            from src.fetcher.utils.email_utils import decode_header_value
         return decode_header_value(val)
     
     def extract_plain_text(
@@ -288,7 +355,16 @@ class LegacyEmailFetcherV2:
         Returns:
             Список получателей
         """
-        from ..utils.email_utils import parse_recipient
+        try:
+            from ..utils.email_utils import parse_recipient
+        except ImportError:
+            # Fallback для прямого запуска
+            import sys
+            from pathlib import Path
+            project_root = Path(__file__).resolve().parent.parent.parent.parent
+            if str(project_root) not in sys.path:
+                sys.path.insert(0, str(project_root))
+            from src.fetcher.utils.email_utils import parse_recipient
         return parse_recipient(recipients_str)
     
     def save_attachment_or_inline(

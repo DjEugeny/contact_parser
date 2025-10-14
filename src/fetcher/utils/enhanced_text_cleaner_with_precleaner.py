@@ -20,8 +20,18 @@ from pathlib import Path
 
 import yaml
 
-from .enhanced_text_cleaner import EnhancedTextCleaner
-from .precleaner_adapter import PreCleanerAdapter
+try:
+    from .enhanced_text_cleaner import EnhancedTextCleaner
+    from .precleaner_adapter import PreCleanerAdapter
+except ImportError:
+    # Fallback для прямого запуска
+    import sys
+    from pathlib import Path
+    project_root = Path(__file__).resolve().parent.parent.parent.parent
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
+    from src.fetcher.utils.enhanced_text_cleaner import EnhancedTextCleaner
+    from src.fetcher.utils.precleaner_adapter import PreCleanerAdapter
 
 
 class EnhancedTextCleanerWithPreCleaner:

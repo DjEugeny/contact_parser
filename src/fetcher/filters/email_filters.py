@@ -40,8 +40,18 @@ class EmailFilters:
         
         # Используем стандартную директорию конфигурации
         if config_dir is None:
-            from ...config.paths import CONFIG_DIR
-            config_dir = CONFIG_DIR
+            try:
+                from ...config.paths import CONFIG_DIR
+                config_dir = CONFIG_DIR
+            except ImportError:
+                # Fallback для прямого запуска
+                import sys
+                from pathlib import Path
+                project_root = Path(__file__).resolve().parent.parent.parent.parent
+                if str(project_root) not in sys.path:
+                    sys.path.insert(0, str(project_root))
+                from src.config.paths import CONFIG_DIR
+                config_dir = CONFIG_DIR
         
         self.config_dir = config_dir
         
@@ -329,8 +339,18 @@ class EmailFilters:
         """
         # Импортируем настройки
         try:
-            from config.settings import EMAIL_FILTERS_CONFIG
-            config = EMAIL_FILTERS_CONFIG["mass_mailing"]
+            try:
+                from config.settings import EMAIL_FILTERS_CONFIG
+                config = EMAIL_FILTERS_CONFIG["mass_mailing"]
+            except (ImportError, KeyError):
+                # Fallback для прямого запуска
+                import sys
+                from pathlib import Path
+                project_root = Path(__file__).resolve().parent.parent.parent.parent
+                if str(project_root) not in sys.path:
+                    sys.path.insert(0, str(project_root))
+                from src.config.settings import EMAIL_FILTERS_CONFIG
+                config = EMAIL_FILTERS_CONFIG["mass_mailing"]
         except (ImportError, KeyError):
             # Fallback на старые значения если настройки недоступны
             config = {

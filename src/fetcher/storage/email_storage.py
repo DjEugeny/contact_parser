@@ -12,8 +12,26 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from ...config.paths import DATA_DIR
-from ..utils.date_utils import get_local_time
+try:
+    from ...config.paths import DATA_DIR
+except ImportError:
+    # Fallback для прямого запуска
+    import sys
+    from pathlib import Path
+    project_root = Path(__file__).resolve().parent.parent.parent.parent
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
+    from src.config.paths import DATA_DIR
+try:
+    from ..utils.date_utils import get_local_time
+except ImportError:
+    # Fallback для прямого запуска
+    import sys
+    from pathlib import Path
+    project_root = Path(__file__).resolve().parent.parent.parent.parent
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
+    from src.fetcher.utils.date_utils import get_local_time
 
 
 class EmailStorage:

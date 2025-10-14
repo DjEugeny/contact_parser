@@ -10,7 +10,16 @@ import email.message
 import logging
 from typing import Optional
 
-from ..utils.email_utils import decode_header_value
+try:
+    from ..utils.email_utils import decode_header_value
+except ImportError:
+    # Fallback для прямого запуска
+    import sys
+    from pathlib import Path
+    project_root = Path(__file__).resolve().parent.parent.parent.parent
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
+    from src.fetcher.utils.email_utils import decode_header_value
 
 
 class EmailParser:

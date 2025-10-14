@@ -17,15 +17,32 @@ from .connection_manager import ConnectionManager
 from .email_processor import EmailProcessor
 
 # Импорты из оригинального модуля для совместимости
-from ..filters.email_filters import EmailFilters
-from ..attachments.attachment_registry import AttachmentRegistry
-from ..storage.email_storage import EmailStorage
-from ..parsers.email_parser import EmailParser
-from ..utils.date_utils import parse_date_flexible, get_local_time
-from ..utils.enhanced_text_cleaner_with_precleaner import (
-    EnhancedTextCleanerWithPreCleaner,
-    create_text_cleaner,
-)
+try:
+    from ..filters.email_filters import EmailFilters
+    from ..attachments.attachment_registry import AttachmentRegistry
+    from ..storage.email_storage import EmailStorage
+    from ..parsers.email_parser import EmailParser
+    from ..utils.date_utils import parse_date_flexible, get_local_time
+    from ..utils.enhanced_text_cleaner_with_precleaner import (
+        EnhancedTextCleanerWithPreCleaner,
+        create_text_cleaner,
+    )
+except ImportError:
+    # Fallback для прямого запуска
+    import sys
+    from pathlib import Path
+    project_root = Path(__file__).resolve().parent.parent.parent.parent
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
+    from src.fetcher.filters.email_filters import EmailFilters
+    from src.fetcher.attachments.attachment_registry import AttachmentRegistry
+    from src.fetcher.storage.email_storage import EmailStorage
+    from src.fetcher.parsers.email_parser import EmailParser
+    from src.fetcher.utils.date_utils import parse_date_flexible, get_local_time
+    from src.fetcher.utils.enhanced_text_cleaner_with_precleaner import (
+        EnhancedTextCleanerWithPreCleaner,
+        create_text_cleaner,
+    )
 
 # Импорты конфигурации с fallback
 try:

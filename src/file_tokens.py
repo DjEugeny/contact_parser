@@ -19,6 +19,25 @@ from typing import Dict, List, Tuple, Optional, Any
 from datetime import datetime
 import tiktoken
 
+if __name__ == "__main__" or __package__ is None:
+    import sys
+    from pathlib import Path
+
+    project_root = Path(__file__).resolve().parent
+    if str(project_root.parent) not in sys.path:
+        sys.path.insert(0, str(project_root.parent))
+
+try:
+    from fetcher.attachments.attachment_registry import AttachmentRegistry
+except ImportError:
+    # Fallback для прямого запуска
+    import sys
+    from pathlib import Path
+    project_root = Path(__file__).resolve().parent.parent
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
+    from src.fetcher.attachments.attachment_registry import AttachmentRegistry
+
 # Настройка логирования
 logging.basicConfig(
     level=logging.INFO,
@@ -37,7 +56,25 @@ class FileTokenCounter:
     """
     def __init__(self):
         # Импортируем централизованные пути
-        from config.paths import DataPaths
+        try:
+            from config.paths import DataPaths
+        except ImportError:
+            # Fallback для прямого запуска
+            import sys
+            from pathlib import Path
+            project_root = Path(__file__).resolve().parent.parent
+            if str(project_root) not in sys.path:
+                sys.path.insert(0, str(project_root))
+            try:
+                from src.config.paths import DataPaths
+            except ImportError:
+                # Дополнительный fallback для импорта из src/config
+                from src.config.paths import CONFIG_DIR, DATA_DIR, LOGS_DIR
+                class DataPaths:
+                    OCR_TEXTS_DIR = DATA_DIR / "ocr" / "texts"
+                    @staticmethod
+                    def migrate_if_needed():
+                        pass
         
         # Выполняем автомиграцию если необходимо
         DataPaths.migrate_if_needed()
@@ -51,6 +88,7 @@ class FileTokenCounter:
         
         self.output_path.mkdir(exist_ok=True)
         self.processed_files = self._load_cache()
+        self.attachment_registry = AttachmentRegistry(logger=logging.getLogger("file_tokens.attachment_registry"))
         
         try:
             self.encoder = tiktoken.get_encoding("cl100k_base")
@@ -198,6 +236,78 @@ class FileTokenCounter:
         # Простая нормализация без использования file_utils
         return filename.lower().replace(' ', '_')
     
+    def _make_index_key(self, value: Optional[str]) -> Optional[str]:
+        """Формирует ключ индекса для сопоставления вложений."""
+        if not value:
+            return None
+        return str(value).strip().lower()
+
+    def _merge_attachment_records(
+        self,
+        original: Optional[Dict[str, Any]],
+        registry_record: Dict[str, Any],
+    ) -> Dict[str, Any]:
+        """Объединяет данные вложения из JSON и реестра."""
+        merged = dict(original) if isinstance(original, dict) else {}
+        merged.setdefault("original_filename", registry_record.get("original_filename"))
+        merged["saved_filename"] = registry_record.get("saved_filename")
+        merged["status"] = registry_record.get("status")
+        merged["file_path"] = registry_record.get("file_path")
+        merged["relative_path"] = registry_record.get("relative_path")
+        merged["file_exists"] = registry_record.get("file_exists")
+        merged["reason"] = registry_record.get("reason")
+        merged["message_id"] = registry_record.get("message_id")
+        merged["thread_id"] = registry_record.get("thread_id")
+        merged["sha256"] = registry_record.get("sha256")
+        return merged
+
+    def _get_reconciled_attachments(
+        self,
+        email_data: Dict[str, Any],
+        date: str,
+    ) -> List[Dict[str, Any]]:
+        """Возвращает список вложений после reconciliation с AttachmentRegistry."""
+        attachments = email_data.get("attachments") or []
+        message_id = email_data.get("message_id")
+
+        if not message_id:
+            return attachments
+
+        reconciled_records = self.attachment_registry.reconcile_attachments_for_message(message_id, date)
+        if not reconciled_records:
+            return attachments
+
+        index: Dict[str, Dict[str, Any]] = {}
+        for attachment in attachments:
+            candidates = [
+                attachment.get("saved_filename"),
+                Path(attachment.get("file_path", "")).name if attachment.get("file_path") else None,
+                Path(attachment.get("relative_path", "")).name if attachment.get("relative_path") else None,
+                attachment.get("original_filename"),
+            ]
+            for candidate in candidates:
+                key = self._make_index_key(candidate)
+                if key and key not in index:
+                    index[key] = attachment
+
+        merged_attachments: List[Dict[str, Any]] = []
+        for record in reconciled_records:
+            candidates = [
+                record.get("saved_filename"),
+                Path(record.get("file_path", "")).name if record.get("file_path") else None,
+                record.get("original_filename"),
+            ]
+            source = None
+            for candidate in candidates:
+                key = self._make_index_key(candidate)
+                if key and key in index:
+                    source = index[key]
+                    break
+
+            merged_attachments.append(self._merge_attachment_records(source, record))
+
+        return merged_attachments
+    
     def _extract_attachment_core_name(self, attachment_name: str) -> str:
         """Извлекает ключевую часть имени вложения, которая остаётся после обработки OCR."""
         # Простая нормализация без использования file_utils
@@ -207,6 +317,59 @@ class FileTokenCounter:
         """Извлекает ключевую часть имени OCR файла."""
         # Простая нормализация без использования file_utils
         return ocr_filename.lower().replace(' ', '_')
+
+    def _resolve_saved_filename(self, attachment: Dict[str, Any]) -> Optional[str]:
+        """Определяет актуальное имя файла вложения на основе доступных полей."""
+        if attachment.get("saved_filename"):
+            return attachment["saved_filename"]
+        if attachment.get("file_path"):
+            try:
+                return Path(attachment["file_path"]).name
+            except Exception:
+                pass
+        if attachment.get("relative_path"):
+            try:
+                return Path(attachment["relative_path"]).name
+            except Exception:
+                pass
+        if attachment.get("original_filename"):
+            return attachment["original_filename"]
+        return None
+
+    def _locate_ocr_for_attachment(self, date: str, attachment: Dict[str, Any]) -> Optional[Path]:
+        """Подбирает OCR-файл для конкретного вложения, перебирая возможные имена."""
+        candidates: List[str] = []
+        saved_filename = self._resolve_saved_filename(attachment)
+        if saved_filename:
+            candidates.append(saved_filename)
+        original_filename = attachment.get("original_filename")
+        if original_filename and original_filename not in candidates:
+            candidates.append(original_filename)
+
+        file_path = attachment.get("file_path")
+        if file_path:
+            try:
+                base_name = Path(file_path).name
+                if base_name not in candidates:
+                    candidates.append(base_name)
+            except Exception:
+                pass
+
+        relative_path = attachment.get("relative_path")
+        if relative_path:
+            try:
+                base_name = Path(relative_path).name
+                if base_name not in candidates:
+                    candidates.append(base_name)
+            except Exception:
+                pass
+
+        for candidate in candidates:
+            ocr_file = self._find_ocr_file(date, candidate)
+            if ocr_file:
+                return ocr_file
+
+        return None
     
     def _extract_email_prefix(self, filename: str) -> Optional[str]:
         """Извлекает префикс email_X_ из имени файла OCR."""
@@ -384,15 +547,36 @@ class FileTokenCounter:
                 }
 
                 # Обработка вложений
-                attachments = email_data.get('attachments', [])
-                for attachment in attachments:
-                    saved_filename = attachment.get('saved_filename')
-                    if not saved_filename:
+                reconciled_attachments = self._get_reconciled_attachments(email_data, date)
+                for attachment in reconciled_attachments:
+                    saved_filename = self._resolve_saved_filename(attachment)
+                    att_status = (attachment.get("status") or "unknown").lower()
+                    att_result = {
+                        "file": saved_filename or attachment.get("original_filename") or "unknown_attachment",
+                        "status": att_status,
+                        "symbols": 0,
+                        "tokens": 0,
+                        "reason": attachment.get("reason"),
+                    }
+
+                    # Пропускаем вложения без файлов или исключённые фильтрами
+                    skip_statuses = {
+                        "excluded",
+                        "excluded_filename",
+                        "excluded_by_filter",
+                        "excluded_by_size",
+                        "excluded_inline_image",
+                        "unsupported",
+                    }
+                    if att_status in skip_statuses:
+                        email_result["attachments"].append(att_result)
                         continue
 
-                    ocr_file = self._find_ocr_file(date, saved_filename)
-                    att_result = {"file": saved_filename, "status": "unprocessed", "symbols": 0, "tokens": 0}
+                    if attachment.get("file_exists") is False or att_status == "missing_file":
+                        email_result["attachments"].append(att_result)
+                        continue
 
+                    ocr_file = self._locate_ocr_for_attachment(date, attachment)
                     if ocr_file:
                         processed_ocr_files.add(ocr_file.name)
                         cached_ocr = self._get_cached_data(ocr_file)
@@ -410,11 +594,13 @@ class FileTokenCounter:
                             except Exception as e:
                                 logger.error(f"Ошибка чтения OCR файла {ocr_file.name}: {e}")
                                 att_result["status"] = "error"
-                        
+
                         if att_result["status"] != "error":
                             att_result["status"] = "processed"
                     else:
-                        logger.info(f"⚠️ Для вложения '{saved_filename}' в письме {email_file.name} не найден OCR файл")
+                        logger.info(
+                            f"⚠️ Для вложения '{att_result['file']}' в письме {email_file.name} не найден OCR файл"
+                        )
 
                     email_result["attachments"].append(att_result)
                 
@@ -470,6 +656,7 @@ class FileTokenCounter:
                                     "tokens": tokens
                                 }
                                 email_result["attachments"].append(att_result)
+                                processed_ocr_files.add(ocr_file.name)
                                 matched = True
                                 logger.info(f"✅ Восстановлена связь: {ocr_file.name} -> {email_result['file']}")
                                 break
@@ -540,31 +727,38 @@ class FileTokenCounter:
             emails_count = len(list(emails_dir.glob("*.json"))) if emails_dir.exists() else 0
 
             # Подсчет вложений на основе данных из JSON файлов писем
-            expected_attachments = 0  # Количество вложений, которые должны быть сохранены
-            excluded_attachments = 0   # Количество исключенных вложений
+            saved_attachments = 0
+            missing_attachments = 0
+            excluded_attachments = 0
             if emails_dir.exists():
                 for email_file in emails_dir.glob("*.json"):
                     try:
                         with open(email_file, 'r', encoding='utf-8') as f:
                             email_data = json.load(f)
-                        # Считаем количество вложений в JSON файле письма
-                        email_attachments = email_data.get('attachments', [])
+                        email_attachments = self._get_reconciled_attachments(email_data, date)
                         for attachment in email_attachments:
-                            status = attachment.get('status', '')
-                            if status == 'saved':
-                                expected_attachments += 1
-                            elif status in ['excluded_by_name', 'excluded_by_size', 'unsupported']:
+                            status = (attachment.get('status') or '').lower()
+                            if status in {'saved', 'already_exists'}:
+                                saved_attachments += 1
+                                if attachment.get('file_exists') is False or status == 'missing_file':
+                                    missing_attachments += 1
+                            elif status in {
+                                'excluded',
+                                'excluded_filename',
+                                'excluded_by_filter',
+                                'excluded_by_size',
+                                'excluded_inline_image',
+                                'unsupported',
+                            }:
                                 excluded_attachments += 1
                     except (IOError, json.JSONDecodeError) as e:
                         logger.warning(f"Ошибка чтения файла письма {email_file.name}: {e}")
 
             # Определяем статус с улучшенной логикой
             status_class = ""
-            if expected_attachments == 0:
-                # Если в письмах не было сохраненных вложений - это нормально
+            if saved_attachments == 0:
                 status_class = "status-ok"
-            elif expected_attachments > 0 and attachments_count == 0:
-                # Красный статус только если письма ожидают вложения, но их нет в attachments
+            elif missing_attachments > 0:
                 status_class = "status-missing"
             elif attachments_count != ocr_count:
                 status_class = "status-mismatch"
@@ -577,7 +771,7 @@ class FileTokenCounter:
                 <td class="number">{emails_count}</td>
                 <td class="number">{attachments_count}</td>
                 <td class="number">{ocr_count}</td>
-                <td class="status-cell">{self._get_status_text(expected_attachments, attachments_count, ocr_count)}</td>
+                <td class="status-cell">{self._get_status_text(saved_attachments, attachments_count, ocr_count, missing_attachments)}</td>
             </tr>
             """
         
@@ -702,19 +896,23 @@ class FileTokenCounter:
         groups.insert(0, num_str)  # Оставшаяся часть
         return ' '.join(groups)
     
-    def _get_status_text(self, expected_attachments: int, attachments_count: int, ocr_count: int) -> str:
+    def _get_status_text(
+        self,
+        saved_attachments: int,
+        attachments_count: int,
+        ocr_count: int,
+        missing_attachments: int,
+    ) -> str:
         """Возвращает текст статуса для диагностики."""
-        if expected_attachments == 0:
-            # Если в письмах не было вложений - это нормально
+        if saved_attachments == 0:
             return "📭 Без вложений"
-        elif expected_attachments > 0 and attachments_count == 0:
-            return f"❌ Отсутствуют вложения: {expected_attachments}"
-        elif attachments_count == ocr_count:
+        if missing_attachments > 0:
+            return f"❌ Отсутствуют файлы: {missing_attachments}"
+        if attachments_count == ocr_count:
             return "✅ Соответствие"
-        elif attachments_count > ocr_count:
-            return f"⚠️ Не обработано: {attachments_count - ocr_count}"
-        else:
-            return f"❓ Дубли OCR: +{ocr_count - attachments_count}"
+        if attachments_count > ocr_count:
+            return f"⚠️ Не обработано OCR: {attachments_count - ocr_count}"
+        return f"❓ Дубли OCR: +{ocr_count - attachments_count}"
 
     def build_html_report(self, all_results: Dict[str, List[Dict]]) -> str:
         """Строит и возвращает HTML-отчет на основе обработанных данных."""

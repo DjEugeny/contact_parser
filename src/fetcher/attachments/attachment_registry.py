@@ -6,11 +6,20 @@ import hashlib
 import logging
 import re
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import fnmatch
 
-from ...config.paths import CONFIG_DIR, DATA_DIR
+try:
+    from ...config.paths import CONFIG_DIR, DATA_DIR
+except ImportError:
+    # Fallback для прямого запуска
+    import sys
+    from pathlib import Path
+    project_root = Path(__file__).resolve().parent.parent.parent.parent
+    if str(project_root) not in sys.path:
+        sys.path.insert(0, str(project_root))
+    from src.config.paths import CONFIG_DIR, DATA_DIR
 from ...db.attachments_repository import AttachmentsRepository, AttachmentRecord
 from ..utils.date_utils import get_local_time
 from ..utils.email_utils import decode_header_value
@@ -97,7 +106,12 @@ class AttachmentRegistry:
         self.attachments_dir = attachments_dir or (self.data_dir / "attachments")
         self.attachments_dir.mkdir(parents=True, exist_ok=True)
 
+        self._last_reconciliation_state: Dict[str, Any] = {
+            "needs_resync": False,
+            "attachments": [],
+        }
         self.filename_exclude_patterns = []
+        self._normalized_patterns: List[Tuple[str, str]] = []
         patterns_path = CONFIG_DIR / "attachment_filename_excludes.txt"
         if patterns_path.exists():
             try:
@@ -106,6 +120,7 @@ class AttachmentRegistry:
                         pattern = line.strip()
                         if pattern and not pattern.startswith("#"):
                             self.filename_exclude_patterns.append(pattern)
+                            self._normalized_patterns.append((pattern, pattern.lower()))
                 if self.filename_exclude_patterns:
                     self.logger.info(
                         "✅ Загружено %d паттернов исключения имен вложений",
@@ -199,13 +214,36 @@ class AttachmentRegistry:
         payload_hash = hashlib.sha256(payload).hexdigest()
         existing = self.repository.find_by_message_and_hash(message_id, payload_hash)
         if existing:
+            file_path = self.attachments_dir / existing.email_date / existing.stored_name
+            if not file_path.exists():
+                self.logger.info(
+                    "🔁 Восстанавливаем отсутствующий файл вложения %s для message_id=%s",
+                    existing.original_name,
+                    message_id,
+                )
+                file_path.parent.mkdir(parents=True, exist_ok=True)
+                file_path.write_bytes(payload)
+                file_size = len(payload)
+                self.repository.update_file_reference(
+                    existing.id,
+                    stored_name=existing.stored_name,
+                    file_size=file_size,
+                    sha256=payload_hash,
+                )
+                self.repository.update_status(existing.id, "saved")
+                self.repository.log_event(existing.id, "file_restored", process="fetcher")
+                existing.file_size = file_size
+                existing.status = "saved"
+                self.logger.info("✅ Файл вложения восстановлен: %s", file_path)
+                return self._record_to_dict(existing, status="saved")
+
             self.logger.debug(
                 "🔁 Найдено существующее вложение для message_id=%s (sha256=%s)",
                 message_id,
                 payload_hash,
             )
             self.repository.log_event(existing.id, "duplicate_skipped", process="fetcher")
-            return self._record_to_dict(existing, status="already_exists")
+            return self._record_to_dict(existing, status="saved")
 
         stored_name = self._create_safe_filename(filename, message_id, date_folder, is_inline)
         file_path = self._save_attachment_file(payload, stored_name, date_folder)
@@ -230,10 +268,7 @@ class AttachmentRegistry:
     def get_attachments_for_message(
         self, message_id: str, date_folder: Optional[str] = None
     ) -> List[Dict]:
-        records = self.repository.fetch_by_message(message_id)
-        if date_folder:
-            records = [rec for rec in records if rec.email_date == date_folder]
-        return [self._record_to_dict(rec, status=rec.status) for rec in records]
+        return self.reconcile_attachments_for_message(message_id, date_folder)
 
     def check_email_processing_status(self, message_id: str, date_folder: str) -> Dict:
         status = {
@@ -259,8 +294,20 @@ class AttachmentRegistry:
                     )
 
         attachments = self.get_attachments_for_message(message_id, date_folder)
-        status["attachments_exist"] = bool(attachments)
+        has_available = any(
+            (att.get("status") in {"saved", "already_exists"}) and att.get("file_exists") is not False
+            for att in attachments
+        )
+        has_missing = any(
+            att.get("status") == "missing_file" or att.get("file_exists") is False
+            for att in attachments
+        )
+        status["attachments_exist"] = has_available
+        status["missing_attachments"] = has_missing
         status["attachment_files"] = [att.get("file_path") for att in attachments]
+        reconciliation_state = self.pop_reconciliation_state()
+        status["needs_resync"] = reconciliation_state.get("needs_resync", False)
+        status["attachments_snapshot"] = reconciliation_state.get("attachments", attachments)
         return status
 
     def get_attachments_by_message_id(self, message_id: str) -> List[AttachmentRecord]:
@@ -278,24 +325,16 @@ class AttachmentRegistry:
         return ".bin"
 
     def _check_exclusions(self, filename: str, part, is_inline: bool) -> Optional[str]:
-        if filename in self.specific_excluded_files:
-            return "filename_in_static_exclusions"
+        exclusion_reason = self._should_exclude_filename(filename)
+        if exclusion_reason:
+            return exclusion_reason
 
         extension = Path(filename).suffix.lower()
-        if extension in EXCLUDED_EXTENSIONS:
-            return f"extension_excluded:{extension}"
-
         if extension not in SUPPORTED_ATTACHMENTS:
             self.logger.debug(
                 "ℹ️ Расширение %s не в списке SUPPORTED_ATTACHMENTS — сохраняем как есть",
                 extension or "<none>",
             )
-
-        fname_lower = filename.lower()
-        for pattern in self.filename_exclude_patterns:
-            pattern_lower = pattern.lower()
-            if fnmatch.fnmatch(fname_lower, pattern_lower):
-                return f"filename_matches_pattern:{pattern}"
 
         if is_inline:
             content_id = part.get("Content-ID", "").strip("<>")
@@ -327,9 +366,18 @@ class AttachmentRegistry:
         self.logger.debug("💾 Файл сохранён: %s", file_path)
         return file_path
 
-    def _record_to_dict(self, record: AttachmentRecord, status: str) -> Dict:
+    def _record_to_dict(
+        self,
+        record: AttachmentRecord,
+        status: str,
+        *,
+        file_exists: Optional[bool] = None,
+        reason: Optional[str] = None,
+    ) -> Dict:
         relative_path = f"attachments/{record.email_date}/{record.stored_name}"
         absolute_path = str(self.attachments_dir / record.email_date / record.stored_name)
+        if file_exists is None:
+            file_exists = (self.attachments_dir / record.email_date / record.stored_name).exists()
         return {
             "id": record.id,
             "original_filename": record.original_name,
@@ -345,4 +393,178 @@ class AttachmentRegistry:
             "message_id": record.message_id,
             "thread_id": record.thread_id,
             "sha256": record.sha256,
+            "file_exists": file_exists,
+            **({"reason": reason} if reason else {}),
         }
+
+    # ------------------------------------------------------------------
+    # Reconciliation helpers
+    # ------------------------------------------------------------------
+    def _sanitize_filename(self, original_filename: str) -> str:
+        """🧼 Приведение исходного имени к безопасному виду (как при сохранении)."""
+        return re.sub(r"[^\w\s\-.]", "_", original_filename)
+
+    def _build_message_hash(self, message_id: str) -> str:
+        """🔐 Получение короткого хеша message_id, используемого в именах файлов."""
+        return hashlib.md5((message_id or "").encode("utf-8")).hexdigest()[:8]
+
+    def _should_exclude_filename(self, filename: str) -> Optional[str]:
+        """🪲 Проверяет имя файла на соответствие правилам исключений без части письма."""
+        if filename in self.specific_excluded_files:
+            return "filename_in_static_exclusions"
+
+        extension = Path(filename).suffix.lower()
+        if extension in EXCLUDED_EXTENSIONS:
+            return f"extension_excluded:{extension}"
+
+        fname_lower = filename.lower()
+        for original_pattern, lowered_pattern in self._normalized_patterns:
+            if fnmatch.fnmatch(fname_lower, lowered_pattern):
+                return f"filename_matches_pattern:{original_pattern}"
+
+        return None
+
+    def _find_alternative_file(self, record: AttachmentRecord) -> Optional[Path]:
+        """🔎 Поиск существующего файла на диске, подходящего под запись, если основной не найден."""
+        date_dir = self.attachments_dir / record.email_date
+        if not date_dir.exists():
+            return None
+
+        safe_original = self._sanitize_filename(record.original_name)
+        message_hash = self._build_message_hash(record.message_id)
+        prefix = "inline" if record.is_inline else "attach"
+        pattern = f"{record.email_date.replace('-', '')}_{message_hash}_*_{prefix}_{safe_original}"
+
+        matches = [
+            path for path in date_dir.glob(pattern)
+            if path.is_file() and path.name != record.stored_name
+        ]
+
+        if not matches:
+            return None
+
+        # Если несколько совпадений, берём самое новое по времени модификации
+        matches.sort(key=lambda p: p.stat().st_mtime, reverse=True)
+        return matches[0]
+
+    def reconcile_attachments_for_message(
+        self,
+        message_id: str,
+        date_folder: Optional[str] = None,
+    ) -> List[Dict]:
+        """🔁 Синхронизирует записи вложений с актуальными файлами и правилами исключений."""
+        records = self.repository.fetch_by_message(message_id)
+        reconciled: List[Dict] = []
+        needs_resync = False
+
+        for record in records:
+            if date_folder and record.email_date != date_folder:
+                continue
+
+            file_path = self.attachments_dir / record.email_date / record.stored_name
+            file_exists = file_path.exists()
+            exclusion_reason = self._should_exclude_filename(record.original_name)
+
+            desired_status = record.status
+            reason = None
+
+            if exclusion_reason:
+                desired_status = "excluded_filename"
+                reason = exclusion_reason
+            elif not file_exists:
+                alternative_file = self._find_alternative_file(record)
+                if alternative_file:
+                    try:
+                        payload = alternative_file.read_bytes()
+                        new_sha = hashlib.sha256(payload).hexdigest()
+                        new_size = len(payload)
+                        new_name = alternative_file.name
+
+                        self.repository.update_file_reference(
+                            record.id,
+                            stored_name=new_name,
+                            file_size=new_size,
+                            sha256=new_sha,
+                        )
+                        self.repository.log_event(
+                            record.id,
+                            "file_relinked",
+                            payload=f"{record.stored_name}->{new_name}",
+                            process="attachment_reconciler",
+                        )
+
+                        record.stored_name = new_name
+                        record.file_size = new_size
+                        record.sha256 = new_sha
+                        file_path = alternative_file
+                        file_exists = True
+                        desired_status = "saved"
+                        reason = "file_relinked"
+                        self.logger.info(
+                            "🔁 Найден и привязан существующий файл для %s: %s",
+                            record.original_name,
+                            new_name,
+                        )
+                    except Exception as exc:
+                        self.logger.error(
+                            "❌ Не удалось привязать существующий файл для %s: %s",
+                            record.original_name,
+                            exc,
+                        )
+                        desired_status = "missing_file"
+                        reason = "file_missing"
+                else:
+                    desired_status = "missing_file"
+                    reason = "file_missing"
+            else:
+                desired_status = "saved"
+
+            if desired_status != record.status or reason:
+                needs_resync = True
+
+            if desired_status != record.status:
+                try:
+                    self.repository.update_status(record.id, desired_status)
+                    self.repository.log_event(
+                        record.id,
+                        f"status_update:{desired_status}",
+                        process="attachment_reconciler",
+                    )
+                    record.status = desired_status
+                    self.logger.info(
+                        "🔧 Обновлен статус вложения %s → %s (%s)",
+                        record.original_name,
+                        desired_status,
+                        reason or "без причины",
+                    )
+                except Exception as exc:
+                    self.logger.error(
+                        "❌ Не удалось обновить статус вложения %s: %s",
+                        record.original_name,
+                        exc,
+                    )
+
+            reconciled.append(
+                self._record_to_dict(
+                    record,
+                    status=record.status,
+                    file_exists=file_exists,
+                    reason=reason,
+                )
+            )
+
+        self._last_reconciliation_state = {
+            "needs_resync": needs_resync,
+            "attachments": reconciled.copy(),
+        }
+
+        return reconciled
+
+    def pop_reconciliation_state(self) -> Dict[str, Any]:
+        """🔄 Возвращает и сбрасывает состояние последней синхронизации."""
+        state = self._last_reconciliation_state
+        self._last_reconciliation_state = {
+            "needs_resync": False,
+            "attachments": [],
+        }
+        return state
