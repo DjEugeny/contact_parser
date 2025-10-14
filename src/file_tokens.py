@@ -479,10 +479,17 @@ class FileTokenCounter:
             '\u0301': '',  # ударение
             '\u0300': '',  # гравис
             '\u0306': '',  # breve
+            '№': '',
+            '(': ' ',
+            ')': ' ',
         }
 
         for old_char, new_char in replacements.items():
             text = text.replace(old_char, new_char)
+
+        # Унифицируем разделители
+        text = text.replace('_', ' ')
+        text = text.replace('-', ' ')
 
         # Удаляем множественные пробелы и приводим к единому формату
         import re
