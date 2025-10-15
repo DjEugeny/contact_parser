@@ -23,3 +23,4 @@ psutil==7.1.0
 redis==6.4.0
 phonenumbers==9.0.15
 PyYAML==6.0.3
+pydantic==2.10.6

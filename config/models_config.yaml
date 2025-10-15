@@ -4,7 +4,7 @@
 openrouter:
   models:
     - name: "google/gemini-2.0-flash-001"
-      priority: 2
+      priority: 1
       description: "Google Gemini 2.0 Flash - огромный контекст, НЕ публикует данные ✅"
       requires_prompt_publication: false
       context_window: 1000000
@@ -18,7 +18,7 @@ openrouter:
       notes: "Тестируем качество. Большой context window, хорошо работает с многоязычными текстами."
       
     - name: "deepseek/deepseek-chat-v3.1:free"
-      priority: 1
+      priority: 2
       description: "DeepSeek Chat v3.1 - ПУБЛИКУЕТ ДАННЫЕ ⚠️"
       requires_prompt_publication: true
       context_window: 64000
