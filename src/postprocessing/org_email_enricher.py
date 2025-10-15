@@ -188,12 +188,11 @@ class OrganizationEmailEnricher:
         """Извлекает email из блока подписи письма"""
         emails = []
         
-        # Ищем в body и plain_text
-        text_sources = []
-        if email_data.get('body'):
-            text_sources.append(email_data['body'])
-        if email_data.get('plain_text'):
-            text_sources.append(email_data['plain_text'])
+        # ✅ ИСПРАВЛЕНИЕ: Используем централизованную утилиту для извлечения всех текстовых источников
+        # См. задачу 2.3: .kiro/specs/data-quality-regression-analysis-2025-10-15/
+        from src.utils.email_body_extractor import extract_all_text_sources
+        
+        text_sources = extract_all_text_sources(email_data, include_plain_text=True)
             
         for text in text_sources:
             if text:

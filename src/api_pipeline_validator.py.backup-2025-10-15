@@ -667,22 +667,9 @@ class APIPipelineValidator:
     def _compose_combined_text(self, email_data: Dict[str, Any], date: str) -> str:
         """📝 Собирает текст письма и извлечённые файлы вложений."""
         parts: List[str] = []
-        
-        # ✅ ИСПРАВЛЕНИЕ: Используем централизованную утилиту для извлечения body
-        # См. задачу 2.3: .kiro/specs/data-quality-regression-analysis-2025-10-15/
-        from src.utils.email_body_extractor import extract_body_with_fallback
-        
-        body, body_source = extract_body_with_fallback(
-            email_data, 
-            prefer_clean=True, 
-            return_source=True
-        )
-        
+        body = email_data.get("body")
         if body:
-            print(f"✅ Использовано поле: '{body_source}', длина: {len(body)} символов")
             parts.append(f"=== ТЕКСТ ПИСЬМА ===\n{body}")
-        else:
-            print(f"⚠️ Тело письма не найдено! Доступные поля: {list(email_data.keys())}")
 
         attachments = email_data.get("attachments", [])
         if not attachments:

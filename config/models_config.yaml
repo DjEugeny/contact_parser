@@ -3,22 +3,22 @@
 
 openrouter:
   models:
-    - name: "google/gemini-2.0-flash-exp:free"
-      priority: 1
+    - name: "google/gemini-2.0-flash-001"
+      priority: 2
       description: "Google Gemini 2.0 Flash - огромный контекст, НЕ публикует данные ✅"
       requires_prompt_publication: false
       context_window: 1000000
       notes: "Тестируем качество на русской бизнес-переписке. Не требует публикации промптов."
       
-    - name: "meta-llama/llama-3.3-70b-instruct:free" #тупейшая модель, на помойку её надо
+    - name: "google/gemini-2.0-flash-exp:free" #бесплатка от Google Gemini 2.0 Flash
       priority: 3
-      description: "Meta Llama 3.3 70B - новая модель, НЕ публикует данные ✅"
+      description: "Google Gemini 2.0 Flash - огромный контекст, НЕ публикует данные ✅"
       requires_prompt_publication: false
       context_window: 128000
       notes: "Тестируем качество. Большой context window, хорошо работает с многоязычными текстами."
       
     - name: "deepseek/deepseek-chat-v3.1:free"
-      priority: 2
+      priority: 1
       description: "DeepSeek Chat v3.1 - ПУБЛИКУЕТ ДАННЫЕ ⚠️"
       requires_prompt_publication: true
       context_window: 64000

@@ -298,10 +298,16 @@ class ContactEnricher:
             Dict or None: Информация о сайте
         """
         # 1. Извлечение из тела письма
-        if email_data and email_data.get('body'):
-            websites = self.website_extractor.extract_from_email_body(email_data['body'])
-            if websites:
-                return websites[0]  # Возвращаем самый уверенный
+        # ✅ ИСПРАВЛЕНИЕ: Используем централизованную утилиту для извлечения body
+        # См. задачу 2.3: .kiro/specs/data-quality-regression-analysis-2025-10-15/
+        if email_data:
+            from src.utils.email_body_extractor import extract_body_with_fallback
+            
+            body = extract_body_with_fallback(email_data, prefer_clean=True)
+            if body:
+                websites = self.website_extractor.extract_from_email_body(body)
+                if websites:
+                    return websites[0]  # Возвращаем самый уверенный
         
         # 2. Извлечение из домена email контакта
         email = contact.get('email')
