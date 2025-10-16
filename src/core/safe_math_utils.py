@@ -160,8 +160,8 @@ def fix_none_values_in_data(data, numeric_fields=None, integer_fields=None):
         numeric_fields = ['confidence', 'score', 'weight', 'value_score', 'similarity', 'probability']
     
     if integer_fields is None:
-        # organization_id теперь может быть null для личных контактов
-        integer_fields = ['contact_id', 'id', 'user_id', 'company_id']
+        # organization_id и contact_id теперь могут быть null - не включаем в автокоррекцию
+        integer_fields = ['id', 'user_id', 'company_id']
     
     if isinstance(data, dict):
         for key, value in data.items():
@@ -280,12 +280,8 @@ def fix_json_schema_validation_errors(data):
         if 'interactions' in data and isinstance(data['interactions'], list):
             for interaction in data['interactions']:
                 if isinstance(interaction, dict):
-                    # organization_id теперь может быть null для личных контактов - НЕ исправляем
-                    
-                    # Исправляем None в contact_id если есть
-                    if 'contact_id' in interaction and interaction['contact_id'] is None:
-                        interaction['contact_id'] = 1
-                        logger.warning(f"fix_json_schema_validation_errors: исправлено contact_id: None → 1")
+                    # organization_id и contact_id теперь могут быть null - НЕ исправляем
+                    pass
         
         # Исправляем ошибки в других секциях
         for key, value in data.items():

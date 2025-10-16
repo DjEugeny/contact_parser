@@ -6,6 +6,10 @@
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# 🔐 Загрузка переменных окружения из .env
+load_dotenv()
 
 # 📁 Пути проекта
 PROJECT_ROOT = Path(__file__).parent.parent

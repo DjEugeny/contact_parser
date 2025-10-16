@@ -693,16 +693,15 @@ class LLMResponseValidator:
         return {
             "type": "object",
             "required": [
-                "contact_id",
                 "name",
                 "role_in_message",
                 "confidence"
             ],
             "properties": {
                 "contact_id": {
-                    "type": "integer",
+                    "type": ["integer", "null"],
                     "minimum": 1,
-                    "description": "Уникальный ID контакта в рамках письма"
+                    "description": "Уникальный ID контакта в рамках письма (null если не назначен)"
                 },
                 "name": {
                     "type": "string",
@@ -750,9 +749,9 @@ class LLMResponseValidator:
                     "description": "ИНН контакта"
                 },
                 "role_in_message": {
-                    "type": "string",
+                    "type": ["string", "null"],
                     "minLength": 1,
-                    "description": "Роль контакта в письме"
+                    "description": "Роль контакта в письме (null если неизвестно)"
                 },
                 "confidence": {
                     "type": "number",
@@ -934,7 +933,6 @@ class LLMResponseValidator:
             "type": "object",
             "required": [
                 "interaction_local_id",
-                "contact_id",
                 "role_in_message",
                 "interaction_type",
                 "summary",
@@ -947,9 +945,9 @@ class LLMResponseValidator:
                     "description": "Локальный ID взаимодействия в рамках письма"
                 },
                 "contact_id": {
-                    "type": "integer",
+                    "type": ["integer", "null"],
                     "minimum": 1,
-                    "description": "Ссылка на контакт"
+                    "description": "Ссылка на контакт (null если контакт не определён)"
                 },
                 "organization_id": {
                     "type": ["integer", "null"],
@@ -969,9 +967,9 @@ class LLMResponseValidator:
                     "description": "Message-ID или подсказка"
                 },
                 "role_in_message": {
-                    "type": "string",
+                    "type": ["string", "null"],
                     "minLength": 1,
-                    "description": "Роль участника в переписке"
+                    "description": "Роль участника в переписке (null если неизвестно)"
                 },
                 "interaction_type": {
                     "type": "string",

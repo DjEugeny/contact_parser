@@ -62,9 +62,11 @@ if str(PROJECT_ROOT) not in sys.path:
 from src.core.extractor_factory import ExtractorFactory
 from src.core.ocr_manager import get_ocr_manager
 from src.core.ocr_cache_manager import OCRCacheManager
+from src.core.processing_statistics import ProcessingStatistics
 from src.email_loader import ProcessedEmailLoader
 from src.reporting import ReportGenerator
 from src.utils.logger import log_pipeline_event, log_system_event, log_error_event
+from src.utils.log_aggregator import LogAggregator
 from src.postprocessing.resilient_processor import ResilientEmailProcessor
 from src.utils.portable_paths import get_portable_paths
 
@@ -183,6 +185,9 @@ class APIPipelineValidator:
         # Создаем устойчивый процессор с автоматическим повтором
         self.resilient_processor = ResilientEmailProcessor(self, max_retries=2)
         
+        # 📊 Инициализация агрегатора логов для группировки warnings
+        self.log_aggregator = LogAggregator()
+        
         # Логирование статуса провайдеров
         self._log_provider_status()
         
@@ -210,11 +215,18 @@ class APIPipelineValidator:
             handle = self.run_log_path.open("a", encoding="utf-8")
             self._run_log_handle = handle
 
+            # ✅ Выводим сообщение ДО переназначения stdout
+            print(f"🪵 Лог запуска: {self.run_log_path}")
+            sys.stdout.flush()
+            
             sys.stdout = TeeStream(self._original_stdout, handle)
             sys.stderr = TeeStream(self._original_stderr, handle)
 
             atexit.register(self._teardown_run_logging)
-            print(f"🪵 Лог запуска: {self.run_log_path}")
+            
+            # ✅ Тестовое сообщение для проверки TeeStream
+            print(f"📝 Запись в лог-файл активна")
+            sys.stdout.flush()
         except Exception as exc:  # pylint: disable=broad-except
             sys.stdout = self._original_stdout
             sys.stderr = self._original_stderr
@@ -362,6 +374,10 @@ class APIPipelineValidator:
         report_generator = ReportGenerator(base_dir=self.llm_results_dir, date=date)
         stats = PipelineStats()
         processed_sources: set[str] = set()
+        
+        # 📊 Инициализация детальной статистики
+        processing_stats = ProcessingStatistics()
+        processing_stats.start()
 
         def handle_result(result: Dict[str, Any]) -> None:
             """📡 Регистрирует артефакты сразу после обработки письма."""
@@ -373,6 +389,8 @@ class APIPipelineValidator:
                     stats=stats,
                     processed_sources=processed_sources,
                 )
+                # 📊 Обновляем детальную статистику
+                processing_stats.add_email_result(result)
             except Exception as callback_exc:  # pylint: disable=broad-except
                 print(f"⚠️ Ошибка постобработки результата {result.get('source_file')}: {callback_exc}")
 
@@ -441,6 +459,12 @@ class APIPipelineValidator:
         self._update_memory_bank_index(report_generator.summary_path, summary_payload)
         self.run_summaries.append(summary_payload)
         print(f"✅ Устойчивая обработка за {date} завершена (успешно: {stats.emails_successful}, ошибки: {stats.emails_failed})")
+        
+        # 📊 Выводим сгруппированные warnings из LogAggregator
+        self.log_aggregator.flush(show_details=False)
+        
+        # 📊 Выводим детальную статистику обработки
+        processing_stats.print_summary()
         
         # Выводим summary статистику использования моделей
         if hasattr(self, 'config_manager') and hasattr(self.config_manager, 'models_manager') and self.config_manager.models_manager:
@@ -702,25 +726,36 @@ class APIPipelineValidator:
 
     def _get_attachment_text(self, email: Dict[str, Any], attachment: Dict[str, Any], date: str) -> Optional[str]:
         """📎 Извлекает текст вложения, используя готовый OCR или fallback."""
-        # Проверяем статус вложения - пропускаем excluded файлы
-        status = attachment.get("status", "unknown")
-        if status in {"excluded_by_filter", "excluded_by_size", "unsupported"}:
-            return None
-        
+        # Проверяем готовый текст в content
         existing_text = attachment.get("content")
         if existing_text and isinstance(existing_text, str) and existing_text.strip():
             return existing_text
 
+        # ✅ ФИЛЬТР EXCLUDED ВЛОЖЕНИЙ: пропускаем файлы, которые были исключены ранее
+        status = attachment.get("status")
+        if status in ["excluded_by_filter", "excluded_by_size", "unsupported", "failed"]:
+            # Тихо пропускаем excluded файлы без warnings
+            return ""
+
         # ИСПРАВЛЕНО: ищем правильное поле для пути к файлу
         file_path = attachment.get("path") or attachment.get("file_path") or attachment.get("relative_path")
         if not file_path:
-            print(f"⚠️ У вложения '{attachment.get('filename', 'unknown')}' отсутствует путь к файлу")
+            # ⚠️ Теперь это warning только для "saved" файлов без пути
+            filename = attachment.get('filename', 'unknown')
+            self.log_aggregator.add_warning(
+                "missing_file_path",
+                f"У вложения '{filename}' отсутствует путь к файлу"
+            )
             return None
 
         # 🔧 ПОРТИРУЕМЫЕ ПУТИ: Используем нормализацию путей вложений
         attachment_path = self.portable_paths.normalize_attachment_path(attachment)
         if not attachment_path:
-            print(f"⚠️ У вложения '{attachment.get('filename', 'unknown')}' отсутствует путь к файлу")
+            filename = attachment.get('filename', 'unknown')
+            self.log_aggregator.add_warning(
+                "missing_file_path",
+                f"У вложения '{filename}' отсутствует путь к файлу"
+            )
             return None
         
         if not attachment_path.exists():
