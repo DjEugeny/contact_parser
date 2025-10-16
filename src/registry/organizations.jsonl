@@ -119,3 +119,12 @@
 {"event": "alias", "gid": "2ecf126d-30e6-53a4-bcad-385092ea7523", "alias": ["ORG", "FALLBACK", "b7fe7e6f861f44fb"], "created_at": "2025-10-15T13:43:14Z"}
 {"event": "create", "gid": "e3e18917-319a-5669-9766-af664fdf0091", "key": ["ORG", "DOMAIN", "vedabiotica.com"], "aliases": [["ORG", "FALLBACK", "9c8b742752fde219"]], "created_at": "2025-10-15T13:43:28Z", "source": "new"}
 {"event": "create", "gid": "6b3cfaf5-e735-5fdb-a721-7b3f35d40053", "key": ["ORG", "NAME_CITY", "гку рх хакасская ветлаборатория", "абакан"], "aliases": [["ORG", "FALLBACK", "3a8fe788840e33f5"]], "created_at": "2025-10-15T13:52:45Z", "source": "new"}
+{"event": "alias", "gid": "fe8bc48a-9101-5194-b8d2-cbe67d8013b6", "alias": ["ORG", "FALLBACK", "dff9bfc5f822004a"], "created_at": "2025-10-15T16:42:43Z"}
+{"event": "create", "gid": "2ca086cb-273c-578f-ae7b-0598eb3da3cf", "key": ["ORG", "NAME_CITY", "хеликон", "новосибирск"], "aliases": [["ORG", "FALLBACK", "1e71145516040ab9"]], "created_at": "2025-10-15T16:42:56Z", "source": "new"}
+{"event": "create", "gid": "c736908d-4edf-53da-9335-ea71c7229f39", "key": ["ORG", "INN", "5402525254"], "aliases": [["ORG", "DOMAIN", "invitro.ru"], ["ORG", "NAME_CITY", "инвитро-сибирь", "новосибирск"], ["ORG", "FALLBACK", "54c51a291219387b"]], "created_at": "2025-10-15T16:43:13Z", "source": "new"}
+{"event": "create", "gid": "3e4c9767-d143-5682-a73e-d3efce229c5c", "key": ["ORG", "FALLBACK", "e098bb7f1e6c29d0"], "aliases": [], "created_at": "2025-10-15T16:46:00Z", "source": "new"}
+{"event": "create", "gid": "18c5256d-4cac-5b28-a597-8ae1a81f2c88", "key": ["ORG", "INN", "1718002366"], "aliases": [["ORG", "FALLBACK", "97268b26aa237761"]], "created_at": "2025-10-15T16:46:11Z", "source": "new"}
+{"event": "create", "gid": "766c96f8-9631-5e3b-b6fb-b63b55b6094a", "key": ["ORG", "FALLBACK", "ad764b2a8fd27197"], "aliases": [], "created_at": "2025-10-15T16:46:11Z", "source": "new"}
+{"event": "create", "gid": "8a3b2971-b43a-5f65-8b4d-436857495a48", "key": ["ORG", "FALLBACK", "395acf960236bb7b"], "aliases": [], "created_at": "2025-10-15T16:47:58Z", "source": "new"}
+{"event": "alias", "gid": "9c7dbbe0-eff4-558b-a5f6-6dcb043a3439", "alias": ["ORG", "NAME_CITY", "алтай энзим", "барнаул"], "created_at": "2025-10-15T16:51:05Z"}
+{"event": "alias", "gid": "9c7dbbe0-eff4-558b-a5f6-6dcb043a3439", "alias": ["ORG", "FALLBACK", "dabf8a86eaab256e"], "created_at": "2025-10-15T16:51:05Z"}
