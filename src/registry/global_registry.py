@@ -308,12 +308,15 @@ def iter_org_keys(org: Dict[str, Any]) -> Iterable[Tuple[str, ...]]:
         yield fallback_key
 
 
-def iter_contact_keys(contact: Dict[str, Any], org_gid: str) -> Iterable[Tuple[str, ...]]:
+def iter_contact_keys(contact: Dict[str, Any], org_gid: Optional[str]) -> Iterable[Tuple[str, ...]]:
     seen: Set[Tuple[str, ...]] = set()
+    
+    # Для контактов без организации используем специальный маркер
+    org_key = org_gid if org_gid is not None else "PERSONAL"
 
     email = norm_email(contact.get("email"))
     if email:
-        key = ("CONTACT", "EMAIL", org_gid, email)
+        key = ("CONTACT", "EMAIL", org_key, email)
         seen.add(key)
         yield key
 
@@ -325,14 +328,14 @@ def iter_contact_keys(contact: Dict[str, Any], org_gid: str) -> Iterable[Tuple[s
         e164 = norm_e164(phone_number)
         if not e164:
             continue
-        key = ("CONTACT", "PHONE", org_gid, e164)
+        key = ("CONTACT", "PHONE", org_key, e164)
         if key not in seen:
             seen.add(key)
             yield key
 
     name_norm = norm_contact_name(contact.get("name"))
     position_norm = norm_contact_position(contact.get("position")) or ""
-    key = ("CONTACT", "NAME_POSITION", org_gid, name_norm or "", position_norm)
+    key = ("CONTACT", "NAME_POSITION", org_key, name_norm or "", position_norm)
     if key not in seen:
         seen.add(key)
         yield key
@@ -427,7 +430,7 @@ class GlobalIDRegistry:
                 source="new",
             )
 
-    def resolve_contact(self, contact: Dict[str, Any], org_gid: str) -> ResolutionResult:
+    def resolve_contact(self, contact: Dict[str, Any], org_gid: Optional[str]) -> ResolutionResult:
         with self._lock:
             keys = list(iter_contact_keys(contact, org_gid))
             if not keys:

@@ -695,7 +695,6 @@ class LLMResponseValidator:
             "required": [
                 "contact_id",
                 "name",
-                "organization_id",
                 "role_in_message",
                 "confidence"
             ],
@@ -712,9 +711,9 @@ class LLMResponseValidator:
                     "description": "Имя контактного лица"
                 },
                 "organization_id": {
-                    "type": "integer",
+                    "type": ["integer", "null"],
                     "minimum": 1,
-                    "description": "ID связанной организации"
+                    "description": "ID связанной организации (null для личных контактов)"
                 },
                 "position": {
                     "type": ["string", "null"],
@@ -936,7 +935,6 @@ class LLMResponseValidator:
             "required": [
                 "interaction_local_id",
                 "contact_id",
-                "organization_id",
                 "role_in_message",
                 "interaction_type",
                 "summary",
@@ -954,9 +952,9 @@ class LLMResponseValidator:
                     "description": "Ссылка на контакт"
                 },
                 "organization_id": {
-                    "type": "integer",
+                    "type": ["integer", "null"],
                     "minimum": 1,
-                    "description": "Ссылка на организацию"
+                    "description": "Ссылка на организацию (null для личных контактов)"
                 },
                 "message_subject": {
                     "type": ["string", "null"],

@@ -94,29 +94,37 @@ class OCRCacheManager:
             self.stats['cache_misses'] += 1
             return None
         
-        # Убираем расширение из имени файла для поиска
-        # "file.docx" -> "file"
-        filename_without_ext = filename
-        if '.' in filename:
-            filename_without_ext = filename.rsplit('.', 1)[0]
+        # Извлекаем оригинальное имя файла из полного имени
+        # Входящее имя может быть:
+        # 1. "20250827_20081ed0_attach_file.pdf" (с хешем и датой)
+        # 2. "file.pdf" (только имя)
+        # Результат OCR имеет формат: {date}_{hash}_{message_id}_attach_{original_name}.txt
         
-        # Ищем файл по паттерну
-        # Файлы результатов имеют формат: {date}_{domain}_{hash}_attach_{original_name}.txt
-        # Ищем по окончанию имени файла
-        for txt_file in date_folder.glob("*.txt"):
-            # Проверяем заканчивается ли имя файла на наше имя
-            txt_name = txt_file.stem  # Имя без .txt
-            
-            # Проверяем точное совпадение с оригинальным именем
-            if txt_name.endswith(filename_without_ext):
-                text = self._read_text_file(txt_file)
-                if text:
-                    self._cache[cache_key] = text
-                    self.stats['cache_hits'] += 1
-                    self.logger.debug(f"Найден результат OCR: {txt_file.name}")
-                    return text
+        original_name = filename
+        
+        # Если имя содержит "_attach_", извлекаем часть после него
+        if "_attach_" in filename:
+            original_name = filename.split("_attach_", 1)[1]
+        
+        # Убираем расширение из имени файла для поиска
+        # "file.pdf" -> "file"
+        if '.' in original_name:
+            original_name = original_name.rsplit('.', 1)[0]
+        
+        # Ищем файл по паттерну *_attach_{original_name}.txt
+        # Используем glob для поиска всех файлов, содержащих "_attach_{original_name}"
+        search_pattern = f"*_attach_{original_name}.txt"
+        
+        for txt_file in date_folder.glob(search_pattern):
+            text = self._read_text_file(txt_file)
+            if text:
+                self._cache[cache_key] = text
+                self.stats['cache_hits'] += 1
+                self.logger.debug(f"✅ Найден результат OCR: {txt_file.name}")
+                return text
         
         self.stats['cache_misses'] += 1
+        self.logger.debug(f"❌ OCR результат не найден для: {filename} (искали: {search_pattern})")
         return None
     
     def _read_text_file(self, file_path: Path) -> Optional[str]:

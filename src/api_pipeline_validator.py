@@ -702,6 +702,11 @@ class APIPipelineValidator:
 
     def _get_attachment_text(self, email: Dict[str, Any], attachment: Dict[str, Any], date: str) -> Optional[str]:
         """📎 Извлекает текст вложения, используя готовый OCR или fallback."""
+        # Проверяем статус вложения - пропускаем excluded файлы
+        status = attachment.get("status", "unknown")
+        if status in {"excluded_by_filter", "excluded_by_size", "unsupported"}:
+            return None
+        
         existing_text = attachment.get("content")
         if existing_text and isinstance(existing_text, str) and existing_text.strip():
             return existing_text

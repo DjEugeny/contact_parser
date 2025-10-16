@@ -1,6 +1,6 @@
 {
-  "current_version": "1.1",
-  "default_file": "unified_contact_extraction_v1.1.txt",
+  "current_version": "1.2",
+  "default_file": "unified_contact_extraction_v1.2.txt",
   "versions": {
     "1.0": {
       "date": "2025-10-06",
@@ -31,6 +31,23 @@
         "Добавлены явные запреты на использование null для ID полей"
       ],
       "target_validation_error_rate": 0.05,
+      "testing_status": "pending"
+    },
+    "1.2": {
+      "date": "2025-10-16",
+      "description": "Поддержка organization_id=null для личных контактов",
+      "validation_error_rate": null,
+      "file": "unified_contact_extraction_v1.2.txt",
+      "status": "active",
+      "changes": [
+        "Разрешён null для organization_id если организации нет",
+        "Запрет на несуществующие organization_id",
+        "Уточнены правила для личной переписки",
+        "Добавлено явное правило: НИКОГДА не придумывай несуществующие организации",
+        "Добавлено явное правило: НИКОГДА не используй organization_id=1 если нет organizations с таким ID",
+        "Обновлена структура правил: отдельные блоки для organization_id и других ID полей"
+      ],
+      "target_validation_error_rate": 0.02,
       "testing_status": "pending"
     }
   }

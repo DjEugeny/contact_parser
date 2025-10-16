@@ -63,7 +63,11 @@ class ResilientEmailProcessor:
         self.processing_results: List[ProcessingResult] = []
         self.result_callback: Optional[Callable[[Dict[str, Any]], None]] = None
         self._emitted_emails: set[str] = set()
-        self.retry_statistics = {
+        self.retry_statistics = self._create_empty_statistics()
+    
+    def _create_empty_statistics(self) -> Dict[str, Any]:
+        """Создание пустой структуры статистики"""
+        return {
             'total_emails': 0,
             'successful_first_attempt': 0,
             'successful_after_retry': 0,
@@ -74,6 +78,14 @@ class ResilientEmailProcessor:
                 ProcessingStrategy.FALLBACK: 0
             }
         }
+    
+    def reset_statistics(self):
+        """🔄 Сброс статистики перед новым циклом обработки"""
+        self.retry_statistics = self._create_empty_statistics()
+        self.failed_emails = []
+        self.processing_results = []
+        self._emitted_emails = set()
+        logger.debug("📊 Статистика сброшена")
     
     def process_emails_with_retry(
         self,
@@ -89,13 +101,13 @@ class ResilientEmailProcessor:
         Returns:
             Dict с результатами обработки и статистикой
         """
+        # Сбрасываем статистику перед новым циклом
+        self.reset_statistics()
+        
         logger.info(f"🔄 Начинаю устойчивую обработку {len(emails)} писем")
 
         self.result_callback = result_callback
-        self._emitted_emails = set()
         self.retry_statistics['total_emails'] = len(emails)
-        self.failed_emails = []
-        self.processing_results = []
         
         # Первый проход - стандартная обработка
         logger.info("📧 Первый проход: стандартная обработка")

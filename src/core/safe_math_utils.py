@@ -160,7 +160,8 @@ def fix_none_values_in_data(data, numeric_fields=None, integer_fields=None):
         numeric_fields = ['confidence', 'score', 'weight', 'value_score', 'similarity', 'probability']
     
     if integer_fields is None:
-        integer_fields = ['organization_id', 'contact_id', 'id', 'user_id', 'company_id']
+        # organization_id теперь может быть null для личных контактов
+        integer_fields = ['contact_id', 'id', 'user_id', 'company_id']
     
     if isinstance(data, dict):
         for key, value in data.items():
@@ -168,7 +169,7 @@ def fix_none_values_in_data(data, numeric_fields=None, integer_fields=None):
                 data[key] = 0.0
                 logger.debug(f"fix_none_values_in_data: исправлено {key}: None → 0.0")
             elif key in integer_fields and value is None:
-                data[key] = 1  # Для organization_id используем 1 как значение по умолчанию
+                data[key] = 1  # Для ID полей используем 1 как значение по умолчанию
                 logger.debug(f"fix_none_values_in_data: исправлено {key}: None → 1")
             elif isinstance(value, (dict, list)):
                 fix_none_values_in_data(value, numeric_fields, integer_fields)
@@ -279,10 +280,7 @@ def fix_json_schema_validation_errors(data):
         if 'interactions' in data and isinstance(data['interactions'], list):
             for interaction in data['interactions']:
                 if isinstance(interaction, dict):
-                    # Исправляем None в organization_id
-                    if 'organization_id' in interaction and interaction['organization_id'] is None:
-                        interaction['organization_id'] = 1
-                        logger.warning(f"fix_json_schema_validation_errors: исправлено organization_id: None → 1")
+                    # organization_id теперь может быть null для личных контактов - НЕ исправляем
                     
                     # Исправляем None в contact_id если есть
                     if 'contact_id' in interaction and interaction['contact_id'] is None:
