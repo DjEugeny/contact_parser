@@ -300,12 +300,13 @@ def iter_org_keys(org: Dict[str, Any]) -> Iterable[Tuple[str, ...]]:
             seen.add(key)
             yield key
 
-    fallback_basis = name_norm or org.get("name", "")
-    city_component = city_norm or (org.get("city") or "")
-    hashed = _hash_fallback(f"{fallback_basis}|{city_component}")
-    fallback_key = ("ORG", "FALLBACK", hashed)
-    if fallback_key not in seen:
-        yield fallback_key
+    # GID v2: Детерминированный fallback вместо случайного хеша
+    # Если есть имя организации, используем его как последний ключ
+    if name_norm:
+        key = ("ORG", "NAME", name_norm)
+        if key not in seen:
+            seen.add(key)
+            yield key
 
 
 def iter_contact_keys(contact: Dict[str, Any], org_gid: Optional[str]) -> Iterable[Tuple[str, ...]]:
