@@ -610,6 +610,7 @@ class PostProcessor:
         """Сброс временных структур перед обработкой"""
         self.organization_mapping = {}
         self.contact_mapping = {}
+        self._contact_mentions = []  # GID v2: Сброс упоминаний контактов
         # КРИТИЧНО: Очищаем состояние дедупликатора организаций
         self.org_deduplicator.reset_state()
         self.logger.info("🔄 Состояние постпроцессора сброшено для нового письма")
@@ -704,6 +705,73 @@ class PostProcessor:
         
         return updated_contacts
     
+    def filter_contacts_without_contact_info(
+        self, 
+        contacts: List[Dict[str, Any]]
+    ) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+        """
+        🚨 Фильтрует контакты без способов связи (GID v2, Этап 1).
+        
+        Контакт ДОЛЖЕН иметь хотя бы один способ связи:
+        - Email (корпоративный или личный)
+        - Телефон (мобильный, рабочий, любой)
+        
+        Args:
+            contacts: Список контактов для фильтрации
+            
+        Returns:
+            Tuple[valid_contacts, mentions]:
+                - valid_contacts: Контакты с email ИЛИ телефоном
+                - mentions: Упоминания контактов без способов связи
+        """
+        valid_contacts = []
+        mentions = []
+        
+        for contact in contacts:
+            email = contact.get("email")
+            phones = contact.get("phones", [])
+            
+            # Проверяем наличие хотя бы одного способа связи
+            has_email = email is not None and isinstance(email, str) and email.strip() != ""
+            has_phone = (
+                phones 
+                and isinstance(phones, list) 
+                and len(phones) > 0 
+                and any(
+                    isinstance(p, dict) and p.get("number") 
+                    for p in phones
+                )
+            )
+            
+            if has_email or has_phone:
+                # Валидный контакт
+                valid_contacts.append(contact)
+            else:
+                # Контакт без способов связи → сохраняем как упоминание
+                mention = {
+                    "name": contact.get("name"),
+                    "position": contact.get("position"),
+                    "organization_id": contact.get("organization_id"),
+                    "role_in_message": contact.get("role_in_message"),
+                    "confidence": contact.get("confidence", 0.5),
+                    "city": contact.get("city"),
+                    "address": contact.get("address"),
+                }
+                mentions.append(mention)
+                
+                self.logger.warning(
+                    f"🗑️ Отфильтрован контакт без способов связи: "
+                    f"{contact.get('name')} (org_id={contact.get('organization_id')})"
+                )
+        
+        if mentions:
+            self.logger.info(
+                f"📊 Фильтрация контактов: {len(valid_contacts)} валидных, "
+                f"{len(mentions)} без способов связи"
+            )
+        
+        return valid_contacts, mentions
+    
     def _filter_valuable_contacts(self, contacts: List[Dict[str, Any]]) -> tuple:
         """Этап 3: Фильтрация ценных контактов
         
@@ -715,13 +783,22 @@ class PostProcessor:
         """
         self.logger.info(f"🔍 Этап 3: Фильтрация {len(contacts)} контактов")
         
+        # НОВОЕ (GID v2): Сначала фильтруем контакты без способов связи
+        contacts_with_info, contact_mentions = self.filter_contacts_without_contact_info(contacts)
+        
+        # Сохраняем mentions для последующего сохранения в БД
+        if not hasattr(self, '_contact_mentions'):
+            self._contact_mentions = []
+        self._contact_mentions.extend(contact_mentions)
+        
         # Получаем текущие организации
         current_organizations = {
             org_id: org for org_id, org in self.org_deduplicator.get_global_organizations().items()
         }
         
+        # Применяем существующую фильтрацию к контактам с способами связи
         valuable_contacts, updated_organizations = self.contact_filter.filter_valuable_contacts(
-            contacts, current_organizations
+            contacts_with_info, current_organizations
         )
         
         # Обновляем организации в дедупликаторе без служебных полей
@@ -785,27 +862,30 @@ class PostProcessor:
 
         for contact in contacts:
             org_id = contact.get('organization_id')
-            org_gid = org_gid_lookup.get(org_id)
-            if not org_gid:
-                continue
+            # ✅ Для контактов без организации используем org_gid=None (маркер PERSONAL)
+            org_gid = org_gid_lookup.get(org_id) if org_id is not None else None
+            
             try:
                 result = self.gid_registry.resolve_contact(contact, org_gid)
             except ValueError:
                 continue
             contact['gid'] = result.gid
-            gid_assignments.append(
-                {
-                    'entity': 'contact',
-                    'local_id': contact.get('contact_id'),
-                    'organization_id': org_id,
-                    'organization_gid': org_gid,
-                    'gid': result.gid,
-                    'match_rule': result.match_rule,
-                    'key_tuple': list(result.key_tuple),
-                    'alias_added': result.alias_added,
-                    'source': result.source,
-                }
-            )
+            
+            assignment_entry = {
+                'entity': 'contact',
+                'local_id': contact.get('contact_id'),
+                'gid': result.gid,
+                'match_rule': result.match_rule,
+                'key_tuple': list(result.key_tuple),
+                'alias_added': result.alias_added,
+                'source': result.source,
+            }
+            # Добавляем organization_id и organization_gid только если есть организация
+            if org_id is not None:
+                assignment_entry['organization_id'] = org_id
+                assignment_entry['organization_gid'] = org_gid
+            
+            gid_assignments.append(assignment_entry)
             for conflict in result.conflicts:
                 conflict_entry = {
                     'entity': conflict.get('entity', 'contact'),
@@ -1622,6 +1702,7 @@ class PostProcessor:
         sorted_org_ids = sorted(final_organizations.keys())
         processed_result['organizations'] = [final_organizations[oid] for oid in sorted_org_ids]
         processed_result['contacts'] = final_contacts
+        processed_result['contact_mentions'] = getattr(self, '_contact_mentions', [])  # GID v2: Упоминания без контактов
         processed_result['interactions'] = interactions
         processed_result['summary'] = summary
         processed_result['key_points'] = key_points
@@ -1640,6 +1721,10 @@ class PostProcessor:
             'version': '1.3.0',
             'organization_mapping': self.organization_mapping,
             'contact_mapping': self.contact_mapping,
+            'filtering': {  # GID v2: Метаданные фильтрации контактов
+                'contacts_without_info_filtered': len(getattr(self, '_contact_mentions', [])),
+                'mentions_saved': len(getattr(self, '_contact_mentions', [])),
+            },
         })
 
         processed_result['postprocessing_metadata'] = base_metadata
