@@ -1,0 +1,48 @@
+# 📧 Whitelist личных email доменов
+# Используется для определения, является ли email личным или корпоративным
+# Формат: один домен на строку (без @)
+# Комментарии начинаются с #
+
+# === Популярные российские почтовые сервисы ===
+mail.ru
+bk.ru
+inbox.ru
+list.ru
+internet.ru
+yandex.ru
+ya.ru
+yandex.com
+rambler.ru
+lenta.ru
+
+# === Международные почтовые сервисы ===
+gmail.com
+googlemail.com
+yahoo.com
+yahoo.co.uk
+hotmail.com
+outlook.com
+live.com
+msn.com
+icloud.com
+me.com
+mac.com
+aol.com
+protonmail.com
+proton.me
+tutanota.com
+zoho.com
+gmx.com
+gmx.net
+
+# === Временные и анонимные email ===
+temp-mail.org
+guerrillamail.com
+10minutemail.com
+mailinator.com
+
+# === Корпоративные сервисы (личные аккаунты) ===
+# Примечание: эти домены могут использоваться как для личных, так и для корпоративных целей
+# Но обычно указывают на личный аккаунт
+fastmail.com
+hushmail.com
