@@ -558,6 +558,102 @@ class GlobalIDRegistry:
                 source="new",
             )
 
+    def resolve_contact_v2(self, contact: Dict[str, Any], org_gid: Optional[str]) -> ResolutionResult:
+        """
+        🆕 GID v2: Resolve contact с версионированием ключей.
+        
+        Логика:
+        1. Ищем по v2 ключам (iter_contact_keys_v2) — приоритет
+        2. Ищем по v1 ключам (iter_contact_keys) — fallback
+        3. При нахождении по v1 → автомиграция (добавляем v2 ключи как алиасы)
+        
+        Args:
+            contact: Словарь с данными контакта
+            org_gid: GID организации (может быть None)
+        
+        Returns:
+            ResolutionResult с информацией о найденном/созданном GID
+        
+        Examples:
+            >>> # Контакт найден по v2 ключу
+            >>> result = registry.resolve_contact_v2({"email": "user@company.com"}, "ORG-123")
+            >>> result.source  # "registry"
+            >>> result.match_rule  # "EMAIL_GLOBAL"
+            
+            >>> # Контакт найден по v1 ключу → автомиграция
+            >>> result = registry.resolve_contact_v2({"email": "user@company.com"}, "ORG-123")
+            >>> result.source  # "registry"
+            >>> result.match_rule  # "EMAIL" (v1)
+            >>> # v2 ключи автоматически добавлены как алиасы
+        """
+        with self._lock:
+            # Генерируем v2 ключи (новая логика)
+            v2_keys = list(iter_contact_keys_v2(contact, org_gid))
+            if not v2_keys:
+                raise ValueError("Contact object does not contain identification data")
+            
+            # Проверяем overrides (для обоих версий)
+            all_keys = v2_keys.copy()
+            v1_keys = list(iter_contact_keys(contact, org_gid))
+            all_keys.extend(v1_keys)
+            
+            override_result = self._resolve_with_overrides(all_keys, entity="contact")
+            if override_result:
+                return override_result
+            
+            # ЭТАП 1: Ищем по v2 ключам (приоритет)
+            for key in v2_keys:
+                gid = self.key_index.get(key)
+                if gid:
+                    alias_added, conflicts = self._ensure_aliases(
+                        gid, v2_keys, bucket="contacts"
+                    )
+                    return ResolutionResult(
+                        gid=gid,
+                        match_rule=key[1],
+                        key_tuple=key,
+                        alias_added=alias_added,
+                        source="registry",
+                        conflicts=conflicts,
+                    )
+            
+            # ЭТАП 2: Ищем по v1 ключам (fallback для обратной совместимости)
+            for key in v1_keys:
+                gid = self.key_index.get(key)
+                if gid:
+                    # Нашли по старому ключу!
+                    # АВТОМИГРАЦИЯ: Добавляем v2 ключи как алиасы
+                    alias_added, conflicts = self._ensure_aliases(
+                        gid, v2_keys, bucket="contacts"
+                    )
+                    return ResolutionResult(
+                        gid=gid,
+                        match_rule=f"{key[1]}_V1_MIGRATED",  # Помечаем как мигрированный
+                        key_tuple=key,
+                        alias_added=True,  # Всегда True при миграции
+                        source="registry_v1_migrated",
+                        conflicts=conflicts,
+                    )
+            
+            # ЭТАП 3: Создаём новый GID (используем v2 ключи)
+            primary = v2_keys[0]
+            gid = self._generate_gid(primary, namespace=CONTACT_NS)
+            aliases = [alias for alias in v2_keys[1:] if alias != primary]
+            self._create_record(
+                bucket="contacts",
+                gid=gid,
+                primary_key=primary,
+                aliases=aliases,
+                source="new_v2",
+            )
+            return ResolutionResult(
+                gid=gid,
+                match_rule=primary[1],
+                key_tuple=primary,
+                alias_added=bool(aliases),
+                source="new_v2",
+            )
+
     # ------------------------------------------------------------------
     # Internal helpers
     # ------------------------------------------------------------------
