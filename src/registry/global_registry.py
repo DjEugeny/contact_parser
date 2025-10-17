@@ -341,6 +341,91 @@ def iter_contact_keys(contact: Dict[str, Any], org_gid: Optional[str]) -> Iterab
         yield key
 
 
+def iter_contact_keys_v2(contact: Dict[str, Any], org_gid: Optional[str]) -> Iterable[Tuple[str, ...]]:
+    """
+    🆕 GID v2: Генерирует ключи с двухуровневой системой.
+    
+    Логика:
+    1. Для личных доменов (gmail, yandex, mail.ru) → старая логика (EMAIL с org_gid)
+    2. Для корпоративных доменов → новая логика (EMAIL_GLOBAL + EMAIL_IN_ORG алиас)
+    
+    Args:
+        contact: Словарь с данными контакта
+        org_gid: GID организации (может быть None)
+    
+    Yields:
+        Кортежи ключей в порядке приоритета
+    
+    Examples:
+        >>> # Личный email
+        >>> list(iter_contact_keys_v2({"email": "user@gmail.com"}, "ORG-123"))
+        [("CONTACT", "EMAIL", "ORG-123", "user@gmail.com"), ...]
+        
+        >>> # Корпоративный email
+        >>> list(iter_contact_keys_v2({"email": "user@company.com"}, "ORG-123"))
+        [("CONTACT", "EMAIL_GLOBAL", "user@company.com"),
+         ("CONTACT", "EMAIL_IN_ORG", "ORG-123", "user@company.com"), ...]
+    """
+    from ..utils.personal_email_domains import is_personal_email
+    
+    seen: Set[Tuple[str, ...]] = set()
+    org_key = org_gid if org_gid is not None else "PERSONAL"
+    
+    email = norm_email(contact.get("email"))
+    
+    if email:
+        # Проверяем, личный ли это домен
+        if is_personal_email(email):
+            # ЛИЧНЫЙ ДОМЕН: Старая логика (EMAIL с org_gid)
+            # Причина: ivanov@gmail.com в разных компаниях — разные люди
+            key = ("CONTACT", "EMAIL", org_key, email)
+            seen.add(key)
+            yield key
+        else:
+            # КОРПОРАТИВНЫЙ ДОМЕН: Новая логика (EMAIL_GLOBAL + алиас)
+            # ПРИОРИТЕТ 1: EMAIL_GLOBAL (не зависит от организации)
+            key_global = ("CONTACT", "EMAIL_GLOBAL", email)
+            seen.add(key_global)
+            yield key_global
+            
+            # ПРИОРИТЕТ 2: EMAIL_IN_ORG (алиас для связи с организацией)
+            if org_gid:
+                key_in_org = ("CONTACT", "EMAIL_IN_ORG", org_gid, email)
+                seen.add(key_in_org)
+                yield key_in_org
+    
+    # Телефоны: всегда используем новую логику (PHONE_GLOBAL + PHONE_IN_ORG)
+    for phone in contact.get("phones", []) or []:
+        if isinstance(phone, dict):
+            phone_number = phone.get("number")
+        else:
+            phone_number = phone
+        e164 = norm_e164(phone_number)
+        if not e164:
+            continue
+        
+        # ПРИОРИТЕТ 3: PHONE_GLOBAL
+        key_global = ("CONTACT", "PHONE_GLOBAL", e164)
+        if key_global not in seen:
+            seen.add(key_global)
+            yield key_global
+        
+        # ПРИОРИТЕТ 4: PHONE_IN_ORG (алиас)
+        if org_gid:
+            key_in_org = ("CONTACT", "PHONE_IN_ORG", org_gid, e164)
+            if key_in_org not in seen:
+                seen.add(key_in_org)
+                yield key_in_org
+    
+    # Имя + должность: используем старую логику (с org_key)
+    name_norm = norm_contact_name(contact.get("name"))
+    position_norm = norm_contact_position(contact.get("position")) or ""
+    key = ("CONTACT", "NAME_POSITION", org_key, name_norm or "", position_norm)
+    if key not in seen:
+        seen.add(key)
+        yield key
+
+
 # ---------------------------------------------------------------------------
 # Registry implementation
 # ---------------------------------------------------------------------------
