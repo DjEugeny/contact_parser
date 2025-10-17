@@ -37,6 +37,7 @@ from .org_location_enrichment import OrgLocationEnrichment
 from .contact_location_safety import ContactLocationSafety
 from .contact_phone_enricher import ContactPhoneEnricher
 from ..registry import GlobalIDRegistry
+from ..db import ContactMentionsRepository
 
 logger = logging.getLogger(__name__)
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -289,6 +290,14 @@ class PostProcessor:
         except Exception as e:
             self.logger.warning(f"⚠️ Failed to initialize contact phone enricher: {e}")
             self.contact_phone_enricher = None
+        
+        # Инициализация репозитория для сохранения mentions (GID v2)
+        try:
+            self.mentions_repository = ContactMentionsRepository()
+            self.logger.info("✅ Contact mentions repository initialized")
+        except Exception as e:
+            self.logger.warning(f"⚠️ Failed to initialize contact mentions repository: {e}")
+            self.mentions_repository = None
 
         # Статистика обработки
         self.stats = {
@@ -595,6 +604,9 @@ class PostProcessor:
             
             # Обновление статистики
             self._update_stats(llm_result, processed_result)
+            
+            # GID v2: Сохранение mentions в БД (если есть interaction_id)
+            self._save_mentions_to_db(email_data)
             
             self.logger.info("✅ Постобработка завершена успешно")
             return processed_result
@@ -1784,6 +1796,48 @@ class PostProcessor:
         self.logger.info(f"📊 Статистика обработки:")
         self.logger.info(f"  Организации: {original_orgs} -> {final_orgs}")
         self.logger.info(f"  Контакты: {original_contacts} -> {final_contacts}")
+    
+    def _save_mentions_to_db(self, email_data: Optional[Dict[str, Any]] = None) -> None:
+        """
+        💾 Сохраняет mentions в БД (GID v2, Этап 2).
+        
+        Args:
+            email_data: Данные исходного email (для извлечения interaction_id/source_file)
+        """
+        if not self.mentions_repository:
+            self.logger.debug("⚠️ Mentions repository not initialized, skipping save")
+            return
+        
+        mentions = getattr(self, '_contact_mentions', [])
+        if not mentions:
+            self.logger.debug("📭 No mentions to save")
+            return
+        
+        try:
+            # Извлекаем метаданные из email_data
+            interaction_id = None
+            source_file = None
+            
+            if email_data:
+                interaction_id = email_data.get('interaction_id')
+                source_file = email_data.get('source_file') or email_data.get('message_id')
+            
+            # Сохраняем mentions
+            saved_count = self.mentions_repository.save_contact_mentions(
+                mentions=mentions,
+                interaction_id=interaction_id,
+                source_file=source_file,
+            )
+            
+            if saved_count > 0:
+                self.logger.info(
+                    f"💾 Saved {saved_count} contact mentions to database "
+                    f"(interaction_id={interaction_id})"
+                )
+            
+        except Exception as e:
+            self.logger.error(f"❌ Failed to save mentions to database: {e}")
+            # Не прерываем обработку, только логируем ошибку
     
     def _apply_critical_fixes(self, llm_result: Dict[str, Any]) -> Dict[str, Any]:
         """
