@@ -11,27 +11,71 @@
   },
   "chunking": {
     "use_tokens": true,
-    "max_tokens_per_chunk": 12000,
-    "overlap_tokens": 1200,
-    "max_chunks_per_text": 15,
     "encoding_model": "cl100k_base",
     "auto_adjust_chunk_size": true,
-    "min_chunk_size": 3000,
-    "max_chunk_size": 16000,
-    "very_large_text_threshold": 500000,
-    "very_large_max_tokens_per_chunk": 20000,
-    "very_large_overlap_tokens": 2000,
-    "very_large_max_chunks": 100,
-    "memory_optimization": true,
-    "progressive_chunking": true,
     "smart_boundary_detection": true,
-    "chunk_alert_threshold": 30,
-    "chunk_abort_threshold": 80,
+    "progressive_chunking": true,
+    "memory_optimization": true,
     "allow_chunk_abort": true,
     "enable_async_processing": true,
     "max_concurrent_chunks": 3,
     "api_rate_limit_delay": 1.0,
-    "comment": "Optimized for DeepSeek V3.1 with 128K context window"
+    
+    "model_configs": {
+      "google/gemini-2.0-flash-001": {
+        "context_window": 1000000,
+        "safe_limit": 800000,
+        "max_tokens_per_chunk": 500000,
+        "overlap_tokens": 5000,
+        "max_chunks_per_text": 3,
+        "chunk_alert_threshold": 5,
+        "chunk_abort_threshold": 10,
+        "comment": "Оптимизировано для Gemini 2.0 Flash (1M контекст)"
+      },
+      "google/gemini-2.0-flash-exp:free": {
+        "context_window": 128000,
+        "safe_limit": 100000,
+        "max_tokens_per_chunk": 60000,
+        "overlap_tokens": 2000,
+        "max_chunks_per_text": 5,
+        "chunk_alert_threshold": 10,
+        "chunk_abort_threshold": 20,
+        "comment": "Gemini 2.0 Flash Experimental (128K контекст)"
+      },
+      "default": {
+        "context_window": 32000,
+        "safe_limit": 25000,
+        "max_tokens_per_chunk": 12000,
+        "overlap_tokens": 1200,
+        "max_chunks_per_text": 15,
+        "chunk_alert_threshold": 30,
+        "chunk_abort_threshold": 80,
+        "comment": "Fallback для моделей без специфичной конфигурации"
+      }
+    },
+    
+    "_legacy_settings": {
+      "max_tokens_per_chunk": 12000,
+      "overlap_tokens": 1200,
+      "max_chunks_per_text": 15,
+      "min_chunk_size": 3000,
+      "max_chunk_size": 16000,
+      "very_large_text_threshold": 500000,
+      "very_large_max_tokens_per_chunk": 20000,
+      "very_large_overlap_tokens": 2000,
+      "very_large_max_chunks": 100,
+      "chunk_alert_threshold": 30,
+      "chunk_abort_threshold": 80,
+      "comment": "Старые настройки для обратной совместимости"
+    }
+  },
+  
+  "attachment_filtering": {
+    "enabled": true,
+    "max_tokens_per_attachment": 15000,
+    "filter_reason": "business_rule_irrelevant",
+    "log_filtered": true,
+    "comment": "Фильтрация больших вложений >15K токенов"
   },
   "contact_location_safety": {
     "enabled": true,
