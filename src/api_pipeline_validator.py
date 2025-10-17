@@ -154,7 +154,7 @@ class APIPipelineValidator:
 
     def __init__(self, args: argparse.Namespace) -> None:
         """🔧 Подготавливает окружение и зависимости."""
-        self.mode = args.mode if args.mode != "interactive" else None
+        self.mode = args.mode
         self.date = args.date
         self.count = args.count
         self.start_date = args.start_date
@@ -466,6 +466,9 @@ class APIPipelineValidator:
         # 📊 Выводим детальную статистику обработки
         processing_stats.print_summary()
         
+        # 📊 Выводим отчёт по отфильтрованным вложениям
+        self.print_filtering_report()
+        
         # Выводим summary статистику использования моделей
         if hasattr(self, 'config_manager') and hasattr(self.config_manager, 'models_manager') and self.config_manager.models_manager:
             self.config_manager.models_manager.print_summary()
@@ -706,7 +709,14 @@ class APIPipelineValidator:
             print(f"✅ Использовано поле: '{body_source}', длина: {len(body)} символов")
             parts.append(f"=== ТЕКСТ ПИСЬМА ===\n{body}")
         else:
-            print(f"⚠️ Тело письма не найдено! Доступные поля: {list(email_data.keys())}")
+            # Проверяем наличие вложений перед выводом предупреждения
+            attachments_preview = email_data.get("attachments", [])
+            saved_attachments = [a for a in attachments_preview if a.get("status") == "saved"]
+            
+            if saved_attachments:
+                print(f"ℹ️  Тело письма пустое, но есть {len(saved_attachments)} вложений для обработки")
+            else:
+                print(f"⚠️ Тело письма не найдено! Доступные поля: {list(email_data.keys())}")
 
         attachments = email_data.get("attachments", [])
         if not attachments:
@@ -729,6 +739,28 @@ class APIPipelineValidator:
         # Проверяем готовый текст в content
         existing_text = attachment.get("content")
         if existing_text and isinstance(existing_text, str) and existing_text.strip():
+            # ✅ ФИЛЬТР БОЛЬШИХ ВЛОЖЕНИЙ: проверка размера в токенах
+            token_count = self._count_tokens(existing_text)
+            
+            if token_count > 15000:
+                filename = attachment.get('original_filename') or attachment.get('filename', 'unknown')
+                print(f"⚠️ ФИЛЬТР: Вложение '{filename}' слишком большое ({token_count:,} токенов > 15,000)")
+                print(f"   💡 Причина: Бизнес-правило - вложения >15K токенов нерелевантны")
+                print(f"   🚫 Вложение отброшено для защиты от засорения базы")
+                
+                # Логирование в статистику
+                if not hasattr(self, 'large_attachments_filtered'):
+                    self.large_attachments_filtered = []
+                
+                self.large_attachments_filtered.append({
+                    'filename': filename,
+                    'tokens': token_count,
+                    'email_subject': email.get('subject', 'unknown'),
+                    'date': date
+                })
+                
+                return None  # Отбрасываем большое вложение
+            
             return existing_text
 
         # ✅ ФИЛЬТР EXCLUDED ВЛОЖЕНИЙ: пропускаем файлы, которые были исключены ранее
@@ -764,12 +796,34 @@ class APIPipelineValidator:
             attachment_path = recovered_path if recovered_path else attachment_path
 
         # Фаза 1: Проверка кеша БЕЗ инициализации OCR модуля
-        # Используем полное имя файла из пути (с префиксом даты и домена)
-        filename = attachment_path.name  # Полное имя файла
-        cached_text = self.ocr_cache.get_cached_result(filename, date)
+        # Используем ОРИГИНАЛЬНОЕ имя файла для поиска в кеше
+        original_filename = attachment.get('original_filename') or attachment.get('filename') or attachment_path.name
+        cached_text = self.ocr_cache.get_cached_result(original_filename, date)
         
         if cached_text:
-            print(f"✅ OCR кеш: {filename} ({len(cached_text)} символов)")
+            print(f"✅ OCR кеш: {original_filename} ({len(cached_text)} символов)")
+            
+            # ✅ ФИЛЬТР БОЛЬШИХ ВЛОЖЕНИЙ: проверка кешированного текста
+            token_count = self._count_tokens(cached_text)
+            if token_count > 15000:
+                orig_filename = attachment.get('original_filename') or attachment.get('filename', 'unknown')
+                print(f"⚠️ ФИЛЬТР: Вложение '{orig_filename}' слишком большое ({token_count:,} токенов > 15,000)")
+                print(f"   💡 Причина: Бизнес-правило - вложения >15K токенов нерелевантны")
+                print(f"   🚫 Вложение отброшено для защиты от засорения базы")
+                
+                # Логирование в статистику
+                if not hasattr(self, 'large_attachments_filtered'):
+                    self.large_attachments_filtered = []
+                
+                self.large_attachments_filtered.append({
+                    'filename': orig_filename,
+                    'tokens': token_count,
+                    'email_subject': email.get('subject', 'unknown'),
+                    'date': date
+                })
+                
+                return None  # Отбрасываем большое вложение
+            
             return cached_text
         
         # Фаза 2: Кеш промах - нужна OCR обработка
@@ -792,6 +846,28 @@ class APIPipelineValidator:
             if ocr_result.get("success") and ocr_result.get("text"):
                 extracted_text = ocr_result["text"]
                 print(f"   ✅ OCR успешно: извлечено {len(extracted_text)} символов")
+                
+                # ✅ ФИЛЬТР БОЛЬШИХ ВЛОЖЕНИЙ: проверка размера после OCR
+                token_count = self._count_tokens(extracted_text)
+                if token_count > 15000:
+                    orig_filename = attachment.get('original_filename') or attachment.get('filename', 'unknown')
+                    print(f"   ⚠️ ФИЛЬТР: Вложение '{orig_filename}' слишком большое ({token_count:,} токенов > 15,000)")
+                    print(f"   💡 Причина: Бизнес-правило - вложения >15K токенов нерелевантны")
+                    print(f"   🚫 Вложение отброшено для защиты от засорения базы")
+                    
+                    # Логирование в статистику
+                    if not hasattr(self, 'large_attachments_filtered'):
+                        self.large_attachments_filtered = []
+                    
+                    self.large_attachments_filtered.append({
+                        'filename': orig_filename,
+                        'tokens': token_count,
+                        'email_subject': email.get('subject', 'unknown'),
+                        'date': date
+                    })
+                    
+                    return None  # Отбрасываем большое вложение
+                
                 # Показываем превью извлеченного текста
                 preview = extracted_text[:200].replace('\n', ' ')
                 print(f"   📄 Превью: {preview}...")
@@ -802,6 +878,53 @@ class APIPipelineValidator:
             print(f"⚠️  OCR не удалось для {attachment_path.name}: {exc}")
         
         return None
+
+    def _count_tokens(self, text: str) -> int:
+        """🔢 Подсчёт токенов в тексте"""
+        try:
+            import tiktoken
+            encoding = tiktoken.get_encoding('cl100k_base')
+            return len(encoding.encode(text))
+        except ImportError:
+            # Fallback: 1 токен ≈ 4 символа
+            return len(text) // 4
+        except Exception as e:
+            print(f"⚠️ Ошибка подсчёта токенов: {e}")
+            return len(text) // 4
+
+    def get_filtering_stats(self) -> Dict[str, Any]:
+        """📊 Статистика отфильтрованных вложений"""
+        if not hasattr(self, 'large_attachments_filtered'):
+            return {
+                'total_filtered': 0,
+                'attachments': [],
+                'total_tokens_filtered': 0
+            }
+        
+        return {
+            'total_filtered': len(self.large_attachments_filtered),
+            'attachments': self.large_attachments_filtered,
+            'total_tokens_filtered': sum(a['tokens'] for a in self.large_attachments_filtered)
+        }
+
+    def print_filtering_report(self):
+        """📋 Отчёт по отфильтрованным вложениям"""
+        stats = self.get_filtering_stats()
+        
+        if stats['total_filtered'] == 0:
+            print("\n✅ Все вложения прошли фильтр размера (<15K токенов)")
+            return
+        
+        print(f"\n🚫 ОТФИЛЬТРОВАНО БОЛЬШИХ ВЛОЖЕНИЙ: {stats['total_filtered']}")
+        print(f"📊 Общий объём отброшенного текста: {stats['total_tokens_filtered']:,} токенов")
+        print(f"\n{'Файл':<50} {'Токенов':<12} {'Письмо':<40}")
+        print("=" * 105)
+        
+        for att in stats['attachments']:
+            filename = att['filename'][:48]
+            tokens = f"{att['tokens']:,}"
+            subject = att['email_subject'][:38]
+            print(f"{filename:<50} {tokens:>10}   {subject:<40}")
 
     def _build_email_metadata(self, email_data: Dict[str, Any], email_path: Path) -> Dict[str, Any]:
         """📬 Формирует метаданные для отчёта по письму."""
@@ -1132,6 +1255,12 @@ def run_interactive_menu() -> None:
         dry_run=False
     )
     validator = APIPipelineValidator(dummy_args)
+    
+    # Проверяем, что логирование инициализировано
+    if validator.run_log_path:
+        print(f"✅ Логирование активно: {validator.run_log_path}")
+    else:
+        print(f"⚠️ Логирование в файл НЕ активно (только консоль)")
     
     # Запускаем новое меню с динамическим выбором дат
     main_menu(validator)

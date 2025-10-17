@@ -208,12 +208,26 @@ class ContactExtractor:
         """
         self.stats['total_requests'] += 1
 
-        # 🎯 Этап 4: Фильтрация по токенам с конфигурируемым порогом 15000 токенов
-        token_limit = 15000  # Конфигурируемый порог
+        # 🎯 Динамический лимит на основе модели
+        try:
+            if hasattr(self.config.provider_manager, 'models_manager') and self.config.provider_manager.models_manager:
+                current_model = self.config.provider_manager.models_manager.get_current_model('openrouter')
+                model_name = current_model.name if current_model else 'unknown'
+            else:
+                model_name = 'unknown'
+        except Exception as e:
+            print(f"⚠️ Не удалось получить текущую модель: {e}")
+            model_name = 'unknown'
+        
+        token_limit = self._get_token_limit_for_model(model_name)
         token_count = self._count_tokens(text)
         
+        print(f"📊 Модель: {model_name}")
+        print(f"📏 Лимит токенов: {token_limit:,}")
+        print(f"📄 Текст: {token_count:,} токенов ({token_count/token_limit*100:.1f}% от лимита)")
+        
         if token_count > token_limit:
-            print(f"⚠️ Текст превышает лимит токенов: {token_count} > {token_limit}")
+            print(f"⚠️ Текст превышает лимит токенов: {token_count:,} > {token_limit:,}")
             print(f"🔄 Применяем chunking для обработки большого текста")
             
             # Используем chunking для больших текстов
@@ -223,6 +237,8 @@ class ContactExtractor:
                 return self._process_chunks(chunks, metadata)
             else:
                 print(f"⚠️ Chunking не помог, обрабатываем как есть")
+        else:
+            print(f"✅ Обработка без chunking (в пределах лимита)")
 
         # Создаем хеш контента для кеширования
         content_hash = hashlib.md5(f"{text}_{metadata}".encode()).hexdigest()
@@ -592,15 +608,37 @@ class ContactExtractor:
 
     def _parse_llm_response(self, response_text: str) -> dict:
         """
-        🔍 Парсинг ответа LLM с валидацией JSON Schema
+        🔍 Парсинг ответа LLM с детекцией проблем
 
         Args:
             response_text: Сырой текст ответа от LLM
 
         Returns:
-            dict: Валидированный и обработанный результат
+            dict: Распарсенный JSON или fallback с диагностикой
         """
+        if not response_text or not response_text.strip():
+            print("❌ Пустой ответ от LLM!")
+            fallback = self.config.json_validator.graceful_degradation_fallback({})
+            if isinstance(fallback, dict):
+                fallback['error'] = 'empty_response'
+                fallback['message'] = 'LLM вернул пустой ответ'
+            return fallback
+        
         print(f"🔍 Получен ответ LLM длиной {len(response_text)} символов")
+        
+        # ✅ Проверка на обрезанный JSON
+        if self._is_json_truncated(response_text):
+            print("⚠️ Обнаружен обрезанный JSON!")
+            print("   🔄 Пытаемся завершить JSON...")
+            
+            # Попытка 1: Завершить структуры
+            completed = self._complete_json_structures(response_text)
+            try:
+                result = json.loads(completed)
+                print("   ✅ JSON успешно восстановлен")
+                return result
+            except json.JSONDecodeError:
+                print("   ❌ Автозавершение не помогло")
         
         try:
             # Удален ошибочный фикс пробелов - Replicate возвращает корректный JSON
@@ -623,7 +661,7 @@ class ContactExtractor:
         except json.JSONDecodeError as e:
             self.stats['json_parsing_errors'] += 1
             print(f"❌ Ошибка парсинга JSON: {e}")
-            print(f"   Позиция ошибки: строка {e.lineno}, колонка {e.colno}")
+            print(f"   📍 Позиция: строка {e.lineno}, колонка {e.colno}")
             
             # Показываем контекст ошибки
             lines = response_text.split('\n')
@@ -635,7 +673,7 @@ class ContactExtractor:
                     print(f"   Указатель:       {pointer}")
 
             # Попытка исправления распространенных ошибок
-            print(f"🛡️ Применяем graceful degradation fallback")
+            print(f"🔧 Применяем базовые исправления...")
             fixed_text = self._fix_common_json_errors(response_text)
             try:
                 result = json.loads(fixed_text)
@@ -643,18 +681,68 @@ class ContactExtractor:
                 return result
             except json.JSONDecodeError as e2:
                 print(f"❌ Исправление не помогло: {e2}")
+                
                 # Graceful degradation
                 fallback = self.config.json_validator.graceful_degradation_fallback({})
                 if isinstance(fallback, dict):
-                    fallback.setdefault('original_response', response_text[:500] + "..." if len(response_text) > 500 else response_text)
+                    fallback['error'] = 'json_parse_error'
+                    fallback['message'] = str(e)
+                    fallback['raw_snippet'] = response_text[:500] if response_text else None
                 return fallback
 
         except Exception as e:
             print(f"❌ Неожиданная ошибка парсинга: {e}")
             fallback = self.config.json_validator.graceful_degradation_fallback({})
             if isinstance(fallback, dict):
-                fallback.setdefault('original_response', response_text)
+                fallback['error'] = 'unexpected_error'
+                fallback['message'] = str(e)
+                fallback['raw_snippet'] = response_text[:500] if response_text else None
             return fallback
+
+    def _is_json_truncated(self, json_str: str) -> bool:
+        """🔍 Проверка, обрезан ли JSON"""
+        if not json_str:
+            return False
+        
+        # Подсчёт открытых/закрытых скобок
+        open_braces = json_str.count('{') - json_str.count('}')
+        open_brackets = json_str.count('[') - json_str.count(']')
+        
+        # Проверка незакрытых строк
+        in_string = False
+        prev_char = None
+        for char in json_str:
+            if char == '"' and prev_char != '\\':
+                in_string = not in_string
+            prev_char = char
+        
+        is_truncated = open_braces > 0 or open_brackets > 0 or in_string
+        
+        if is_truncated:
+            print(f"   ⚠️ Детектор обрезанного JSON:")
+            print(f"      Открытых {{ }}: {open_braces}")
+            print(f"      Открытых [ ]: {open_brackets}")
+            print(f"      Незакрытая строка: {in_string}")
+        
+        return is_truncated
+
+    def _complete_json_structures(self, json_str: str) -> str:
+        """🔧 Автоматическое завершение JSON структур"""
+        result = json_str
+        
+        # Закрываем незакрытые массивы
+        open_brackets = result.count('[') - result.count(']')
+        if open_brackets > 0:
+            result += ']' * open_brackets
+            print(f"   🔧 Закрыто массивов: {open_brackets}")
+        
+        # Закрываем незакрытые объекты
+        open_braces = result.count('{') - result.count('}')
+        if open_braces > 0:
+            result += '}' * open_braces
+            print(f"   🔧 Закрыто объектов: {open_braces}")
+        
+        return result
 
     def _fix_common_json_errors(self, text: str) -> str:
         """🔧 Базовое исправление JSON ошибок"""
@@ -767,6 +855,26 @@ class ContactExtractor:
         """
         print("⚠️  Используется устаревший метод extract_contacts, рекомендуется extract_all_data")
         return self.extract_all_data(text, metadata)
+
+    def _get_token_limit_for_model(self, model_name: str) -> int:
+        """
+        🎯 Получить оптимальный лимит токенов для модели
+        
+        Args:
+            model_name: Название модели
+            
+        Returns:
+            int: Лимит токенов (80% от контекстного окна для безопасности)
+        """
+        model_limits = {
+            'google/gemini-2.0-flash-001': 800000,      # 80% от 1M
+            'google/gemini-2.0-flash-exp:free': 100000, # 80% от 128K
+            'anthropic/claude-3-haiku:free': 160000,    # 80% от 200K
+            'deepseek/deepseek-chat-v3.1:free': 51000,  # 80% от 64K
+        }
+        
+        limit = model_limits.get(model_name, 15000)  # Fallback 15K
+        return limit
 
     def _count_tokens(self, text: str) -> int:
         """

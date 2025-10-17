@@ -35,7 +35,105 @@ class ChunkingConfig:
     allow_chunk_abort: bool = True
     memory_optimization: bool = True
     progressive_chunking: bool = True
+    
+    # Model-aware chunking
+    model_context_window: Optional[int] = None
+    model_name: Optional[str] = None
+    auto_detect_model: bool = True
 
+    @classmethod
+    def for_model(cls, model_name: str, context_window: int, config_path: Optional[Path] = None) -> 'ChunkingConfig':
+        """
+        🎯 Создать конфигурацию оптимизированную для конкретной модели
+        
+        Args:
+            model_name: Название модели (например, 'google/gemini-2.0-flash-001')
+            context_window: Размер контекстного окна модели в токенах
+            config_path: Путь к файлу конфигурации (опционально)
+            
+        Returns:
+            ChunkingConfig: Оптимизированная конфигурация для модели
+        """
+        # Пытаемся загрузить model_configs из файла
+        if not config_path:
+            config_path = Path(__file__).parent.parent.parent / "config" / "processing_config.json"
+        
+        try:
+            if config_path.exists():
+                with open(config_path, 'r', encoding='utf-8') as f:
+                    config = json.load(f)
+                    model_configs = config.get('chunking', {}).get('model_configs', {})
+                    
+                    # Ищем конфигурацию для конкретной модели
+                    if model_name in model_configs:
+                        model_config = model_configs[model_name]
+                        print(f"✅ Загружена конфигурация для модели: {model_name}")
+                        return cls(
+                            max_chunk_size=model_config.get('max_tokens_per_chunk', 12000),
+                            overlap_size=model_config.get('overlap_tokens', 1200),
+                            max_chunks_per_text=model_config.get('max_chunks_per_text', 15),
+                            chunk_alert_threshold=model_config.get('chunk_alert_threshold', 20),
+                            chunk_abort_threshold=model_config.get('chunk_abort_threshold', 50),
+                            model_context_window=model_config.get('context_window', context_window),
+                            model_name=model_name,
+                            use_tokens=True,
+                            encoding_model='cl100k_base',
+                            auto_adjust_chunk_size=True,
+                            smart_boundary_detection=True,
+                            allow_chunk_abort=True,
+                            memory_optimization=True,
+                            progressive_chunking=True
+                        )
+        except Exception as e:
+            print(f"⚠️ Не удалось загрузить конфигурацию для модели {model_name}: {e}")
+        
+        # Fallback: автоматический расчёт на основе context_window
+        print(f"🔧 Автоматический расчёт конфигурации для модели: {model_name}")
+        
+        # 80% от контекстного окна для безопасности
+        safe_limit = int(context_window * 0.8)
+        
+        # Размер чанка — 50% от safe_limit (но не больше 500K)
+        chunk_size = min(int(safe_limit * 0.5), 500000)
+        
+        # Overlap — 1% от chunk_size (но не меньше 1000)
+        overlap = max(int(chunk_size * 0.01), 1000)
+        
+        # Максимум чанков зависит от размера окна
+        if context_window >= 1000000:  # 1M+ (Gemini 2.0)
+            max_chunks = 3
+            alert_threshold = 5
+            abort_threshold = 10
+        elif context_window >= 200000:  # 200K+ (Claude)
+            max_chunks = 5
+            alert_threshold = 10
+            abort_threshold = 20
+        elif context_window >= 100000:  # 100K+ (большие модели)
+            max_chunks = 10
+            alert_threshold = 15
+            abort_threshold = 30
+        else:  # <100K (стандартные модели)
+            max_chunks = 20
+            alert_threshold = 30
+            abort_threshold = 50
+        
+        return cls(
+            max_chunk_size=chunk_size,
+            overlap_size=overlap,
+            max_chunks_per_text=max_chunks,
+            chunk_alert_threshold=alert_threshold,
+            chunk_abort_threshold=abort_threshold,
+            model_context_window=context_window,
+            model_name=model_name,
+            use_tokens=True,
+            encoding_model='cl100k_base',
+            auto_adjust_chunk_size=True,
+            smart_boundary_detection=True,
+            allow_chunk_abort=True,
+            memory_optimization=True,
+            progressive_chunking=True
+        )
+    
     @classmethod
     def load_from_file(cls, config_path: Optional[Path] = None) -> 'ChunkingConfig':
         """📁 Загрузка конфигурации из файла"""

@@ -2048,6 +2048,49 @@ class LLMResponseValidator:
         
         return normalized
 
+    def _auto_correct_missing_interaction_type(self, interactions: List[Dict]) -> List[Dict]:
+        """
+        🔧 Умная автокоррекция отсутствующего interaction_type
+        
+        Анализирует контекст взаимодействия для выбора правильного типа
+        """
+        for interaction in interactions:
+            if 'interaction_type' not in interaction or not interaction.get('interaction_type'):
+                # Умная догадка на основе других полей
+                context = str(interaction).lower()
+                summary = interaction.get('summary', '').lower()
+                
+                # Проверяем запросы ПЕРЕД отправкой КП (приоритет выше)
+                if any(word in context for word in ['запрос', 'прошу', 'хочу', 'нужно', 'можете', 'выслать']):
+                    guessed_type = 'requested_quote'
+                # Проверяем отправку КП/предложений
+                elif any(word in context for word in ['коммерч', 'предложен', 'offer']) or \
+                     ('кп' in summary and any(word in summary for word in ['отправ', 'направ', 'высла', 'sent'])):
+                    guessed_type = 'sent_quote'
+                elif any(word in context for word in ['жалоб', 'рекламац', 'complaint', 'проблем']):
+                    guessed_type = 'complaint'
+                elif any(word in context for word in ['счет', 'счёт', 'invoice', 'оплат']):
+                    guessed_type = 'invoice_sent'
+                elif any(word in context for word in ['договор', 'contract', 'подпис']):
+                    guessed_type = 'contract_sent'
+                elif any(word in context for word in ['уточн', 'вопрос', 'clarif', 'question']):
+                    guessed_type = 'clarification'
+                else:
+                    guessed_type = 'other'
+                
+                interaction['interaction_type'] = guessed_type
+                interaction['_auto_corrected'] = True
+                interaction['_correction_reason'] = f'Автокоррекция на основе контекста → {guessed_type}'
+                
+                print(f"⚠️ Автокоррекция interaction_type:")
+                print(f"   ID: {interaction.get('interaction_local_id')}")
+                print(f"   Добавлено: {guessed_type}")
+                summary = interaction.get('summary', '')
+                if summary:
+                    print(f"   Контекст: {summary[:100]}...")
+        
+        return interactions
+
     def _normalize_interaction_types(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """🔧 Нормализация типов взаимодействий с пробелами"""
         if not isinstance(data, dict):
@@ -2064,6 +2107,10 @@ class LLMResponseValidator:
         
         # Обрабатываем взаимодействия
         if 'interactions' in data and isinstance(data['interactions'], list):
+            # Сначала умная автокоррекция отсутствующих типов
+            data['interactions'] = self._auto_correct_missing_interaction_type(data['interactions'])
+            
+            # Затем нормализация проблемных типов
             for interaction in data['interactions']:
                 if isinstance(interaction, dict) and 'interaction_type' in interaction:
                     interaction_type = interaction['interaction_type']

@@ -164,3 +164,20 @@
 {"event": "alias", "gid": "7209d8a2-437f-5d4c-8e3d-7c470491f652", "alias": ["ORG", "FALLBACK", "9d7893b23f760c36"], "created_at": "2025-10-17T05:10:39Z"}
 {"event": "alias", "gid": "385a2f01-5f5d-51a6-94ea-c999ad589d76", "alias": ["ORG", "FALLBACK", "1022dab5860fcacc"], "created_at": "2025-10-17T05:12:49Z"}
 {"event": "alias", "gid": "385a2f01-5f5d-51a6-94ea-c999ad589d76", "alias": ["ORG", "NAME", "тест"], "created_at": "2025-10-17T05:46:59Z"}
+{"event": "alias", "gid": "7fd2e423-23ef-5814-adcd-ae26b2748956", "alias": ["ORG", "NAME", "центр лабораторной диагностики"], "created_at": "2025-10-17T09:49:16Z"}
+{"event": "alias", "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3", "alias": ["ORG", "NAME", "днк-технология"], "created_at": "2025-10-17T09:49:29Z"}
+{"event": "alias", "gid": "8977c8c4-1bbf-5db2-9988-c4703a2743b1", "alias": ["ORG", "NAME", "мсч клиницист-клиника претор"], "created_at": "2025-10-17T09:49:29Z"}
+{"event": "create", "gid": "6581245d-cf97-52fd-911b-adf06ac3d4bb", "key": ["ORG", "NAME", "сибдиамед"], "aliases": [], "created_at": "2025-10-17T09:49:29Z", "source": "new"}
+{"event": "create", "gid": "6cdf0fc0-fffb-5024-b41c-8cee1d05f7e3", "key": ["ORG", "DOMAIN", "pcr.ru"], "aliases": [["ORG", "NAME_CITY", "цнии эпидемиологии", "москва"], ["ORG", "NAME", "цнии эпидемиологии"]], "created_at": "2025-10-17T09:54:02Z", "source": "new"}
+{"event": "create", "gid": "7c392fec-9809-52f6-aa21-7a2ccf245f70", "key": ["ORG", "NAME", "некст-био"], "aliases": [], "created_at": "2025-10-17T09:54:02Z", "source": "new"}
+{"event": "alias", "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3", "alias": ["ORG", "DOMAIN", "amplisens.ru"], "created_at": "2025-10-17T09:54:02Z"}
+{"event": "create", "gid": "14a1e842-d027-5cc4-b80b-a1013895c937", "key": ["ORG", "NAME", "амплитек"], "aliases": [], "created_at": "2025-10-17T09:54:02Z", "source": "new"}
+{"event": "create", "gid": "649f107e-bcd9-58fb-ac9d-053409d7b582", "key": ["ORG", "INN", "5408157430"], "aliases": [["ORG", "DOMAIN", "frcftm.ru"], ["ORG", "NAME_CITY", "фиц фтм", "новосибирск"], ["ORG", "NAME", "фиц фтм"]], "created_at": "2025-10-17T09:55:25Z", "source": "new"}
+{"event": "alias", "gid": "dc827ae5-f14c-5fa1-8397-e0c32aa5757a", "alias": ["ORG", "NAME", "миллаб"], "created_at": "2025-10-17T10:11:52Z"}
+{"event": "alias", "gid": "d5fe73ec-73c1-5eb7-8af0-0278a764a70e", "alias": ["ORG", "NAME", "центр гигиены и эпидемиологии в республике хакасия"], "created_at": "2025-10-17T10:11:52Z"}
+{"event": "alias", "gid": "25eab71a-64f5-5bdb-a3e6-0f9667ab4b3d", "alias": ["ORG", "NAME", "агрохим"], "created_at": "2025-10-17T10:12:11Z"}
+{"event": "alias", "gid": "d5fe73ec-73c1-5eb7-8af0-0278a764a70e", "alias": ["ORG", "NAME", "федеральное бюджетное учреждение здравоохранения центр гигиены и эпидемиологии в республике хакасия"], "created_at": "2025-10-17T10:12:11Z"}
+{"event": "create", "gid": "0f9b1fb2-426a-53f4-a181-a0572526d3d9", "key": ["ORG", "NAME", "центр лд"], "aliases": [], "created_at": "2025-10-17T10:30:08Z", "source": "new"}
+{"event": "create", "gid": "37a7418e-c34e-5c22-9ca7-57ada985efa5", "key": ["ORG", "NAME", "цсп"], "aliases": [], "created_at": "2025-10-17T10:31:26Z", "source": "new"}
+{"event": "alias", "gid": "649f107e-bcd9-58fb-ac9d-053409d7b582", "alias": ["ORG", "NAME_CITY", "федеральный исследовательский центр фундаментальной и трансляционной медицины", "новосибирск"], "created_at": "2025-10-17T10:32:26Z"}
+{"event": "alias", "gid": "649f107e-bcd9-58fb-ac9d-053409d7b582", "alias": ["ORG", "NAME", "федеральный исследовательский центр фундаментальной и трансляционной медицины"], "created_at": "2025-10-17T10:32:26Z"}
