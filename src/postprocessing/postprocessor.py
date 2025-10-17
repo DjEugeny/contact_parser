@@ -198,7 +198,8 @@ class PostProcessor:
                  data_enricher: Optional[DataEnricher] = None,
                  data_normalizer: Optional[DataNormalizer] = None,
                  contact_deduplicator: Optional[AdvancedContactDeduplicator] = None,
-                 phone_overrides_path: Optional[Path] = None):
+                 phone_overrides_path: Optional[Path] = None,
+                 use_gid_v2: bool = True):
         """Инициализация постпроцессора
         
         Args:
@@ -206,7 +207,9 @@ class PostProcessor:
             contact_filter: Фильтр контактов
             data_enricher: Обогатитель данных
             data_normalizer: Нормализатор данных
+            use_gid_v2: Использовать GID v2 (двухуровневые ключи) вместо v1
         """
+        self.use_gid_v2 = use_gid_v2
         self.org_deduplicator = organization_deduplicator or OrganizationDeduplicator()
         self.contact_filter = contact_filter or ContactFilter()
         # Используем SmartContactEnricher вместо обычного DataEnricher
@@ -254,6 +257,12 @@ class PostProcessor:
         self.email_classification_log: Dict[int, Dict[str, Any]] = {}
         self.gid_registry = GlobalIDRegistry()
         self.phone_overrides = self._load_phone_overrides()
+        
+        # GID v2: Логирование версии
+        if self.use_gid_v2:
+            self.logger.info("🆕 GID v2 enabled (двухуровневые ключи)")
+        else:
+            self.logger.info("📌 GID v1 enabled (legacy mode)")
         
         # Инициализация ИНН резолвера
         try:
@@ -878,7 +887,11 @@ class PostProcessor:
             org_gid = org_gid_lookup.get(org_id) if org_id is not None else None
             
             try:
-                result = self.gid_registry.resolve_contact(contact, org_gid)
+                # GID v2: Используем resolve_contact_v2() если включено
+                if self.use_gid_v2:
+                    result = self.gid_registry.resolve_contact_v2(contact, org_gid)
+                else:
+                    result = self.gid_registry.resolve_contact(contact, org_gid)
             except ValueError:
                 continue
             contact['gid'] = result.gid
