@@ -1,0 +1,54 @@
+{
+  "thread_id": "20250303_inerlab_ru_f8ceabc2",
+  "message_id": "<1740975897.157146495@f462.i.mail.ru>",
+  "email_num_in_day": 2,
+  "total_emails_in_day": 25,
+  "from": "strelets@inerlab.ru",
+  "to": "torgi@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "torgi@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "запрос кп",
+  "date": "Mon, 03 Mar 2025 07:24:57 +0300",
+  "parsed_date": "2025-03-03T11:24:57+07:00",
+  "body_raw": "Добрый день! Прошу выслать кп на \nПРОБА-ГС-ПЛЮС -3\nПРОБА-ГС -4\nHPV квант-21 -3\nКонечный покупатель ГБУЗ НСО \"НГКПЦ\" 5401109460\n\n- -\nС уважением, Светлана Стрелец\n\nОтдел продаж лабораторного оборудования\nООО \"ИнтерЛабТрейд\"\nг. Новосибирск ,ул. Бориса Богаткова 260оф.4\n\n+7 (383) 285-25-10\n+7 (495) 409-76-12\n\nE-mail info@ i nerlab.ru\nСайт  http://inerlab.ru/",
+  "body_clean": "Добрый день! Прошу выслать кп на\nПРОБА-ГС-ПЛЮС -3\nПРОБА-ГС -4\nHPV квант-21 -3\nКонечный покупатель ГБУЗ НСО \"НГКПЦ\" 5401109460\nС уважением, Светлана Стрелец\nОтдел продаж лабораторного оборудования\nООО \"ИнтерЛабТрейд\"\nг. Новосибирск ,ул. Бориса Богаткова 260оф.4\n+7 (383) 285-25-10\n+7 (495) 409-76-12\nE-mail info@ i nerlab.ru\nСайт  http://inerlab.ru/",
+  "char_count": 348,
+  "attachments": [
+    {
+      "id": 594,
+      "original_filename": "Реквизиты ИнтерЛабТрейд.docx",
+      "saved_filename": "20250303_45e0fbfa_071305_691482_attach_Реквизиты ИнтерЛабТрейд.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-03/20250303_45e0fbfa_071305_691482_attach_Реквизиты ИнтерЛабТрейд.docx",
+      "relative_path": "attachments/2025-03-03/20250303_45e0fbfa_071305_691482_attach_Реквизиты ИнтерЛабТрейд.docx",
+      "file_size": 12817,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-14 00:13:05",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<1740975897.157146495@f462.i.mail.ru>",
+      "thread_id": "20250303_inerlab_ru_f8ceabc2",
+      "sha256": "3fdc99bb7c2462ba449ba67c9940fce27812cfe2a36bf2b5d8f37e773ea952f8",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:13:05.689409+07:00",
+  "raw_size": 26914,
+  "date_folder": "2025-03-03",
+  "eml_path": "eml/2025-03-03/1740975897.157146495_f462.i.mail.ru_071305_687672.eml"
+}

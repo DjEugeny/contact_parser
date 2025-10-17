@@ -1,0 +1,60 @@
+{
+  "thread_id": "20250411_dna-technology_ru_d54e563d",
+  "message_id": "<ed2201dc-2203-4d8a-b230-a7a9d0af33f2@dna-technology.ru>",
+  "email_num_in_day": 15,
+  "total_emails_in_day": 21,
+  "from": "torgi@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "o.isaev@dna-technology.ru",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "o.isaev@dna-technology.ru"
+  ],
+  "subject": "Re: НеоСкрин комплекс, наборы для Иркутск НЦПЗСиРЧ.",
+  "date": "Fri, 11 Apr 2025 13:45:44 +0300",
+  "parsed_date": "2025-04-11T17:45:44+07:00",
+  "body_raw": "Коллеги,\r\n\nКП и ТЗ во вложении\r\n\n11.04.2025 11:57, Воронова Светлана Сергеевна пишет:\r\n>\r\n> Добрый день, коллеги!\r\n>\r\n> Просьба выставить КП на 111 наборов Неоскрин (комплектация с \r\n> выделением, со сроком годности до конца ноября)  для Иркутск НЦПЗСИРЧ.\r\n> *Также предоставить ТЗ - обязательно!*\r\n>\r\n> Для согласования количества и планирования предстоящей закупки.\r\n>\r\n> -- \r\n> С уважением,\r\n> Воронова Светлана Сергеевна\r\n> региональный представитель в СФО\r\n> ООО \"ДНК-Технология\"\r\n> Моб.тел. 8 (995) 129-39-76\r\n> e-mail:s.voronova@dna-technology.ru\r\n> web:www.dna-technology.ru\r\n\n-- \r\nС уважением,\r\nспециалист по тендерам ООО \"ДНК-Технология\"\r\nЧурочкина Ольга Александровна\r\nТел. (495) 640 17 71 доб.2037\r\nmailto:torgi@dna-technology.ru\r\nhttp://www.dna-technology.ru",
+  "body_clean": "Коллеги,\nКП и ТЗ во вложении\n11.04.2025 11:57, Воронова Светлана Сергеевна пишет:\n> Добрый день, коллеги!\n> Просьба выставить КП на 111 наборов Неоскрин (комплектация с\n> выделением, со сроком годности до конца ноября)  для Иркутск НЦПЗСИРЧ.\n> *Также предоставить ТЗ - обязательно!*\n> Для согласования количества и планирования предстоящей закупки.\n> С уважением,\n> Воронова Светлана Сергеевна\n> региональный представитель в СФО\n> ООО \"ДНК-Технология\"\n> Моб.тел. 8 (995) 129-39-76\n> e-mail:s.voronova@dna-technology.ru\n> web:www.dna-technology.ru\nС уважением,\nспециалист по тендерам ООО \"ДНК-Технология\"\nЧурочкина Ольга Александровна\nТел. (495) 640 17 71 доб.2037\nmailto:torgi@dna-technology.ru\nhttp://www.dna-technology.ru",
+  "char_count": 723,
+  "attachments": [
+    {
+      "id": 79,
+      "original_filename": "КП 4662 от 11.04.2025.pdf",
+      "saved_filename": "20250411_aabaa691_215933_attach_КП 4662 от 11.04.2025.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-11/20250411_aabaa691_215933_attach_КП 4662 от 11.04.2025.pdf",
+      "relative_path": "attachments/2025-04-11/20250411_aabaa691_215933_attach_КП 4662 от 11.04.2025.pdf",
+      "file_size": 243534,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-11 14:59:33",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<ed2201dc-2203-4d8a-b230-a7a9d0af33f2@dna-technology.ru>",
+      "thread_id": "20250411_dna-technology_ru_d54e563d",
+      "sha256": "424f409ec03137f368ab91eac949784337b6cd67b22af4d7efb71021ed6485bd",
+      "file_exists": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:ТЗ*",
+      "original_filename": "ТЗ неоскрин с пробоподготовкой.docx",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 1,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:22:25.001981+07:00",
+  "raw_size": 360677,
+  "date_folder": "2025-04-11",
+  "eml_path": "eml/2025-04-11/ed2201dc-2203-4d8a-b230-a7a9d0af33f2_dna-technology.ru_002225_000676.eml"
+}

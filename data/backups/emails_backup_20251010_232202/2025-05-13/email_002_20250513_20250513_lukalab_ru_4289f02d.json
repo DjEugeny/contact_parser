@@ -1,0 +1,48 @@
+{
+  "thread_id": "20250513_lukalab_ru_4289f02d",
+  "message_id": "<1747106917.996623118@f766.i.mail.ru>",
+  "from": "n.yakovchic@lukalab.ru",
+  "to": "s.voronova@dna-technology.ru, ivaschuk@dna-technology.ru",
+  "cc": "isakulich2019@mail.ru, akulich@lukalab.ru, v.kazanova@lukalab.ru",
+  "to_emails": [
+    "s.voronova@dna-technology.ru",
+    "ivaschuk@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "isakulich2019@mail.ru",
+    "akulich@lukalab.ru",
+    "v.kazanova@lukalab.ru"
+  ],
+  "subject": "Заявка ЛукаЛаб",
+  "date": "Tue, 13 May 2025 06:28:37 +0300",
+  "parsed_date": "2025-05-13T10:28:37+07:00",
+  "body": "Здравствуйте!\nПрошу выставить счет согласно прилагаемой заявке.\nНиколай Яковчиц\nОтправлено из Почты  Mail\nЗдравствуйте!Прошу выставить счет согласно прилагаемой заявке. --Николай ЯковчицОтправлено из Почты Mail",
+  "char_count": 210,
+  "attachments": [
+    {
+      "original_filename": "13-05-25 ДНК-Технология.xlsx",
+      "saved_filename": "20250513_lukalab_ru_4289f02d_155305_attach_13-05-25 ДНК-Технология.xlsx",
+      "file_path": "data/attachments/2025-05-13/20250513_lukalab_ru_4289f02d_155305_attach_13-05-25 ДНК-Технология.xlsx",
+      "relative_path": "attachments/2025-05-13/20250513_lukalab_ru_4289f02d_155305_attach_13-05-25 ДНК-Технология.xlsx",
+      "file_size": 30482,
+      "file_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "saved_at": "2025-09-03T15:53:05.032239+07:00",
+      "status": "saved",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-09-03T15:53:05.032272+07:00",
+  "raw_size": 47779,
+  "date_folder": "2025-05-13"
+}

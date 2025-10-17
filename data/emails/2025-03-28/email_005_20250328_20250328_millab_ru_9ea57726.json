@@ -1,0 +1,41 @@
+{
+  "thread_id": "20250328_millab_ru_9ea57726",
+  "message_id": "<008d01db9fd0$fdeb93d0$f9c2bb70$@millab.ru>",
+  "email_num_in_day": 5,
+  "total_emails_in_day": 6,
+  "from": "yuch@millab.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Запрос авторизации для Центра Гигиены и Эпидемиологии в Кемеровской области-Кузбассе",
+  "date": "Fri, 28 Mar 2025 14:03:09 +0300",
+  "parsed_date": "2025-03-28T18:03:09+07:00",
+  "body_raw": "Добрый день, Светлана!\r\n\nПрошу авторизовать проект и выставить КП на амплификаторы ДТпрайм 4М1 и\r\nДТпрайм 5М1\r\n\nКонечный пользователь: Центра Гигиены и Эпидемиологии в Кемеровской\r\nобласти-Кузбассе (лаборатория особо опасных инфекций)\r\n\nИНН: 4205081103\r\n\nСпасибо!\r\n\nС уважением, Чикиткина Юлия\r\n\n2025-03-26_16-23-39\r\n\nМенеджер отдела микробиологии и биотехнологии\r\n\nТел. 8 (495) 933-71-47 (доб. 182)\r\n\nEmail yuch@millab.ru",
+  "body_clean": "Добрый день, Светлана!\nПрошу авторизовать проект и выставить КП на амплификаторы ДТпрайм 4М1 и\nДТпрайм 5М1\nКонечный пользователь: Центра Гигиены и Эпидемиологии в Кемеровской\nобласти-Кузбассе (лаборатория особо опасных инфекций)\nИНН: 4205081103\nСпасибо!\nС уважением, Чикиткина Юлия\n2025-03-26_16-23-39\nМенеджер отдела микробиологии и биотехнологии\nТел. 8 (495) 933-71-47 (доб. 182)\nEmail yuch@millab.ru",
+  "char_count": 402,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image001.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:24:36.031837+07:00",
+  "raw_size": 19295,
+  "date_folder": "2025-03-28",
+  "eml_path": "eml/2025-03-28/008d01db9fd0_fdeb93d0_f9c2bb70_millab.ru_072436_027549.eml"
+}

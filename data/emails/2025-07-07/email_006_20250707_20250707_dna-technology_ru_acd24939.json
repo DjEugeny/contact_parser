@@ -1,0 +1,55 @@
+{
+  "thread_id": "20250707_dna-technology_ru_acd24939",
+  "message_id": "<ff38a43b-7b9d-49c0-bbe6-a128d1da622d@dna-technology.ru>",
+  "email_num_in_day": 6,
+  "total_emails_in_day": 8,
+  "from": "hotline@dna-technology.ru",
+  "to": "kimajkinao@mail.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "kimajkinao@mail.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Fwd: Fwd: Бакскрин_0_7_02_14_08.r96, Бакрезиста, Бакскрин0_3_07_9_30.r96",
+  "date": "Mon, 7 Jul 2025 13:44:05 +0300",
+  "parsed_date": "2025-07-07T17:44:05+07:00",
+  "body_raw": "Добрый день, Оксана Владимировна!\r\n\nПросим уточнить вопросы по предоставленным протоколам (находятся во \r\nвложениях).\r\n\n> -------- Пересланное письмо --------\r\n> От: Кимайкина Оксана kimajkinao@mail.ru\r\n> Кому: Воронова Светлана Сергеевна s.voronova@dna-technology.ru\r\n> Дата: четверг, 03 июля 2025г., 14:36 +07:00\r\n> Тема: Бакскрин_0_7_02_14_08.r96, Бакрезиста, Бакскрин0_3_07_9_30.r96\r\n>\r\n> C уважением,\r\n> Кимайкина Оксана\r\n> Отправлено из Почты Mail <https://trk.mail.ru/c/zzm979>\r\n>",
+  "body_clean": "Добрый день, Оксана Владимировна!\nПросим уточнить вопросы по предоставленным протоколам (находятся во\nвложениях).\n> -------- Пересланное письмо --------\n> От: Кимайкина Оксана kimajkinao@mail.ru\n> Кому: Воронова Светлана Сергеевна s.voronova@dna-technology.ru\n> Дата: четверг, 03 июля 2025г., 14:36 +07:00\n> Тема: Бакскрин_0_7_02_14_08.r96, Бакрезиста, Бакскрин0_3_07_9_30.r96\n> C уважением,\n> Кимайкина Оксана\n> Отправлено из Почты Mail https://trk.mail.ru/c/zzm979",
+  "char_count": 466,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "_.jpg",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "extension_excluded:.r96",
+      "original_filename": "Бакскрин_0_7_02_14_08.r96",
+      "is_inline": false
+    },
+    {
+      "status": "excluded",
+      "reason": "extension_excluded:.r96",
+      "original_filename": "Бакрезиста, Бакскрин0_3_07_9_30.r96",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 3,
+    "saved": 0,
+    "excluded": 3,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:39:47.535501+07:00",
+  "raw_size": 939788,
+  "date_folder": "2025-07-07",
+  "eml_path": "eml/2025-07-07/ff38a43b-7b9d-49c0-bbe6-a128d1da622d_dna-technology.ru_003947_533494.eml"
+}

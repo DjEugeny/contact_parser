@@ -1,0 +1,39 @@
+Received:  from forward101a.mail.yandex.net ([178.154.239.84]:35622)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98 (FreeBSD))
+	 (envelope-from <uvs-bio@yandex.ru>)
+	 id 1uN6k6-0000000031U-0TmJ ;
+	Thu, 05 Jun 2025 12:18:34 +0300
+Received: from mail-nwsmtp-mxback-production-main-70.vla.yp-c.yandex.net (mail-nwsmtp-mxback-production-main-70.vla.yp-c.yandex.net [IPv6:2a02:6b8:c1f:3bac:0:640:54d:0])
+	by forward101a.mail.yandex.net (Yandex) with ESMTPS id 065CC60ADC;
+	Thu,  5 Jun 2025 12:18:34 +0300 (MSK)
+Received: from mail.yandex.ru (2a02:6b8:c2d:4ab8:0:640:8d8a:0 [2a02:6b8:c2d:4ab8:0:640:8d8a:0])
+	by mail-nwsmtp-mxback-production-main-70.vla.yp-c.yandex.net (mxback/Yandex) with HTTPS id UIZJ7F1L3a60-50PHVGJk;
+	Thu, 05 Jun 2025 12:18:33 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1749115113; bh=aRA9lvarOR0bKC7hBrrippJGTTv2U41MbnGBgQKFPCY=;
+	h=Message-Id:Date:Subject:To:From;
+	b=MPqMfZvG3KtDBIQOUdsDpkEveyL+tftQd7mm+coUXa0xusMpB9DdieG9mf9ccod/e
+	 WS39LxbgD7MSVo+rTY+jczPtG3XLqGb9zZoG86qTWal4uW4Y3BSaTwgt3D8mBu4nZv
+	 rMJzoroYPjoEqlfQIDEeiCbHCk3wr+JoiULP6hkU=
+Authentication-Results: mail-nwsmtp-mxback-production-main-70.vla.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+Received: by ztjdexdusepk5gyp.vla.yp-c.yandex.net with HTTP;
+	Thu, 05 Jun 2025 12:18:33 +0300
+From: =?utf-8?B?0J7QntCeICLQrtCS0KEt0JHQmNCeIg==?= <uvs-bio@yandex.ru>
+To: =?utf-8?B?0J7Qu9GM0LPQsCDQkNC70LXQutGB0LDQvdC00YDQvtCy0L3QsCDQp9GD0YDQvtGH0LrQuNC90LA=?= <torgi@dna-technology.ru>,
+	"s.voronova@dna-technology.ru" <s.voronova@dna-technology.ru>
+Subject: =?utf-8?B?0JfQsNC/0YDQvtGBINCa0J8=?=
+MIME-Version: 1.0
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Thu, 05 Jun 2025 12:18:33 +0300
+Message-Id: <62841749114919@mail.yandex.ru>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/html; charset=utf-8
+Received-SPF: pass (mail.dna-technology.ru: domain of yandex.ru designates 178.154.239.84 as permitted sender) client-ip=178.154.239.84; envelope-from=uvs-bio@yandex.ru; helo=forward101a.mail.yandex.net;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+<div>Добрый день, прошу предоставить КП и ТЗ по КТРУ (ГБУЗ РТ Рескожвендиспансер ИНН 1701010182)</div><div>R1-H963-N3/4 генетика Лактоза - 1 наб</div><div>Р-023/4 Проба ГС-Генетика или Р-021/4 Роба Рапид-Генетика, что дешевле - 1 наб</div><div> </div><div> </div><div>-- </div><div>С уважением, Л.Ю.Кузнецова</div><div>ООО "ЮВС-БИО"</div><div>(499) 157-74-49</div><div> </div>

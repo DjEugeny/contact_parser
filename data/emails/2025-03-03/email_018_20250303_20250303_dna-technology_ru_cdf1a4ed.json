@@ -1,0 +1,77 @@
+{
+  "thread_id": "20250303_dna-technology_ru_cdf1a4ed",
+  "message_id": "<ee2ee330-5e09-4316-a8f5-e2e64363e9b0@dna-technology.ru>",
+  "email_num_in_day": 18,
+  "total_emails_in_day": 25,
+  "from": "bilalov@dna-technology.ru",
+  "to": "popova.es@irkmed.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "popova.es@irkmed.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Fwd: Запрос КП, ТХ и РУ на Магнитный штатив «ДТмаг 16С»",
+  "date": "Mon, 3 Mar 2025 13:17:50 +0300",
+  "parsed_date": "2025-03-03T17:17:50+07:00",
+  "body_raw": "Добрый день!\r\n\nКП и ТХ во вложении.\r\nШтатив ДДТмаг 16С не зарегистрирован, РУ отсутствует.\r\nЕсть сертификат соответствия (во вложении)\r\n\n>\r\n>\r\n> -------- Перенаправленное сообщение --------\r\n> Тема: Запрос КП, ТХ и РУ на Магнитный штатив «ДТмаг 16С»\r\n> Дата: Fri, 28 Feb 2025 12:37:28 +0800 (IRKT)\r\n> От: Попова Екатерина Сергеевна <popova.es@irkmed.ru>\r\n> Кому: bilalov@dna-technology.ru\r\n> Копия: s voronova <s.voronova@dna-technology.ru>\r\n>\r\n>\r\n>\r\n> Добрый день!\r\n> Прошу прислать коммерческое предложение, технические характеристики и \r\n> РУ на Магнитный штатив «ДТмаг 16С».\r\n> Конечный пользователь - Областное государственное бюджетное учреждение \r\n> здравоохранения «Иркутская районная больница» ИНН 3827004279\r\n> Заранее спасибо!\r\n>\r\n> -- \r\n> С уважением,\r\n> Попова Екатерина Сергеевна\r\n> Младший специалист по продукции и технологиям ООО «Лабора»\r\n> E-mail: popova.es@irkmed.ru\r\n> Раб.телефон +7(3952)288867 (вн.тел: 32-77)\r\n>\r\n\n-- \r\nС уважением, Билалов Альберт\r\nзам. начальника отдела продаж ООО \"ДНК-Технология\"\r\nТел\\факс: (495)640-17-71, доб.2031\r\nmailto:bilalov@dna-technology.ru",
+  "body_clean": "Добрый день!\nКП и ТХ во вложении.\nШтатив ДДТмаг 16С не зарегистрирован, РУ отсутствует.\nЕсть сертификат соответствия (во вложении)\n> -------- Перенаправленное сообщение --------\n> Тема: Запрос КП, ТХ и РУ на Магнитный штатив «ДТмаг 16С»\n> Дата: Fri, 28 Feb 2025 12:37:28 +0800 (IRKT)\n> От: Попова Екатерина Сергеевна popova.es@irkmed.ru\n> Кому: bilalov@dna-technology.ru\n> Копия: s voronova s.voronova@dna-technology.ru\n> Добрый день!\n> Прошу прислать коммерческое предложение, технические характеристики и\n> РУ на Магнитный штатив «ДТмаг 16С».\n> Конечный пользователь - Областное государственное бюджетное учреждение\n> здравоохранения «Иркутская районная больница» ИНН 3827004279\n> Заранее спасибо!\n> С уважением,\n> Попова Екатерина Сергеевна\n> Младший специалист по продукции и технологиям ООО «Лабора»\n> E-mail: popova.es@irkmed.ru\n> Раб.телефон +7(3952)288867 (вн.тел: 32-77)\nС уважением, Билалов Альберт\nзам. начальника отдела продаж ООО \"ДНК-Технология\"\nТел\\факс: (495)640-17-71, доб.2031\nmailto:bilalov@dna-technology.ru",
+  "char_count": 1027,
+  "attachments": [
+    {
+      "id": 605,
+      "original_filename": "Ком.пред.03.03.2025 для Иркутск Лабора (ДТмаг 16С).pdf",
+      "saved_filename": "20250303_be1b9adb_071342_440116_attach_Ком.пред.03.03.2025 для Иркутск Лабора _ДТмаг 16С_.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-03/20250303_be1b9adb_071342_440116_attach_Ком.пред.03.03.2025 для Иркутск Лабора _ДТмаг 16С_.pdf",
+      "relative_path": "attachments/2025-03-03/20250303_be1b9adb_071342_440116_attach_Ком.пред.03.03.2025 для Иркутск Лабора _ДТмаг 16С_.pdf",
+      "file_size": 147817,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:13:42",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<ee2ee330-5e09-4316-a8f5-e2e64363e9b0@dna-technology.ru>",
+      "thread_id": "20250303_dna-technology_ru_cdf1a4ed",
+      "sha256": "caf935cfa10eed172228beec8cd374e37f7f469f793df57f254e15294d3bdc10",
+      "file_exists": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:ТЗ*",
+      "original_filename": "ТЗ ДТмаг-16С штатив (2024).docx",
+      "is_inline": false
+    },
+    {
+      "id": 606,
+      "original_filename": "Сертификат ДТмаг-16С.pdf",
+      "saved_filename": "20250303_be1b9adb_071342_445304_attach_Сертификат ДТмаг-16С.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-03/20250303_be1b9adb_071342_445304_attach_Сертификат ДТмаг-16С.pdf",
+      "relative_path": "attachments/2025-03-03/20250303_be1b9adb_071342_445304_attach_Сертификат ДТмаг-16С.pdf",
+      "file_size": 155735,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:13:42",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<ee2ee330-5e09-4316-a8f5-e2e64363e9b0@dna-technology.ru>",
+      "thread_id": "20250303_dna-technology_ru_cdf1a4ed",
+      "sha256": "85536bd3e64b915d94b52535f59fbb1de41eb405ae69271a3529d3a7985794f5",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 3,
+    "saved": 2,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:13:42.437609+07:00",
+  "raw_size": 473120,
+  "date_folder": "2025-03-03",
+  "eml_path": "eml/2025-03-03/ee2ee330-5e09-4316-a8f5-e2e64363e9b0_dna-technology.ru_071342_434063.eml"
+}

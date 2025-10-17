@@ -1,0 +1,18 @@
+{
+  "source_file": "email_008_20250822_20250822_dna-technology_ru_2afa4dc6.json",
+  "processed_result": {
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-08-22/email_008_20250822_20250822_dna-technology_ru_2afa4dc6.json",
+    "success": false,
+    "processing_strategy": "standard",
+    "processing_time_seconds": 24.528,
+    "errors": [
+      "Ошибка валидации"
+    ],
+    "validation_error": true,
+    "error": "Ошибка валидации",
+    "organizations": [],
+    "contacts": [],
+    "commercial_offers": [],
+    "interactions": []
+  }
+}

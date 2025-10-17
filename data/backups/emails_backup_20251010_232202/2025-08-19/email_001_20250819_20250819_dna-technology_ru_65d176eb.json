@@ -1,0 +1,43 @@
+{
+  "thread_id": "20250819_dna-technology_ru_65d176eb",
+  "message_id": "<dad72388-6da4-42b9-8bed-e97e22107278@Spark>",
+  "from": "s.voronova@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "тестовое",
+  "date": "Tue, 19 Aug 2025 10:03:51 +0700",
+  "parsed_date": "2025-08-19T10:03:51+07:00",
+  "body": "",
+  "char_count": 0,
+  "attachments": [
+    {
+      "original_filename": "CE94463E3AEC4AE5A81CC870F3266A64.png",
+      "saved_filename": null,
+      "file_path": null,
+      "relative_path": null,
+      "file_size": 83509,
+      "file_type": "excluded_by_size",
+      "exclusion_reason": "размер файла 83509 байт - известный мусорный файл",
+      "saved_at": "2025-08-26T18:06:09.659513+07:00",
+      "status": "excluded_by_size",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 1,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-08-26T18:06:09.659593+07:00",
+  "raw_size": 122695,
+  "date_folder": "2025-08-19"
+}

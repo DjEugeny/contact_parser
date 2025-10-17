@@ -1,0 +1,41 @@
+{
+  "thread_id": "20250731_dna-technology_ru_7268f921",
+  "message_id": "<59252374-7e44-4c96-9f35-906c4e4d872d@dna-technology.ru>",
+  "from": "litvinenko@dna-technology.ru",
+  "to": "medic.81@mail.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "medic.81@mail.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "КП договор аренды",
+  "date": "Thu, 31 Jul 2025 15:05:27 +0300",
+  "parsed_date": "2025-07-31T19:05:27+07:00",
+  "body": "Добрый день.\nВо вложении КП на прибор по аренде.\nменеджер по работе с клиентами\nООО \"ДНК-Технология\"\nЛитвиненко Юлия. Москва.\nтел. (495) 640-17-71 доб. 2018\nмоб. +7(985)-170-03-87\nlitvinenko@dna-technology.ru",
+  "char_count": 208,
+  "attachments": [
+    {
+      "filename": "ru_7268f921_084939_attach_Gold20250731145241.pdf",
+      "saved_filename": "20250731_dna-technology_ru_7268f921_084939_attach_Gold20250731145241.pdf",
+      "size": 378008,
+      "path": "attachments/2025-07-31/20250731_dna-technology_ru_7268f921_084939_attach_Gold20250731145241.pdf",
+      "status": "saved",
+      "type": "existing_attachment"
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-08-26T17:55:56.535252+07:00",
+  "raw_size": 519705,
+  "date_folder": "2025-07-31"
+}

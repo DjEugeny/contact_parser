@@ -1,0 +1,160 @@
+Received:  from mail.medgenetics.ru ([92.63.74.6]:40800)
+	  by mail.dna-technology.ru with smtp   (Exim 4.98.2 (FreeBSD))
+	 (envelope-from <mariya.skleimova@medgenetics.ru>)
+	 id 1uzXi1-00000000HoE-2jRY 
+	for s.voronova@dna-technology.ru;
+	Fri, 19 Sep 2025 12:47:27 +0300
+Received: from medgenetics.ru (localhost [127.0.0.1])
+	by mail.medgenetics.ru (Postfix) with ESMTP id 2E069B80055
+	for <s.voronova@dna-technology.ru>; Fri, 19 Sep 2025 16:46:58 +0700 (+07)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.medgenetics.ru 2E069B80055
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=medgenetics.ru;
+	s=mail; t=1758275219;
+	bh=A1Crg9ftodAecnELTOfrs1RmuWTKKPgLI/rqgx6Cf/Q=;
+	h=Date:From:To:Subject:In-Reply-To:References:From;
+	b=m28O7SSL1IWx8fyG3JGn94Q8VVgEgwkSLQpeIug6c23gEYcVfSxrZStfjpSvK/hlW
+	 Hv8EKFa1gk01waJeSfBk6z74XcNKeeS2ePSBcpOJeXfqR7ve3x2Sy19llKwZ5aoNWO
+	 hWCcu/V1QQLWIoEleOB0yLpAjukadGnHZsxR7jQ0=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 19 Sep 2025 16:46:58 +0700
+From: "mariya.skleimova" <mariya.skleimova@medgenetics.ru>
+To: =?UTF-8?Q?=D0=A1=D0=B2=D0=B5=D1=82=D0=BB=D0=B0=D0=BD=D0=B0_=D0=92?=
+ =?UTF-8?Q?=D0=BE=D1=80=D0=BE=D0=BD=D0=BE=D0=B2=D0=B0?=
+ <s.voronova@dna-technology.ru>
+Subject: Re: =?UTF-8?Q?=D0=9F=D1=80=D0=BE=20=D0=BF=D0=BE=D1=81=D1=82=D0=B0?=
+ =?UTF-8?Q?=D0=B2=D0=BA=D1=83?=
+In-Reply-To: <199615ad1f0.27b4.ade9f7f6804fd40147651af4d9cb12bb@dna-technology.ru>
+References: <410c3b93-347d-4ca8-be63-8bde975ee96f@dna-technology.ru>
+ <0b161a25-0f4d-424c-8dd6-f2bb07b716fc@dna-technology.ru>
+ <9ef221a9f449b8a599bc7a1711bfd86f@medgenetics.ru>
+ <199615ad1f0.27b4.ade9f7f6804fd40147651af4d9cb12bb@dna-technology.ru>
+Message-ID: <1738052ea1fc6c64f1051f602b39f94a@medgenetics.ru>
+X-Sender: mariya.skleimova@medgenetics.ru
+User-Agent: Roundcube Webmail/RCMAIL_VERSION
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass (mail.dna-technology.ru: domain of medgenetics.ru designates 92.63.74.6 as permitted sender) client-ip=92.63.74.6; envelope-from=mariya.skleimova@medgenetics.ru; helo=mail.medgenetics.ru;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+=20
+
+=D0=94=D0=BE=D0=B1=D1=80=D1=8B=D0=B9 =D0=B4=D0=B5=D0=BD=D1=8C.=20
+
+=D0=90=D0=B4=D1=80=D0=B5=D1=81 =D0=BF=D0=BE=D1=81=D1=82=D0=B0=D0=B2=D0=BA=
+=D0=B8: =D0=A2=D0=BE=D0=BC=D1=81=D0=BA, =D0=9C=D0=BE=D1=81=D0=BA=D0=BE=D0=
+=B2=D1=81=D0=BA=D0=B8=D0=B9 =D1=82=D1=80=D0=B0=D0=BA=D1=82 3, 3 =D1=8D=D1=
+=82
+
+
+=D0=A1=D0=BA=D0=BB=D0=B5=D0=B9=D0=BC=D0=BE=D0=B2=D0=B0 =D0=9C=D0=B0=D1=80=
+=D0=B8=D1=8F =D0=9C=D0=B8=D1=85=D0=B0=D0=B9=D0=BB=D0=BE=D0=B2=D0=BD=D0=B0=
+, =D1=82=D0=B5=D0=BB.+7 923 423-36-89=20
+
+=D0=93=D0=B0=D1=80=D0=B0=D0=B5=D0=B2=D0=B0 =D0=90=D0=BD=D0=BD=D0=B0
+=D0=A4=D0=B8=D0=B4=D1=83=D1=81=D0=BE=D0=B2=D0=BD=D0=B0, =D1=82=D0=B5=D0=BB=
+.+7 923 418-23-50=20
+
+=D0=A1=D0=B2=D0=B5=D1=82=D0=BB=D0=B0=D0=BD=D0=B0 =D0=92=D0=BE=D1=80=D0=BE=
+=D0=BD=D0=BE=D0=B2=D0=B0 =D0=BF=D0=B8=D1=81=D0=B0=D0=BB 2025-09-19
+09:42:=20
+
+>> =D0=94=D0=BE=D0=B1=D1=80=D1=8B=D0=B9 =D0=B4=D0=B5=D0=BD=D1=8C=20
+>>=20
+>> =D0=A3 =D0=BD=D0=B0=D1=81 =D1=81 =D0=B2=D0=B0=D0=BC=D0=B8 =D0=B7=D0=B0=
+=D0=BA=D0=BB=D1=8E=D1=87=D0=B5=D0=BD =D0=BA=D0=BE=D0=BD=D1=82=D1=80=D0=B0=
+=D0=BA=D1=82
+=E2=84=96140/44=D0=97=D0=9A/25 =D0=BE=D1=82 17.09.2025 =D0=BD=D0=B0 =D0=BF=
+=D0=BE=D1=81=D1=82=D0=B0=D0=B2=D0=BA=D1=83 =D1=80=D0=B5=D0=B0=D0=B3=D0=B5=
+=D0=BD=D1=82=D0=BE=D0=B2 =D0=B4=D0=BB=D1=8F =D0=9F=D0=A6=D0=A0=20
+>>=20
+>>
+=D0=A3=D1=82=D0=BE=D1=87=D0=BD=D0=B8=D1=82=D0=B5, =D0=BF=D0=BE=D0=B6=D0=B0=
+=D0=BB=D1=83=D0=B9=D1=81=D1=82=D0=B0, =D1=82=D0=BE=D1=87=D0=BD=D1=8B=D0=B9=
+ =D0=B0=D0=B4=D1=80=D0=B5=D1=81 =D0=B4=D0=BB=D1=8F =D0=BF=D0=BE=D1=81=D1=82=
+=D0=B0=D0=B2=D0=BA=D0=B8 =D1=82=D0=BE=D0=B2=D0=B0=D1=80=D0=B0 =D0=B8 =D0=A4=
+=D0=98=D0=9E =D0=B8 =D1=82=D0=B5=D0=BB=D0=B5=D1=84=D0=BE=D0=BD
+=D0=BB=D0=B8=D1=86=D0=B0, =D0=BE=D1=82=D0=B2=D0=B5=D1=82=D1=81=D1=82=D0=B2=
+=D0=B5=D0=BD=D0=BD=D0=BE=D0=B3=D0=BE =D0=B7=D0=B0 =D0=BF=D0=BE=D0=BB=D1=83=
+=D1=87=D0=B5=D0=BD=D0=B8=D0=B5 =D1=82=D0=BE=D0=B2=D0=B0=D1=80=D0=B0
+>=20
+>
+-------------------------
+>=20
+> =D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,=20
+>=20
+> =D0=92=D0=BE=D1=80=D0=BE=D0=BD=D0=BE=D0=B2=D0=B0 =D0=A1=D0=B2=D0=B5=D1=82=
+=D0=BB=D0=B0=D0=BD=D0=B0
+=D0=A1=D0=B5=D1=80=D0=B3=D0=B5=D0=B5=D0=B2=D0=BD=D0=B0=20
+> =D0=A0=D0=B5=D0=B3=D0=B8=D0=BE=D0=BD=D0=B0=D0=BB=D1=8C=D0=BD=D1=8B=D0=B9=
+ =D0=BF=D1=80=D0=B5=D0=B4=D1=81=D1=82=D0=B0=D0=B2=D0=B8=D1=82=D0=B5=D0=BB=
+=D1=8C =D0=B2 =D0=A1=D0=A4=D0=9E, =D0=B3. =D0=9D=D0=BE=D0=B2=D0=BE=D1=81=D0=
+=B8=D0=B1=D0=B8=D1=80=D1=81=D0=BA | =D0=9E=D0=9E=D0=9E
+=C2=AB=D0=94=D0=9D=D0=9A-=D0=A2=D0=B5=D1=85=D0=BD=D0=BE=D0=BB=D0=BE=D0=B3=
+=D0=B8=D1=8F=C2=BB=20
+>=20
+> =D0=A2=D0=B5=D0=BB.: +7 (995) 129-39-76
+> Email:
+s.voronova@dna-technology.ru=20
+> -------------------------
+>=20
+> =D0=A1=D0=B0=D0=B9=D1=82:
+dna-technology.ru [3]
+> Telegram: @dna_tech_rus [4]
+> YouTube [5] |
+Rutube [6]=20
+> -------------------------
+>=20
+> =D0=9C=D0=BE=D1=81=D0=BA=D0=B2=D0=B0, =D0=92=D0=B0=D1=80=D1=88=D0=B0=D0=
+=B2=D1=81=D0=BA=D0=BE=D0=B5 =D1=88=D0=BE=D1=81=D1=81=D0=B5,
+=D0=B4=D0=BE=D0=BC 125=D0=96, =D0=BA=D0=BE=D1=80=D0=BF=D1=83=D1=81 5=20
+>=20
+> =D0=9F=D1=80=D0=BE=D1=84=D0=B8=D0=BB=D1=8C =D0=BA=D0=BE=D0=BC=D0=BF=D0=B0=
+=D0=BD=D0=B8=D0=B8: =D1=80=D0=B0=D0=B7=D1=80=D0=B0=D0=B1=D0=BE=D1=82=D0=BA=
+=D0=B0 =D0=B8 =D0=BF=D1=80=D0=BE=D0=B8=D0=B7=D0=B2=D0=BE=D0=B4=D1=81=D1=82=
+=D0=B2=D0=BE
+=D0=BB=D0=B0=D0=B1=D0=BE=D1=80=D0=B0=D1=82=D0=BE=D1=80=D0=BD=D0=BE=D0=B3=D0=
+=BE =D0=BE=D0=B1=D0=BE=D1=80=D1=83=D0=B4=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=
+=8F, =D0=9F=D0=9E =D0=B8 =D1=80=D0=B5=D0=B0=D0=B3=D0=B5=D0=BD=D1=82=D0=BE=
+=D0=B2 =D0=B4=D0=BB=D1=8F =D0=BC=D0=BE=D0=BB=D0=B5=D0=BA=D1=83=D0=BB=D1=8F=
+=D1=80=D0=BD=D0=BE-=D0=B3=D0=B5=D0=BD=D0=B5=D1=82=D0=B8=D1=87=D0=B5=D1=81=
+=D0=BA=D0=B8=D1=85
+=D0=B8=D1=81=D1=81=D0=BB=D0=B5=D0=B4=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D0=B9 =
+(=D0=9F=D0=A6=D0=A0, NGS).=20
+>=20
+> "mariya.skleimova"19 =D1=81=D0=B5=D0=BD=D1=82=D1=8F=D0=B1=D1=80=D1=8F 2=
+025 =D0=B3.
+16:41:27 =D0=BD=D0=B0=D0=BF=D0=B8=D1=81=D0=B0=D0=BB:=20
+>=20
+>>> --=20
+>>> =D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,
+>>> =D0=92=D0=BE=D1=80=D0=BE=D0=BD=D0=BE=D0=B2=D0=B0 =D0=A1=D0=B2=D0=B5=D1=
+=82=D0=BB=D0=B0=D0=BD=D0=B0
+=D0=A1=D0=B5=D1=80=D0=B3=D0=B5=D0=B5=D0=B2=D0=BD=D0=B0
+>>> =D1=80=D0=B5=D0=B3=D0=B8=D0=BE=D0=BD=D0=B0=D0=BB=D1=8C=D0=BD=D1=8B=D0=
+=B9 =D0=BF=D1=80=D0=B5=D0=B4=D1=81=D1=82=D0=B0=D0=B2=D0=B8=D1=82=D0=B5=D0=
+=BB=D1=8C =D0=B2 =D0=A1=D0=A4=D0=9E
+>>> =D0=9E=D0=9E=D0=9E
+"=D0=94=D0=9D=D0=9A-=D0=A2=D0=B5=D1=85=D0=BD=D0=BE=D0=BB=D0=BE=D0=B3=D0=B8=
+=D1=8F"
+>>> =D0=9C=D0=BE=D0=B1.=D1=82=D0=B5=D0=BB. 8 (995) 129-39-76
+>>> e-mail:
+s.voronova@dna-technology.ru
+>>> web: www.dna-technology.ru [2]
+
+
+
+
+Links:
+------
+[1] http://www.dna-technology.ru
+[2]
+https://dna-technology.ru
+[3] https://t.me/dna_tech_rus
+[4]
+https://www.youtube.com/channel/UCqUrpqfZ65z26CUR-4f96iA
+[5]
+https://rutube.ru/channel/63912239/
+

@@ -1,0 +1,175 @@
+{
+  "date": "2025-08-18",
+  "run_id": "20251017_120707",
+  "timezone": "UTC",
+  "started_at": "2025-10-17T12:07:07.022522+07:00",
+  "completed_at": "2025-10-17T12:11:08.915694+07:00",
+  "totals": {
+    "emails": 9,
+    "success": 8,
+    "failed": 1,
+    "organizations": 21,
+    "contacts": 11,
+    "commercial_offers": 2,
+    "interactions": 10
+  },
+  "entries": [
+    {
+      "filename": "email_002_20250818_20250818_siblabservice_ru_67f8bac8.json",
+      "success": true,
+      "organizations": 2,
+      "contacts": 1,
+      "commercial_offers": 0,
+      "interactions": 1,
+      "processing_time_seconds": 12.709,
+      "raw_json": "raw/email_002_20250818_20250818_siblabservice_ru_67f8bac8_20251017_120707_120719_raw.json",
+      "processed_json": "email_002_20250818_20250818_siblabservice_ru_67f8bac8_20251017_120707_120719_processed.json",
+      "errors": [],
+      "processing_strategy": "standard",
+      "fallback_reason": null,
+      "was_retried": false
+    },
+    {
+      "filename": "email_003_20250818_20250818_yandex_ru_7e3039b9.json",
+      "success": true,
+      "organizations": 2,
+      "contacts": 0,
+      "commercial_offers": 0,
+      "interactions": 0,
+      "processing_time_seconds": 9.76,
+      "raw_json": "raw/email_003_20250818_20250818_yandex_ru_7e3039b9_20251017_120707_120729_raw.json",
+      "processed_json": "email_003_20250818_20250818_yandex_ru_7e3039b9_20251017_120707_120729_processed.json",
+      "errors": [],
+      "processing_strategy": "standard",
+      "fallback_reason": null,
+      "was_retried": false
+    },
+    {
+      "filename": "email_005_20250818_20250818_dna-technology_ru_2989ce78.json",
+      "success": true,
+      "organizations": 3,
+      "contacts": 1,
+      "commercial_offers": 1,
+      "interactions": 1,
+      "processing_time_seconds": 19.902,
+      "raw_json": "raw/email_005_20250818_20250818_dna_technology_ru_2989ce78_20251017_120707_120818_raw.json",
+      "processed_json": "email_005_20250818_20250818_dna_technology_ru_2989ce78_20251017_120707_120818_processed.json",
+      "errors": [],
+      "processing_strategy": "standard",
+      "fallback_reason": null,
+      "was_retried": false
+    },
+    {
+      "filename": "email_006_20250818_20250818_yandex_ru_7e3039b9.json",
+      "success": true,
+      "organizations": 3,
+      "contacts": 1,
+      "commercial_offers": 0,
+      "interactions": 1,
+      "processing_time_seconds": 14.803,
+      "raw_json": "raw/email_006_20250818_20250818_yandex_ru_7e3039b9_20251017_120707_120832_raw.json",
+      "processed_json": "email_006_20250818_20250818_yandex_ru_7e3039b9_20251017_120707_120832_processed.json",
+      "errors": [],
+      "processing_strategy": "standard",
+      "fallback_reason": null,
+      "was_retried": false
+    },
+    {
+      "filename": "email_007_20250818_20250818_dna-technology_ru_2989ce78.json",
+      "success": true,
+      "organizations": 3,
+      "contacts": 2,
+      "commercial_offers": 0,
+      "interactions": 1,
+      "processing_time_seconds": 17.051,
+      "raw_json": "raw/email_007_20250818_20250818_dna_technology_ru_2989ce78_20251017_120707_120850_raw.json",
+      "processed_json": "email_007_20250818_20250818_dna_technology_ru_2989ce78_20251017_120707_120850_processed.json",
+      "errors": [],
+      "processing_strategy": "standard",
+      "fallback_reason": null,
+      "was_retried": false
+    },
+    {
+      "filename": "email_008_20250818_20250818_yandex_ru_7e3039b9.json",
+      "success": true,
+      "organizations": 3,
+      "contacts": 1,
+      "commercial_offers": 0,
+      "interactions": 2,
+      "processing_time_seconds": 15.182,
+      "raw_json": "raw/email_008_20250818_20250818_yandex_ru_7e3039b9_20251017_120707_120905_raw.json",
+      "processed_json": "email_008_20250818_20250818_yandex_ru_7e3039b9_20251017_120707_120905_processed.json",
+      "errors": [],
+      "processing_strategy": "standard",
+      "fallback_reason": null,
+      "was_retried": false
+    },
+    {
+      "filename": "email_009_20250818_20250818_dna-technology_ru_822267f2.json",
+      "success": true,
+      "organizations": 3,
+      "contacts": 3,
+      "commercial_offers": 0,
+      "interactions": 2,
+      "processing_time_seconds": 16.986,
+      "raw_json": "raw/email_009_20250818_20250818_dna_technology_ru_822267f2_20251017_120707_120922_raw.json",
+      "processed_json": "email_009_20250818_20250818_dna_technology_ru_822267f2_20251017_120707_120922_processed.json",
+      "errors": [],
+      "processing_strategy": "standard",
+      "fallback_reason": null,
+      "was_retried": false
+    },
+    {
+      "filename": "email_010_20250818_20250818_dna-technology_ru_4af1bd0f.json",
+      "success": true,
+      "organizations": 2,
+      "contacts": 2,
+      "commercial_offers": 1,
+      "interactions": 2,
+      "processing_time_seconds": 20.236,
+      "raw_json": "raw/email_010_20250818_20250818_dna_technology_ru_4af1bd0f_20251017_120707_120942_raw.json",
+      "processed_json": "email_010_20250818_20250818_dna_technology_ru_4af1bd0f_20251017_120707_120942_processed.json",
+      "errors": [],
+      "processing_strategy": "standard",
+      "fallback_reason": null,
+      "was_retried": false
+    },
+    {
+      "filename": "email_004_20250818_20250818_dna-technology_ru_d6db4248.json",
+      "success": false,
+      "organizations": 0,
+      "contacts": 0,
+      "commercial_offers": 0,
+      "interactions": 0,
+      "processing_time_seconds": 28.783,
+      "raw_json": "raw/email_004_20250818_20250818_dna_technology_ru_d6db4248_20251017_120707_121108_raw.json",
+      "processed_json": "email_004_20250818_20250818_dna_technology_ru_d6db4248_20251017_120707_121108_processed.json",
+      "errors": [
+        "Ошибка валидации"
+      ],
+      "processing_strategy": "standard",
+      "fallback_reason": null,
+      "was_retried": false
+    }
+  ],
+  "run_stats": {
+    "emails_total": 9,
+    "emails_successful": 8,
+    "emails_failed": 1,
+    "total_processing_time": 155.412,
+    "average_processing_time": 17.268,
+    "organizations": 21,
+    "contacts": 11,
+    "commercial_offers": 2,
+    "interactions": 10,
+    "failures": [
+      {
+        "filename": "email_004_20250818_20250818_dna-technology_ru_d6db4248.json",
+        "errors": [
+          "Ошибка валидации"
+        ],
+        "processing_time_seconds": 28.783
+      }
+    ]
+  }
+}

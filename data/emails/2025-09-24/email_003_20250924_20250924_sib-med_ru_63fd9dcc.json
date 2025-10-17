@@ -1,0 +1,52 @@
+{
+  "thread_id": "20250924_sib-med_ru_63fd9dcc",
+  "message_id": "<003f01dc2d21$7a40ccb0$6ec26610$@sib-med.ru>",
+  "email_num_in_day": 3,
+  "total_emails_in_day": 14,
+  "from": "sale2@sib-med.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "запрос от Светланы",
+  "date": "Wed, 24 Sep 2025 14:04:31 +0700",
+  "parsed_date": "2025-09-24T14:04:31+07:00",
+  "body_raw": "Добрый день! Прошу Вас выставить КП и ТХ на Амплификаторы детектирующие\r\nДТпрайм II , конечный пользователь БУЗ РА \"Республиканская больница\" ИНН\r\n0411008373\r\n\nС уважением к Вам и Вашему делу , \r\n\n Бокова Светлана Николаевна\r\n\nПродажа медицинских расходных материалов и оборудования\r\n\nТел/факс: 8(3852) 22-29-42, доб.113, 8-983-176-49-90",
+  "body_clean": "Добрый день! Прошу Вас выставить КП и ТХ на Амплификаторы детектирующие\nДТпрайм II , конечный пользователь БУЗ РА \"Республиканская больница\" ИНН\n0411008373\nС уважением к Вам и Вашему делу ,\nБокова Светлана Николаевна\nПродажа медицинских расходных материалов и оборудования\nТел/факс: 8(3852) 22-29-42, доб.113, 8-983-176-49-90",
+  "char_count": 325,
+  "attachments": [
+    {
+      "id": 506,
+      "original_filename": "Карточка организации Стом-Ин.docx",
+      "saved_filename": "20250924_d9f12ec7_010010_635228_attach_Карточка организации Стом-Ин.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-09-24/20250924_d9f12ec7_010010_635228_attach_Карточка организации Стом-Ин.docx",
+      "relative_path": "attachments/2025-09-24/20250924_d9f12ec7_010010_635228_attach_Карточка организации Стом-Ин.docx",
+      "file_size": 15190,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-13 18:00:10",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<003f01dc2d21$7a40ccb0$6ec26610$@sib-med.ru>",
+      "thread_id": "20250924_sib-med_ru_63fd9dcc",
+      "sha256": "46253aff27a13c2a39491726c65a2f2fbee711cc475d9470e676edb4721083de",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T01:00:10.633389+07:00",
+  "raw_size": 33658,
+  "date_folder": "2025-09-24",
+  "eml_path": "eml/2025-09-24/003f01dc2d21_7a40ccb0_6ec26610_sib-med.ru_010010_623961.eml"
+}

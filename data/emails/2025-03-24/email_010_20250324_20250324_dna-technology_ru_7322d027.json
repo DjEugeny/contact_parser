@@ -1,0 +1,44 @@
+{
+  "thread_id": "20250324_dna-technology_ru_7322d027",
+  "message_id": "<0ba4e409-c5e5-44eb-8aec-c1b485b86c2d@dna-technology.ru>",
+  "email_num_in_day": 10,
+  "total_emails_in_day": 23,
+  "from": "bilalov@dna-technology.ru",
+  "to": "gilevich.iv@irkmed.ru",
+  "cc": "s.voronova@dna-technology.ru, vetrova.ev@irkmed.ru",
+  "to_emails": [
+    "gilevich.iv@irkmed.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru",
+    "vetrova.ev@irkmed.ru"
+  ],
+  "subject": "Re: Запрос КП ДТклассик Лабора Иркутск",
+  "date": "Mon, 24 Mar 2025 10:23:56 +0300",
+  "parsed_date": "2025-03-24T14:23:56+07:00",
+  "body_raw": "Добрый день, Ирина Вячеславовна!\r\n\nПо указанному проекту уже ведется работа.\r\n\n20.03.2025 3:49, Гилевич Ирина Вячеславовна пишет:\r\n> Добрый день! Прошу отправить КП на Амплификатор ДТклассик.\r\n> Конечный пользователь: Федеральное казённое учреждение здравоохранения \r\n> «Иркутский ордена Трудового Красного Знамени научно-исследовательский \r\n> противочумный институт Сибири и Дальнего Востока» Федеральной службы \r\n> по надзору в сфере защиты прав потребителей и благополучия человека \r\n> ИНН: 3811015807.\r\n>\r\n>\r\n>\r\n>\r\n\n-- \r\nС уважением, Билалов Альберт\r\nзам. начальника отдела продаж ООО \"ДНК-Технология\"\r\nТел\\факс: (495)640-17-71, доб.2031\r\nmailto:bilalov@dna-technology.ru",
+  "body_clean": "Добрый день, Ирина Вячеславовна!\nПо указанному проекту уже ведется работа.\n20.03.2025 3:49, Гилевич Ирина Вячеславовна пишет:\n[quoted message elided #fd4178c97847]\n> Добрый день! Прошу отправить КП на Амплификатор ДТклассик.\n> Конечный пользователь: Федеральное казённое учреждение здравоохранения\n> «Иркутский ордена Трудового Красного Знамени научно-исследовательский\n> противочумный институт Сибири и Дальнего Востока» Федеральной службы\n> по надзору в сфере защиты прав потребителей и благополучия человека\n> ИНН: 3811015807.\nС уважением, Билалов Альберт\nзам. начальника отдела продаж ООО \"ДНК-Технология\"\nТел\\факс: (495)640-17-71, доб.2031\nmailto:bilalov@dna-technology.ru",
+  "char_count": 677,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part1.GU24fd2J.hrgZnzRX@dna-technology.ru",
+      "original_filename": "логотип новый.jpg",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:22:06.675757+07:00",
+  "raw_size": 109956,
+  "date_folder": "2025-03-24",
+  "eml_path": "eml/2025-03-24/0ba4e409-c5e5-44eb-8aec-c1b485b86c2d_dna-technology.ru_072206_674115.eml"
+}

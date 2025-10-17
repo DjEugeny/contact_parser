@@ -1,0 +1,572 @@
+{
+  "source_file": "email_011_20250827_20250827_dna-technology_ru_e4045c79.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": null,
+        "website": "dna-technology.ru",
+        "city": "Москва",
+        "address": "Варшавское шоссе, дом 125Ж, корпус 5",
+        "emails": [
+          "mail@dna-technology.ru"
+        ],
+        "phones": [
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71 (доб. 2030)",
+            "extension": "2030"
+          }
+        ],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      },
+      {
+        "organization_id": 2,
+        "name": "АССА ЛАБОРАТОРНЫЕ СИСТЕМЫ",
+        "inn": null,
+        "website": "assa-group.ru",
+        "city": "Томск",
+        "address": "ул. Елизаровых, 53/2​, 804 офис",
+        "emails": [],
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (499) 490-02-72",
+            "normalized": "+74994900272",
+            "original": "+7 (499) 490-02-72 tel:+74994900272, доб. 2002",
+            "extension": "2002"
+          },
+          {
+            "type": null,
+            "number": "+7 (923) 409-65-14",
+            "normalized": "+79234096514",
+            "original": "+7 (923) 409-65-14 tel:+79234096514",
+            "extension": null
+          }
+        ],
+        "gid": "b142f9a2-b30f-5a31-be96-fd8cc00ade21"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Гоголева Мария Михайловна",
+        "organization_id": 1,
+        "position": "Менеджер по продаже оборудования",
+        "email": "m.gogoleva@dna-technology.ru",
+        "phones": [
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71 (доб. 2030)",
+            "extension": "2030"
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 0.95,
+        "value_score": 9,
+        "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "m.gogoleva@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760675329.05597,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 2,
+        "name": "Роженцова Алена",
+        "organization_id": 2,
+        "position": "Специалист отдела решений для научных исследований",
+        "email": "rozhencova@assa-group.ru",
+        "phones": [
+          {
+            "type": "main",
+            "number": "+7 (499) 490-02-72",
+            "normalized": "+74994900272",
+            "original": "+7 (499) 490-02-72 tel:+74994900272, доб. 2002",
+            "extension": "2002"
+          },
+          {
+            "type": "main",
+            "number": "+7 (923) 409-65-14",
+            "normalized": "+79234096514",
+            "original": "+7 (923) 409-65-14 tel:+79234096514",
+            "extension": null
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "recipient",
+        "confidence": 0.95,
+        "value_score": 9,
+        "gid": "d10daf56-72e9-5d38-a83d-d75fa2800576",
+        "website": "https://www.assa-group.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_assa-group.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "rozhencova@assa-group.ru",
+          "extracted_domain": "assa-group.ru",
+          "website_found": "https://www.assa-group.ru",
+          "enriched_at": 1760675329.611764,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 3,
+        "name": "Воронова Светлана Сергеевна",
+        "organization_id": 1,
+        "position": null,
+        "email": "s.voronova@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.8,
+        "value_score": 7,
+        "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "s.voronova@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760675330.393785,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      }
+    ],
+    "business_context": "Алёна Роженцова (АССА ЛАБОРАТОРНЫЕ СИСТЕМЫ) запросила КП на амплификатор ДТ-Прайм 5м1 для ГКУ РХ \"Хакасская Ветлаборатория\" с учетом первичной поверки. Мария Гоголева (ДНК-Технология) отправила КП в ответ и уточнила детали по ноутбуку и поверке.",
+    "summary": {
+      "topic": "Re: запрос КП от АССА ЛС для ГКУ РХ \"Хакасская Ветлаборатория\"",
+      "product_interest": "амплификатор ДТ-Прайм 5м1",
+      "communication_stage": "уточнение деталей",
+      "request_type": "clarification"
+    },
+    "key_points": [
+      "Алёна Роженцова (АССА ЛС) запросила КП на амплификатор ДТ-Прайм 5м1 для ГКУ РХ \"Хакасская Ветлаборатория\"",
+      "Мария Гоголева (ДНК-Технология) отправила КП в ответ",
+      "Обсуждение деталей по ноутбуку и поверке"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 2,
+        "organization_id": 2,
+        "message_subject": "Re: запрос КП от АССА ЛС для ГКУ РХ \"Хакасская Ветлаборатория\"",
+        "message_date": "2025-08-27T17:35:40+07:00",
+        "message_id_hint": "7b2aba2c-2899-4204-8d00-98d2b7571923@dna-technology.ru",
+        "role_in_message": "recipient",
+        "interaction_type": "clarification",
+        "summary": "Алёна Роженцова (АССА ЛС) запросила КП на амплификатор ДТ-Прайм 5м1 для ГКУ РХ \"Хакасская Ветлаборатория\" с учетом первичной поверки.",
+        "human_note": "Алёна Роженцова (АССА ЛС) запросила КП на амплификатор ДТ-Прайм 5м1 для ГКУ РХ \"Хакасская Ветлаборатория\" с учетом первичной поверки.",
+        "participants": {
+          "actor": "Роженцова Алена (АССА ЛАБОРАТОРНЫЕ СИСТЕМЫ, Специалист отдела решений для научных исследований)",
+          "audience": [
+            "ДНК-Технология"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 2,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "Re: запрос КП от АССА ЛС для ГКУ РХ \"Хакасская Ветлаборатория\"",
+        "message_date": "2025-08-27T17:35:40+07:00",
+        "message_id_hint": "7b2aba2c-2899-4204-8d00-98d2b7571923@dna-technology.ru",
+        "role_in_message": "sender",
+        "interaction_type": "sent_quote",
+        "summary": "Мария Гоголева (ДНК-Технология) отправила КП в ответ и уточнила детали по ноутбуку и поверке.",
+        "human_note": "Мария Гоголева (ДНК-Технология) отправила КП в ответ на запрос Алёны Роженцовой и уточнила детали по ноутбуку и поверке.",
+        "participants": {
+          "actor": "Гоголева Мария Михайловна (ДНК-Технология, Менеджер по продаже оборудования)",
+          "audience": [
+            "Роженцова Алена (АССА ЛАБОРАТОРНЫЕ СИСТЕМЫ)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": null,\n      \"website\": \"dna-technology.ru\",\n      \"city\": \"Москва\",\n      \"address\": \"Варшавское шоссе, дом 125Ж, корпус 5\",\n      \"emails\": [\n        \"mail@dna-technology.ru\"\n      ],\n      \"phones\": [\n        {\n          \"type\": \"office\",\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": \"+74956401771\",\n          \"original\": \"+7 (495) 640-17-71 (доб. 2030)\",\n          \"extension\": \"2030\"\n        }\n      ]\n    },\n    {\n      \"organization_id\": 2,\n      \"name\": \"АССА ЛАБОРАТОРНЫЕ СИСТЕМЫ\",\n      \"inn\": null,\n      \"website\": \"assa-group.ru\",\n      \"city\": \"Томск\",\n      \"address\": \"ул. Елизаровых, 53/2​, 804 офис\",\n      \"emails\": [],\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7 (499) 490-02-72\",\n          \"normalized\": \"+74994900272\",\n          \"original\": \"+7 (499) 490-02-72 tel:+74994900272, доб. 2002\",\n          \"extension\": \"2002\"\n        },\n        {\n          \"type\": null,\n          \"number\": \"+7 (923) 409-65-14\",\n          \"normalized\": \"+79234096514\",\n          \"original\": \"+7 (923) 409-65-14 tel:+79234096514\",\n          \"extension\": null\n        }\n      ]\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Гоголева Мария Михайловна\",\n      \"organization_id\": 1,\n      \"position\": \"Менеджер по продаже оборудования\",\n      \"email\": \"m.gogoleva@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.95\n    },\n    {\n      \"contact_id\": 2,\n      \"name\": \"Роженцова Алена\",\n      \"organization_id\": 2,\n      \"position\": \"Специалист отдела решений для научных исследований\",\n      \"email\": \"rozhencova@assa-group.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"recipient\",\n      \"confidence\": 0.95\n    },\n    {\n      \"contact_id\": 3,\n      \"name\": \"Воронова Светлана Сергеевна\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"s.voronova@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.8\n    }\n  ],\n  \"business_context\": \"Алёна Роженцова (АССА ЛАБОРАТОРНЫЕ СИСТЕМЫ) запросила КП на амплификатор ДТ-Прайм 5м1 для ГКУ РХ \\\"Хакасская Ветлаборатория\\\" с учетом первичной поверки. Мария Гоголева (ДНК-Технология) отправила КП в ответ и уточнила детали по ноутбуку и поверке.\",\n  \"summary\": {\n    \"topic\": \"Re: запрос КП от АССА ЛС для ГКУ РХ \\\"Хакасская Ветлаборатория\\\"\",\n    \"product_interest\": \"амплификатор ДТ-Прайм 5м1\",\n    \"communication_stage\": \"уточнение деталей\",\n    \"request_type\": \"clarification\"\n  },\n  \"key_points\": [\n    \"Алёна Роженцова (АССА ЛС) запросила КП на амплификатор ДТ-Прайм 5м1 для ГКУ РХ \\\"Хакасская Ветлаборатория\\\"\",\n    \"Мария Гоголева (ДНК-Технология) отправила КП в ответ\",\n    \"Обсуждение деталей по ноутбуку и поверке\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 2,\n      \"organization_id\": 2,\n      \"message_subject\": \"Re: запрос КП от АССА ЛС для ГКУ РХ \\\"Хакасская Ветлаборатория\\\"\",\n      \"message_date\": \"2025-08-27T17:35:40+07:00\",\n      \"message_id_hint\": \"<7b2aba2c-2899-4204-8d00-98d2b7571923@dna-technology.ru>\",\n      \"role_in_message\": \"recipient\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Алёна Роженцова (АССА ЛС) запросила КП на амплификатор ДТ-Прайм 5м1 для ГКУ РХ \\\"Хакасская Ветлаборатория\\\" с учетом первичной поверки.\",\n      \"human_note\": \"Алёна Роженцова (АССА ЛС) запросила КП на амплификатор ДТ-Прайм 5м1 для ГКУ РХ \\\"Хакасская Ветлаборатория\\\" с учетом первичной поверки.\",\n      \"participants\": {\n        \"actor\": \"Роженцова Алена (АССА ЛАБОРАТОРНЫЕ СИСТЕМЫ, Специалист отдела решений для научных исследований)\",\n        \"audience\": [\"ДНК-Технология\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    },\n    {\n      \"interaction_local_id\": 2,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"Re: запрос КП от АССА ЛС для ГКУ РХ \\\"Хакасская Ветлаборатория\\\"\",\n      \"message_date\": \"2025-08-27T17:35:40+07:00\",\n      \"message_id_hint\": \"<7b2aba2c-2899-4204-8d00-98d2b7571923@dna-technology.ru>\",\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"sent_quote\",\n      \"summary\": \"Мария Гоголева (ДНК-Технология) отправила КП в ответ и уточнила детали по ноутбуку и поверке.\",\n      \"human_note\": \"Мария Гоголева (ДНК-Технология) отправила КП в ответ на запрос Алёны Роженцовой и уточнила детали по ноутбуку и поверке.\",\n      \"participants\": {\n        \"actor\": \"Гоголева Мария Михайловна (ДНК-Технология, Менеджер по продаже оборудования)\",\n        \"audience\": [\"Роженцова Алена (АССА ЛАБОРАТОРНЫЕ СИСТЕМЫ)\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    }\n  ]\n}\n```",
+    "contact_mentions": [],
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-17T11:28:50.395602",
+      "stats": {
+        "processed_emails": 60,
+        "total_organizations_processed": 121,
+        "total_contacts_processed": 190,
+        "organizations_deduplicated": 1,
+        "contacts_filtered": 26,
+        "contacts_enriched": 164,
+        "data_normalized": 284,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 2,
+        "phones_added_to_contacts": 3
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1,
+        "2": 2
+      },
+      "contact_mapping": {
+        "1": 1,
+        "2": 2,
+        "3": 3
+      },
+      "filtering": {
+        "contacts_without_info_filtered": 0,
+        "mentions_saved": 0
+      },
+      "provenance": {
+        "contacts": {
+          "1": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "2": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "3": {
+            "backfill_skipped": "no_personal_location_signal"
+          }
+        }
+      },
+      "email_classification": {
+        "1": {
+          "kept": [
+            "mail@dna-technology.ru"
+          ],
+          "removed": [],
+          "removed_types": {}
+        },
+        "2": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "DOMAIN",
+            "key_tuple": [
+              "ORG",
+              "DOMAIN",
+              "dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 2,
+            "gid": "b142f9a2-b30f-5a31-be96-fd8cc00ade21",
+            "match_rule": "DOMAIN",
+            "key_tuple": [
+              "ORG",
+              "DOMAIN",
+              "assa-group.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "m.gogoleva@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 2,
+            "gid": "d10daf56-72e9-5d38-a83d-d75fa2800576",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "b142f9a2-b30f-5a31-be96-fd8cc00ade21",
+              "rozhencova@assa-group.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 2,
+            "organization_gid": "b142f9a2-b30f-5a31-be96-fd8cc00ade21"
+          },
+          {
+            "entity": "contact",
+            "local_id": 3,
+            "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "s.voronova@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          }
+        ],
+        "conflicts": [
+          {
+            "entity": "contact",
+            "key": [
+              "CONTACT",
+              "NAME_POSITION",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "воронова светлана сергеевна",
+              ""
+            ],
+            "existing_gid": "d5f49e0f-c844-59e3-82ef-6b4b2ccf93a3",
+            "target_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f"
+          }
+        ]
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "needs_review",
+            "inn": null,
+            "confidence": 0.68,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.68,
+            "candidates": [
+              {
+                "inn": "7723537840",
+                "ogrn": "1057746762105",
+                "name": "ООО \"ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 5, помещ 12",
+                "opf": "ООО",
+                "score": 0.68,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723537840"
+              },
+              {
+                "inn": "7723396678",
+                "ogrn": "1157746566031",
+                "name": "ООО \"НПФ ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "нпф днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 7",
+                "opf": "ООО",
+                "score": 0.5541666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723396678"
+              }
+            ],
+            "checked_at": "2025-10-17T11:28:45.928714",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "b142f9a2-b30f-5a31-be96-fd8cc00ade21": {
+            "decision": "needs_review",
+            "inn": null,
+            "confidence": 0.6687500000000001,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.6687500000000001,
+            "candidates": [
+              {
+                "inn": "7017254133",
+                "ogrn": "1107017000958",
+                "name": "ООО \"АССА ЛАБОРАТОРНЫЕ СИСТЕМЫ\"",
+                "name_norm": "асса лабораторные системы",
+                "city": "Томск",
+                "address": "г Томск, ул Елизаровых, д 53/2, офис 804",
+                "opf": "ООО",
+                "score": 0.6687500000000001,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7017254133"
+              }
+            ],
+            "checked_at": "2025-10-17T11:28:46.141810",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+              "contact_name": "Гоголева Мария Михайловна",
+              "phones_added": [
+                {
+                  "phone": "+74956401771",
+                  "type": "office",
+                  "confidence": 0.85,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.85
+              ],
+              "decision": {
+                "confidence": 0.85,
+                "contact_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:28:46.142562",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (0.85 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "d10daf56-72e9-5d38-a83d-d75fa2800576",
+              "contact_name": "Роженцова Алена",
+              "phones_added": [
+                {
+                  "phone": "+74994900272",
+                  "type": "main",
+                  "confidence": 0.85,
+                  "source": "org_enrichment"
+                },
+                {
+                  "phone": "+79234096514",
+                  "type": "main",
+                  "confidence": 0.85,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.85
+              ],
+              "decision": {
+                "confidence": 0.85,
+                "contact_gid": "d10daf56-72e9-5d38-a83d-d75fa2800576",
+                "org_gid": "b142f9a2-b30f-5a31-be96-fd8cc00ade21",
+                "timestamp": "2025-10-17T04:28:46.142601",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (0.85 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+              "contact_name": "Воронова Светлана Сергеевна",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.45 < 0.5)",
+                  "confidence": 0.44999999999999996
+                }
+              ],
+              "confidence_scores": [
+                0.44999999999999996
+              ],
+              "decision": {
+                "confidence": 0.44999999999999996,
+                "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:28:46.142631",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.45 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 3,
+            "contacts_enriched": 2,
+            "phones_added_total": 3,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.7166666666666667,
+            "phones_skipped_by_reason": {
+              "low_confidence": 1,
+              "no_org_phones": 0,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-17T04:28:46.142644",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 6,
+        "organizations_processed": 2,
+        "contacts_processed": 2,
+        "ui_format_applied": 6,
+        "phones_sanitized": 6
+      }
+    },
+    "provider_used": "OpenRouter",
+    "model": "google/gemini-2.0-flash-001",
+    "processing_time": 2.378835916519165,
+    "text_length": 3510,
+    "chunks_processed": 1,
+    "total_contacts_found": 3,
+    "unique_contacts_found": 3,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-08-27/email_011_20250827_20250827_dna-technology_ru_e4045c79.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 20.268
+  }
+}

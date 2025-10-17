@@ -1,0 +1,39 @@
+{
+  "thread_id": "20250515_mail_ru_39c078e5",
+  "message_id": "<1747301163.165196079@f247.i.mail.ru>",
+  "from": "2940200@mail.ru",
+  "to": "o.isaev@dna-technology.ru, s.voronova@dna-technology.ru, torgi@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "o.isaev@dna-technology.ru",
+    "s.voronova@dna-technology.ru",
+    "torgi@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Отзыв ЭкоМед",
+  "date": "Thu, 15 May 2025 12:26:03 +0300",
+  "parsed_date": "2025-05-15T16:26:03+07:00",
+  "body": "Добрый день! Во вложении отзыв на фирменном бланке.\nС Уважением!\nДиректор ООО «ЭкоМед»  Виктор Пашов\nтел  8 905 088 88 82\nДобрый день! Во вложении отзыв на фирменном бланке. С Уважением!Директор ООО «ЭкоМед»  Виктор Пашовтел 8 905 088 88 82",
+  "char_count": 240,
+  "attachments": [
+    {
+      "original_filename": "Отзыв ЭКОМЕД (1).pdf",
+      "status": "excluded_by_filter",
+      "exclusion_reason": "имя файла соответствует паттерну '*ТЗ*'",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 1,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-09T00:14:11.365869+07:00",
+  "raw_size": 4146110,
+  "date_folder": "2025-05-15"
+}

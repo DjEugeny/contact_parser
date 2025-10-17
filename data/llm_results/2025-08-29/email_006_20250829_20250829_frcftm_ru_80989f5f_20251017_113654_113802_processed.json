@@ -1,0 +1,666 @@
+{
+  "source_file": "email_006_20250829_20250829_frcftm_ru_80989f5f.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": null,
+        "website": "dna-technology.ru",
+        "city": "Москва",
+        "address": "Варшавское шоссе, дом 125Ж, корпус 5",
+        "emails": [
+          "torgi@dna-technology.ru"
+        ],
+        "phones": [
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640‒17‒71",
+            "extension": "2039"
+          }
+        ],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      },
+      {
+        "organization_id": 2,
+        "name": "ФГБНУ \"Федеральный исследовательский центр фундаментальной и трансляционной медицины\"",
+        "inn": null,
+        "website": null,
+        "city": "Новосибирск",
+        "address": "ул. Тимакова 2",
+        "emails": [],
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (913) 912-01-28",
+            "normalized": "+79139120128",
+            "original": "+7 (913) 912-01-28",
+            "extension": null
+          },
+          {
+            "type": null,
+            "number": "+7 (383) 214-01-28",
+            "normalized": "+73832140128",
+            "original": "(383) 214-01-28",
+            "extension": null
+          }
+        ],
+        "gid": "4f4ddbd9-4ee0-5f30-a3f7-eb21524ab29e"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Устюжанина Алина Алексеевна",
+        "organization_id": 2,
+        "position": null,
+        "email": "scdc@frcftm.ru",
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (913) 912-01-28",
+            "normalized": "+79139120128",
+            "original": "+7\n(913) 912-01-28",
+            "extension": null
+          },
+          {
+            "type": null,
+            "number": "+7 (383) 214-01-28",
+            "normalized": "+73832140128",
+            "original": "(383)\n214-01-28",
+            "extension": null
+          },
+          {
+            "type": "main",
+            "number": "+7 (913) 912-01-28",
+            "normalized": "+79139120128",
+            "original": "+7 (913) 912-01-28",
+            "extension": null
+          },
+          {
+            "type": "main",
+            "number": "+7 (383) 214-01-28",
+            "normalized": "+73832140128",
+            "original": "(383) 214-01-28",
+            "extension": null
+          }
+        ],
+        "city": "Новосибирск",
+        "address": "ул. Тимакова 2",
+        "role_in_message": "recipient",
+        "confidence": 0.95,
+        "value_score": 10,
+        "gid": "b913a674-8f0c-5273-bd4b-aa9b0487d15a",
+        "website": "https://www.frcftm.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_frcftm.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "scdc@frcftm.ru",
+          "extracted_domain": "frcftm.ru",
+          "website_found": "https://www.frcftm.ru",
+          "enriched_at": 1760675880.592769,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 2,
+        "name": "Разливахин Дмитрий Алексеевич",
+        "organization_id": 1,
+        "position": "Специалист по тендерам",
+        "email": "torgi@dna-technology.ru",
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640‒17‒71",
+            "extension": "2039"
+          },
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640‒17‒71",
+            "extension": "2039"
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 0.95,
+        "value_score": 11,
+        "gid": "bc8372a9-45af-581c-b793-849941e3dfb9",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "torgi@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760675881.370414,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 3,
+        "name": "Воронова Светлана Сергеевна",
+        "organization_id": 1,
+        "position": null,
+        "email": "s.voronova@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.8,
+        "value_score": 7,
+        "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "s.voronova@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760675882.1523561,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      }
+    ],
+    "business_context": "Алина Устюжанина (ФГБНУ) запрашивала КП на набор BRAF 9, но Дмитрий Разливахин (ДНК-Технология) сообщил, что данного набора нет в продаже и КП предоставить не могут. Алина Устюжанина интересуется, когда планируется получение РУ на набор.",
+    "summary": {
+      "topic": "Запрос на набор BRAF 9 и сроки получения РУ",
+      "product_interest": "Набор BRAF 9",
+      "communication_stage": "Уточнение деталей",
+      "request_type": "clarification"
+    },
+    "key_points": [
+      "Алина Устюжанина (ФГБНУ) интересуется набором BRAF 9",
+      "Дмитрий Разливахин (ДНК-Технология) сообщил об отсутствии в продаже и невозможности предоставить КП",
+      "Устюжанина уточняет сроки получения РУ на набор"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 1,
+        "organization_id": 2,
+        "message_subject": "запрос 29.08.25",
+        "message_date": "2025-08-29T15:54:51+07:00",
+        "message_id_hint": "70231756457670@mail.yandex.ru",
+        "role_in_message": "recipient",
+        "interaction_type": "clarification",
+        "summary": "Устюжанина А.А. (ФГБНУ) уточняет сроки получения РУ на набор BRAF 9.",
+        "human_note": "Алина Устюжанина (ФГБНУ) спрашивает, когда ДНК-Технология планирует получить РУ на набор BRAF 9.",
+        "participants": {
+          "actor": "Устюжанина Алина Алексеевна (ФГБНУ \"Федеральный исследовательский центр фундаментальной и трансляционной медицины\")",
+          "audience": [
+            "Разливахин Дмитрий Алексеевич (ДНК-Технология)",
+            "Воронова Светлана Сергеевна (ДНК-Технология)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 2,
+        "contact_id": 2,
+        "organization_id": 1,
+        "message_subject": "запрос 29.08.25",
+        "message_date": "2025-08-29T11:26:00+00:00",
+        "message_id_hint": null,
+        "role_in_message": "sender",
+        "interaction_type": "other",
+        "summary": "Разливахин Д.А. (ДНК-Технология) сообщает, что набор BRAF 9 находится в разработке и КП предоставить не могут.",
+        "human_note": "Дмитрий Разливахин (ДНК-Технология) сообщил Алине Устюжаниной (ФГБНУ), что набор BRAF 9 еще в разработке и КП предоставить не могут.",
+        "participants": {
+          "actor": "Разливахин Дмитрий Алексеевич (ДНК-Технология, Специалист по тендерам)",
+          "audience": [
+            "Устюжанина Алина Алексеевна (ФГБНУ \"Федеральный исследовательский центр фундаментальной и трансляционной медицины\")"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 3,
+        "contact_id": 1,
+        "organization_id": 2,
+        "message_subject": null,
+        "message_date": "2025-08-29T11:09:00+00:00",
+        "message_id_hint": null,
+        "role_in_message": "recipient",
+        "interaction_type": "clarification",
+        "summary": "Устюжанина А.А. (ФГБНУ) сообщает, что фото во вложении - продукция ДНК-Технология.",
+        "human_note": "Алина Устюжанина (ФГБНУ) утверждает, что набор BRAF 9 - продукция ДНК-Технология, и приложила фото.",
+        "participants": {
+          "actor": "Устюжанина Алина Алексеевна (ФГБНУ \"Федеральный исследовательский центр фундаментальной и трансляционной медицины\")",
+          "audience": [
+            "Разливахин Дмитрий Алексеевич (ДНК-Технология)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.8
+      },
+      {
+        "interaction_local_id": 4,
+        "contact_id": 2,
+        "organization_id": 1,
+        "message_subject": null,
+        "message_date": "2025-08-29T15:00:00+00:00",
+        "message_id_hint": null,
+        "role_in_message": "sender",
+        "interaction_type": "clarification",
+        "summary": "Разливахин Д.А. (ДНК-Технология) сообщает, что BRAF 9 - не их продукция, возможно, имелся в виду BRCA ОнкоГенетика.",
+        "human_note": "Дмитрий Разливахин (ДНК-Технология) отвечает, что BRAF 9 - не их продукция, и спрашивает, не имела ли в виду Алина Устюжанина BRCA ОнкоГенетика.",
+        "participants": {
+          "actor": "Разливахин Дмитрий Алексеевич (ДНК-Технология, Специалист по тендерам)",
+          "audience": [
+            "Устюжанина Алина Алексеевна (ФГБНУ \"Федеральный исследовательский центр фундаментальной и трансляционной медицины\")"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 5,
+        "contact_id": 1,
+        "organization_id": 2,
+        "message_subject": null,
+        "message_date": "2025-08-29T10:32:00+00:00",
+        "message_id_hint": null,
+        "role_in_message": "recipient",
+        "interaction_type": "requested_quote",
+        "summary": "Устюжанина А.А. (ФГБНУ) запрашивает КП на набор BRAF 9 (2 шт.) и уточняет сроки поставки и работу на ЕАТ.",
+        "human_note": "Алина Устюжанина (ФГБНУ) запрашивает КП на 2 набора BRAF 9, уточняет сроки поставки и возможность работы через ЕАТ.",
+        "participants": {
+          "actor": "Устюжанина Алина Алексеевна (ФГБНУ \"Федеральный исследовательский центр фундаментальной и трансляционной медицины\")",
+          "audience": [
+            "ДНК-Технология"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": null,\n      \"website\": \"dna-technology.ru\",\n      \"city\": \"Москва\",\n      \"address\": \"Варшавское шоссе, дом 125Ж, корпус 5\",\n      \"emails\": [\n        \"torgi@dna-technology.ru\"\n      ],\n      \"phones\": [\n        {\n          \"type\": \"office\",\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": null,\n          \"original\": \"+7 (495) 640‒17‒71\",\n          \"extension\": \"2039\"\n        }\n      ]\n    },\n    {\n      \"organization_id\": 2,\n      \"name\": \"ФГБНУ \\\"Федеральный исследовательский центр фундаментальной и трансляционной медицины\\\"\",\n      \"inn\": null,\n      \"website\": null,\n      \"city\": \"Новосибирск\",\n      \"address\": \"ул. Тимакова 2\",\n      \"emails\": [\n        \"scdc@frcftm.ru\"\n      ],\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7 (913) 912-01-28\",\n          \"normalized\": null,\n          \"original\": \"+7 (913) 912-01-28\",\n          \"extension\": null\n        },\n        {\n          \"type\": null,\n          \"number\": \"(383) 214-01-28\",\n          \"normalized\": null,\n          \"original\": \"(383) 214-01-28\",\n          \"extension\": null\n        }\n      ]\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Устюжанина Алина Алексеевна\",\n      \"organization_id\": 2,\n      \"position\": null,\n      \"email\": \"scdc@frcftm.ru\",\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7 (913) 912-01-28\",\n          \"normalized\": null,\n          \"original\": \"+7\\n(913) 912-01-28\",\n          \"extension\": null\n        },\n        {\n          \"type\": null,\n          \"number\": \"(383) 214-01-28\",\n          \"normalized\": null,\n          \"original\": \"(383)\\n214-01-28\",\n          \"extension\": null\n        }\n      ],\n      \"city\": \"Новосибирск\",\n      \"address\": \"ул. Тимакова 2\",\n      \"role_in_message\": \"recipient\",\n      \"confidence\": 0.95\n    },\n    {\n      \"contact_id\": 2,\n      \"name\": \"Разливахин Дмитрий Алексеевич\",\n      \"organization_id\": 1,\n      \"position\": \"Специалист по тендерам\",\n      \"email\": \"torgi@dna-technology.ru\",\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": null,\n          \"original\": \"+7 (495) 640‒17‒71\",\n          \"extension\": \"2039\"\n        }\n      ],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.95\n    },\n    {\n      \"contact_id\": 3,\n      \"name\": \"Воронова Светлана Сергеевна\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"s.voronova@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.8\n    }\n  ],\n  \"business_context\": \"Алина Устюжанина (ФГБНУ) запрашивала КП на набор BRAF 9, но Дмитрий Разливахин (ДНК-Технология) сообщил, что данного набора нет в продаже и КП предоставить не могут. Алина Устюжанина интересуется, когда планируется получение РУ на набор.\",\n  \"summary\": {\n    \"topic\": \"Запрос на набор BRAF 9 и сроки получения РУ\",\n    \"product_interest\": \"Набор BRAF 9\",\n    \"communication_stage\": \"Уточнение деталей\",\n    \"request_type\": \"clarification\"\n  },\n  \"key_points\": [\n    \"Алина Устюжанина (ФГБНУ) интересуется набором BRAF 9\",\n    \"Дмитрий Разливахин (ДНК-Технология) сообщил об отсутствии в продаже и невозможности предоставить КП\",\n    \"Устюжанина уточняет сроки получения РУ на набор\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 1,\n      \"organization_id\": 2,\n      \"message_subject\": \"запрос 29.08.25\",\n      \"message_date\": \"2025-08-29T15:54:51+07:00\",\n      \"message_id_hint\": \"<70231756457670@mail.yandex.ru>\",\n      \"role_in_message\": \"recipient\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Устюжанина А.А. (ФГБНУ) уточняет сроки получения РУ на набор BRAF 9.\",\n      \"human_note\": \"Алина Устюжанина (ФГБНУ) спрашивает, когда ДНК-Технология планирует получить РУ на набор BRAF 9.\",\n      \"participants\": {\n        \"actor\": \"Устюжанина Алина Алексеевна (ФГБНУ \\\"Федеральный исследовательский центр фундаментальной и трансляционной медицины\\\")\",\n        \"audience\": [\n          \"Разливахин Дмитрий Алексеевич (ДНК-Технология)\",\n          \"Воронова Светлана Сергеевна (ДНК-Технология)\"\n        ]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    },\n    {\n      \"interaction_local_id\": 2,\n      \"contact_id\": 2,\n      \"organization_id\": 1,\n      \"message_subject\": \"запрос 29.08.25\",\n      \"message_date\": \"2025-08-29T11:26:00+00:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"other\",\n      \"summary\": \"Разливахин Д.А. (ДНК-Технология) сообщает, что набор BRAF 9 находится в разработке и КП предоставить не могут.\",\n      \"human_note\": \"Дмитрий Разливахин (ДНК-Технология) сообщил Алине Устюжаниной (ФГБНУ), что набор BRAF 9 еще в разработке и КП предоставить не могут.\",\n      \"participants\": {\n        \"actor\": \"Разливахин Дмитрий Алексеевич (ДНК-Технология, Специалист по тендерам)\",\n        \"audience\": [\"Устюжанина Алина Алексеевна (ФГБНУ \\\"Федеральный исследовательский центр фундаментальной и трансляционной медицины\\\")\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    },\n    {\n      \"interaction_local_id\": 3,\n      \"contact_id\": 1,\n      \"organization_id\": 2,\n      \"message_subject\": null,\n      \"message_date\": \"2025-08-29T11:09:00+00:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"recipient\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Устюжанина А.А. (ФГБНУ) сообщает, что фото во вложении - продукция ДНК-Технология.\",\n      \"human_note\": \"Алина Устюжанина (ФГБНУ) утверждает, что набор BRAF 9 - продукция ДНК-Технология, и приложила фото.\",\n      \"participants\": {\n        \"actor\": \"Устюжанина Алина Алексеевна (ФГБНУ \\\"Федеральный исследовательский центр фундаментальной и трансляционной медицины\\\")\",\n        \"audience\": [\"Разливахин Дмитрий Алексеевич (ДНК-Технология)\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.8\n    },\n    {\n      \"interaction_local_id\": 4,\n      \"contact_id\": 2,\n      \"organization_id\": 1,\n      \"message_subject\": null,\n      \"message_date\": \"2025-08-29T15:00:00+00:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Разливахин Д.А. (ДНК-Технология) сообщает, что BRAF 9 - не их продукция, возможно, имелся в виду BRCA ОнкоГенетика.\",\n      \"human_note\": \"Дмитрий Разливахин (ДНК-Технология) отвечает, что BRAF 9 - не их продукция, и спрашивает, не имела ли в виду Алина Устюжанина BRCA ОнкоГенетика.\",\n      \"participants\": {\n        \"actor\": \"Разливахин Дмитрий Алексеевич (ДНК-Технология, Специалист по тендерам)\",\n        \"audience\": [\"Устюжанина Алина Алексеевна (ФГБНУ \\\"Федеральный исследовательский центр фундаментальной и трансляционной медицины\\\")\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    },\n    {\n      \"interaction_local_id\": 5,\n      \"contact_id\": 1,\n      \"organization_id\": 2,\n      \"message_subject\": null,\n      \"message_date\": \"2025-08-29T10:32:00+00:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"recipient\",\n      \"interaction_type\": \"requested_quote\",\n      \"summary\": \"Устюжанина А.А. (ФГБНУ) запрашивает КП на набор BRAF 9 (2 шт.) и уточняет сроки поставки и работу на ЕАТ.\",\n      \"human_note\": \"Алина Устюжанина (ФГБНУ) запрашивает КП на 2 набора BRAF 9, уточняет сроки поставки и возможность работы через ЕАТ.\",\n      \"participants\": {\n        \"actor\": \"Устюжанина Алина Алексеевна (ФГБНУ \\\"Федеральный исследовательский центр фундаментальной и трансляционной медицины\\\")\",\n        \"audience\": [\"ДНК-Технология\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    }\n  ]\n}\n```",
+    "contact_mentions": [],
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-17T11:38:02.156185",
+      "stats": {
+        "processed_emails": 82,
+        "total_organizations_processed": 162,
+        "total_contacts_processed": 261,
+        "organizations_deduplicated": 1,
+        "contacts_filtered": 35,
+        "contacts_enriched": 226,
+        "data_normalized": 387,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 2,
+        "phones_added_to_contacts": 3
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1,
+        "2": 2
+      },
+      "contact_mapping": {
+        "1": 1,
+        "2": 2,
+        "3": 3
+      },
+      "filtering": {
+        "contacts_without_info_filtered": 0,
+        "mentions_saved": 0
+      },
+      "provenance": {
+        "contacts": {
+          "2": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "3": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "1": {
+            "address_removed": "org_hq_match"
+          }
+        }
+      },
+      "email_classification": {
+        "1": {
+          "kept": [
+            "torgi@dna-technology.ru"
+          ],
+          "removed": [],
+          "removed_types": {}
+        },
+        "2": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "DOMAIN",
+            "key_tuple": [
+              "ORG",
+              "DOMAIN",
+              "dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 2,
+            "gid": "4f4ddbd9-4ee0-5f30-a3f7-eb21524ab29e",
+            "match_rule": "NAME_CITY",
+            "key_tuple": [
+              "ORG",
+              "NAME_CITY",
+              "фгбну федеральный исследовательский центр фундаментальной и трансляционной медицины",
+              "новосибирск"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "gid": "b913a674-8f0c-5273-bd4b-aa9b0487d15a",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "4f4ddbd9-4ee0-5f30-a3f7-eb21524ab29e",
+              "scdc@frcftm.ru"
+            ],
+            "alias_added": true,
+            "source": "new",
+            "organization_id": 2,
+            "organization_gid": "4f4ddbd9-4ee0-5f30-a3f7-eb21524ab29e"
+          },
+          {
+            "entity": "contact",
+            "local_id": 2,
+            "gid": "bc8372a9-45af-581c-b793-849941e3dfb9",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "torgi@dna-technology.ru"
+            ],
+            "alias_added": true,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 3,
+            "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "s.voronova@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          }
+        ],
+        "conflicts": [
+          {
+            "entity": "contact",
+            "key": [
+              "CONTACT",
+              "PHONE",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "+74956401771"
+            ],
+            "existing_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+            "target_gid": "bc8372a9-45af-581c-b793-849941e3dfb9"
+          },
+          {
+            "entity": "contact",
+            "key": [
+              "CONTACT",
+              "NAME_POSITION",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "воронова светлана сергеевна",
+              ""
+            ],
+            "existing_gid": "d5f49e0f-c844-59e3-82ef-6b4b2ccf93a3",
+            "target_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f"
+          }
+        ]
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "needs_review",
+            "inn": null,
+            "confidence": 0.68,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.68,
+            "candidates": [
+              {
+                "inn": "7723537840",
+                "ogrn": "1057746762105",
+                "name": "ООО \"ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 5, помещ 12",
+                "opf": "ООО",
+                "score": 0.68,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723537840"
+              },
+              {
+                "inn": "7723396678",
+                "ogrn": "1157746566031",
+                "name": "ООО \"НПФ ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "нпф днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 7",
+                "opf": "ООО",
+                "score": 0.5541666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723396678"
+              }
+            ],
+            "checked_at": "2025-10-17T11:37:53.284132",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "4f4ddbd9-4ee0-5f30-a3f7-eb21524ab29e": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.275,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.275,
+            "candidates": [
+              {
+                "inn": "5408157430",
+                "ogrn": "1025403653538",
+                "name": "ФИЦ ФТМ",
+                "name_norm": "фиц фтм",
+                "city": "Новосибирск",
+                "address": "г Новосибирск, ул Тимакова, д 2",
+                "opf": "ФГБУ",
+                "score": 0.275,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=5408157430"
+              }
+            ],
+            "checked_at": "2025-10-17T11:37:53.520216",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "b913a674-8f0c-5273-bd4b-aa9b0487d15a",
+              "contact_name": "Устюжанина Алина Алексеевна",
+              "phones_added": [
+                {
+                  "phone": "+79139120128",
+                  "type": "main",
+                  "confidence": 0.5,
+                  "source": "org_enrichment"
+                },
+                {
+                  "phone": "+73832140128",
+                  "type": "main",
+                  "confidence": 0.5,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.5
+              ],
+              "decision": {
+                "confidence": 0.5,
+                "contact_gid": "b913a674-8f0c-5273-bd4b-aa9b0487d15a",
+                "org_gid": "4f4ddbd9-4ee0-5f30-a3f7-eb21524ab29e",
+                "timestamp": "2025-10-17T04:37:53.522024",
+                "decision": "needs_review",
+                "reason": "Средний уровень уверенности (0.50), требуется проверка"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "bc8372a9-45af-581c-b793-849941e3dfb9",
+              "contact_name": "Разливахин Дмитрий Алексеевич",
+              "phones_added": [
+                {
+                  "phone": "+74956401771",
+                  "type": "office",
+                  "confidence": 0.85,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.85
+              ],
+              "decision": {
+                "confidence": 0.85,
+                "contact_gid": "bc8372a9-45af-581c-b793-849941e3dfb9",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:37:53.522128",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (0.85 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+              "contact_name": "Воронова Светлана Сергеевна",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.45 < 0.5)",
+                  "confidence": 0.44999999999999996
+                }
+              ],
+              "confidence_scores": [
+                0.44999999999999996
+              ],
+              "decision": {
+                "confidence": 0.44999999999999996,
+                "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:37:53.522175",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.45 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 3,
+            "contacts_enriched": 2,
+            "phones_added_total": 3,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.6,
+            "phones_skipped_by_reason": {
+              "low_confidence": 1,
+              "no_org_phones": 0,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-17T04:37:53.522204",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 9,
+        "organizations_processed": 2,
+        "contacts_processed": 2,
+        "ui_format_applied": 9,
+        "phones_sanitized": 9
+      }
+    },
+    "provider_used": "OpenRouter",
+    "model": "google/gemini-2.0-flash-001",
+    "processing_time": 2.3195178508758545,
+    "text_length": 1864,
+    "chunks_processed": 1,
+    "total_contacts_found": 3,
+    "unique_contacts_found": 3,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-08-29/email_006_20250829_20250829_frcftm_ru_80989f5f.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 29.688
+  }
+}

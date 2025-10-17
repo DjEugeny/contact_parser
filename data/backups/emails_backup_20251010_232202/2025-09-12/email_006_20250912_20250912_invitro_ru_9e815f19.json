@@ -1,0 +1,48 @@
+{
+  "thread_id": "20250912_invitro_ru_9e815f19",
+  "message_id": "<bd0323577a664853b43e33e8f70a6d1c@invitro.ru>",
+  "from": "Okoval@invitro.ru",
+  "to": "hotline@dna-technology.ru, d.dubrovskih@dna-technology.ru, dubrovskih@dna-technology.ru...",
+  "cc": "doc-lmgi@invitro.ru, abronnikova@invitro.ru, avdorofeeva@invitro.ru...",
+  "to_emails": [
+    "hotline@dna-technology.ru",
+    "d.dubrovskih@dna-technology.ru",
+    "dubrovskih@dna-technology.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "doc-lmgi@invitro.ru",
+    "abronnikova@invitro.ru",
+    "avdorofeeva@invitro.ru",
+    "nluzanova@invitro.ru",
+    "aallakhverdyan@invitro.ru",
+    "okoval@invitro.ru"
+  ],
+  "subject": "Результат DRB *11,*11/14.",
+  "date": "Fri, 12 Sep 2025 09:45:42 +0000",
+  "parsed_date": "2025-09-12T16:45:42+07:00",
+  "body": "Доброго дня.\nКоллеги, в последнее время на валидации стал очень часто попадаться генотип по DRB *11,*11/14.\nДля образца в RealTime после амплификации данный генотип получается как следствие сочетания специфичностей 11, 13в, 14-1. При этом, в инструкции по DRB не представлен такой вариант ответа из RealTime.\nОписана схожая ситуация для *13/14 со сноской в условных обозначениях.\nПросьба прокомментировать.\n[cid:image009.png@01DC2403.40212C90]\nФорат Оксана Николаевна,\nВрач-генетик, врач лабораторный генетик\nлаборатории молекулярно-генетических исследований,\nООО «ИНВИТРО-Сибирь»\nг.Новосибирск, ул. Римского-Корсакова, (9)\nтел. +7 (383) 344-97-27, вн. 7717\n+7(923)227-17-31\nУВЕДОМЛЕНИЕ О КОНФИДЕНЦИАЛЬНОСТИ: Информация, содержащаяся в данном электронном сообщении, не является договорённостью сторон, не влечёт за собой возникновение никаких прав и/или обязанностей, не может служить основанием для осуществления каких-либо юридических действий или отказа от действий. Данное электронное сообщение предназначено только для адресата и может содержать конфиденциальную информацию. Любое рассмотрение, повторная передача, распространение или иное использование информации лицами или организациями, кроме предполагаемого получателя, запрещены.\nCONFIDENTIALITY NOTICE: The information contained in this electronic message is not an agreement of the parties, does not entail the appearance of any rights and/or obligations. It can’t be a basis for the implementation of any legal action or refusal to act. This e-mail is for the intended recipient only and may contain confidential information. Any consideration, retransmission, distribution or other use of information by persons or organizations other than the intended recipient is prohibited.\nДоброго дня. Коллеги, в последнее время на валидации стал очень часто попадаться генотип по\nDRB\n*11,*11/14. Для образца в\nRealTime\nпосле амплификации данный генотип получается как следствие сочетания специфичностей 11, 13в, 14-1. При этом, в инструкции по\nне представлен такой вариант ответа из\nRealTime. Описана схожая ситуация для *13/14 со сноской в условных обозначениях. Просьба прокомментировать. С уважением, Форат Оксана Николаевна,\nлаборатории молекулярно-генетических исследований, ООО «ИНВИТРО-Сибирь»\n+7(923)227-17-31 УВЕДОМЛЕНИЕ О КОНФИДЕНЦИАЛЬНОСТИ: Информация, содержащаяся в данном электронном сообщении, не является договорённостью сторон, не влечёт за собой возникновение никаких прав и/или обязанностей, не может служить основанием для осуществления каких-либо юридических действий или отказа от действий. Данное электронное сообщение предназначено только для адресата и может содержать конфиденциальную информацию. Любое рассмотрение, повторная передача, распространение или иное использование информации лицами или организациями, кроме предполагаемого получателя, запрещены. CONFIDENTIALITY NOTICE: The information contained in this electronic message is not an agreement of the parties, does not entail the appearance of any rights and/or obligations. It can’t be a basis for the implementation of any legal action or refusal to act. This e-mail is for the intended recipient only and may contain confidential information. Any consideration, retransmission, distribution or other use of information by persons or organizations other than the intended recipient is prohibited.",
+  "char_count": 3340,
+  "attachments": [
+    {
+      "original_filename": "image009.png",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: image009.png@01DC2403.40212C90",
+      "is_inline": true,
+      "content_id": "image009.png@01DC2403.40212C90"
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T22:21:16.606972+07:00",
+  "raw_size": 124214,
+  "date_folder": "2025-09-12"
+}

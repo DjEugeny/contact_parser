@@ -1,0 +1,447 @@
+{
+  "source_file": "email_010_20250818_20250818_dna-technology_ru_4af1bd0f.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": "7723537840",
+        "website": "dna-technology.ru",
+        "city": "Москва",
+        "address": "117587, г. Москва, вн. тер. г. муниципальный округ Чертаново Северное, Варшавское шоссе, д. 125Ж, корп. 5",
+        "emails": [
+          "mail@dna-technology.ru"
+        ],
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "(495) 640-17-71",
+            "extension": null
+          }
+        ],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      },
+      {
+        "organization_id": 2,
+        "name": "ИНВИТРО-Сибирь",
+        "inn": "5402525254",
+        "website": "www.invitro.ru",
+        "city": "Новосибирск",
+        "address": "г. Новосибирск, ул. Римского-Корсакова, (9)",
+        "emails": [],
+        "phones": [],
+        "gid": "c736908d-4edf-53da-9335-ea71c7229f39"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Гоголева Мария Михайловна",
+        "organization_id": 1,
+        "position": "Менеджер по продаже оборудования",
+        "email": "m.gogoleva@dna-technology.ru",
+        "phones": [
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71 (доб. 2030)",
+            "extension": "2030"
+          },
+          {
+            "type": "main",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "(495) 640-17-71",
+            "extension": null
+          }
+        ],
+        "city": "Москва",
+        "address": "Варшавское шоссе, дом 125Ж, корпус 5",
+        "role_in_message": "sender",
+        "confidence": 0.95,
+        "value_score": 12,
+        "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "m.gogoleva@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760677782.237175,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 2,
+        "name": "Литвинова Ирина",
+        "organization_id": 2,
+        "position": "Менеджер группы закупок и снабжения",
+        "email": "ivlitvinova@invitro.ru",
+        "phones": [
+          {
+            "type": "mobile",
+            "number": "+7 (923) 182-94-34",
+            "normalized": "+79231829434",
+            "original": "8 923 182 94 34",
+            "extension": null
+          }
+        ],
+        "city": "Новосибирск",
+        "address": "г. Новосибирск, ул. Римского-Корсакова, (9)",
+        "role_in_message": "recipient",
+        "confidence": 0.95,
+        "value_score": 12,
+        "gid": "8363164e-52e6-5ab4-926a-3b621a777ebe",
+        "website": "https://www.invitro.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_invitro.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "ivlitvinova@invitro.ru",
+          "extracted_domain": "invitro.ru",
+          "website_found": "https://www.invitro.ru",
+          "enriched_at": 1760677782.465663,
+          "version": "1.0.0"
+        },
+        "email_valid": true,
+        "name_original": "Ирина Литвинова"
+      }
+    ],
+    "business_context": "Мария Гоголева (ДНК-Технология) отправила Ирине Литвиновой (ИНВИТРО-Сибирь) коммерческое предложение на амплификаторы ДТ-прайм 5М1 и ДТпрайм II 5М1, запрошенные ранее. Ожидается выбор оборудования от Ирины.",
+    "summary": {
+      "topic": "Отправка КП на амплификаторы ДТ-прайм 5М1 и ДТпрайм II 5М1",
+      "product_interest": "Амплификаторы ДТ-прайм 5М1 и ДТпрайм II 5М1",
+      "communication_stage": "отправка КП",
+      "request_type": "отправка КП"
+    },
+    "key_points": [
+      "Мария Гоголева (ДНК-Технология) отправила КП Ирине Литвиновой (ИНВИТРО-Сибирь)",
+      "КП содержит предложение на амплификаторы ДТ-прайм 5М1 и ДТпрайм II 5М1",
+      "Ожидается выбор оборудования от Ирины"
+    ],
+    "commercial_offers": [
+      {
+        "found": true,
+        "offer_type": "Приборы",
+        "offer_number": null,
+        "offer_date": "2025-08-18",
+        "end_user": null,
+        "end_user_inn": null,
+        "intermediary": "ООО «ИНВИТРО-Сибирь»",
+        "intermediary_date": "Литвиновой Ирине, г. Новосибирск, Тел.: 8 923 182 94 34, e-mail: ivlitvinova@invitro.ru",
+        "payment_terms": "100% предоплата",
+        "delivery_time": "до 60 дней",
+        "delivery_terms": "Доставка не включена в указанную стоимость",
+        "valid_until": "2025-11-20",
+        "equipment_items": [
+          {
+            "name": "Амплификатор детектирующий \"ДТпрайм\" по ТУ 9443-004-96301278-2010 в модификации 5М1",
+            "model": "DTPRIME5М1",
+            "article": "O-DTPRIME5М1",
+            "quantity": 1,
+            "unit_price": 2847000.0,
+            "total_price": 2847000.0,
+            "vat": "Без НДС"
+          },
+          {
+            "name": "Амплификатор детектирующий \"ДТпрайм II\" по ТУ 26.51.53-001-96301278-2022, вариант исполнения \"ДТпрайм II\" 5M1",
+            "model": "DTPRIME-II/5M1",
+            "article": "O-DTPRIME-II/5M1",
+            "quantity": 1,
+            "unit_price": 3140000.0,
+            "total_price": 3140000.0,
+            "vat": "Без НДС"
+          }
+        ],
+        "total_cost": 4190900.0,
+        "comments": null
+      }
+    ],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "Re: ИНВИТРО дт прайм",
+        "message_date": "2025-08-18T19:18:38+07:00",
+        "message_id_hint": "0cc84702-c328-44fa-b3aa-a224d286057c@dna-technology.ru",
+        "role_in_message": "sender",
+        "interaction_type": "sent_quote",
+        "summary": "Мария Гоголева (ДНК-Технология) отправила КП Ирине Литвиновой (ИНВИТРО-Сибирь) на амплификаторы ДТ-прайм 5М1 и ДТпрайм II 5М1.",
+        "human_note": "Мария Гоголева (ДНК-Технология) отправила Ирине Литвиновой (ИНВИТРО-Сибирь) КП с предложением на амплификаторы, ожидается выбор.",
+        "participants": {
+          "actor": "Гоголева Мария Михайловна (ДНК-Технология, Менеджер по продаже оборудования)",
+          "audience": [
+            "Литвинова Ирина (ИНВИТРО-Сибирь)"
+          ]
+        },
+        "attachments": [
+          "Ком.пред.18.08.2025 для СПб Инвитро-Сибирь (ДТпрайм 5М1, ДТпрайм II 5М1) .pdf"
+        ],
+        "confidence": 0.95
+      },
+      {
+        "interaction_local_id": 2,
+        "contact_id": 2,
+        "organization_id": 2,
+        "message_subject": "Re: ИНВИТРО дт прайм",
+        "message_date": "2025-08-18T19:18:38+07:00",
+        "message_id_hint": "0cc84702-c328-44fa-b3aa-a224d286057c@dna-technology.ru",
+        "role_in_message": "recipient",
+        "interaction_type": "requested_quote",
+        "summary": "Ирина Литвинова (ИНВИТРО-Сибирь) запросила КП на амплификатор ДТ-прайм5М1.",
+        "human_note": "Ирина Литвинова (ИНВИТРО-Сибирь) запросила КП на амплификатор ДТ-прайм5М1 у ДНК-Технологии.",
+        "participants": {
+          "actor": "Литвинова Ирина (ИНВИТРО-Сибирь, Менеджер группы закупок и снабжения)",
+          "audience": [
+            "ДНК-Технология"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": \"7723537840\",\n      \"website\": \"dna-technology.ru\",\n      \"city\": \"Москва\",\n      \"address\": \"117587, г. Москва, вн. тер. г. муниципальный округ Чертаново Северное, Варшавское шоссе, д. 125Ж, корп. 5\",\n      \"emails\": [\n        \"mail@dna-technology.ru\"\n      ],\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": \"+74956401771\",\n          \"original\": \"(495) 640-17-71\",\n          \"extension\": null\n        }\n      ]\n    },\n    {\n      \"organization_id\": 2,\n      \"name\": \"ИНВИТРО-Сибирь\",\n      \"inn\": \"5402525254\",\n      \"website\": \"www.invitro.ru\",\n      \"city\": \"Новосибирск\",\n      \"address\": \"г. Новосибирск, ул. Римского-Корсакова, (9)\",\n      \"emails\": [],\n      \"phones\": []\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Гоголева Мария Михайловна\",\n      \"organization_id\": 1,\n      \"position\": \"Менеджер по продаже оборудования\",\n      \"email\": \"m.gogoleva@dna-technology.ru\",\n      \"phones\": [\n        {\n          \"type\": \"office\",\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": null,\n          \"original\": \"+7 (495) 640-17-71 (доб. 2030)\",\n          \"extension\": \"2030\"\n        }\n      ],\n      \"city\": \"Москва\",\n      \"address\": \"Варшавское шоссе, дом 125Ж, корпус 5\",\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.95\n    },\n    {\n      \"contact_id\": 2,\n      \"name\": \"Ирина Литвинова\",\n      \"organization_id\": 2,\n      \"position\": \"Менеджер группы закупок и снабжения\",\n      \"email\": \"ivlitvinova@invitro.ru\",\n      \"phones\": [\n        {\n          \"type\": \"mobile\",\n          \"number\": \"8 923 182 94 34\",\n          \"normalized\": null,\n          \"original\": \"8 923 182 94 34\",\n          \"extension\": null\n        }\n      ],\n      \"city\": \"Новосибирск\",\n      \"address\": null,\n      \"role_in_message\": \"recipient\",\n      \"confidence\": 0.95\n    }\n  ],\n  \"business_context\": \"Мария Гоголева (ДНК-Технология) отправила Ирине Литвиновой (ИНВИТРО-Сибирь) коммерческое предложение на амплификаторы ДТ-прайм 5М1 и ДТпрайм II 5М1, запрошенные ранее. Ожидается выбор оборудования от Ирины.\",\n  \"summary\": {\n    \"topic\": \"Отправка КП на амплификаторы ДТ-прайм 5М1 и ДТпрайм II 5М1\",\n    \"product_interest\": \"Амплификаторы ДТ-прайм 5М1 и ДТпрайм II 5М1\",\n    \"communication_stage\": \"отправка КП\",\n    \"request_type\": \"отправка КП\"\n  },\n  \"key_points\": [\n    \"Мария Гоголева (ДНК-Технология) отправила КП Ирине Литвиновой (ИНВИТРО-Сибирь)\",\n    \"КП содержит предложение на амплификаторы ДТ-прайм 5М1 и ДТпрайм II 5М1\",\n    \"Ожидается выбор оборудования от Ирины\"\n  ],\n  \"commercial_offers\": [\n    {\n      \"found\": true,\n      \"offer_type\": \"Приборы\",\n      \"offer_number\": null,\n      \"offer_date\": \"2025-08-18\",\n      \"end_user\": null,\n      \"end_user_inn\": null,\n      \"intermediary\": \"ООО «ИНВИТРО-Сибирь»\",\n      \"intermediary_date\": \"Литвиновой Ирине, г. Новосибирск, Тел.: 8 923 182 94 34, e-mail: ivlitvinova@invitro.ru\",\n      \"payment_terms\": \"100% предоплата\",\n      \"delivery_time\": \"до 60 дней\",\n      \"delivery_terms\": \"Доставка не включена в указанную стоимость\",\n      \"valid_until\": \"2025-11-20\",\n      \"equipment_items\": [\n        {\n          \"name\": \"Амплификатор детектирующий \\\"ДТпрайм\\\" по ТУ 9443-004-96301278-2010 в модификации 5М1\",\n          \"model\": \"DTPRIME5М1\",\n          \"article\": \"O-DTPRIME5М1\",\n          \"quantity\": 1,\n          \"unit_price\": 2847000.00,\n          \"total_price\": 2847000.00,\n          \"vat\": \"Без НДС\"\n        },\n        {\n          \"name\": \"Амплификатор детектирующий \\\"ДТпрайм II\\\" по ТУ 26.51.53-001-96301278-2022, вариант исполнения \\\"ДТпрайм II\\\" 5M1\",\n          \"model\": \"DTPRIME-II/5M1\",\n          \"article\": \"O-DTPRIME-II/5M1\",\n          \"quantity\": 1,\n          \"unit_price\": 3140000.00,\n          \"total_price\": 3140000.00,\n          \"vat\": \"Без НДС\"\n        }\n      ],\n      \"total_cost\": 4190900.00,\n      \"comments\": null\n    }\n  ],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"Re: ИНВИТРО дт прайм\",\n      \"message_date\": \"2025-08-18T19:18:38+07:00\",\n      \"message_id_hint\": \"<0cc84702-c328-44fa-b3aa-a224d286057c@dna-technology.ru>\",\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"sent_quote\",\n      \"summary\": \"Мария Гоголева (ДНК-Технология) отправила КП Ирине Литвиновой (ИНВИТРО-Сибирь) на амплификаторы ДТ-прайм 5М1 и ДТпрайм II 5М1.\",\n      \"human_note\": \"Мария Гоголева (ДНК-Технология) отправила Ирине Литвиновой (ИНВИТРО-Сибирь) КП с предложением на амплификаторы, ожидается выбор.\",\n      \"participants\": {\n        \"actor\": \"Гоголева Мария Михайловна (ДНК-Технология, Менеджер по продаже оборудования)\",\n        \"audience\": [\"Литвинова Ирина (ИНВИТРО-Сибирь)\"]\n      },\n      \"attachments\": [\n        \"Ком.пред.18.08.2025 для СПб Инвитро-Сибирь (ДТпрайм 5М1, ДТпрайм II 5М1) .pdf\"\n      ],\n      \"confidence\": 0.95\n    },\n    {\n      \"interaction_local_id\": 2,\n      \"contact_id\": 2,\n      \"organization_id\": 2,\n      \"message_subject\": \"Re: ИНВИТРО дт прайм\",\n      \"message_date\": \"2025-08-18T19:18:38+07:00\",\n      \"message_id_hint\": \"<0cc84702-c328-44fa-b3aa-a224d286057c@dna-technology.ru>\",\n      \"role_in_message\": \"recipient\",\n      \"interaction_type\": \"requested_quote\",\n      \"summary\": \"Ирина Литвинова (ИНВИТРО-Сибирь) запросила КП на амплификатор ДТ-прайм5М1.\",\n      \"human_note\": \"Ирина Литвинова (ИНВИТРО-Сибирь) запросила КП на амплификатор ДТ-прайм5М1 у ДНК-Технологии.\",\n      \"participants\": {\n        \"actor\": \"Литвинова Ирина (ИНВИТРО-Сибирь, Менеджер группы закупок и снабжения)\",\n        \"audience\": [\"ДНК-Технология\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    }\n  ]\n}\n```",
+    "contact_mentions": [],
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-17T12:09:42.466257",
+      "stats": {
+        "processed_emails": 8,
+        "total_organizations_processed": 21,
+        "total_contacts_processed": 11,
+        "organizations_deduplicated": 0,
+        "contacts_filtered": 0,
+        "contacts_enriched": 11,
+        "data_normalized": 32,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 1,
+        "phones_added_to_contacts": 1
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1,
+        "2": 2
+      },
+      "contact_mapping": {
+        "1": 1,
+        "2": 2
+      },
+      "filtering": {
+        "contacts_without_info_filtered": 0,
+        "mentions_saved": 0
+      },
+      "email_classification": {
+        "1": {
+          "kept": [
+            "mail@dna-technology.ru"
+          ],
+          "removed": [],
+          "removed_types": {}
+        },
+        "2": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "7723537840"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 2,
+            "gid": "c736908d-4edf-53da-9335-ea71c7229f39",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "5402525254"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "m.gogoleva@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 2,
+            "gid": "8363164e-52e6-5ab4-926a-3b621a777ebe",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "c736908d-4edf-53da-9335-ea71c7229f39",
+              "ivlitvinova@invitro.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 2,
+            "organization_gid": "c736908d-4edf-53da-9335-ea71c7229f39"
+          }
+        ],
+        "conflicts": []
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "skipped",
+            "inn": "7723537840",
+            "confidence": 1.0,
+            "source": "existing",
+            "method": "existing_valid_inn",
+            "score": 1.0,
+            "candidates": [],
+            "checked_at": "2025-10-17T12:09:40.037755",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "c736908d-4edf-53da-9335-ea71c7229f39": {
+            "decision": "skipped",
+            "inn": "5402525254",
+            "confidence": 1.0,
+            "source": "existing",
+            "method": "existing_valid_inn",
+            "score": 1.0,
+            "candidates": [],
+            "checked_at": "2025-10-17T12:09:40.037771",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+              "contact_name": "Гоголева Мария Михайловна",
+              "phones_added": [
+                {
+                  "phone": "+74956401771",
+                  "type": "main",
+                  "confidence": 1.0,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                1.0
+              ],
+              "decision": {
+                "confidence": 1.0,
+                "contact_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T05:09:40.038356",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (1.00 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "8363164e-52e6-5ab4-926a-3b621a777ebe",
+              "contact_name": "Ирина Литвинова",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "no_org_phones",
+                  "message": "Организация не имеет телефонов"
+                }
+              ],
+              "confidence_scores": [],
+              "decision": null,
+              "skip_reasons": [
+                "no_org_phones"
+              ]
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 2,
+            "contacts_enriched": 1,
+            "phones_added_total": 1,
+            "phones_skipped_total": 0,
+            "avg_confidence": 1.0,
+            "phones_skipped_by_reason": {
+              "low_confidence": 0,
+              "no_org_phones": 1,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-17T05:09:40.038382",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 4,
+        "organizations_processed": 1,
+        "contacts_processed": 2,
+        "ui_format_applied": 4,
+        "phones_sanitized": 4
+      }
+    },
+    "provider_used": "OpenRouter",
+    "model": "google/gemini-2.0-flash-001",
+    "processing_time": 2.3279521465301514,
+    "text_length": 3125,
+    "chunks_processed": 1,
+    "total_contacts_found": 2,
+    "unique_contacts_found": 2,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-08-18/email_010_20250818_20250818_dna-technology_ru_4af1bd0f.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 20.236
+  }
+}

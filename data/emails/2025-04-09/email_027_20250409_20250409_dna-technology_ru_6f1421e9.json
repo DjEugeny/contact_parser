@@ -1,0 +1,53 @@
+{
+  "thread_id": "20250409_dna-technology_ru_6f1421e9",
+  "message_id": "<433d4056-1995-4666-aa8a-deb64a413723@dna-technology.ru>",
+  "email_num_in_day": 27,
+  "total_emails_in_day": 28,
+  "from": "torgi@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru, zn@clt-lab.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru",
+    "zn@clt-lab.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Re: ЦЛТ АБВ Красноярск Fwd:",
+  "date": "Wed, 9 Apr 2025 17:35:46 +0300",
+  "parsed_date": "2025-04-09T21:35:46+07:00",
+  "body_raw": "Добрый день\r\n\nКП во вложении\r\n\nПросьба сохранять переписку при ответе.\r\nС уважением, специалист по тендерам ООО \"ДНК-Технология\"\r\nФролова Мария Борисовна\r\nТелефон 8 (495) 640 -17 -71 доб.2036\r\nmailto:torgi@dna-technology.ru\r\n\nПросим обращать внимание на сроки действия, указанные в коммерческих предложениях и наличие или\r\n отсутствие доставки в них. Просим также обратить внимание на наименование производителя в\r\nрегистрационных удостоверениях, вывешенных на сайте! Позаботьтесь о природе!\r\nНе распечатывайте этот документ без необходимости!\r\n\n>\r\n> -------- Пересылаемое сообщение --------\r\n> 18:49, 9 апреля 2025 г., \"Елена Лавицкая\" <zn@clt-lab.ru>:\r\n>\r\n> Светлана, добрый день!\r\n> https://dna-technology.ru/equipmentpr/nabory-reagentov-dlya-pcr-infekcii-respiratornogo-trakta/gripp-kompleks-h1n1pdm09h3n2\r\n>\r\n> Можете прислать стоимость данного набора (нашу цену уже)\r\n>\r\n> С уважением,\r\n> Центр лабораторных технологий АБВ\r\n> Лавицкая Елена\r\n> тел.: +7 (913) 532-83-09\r\n> *www.clt-lab.ru <http://www.clt-lab.ru/>*\r\n>\r\n>\r\n> -------- Конец пересылаемого сообщения --------",
+  "body_clean": "Добрый день\nКП во вложении\nПросьба сохранять переписку при ответе.\nС уважением, специалист по тендерам ООО \"ДНК-Технология\"\nФролова Мария Борисовна\nТелефон 8 (495) 640 -17 -71 доб.2036\nmailto:torgi@dna-technology.ru\nПросим обращать внимание на сроки действия, указанные в коммерческих предложениях и наличие или\nотсутствие доставки в них. Просим также обратить внимание на наименование производителя в\nрегистрационных удостоверениях, вывешенных на сайте! Позаботьтесь о природе!\nНе распечатывайте этот документ без необходимости!\n> -------- Пересылаемое сообщение --------\n> 18:49, 9 апреля 2025 г., \"Елена Лавицкая\" zn@clt-lab.ru:\n> Светлана, добрый день!\n> https://dna-technology.ru/equipmentpr/nabory-reagentov-dlya-pcr-infekcii-respiratornogo-trakta/gripp-kompleks-h1n1pdm09h3n2\n> Можете прислать стоимость данного набора (нашу цену уже)\n> С уважением,\n> Центр лабораторных технологий АБВ\n> Лавицкая Елена\n> тел.: +7 (913) 532-83-09\n> *www.clt-lab.ru http://www.clt-lab.ru/*\n> -------- Конец пересылаемого сообщения --------",
+  "char_count": 1028,
+  "attachments": [
+    {
+      "id": 69,
+      "original_filename": "КП 4587 от 09.04.2025.pdf",
+      "saved_filename": "20250409_1e676e70_215814_attach_КП 4587 от 09.04.2025.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-09/20250409_1e676e70_215814_attach_КП 4587 от 09.04.2025.pdf",
+      "relative_path": "attachments/2025-04-09/20250409_1e676e70_215814_attach_КП 4587 от 09.04.2025.pdf",
+      "file_size": 197589,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-11 14:58:14",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<433d4056-1995-4666-aa8a-deb64a413723@dna-technology.ru>",
+      "thread_id": "20250409_dna-technology_ru_6f1421e9",
+      "sha256": "976061380ad145f60320144db29695db0dad521231bab22f9c6668e0acda7a9f",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:21:25.634662+07:00",
+  "raw_size": 278362,
+  "date_folder": "2025-04-09",
+  "eml_path": "eml/2025-04-09/433d4056-1995-4666-aa8a-deb64a413723_dna-technology.ru_235817_565378.eml"
+}

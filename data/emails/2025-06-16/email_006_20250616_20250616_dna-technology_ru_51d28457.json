@@ -1,0 +1,78 @@
+{
+  "thread_id": "20250616_dna-technology_ru_51d28457",
+  "message_id": "<a612c6f0-c9db-4f53-8fc8-4284022e9534@dna-technology.ru>",
+  "email_num_in_day": 6,
+  "total_emails_in_day": 10,
+  "from": "bilalov@dna-technology.ru",
+  "to": "larisa@laboratorii.com",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "larisa@laboratorii.com"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Алтайская ПЧС ФКУЗ Роспотребнадзора ИНН 0411008567",
+  "date": "Mon, 16 Jun 2025 12:50:32 +0300",
+  "parsed_date": "2025-06-16T16:50:32+07:00",
+  "body_raw": "Добрый день, Лариса!\r\n\nКП во вложении.\r\n\n10.06.2025 21:25, Лариса Школьная пишет:\r\n> Добрый день,\r\n> прошу выставить КП на 2 единицы\r\n> O-DTPRIME5М1 + I-PC/03\r\n>\r\n> <https://www.laboratorii.com/upload/actual_store_email.pdf>\r\n> -- \r\n> С уважением,\r\n> Школьная Лариса\r\n> менеджер по работе с клиентами\r\n> ООО \"Компания Пущинские лаборатории\"\r\n> тел. (499)110-03-07 доб. 12\r\n> моб. +7991-284-45-59\r\n> www.laboratorii.com <http://www.laboratorii.com>\r\n> <https://t.me/laboratorii_com> <https://vk.com/laboratoriicom> \r\n> <https://www.youtube.com/channel/UCPqTEjRYzt5BZNQke7IGiXg>\r\n\n-- \r\nС уважением, Билалов Альберт Аглямович\r\nзам. начальника отдела продаж ООО \"ДНК-Технология\"\r\nТел\\факс: (495)640-17-71, доб.2031\r\nmailto:bilalov@dna-technology.ru",
+  "body_clean": "Добрый день, Лариса!\nКП во вложении.\n10.06.2025 21:25, Лариса Школьная пишет:\n> Добрый день,\n> прошу выставить КП на 2 единицы\n> O-DTPRIME5М1 + I-PC/03\n> https://www.laboratorii.com/upload/actual_store_email.pdf\n> С уважением,\n> Школьная Лариса\n> менеджер по работе с клиентами\n> ООО \"Компания Пущинские лаборатории\"\n> тел. (499)110-03-07 доб. 12\n> моб. +7991-284-45-59\n> www.laboratorii.com http://www.laboratorii.com\n> https://t.me/laboratorii_com https://vk.com/laboratoriicom\n> https://www.youtube.com/channel/UCPqTEjRYzt5BZNQke7IGiXg\nС уважением, Билалов Альберт Аглямович\nзам. начальника отдела продаж ООО \"ДНК-Технология\"\nТел\\факс: (495)640-17-71, доб.2031\nmailto:bilalov@dna-technology.ru",
+  "char_count": 696,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part1.aQ619PPi.3rTlMvYk@dna-technology.ru",
+      "original_filename": "mailrusigimg_vGoELZwK.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part2.1DWPuDCu.g4D4c5So@dna-technology.ru",
+      "original_filename": "mailrusigimg_XUiRaRXW.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part3.OsWk26z0.evk5008i@dna-technology.ru",
+      "original_filename": "mailrusigimg_FTFSEILE.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part4.5n4KgmqX.LOdxTh9A@dna-technology.ru",
+      "original_filename": "mailrusigimg_3nMTt03r.png",
+      "is_inline": true
+    },
+    {
+      "id": 251,
+      "original_filename": "Ком.пред.16.06.2025 для Пущино Пущинские лаборатории (для Алтайская ПЧС, г. Горно-Алтайск).pdf",
+      "saved_filename": "20250616_984699f5_003527_173227_attach_Ком.пред.16.06.2025 для Пущино Пущинские лаборатории _для Алтайская ПЧС_ г. Горно-Алтайск_.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-06-16/20250616_984699f5_003527_173227_attach_Ком.пред.16.06.2025 для Пущино Пущинские лаборатории _для Алтайская ПЧС_ г. Горно-Алтайск_.pdf",
+      "relative_path": "attachments/2025-06-16/20250616_984699f5_003527_173227_attach_Ком.пред.16.06.2025 для Пущино Пущинские лаборатории _для Алтайская ПЧС_ г. Горно-Алтайск_.pdf",
+      "file_size": 151451,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:35:27",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<a612c6f0-c9db-4f53-8fc8-4284022e9534@dna-technology.ru>",
+      "thread_id": "20250616_dna-technology_ru_51d28457",
+      "sha256": "023b6f53e4e2a23de69f1a16601569e55dc0e7fc5ee6e2b5646a4b74b2fbe6c8",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 5,
+    "saved": 1,
+    "excluded": 4,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:35:27.170368+07:00",
+  "raw_size": 323747,
+  "date_folder": "2025-06-16",
+  "eml_path": "eml/2025-06-16/a612c6f0-c9db-4f53-8fc8-4284022e9534_dna-technology.ru_003527_165456.eml"
+}

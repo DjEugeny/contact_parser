@@ -1,0 +1,38 @@
+{
+  "thread_id": "20250815_irkmed_ru_53da7aa4",
+  "message_id": "<1849219419.253269.1755242930579.JavaMail.zimbra@irkmed.ru>",
+  "from": "zapros_kp@irkmed.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "запрос КП",
+  "date": "Fri, 15 Aug 2025 15:28:50 +0800 (IRKT)",
+  "parsed_date": "2025-08-15T14:28:50+07:00",
+  "body": "Светлана, добрый день!\nПрошу предоставить КП для Улан-Удэ Инфекционной клинической больницы, ИНН 0323126674\nна тесты - 1 уп. стрипы\nС уважением ,\nКалашникова Мария Борисовна\nДепартамента ассортиментного управления ООО \"Лабора\"\nТел.(3952)28 88 67 доб. 3210\nE-mail: [ mailto:kalashnikova.mb@irkmed.ru | kalashnikova.mb@irkmed.ru  ]\nСветлана, добрый день!Прошу предоставить КП для Улан-Удэ Инфекционной клинической больницы, ИНН 0323126674на тесты - 1 уп. стрипыС уважением , Калашникова Мария Борисовна Департамента ассортиментного управления ООО \"Лабора\"Тел.(3952)28 88 67 доб. 3210E-mail: kalashnikova.mb@irkmed.ru",
+  "char_count": 614,
+  "attachments": [
+    {
+      "original_filename": "74411",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: d817f344886e7966eac402673ccb85d0641fd086@zimbra",
+      "is_inline": true,
+      "content_id": "d817f344886e7966eac402673ccb85d0641fd086@zimbra"
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T22:16:42.736164+07:00",
+  "raw_size": 34543,
+  "date_folder": "2025-08-15"
+}

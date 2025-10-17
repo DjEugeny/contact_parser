@@ -1,0 +1,41 @@
+{
+  "thread_id": "20250408_gm_clinic_253841b0",
+  "message_id": "<482a84064cda46ac9350bec03eba8b7f@gm.clinic>",
+  "email_num_in_day": 10,
+  "total_emails_in_day": 24,
+  "from": "r.lebedeva@gm.clinic",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "RE: Презентации ДНК-Технология.",
+  "date": "Tue, 8 Apr 2025 07:31:04 +0000",
+  "parsed_date": "2025-04-08T14:31:04+07:00",
+  "body_raw": "Добрый день, Светлана Сергеевна!\r\n\nСпасибо, все получила. Будем работать.\r\n\nС уважением.\r\nЛебедева Рита Николаевна\r\nЗаведующая бактериологической лабораторией\r\nООО \"Гранд Медика\"\r\nассистент каф. КЛД НГИУВа\r\nРаб.: 8 (3843) 99-40-40 (доб.7308, 7311)\r\nМоб.: 89059050447\r\nr.lebedeva@gm.cliniс www.gm.clinic<mailto:r.lebedeva@gm.cliniс%20www.gm.clinic>\r\n654007, Новокузнецк г.,\r\nКемеровская обл, Кузнецкстроевкий пр-т, д. 11\r\n[cid:image001.png@01DBA892.DB23F520]\r\n\nFrom: Воронова Светлана Сергеевна <s.voronova@dna-technology.ru>\r\nSent: Monday, April 7, 2025 2:32 PM\r\nTo: Лебедева Рита Николаевна <r.lebedeva@gm.clinic>\r\nSubject: Презентации ДНК-Технология.\r\n\nДобрый день, уважаемая Рита Николаевна!\r\nВо вложении высылаю презентации по Вашему запросу.\r\n\nПри возникновении вопросов, пожалуйста, обращайтесь!\r\n--\r\nС уважением, Воронова Светлана Сергеевна\r\nрегиональный представитель в СФО\r\nООО \"ДНК-Технология\"\r\nмоб. тел. 8 (995) 129-39-76\r\ne-mail: s.voronova@dna-technology.ru<mailto:s.voronova@dna-technology.ru>\r\nweb: www.dna-technology.ru<https://www.dna-technology.ru>",
+  "body_clean": "Добрый день, Светлана Сергеевна!\nСпасибо, все получила. Будем работать.\nС уважением.\nЛебедева Рита Николаевна\nЗаведующая бактериологической лабораторией\nООО \"Гранд Медика\"\nассистент каф. КЛД НГИУВа\nРаб.: 8 (3843) 99-40-40 (доб.7308, 7311)\nМоб.: 89059050447\nr.lebedeva@gm.cliniс www.gm.clinicmailto:r.lebedeva@gm.cliniс%20www.gm.clinic\n654007, Новокузнецк г.,\nКемеровская обл, Кузнецкстроевкий пр-т, д. 11\n[cid:image001.png@01DBA892.DB23F520]\nFrom: Воронова Светлана Сергеевна s.voronova@dna-technology.ru\nSent: Monday, April 7, 2025 2:32 PM\nTo: Лебедева Рита Николаевна r.lebedeva@gm.clinic\nSubject: Презентации ДНК-Технология.\nДобрый день, уважаемая Рита Николаевна!\nВо вложении высылаю презентации по Вашему запросу.\nПри возникновении вопросов, пожалуйста, обращайтесь!\nС уважением, Воронова Светлана Сергеевна\nрегиональный представитель в СФО\nООО \"ДНК-Технология\"\nмоб. тел. 8 (995) 129-39-76\ne-mail: s.voronova@dna-technology.rumailto:s.voronova@dna-technology.ru\nweb: www.dna-technology.ruhttps://www.dna-technology.ru",
+  "char_count": 1022,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image001.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:20:23.904038+07:00",
+  "raw_size": 33124,
+  "date_folder": "2025-04-08",
+  "eml_path": "eml/2025-04-08/482a84064cda46ac9350bec03eba8b7f_gm.clinic_235652_870777.eml"
+}

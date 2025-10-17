@@ -1,0 +1,263 @@
+Received:  from mx1.clt-lab.ru ([95.156.82.162]:57900)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98.2 (FreeBSD))
+	 (envelope-from <m.varlamov@clt-lab.ru>)
+	 id 1v6jxS-00000000Plv-08Zt ;
+	Thu, 09 Oct 2025 09:16:58 +0300
+Received: from mx1.clt-lab.ru (localhost.localdomain [127.0.0.1])
+	by mx1.clt-lab.ru (Proxmox) with ESMTP id 5A945180BCA;
+	Thu,  9 Oct 2025 13:16:56 +0700 (+07)
+Received: from mail.clt-lab.ru (unknown [10.10.25.13])
+	by mx1.clt-lab.ru (Proxmox) with ESMTPS id 2821C180AEF;
+	Thu,  9 Oct 2025 13:16:56 +0700 (+07)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=clt-lab.ru; s=mx1;
+	t=1759990616; bh=pXNUpO6aaO81pik0f5MDOen56nophxPtj+YACdYkuA8=;
+	h=From:To:Cc:References:In-Reply-To:Subject:Date;
+	b=o/b2RsI94gmU2Uup0+CPDuZnuPgeKIwkAYoeOzpnLrt833umH6Vt6t3I4MDxHynd4
+	 f8CCKsV/ppCN03OFeOFfjRckXYg9wuXxdUZa/nNL+/752EpzVNBn9/P+AL7P2BdOr0
+	 1KC2CJa8HcKNbBdFlfTbdvclR4BZ3CklMKHFyueYVUtcL/N2yu89C/ZJ+aYtajcTHL
+	 zO1LnU1+WAxPEhzrXTk4qAGvqES+P5do1RZzFirpHaUsifgYOvMUMaWuQdbALhOwbt
+	 H+ryAH2yUwJGucIKlzRdW2kN+SdECTm9hhlo8uGa+aGoLNHHmNus57lK1tQfWftYTu
+	 9Z6fPGhI2grqw==
+Received: from LAPTOP115H5U04 (unknown [31.173.240.16])
+	by mail.clt-lab.ru (Postfix) with ESMTPSA id 9C21354C01F9;
+	Thu,  9 Oct 2025 13:16:55 +0700 (+07)
+From: "Maksim Varlamov" <m.varlamov@clt-lab.ru>
+To: =?UTF-8?B?J9CV0LvQtdC90LAg0JvQsNCy0LjRhtC60LDRjyc=?= <zn@clt-lab.ru>,
+	=?UTF-8?B?J9Ck0LXRgtC40YHQvtCy0LAg0JjRgNC40L3QsCDQndC40LrQvtC70LDQtdCy0L0=?=
+	=?UTF-8?B?0LAg0JTQndCaLdCi0LXRhdC90L7Qu9C+0LPQuNGPJw==?= <fetisova@dna-technology.ru>
+Cc: =?UTF-8?B?J9CS0L7RgNC+0L3QvtCy0LAg0KHQstC10YLQu9Cw0L3QsCDQlNCd0Jot0KLQtQ==?=
+	=?UTF-8?B?0YXQvdC+0LvQvtCz0LjRjyc=?= <s.voronova@dna-technology.ru>
+References: <1c843725633514d3e2f8ff394bc19e87@clt-lab.ru>
+In-Reply-To: <1c843725633514d3e2f8ff394bc19e87@clt-lab.ru>
+Subject: =?UTF-8?B?UkU6INC30LDRj9Cy0LrQsCDQvdCwINC+0LrRgtGP0LHRgNGM?=
+Date: Thu, 9 Oct 2025 13:16:54 +0700
+Message-ID: <02e901dc38e4$501bcb50$f05361f0$@clt-lab.ru>
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_000_02EA_01DC391E.FC7D1450"
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQJq9trtMJ0/FQBSqFXoQfPCnlkRz7Ob2l/w
+Content-Language: ru
+Received-SPF: pass (mail.dna-technology.ru: domain of clt-lab.ru designates 95.156.82.162 as permitted sender) client-ip=95.156.82.162; envelope-from=m.varlamov@clt-lab.ru; helo=mx1.clt-lab.ru;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+This is a multipart message in MIME format.
+
+------=_NextPart_000_02EA_01DC391E.FC7D1450
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+0KPQstCw0LbQsNC10LzRi9C1INC60L7Qu9C70LXQs9C4LCDQtNC+0LHRgNGL0Lkg0LTQtdC90YwN
+Cg0KIA0KDQrQnNGLIDYuMTAg0L7RgtC/0YDQsNCy0LjQu9C4INCS0LDQvCDQt9Cw0L/RgNC+0YEs
+INC/0YDQvtGI0YMg0L/RgNC40YHQu9Cw0YLRjCDRgdGH0LXRgiDQvdCwINGB0L7Qs9C70LDRgdC+
+0LLQsNC90LjQtS4gDQoNCtCh0L/QsNGB0LjQsdC+LiANCg0KIA0KDQrQoSDRg9Cy0LDQttC10L3Q
+uNC10LwsDQoNCtCS0LDRgNC70LDQvNC+0LIg0JzQsNC60YHQuNC8INCY0LPQvtGA0LXQstC40YcN
+Cg0K0LzQvtCxLiDRgtC10LsuICs3ICg5NTEpIDY4Ni03Mi0zNA0KDQogPGh0dHA6Ly93d3cuY2x0
+LWxhYi5ydS8+IHd3dy5jbHQtbGFiLnJ1DQoNCiANCg0KRnJvbTog0JXQu9C10L3QsCDQm9Cw0LLQ
+uNGG0LrQsNGPIDx6bkBjbHQtbGFiLnJ1PiANClNlbnQ6IE1vbmRheSwgT2N0b2JlciA2LCAyMDI1
+IDY6MzMgUE0NClRvOiDQpNC10YLQuNGB0L7QstCwINCY0YDQuNC90LAg0J3QuNC60L7Qu9Cw0LXQ
+stC90LAg0JTQndCaLdCi0LXRhdC90L7Qu9C+0LPQuNGPIDxmZXRpc292YUBkbmEtdGVjaG5vbG9n
+eS5ydT4NCkNjOiDQktC+0YDQvtC90L7QstCwINCh0LLQtdGC0LvQsNC90LAg0JTQndCaLdCi0LXR
+hdC90L7Qu9C+0LPQuNGPIDxzLnZvcm9ub3ZhQGRuYS10ZWNobm9sb2d5LnJ1Pjsg0KHQn9CRINCS
+0LDRgNC70LDQvNC+0LIg0JzQsNC60YHQuNC8IDxtLnZhcmxhbW92QGNsdC1sYWIucnU+DQpTdWJq
+ZWN0OiDQt9Cw0Y/QstC60LAg0L3QsCDQvtC60YLRj9Cx0YDRjA0KDQogDQoNCtCY0YDQuNC90LAg
+0J3QuNC60L7Qu9Cw0LXQstC90LAsINC00LXQvdGMINC00L7QsdGA0YvQuSENCtCS0L4g0LLQu9C+
+0LbQtdC90LjQuCDQt9Cw0Y/QstC60LAsINC/0YDQvtGB0YzQsdCwINCy0YvRgdGC0LDQstC40YLR
+jCDRgdGH0LXRgg0KDQrQoSDRg9Cy0LDQttC10L3QuNC10LwsDQrQptC10L3RgtGAINC70LDQsdC+
+0YDQsNGC0L7RgNC90YvRhSDRgtC10YXQvdC+0LvQvtCz0LjQuSDQkNCR0JINCtCb0LDQstC40YbQ
+utCw0Y8g0JXQu9C10L3QsA0K0YLQtdC7LjogKzcgKDkxMykgNTMyLTgzLTA5DQoNCiANCg0KIDxo
+dHRwOi8vd3d3LmNsdC1sYWIucnUvPiB3d3cuY2x0LWxhYi5ydQ0KDQo=
+
+------=_NextPart_000_02EA_01DC391E.FC7D1450
+Content-Type: text/html;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
+xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
+xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
+http-equiv=3DContent-Type content=3D"text/html; charset=3Dutf-8"><meta =
+name=3DGenerator content=3D"Microsoft Word 15 (filtered =
+medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Verdana;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	mso-margin-top-alt:auto;
+	margin-right:0cm;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	mso-margin-top-alt:auto;
+	margin-right:0cm;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:#1F497D;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:2.0cm 42.5pt 2.0cm 3.0cm;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DRU link=3Dblue =
+vlink=3Dpurple><div class=3DWordSection1><p class=3DMsoNormal><span =
+style=3D'font-size:11.0pt;font-family:"Calibri",sans-serif;color:#1F497D;=
+mso-fareast-language:EN-US'>=D0=A3=D0=B2=D0=B0=D0=B6=D0=B0=D0=B5=D0=BC=D1=
+=8B=D0=B5 =D0=BA=D0=BE=D0=BB=D0=BB=D0=B5=D0=B3=D0=B8</span><span =
+lang=3DEN-US =
+style=3D'font-size:11.0pt;font-family:"Calibri",sans-serif;color:#1F497D;=
+mso-fareast-language:EN-US'>, </span><span =
+style=3D'font-size:11.0pt;font-family:"Calibri",sans-serif;color:#1F497D;=
+mso-fareast-language:EN-US'>=D0=B4=D0=BE=D0=B1=D1=80=D1=8B=D0=B9 =
+=D0=B4=D0=B5=D0=BD=D1=8C<o:p></o:p></span></p><p class=3DMsoNormal><span =
+style=3D'font-size:11.0pt;font-family:"Calibri",sans-serif;color:#1F497D;=
+mso-fareast-language:EN-US'><o:p>&nbsp;</o:p></span></p><p =
+class=3DMsoNormal><span =
+style=3D'font-size:11.0pt;font-family:"Calibri",sans-serif;color:#1F497D;=
+mso-fareast-language:EN-US'>=D0=9C=D1=8B 6.10 =
+=D0=BE=D1=82=D0=BF=D1=80=D0=B0=D0=B2=D0=B8=D0=BB=D0=B8 =
+=D0=92=D0=B0=D0=BC =D0=B7=D0=B0=D0=BF=D1=80=D0=BE=D1=81, =
+=D0=BF=D1=80=D0=BE=D1=88=D1=83 =
+=D0=BF=D1=80=D0=B8=D1=81=D0=BB=D0=B0=D1=82=D1=8C =
+=D1=81=D1=87=D0=B5=D1=82 =D0=BD=D0=B0 =
+=D1=81=D0=BE=D0=B3=D0=BB=D0=B0=D1=81=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D0=B5.=
+ <o:p></o:p></span></p><p class=3DMsoNormal><span =
+style=3D'font-size:11.0pt;font-family:"Calibri",sans-serif;color:#1F497D;=
+mso-fareast-language:EN-US'>=D0=A1=D0=BF=D0=B0=D1=81=D0=B8=D0=B1=D0=BE</s=
+pan><span lang=3DEN-US =
+style=3D'font-size:11.0pt;font-family:"Calibri",sans-serif;color:#1F497D;=
+mso-fareast-language:EN-US'>. </span><span =
+style=3D'font-size:11.0pt;font-family:"Calibri",sans-serif;color:#1F497D;=
+mso-fareast-language:EN-US'><o:p></o:p></span></p><p =
+class=3DMsoNormal><span =
+style=3D'font-size:11.0pt;font-family:"Calibri",sans-serif;color:#1F497D;=
+mso-fareast-language:EN-US'><o:p>&nbsp;</o:p></span></p><div><p =
+class=3DMsoNormal style=3D'background:white'><span =
+style=3D'font-size:11.5pt;font-family:"Arial",sans-serif;color:black'>=D0=
+=A1 =
+=D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,<o:p></o:p></span>=
+</p><p class=3DMsoNormal style=3D'background:white'><span =
+style=3D'font-size:11.5pt;font-family:"Arial",sans-serif;color:black'>=D0=
+=92=D0=B0=D1=80=D0=BB=D0=B0=D0=BC=D0=BE=D0=B2 =
+=D0=9C=D0=B0=D0=BA=D1=81=D0=B8=D0=BC =
+=D0=98=D0=B3=D0=BE=D1=80=D0=B5=D0=B2=D0=B8=D1=87<o:p></o:p></span></p><p =
+class=3DMsoNormal style=3D'background:white'><span =
+style=3D'font-size:11.5pt;font-family:"Arial",sans-serif;color:black'>=D0=
+=BC=D0=BE=D0=B1. =D1=82=D0=B5=D0=BB.&nbsp;+7 (9</span><span lang=3DEN-US =
+style=3D'font-size:11.5pt;font-family:"Arial",sans-serif;color:black'>51<=
+/span><span =
+style=3D'font-size:11.5pt;font-family:"Arial",sans-serif;color:black'>) =
+</span><span lang=3DEN-US =
+style=3D'font-size:11.5pt;font-family:"Arial",sans-serif;color:black'>686=
+</span><span =
+style=3D'font-size:11.5pt;font-family:"Arial",sans-serif;color:black'>-</=
+span><span lang=3DEN-US =
+style=3D'font-size:11.5pt;font-family:"Arial",sans-serif;color:black'>72<=
+/span><span =
+style=3D'font-size:11.5pt;font-family:"Arial",sans-serif;color:black'>-</=
+span><span lang=3DEN-US =
+style=3D'font-size:11.5pt;font-family:"Arial",sans-serif;color:black'>34<=
+o:p></o:p></span></p><p class=3DMsoNormal =
+style=3D'background:white'><span =
+style=3D'font-size:11.5pt;font-family:"Arial",sans-serif;color:black'><a =
+href=3D"http://www.clt-lab.ru/" target=3D"_blank"><span =
+style=3D'color:#990099'>www.clt-lab.ru</span></a><o:p></o:p></span></p></=
+div><p class=3DMsoNormal><span =
+style=3D'font-size:11.0pt;font-family:"Calibri",sans-serif;color:#1F497D;=
+mso-fareast-language:EN-US'><o:p>&nbsp;</o:p></span></p><div><div =
+style=3D'border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm =
+0cm 0cm'><p class=3DMsoNormal><b><span =
+style=3D'font-size:11.0pt;font-family:"Calibri",sans-serif'>From:</span><=
+/b><span style=3D'font-size:11.0pt;font-family:"Calibri",sans-serif'> =
+=D0=95=D0=BB=D0=B5=D0=BD=D0=B0 =
+=D0=9B=D0=B0=D0=B2=D0=B8=D1=86=D0=BA=D0=B0=D1=8F &lt;zn@clt-lab.ru&gt; =
+<br><b>Sent:</b> Monday, October 6, 2025 6:33 PM<br><b>To:</b> =
+=D0=A4=D0=B5=D1=82=D0=B8=D1=81=D0=BE=D0=B2=D0=B0 =
+=D0=98=D1=80=D0=B8=D0=BD=D0=B0 =
+=D0=9D=D0=B8=D0=BA=D0=BE=D0=BB=D0=B0=D0=B5=D0=B2=D0=BD=D0=B0 =
+=D0=94=D0=9D=D0=9A-=D0=A2=D0=B5=D1=85=D0=BD=D0=BE=D0=BB=D0=BE=D0=B3=D0=B8=
+=D1=8F &lt;fetisova@dna-technology.ru&gt;<br><b>Cc:</b> =
+=D0=92=D0=BE=D1=80=D0=BE=D0=BD=D0=BE=D0=B2=D0=B0 =
+=D0=A1=D0=B2=D0=B5=D1=82=D0=BB=D0=B0=D0=BD=D0=B0 =
+=D0=94=D0=9D=D0=9A-=D0=A2=D0=B5=D1=85=D0=BD=D0=BE=D0=BB=D0=BE=D0=B3=D0=B8=
+=D1=8F &lt;s.voronova@dna-technology.ru&gt;; =D0=A1=D0=9F=D0=91 =
+=D0=92=D0=B0=D1=80=D0=BB=D0=B0=D0=BC=D0=BE=D0=B2 =
+=D0=9C=D0=B0=D0=BA=D1=81=D0=B8=D0=BC =
+&lt;m.varlamov@clt-lab.ru&gt;<br><b>Subject:</b> =
+=D0=B7=D0=B0=D1=8F=D0=B2=D0=BA=D0=B0 =D0=BD=D0=B0 =
+=D0=BE=D0=BA=D1=82=D1=8F=D0=B1=D1=80=D1=8C<o:p></o:p></span></p></div></d=
+iv><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p><span =
+style=3D'font-size:10.0pt;font-family:"Verdana",sans-serif'>=D0=98=D1=80=D0=
+=B8=D0=BD=D0=B0 =
+=D0=9D=D0=B8=D0=BA=D0=BE=D0=BB=D0=B0=D0=B5=D0=B2=D0=BD=D0=B0, =
+=D0=B4=D0=B5=D0=BD=D1=8C =
+=D0=B4=D0=BE=D0=B1=D1=80=D1=8B=D0=B9!<br>=D0=92=D0=BE =
+=D0=B2=D0=BB=D0=BE=D0=B6=D0=B5=D0=BD=D0=B8=D0=B8 =
+=D0=B7=D0=B0=D1=8F=D0=B2=D0=BA=D0=B0, =
+=D0=BF=D1=80=D0=BE=D1=81=D1=8C=D0=B1=D0=B0 =
+=D0=B2=D1=8B=D1=81=D1=82=D0=B0=D0=B2=D0=B8=D1=82=D1=8C =
+=D1=81=D1=87=D0=B5=D1=82<o:p></o:p></span></p><div =
+id=3Dsignature><div><p class=3DMsoNormal><span =
+style=3D'font-size:10.0pt;font-family:"Verdana",sans-serif'>=D0=A1 =
+=D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,<br>=D0=A6=D0=B5=D0=
+=BD=D1=82=D1=80 =
+=D0=BB=D0=B0=D0=B1=D0=BE=D1=80=D0=B0=D1=82=D0=BE=D1=80=D0=BD=D1=8B=D1=85 =
+=D1=82=D0=B5=D1=85=D0=BD=D0=BE=D0=BB=D0=BE=D0=B3=D0=B8=D0=B9 =
+=D0=90=D0=91=D0=92<br>=D0=9B=D0=B0=D0=B2=D0=B8=D1=86=D0=BA=D0=B0=D1=8F =
+=D0=95=D0=BB=D0=B5=D0=BD=D0=B0<br>=D1=82=D0=B5=D0=BB.: +7 (913) =
+532-83-09<o:p></o:p></span></p></div><div><div><p class=3DMsoNormal =
+style=3D'background:white'><span =
+style=3D'color:#2C363A'>&nbsp;<o:p></o:p></span></p></div><div><p =
+class=3DMsoNormal style=3D'background:white'><strong><span =
+style=3D'font-size:11.5pt;font-family:"Arial",sans-serif;color:#169179'><=
+a href=3D"http://www.clt-lab.ru/"><span =
+style=3D'color:#169179'>www.clt-lab.ru</span></a></span></strong><span =
+style=3D'color:#2C363A'><o:p></o:p></span></p></div></div></div></div></b=
+ody></html>
+------=_NextPart_000_02EA_01DC391E.FC7D1450--
+
+

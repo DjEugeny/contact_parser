@@ -1,0 +1,47 @@
+{
+  "thread_id": "20250703_mail_ru_653ac945",
+  "message_id": "<1751528172.386271889@f164.i.mail.ru>",
+  "email_num_in_day": 2,
+  "total_emails_in_day": 15,
+  "from": "kimajkinao@mail.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Бакскрин_0_7_02_14_08.r96, Бакрезиста, Бакскрин0_3_07_9_30.r96",
+  "date": "Thu, 03 Jul 2025 10:36:12 +0300",
+  "parsed_date": "2025-07-03T14:36:12+07:00",
+  "body_raw": "C уважением, \nКимайкина Оксана\nОтправлено из Почты Mail",
+  "body_clean": "C уважением,\nКимайкина Оксана\nОтправлено из Почты Mail",
+  "char_count": 54,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "extension_excluded:.r96",
+      "original_filename": "Бакскрин_0_7_02_14_08.r96",
+      "is_inline": false
+    },
+    {
+      "status": "excluded",
+      "reason": "extension_excluded:.r96",
+      "original_filename": "Бакрезиста, Бакскрин0_3_07_9_30.r96",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 0,
+    "excluded": 2,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:39:14.530783+07:00",
+  "raw_size": 1193050,
+  "date_folder": "2025-07-03",
+  "eml_path": "eml/2025-07-03/1751528172.386271889_f164.i.mail.ru_003914_527866.eml"
+}

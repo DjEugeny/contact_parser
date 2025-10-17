@@ -1,0 +1,43 @@
+{
+  "thread_id": "20250911_mail_ru_a07973b6",
+  "message_id": "<1757574477.198750761@f169.i.mail.ru>",
+  "from": "chernikova_2906@mail.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "ФФ II",
+  "date": "Thu, 11 Sep 2025 10:07:57 +0300",
+  "parsed_date": "2025-09-11T14:07:57+07:00",
+  "body": "Добрый день!\nПротокол во вложении!\nС уважением, Татьяна Сираева.\nДобрый день!Протокол во вложении! С уважением, Татьяна Сираева.",
+  "char_count": 128,
+  "attachments": [
+    {
+      "original_filename": "ФЕМОФЛОР II_S(96)_270825_155731.rt",
+      "saved_filename": null,
+      "file_path": null,
+      "relative_path": null,
+      "file_size": 0,
+      "file_type": "excluded",
+      "exclusion_reason": "расширение .rt исключено",
+      "saved_at": "2025-10-08T22:21:02.123068+07:00",
+      "status": "excluded",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T22:21:02.123094+07:00",
+  "raw_size": 1161821,
+  "date_folder": "2025-09-11"
+}

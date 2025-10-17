@@ -1,0 +1,71 @@
+{
+  "thread_id": "20250917_promix_ru_1be8ff2e",
+  "message_id": "<623938758.20250917155422@promix.ru>",
+  "email_num_in_day": 3,
+  "total_emails_in_day": 13,
+  "from": "manager3@promix.ru",
+  "to": "v.kinsht@promix.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "v.kinsht@promix.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "ГП20 схема помещений",
+  "date": "Wed, 17 Sep 2025 15:54:22 +0700",
+  "parsed_date": "2025-09-17T15:54:22+07:00",
+  "body_raw": "Коллеги, в продолжение нашей встречи направляю планы помещений ГП20.\r\n\n-- \r\nС уважением,\r\nотдел продаж ООО \"Промикс\"\r\nmailto:manager3@promix.ru",
+  "body_clean": "Коллеги, в продолжение нашей встречи направляю планы помещений ГП20.\nС уважением,\nотдел продаж ООО \"Промикс\"\nmailto:manager3@promix.ru",
+  "char_count": 134,
+  "attachments": [
+    {
+      "id": 484,
+      "original_filename": "Схема лаборатории.1.jpg",
+      "saved_filename": "20250917_1c86b4f2_005805_951146_attach_Схема лаборатории.1.jpg",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-09-17/20250917_1c86b4f2_005805_951146_attach_Схема лаборатории.1.jpg",
+      "relative_path": "attachments/2025-09-17/20250917_1c86b4f2_005805_951146_attach_Схема лаборатории.1.jpg",
+      "file_size": 198882,
+      "file_type": "image/jpeg",
+      "content_type": "image/jpeg",
+      "saved_at": "2025-10-13 17:58:05",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<623938758.20250917155422@promix.ru>",
+      "thread_id": "20250917_promix_ru_1be8ff2e",
+      "sha256": "725c13ac158e8e0a5c1fcc98a42917cf65af005d8245daf18029789dfd8e10a1",
+      "file_exists": true
+    },
+    {
+      "id": 485,
+      "original_filename": "Схема лаборатории.2.jpg",
+      "saved_filename": "20250917_1c86b4f2_005805_955082_attach_Схема лаборатории.2.jpg",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-09-17/20250917_1c86b4f2_005805_955082_attach_Схема лаборатории.2.jpg",
+      "relative_path": "attachments/2025-09-17/20250917_1c86b4f2_005805_955082_attach_Схема лаборатории.2.jpg",
+      "file_size": 484570,
+      "file_type": "image/jpeg",
+      "content_type": "image/jpeg",
+      "saved_at": "2025-10-13 17:58:05",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<623938758.20250917155422@promix.ru>",
+      "thread_id": "20250917_promix_ru_1be8ff2e",
+      "sha256": "cc65f1678617cb5946e0b5040d474252b89060ee31a4ce999533d63fc11c0293",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 2,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:58:05.949259+07:00",
+  "raw_size": 939665,
+  "date_folder": "2025-09-17",
+  "eml_path": "eml/2025-09-17/623938758.20250917155422_promix.ru_005805_945580.eml"
+}

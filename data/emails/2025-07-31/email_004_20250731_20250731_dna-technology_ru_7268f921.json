@@ -1,0 +1,54 @@
+{
+  "thread_id": "20250731_dna-technology_ru_7268f921",
+  "message_id": "<59252374-7e44-4c96-9f35-906c4e4d872d@dna-technology.ru>",
+  "email_num_in_day": 4,
+  "total_emails_in_day": 5,
+  "from": "litvinenko@dna-technology.ru",
+  "to": "medic.81@mail.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "medic.81@mail.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "КП договор аренды",
+  "date": "Thu, 31 Jul 2025 15:05:27 +0300",
+  "parsed_date": "2025-07-31T19:05:27+07:00",
+  "body_raw": "Добрый день.\r\n\nВо вложении КП на прибор по аренде.\r\n\n-- \r\nС уважением,\r\nменеджер по работе с клиентами\r\nООО \"ДНК-Технология\"\r\nЛитвиненко Юлия. Москва.\r\nтел. (495) 640-17-71 доб. 2018\r\nмоб. +7(985)-170-03-87\r\nlitvinenko@dna-technology.ru",
+  "body_clean": "Добрый день.\nВо вложении КП на прибор по аренде.\nС уважением,\nменеджер по работе с клиентами\nООО \"ДНК-Технология\"\nЛитвиненко Юлия. Москва.\nтел. (495) 640-17-71 доб. 2018\nмоб. +7(985)-170-03-87\nlitvinenko@dna-technology.ru",
+  "char_count": 221,
+  "attachments": [
+    {
+      "id": 365,
+      "original_filename": "Gold20250731145241.pdf",
+      "saved_filename": "20250731_1d548850_004651_921485_attach_Gold20250731145241.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-07-31/20250731_1d548850_004651_921485_attach_Gold20250731145241.pdf",
+      "relative_path": "attachments/2025-07-31/20250731_1d548850_004651_921485_attach_Gold20250731145241.pdf",
+      "file_size": 378008,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:46:51",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<59252374-7e44-4c96-9f35-906c4e4d872d@dna-technology.ru>",
+      "thread_id": "20250731_dna-technology_ru_7268f921",
+      "sha256": "f5388894b4b77a38178ed2f691405f421e5a95d0994b9888eca2328c28072ee2",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:46:51.917821+07:00",
+  "raw_size": 519705,
+  "date_folder": "2025-07-31",
+  "eml_path": "eml/2025-07-31/59252374-7e44-4c96-9f35-906c4e4d872d_dna-technology.ru_004651_913183.eml"
+}

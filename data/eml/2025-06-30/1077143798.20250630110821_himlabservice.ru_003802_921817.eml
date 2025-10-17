@@ -1,0 +1,59 @@
+Received:  from forward102a.mail.yandex.net ([178.154.239.85]:51744)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98.2 (FreeBSD))
+	 (envelope-from <hls@himlabservice.ru>)
+	 id 1uW5oe-0000000010D-3wt8 
+	for s.voronova@dna-technology.ru;
+	Mon, 30 Jun 2025 07:08:24 +0300
+Received: from mail-nwsmtp-smtp-production-main-95.iva.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-95.iva.yp-c.yandex.net [IPv6:2a02:6b8:c0c:11a9:0:640:f70:0])
+	by forward102a.mail.yandex.net (Yandex) with ESMTPS id C284B60E96
+	for <s.voronova@dna-technology.ru>; Mon, 30 Jun 2025 07:08:23 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-95.iva.yp-c.yandex.net (smtp/Yandex) with ESMTPSA id L8Qc9f4LleA0-vvljonwa;
+	Mon, 30 Jun 2025 07:08:23 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=himlabservice.ru;
+	s=mail; t=1751256503;
+	bh=eNbLIcQccgBp3j2kxkcYf5AdmppvstnYutGXiDFV4VA=;
+	h=Message-ID:Subject:To:From:Date;
+	b=nRyDXEC4qyime6AdJbx5MeV2CGnuIsA1ld5+YB7UfgwoM0vDXRJcN98kc8i1zNbiN
+	 8BEssAR1PWMNgjnT0FtOv3fQIARIf1PVgkUUKCmGMFqMXUi0BXta5k6QUPKZhQHe1H
+	 1JatF+MYJ/27rpL6TCenuhsZSzTFoTrISP16TYOE=
+Authentication-Results: mail-nwsmtp-smtp-production-main-95.iva.yp-c.yandex.net; dkim=pass header.i=@himlabservice.ru
+Date: Mon, 30 Jun 2025 11:08:21 +0700
+From: =?windows-1251?B?1ejsy+Dh0eXw4ujx?= <hls@himlabservice.ru>
+Message-ID: <1077143798.20250630110821@himlabservice.ru>
+To: =?windows-1251?B?wu7w7u3u4uAg0eLl8uvg7eAg0eXw4+Xl4u3g?= <s.voronova@dna-technology.ru>
+Subject: =?windows-1251?B?x+Dv8O7xIMrPIM/W0A==?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=windows-1251
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass (mail.dna-technology.ru: domain of himlabservice.ru designates 178.154.239.85 as permitted sender) client-ip=178.154.239.85; envelope-from=hls@himlabservice.ru; helo=forward102a.mail.yandex.net;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+=C7=E4=F0=E0=E2=F1=F2=E2=F3=E9=F2=E5, =D1=E2=E5=F2=EB=E0=ED=E0 =D1=E5=F0=E3=
+=E5=E5=E2=ED=E0!
+
+=CF=F0=EE=F8=F3 =C2=E0=F1 =E2=FB=F1=F2=E0=E2=E8=F2=FC =CA=CF =ED=E0 =EF=EE=
+=E7=E8=F6=E8=E8:
+R1-H927-N3/4 - 6 =ED=E0=E1=EE=F0=EE=E2;
+P-116-N/4 - 3 =ED=E0=E1=EE=F0=E0. - =F2=E0=EA=E6=E5 =EF=F0=EE=F8=F3 =F3=F2=
+=EE=F7=ED=E8=F2=FC, =E2 =E4=E0=ED=ED=EE=EC =ED=E0=E1=EE=F0=E5 =EC=EE=E6=ED=
+=EE =E8=F1=EF=EE=EB=FC=E7=EE=E2=E0=F2=FC =E2 =EA=E0=F7=E5=F1=F2=E2=E5 =E1=
+=E8=EE=EC=E0=F2=E5=F0=E8=E0=EB=E0 =F6=E5=EB=FC=ED=F3=FE =EA=F0=EE=E2=FC?
+
+=C4=EB=FF =CD=C8=C8 =CE=ED=EA=EE=EB=EE=E3=E8=E8 =D2=EE=EC=F1=EA=EE=E3=EE =
+=CD=C8=CC=D6 =C8=CD=CD 7019011979.
+
+=C7=E0=F0=E0=ED=E5=E5 =E1=EB=E0=E3=EE=E4=E0=F0=E5=ED!
+
+=D1  =F3=E2=E0=E6=E5=ED=E8=E5=EC =D6=FB=E1=E0=ED=EE=E2 =C1=E0=E8=F0 =C2=E0=
+=EB=E5=F0=FC=E5=E2=E8=F7
+=CC=E5=ED=E5=E4=E6=E5=F0 =EF=EE =EF=F0=EE=E4=E0=E6=E0=EC
+=CE=CE=CE "=D5=E8=EC=CB=E0=E1=D1=E5=F0=E2=E8=F1"
++7(3822)42-45-35
+634045 =E3. =D2=EE=EC=F1=EA, =F3=EB. =CC=EE=EA=F0=F3=F8=E8=ED=E0 13=C0
+https://himlabservice.ru/
+

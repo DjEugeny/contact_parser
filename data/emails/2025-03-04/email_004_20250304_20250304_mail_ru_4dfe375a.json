@@ -1,0 +1,52 @@
+{
+  "thread_id": "20250304_mail_ru_4dfe375a",
+  "message_id": "<1741069678.152051318@f459.i.mail.ru>",
+  "email_num_in_day": 4,
+  "total_emails_in_day": 21,
+  "from": "dronovaiv@mail.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "ДТ- ИНТЕГРАТОР.docx",
+  "date": "Tue, 04 Mar 2025 09:27:58 +0300",
+  "parsed_date": "2025-03-04T13:27:58+07:00",
+  "body_raw": "С уважением. Ирина Владимировна Вечерская , заведующая КДЛ ОГАУЗ «ОПЦ им.И.Д.Евтушенко» г. Томск, тел. 89234092517",
+  "body_clean": "С уважением. Ирина Владимировна Вечерская , заведующая КДЛ ОГАУЗ «ОПЦ им.И.Д.Евтушенко» г. Томск, тел. 89234092517",
+  "char_count": 114,
+  "attachments": [
+    {
+      "id": 608,
+      "original_filename": "ДТ- ИНТЕГРАТОР.docx",
+      "saved_filename": "20250304_125d12e9_071403_719161_attach_ДТ- ИНТЕГРАТОР.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-04/20250304_125d12e9_071403_719161_attach_ДТ- ИНТЕГРАТОР.docx",
+      "relative_path": "attachments/2025-03-04/20250304_125d12e9_071403_719161_attach_ДТ- ИНТЕГРАТОР.docx",
+      "file_size": 28319,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-14 00:14:03",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<1741069678.152051318@f459.i.mail.ru>",
+      "thread_id": "20250304_mail_ru_4dfe375a",
+      "sha256": "b78e5769e33076c1b776c74f309889158d4e9793da0f8847471f2dbe8b1d90fc",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:14:03.717273+07:00",
+  "raw_size": 44950,
+  "date_folder": "2025-03-04",
+  "eml_path": "eml/2025-03-04/1741069678.152051318_f459.i.mail.ru_071403_714903.eml"
+}

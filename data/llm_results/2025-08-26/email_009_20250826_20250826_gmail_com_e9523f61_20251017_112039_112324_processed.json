@@ -1,0 +1,454 @@
+{
+  "source_file": "email_009_20250826_20250826_gmail_com_e9523f61.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": null,
+        "website": "dna-technology.ru",
+        "city": "Москва",
+        "address": "Москва, Варшавское шоссе, дом 125Ж, корпус 5",
+        "emails": [],
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (995) 129-39-76",
+            "normalized": "+79951293976",
+            "original": "+7 (995) 129-39-76",
+            "extension": null
+          }
+        ],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      },
+      {
+        "organization_id": 2,
+        "name": "МЦ Лаборатория ДНК-Диагностики",
+        "inn": null,
+        "website": null,
+        "city": "Барнаул",
+        "address": null,
+        "emails": [],
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (903) 911-11-81",
+            "normalized": "+79039111181",
+            "original": "+7 903 911 1181",
+            "extension": null
+          }
+        ],
+        "gid": "a5b0cbb8-e654-58a9-9675-6656a1733943"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Воронова Светлана",
+        "organization_id": 1,
+        "position": "Региональный представитель в СФО",
+        "email": "s.voronova@dna-technology.ru",
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (995) 129-39-76",
+            "normalized": "+79951293976",
+            "original": "+7 (995) 129-39-76",
+            "extension": null
+          },
+          {
+            "type": null,
+            "number": "+7 (995) 129-39-76",
+            "normalized": "+79951293976",
+            "original": "+79951293976",
+            "extension": null
+          },
+          {
+            "type": "main",
+            "number": "+7 (995) 129-39-76",
+            "normalized": "+79951293976",
+            "original": "+7 (995) 129-39-76",
+            "extension": null
+          }
+        ],
+        "city": "Новосибирск",
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 0.95,
+        "value_score": 12,
+        "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "s.voronova@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760675004.347022,
+          "version": "1.0.0"
+        },
+        "email_valid": true,
+        "name_original": "Светлана Воронова"
+      },
+      {
+        "contact_id": 2,
+        "name": "Звягинцев Евгений",
+        "organization_id": 2,
+        "position": null,
+        "email": "dnklab.eugene@gmail.com",
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (903) 911-11-81",
+            "normalized": "+79039111181",
+            "original": "+7 903 911 1181",
+            "extension": null
+          },
+          {
+            "type": "main",
+            "number": "+7 (903) 911-11-81",
+            "normalized": "+79039111181",
+            "original": "+7 903 911 1181",
+            "extension": null
+          }
+        ],
+        "city": "Барнаул",
+        "address": null,
+        "role_in_message": "recipient",
+        "confidence": 0.95,
+        "value_score": 10,
+        "gid": "03ea620a-fc58-535b-9c43-b974494f5ce2",
+        "enrichment_skipped": true,
+        "enrichment_reason": "public_provider_gmail.com",
+        "email_valid": true,
+        "name_original": "Евгений Звягинцев"
+      }
+    ],
+    "business_context": "Светлана Воронова (ДНК-Технология) сообщает Евгению Звягинцеву (МЦ Лаборатория «ДНК-Диагностики») о необходимости обратить внимание на наборы реагентов для выделения ДНК. Евгений Звягинцев ранее предоставил протокол.",
+    "summary": {
+      "topic": "Уточнение по протоколу и наборам реагентов для выделения ДНК",
+      "product_interest": "Наборы реагентов для выделения ДНК",
+      "communication_stage": "уточнение деталей",
+      "request_type": "clarification"
+    },
+    "key_points": [
+      "Светлана Воронова (ДНК-Технология) обращает внимание на наборы реагентов для выделения ДНК",
+      "Евгений Звягинцев (МЦ Лаборатория «ДНК-Диагностики») предоставил протокол",
+      "Обсуждение результатов анализов"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "Re: МЦ Лаборатория ДНК-Диагностики",
+        "message_date": "2025-08-26T15:06:00+07:00",
+        "message_id_hint": "CAHZOAvDduWEMNasgiMJcX_6HXRNOqvA9Dk7iReKSNuuh25J-kQ@mail.gmail.com",
+        "role_in_message": "sender",
+        "interaction_type": "clarification",
+        "summary": "Светлана Воронова сообщает Евгению Звягинцеву о необходимости обратить внимание на наборы реагентов для выделения ДНК.",
+        "human_note": "Светлана Воронова (ДНК-Технология) сообщает Евгению Звягинцеву (МЦ Лаборатория «ДНК-Диагностики») о необходимости обратить внимание на наборы реагентов для выделения ДНК.",
+        "participants": {
+          "actor": "Воронова Светлана (ДНК-Технология, Региональный представитель в СФО)",
+          "audience": [
+            "Звягинцев Евгений (МЦ Лаборатория «ДНК-Диагностики»)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": null,\n      \"website\": \"dna-technology.ru\",\n      \"city\": \"Москва\",\n      \"address\": \"Москва, Варшавское шоссе, дом 125Ж, корпус 5\",\n      \"emails\": [],\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7 (995) 129-39-76\",\n          \"normalized\": null,\n          \"original\": \"+7 (995) 129-39-76\",\n          \"extension\": null\n        },\n        {\n          \"type\": null,\n          \"number\": \"+79951293976\",\n          \"normalized\": null,\n          \"original\": \"+79951293976\",\n          \"extension\": null\n        }\n      ]\n    },\n    {\n      \"organization_id\": 2,\n      \"name\": \"МЦ Лаборатория «ДНК-Диагностики»\",\n      \"inn\": null,\n      \"website\": null,\n      \"city\": \"Барнаул\",\n      \"address\": null,\n      \"emails\": [],\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7 903 911 1181\",\n          \"normalized\": null,\n          \"original\": \"+7 903 911 1181\",\n          \"extension\": null\n        }\n      ]\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Светлана Воронова\",\n      \"organization_id\": 1,\n      \"position\": \"Региональный представитель в СФО\",\n      \"email\": \"s.voronova@dna-technology.ru\",\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7 (995) 129-39-76\",\n          \"normalized\": null,\n          \"original\": \"+7 (995) 129-39-76\",\n          \"extension\": null\n        },\n        {\n          \"type\": null,\n          \"number\": \"+79951293976\",\n          \"normalized\": null,\n          \"original\": \"+79951293976\",\n          \"extension\": null\n        }\n      ],\n      \"city\": \"Новосибирск\",\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.95\n    },\n    {\n      \"contact_id\": 2,\n      \"name\": \"Евгений Звягинцев\",\n      \"organization_id\": 2,\n      \"position\": null,\n      \"email\": \"dnklab.eugene@gmail.com\",\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7 903 911 1181\",\n          \"normalized\": null,\n          \"original\": \"+7 903 911 1181\",\n          \"extension\": null\n        }\n      ],\n      \"city\": \"Барнаул\",\n      \"address\": null,\n      \"role_in_message\": \"recipient\",\n      \"confidence\": 0.95\n    }\n  ],\n  \"business_context\": \"Светлана Воронова (ДНК-Технология) сообщает Евгению Звягинцеву (МЦ Лаборатория «ДНК-Диагностики») о необходимости обратить внимание на наборы реагентов для выделения ДНК. Евгений Звягинцев ранее предоставил протокол.\",\n  \"summary\": {\n    \"topic\": \"Уточнение по протоколу и наборам реагентов для выделения ДНК\",\n    \"product_interest\": \"Наборы реагентов для выделения ДНК\",\n    \"communication_stage\": \"уточнение деталей\",\n    \"request_type\": \"clarification\"\n  },\n  \"key_points\": [\n    \"Светлана Воронова (ДНК-Технология) обращает внимание на наборы реагентов для выделения ДНК\",\n    \"Евгений Звягинцев (МЦ Лаборатория «ДНК-Диагностики») предоставил протокол\",\n    \"Обсуждение результатов анализов\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"Re: МЦ Лаборатория ДНК-Диагностики\",\n      \"message_date\": \"2025-08-26T15:06:00+07:00\",\n      \"message_id_hint\": \"<CAHZOAvDduWEMNasgiMJcX_6HXRNOqvA9Dk7iReKSNuuh25J-kQ@mail.gmail.com>\",\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Светлана Воронова сообщает Евгению Звягинцеву о необходимости обратить внимание на наборы реагентов для выделения ДНК.\",\n      \"human_note\": \"Светлана Воронова (ДНК-Технология) сообщает Евгению Звягинцеву (МЦ Лаборатория «ДНК-Диагностики») о необходимости обратить внимание на наборы реагентов для выделения ДНК.\",\n      \"participants\": {\n        \"actor\": \"Воронова Светлана (ДНК-Технология, Региональный представитель в СФО)\",\n        \"audience\": [\"Звягинцев Евгений (МЦ Лаборатория «ДНК-Диагностики»)\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    }\n  ]\n}\n```",
+    "contact_mentions": [],
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-17T11:23:24.350301",
+      "stats": {
+        "processed_emails": 44,
+        "total_organizations_processed": 89,
+        "total_contacts_processed": 136,
+        "organizations_deduplicated": 1,
+        "contacts_filtered": 18,
+        "contacts_enriched": 118,
+        "data_normalized": 206,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 2,
+        "phones_added_to_contacts": 2
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1,
+        "2": 2
+      },
+      "contact_mapping": {
+        "1": 1,
+        "2": 2
+      },
+      "filtering": {
+        "contacts_without_info_filtered": 0,
+        "mentions_saved": 0
+      },
+      "email_classification": {
+        "1": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        },
+        "2": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "DOMAIN",
+            "key_tuple": [
+              "ORG",
+              "DOMAIN",
+              "dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 2,
+            "gid": "a5b0cbb8-e654-58a9-9675-6656a1733943",
+            "match_rule": "NAME_CITY",
+            "key_tuple": [
+              "ORG",
+              "NAME_CITY",
+              "мц лаборатория днк-диагностики",
+              "барнаул"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "s.voronova@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 2,
+            "gid": "03ea620a-fc58-535b-9c43-b974494f5ce2",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "a5b0cbb8-e654-58a9-9675-6656a1733943",
+              "dnklab.eugene@gmail.com"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 2,
+            "organization_gid": "a5b0cbb8-e654-58a9-9675-6656a1733943"
+          }
+        ],
+        "conflicts": []
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": [
+          {
+            "phone": "+79951293976",
+            "status": "unresolved",
+            "owners": [
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+            ],
+            "reason": "ambiguous"
+          }
+        ]
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "needs_review",
+            "inn": null,
+            "confidence": 0.68,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.68,
+            "candidates": [
+              {
+                "inn": "7723537840",
+                "ogrn": "1057746762105",
+                "name": "ООО \"ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 5, помещ 12",
+                "opf": "ООО",
+                "score": 0.68,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723537840"
+              },
+              {
+                "inn": "7723396678",
+                "ogrn": "1157746566031",
+                "name": "ООО \"НПФ ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "нпф днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 7",
+                "opf": "ООО",
+                "score": 0.5541666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723396678"
+              }
+            ],
+            "checked_at": "2025-10-17T11:23:22.561026",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "a5b0cbb8-e654-58a9-9675-6656a1733943": {
+            "decision": "needs_review",
+            "inn": null,
+            "confidence": 0.65,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.65,
+            "candidates": [
+              {
+                "inn": "2222058799",
+                "ogrn": "1062222039351",
+                "name": "ООО МЦ \"ЛАБОРАТОРИЯ ДНК-ДИАГНОСТИКИ\"",
+                "name_norm": "мц лаборатория днк диагностики",
+                "city": "Барнаул",
+                "address": "г Барнаул, ул Антона Петрова, д 247Б",
+                "opf": "ООО",
+                "score": 0.65,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=2222058799"
+              }
+            ],
+            "checked_at": "2025-10-17T11:23:22.774252",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+              "contact_name": "Светлана Воронова",
+              "phones_added": [
+                {
+                  "phone": "+79951293976",
+                  "type": "main",
+                  "confidence": 0.85,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.85
+              ],
+              "decision": {
+                "confidence": 0.85,
+                "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:23:22.776333",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (0.85 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "03ea620a-fc58-535b-9c43-b974494f5ce2",
+              "contact_name": "Евгений Звягинцев",
+              "phones_added": [
+                {
+                  "phone": "+79039111181",
+                  "type": "main",
+                  "confidence": 0.5,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.5
+              ],
+              "decision": {
+                "confidence": 0.5,
+                "contact_gid": "03ea620a-fc58-535b-9c43-b974494f5ce2",
+                "org_gid": "a5b0cbb8-e654-58a9-9675-6656a1733943",
+                "timestamp": "2025-10-17T04:23:22.776427",
+                "decision": "needs_review",
+                "reason": "Средний уровень уверенности (0.50), требуется проверка"
+              },
+              "skip_reasons": []
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 2,
+            "contacts_enriched": 2,
+            "phones_added_total": 2,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.675,
+            "phones_skipped_by_reason": {
+              "low_confidence": 0,
+              "no_org_phones": 0,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-17T04:23:22.776474",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 7,
+        "organizations_processed": 2,
+        "contacts_processed": 2,
+        "ui_format_applied": 7,
+        "phones_sanitized": 7
+      }
+    },
+    "provider_used": "OpenRouter",
+    "model": "google/gemini-2.0-flash-001",
+    "processing_time": 2.5801289081573486,
+    "text_length": 1554,
+    "chunks_processed": 1,
+    "total_contacts_found": 2,
+    "unique_contacts_found": 2,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-08-26/email_009_20250826_20250826_gmail_com_e9523f61.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 14.432
+  }
+}

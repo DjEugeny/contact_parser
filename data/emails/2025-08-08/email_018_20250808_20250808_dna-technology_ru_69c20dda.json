@@ -1,0 +1,54 @@
+{
+  "thread_id": "20250808_dna-technology_ru_69c20dda",
+  "message_id": "<13fdea00-6581-4f40-abfc-d6f3e04aeab5@dna-technology.ru>",
+  "email_num_in_day": 18,
+  "total_emails_in_day": 27,
+  "from": "m.gogoleva@dna-technology.ru",
+  "to": "cgie@fbuz19.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "cgie@fbuz19.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Fwd: Запрос коммерческого предложения ФБУЗ ЦГиЭ в РХ",
+  "date": "Fri, 8 Aug 2025 13:56:54 +0300",
+  "parsed_date": "2025-08-08T17:56:54+07:00",
+  "body_raw": "Добрый день!\r\n\nКП во вложении.\r\n\nС уважением,\r\n\nГоголева Мария Михайловна\r\nМенеджер по продаже оборудования | ООО «ДНК-Технология»\r\n\nРабочий: +7 (495) 640-17-71 (доб. 2030) <tel:+74956401771,2030>\r\nEmail: m.gogoleva@dna-technology.ru\r\n\n------------------------------------------------------------------------\r\n\nСайт: dna-technology.ru <https://dna-technology.ru>\r\nTelegram: @dna_tech_rus <https://t.me/dna_tech_rus>\r\nYouTube <https://www.youtube.com/channel/UCqUrpqfZ65z26CUR-4f96iA> | \r\nRutube <https://rutube.ru/channel/63912239/>\r\n\n------------------------------------------------------------------------\r\n\nМосква, Варшавское шоссе, дом 125Ж, корпус 5\r\n\nДНК-Технология\r\n\nПрофиль компании: разработка и производство лабораторного оборудования, \r\nПО и реагентов для молекулярно-генетических исследований (ПЦР, NGS).\r\n\n08.08.2025 10:07, Секретариат ДНК-Технология пишет:\r\n>\r\n>\r\n>\r\n>\r\n> -------- Перенаправленное сообщение --------\r\n> Тема: Запрос коммерческого предложения ФБУЗ ЦГиЭ в РХ\r\n> Дата: Fri, 08 Aug 2025 09:41:31 +0700\r\n> От: cgie@fbuz19.ru\r\n> Кому: mail@dna-technology.ru\r\n>\r\n>\r\n>",
+  "body_clean": "Добрый день!\nКП во вложении.\nС уважением,\nГоголева Мария Михайловна\nМенеджер по продаже оборудования | ООО «ДНК-Технология»\nРабочий: +7 (495) 640-17-71 (доб. 2030) tel:+74956401771,2030\nEmail: m.gogoleva@dna-technology.ru\nСайт: dna-technology.ru https://dna-technology.ru\nTelegram: @dna_tech_rus https://t.me/dna_tech_rus\nYouTube https://www.youtube.com/channel/UCqUrpqfZ65z26CUR-4f96iA |\nRutube https://rutube.ru/channel/63912239/\nМосква, Варшавское шоссе, дом 125Ж, корпус 5\nДНК-Технология\nПрофиль компании: разработка и производство лабораторного оборудования,\nПО и реагентов для молекулярно-генетических исследований (ПЦР, NGS).\n08.08.2025 10:07, Секретариат ДНК-Технология пишет:\n> -------- Перенаправленное сообщение --------\n> Тема: Запрос коммерческого предложения ФБУЗ ЦГиЭ в РХ\n> Дата: Fri, 08 Aug 2025 09:41:31 +0700\n> От: cgie@fbuz19.ru\n> Кому: mail@dna-technology.ru",
+  "char_count": 879,
+  "attachments": [
+    {
+      "id": 398,
+      "original_filename": "Ком.пред.08.08.2025 для Абакан ЦГиЭ (ДТпрайм 5M1) офиц.pdf",
+      "saved_filename": "20250808_752305aa_004914_857719_attach_Ком.пред.08.08.2025 для Абакан ЦГиЭ _ДТпрайм 5M1_ офиц.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-08-08/20250808_752305aa_004914_857719_attach_Ком.пред.08.08.2025 для Абакан ЦГиЭ _ДТпрайм 5M1_ офиц.pdf",
+      "relative_path": "attachments/2025-08-08/20250808_752305aa_004914_857719_attach_Ком.пред.08.08.2025 для Абакан ЦГиЭ _ДТпрайм 5M1_ офиц.pdf",
+      "file_size": 591609,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:49:14",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<13fdea00-6581-4f40-abfc-d6f3e04aeab5@dna-technology.ru>",
+      "thread_id": "20250808_dna-technology_ru_69c20dda",
+      "sha256": "216d09add78712a58bc474f00e6d203d49cf2853a43c197cdfb45892ec8c42c7",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:49:14.853693+07:00",
+  "raw_size": 819497,
+  "date_folder": "2025-08-08",
+  "eml_path": "eml/2025-08-08/13fdea00-6581-4f40-abfc-d6f3e04aeab5_dna-technology.ru_004914_849343.eml"
+}

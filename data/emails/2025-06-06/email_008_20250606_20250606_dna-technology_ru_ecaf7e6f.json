@@ -1,0 +1,72 @@
+{
+  "thread_id": "20250606_dna-technology_ru_ecaf7e6f",
+  "message_id": "<365d8a71-dedd-4cf5-8dc1-3a90b1e56838@dna-technology.ru>",
+  "email_num_in_day": 8,
+  "total_emails_in_day": 20,
+  "from": "bilalov@dna-technology.ru",
+  "to": "mdc@ntnsk.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "mdc@ntnsk.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: запрос кп",
+  "date": "Fri, 6 Jun 2025 12:40:18 +0300",
+  "parsed_date": "2025-06-06T16:40:18+07:00",
+  "body_raw": "Добрый день, Светлана!\r\n\nВо вложении КП + ТХ\r\n\n06.06.2025 11:35, Федорова Светлана пишет:\r\n>\r\n> //\r\n>\r\n> //\r\n>\r\n> //\r\n>\r\n> //\r\n>\r\n> //\r\n>\r\n> //\r\n>\r\n> //\r\n>\r\n> //\r\n>\r\n> //\r\n>\r\n> //\r\n>\r\n> //\r\n>\r\n> /С уважением,Федорова Светлана,/\r\n>\r\n> /8-950-578-8505/\r\n>\r\n> /E-mail: mdc@ntnsk.ru <mailto:mdc@ntnsk.ru>/\r\n>\r\n\n-- \r\nС уважением, Билалов Альберт Аглямович\r\nзам. начальника отдела продаж ООО \"ДНК-Технология\"\r\nТел\\факс: (495)640-17-71, доб.2031\r\nmailto:bilalov@dna-technology.ru",
+  "body_clean": "Добрый день, Светлана!\nВо вложении КП + ТХ\n06.06.2025 11:35, Федорова Светлана пишет:\n> /С уважением,Федорова Светлана,/\n> /8-950-578-8505/\n> /E-mail: mdc@ntnsk.ru mailto:mdc@ntnsk.ru/\nС уважением, Билалов Альберт Аглямович\nзам. начальника отдела продаж ООО \"ДНК-Технология\"\nТел\\факс: (495)640-17-71, доб.2031\nmailto:bilalov@dna-technology.ru",
+  "char_count": 342,
+  "attachments": [
+    {
+      "id": 230,
+      "original_filename": "Ком.пред.06.06.2025 для рп Кольцово Новые Технологии-НК для Новокузнецк ГАУЗ НГКБ № 1 (ДТпрайм 5М1, ноутбук, ибп).pdf",
+      "saved_filename": "20250606_68cbf79e_003336_745742_attach_Ком.пред.06.06.2025 для рп Кольцово Новые Технологии-НК для Новокузнецк ГАУЗ НГКБ _ 1 _ДТпрайм 5М1_ ноутбук_ ибп_.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-06-06/20250606_68cbf79e_003336_745742_attach_Ком.пред.06.06.2025 для рп Кольцово Новые Технологии-НК для Новокузнецк ГАУЗ НГКБ _ 1 _ДТпрайм 5М1_ ноутбук_ ибп_.pdf",
+      "relative_path": "attachments/2025-06-06/20250606_68cbf79e_003336_745742_attach_Ком.пред.06.06.2025 для рп Кольцово Новые Технологии-НК для Новокузнецк ГАУЗ НГКБ _ 1 _ДТпрайм 5М1_ ноутбук_ ибп_.pdf",
+      "file_size": 151864,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:33:36",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<365d8a71-dedd-4cf5-8dc1-3a90b1e56838@dna-technology.ru>",
+      "thread_id": "20250606_dna-technology_ru_ecaf7e6f",
+      "sha256": "12ba4c1b4b527770a55cb7ac3d6f4228d759a4eef6238b9d4fcfc71cbd6fe4f5",
+      "file_exists": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:ИБП*",
+      "original_filename": "ИБП  Ippon Pacific.doc",
+      "is_inline": false
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:ТЗ*",
+      "original_filename": "ТЗ ноутбук.doc",
+      "is_inline": false
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:*ТХ*",
+      "original_filename": "ТХ ДТпрайм 5М1 после ВИРД (2025).docx",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 4,
+    "saved": 1,
+    "excluded": 3,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:33:36.743829+07:00",
+  "raw_size": 441702,
+  "date_folder": "2025-06-06",
+  "eml_path": "eml/2025-06-06/365d8a71-dedd-4cf5-8dc1-3a90b1e56838_dna-technology.ru_003336_740230.eml"
+}

@@ -1,0 +1,52 @@
+{
+  "thread_id": "20251007_dna-technology_ru_257c8f97",
+  "message_id": "<3ff62739-3cce-4dbf-83a1-647c2d1fdda7@dna-technology.ru>",
+  "from": "bilalov@dna-technology.ru",
+  "to": "vb@biolg.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "vb@biolg.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Fwd: Запрос КП на ДТ-прайм",
+  "date": "Tue, 7 Oct 2025 13:01:35 +0300",
+  "parsed_date": "2025-10-07T17:01:35+07:00",
+  "body": "Добрый день, Вячеслав!\nКП во вложении.\n> -------- Перенаправленное сообщение --------\n> Тема: \tЗапрос КП на ДТ-прайм\n> Дата: \tTue, 07 Oct 2025 10:33:57 +0300\n> От: \tВячеслав Боргояков <vb@biolg.ru>\n> Отвечать: \tВячеслав Боргояков <vb@biolg.ru>\n> Кому: \ts.voronova <s.voronova@dna-technology.ru>\n>     Добрый день, Светлана. Можете выставить КП с учетом скидки для\n> партнеров на амплификатор ДТ-прайм M1, четырехканальный и\n> забронировать за нами проект. Конечный пользователь — ФИЦ ФТМ,\n> институт вирусологии, директор — Шестопалов Александр Михайлович.\n>   В настоящее время им выставлено КП на Locus Intero 6 от Хеликона,\n> хотим предложить как альтернативу.\n> Боргояков Вячеслав, ООО «Биологика»\n> г. Новосибирск, ул. Демакова, 23, оф. 4\n> Сайт: biolg.ru\n> +7-913-989-49-60\n> vb@biolg.ru\nДокумент без названия\n*С уважением, Билалов Альберт Аглямович,*\n*зам. начальника отдела продаж *\n**ООО \"ДНК-Технология\" **\n***Тел:**+7 (495) 640-17-71, доб.2031***\n*E-mail:**bilalov@dna-technology.ru *\n*Web:**www.dna-technology.ru <https://dna-technology.ru>*\n<https://dna-technology.ru>**\nДобрый день, Вячеслав! КП во вложении. -------- Перенаправленное сообщение -------- Тема: Запрос КП на ДТ-прайм Дата: Tue, 07 Oct 2025 10:33:57 +0300 От: Вячеслав Боргояков <vb@biolg.ru> Отвечать: Вячеслав Боргояков <vb@biolg.ru> Кому: s.voronova <s.voronova@dna-technology.ru> Добрый день, Светлана. Можете выставить КП с учетом скидки для партнеров на амплификатор ДТ-прайм M1, четырехканальный и забронировать за нами проект. Конечный пользователь — ФИЦ ФТМ, институт вирусологии, директор — Шестопалов Александр Михайлович. В настоящее время им выставлено КП на Locus Intero 6 от Хеликона, хотим предложить как альтернативу. Боргояков Вячеслав, ООО «Биологика» г. Новосибирск, ул. Демакова, 23, оф. 4 Сайт: biolg.ru +7-913-989-49-60 vb@biolg.ru",
+  "char_count": 1832,
+  "attachments": [
+    {
+      "original_filename": "logo.png",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: part1.h7itKm6C.r2v31cBw@dna-technology.ru",
+      "is_inline": true,
+      "content_id": "part1.h7itKm6C.r2v31cBw@dna-technology.ru"
+    },
+    {
+      "original_filename": "Ком.пред.07.10.2025 для Новосибирск Биологика (для ФИЦ ФТМ, г. Новосибирск) ДТпрайм 4M1.pdf",
+      "saved_filename": "20251007_dna-technology_ru_257c8f97_222737_attach_Ком.пред.07.10.2025 для Новосибирск Биологика _для ФИЦ ФТМ_ г. Новосибирск_ ДТпрайм 4M1.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-10-07/20251007_dna-technology_ru_257c8f97_222737_attach_Ком.пред.07.10.2025 для Новосибирск Биологика _для ФИЦ ФТМ_ г. Новосибирск_ ДТпрайм 4M1.pdf",
+      "relative_path": "attachments/2025-10-07/20251007_dna-technology_ru_257c8f97_222737_attach_Ком.пред.07.10.2025 для Новосибирск Биологика _для ФИЦ ФТМ_ г. Новосибирск_ ДТпрайм 4M1.pdf",
+      "file_size": 149560,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-08T22:27:37.343992+07:00",
+      "status": "saved",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 1,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T22:27:37.344009+07:00",
+  "raw_size": 329164,
+  "date_folder": "2025-10-07"
+}

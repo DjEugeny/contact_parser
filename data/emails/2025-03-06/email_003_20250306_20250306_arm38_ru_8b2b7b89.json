@@ -1,0 +1,35 @@
+{
+  "thread_id": "20250306_arm38_ru_8b2b7b89",
+  "message_id": "<07a201db8e59$cfe22720$6fa67560$@arm38.ru>",
+  "email_num_in_day": 3,
+  "total_emails_in_day": 25,
+  "from": "kaa@arm38.ru",
+  "to": "torgi@dna-technology.ru, s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "torgi@dna-technology.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "запрос КП ОГБУЗ ИГКБ № 1, Иркутск (ИНН 3811031492)",
+  "date": "Thu, 6 Mar 2025 13:37:11 +0800",
+  "parsed_date": "2025-03-06T12:37:11+07:00",
+  "body_raw": "Добрый день!\r\n\nПрошу предоставить КП, заказчик ОГБУЗ ИГКБ № 1, Иркутск (ИНН 3811031492)\r\n\nАмплификатор детектирующий ДТпрайм в модификации 5М1 – 1 шт.\r\n\nПрограммируемый термостат ДТтерм – 2 шт.\r\n\nС Уважением, \r\n\nГаджимурадова Наргиз\r\n\nООО \"АрхиМЕД\", г.Иркутск\r\n\nраб.телефон: (3952) 79-88-47",
+  "body_clean": "Добрый день!\nПрошу предоставить КП, заказчик ОГБУЗ ИГКБ № 1, Иркутск (ИНН 3811031492)\nАмплификатор детектирующий ДТпрайм в модификации 5М1 – 1 шт.\nПрограммируемый термостат ДТтерм – 2 шт.\nС Уважением,\nГаджимурадова Наргиз\nООО \"АрхиМЕД\", г.Иркутск\nраб.телефон: (3952) 79-88-47",
+  "char_count": 275,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:15:01.812662+07:00",
+  "raw_size": 11081,
+  "date_folder": "2025-03-06",
+  "eml_path": "eml/2025-03-06/07a201db8e59_cfe22720_6fa67560_arm38.ru_071501_809962.eml"
+}

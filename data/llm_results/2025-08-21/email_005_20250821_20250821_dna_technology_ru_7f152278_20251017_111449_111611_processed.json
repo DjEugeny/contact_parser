@@ -1,0 +1,667 @@
+{
+  "source_file": "email_005_20250821_20250821_dna-technology_ru_7f152278.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": null,
+        "website": "www.dna-technology.ru",
+        "city": null,
+        "address": null,
+        "emails": [
+          "mail@dna-technology.ru"
+        ],
+        "phones": [
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 495 640-17-71",
+            "extension": "2000"
+          }
+        ],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      },
+      {
+        "organization_id": 2,
+        "name": "Партнер-Агро Нск",
+        "inn": null,
+        "website": "www.partnerlab.ru",
+        "city": null,
+        "address": null,
+        "emails": [],
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (903) 904-40-15",
+            "normalized": "+79039044015",
+            "original": "+7-903-904-40-15",
+            "extension": null
+          }
+        ],
+        "gid": "d94cab19-141a-527a-92d1-7977e8d7e26b"
+      },
+      {
+        "organization_id": 3,
+        "name": "Управление ветеринарии Карасукского района Новосибирской области ГБУ НО",
+        "inn": "5422100154",
+        "website": null,
+        "city": null,
+        "address": null,
+        "emails": [],
+        "phones": [],
+        "gid": "d8c35e50-d0d6-5e54-aaa0-6160240c0090"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Анна Лунд",
+        "organization_id": 2,
+        "position": "Заместитель управляющего",
+        "email": "alund@partnerlab.ru",
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (903) 904-40-15",
+            "normalized": "+79039044015",
+            "original": "+7-903-904-40-15",
+            "extension": null
+          },
+          {
+            "type": "main",
+            "number": "+7 (903) 904-40-15",
+            "normalized": "+79039044015",
+            "original": "+7-903-904-40-15",
+            "extension": null
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "requested_quote",
+        "confidence": 0.9,
+        "value_score": 11,
+        "gid": "563ecae3-8863-5f3a-ad28-c13b103b608e",
+        "website": "http://www.partnerlab.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_partnerlab.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "alund@partnerlab.ru",
+          "extracted_domain": "partnerlab.ru",
+          "website_found": "http://www.partnerlab.ru",
+          "enriched_at": 1760674569.712841,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 3,
+        "name": "Присяжнюк Маргарита Александровна",
+        "organization_id": 1,
+        "position": "Менеджер по продаже оборудования",
+        "email": "prisyazhnyuk@dna-technology.ru",
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71 доб.2007",
+            "extension": "2007"
+          },
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 495 640-17-71",
+            "extension": "2000"
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 0.9,
+        "value_score": 11,
+        "gid": "e5600cd6-8e38-5749-94fd-67787dc762e5",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "prisyazhnyuk@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674570.681721,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 2,
+        "name": "Колдашова Елена",
+        "organization_id": 1,
+        "position": "Секретарь офиса",
+        "email": "mail@dna-technology.ru",
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 495 640-17-71 доб. 2000",
+            "extension": "2000"
+          },
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 495 640-17-71",
+            "extension": "2000"
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 0.9,
+        "value_score": 9,
+        "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+        "email_source": "organization_email_fallback",
+        "enrichment_skipped": false,
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "smart_enrichment": {
+          "source_email": "mail@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674571.4655502,
+          "version": "1.0.0"
+        },
+        "email_valid": true,
+        "name_original": "Елена Колдашова"
+      }
+    ],
+    "business_context": "Анна Лунд (Партнер-Агро Нск) запросила у ДНК-Технология КП на Дтлайт O-DTLITE-5S1, DTlite 4S1, Амплификатор детектирующий ДТпрайм 4М1, ДТпрайм 5М1, ДТпрайм 5М6 и Термостат твердотельный с таймером ТТ-2 \"Термит\"-2 шт для Управления ветеринарии Карасукского района Новосибирской области. Елена Колдашова (ДНК-Технология) запросила реквизиты компании Партнер-Агро Нск и конечного пользователя. Маргарита Присяжнюк (ДНК-Технология) переслала запрос.",
+    "summary": {
+      "topic": "Запрос КП на оборудование для Управления ветеринарии Карасукского района",
+      "product_interest": "Дтлайт O-DTLITE-5S1, DTlite 4S1, Амплификатор детектирующий ДТпрайм 4М1, ДТпрайм 5М1, ДТпрайм 5М6, Термостат твердотельный с таймером ТТ-2 \"Термит\"-2 шт",
+      "communication_stage": "первичный запрос",
+      "request_type": "запрос КП"
+    },
+    "key_points": [
+      "Анна Лунд (Партнер-Агро Нск) запросила КП на оборудование",
+      "Конечный клиент: Управление ветеринарии Карасукского района",
+      "Елена Колдашова (ДНК-Технология) запросила реквизиты"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 1,
+        "organization_id": 2,
+        "message_subject": "Re: Запрос",
+        "message_date": "2025-08-21T12:52:22+03:00",
+        "message_id_hint": null,
+        "role_in_message": "requested_quote",
+        "interaction_type": "requested_quote",
+        "summary": "Анна Лунд (Партнер-Агро Нск) запросила КП на оборудование для Управления ветеринарии Карасукского района.",
+        "human_note": "Анна Лунд (Партнер-Агро Нск) запросила КП на оборудование для Управления ветеринарии Карасукского района у ДНК-Технология.",
+        "participants": {
+          "actor": "Анна Лунд (Партнер-Агро Нск, заместитель управляющего)",
+          "audience": [
+            "ДНК-Технология"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 2,
+        "contact_id": 2,
+        "organization_id": 1,
+        "message_subject": null,
+        "message_date": "2025-08-21T13:20:07+03:00",
+        "message_id_hint": null,
+        "role_in_message": "sender",
+        "interaction_type": "clarification",
+        "summary": "Елена Колдашова (ДНК-Технология) запросила реквизиты компании Партнер-Агро Нск и конечного пользователя.",
+        "human_note": "Елена Колдашова (ДНК-Технология) запросила реквизиты компании Партнер-Агро Нск и конечного пользователя у Анны Лунд.",
+        "participants": {
+          "actor": "Елена Колдашова (ДНК-Технология, Секретарь офиса)",
+          "audience": [
+            "Анна Лунд (Партнер-Агро Нск)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 3,
+        "contact_id": 3,
+        "organization_id": 1,
+        "message_subject": "Re: Fwd: Запрос",
+        "message_date": "2025-08-21T17:10:34+07:00",
+        "message_id_hint": "c99c8062-719b-41c4-bfdf-eaa290597e93@dna-technology.ru",
+        "role_in_message": "sender",
+        "interaction_type": "other",
+        "summary": "Маргарита Присяжнюк (ДНК-Технология) переслала запрос от Анны Лунд (Партнер-Агро Нск).",
+        "human_note": "Маргарита Присяжнюк (ДНК-Технология) переслала запрос от Анны Лунд (Партнер-Агро Нск) Светлане.",
+        "participants": {
+          "actor": "Присяжнюк Маргарита Александровна (ДНК-Технология, менеджер по продаже оборудования)",
+          "audience": [
+            "Светлана (ДНК-Технология)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": null,\n      \"website\": \"www.dna-technology.ru\",\n      \"city\": null,\n      \"address\": null,\n      \"emails\": [\n        \"mail@dna-technology.ru\"\n      ],\n      \"phones\": [\n        {\n          \"type\": \"office\",\n          \"number\": \"+7 495 640-17-71\",\n          \"normalized\": null,\n          \"original\": \"+7 495 640-17-71\",\n          \"extension\": \"2000\"\n        }\n      ]\n    },\n    {\n      \"organization_id\": 2,\n      \"name\": \"Партнер-Агро Нск\",\n      \"inn\": null,\n      \"website\": \"www.partnerlab.ru\",\n      \"city\": null,\n      \"address\": null,\n      \"emails\": [],\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7-903-904-40-15\",\n          \"normalized\": null,\n          \"original\": \"+7-903-904-40-15\",\n          \"extension\": null\n        }\n      ]\n    },\n    {\n      \"organization_id\": 3,\n      \"name\": \"Управление ветеринарии Карасукского района Новосибирской области ГБУ НО\",\n      \"inn\": \"5422100154\",\n      \"website\": null,\n      \"city\": null,\n      \"address\": null,\n      \"emails\": [],\n      \"phones\": []\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Анна Лунд\",\n      \"organization_id\": 2,\n      \"position\": \"заместитель управляющего\",\n      \"email\": \"alund@partnerlab.ru\",\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7-903-904-40-15\",\n          \"normalized\": null,\n          \"original\": \"+7-903-904-40-15\",\n          \"extension\": null\n        }\n      ],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"requested_quote\",\n      \"confidence\": 0.9\n    },\n    {\n      \"contact_id\": 2,\n      \"name\": \"Елена Колдашова\",\n      \"organization_id\": 1,\n      \"position\": \"Секретарь офиса\",\n      \"email\": null,\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7 495 640-17-71\",\n          \"normalized\": null,\n          \"original\": \"+7 495 640-17-71 доб. 2000\",\n          \"extension\": \"2000\"\n        }\n      ],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.9\n    },\n    {\n      \"contact_id\": 3,\n      \"name\": \"Присяжнюк Маргарита Александровна\",\n      \"organization_id\": 1,\n      \"position\": \"менеджер по продаже оборудования\",\n      \"email\": \"prisyazhnyuk@dna-technology.ru\",\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": null,\n          \"original\": \"+7 (495) 640-17-71 доб.2007\",\n          \"extension\": \"2007\"\n        }\n      ],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"business_context\": \"Анна Лунд (Партнер-Агро Нск) запросила у ДНК-Технология КП на Дтлайт O-DTLITE-5S1, DTlite 4S1, Амплификатор детектирующий ДТпрайм 4М1, ДТпрайм 5М1, ДТпрайм 5М6 и Термостат твердотельный с таймером ТТ-2 \\\"Термит\\\"-2 шт для Управления ветеринарии Карасукского района Новосибирской области. Елена Колдашова (ДНК-Технология) запросила реквизиты компании Партнер-Агро Нск и конечного пользователя. Маргарита Присяжнюк (ДНК-Технология) переслала запрос.\",\n  \"summary\": {\n    \"topic\": \"Запрос КП на оборудование для Управления ветеринарии Карасукского района\",\n    \"product_interest\": \"Дтлайт O-DTLITE-5S1, DTlite 4S1, Амплификатор детектирующий ДТпрайм 4М1, ДТпрайм 5М1, ДТпрайм 5М6, Термостат твердотельный с таймером ТТ-2 \\\"Термит\\\"-2 шт\",\n    \"communication_stage\": \"первичный запрос\",\n    \"request_type\": \"запрос КП\"\n  },\n  \"key_points\": [\n    \"Анна Лунд (Партнер-Агро Нск) запросила КП на оборудование\",\n    \"Конечный клиент: Управление ветеринарии Карасукского района\",\n    \"Елена Колдашова (ДНК-Технология) запросила реквизиты\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 1,\n      \"organization_id\": 2,\n      \"message_subject\": \"Re: Запрос\",\n      \"message_date\": \"2025-08-21T12:52:22+03:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"requested_quote\",\n      \"interaction_type\": \"requested_quote\",\n      \"summary\": \"Анна Лунд (Партнер-Агро Нск) запросила КП на оборудование для Управления ветеринарии Карасукского района.\",\n      \"human_note\": \"Анна Лунд (Партнер-Агро Нск) запросила КП на оборудование для Управления ветеринарии Карасукского района у ДНК-Технология.\",\n      \"participants\": {\n        \"actor\": \"Анна Лунд (Партнер-Агро Нск, заместитель управляющего)\",\n        \"audience\": [\"ДНК-Технология\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    },\n    {\n      \"interaction_local_id\": 2,\n      \"contact_id\": 2,\n      \"organization_id\": 1,\n      \"message_subject\": null,\n      \"message_date\": \"2025-08-21T13:20:07+03:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Елена Колдашова (ДНК-Технология) запросила реквизиты компании Партнер-Агро Нск и конечного пользователя.\",\n      \"human_note\": \"Елена Колдашова (ДНК-Технология) запросила реквизиты компании Партнер-Агро Нск и конечного пользователя у Анны Лунд.\",\n      \"participants\": {\n        \"actor\": \"Елена Колдашова (ДНК-Технология, Секретарь офиса)\",\n        \"audience\": [\"Анна Лунд (Партнер-Агро Нск)\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    },\n    {\n      \"interaction_local_id\": 3,\n      \"contact_id\": 3,\n      \"organization_id\": 1,\n      \"message_subject\": \"Re: Fwd: Запрос\",\n      \"message_date\": \"2025-08-21T17:10:34+07:00\",\n      \"message_id_hint\": \"<c99c8062-719b-41c4-bfdf-eaa290597e93@dna-technology.ru>\",\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"other\",\n      \"summary\": \"Маргарита Присяжнюк (ДНК-Технология) переслала запрос от Анны Лунд (Партнер-Агро Нск).\",\n      \"human_note\": \"Маргарита Присяжнюк (ДНК-Технология) переслала запрос от Анны Лунд (Партнер-Агро Нск) Светлане.\",\n      \"participants\": {\n        \"actor\": \"Присяжнюк Маргарита Александровна (ДНК-Технология, менеджер по продаже оборудования)\",\n        \"audience\": [\"Светлана (ДНК-Технология)\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    }\n  ]\n}\n```",
+    "contact_mentions": [],
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-17T11:16:11.467629",
+      "stats": {
+        "processed_emails": 23,
+        "total_organizations_processed": 56,
+        "total_contacts_processed": 78,
+        "organizations_deduplicated": 0,
+        "contacts_filtered": 12,
+        "contacts_enriched": 66,
+        "data_normalized": 122,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 3,
+        "phones_added_to_contacts": 3
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1,
+        "2": 2,
+        "3": 3
+      },
+      "contact_mapping": {
+        "1": 1,
+        "3": 3,
+        "2": 2
+      },
+      "filtering": {
+        "contacts_without_info_filtered": 0,
+        "mentions_saved": 0
+      },
+      "provenance": {
+        "contacts": {
+          "1": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "3": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "2": {
+            "backfill_skipped": "no_personal_location_signal"
+          }
+        }
+      },
+      "email_classification": {
+        "1": {
+          "kept": [
+            "mail@dna-technology.ru"
+          ],
+          "removed": [],
+          "removed_types": {}
+        },
+        "2": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        },
+        "3": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "DOMAIN",
+            "key_tuple": [
+              "ORG",
+              "DOMAIN",
+              "dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 2,
+            "gid": "d94cab19-141a-527a-92d1-7977e8d7e26b",
+            "match_rule": "DOMAIN",
+            "key_tuple": [
+              "ORG",
+              "DOMAIN",
+              "partnerlab.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 3,
+            "gid": "d8c35e50-d0d6-5e54-aaa0-6160240c0090",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "5422100154"
+            ],
+            "alias_added": true,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "gid": "563ecae3-8863-5f3a-ad28-c13b103b608e",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "d94cab19-141a-527a-92d1-7977e8d7e26b",
+              "alund@partnerlab.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 2,
+            "organization_gid": "d94cab19-141a-527a-92d1-7977e8d7e26b"
+          },
+          {
+            "entity": "contact",
+            "local_id": 3,
+            "gid": "e5600cd6-8e38-5749-94fd-67787dc762e5",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "prisyazhnyuk@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 2,
+            "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+            "match_rule": "PHONE",
+            "key_tuple": [
+              "CONTACT",
+              "PHONE",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "+74956401771"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          }
+        ],
+        "conflicts": [
+          {
+            "entity": "contact",
+            "key": [
+              "CONTACT",
+              "PHONE",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "+74956401771"
+            ],
+            "existing_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+            "target_gid": "e5600cd6-8e38-5749-94fd-67787dc762e5"
+          }
+        ]
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.4,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.4,
+            "candidates": [
+              {
+                "inn": "7723537840",
+                "ogrn": "1057746762105",
+                "name": "ООО \"ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 5, помещ 12",
+                "opf": "ООО",
+                "score": 0.4,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723537840"
+              },
+              {
+                "inn": "7713668153",
+                "ogrn": "5087746543870",
+                "name": "ООО \"ДНК-ТЕХНОЛОГИЯ ТС\"",
+                "name_norm": "днк технология тс",
+                "city": "Москва",
+                "address": "г Москва, Научный проезд, д 20 стр 4",
+                "opf": "ООО",
+                "score": 0.26666666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7713668153"
+              },
+              {
+                "inn": "5037004152",
+                "ogrn": "1065043016521",
+                "name": "ООО \"НПО ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "нпо днк технология",
+                "city": "Протвино",
+                "address": "Московская обл, г Серпухов, г Протвино, ул Железнодорожная, д 20",
+                "opf": "ООО",
+                "score": 0.26666666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=5037004152"
+              },
+              {
+                "inn": "7723396678",
+                "ogrn": "1157746566031",
+                "name": "ООО \"НПФ ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "нпф днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 7",
+                "opf": "ООО",
+                "score": 0.26666666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723396678"
+              }
+            ],
+            "checked_at": "2025-10-17T11:15:48.042152",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "d94cab19-141a-527a-92d1-7977e8d7e26b": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.4,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.4,
+            "candidates": [
+              {
+                "inn": "5433963681",
+                "ogrn": "1175476091878",
+                "name": "ООО \"ПАРТНЕР-АГРО НСК\"",
+                "name_norm": "партнер агро нск",
+                "city": "630501",
+                "address": "630501, НОВОСИБИРСКАЯ ОБЛАСТЬ, Р-Н НОВОСИБИРСКИЙ, РП. КРАСНООБСК, ЗД. ИНСТИТУТ ВЕТЕРИНАРИИ, ЭТАЖ 2, ОФИС 219",
+                "opf": "ООО",
+                "score": 0.4,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=5433963681"
+              }
+            ],
+            "checked_at": "2025-10-17T11:15:48.243272",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "d8c35e50-d0d6-5e54-aaa0-6160240c0090": {
+            "decision": "skipped",
+            "inn": "5422100154",
+            "confidence": 1.0,
+            "source": "existing",
+            "method": "existing_valid_inn",
+            "score": 1.0,
+            "candidates": [],
+            "checked_at": "2025-10-17T11:15:48.243320",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "563ecae3-8863-5f3a-ad28-c13b103b608e",
+              "contact_name": "Анна Лунд",
+              "phones_added": [
+                {
+                  "phone": "+79039044015",
+                  "type": "main",
+                  "confidence": 0.65,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.65
+              ],
+              "decision": {
+                "confidence": 0.65,
+                "contact_gid": "563ecae3-8863-5f3a-ad28-c13b103b608e",
+                "org_gid": "d94cab19-141a-527a-92d1-7977e8d7e26b",
+                "timestamp": "2025-10-17T04:15:48.244839",
+                "decision": "needs_review",
+                "reason": "Средний уровень уверенности (0.65), требуется проверка"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "e5600cd6-8e38-5749-94fd-67787dc762e5",
+              "contact_name": "Присяжнюк Маргарита Александровна",
+              "phones_added": [
+                {
+                  "phone": "+74956401771",
+                  "type": "office",
+                  "confidence": 0.85,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.85
+              ],
+              "decision": {
+                "confidence": 0.85,
+                "contact_gid": "e5600cd6-8e38-5749-94fd-67787dc762e5",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:15:48.244911",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (0.85 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+              "contact_name": "Елена Колдашова",
+              "phones_added": [
+                {
+                  "phone": "+74956401771",
+                  "type": "office",
+                  "confidence": 0.55,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.55
+              ],
+              "decision": {
+                "confidence": 0.55,
+                "contact_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:15:48.244959",
+                "decision": "needs_review",
+                "reason": "Средний уровень уверенности (0.55), требуется проверка"
+              },
+              "skip_reasons": []
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 3,
+            "contacts_enriched": 3,
+            "phones_added_total": 3,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.6833333333333332,
+            "phones_skipped_by_reason": {
+              "low_confidence": 0,
+              "no_org_phones": 0,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-17T04:15:48.244992",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 8,
+        "organizations_processed": 2,
+        "contacts_processed": 3,
+        "ui_format_applied": 8,
+        "phones_sanitized": 8
+      }
+    },
+    "provider_used": "OpenRouter",
+    "model": "google/gemini-2.0-flash-001",
+    "processing_time": 2.4912679195404053,
+    "text_length": 1915,
+    "chunks_processed": 1,
+    "total_contacts_found": 3,
+    "unique_contacts_found": 3,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-08-21/email_005_20250821_20250821_dna-technology_ru_7f152278.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 41.208
+  }
+}

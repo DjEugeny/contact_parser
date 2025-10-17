@@ -1,0 +1,54 @@
+{
+  "thread_id": "20250407_dna-technology_ru_83e6cfd5",
+  "message_id": "<0cd11ff3-ef2b-491d-8d68-a1787f4c6507@dna-technology.ru>",
+  "email_num_in_day": 11,
+  "total_emails_in_day": 16,
+  "from": "torgi@dna-technology.ru",
+  "to": "office@adamant.ltd",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "office@adamant.ltd"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Запрос КП для ГНОКБ Новосибирск",
+  "date": "Mon, 7 Apr 2025 12:41:42 +0300",
+  "parsed_date": "2025-04-07T16:41:42+07:00",
+  "body_raw": "Добрый день!\r\n\nКП во вложении.\r\n\n07.04.2025 11:57, Адамант ТД Компания пишет:\r\n> Добрый день! Просим выставить КП, запрос во вложенном файле.\r\n> С уважением, Торговый Дом «Адамант»\r\n> Контрактный отдел\r\n> Юлия\r\n> +7 (383) 3 120 160 доб. *101\r\n> office@adamant.ltd\r\n> Бухгалтерия (ЕИС)\r\n> +7 (383) 3 120 160 доб. *301\r\n> buh@adamant.ltd\r\n> Отдел логистики\r\n> +7 (383) 3 120 160 доб. *401\r\n> sklad@adamant.ltd\r\n>\r\n> Р.S. Просим сохранять историю переписки\r\n\n-- \r\nС уважением,\r\nспециалист по тендерам ООО \"ДНК-Технология\"\r\nЧурочкина Ольга Александровна\r\nТел. (495) 640 17 71 доб.2037\r\nmailto:torgi@dna-technology.ru\r\nhttp://www.dna-technology.ru",
+  "body_clean": "Добрый день!\nКП во вложении.\n07.04.2025 11:57, Адамант ТД Компания пишет:\n> Добрый день! Просим выставить КП, запрос во вложенном файле.\n> С уважением, Торговый Дом «Адамант»\n> Контрактный отдел\n> Юлия\n> +7 (383) 3 120 160 доб. *101\n> office@adamant.ltd\n> Бухгалтерия (ЕИС)\n> +7 (383) 3 120 160 доб. *301\n> buh@adamant.ltd\n> Отдел логистики\n> +7 (383) 3 120 160 доб. *401\n> sklad@adamant.ltd\n> Р.S. Просим сохранять историю переписки\nС уважением,\nспециалист по тендерам ООО \"ДНК-Технология\"\nЧурочкина Ольга Александровна\nТел. (495) 640 17 71 доб.2037\nmailto:torgi@dna-technology.ru\nhttp://www.dna-technology.ru",
+  "char_count": 610,
+  "attachments": [
+    {
+      "id": 40,
+      "original_filename": "КП  4430 от 07.04.2025.pdf",
+      "saved_filename": "20250407_774d1021_215615_attach_КП  4430 от 07.04.2025.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-07/20250407_774d1021_215615_attach_КП  4430 от 07.04.2025.pdf",
+      "relative_path": "attachments/2025-04-07/20250407_774d1021_215615_attach_КП  4430 от 07.04.2025.pdf",
+      "file_size": 223121,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-11 14:56:15",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<0cd11ff3-ef2b-491d-8d68-a1787f4c6507@dna-technology.ru>",
+      "thread_id": "20250407_dna-technology_ru_83e6cfd5",
+      "sha256": "1fdefc067477a217ba83b8e24c820973a5fb29a7e8c5fd985aa2e5c9ea9ad0cd",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:19:54.625383+07:00",
+  "raw_size": 312162,
+  "date_folder": "2025-04-07",
+  "eml_path": "eml/2025-04-07/0cd11ff3-ef2b-491d-8d68-a1787f4c6507_dna-technology.ru_235614_430261.eml"
+}

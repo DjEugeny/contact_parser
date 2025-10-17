@@ -1,0 +1,69 @@
+{
+  "thread_id": "20250416_skc-fmba_ru_7d23a708",
+  "message_id": "<abc29ec6-2879-499b-a310-4bb1fea5827f@smail14.skc-fmba.ru>",
+  "email_num_in_day": 3,
+  "total_emails_in_day": 19,
+  "from": "paryigina_oa@skc-fmba.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Fwd: Запрос КП",
+  "date": "Wed, 16 Apr 2025 12:23:19 +0700",
+  "parsed_date": "2025-04-16T12:23:19+07:00",
+  "body_raw": "Светлана, КП нам надо с указанием страны производителя. Без этого контрактный отдел не принимает заявки.\r\nПрислали КП без этой информации. Обновите, пожалуйста.\r\nС уважением,\r\nзаведующая ПЦР-лабораторией, \r\nбиолог КДЛ ФГБУ ФСНКЦ ФМБА России,\r\nПарыгина Ольга Александровна,\r\nм. т. 8-913-830-99-88\r\n--------- Пересланное письмо ---------\r\nТема: Запрос КП\r\nДата: Вт мар 18 15:46:08 2025 RTZ 6 (зима)\r\nОт кого: Ольга А. Парыгина <paryigina_oa@skc-fmba.ru>\r\nКому: s.voronova@dna-technology.ru\r\n\nДобрый день!\r\n\nПросим выслать коммерческое предложение на расходные материалы во вложении с указанием страны производителя.\r\n\nС уважением,\r\nзаведующая ПЦР-лабораторией, \r\nбиолог КДЛ ФГБУ ФСНКЦ ФМБА России,\r\nПарыгина Ольга Александровна, \r\nм. т. 8-913-830-99-88\r\nФГБУ ФСНКЦ ФМБА России\r\nhttps://www.skc-fmba.ru\r\nФГБУ ФСНКЦ ФМБА России\r\nhttps://www.skc-fmba.ru",
+  "body_clean": "Светлана, КП нам надо с указанием страны производителя. Без этого контрактный отдел не принимает заявки.\nПрислали КП без этой информации. Обновите, пожалуйста.\nС уважением,\nзаведующая ПЦР-лабораторией,\nбиолог КДЛ ФГБУ ФСНКЦ ФМБА России,\nПарыгина Ольга Александровна,\nм. т. 8-913-830-99-88\n--------- Пересланное письмо ---------\nТема: Запрос КП\nДата: Вт мар 18 15:46:08 2025 RTZ 6 (зима)\nОт кого: Ольга А. Парыгина paryigina_oa@skc-fmba.ru\nКому: s.voronova@dna-technology.ru\nДобрый день!\nПросим выслать коммерческое предложение на расходные материалы во вложении с указанием страны производителя.\nФГБУ ФСНКЦ ФМБА России\nhttps://www.skc-fmba.ru",
+  "char_count": 642,
+  "attachments": [
+    {
+      "id": 113,
+      "original_filename": "заявка 2025г  ПЦР 223.xls",
+      "saved_filename": "20250416_d7b1b9d9_002319_212308_attach_заявка 2025г  ПЦР 223.xls",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-16/20250416_d7b1b9d9_002319_212308_attach_заявка 2025г  ПЦР 223.xls",
+      "relative_path": "attachments/2025-04-16/20250416_d7b1b9d9_002319_212308_attach_заявка 2025г  ПЦР 223.xls",
+      "file_size": 41984,
+      "file_type": "application/vnd.ms-excel",
+      "content_type": "application/vnd.ms-excel",
+      "saved_at": "2025-10-13 17:23:19",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<abc29ec6-2879-499b-a310-4bb1fea5827f@smail14.skc-fmba.ru>",
+      "thread_id": "20250416_skc-fmba_ru_7d23a708",
+      "sha256": "e2211528c247481eef8c0c85d573a365255256a9af380c35bf83cd2c352a20f3",
+      "file_exists": true
+    },
+    {
+      "id": 114,
+      "original_filename": "Запрос КП 2025.pdf",
+      "saved_filename": "20250416_d7b1b9d9_002319_214971_attach_Запрос КП 2025.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-16/20250416_d7b1b9d9_002319_214971_attach_Запрос КП 2025.pdf",
+      "relative_path": "attachments/2025-04-16/20250416_d7b1b9d9_002319_214971_attach_Запрос КП 2025.pdf",
+      "file_size": 438296,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:23:19",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<abc29ec6-2879-499b-a310-4bb1fea5827f@smail14.skc-fmba.ru>",
+      "thread_id": "20250416_skc-fmba_ru_7d23a708",
+      "sha256": "64da708787e6684bac9689e48df52778fc2b44cfd7d13d22372183765993bab4",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 2,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:23:19.211650+07:00",
+  "raw_size": 666962,
+  "date_folder": "2025-04-16",
+  "eml_path": "eml/2025-04-16/abc29ec6-2879-499b-a310-4bb1fea5827f_smail14.skc-fmba.ru_002319_209799.eml"
+}

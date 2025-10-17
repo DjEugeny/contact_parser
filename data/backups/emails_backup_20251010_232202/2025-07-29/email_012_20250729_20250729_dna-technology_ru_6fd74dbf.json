@@ -1,0 +1,64 @@
+{
+  "thread_id": "20250729_dna-technology_ru_6fd74dbf",
+  "message_id": "<f916015b-ee54-471b-a030-abe9b1b4688f@dna-technology.ru>",
+  "from": "bilalov@dna-technology.ru",
+  "to": "metrol4@altcge.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "metrol4@altcge.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "документы с датой 23.07",
+  "date": "Tue, 29 Jul 2025 12:09:56 +0300",
+  "parsed_date": "2025-07-29T16:09:56+07:00",
+  "body": "Добрый день!\nВо вложении акт и УПД с датой 23 июля\nДокумент без названия\n*С уважением, Билалов Альберт Аглямович,*\n*зам. начальника отдела продаж *\n**ООО \"ДНК-Технология\" **\n***Тел:**+7 (495) 640-17-71, доб.2031***\n*E-mail:**bilalov@dna-technology.ru *\n*Web:**www.dna-technology.ru <https://dna-technology.ru>*\n<https://dna-technology.ru>**\nДобрый день! Во вложении акт и УПД с датой 23 июля",
+  "char_count": 391,
+  "attachments": [
+    {
+      "original_filename": "logo.png",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: part1.rNATF8bS.lkYdlghV@dna-technology.ru",
+      "is_inline": true,
+      "content_id": "part1.rNATF8bS.lkYdlghV@dna-technology.ru"
+    },
+    {
+      "original_filename": "Sales20250729115854.pdf",
+      "saved_filename": "20250729_dna-technology_ru_6fd74dbf_084729_attach_Sales20250729115854.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-07-29/20250729_dna-technology_ru_6fd74dbf_084729_attach_Sales20250729115854.pdf",
+      "relative_path": "attachments/2025-07-29/20250729_dna-technology_ru_6fd74dbf_084729_attach_Sales20250729115854.pdf",
+      "file_size": 315555,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-09-30T21:44:59.413730+07:00",
+      "status": "already_exists",
+      "is_inline": false
+    },
+    {
+      "original_filename": "Sales20250729115910.pdf",
+      "saved_filename": "20250729_dna-technology_ru_6fd74dbf_084729_attach_Sales20250729115910.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-07-29/20250729_dna-technology_ru_6fd74dbf_084729_attach_Sales20250729115910.pdf",
+      "relative_path": "attachments/2025-07-29/20250729_dna-technology_ru_6fd74dbf_084729_attach_Sales20250729115910.pdf",
+      "file_size": 331009,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-09-30T21:44:59.414026+07:00",
+      "status": "already_exists",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 3,
+    "saved": 2,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-09-30T21:44:59.414044+07:00",
+  "raw_size": 1005053,
+  "date_folder": "2025-07-29"
+}

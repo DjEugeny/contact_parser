@@ -1,0 +1,54 @@
+{
+  "thread_id": "20250326_dna-technology_ru_c40e82df",
+  "message_id": "<0210ddc8-d8c9-467f-b46d-9c1c2bc3bb11@dna-technology.ru>",
+  "email_num_in_day": 7,
+  "total_emails_in_day": 29,
+  "from": "m.gogoleva@dna-technology.ru",
+  "to": "strelets@inerlab.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "strelets@inerlab.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Fwd: запрос кп ЦГ и Э Алтайского края",
+  "date": "Wed, 26 Mar 2025 11:07:14 +0300",
+  "parsed_date": "2025-03-26T15:07:14+07:00",
+  "body_raw": "Добрый день, Светлана!\r\n\nКП во вложении.\r\n\nС уважением,\r\nменеджер ООО \"ДНК-Технология\"\r\nГоголева Мария\r\nтел.: (495) 640-17-71, доб. 2030\r\n\n>\r\n>\r\n> -------- Пересылаемое сообщение --------\r\n> 10:12, 26 марта 2025 г., \"Светлана Стрелец\" <strelets@inerlab.ru>:\r\n>\r\n> Добрый день! Прошу выслать кп на ДТ-прайм 5М- 1шт\r\n> Конечный покупатель ЦГ и Э Алтайского края\r\n> \r\n> - -\r\n> *С уважением, Светлана Стрелец*\r\n>\r\n> Отдел продаж лабораторного оборудования\r\n> ООО \"ИнтерЛабТрейд\"\r\n> г. Новосибирск ,ул. Бориса Богаткова 260оф.4\r\n> +7 (383) 285-25-10\r\n> +7 (495) 409-76-12\r\n> E-mail info@i <http://info@unimedsib.ru>nerlab.ru\r\n> Сайт http://inerlab.ru/\r\n>\r\n>\r\n> -------- Конец пересылаемого сообщения --------",
+  "body_clean": "Добрый день, Светлана!\nКП во вложении.\nС уважением,\nменеджер ООО \"ДНК-Технология\"\nГоголева Мария\nтел.: (495) 640-17-71, доб. 2030\n> -------- Пересылаемое сообщение --------\n> 10:12, 26 марта 2025 г., \"Светлана Стрелец\" strelets@inerlab.ru:\n> Добрый день! Прошу выслать кп на ДТ-прайм 5М- 1шт\n> Конечный покупатель ЦГ и Э Алтайского края\n> *С уважением, Светлана Стрелец*\n> Отдел продаж лабораторного оборудования\n> ООО \"ИнтерЛабТрейд\"\n> г. Новосибирск ,ул. Бориса Богаткова 260оф.4\n> +7 (383) 285-25-10\n> +7 (495) 409-76-12\n> E-mail info@i http://info@unimedsib.runerlab.ru\n> Сайт http://inerlab.ru/\n> -------- Конец пересылаемого сообщения --------",
+  "char_count": 649,
+  "attachments": [
+    {
+      "id": 765,
+      "original_filename": "Ком.пред.26.03.2025 для Новосибирск ИнтерЛабТрейд для Барнаул ЦГиЭ (ДТпрайм 5М1).pdf",
+      "saved_filename": "20250326_a939ef21_072337_358656_attach_Ком.пред.26.03.2025 для Новосибирск ИнтерЛабТрейд для Барнаул ЦГиЭ _ДТпрайм 5М1_.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-26/20250326_a939ef21_072337_358656_attach_Ком.пред.26.03.2025 для Новосибирск ИнтерЛабТрейд для Барнаул ЦГиЭ _ДТпрайм 5М1_.pdf",
+      "relative_path": "attachments/2025-03-26/20250326_a939ef21_072337_358656_attach_Ком.пред.26.03.2025 для Новосибирск ИнтерЛабТрейд для Барнаул ЦГиЭ _ДТпрайм 5М1_.pdf",
+      "file_size": 301710,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:23:37",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<0210ddc8-d8c9-467f-b46d-9c1c2bc3bb11@dna-technology.ru>",
+      "thread_id": "20250326_dna-technology_ru_c40e82df",
+      "sha256": "6e49ee428a9d76626b207a1b16dbf69b891b740d93686dd6100978f3929bb825",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:23:37.357213+07:00",
+  "raw_size": 421761,
+  "date_folder": "2025-03-26",
+  "eml_path": "eml/2025-03-26/0210ddc8-d8c9-467f-b46d-9c1c2bc3bb11_dna-technology.ru_072337_353539.eml"
+}

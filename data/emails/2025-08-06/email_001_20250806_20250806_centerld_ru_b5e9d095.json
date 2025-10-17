@@ -1,0 +1,41 @@
+{
+  "thread_id": "20250806_centerld_ru_b5e9d095",
+  "message_id": "<7e167-6892fd80-51-19f44fa0@253239418>",
+  "email_num_in_day": 1,
+  "total_emails_in_day": 7,
+  "from": "oper11@centerld.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "",
+  "date": "Wed, 06 Aug 2025 14:00:30 +0700",
+  "parsed_date": "2025-08-06T14:00:30+07:00",
+  "body_raw": "",
+  "body_clean": "",
+  "char_count": 0,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "extension_excluded:.rt",
+      "original_filename": "ФЕМОФЛОР II_S(96)_060825_132622_(1).rt",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:48:07.952548+07:00",
+  "raw_size": 1157358,
+  "date_folder": "2025-08-06",
+  "eml_path": "eml/2025-08-06/7e167-6892fd80-51-19f44fa0_253239418_004807_951791.eml"
+}

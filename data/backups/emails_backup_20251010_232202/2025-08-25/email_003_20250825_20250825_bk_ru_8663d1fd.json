@@ -1,0 +1,47 @@
+{
+  "thread_id": "20250825_bk_ru_8663d1fd",
+  "message_id": "<f9ff5d3e-6b7a-47a8-a6b8-fb324740f59f@Spark>",
+  "from": "wbetter@bk.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "тест вложений",
+  "date": "Mon, 25 Aug 2025 15:18:25 +0700",
+  "parsed_date": "2025-08-25T15:18:25+07:00",
+  "body": "",
+  "char_count": 0,
+  "attachments": [
+    {
+      "filename": "ru_8663d1fd_201836_attach_Фатеева Игоря_Image_.png",
+      "saved_filename": "20250825_bk_ru_8663d1fd_201836_attach_Фатеева Игоря_Image_.png",
+      "size": 817750,
+      "path": "attachments/2025-08-25/20250825_bk_ru_8663d1fd_201836_attach_Фатеева Игоря_Image_.png",
+      "status": "saved",
+      "type": "existing_attachment"
+    },
+    {
+      "filename": "ru_8663d1fd_201836_attach__ _ копия.png",
+      "saved_filename": "20250825_bk_ru_8663d1fd_201836_attach__ _ копия.png",
+      "size": 1323356,
+      "path": "attachments/2025-08-25/20250825_bk_ru_8663d1fd_201836_attach__ _ копия.png",
+      "status": "saved",
+      "type": "existing_attachment"
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 2,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-08-26T19:19:14.430639+07:00",
+  "raw_size": 8654030,
+  "date_folder": "2025-08-25"
+}

@@ -1,0 +1,52 @@
+{
+  "thread_id": "20250324_mail_ru_bfb9e1ee",
+  "message_id": "<1742809001.357027253@f716.i.mail.ru>",
+  "email_num_in_day": 19,
+  "total_emails_in_day": 23,
+  "from": "nipchi_irk_220132@mail.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Запрос",
+  "date": "Mon, 24 Mar 2025 12:36:41 +0300",
+  "parsed_date": "2025-03-24T16:36:41+07:00",
+  "body_raw": "Добрый день! Решили купить в институт 2 штуки ДТ (пожалуйста поправьте в ранее направленном КП)\n\n>Понедельник, 24 марта 2025, 11:35 +08:00 от Воронова Светлана Сергеевна <s.voronova@dna-technology.ru>:\n> \n>Добрый день, Вера Юрьевна! \n>Прошу оформить заявку на инсталляцию ДТпрайм. \n>Шаблон высылаю во вложении. \n> \n>--\n>С уважением, Воронова Светлана Сергеевна\n>региональный представитель в СФО\n>ООО \"ДНК-Технология\"\n>моб. тел. 8 (995) 129-39-76\n>e-mail: s.voronova@dna-technology.ru\n>web: www.dna-technology.ru\n>  \n\nС уважением,\nВера Юрьевна\nnipchi_irk_220132@mail.ru",
+  "body_clean": "Добрый день! Решили купить в институт 2 штуки ДТ (пожалуйста поправьте в ранее направленном КП)\n>Понедельник, 24 марта 2025, 11:35 +08:00 от Воронова Светлана Сергеевна s.voronova@dna-technology.ru:\n>Добрый день, Вера Юрьевна!\n>Прошу оформить заявку на инсталляцию ДТпрайм.\n>Шаблон высылаю во вложении.\n>С уважением, Воронова Светлана Сергеевна\n>региональный представитель в СФО\n>ООО \"ДНК-Технология\"\n>моб. тел. 8 (995) 129-39-76\n>e-mail: s.voronova@dna-technology.ru\n>web: www.dna-technology.ru\nС уважением,\nВера Юрьевна\nnipchi_irk_220132@mail.ru",
+  "char_count": 547,
+  "attachments": [
+    {
+      "id": 744,
+      "original_filename": "амплификатор25.docx",
+      "saved_filename": "20250324_95358d9d_072221_868773_attach_амплификатор25.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-24/20250324_95358d9d_072221_868773_attach_амплификатор25.docx",
+      "relative_path": "attachments/2025-03-24/20250324_95358d9d_072221_868773_attach_амплификатор25.docx",
+      "file_size": 464936,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-14 00:22:21",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<1742809001.357027253@f716.i.mail.ru>",
+      "thread_id": "20250324_mail_ru_bfb9e1ee",
+      "sha256": "d3975c5912e6d04f30b1752235c03ea7b63a3acdc6b97636c69f2f40d151287c",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:22:21.866700+07:00",
+  "raw_size": 645354,
+  "date_folder": "2025-03-24",
+  "eml_path": "eml/2025-03-24/1742809001.357027253_f716.i.mail.ru_072221_863211.eml"
+}

@@ -1,0 +1,42 @@
+{
+  "thread_id": "20250605_igcmd_ru_f483cac5",
+  "message_id": "<509291749098367@mail.360.yandex.ru>",
+  "from": "lab@igcmd.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "",
+  "date": "Thu, 05 Jun 2025 12:41:04 +0800",
+  "parsed_date": "2025-06-05T11:41:04+07:00",
+  "body": "Добрый день, Светлана Сергеевна!Заявка во вложении ООО \"Клиника ЦМД\" г. ИркутскЕлена Георгиевна Михайловател.: 8 914 92 705 12",
+  "char_count": 126,
+  "attachments": [
+    {
+      "original_filename": "f483cac5_024339_attach_ДНК технология 05.06.2025.doc",
+      "saved_filename": "20250605_igcmd_ru_f483cac5_024339_attach_ДНК технология 05.06.2025.doc",
+      "file_path": "data/attachments/2025-06-05/20250605_igcmd_ru_f483cac5_024339_attach_ДНК технология 05.06.2025.doc",
+      "relative_path": "attachments/2025-06-05/20250605_igcmd_ru_f483cac5_024339_attach_ДНК технология 05.06.2025.doc",
+      "file_size": 32256,
+      "file_type": "doc",
+      "status": "saved",
+      "is_inline": false,
+      "saved_at": "2025-09-02T20:54:18.085636+07:00"
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-09-02T20:54:18.085636+07:00",
+  "raw_size": 46703,
+  "date_folder": "2025-06-05"
+}

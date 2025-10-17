@@ -1,0 +1,52 @@
+{
+  "thread_id": "20250429_dna-technology_ru_c089f116",
+  "message_id": "<1f5c4f1e-b284-4c6d-89f6-9eb13661a38b@dna-technology.ru>",
+  "email_num_in_day": 9,
+  "total_emails_in_day": 11,
+  "from": "torgi@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Re: Запрос КП",
+  "date": "Tue, 29 Apr 2025 16:07:01 +0300",
+  "parsed_date": "2025-04-29T20:07:01+07:00",
+  "body_raw": "Светлана,\r\n\nКП во вложении.\r\n\n29.04.2025 15:21, s.voronova@dna-technology.ru пишет:\r\n> Добрый день, коллеги!\r\n> Прошу выставить КП на наборы :\r\n> Листерия R1-P003-23/4\r\n> Проба ОПТИМА\r\n>\r\n> Посреднику Лабора для поставки в ГБУЗ РКИБ г. Улан-Удэ\r\n> ИНН 0323126674\r\n>\r\n> Спасибо!\r\n>\r\n> --\r\n> С уважением, Воронова Светлана Сергеевна\r\n> региональный представитель в СФО\r\n> ООО \"ДНК-Технология\"\r\n> моб. тел. 8 (995) 129-39-76\r\n> e-mail: s.voronova@dna-technology.ru\r\n> web: www.dna-technology.ru\r\n\n-- \r\nС уважением,\r\nспециалист по тендерам ООО \"ДНК-Технология\"\r\nЧурочкина Ольга Александровна\r\nТел. (495) 640 17 71 доб.2037\r\nmailto:torgi@dna-technology.ru\r\nhttp://www.dna-technology.ru",
+  "body_clean": "Светлана,\nКП во вложении.\n29.04.2025 15:21, s.voronova@dna-technology.ru пишет:\n> Добрый день, коллеги!\n> Прошу выставить КП на наборы :\n> Листерия R1-P003-23/4\n> Проба ОПТИМА\n> Посреднику Лабора для поставки в ГБУЗ РКИБ г. Улан-Удэ\n> ИНН 0323126674\n> Спасибо!\n> С уважением, Воронова Светлана Сергеевна\n> региональный представитель в СФО\n> ООО \"ДНК-Технология\"\n> моб. тел. 8 (995) 129-39-76\n> e-mail: s.voronova@dna-technology.ru\n> web: www.dna-technology.ru\nС уважением,\nспециалист по тендерам ООО \"ДНК-Технология\"\nЧурочкина Ольга Александровна\nТел. (495) 640 17 71 доб.2037\nmailto:torgi@dna-technology.ru\nhttp://www.dna-technology.ru",
+  "char_count": 636,
+  "attachments": [
+    {
+      "id": 156,
+      "original_filename": "КП 5441 от 29.04.2025.pdf",
+      "saved_filename": "20250429_98fbf1ce_002648_513160_attach_КП 5441 от 29.04.2025.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-29/20250429_98fbf1ce_002648_513160_attach_КП 5441 от 29.04.2025.pdf",
+      "relative_path": "attachments/2025-04-29/20250429_98fbf1ce_002648_513160_attach_КП 5441 от 29.04.2025.pdf",
+      "file_size": 245413,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:26:48",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<1f5c4f1e-b284-4c6d-89f6-9eb13661a38b@dna-technology.ru>",
+      "thread_id": "20250429_dna-technology_ru_c089f116",
+      "sha256": "a02ca7d5da8f61895fc693bcbbc8eae00934f8b69106ccfec3440bcdd5fd908b",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:26:48.509872+07:00",
+  "raw_size": 341386,
+  "date_folder": "2025-04-29",
+  "eml_path": "eml/2025-04-29/1f5c4f1e-b284-4c6d-89f6-9eb13661a38b_dna-technology.ru_002648_505234.eml"
+}

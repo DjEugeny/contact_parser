@@ -1,0 +1,52 @@
+{
+  "thread_id": "20250915_dna-technology_ru_c7324e27",
+  "message_id": "<83cc6931-c87e-4d46-9d95-2a6d464644c1@dna-technology.ru>",
+  "email_num_in_day": 11,
+  "total_emails_in_day": 14,
+  "from": "bilalov@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Fwd: Fwd: запрос кп",
+  "date": "Mon, 15 Sep 2025 12:12:41 +0300",
+  "parsed_date": "2025-09-15T16:12:41+07:00",
+  "body_raw": "Светлана, добрый день!\r\n\nЗапрос от посредника на станцию выделения. Что отвечать?\r\n\n-------- Перенаправленное сообщение --------\r\nТема: Re: запрос кп\r\nДата: Mon, 15 Sep 2025 13:27:27 +0700\r\nОт: Татьяна Егорова <t.egorova@avantamed.ru>\r\nКому: Секретариат ДНК-Технология <mail@dna-technology.ru>\r\n\n----------------\r\nКому: Татьяна Егорова (t.egorova@avantamed.ru);\r\nТема: запрос кп;\r\n15.09.2025, 13:26, \"Секретариат ДНК-Технология\" <mail@dna-technology.ru>:\r\n\n Добрый день.\r\n\n Укажите реквизиты вашей компании.\r\n\n С уважением,\r\n Секретарь офиса ООО \"ДНК-Технология\"\r\n Елена Колдашова\r\n +7 495 640-17-71 доб. 2000\r\n www.dna-technology.ru <http://www.dna-technology.ru/>\r\n\n 15.09.2025 7:44, Татьяна Егорова пишет:\r\n\n Добрый день.\r\n Прошу предоставить коммерческое предложение на\r\n Автоматизированную станцию для выделения нуклеиновых кислот\r\n Конечный пользователь: ГБУЗ НСО \"ГОНКТБ\"\r\n Закупка будет производиться централизованно.\r\n -- \r\n С уважением, Егорова Татьяна\r\n Ведущий менеджер отдела продаж\r\n ООО \"Авантамед\"\r\n 630099 г. Новосибирск ул. Ленина 12 офис 801\r\n +7 (383) 222 42 66; +7 (383) 222 71 05\r\n +7 906 195 40 01\r\n t.egorova@avantamed.ru\r\n\n-- \r\nС уважением, Егорова Татьяна\r\nВедущий менеджер отдела продаж\r\nООО \"Авантамед\"\r\n630099 г. Новосибирск ул. Ленина 12 офис 801\r\n+7 (383) 222 42 66; +7 (383) 222 71 05\r\n+7 906 195 40 01\r\nt.egorova@avantamed.ru",
+  "body_clean": "Светлана, добрый день!\nЗапрос от посредника на станцию выделения. Что отвечать?\n-------- Перенаправленное сообщение --------\nТема: Re: запрос кп\nДата: Mon, 15 Sep 2025 13:27:27 +0700\nОт: Татьяна Егорова t.egorova@avantamed.ru\nКому: Секретариат ДНК-Технология mail@dna-technology.ru\nКому: Татьяна Егорова (t.egorova@avantamed.ru);\nТема: запрос кп;\n15.09.2025, 13:26, \"Секретариат ДНК-Технология\" mail@dna-technology.ru:\nДобрый день.\nУкажите реквизиты вашей компании.\nС уважением,\nСекретарь офиса ООО \"ДНК-Технология\"\nЕлена Колдашова\n+7 495 640-17-71 доб. 2000\nwww.dna-technology.ru http://www.dna-technology.ru/\n15.09.2025 7:44, Татьяна Егорова пишет:\nПрошу предоставить коммерческое предложение на\nАвтоматизированную станцию для выделения нуклеиновых кислот\nКонечный пользователь: ГБУЗ НСО \"ГОНКТБ\"\n[quoted message elided #1a2f15a982a8]\nС уважением, Егорова Татьяна\nВедущий менеджер отдела продаж\nООО \"Авантамед\"\n630099 г. Новосибирск ул. Ленина 12 офис 801\n+7 (383) 222 42 66; +7 (383) 222 71 05\n+7 906 195 40 01\nt.egorova@avantamed.ru",
+  "char_count": 1036,
+  "attachments": [
+    {
+      "id": 478,
+      "original_filename": "Реквизиты АВАНТАМЕД АльфаБанк 2025.docx",
+      "saved_filename": "20250915_5e9df2f1_005731_873721_attach_Реквизиты АВАНТАМЕД АльфаБанк 2025.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-09-15/20250915_5e9df2f1_005731_873721_attach_Реквизиты АВАНТАМЕД АльфаБанк 2025.docx",
+      "relative_path": "attachments/2025-09-15/20250915_5e9df2f1_005731_873721_attach_Реквизиты АВАНТАМЕД АльфаБанк 2025.docx",
+      "file_size": 13272,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-13 17:57:31",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<83cc6931-c87e-4d46-9d95-2a6d464644c1@dna-technology.ru>",
+      "thread_id": "20250915_dna-technology_ru_c7324e27",
+      "sha256": "8e6766fa85c41134ec3734947952baa77390ebde4ad0319846b9545f71c9f144",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:57:31.872517+07:00",
+  "raw_size": 38609,
+  "date_folder": "2025-09-15",
+  "eml_path": "eml/2025-09-15/83cc6931-c87e-4d46-9d95-2a6d464644c1_dna-technology.ru_005731_859994.eml"
+}

@@ -1,0 +1,59 @@
+{
+  "thread_id": "20250320_dna-technology_ru_5a06bb83",
+  "message_id": "<e084f4dd-faeb-47b5-93cc-34c35a318401@dna-technology.ru>",
+  "email_num_in_day": 17,
+  "total_emails_in_day": 27,
+  "from": "bilalov@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Fwd: Бурятский государственный университет, ИНН 0323085259",
+  "date": "Thu, 20 Mar 2025 11:39:57 +0300",
+  "parsed_date": "2025-03-20T15:39:57+07:00",
+  "body_raw": "Светлана, добрый день!\r\n\nЗапрос от посредника Пущинские лаборатории.\r\nЧто отвечать?\r\n\n-------- Перенаправленное сообщение --------\r\nТема: Бурятский государственный университет, ИНН 0323085259\r\nДата: Thu, 20 Mar 2025 11:29:23 +0300\r\nОт: Лариса Школьная <larisa@laboratorii.com>\r\nОтвечать: Лариса Школьная <larisa@laboratorii.com>\r\nКому: bilalov <bilalov@dna-technology.ru>\r\n\nДобрый день,\r\nпрошу выставить КП на\r\nO-DTPRIME5М1 + I-PC/03\r\nконечный пользователь\r\nБурятский государственный университет, ИНН 0323085259\r\n\n<https://www.laboratorii.com/upload/actual_store_email.pdf>\r\n-- \r\nС уважением,\r\nШкольная Лариса\r\nменеджер по работе с клиентами\r\nООО \"Компания Пущинские лаборатории\"\r\nтел. (499)110-03-07 доб. 12\r\nмоб. +7991-284-45-59\r\nwww.laboratorii.com <http://www.laboratorii.com>\r\n<https://t.me/laboratorii_com> <https://vk.com/laboratoriicom> \r\n<https://www.youtube.com/channel/UCPqTEjRYzt5BZNQke7IGiXg>",
+  "body_clean": "Светлана, добрый день!\nЗапрос от посредника Пущинские лаборатории.\nЧто отвечать?\n-------- Перенаправленное сообщение --------\nТема: Бурятский государственный университет, ИНН 0323085259\nДата: Thu, 20 Mar 2025 11:29:23 +0300\nОт: Лариса Школьная larisa@laboratorii.com\nОтвечать: Лариса Школьная larisa@laboratorii.com\nКому: bilalov bilalov@dna-technology.ru\nДобрый день,\nпрошу выставить КП на\nO-DTPRIME5М1 + I-PC/03\nконечный пользователь\nБурятский государственный университет, ИНН 0323085259\nhttps://www.laboratorii.com/upload/actual_store_email.pdf\nС уважением,\nШкольная Лариса\nменеджер по работе с клиентами\nООО \"Компания Пущинские лаборатории\"\nтел. (499)110-03-07 доб. 12\nмоб. +7991-284-45-59\nwww.laboratorii.com http://www.laboratorii.com\nhttps://t.me/laboratorii_com https://vk.com/laboratoriicom\nhttps://www.youtube.com/channel/UCPqTEjRYzt5BZNQke7IGiXg",
+  "char_count": 856,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part1.QqUk0npc.wLAXFlrJ@dna-technology.ru",
+      "original_filename": "mailrusigimg_vGoELZwK.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part2.1uRTfbI5.4VBIICNI@dna-technology.ru",
+      "original_filename": "mailrusigimg_XUiRaRXW.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part3.vxCe16zp.TBuftir0@dna-technology.ru",
+      "original_filename": "mailrusigimg_FTFSEILE.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part4.ofb67QwC.ieMyJwpp@dna-technology.ru",
+      "original_filename": "mailrusigimg_3nMTt03r.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 4,
+    "saved": 0,
+    "excluded": 4,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:21:04.810958+07:00",
+  "raw_size": 116508,
+  "date_folder": "2025-03-20",
+  "eml_path": "eml/2025-03-20/e084f4dd-faeb-47b5-93cc-34c35a318401_dna-technology.ru_072104_806402.eml"
+}

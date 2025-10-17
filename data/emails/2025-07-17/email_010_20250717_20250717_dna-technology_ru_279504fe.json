@@ -1,0 +1,52 @@
+{
+  "thread_id": "20250717_dna-technology_ru_279504fe",
+  "message_id": "<791c29e1-774b-4dec-b935-2db791edb106@dna-technology.ru>",
+  "email_num_in_day": 10,
+  "total_emails_in_day": 20,
+  "from": "bilalov@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Fwd: Запрос",
+  "date": "Thu, 17 Jul 2025 11:31:50 +0300",
+  "parsed_date": "2025-07-17T15:31:50+07:00",
+  "body_raw": "Светлана, добрый день!\r\n\nЗапрос от Хирона.\r\nЧто отвечать?\r\n\n-------- Перенаправленное сообщение --------\r\nТема: Запрос\r\nДата: Thu, 17 Jul 2025 15:22:04 +0700\r\nОт: Акимова Наталья <79059839981@yandex.ru>\r\nКому: ДНК технология Билатов Альберт <bilalov@dna-technology.ru>\r\n\nЗдравствуйте.\r\n\n-- \r\nС уважением менеджер ООО \"Хирон\",\r\nАкимова Наталья Михайловна\r\nтел/факс : (3852)61-71-71\r\nСот. т. 8-905-983-99-81mailto:79059839981@yandex.ru",
+  "body_clean": "Светлана, добрый день!\nЗапрос от Хирона.\nЧто отвечать?\n-------- Перенаправленное сообщение --------\nТема: Запрос\nДата: Thu, 17 Jul 2025 15:22:04 +0700\nОт: Акимова Наталья 79059839981@yandex.ru\nКому: ДНК технология Билатов Альберт bilalov@dna-technology.ru\nЗдравствуйте.\nС уважением менеджер ООО \"Хирон\",\nАкимова Наталья Михайловна\nтел/факс : (3852)61-71-71\nСот. т. 8-905-983-99-81mailto:79059839981@yandex.ru",
+  "char_count": 408,
+  "attachments": [
+    {
+      "id": 348,
+      "original_filename": "Перинат. РА от 17.07.25г.doc",
+      "saved_filename": "20250717_6ee96645_004311_879829_attach_Перинат. РА от 17.07.25г.doc",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-07-17/20250717_6ee96645_004311_879829_attach_Перинат. РА от 17.07.25г.doc",
+      "relative_path": "attachments/2025-07-17/20250717_6ee96645_004311_879829_attach_Перинат. РА от 17.07.25г.doc",
+      "file_size": 186368,
+      "file_type": "application/msword",
+      "content_type": "application/msword",
+      "saved_at": "2025-10-13 17:43:11",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<791c29e1-774b-4dec-b935-2db791edb106@dna-technology.ru>",
+      "thread_id": "20250717_dna-technology_ru_279504fe",
+      "sha256": "5dfd7be1df85ad32c027ecd8dbc12fd81381bee92c897672377f268f6a783866",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:43:11.878428+07:00",
+  "raw_size": 260045,
+  "date_folder": "2025-07-17",
+  "eml_path": "eml/2025-07-17/791c29e1-774b-4dec-b935-2db791edb106_dna-technology.ru_004311_875698.eml"
+}

@@ -1,0 +1,53 @@
+{
+  "thread_id": "20250311_yandex_ru_5b2c9aa2",
+  "message_id": "<1641511741677129@mail.yandex.ru>",
+  "email_num_in_day": 7,
+  "total_emails_in_day": 24,
+  "from": "khatashkeeva@yandex.ru",
+  "to": "s.voronova@dna-technology.ru, torgi@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru",
+    "torgi@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Заявка на поставку реактивов 11.03.2025",
+  "date": "Tue, 11 Mar 2025 15:12:49 +0800",
+  "parsed_date": "2025-03-11T14:12:49+07:00",
+  "body_raw": "-- \n\nС уважением Ольга Хаташкеева",
+  "body_clean": "С уважением Ольга Хаташкеева",
+  "char_count": 28,
+  "attachments": [
+    {
+      "id": 640,
+      "original_filename": "Заявка 11.03.2025г.xlsx",
+      "saved_filename": "20250311_3c214ed9_071635_162992_attach_Заявка 11.03.2025г.xlsx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-11/20250311_3c214ed9_071635_162992_attach_Заявка 11.03.2025г.xlsx",
+      "relative_path": "attachments/2025-03-11/20250311_3c214ed9_071635_162992_attach_Заявка 11.03.2025г.xlsx",
+      "file_size": 11050,
+      "file_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "saved_at": "2025-10-14 00:16:35",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<1641511741677129@mail.yandex.ru>",
+      "thread_id": "20250311_yandex_ru_5b2c9aa2",
+      "sha256": "c3f7d7d7b87b0ba51fee7227f31c650e6430abab389fa1be9557803e2331a792",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:16:35.161192+07:00",
+  "raw_size": 18107,
+  "date_folder": "2025-03-11",
+  "eml_path": "eml/2025-03-11/1641511741677129_mail.yandex.ru_071635_157476.eml"
+}

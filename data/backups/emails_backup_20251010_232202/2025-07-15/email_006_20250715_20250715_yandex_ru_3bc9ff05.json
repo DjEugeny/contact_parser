@@ -1,0 +1,48 @@
+{
+  "thread_id": "20250715_yandex_ru_3bc9ff05",
+  "message_id": "<898151752568271@mail.yandex.ru>",
+  "from": "khatashkeeva@yandex.ru",
+  "to": "s.voronova@dna-technology.ru, hotline@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru",
+    "hotline@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Ошибка в приборе",
+  "date": "Tue, 15 Jul 2025 16:38:18 +0800",
+  "parsed_date": "2025-07-15T15:38:18+07:00",
+  "body": "Здравствуйте!У нас как несколько дней появилась ошибка на амплификаторе! фото прикрепляю к письму.Постановка заканчивается, результат выходит! Ошибка выходит как запускается амплификация и горит несколько минут, а потом исчезает.Что можно сделать?или нужно отправлять на ремонт? -- С уважением Ольга Хаташкеева",
+  "char_count": 310,
+  "attachments": [
+    {
+      "filename": "ru_3bc9ff05_081656_attach_IMG_5868.jpg",
+      "saved_filename": "20250715_yandex_ru_3bc9ff05_081656_attach_IMG_5868.jpg",
+      "size": 2666415,
+      "path": "attachments/2025-07-15/20250715_yandex_ru_3bc9ff05_081656_attach_IMG_5868.jpg",
+      "status": "saved",
+      "type": "existing_attachment"
+    },
+    {
+      "filename": "ru_3bc9ff05_081656_attach_IMG_6043.jpg",
+      "saved_filename": "20250715_yandex_ru_3bc9ff05_081656_attach_IMG_6043.jpg",
+      "size": 2411563,
+      "path": "attachments/2025-07-15/20250715_yandex_ru_3bc9ff05_081656_attach_IMG_6043.jpg",
+      "status": "saved",
+      "type": "existing_attachment"
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 2,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-08-26T17:50:14.522109+07:00",
+  "raw_size": 6952495,
+  "date_folder": "2025-07-15"
+}

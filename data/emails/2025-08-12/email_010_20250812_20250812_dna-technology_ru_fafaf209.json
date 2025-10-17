@@ -1,0 +1,53 @@
+{
+  "thread_id": "20250812_dna-technology_ru_fafaf209",
+  "message_id": "<daab71d6-1951-423d-8deb-82fe27fb71f5@dna-technology.ru>",
+  "email_num_in_day": 10,
+  "total_emails_in_day": 13,
+  "from": "torgi@dna-technology.ru",
+  "to": "hls@himlabservice.ru, s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "hls@himlabservice.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Re: Запрос КП T.vaginalis/N.gonorrhoeae Комплекс",
+  "date": "Tue, 12 Aug 2025 15:30:45 +0300",
+  "parsed_date": "2025-08-12T19:30:45+07:00",
+  "body_raw": "Добрый день!\r\n\nКП во вложении.\r\n\n12.08.2025 13:51, ХимЛабСервис пишет:\r\n> Здравствуйте!\r\n>\r\n> Прошу Вас выставить КП на набор T.vaginalis/N.gonorrhoeae Комплекс (96\r\n> определений), для работы на приборе CFX96 - 5 наборов для ТОКБ.\r\n>\r\n> Заранее благодарен!\r\n>\r\n> С уважением Цыбанов Баир Валерьевич\r\n> Менеджер по продажам\r\n> ООО \"ХимЛабСервис\"\r\n> +7(3822)42-45-35\r\n> 634045 г. Томск, ул. Мокрушина 13А\r\n> https://himlabservice.ru/\r\n>\r\n-- \r\n\nЧурочкина Ольга Александровна\r\nВедущий специалист по тендерам | ООО «ДНК-Технология»\r\n\nРабочий: +7 (495) 640-17-71 (доб. 2037) <tel:+74956401771,2037>\r\nEmail: torgi@dna-technology.ru\r\n\n------------------------------------------------------------------------\r\n\nСайт: dna-technology.ru <https://dna-technology.ru>\r\nTelegram: @dna_tech_rus <https://t.me/dna_tech_rus>\r\nYouTube <https://www.youtube.com/channel/UCqUrpqfZ65z26CUR-4f96iA> | \r\nRutube <https://rutube.ru/channel/63912239/>\r\n\n------------------------------------------------------------------------\r\n\nМосква, Варшавское шоссе, дом 125Ж, корпус 5\r\n\nДНК-Технология\r\n\nПрофиль компании: разработка и производство лабораторного оборудования, \r\nПО и реагентов для молекулярно-генетических исследований (ПЦР, NGS).",
+  "body_clean": "Добрый день!\nКП во вложении.\n12.08.2025 13:51, ХимЛабСервис пишет:\n> Здравствуйте!\n> Прошу Вас выставить КП на набор T.vaginalis/N.gonorrhoeae Комплекс (96\n> определений), для работы на приборе CFX96 - 5 наборов для ТОКБ.\n> Заранее благодарен!\n> С уважением Цыбанов Баир Валерьевич\n> Менеджер по продажам\n> ООО \"ХимЛабСервис\"\n> +7(3822)42-45-35\n> 634045 г. Томск, ул. Мокрушина 13А\n> https://himlabservice.ru/\nЧурочкина Ольга Александровна\nВедущий специалист по тендерам | ООО «ДНК-Технология»\nРабочий: +7 (495) 640-17-71 (доб. 2037) tel:+74956401771,2037\nEmail: torgi@dna-technology.ru\nСайт: dna-technology.ru https://dna-technology.ru\nTelegram: @dna_tech_rus https://t.me/dna_tech_rus\nYouTube https://www.youtube.com/channel/UCqUrpqfZ65z26CUR-4f96iA |\nRutube https://rutube.ru/channel/63912239/\nМосква, Варшавское шоссе, дом 125Ж, корпус 5\nДНК-Технология\nПрофиль компании: разработка и производство лабораторного оборудования,\nПО и реагентов для молекулярно-генетических исследований (ПЦР, NGS).",
+  "char_count": 997,
+  "attachments": [
+    {
+      "id": 404,
+      "original_filename": "Коммерческое предложение № 9234 от 12.08.2025.pdf",
+      "saved_filename": "20250812_468a1bb6_005005_612595_attach_Коммерческое предложение _ 9234 от 12.08.2025.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-08-12/20250812_468a1bb6_005005_612595_attach_Коммерческое предложение _ 9234 от 12.08.2025.pdf",
+      "relative_path": "attachments/2025-08-12/20250812_468a1bb6_005005_612595_attach_Коммерческое предложение _ 9234 от 12.08.2025.pdf",
+      "file_size": 201413,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:50:05",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<daab71d6-1951-423d-8deb-82fe27fb71f5@dna-technology.ru>",
+      "thread_id": "20250812_dna-technology_ru_fafaf209",
+      "sha256": "dd07fe4f7902791edb6ee3929ea629c7813e2745613d2d958f116839ca6e324f",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:50:05.609649+07:00",
+  "raw_size": 283859,
+  "date_folder": "2025-08-12",
+  "eml_path": "eml/2025-08-12/daab71d6-1951-423d-8deb-82fe27fb71f5_dna-technology.ru_005005_601507.eml"
+}

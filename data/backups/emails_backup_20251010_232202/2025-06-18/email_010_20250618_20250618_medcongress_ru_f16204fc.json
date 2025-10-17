@@ -1,0 +1,43 @@
+{
+  "thread_id": "20250618_medcongress_ru_f16204fc",
+  "message_id": "<4C720642-1BB6-4DD9-AA01-6762DBFF9442@medcongress.ru>",
+  "from": "evk@medcongress.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Конференция по КДЛ",
+  "date": "Wed, 18 Jun 2025 19:00:02 +0700",
+  "parsed_date": "2025-06-18T19:00:02+07:00",
+  "body": "Добрый день, Светлана!\nОтправляю вам информацию по конференции КДЛ в Новокузнецке\nС уважением, Елена Хаменкова.\nтел.: +7 (913) 928-12-94\nпочта: evk@medcongress.ru\nООО «МЕД КОНГРЕСС»\nАдрес: г. Новосибирск, ул. Красина 43.\nТелефон.: +7 (905) 952-20-20, +7 (383) 380-21-04\nЭл.почта: mail@medcongress.ru\nСайт: medcongress.ru\nДобрый день, Светлана!Отправляю вам информацию по конференции КДЛ в Новокузнецке\n____ С уважением, Елена Хаменкова.тел.: +7 (913) 928-12-94почта: evk@medcongress.ruООО «МЕД КОНГРЕСС»Адрес: г. Новосибирск, ул. Красина 43.Телефон.: +7 (905) 952-20-20, +7 (383) 380-21-04Эл.почта: mail@medcongress.ruСайт: medcongress.ru",
+  "char_count": 638,
+  "attachments": [
+    {
+      "original_filename": "Информационное письмо 30 10 25.pdf",
+      "status": "excluded_by_filter",
+      "exclusion_reason": "имя файла соответствует паттерну 'Информационное письмо*'",
+      "is_inline": false
+    },
+    {
+      "original_filename": "Условия участия 30 10 25.pdf",
+      "status": "excluded_by_filter",
+      "exclusion_reason": "имя файла соответствует паттерну 'Условия участия*'",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-09-03T18:43:56.819645+07:00",
+  "raw_size": 631781,
+  "date_folder": "2025-06-18"
+}

@@ -1,0 +1,54 @@
+{
+  "thread_id": "20250421_mail_ru_2670af45",
+  "message_id": "<1463991426.20250421131342@mail.ru>",
+  "email_num_in_day": 1,
+  "total_emails_in_day": 11,
+  "from": "ksm-zakup@mail.ru",
+  "to": "prisyazhnyuk@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "prisyazhnyuk@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "",
+  "date": "Mon, 21 Apr 2025 13:13:42 +0700",
+  "parsed_date": "2025-04-21T13:13:42+07:00",
+  "body_raw": "Здравствуйте, .\r\n\nПросим Вас прислать сервисного инженера на обучение, по заявке\r\nвложением, на ближайшие даты.\r\nАмплификатор установлен с ноутбуком.\r\n\n-- \r\nС уважением, Фишер Алена (3842)313393 ; 8-908-953-4720\r\n Сивохина Светлана 8953-061-6641\r\n Ksm-zakup mailto:ksm-zakup@mail.ru",
+  "body_clean": "Здравствуйте, .\nПросим Вас прислать сервисного инженера на обучение, по заявке\nвложением, на ближайшие даты.\nАмплификатор установлен с ноутбуком.\nС уважением, Фишер Алена (3842)313393 ; 8-908-953-4720\nСивохина Светлана 8953-061-6641\nKsm-zakup mailto:ksm-zakup@mail.ru",
+  "char_count": 267,
+  "attachments": [
+    {
+      "id": 130,
+      "original_filename": "Заявка на инсталляцию.xls",
+      "saved_filename": "20250421_3dc4fb06_002424_859242_attach_Заявка на инсталляцию.xls",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-21/20250421_3dc4fb06_002424_859242_attach_Заявка на инсталляцию.xls",
+      "relative_path": "attachments/2025-04-21/20250421_3dc4fb06_002424_859242_attach_Заявка на инсталляцию.xls",
+      "file_size": 35840,
+      "file_type": "application/vnd.ms-excel",
+      "content_type": "application/vnd.ms-excel",
+      "saved_at": "2025-10-13 17:24:24",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<1463991426.20250421131342@mail.ru>",
+      "thread_id": "20250421_mail_ru_2670af45",
+      "sha256": "72e1851758995590599a3f4065170e96c24d6a20d60a79730edc6a4950442590",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:24:24.858210+07:00",
+  "raw_size": 54703,
+  "date_folder": "2025-04-21",
+  "eml_path": "eml/2025-04-21/1463991426.20250421131342_mail.ru_002424_853360.eml"
+}

@@ -1,0 +1,66 @@
+{
+  "thread_id": "20250729_mail_ru_8f55fa3f",
+  "message_id": "<1753775531.823316131@f136.i.mail.ru>",
+  "email_num_in_day": 8,
+  "total_emails_in_day": 36,
+  "from": "medic.81@mail.ru",
+  "to": "m.gogoleva@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "m.gogoleva@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Fwd: Fwd: Начало отгрузки наборов Фемофлор®II",
+  "date": "Tue, 29 Jul 2025 10:52:11 +0300",
+  "parsed_date": "2025-07-29T14:52:11+07:00",
+  "body_raw": "Добрый день! \n\nС уважением,\nЮлия Александровна Пименова\nmedic.81@mail.ru",
+  "body_clean": "Добрый день!\nС уважением,\nЮлия Александровна Пименова\nmedic.81@mail.ru",
+  "char_count": 70,
+  "attachments": [
+    {
+      "id": 7,
+      "original_filename": "АНКЕТА Участника МСЧ Клиницист-Клиника Претор г. Новосибирск..docx",
+      "saved_filename": "20250729_ce228f4b_182649_attach_АНКЕТА Участника МСЧ Клиницист-Клиника Претор г. Новосибирск..docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-07-29/20250729_ce228f4b_182649_attach_АНКЕТА Участника МСЧ Клиницист-Клиника Претор г. Новосибирск..docx",
+      "relative_path": "attachments/2025-07-29/20250729_ce228f4b_182649_attach_АНКЕТА Участника МСЧ Клиницист-Клиника Претор г. Новосибирск..docx",
+      "file_size": 49531,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-13 16:38:14",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<1753775531.823316131@f136.i.mail.ru>",
+      "thread_id": "20250729_mail_ru_8f55fa3f",
+      "sha256": "b161de092c8de12843b8731487625cb122e308116c2f297af4f7de9bd8aa8e15",
+      "file_exists": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:WhatsApp*",
+      "original_filename": "WhatsApp Image 2025-07-29 at 14.12.10 (1).jpeg",
+      "is_inline": false
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:WhatsApp*",
+      "original_filename": "WhatsApp Image 2025-07-29 at 14.12.10.jpeg",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 3,
+    "saved": 1,
+    "excluded": 2,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:46:02.653653+07:00",
+  "raw_size": 245188,
+  "date_folder": "2025-07-29",
+  "eml_path": "eml/2025-07-29/1753775531.823316131_f136.i.mail.ru_100721_561732.eml"
+}

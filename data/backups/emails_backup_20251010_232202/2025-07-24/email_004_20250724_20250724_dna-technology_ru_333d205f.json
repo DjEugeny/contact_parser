@@ -1,0 +1,38 @@
+{
+  "thread_id": "20250724_dna-technology_ru_333d205f",
+  "message_id": "<5eaac5bd-55fc-4df7-bf42-434e5810e086@dna-technology.ru>",
+  "from": "tkachenko@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Ссылки",
+  "date": "Thu, 24 Jul 2025 09:47:01 +0300",
+  "parsed_date": "2025-07-24T13:47:01+07:00",
+  "body": "https://cloud.dna-technology.ru/s/HWNFzM9fieQ7iQH?openfile=true\nhttps://cloud.dna-technology.ru/s/WANSPPD2WTfRPMY?openfile=true\nhttps://cloud.dna-technology.ru/s/HWNFzM9fieQ7iQH?openfile=true https://cloud.dna-technology.ru/s/WANSPPD2WTfRPMY?openfile=true",
+  "char_count": 255,
+  "attachments": [
+    {
+      "original_filename": "__.jpg",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: part1.CtN6xIRE.rtyJ0nEO@dna-technology.ru",
+      "is_inline": true,
+      "content_id": "part1.CtN6xIRE.rtyJ0nEO@dna-technology.ru"
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T22:11:37.788049+07:00",
+  "raw_size": 30906,
+  "date_folder": "2025-07-24"
+}

@@ -1,0 +1,54 @@
+{
+  "thread_id": "20250604_centerld_ru_ef18f58a",
+  "message_id": "<13f-683fb980-33-5a0e0100@227414575>",
+  "email_num_in_day": 3,
+  "total_emails_in_day": 8,
+  "from": "sklad@centerld.ru",
+  "to": "torgi@dna-technology.ru, fetisova@dna-technology.ru, s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "torgi@dna-technology.ru",
+    "fetisova@dna-technology.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Fwd: Реагенты ПЦР",
+  "date": "Wed, 04 Jun 2025 10:12:11 +0700",
+  "parsed_date": "2025-06-04T10:12:11+07:00",
+  "body_raw": "Заявка на поставку реагентов\r\nУважаемые коллеги,\r\nПросим подготовить и поставить следующие реагенты:\r\nПросим подтвердить наличие и сроки поставки, а также выслать счет для оплаты.\r\n\n-------- Исходное сообщение --------\r\nТема: Реагенты ПЦР\r\nДата: Среда, Июнь 04, 2025 10:06 +07\r\nОт: Евдокимова Любовь <oper11@centerld.ru>\r\nКому: Константин Феофилактов <sklad@centerld.ru>, s.voronova@dna-technology.ru\r\n\n-- \r\n\nГрафик работы:\r\nПн-Пт: с 9:00 до 16:00\r\nОбед: с 12:00 до 13:00\r\nКонтакты:\r\n📍 Адрес: 630075, г. Новосибирск, ул. Народная, 3\r\n📞 Руководитель ОМТС: Бабиченко Иван Сергеевич\r\n☎ Телефон: +7-913-399-32-72\r\nС уважением,\r\n\"Центр Лабораторной Диагностики\"",
+  "body_clean": "Заявка на поставку реагентов\nУважаемые коллеги,\nПросим подготовить и поставить следующие реагенты:\nПросим подтвердить наличие и сроки поставки, а также выслать счет для оплаты.\n-------- Исходное сообщение --------\nТема: Реагенты ПЦР\nДата: Среда, Июнь 04, 2025 10:06 +07\nОт: Евдокимова Любовь oper11@centerld.ru\nКому: Константин Феофилактов sklad@centerld.ru, s.voronova@dna-technology.ru\nГрафик работы:\nПн-Пт: с 9:00 до 16:00\nОбед: с 12:00 до 13:00\nКонтакты:\n📍 Адрес: 630075, г. Новосибирск, ул. Народная, 3\n📞 Руководитель ОМТС: Бабиченко Иван Сергеевич\n☎ Телефон: +7-913-399-32-72\nС уважением,\n\"Центр Лабораторной Диагностики\"",
+  "char_count": 627,
+  "attachments": [
+    {
+      "id": 214,
+      "original_filename": "Заявка от 04.06.2025.ПЦР-DNA.docx",
+      "saved_filename": "20250604_153f456e_003258_338467_attach_Заявка от 04.06.2025.ПЦР-DNA.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-06-04/20250604_153f456e_003258_338467_attach_Заявка от 04.06.2025.ПЦР-DNA.docx",
+      "relative_path": "attachments/2025-06-04/20250604_153f456e_003258_338467_attach_Заявка от 04.06.2025.ПЦР-DNA.docx",
+      "file_size": 22450,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-13 17:32:58",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<13f-683fb980-33-5a0e0100@227414575>",
+      "thread_id": "20250604_centerld_ru_ef18f58a",
+      "sha256": "c58cda0cf80c96feaecac5920471594384f38d96060d5290b96e1a83a0bc5795",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:32:58.337969+07:00",
+  "raw_size": 46610,
+  "date_folder": "2025-06-04",
+  "eml_path": "eml/2025-06-04/13f-683fb980-33-5a0e0100_227414575_003258_336074.eml"
+}

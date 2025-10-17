@@ -1,0 +1,44 @@
+{
+  "thread_id": "20251007_dna-technology_ru_6c4584fe",
+  "message_id": "<be9bf10e-5208-47c4-b4b4-7109c0553ea4@dna-technology.ru>",
+  "email_num_in_day": 13,
+  "total_emails_in_day": 21,
+  "from": "o.isaev@dna-technology.ru",
+  "to": "bilalov@dna-technology.ru, m.gogoleva@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "bilalov@dna-technology.ru",
+    "m.gogoleva@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "ДНК-диагностика",
+  "date": "Tue, 7 Oct 2025 14:39:13 +0300",
+  "parsed_date": "2025-10-07T18:39:13+07:00",
+  "body_raw": "Коллеги, для ООО Медицинский центр Лаборатория  ДНК-диагностика \r\nг.Барнаул прошу выставить КП на ДТпраймII 6м1 со скидкой 20%,предоплата \r\n40%,остальное на 6 мес. равными долями. Готовы также сразу рассмотреть \r\nдоговор поставки.\r\n\n-- \r\nДокумент без названия\r\n\n*С уважением, Исаев Олег Юрьевич,*\r\n\n*Руководитель отдела регионального развития *\r\n\n**ООО \"ДНК-Технология\" **\r\n\n***Тел:**+7 (495) 640-17-71***\r\n\n**\r\n\n*E-mail:**o.isaev@dna-technology.ru *\r\n\n*Web:**www.dna-technology.ru <https://dna-technology.ru>*\r\n\n<https://dna-technology.ru>**",
+  "body_clean": "Коллеги, для ООО Медицинский центр Лаборатория  ДНК-диагностика\nг.Барнаул прошу выставить КП на ДТпраймII 6м1 со скидкой 20%,предоплата\n40%,остальное на 6 мес. равными долями. Готовы также сразу рассмотреть\nдоговор поставки.\nДокумент без названия\n*С уважением, Исаев Олег Юрьевич,*\n*Руководитель отдела регионального развития *\n**ООО \"ДНК-Технология\" **\n***Тел:**+7 (495) 640-17-71***\n*E-mail:**o.isaev@dna-technology.ru *\n*Web:**www.dna-technology.ru https://dna-technology.ru*\nhttps://dna-technology.ru**",
+  "char_count": 506,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:logo*",
+      "original_filename": "logo.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T01:03:23.450323+07:00",
+  "raw_size": 119082,
+  "date_folder": "2025-10-07",
+  "eml_path": "eml/2025-10-07/be9bf10e-5208-47c4-b4b4-7109c0553ea4_dna-technology.ru_010323_438987.eml"
+}

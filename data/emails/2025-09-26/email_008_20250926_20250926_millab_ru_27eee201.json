@@ -1,0 +1,42 @@
+{
+  "thread_id": "20250926_millab_ru_27eee201",
+  "message_id": "<004001dc2ec5$f3083a70$d918af50$@millab.ru>",
+  "email_num_in_day": 8,
+  "total_emails_in_day": 13,
+  "from": "yuch@millab.ru",
+  "to": "s.voronova@dna-technology.ru, ozernaya@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru",
+    "ozernaya@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Авторизация на ДТпрайм 5М1",
+  "date": "Fri, 26 Sep 2025 12:14:23 +0300",
+  "parsed_date": "2025-09-26T16:14:23+07:00",
+  "body_raw": "Коллеги, добрый день!\r\n\nПрошу утонить возможность работы по проекту на закупку ДТпрайм 5М1\r\n\nКонечный пользователь: СЛУЖБА ПО ВЕТЕРИНАРНОМУ НАДЗОРУ КРАСНОЯРСКОГО КРАЯ\r\n\nИНН: 2463075247\r\n\nПрибор нужен с поверкой\r\n\nЗаранее спасибо!\r\n\n_________________________________________\r\n\nС уважением, \r\n\nЧикиткина Юлия Александровна\r\n\nОтдел <Оборудование для микробиологии и биотехнологии>\r\n\nКомпания <МИЛЛАБ>\r\n\nТел. 8 (495) 933-71-47 (доб. 182)\r\n\n <http://www.millab.ru> www.millab.ru\r\n\nyuch@millab.ru\r\n\nMillab_logo",
+  "body_clean": "Коллеги, добрый день!\nПрошу утонить возможность работы по проекту на закупку ДТпрайм 5М1\nКонечный пользователь: СЛУЖБА ПО ВЕТЕРИНАРНОМУ НАДЗОРУ КРАСНОЯРСКОГО КРАЯ\nИНН: 2463075247\nПрибор нужен с поверкой\nЗаранее спасибо!\nС уважением,\nЧикиткина Юлия Александровна\nОтдел Оборудование для микробиологии и биотехнологии\nКомпания МИЛЛАБ\nТел. 8 (495) 933-71-47 (доб. 182)\nhttp://www.millab.ru www.millab.ru\nyuch@millab.ru\nMillab_logo",
+  "char_count": 426,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image001.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T01:01:18.388746+07:00",
+  "raw_size": 15943,
+  "date_folder": "2025-09-26",
+  "eml_path": "eml/2025-09-26/004001dc2ec5_f3083a70_d918af50_millab.ru_010118_378110.eml"
+}

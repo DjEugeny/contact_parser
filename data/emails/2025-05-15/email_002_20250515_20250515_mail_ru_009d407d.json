@@ -1,0 +1,53 @@
+{
+  "thread_id": "20250515_mail_ru_009d407d",
+  "message_id": "<B3BF16F0-D9F5-48D0-81F2-A50421DEBE1E@mail.ru>",
+  "email_num_in_day": 2,
+  "total_emails_in_day": 29,
+  "from": "2940200@mail.ru",
+  "to": "s.voronova@dna-technology.ru, o.isaev@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru",
+    "o.isaev@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Анкета ЭкоМед",
+  "date": "Thu, 15 May 2025 10:52:08 +0700",
+  "parsed_date": "2025-05-15T10:52:08+07:00",
+  "body_raw": "Добрый день, во вложении Анкета об замечательном мероприятии, отзыв на фирменном бланке - сегодня в следующем письме!\n\nС Уважением Пашов Виктор",
+  "body_clean": "Добрый день, во вложении Анкета об замечательном мероприятии, отзыв на фирменном бланке - сегодня в следующем письме!\nС Уважением Пашов Виктор",
+  "char_count": 142,
+  "attachments": [
+    {
+      "id": 181,
+      "original_filename": "о.п.о Памов.pdf",
+      "saved_filename": "20250515_403b1046_002846_007361_attach_о.п.о Памов.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-05-15/20250515_403b1046_002846_007361_attach_о.п.о Памов.pdf",
+      "relative_path": "attachments/2025-05-15/20250515_403b1046_002846_007361_attach_о.п.о Памов.pdf",
+      "file_size": 5808016,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:28:46",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<B3BF16F0-D9F5-48D0-81F2-A50421DEBE1E@mail.ru>",
+      "thread_id": "20250515_mail_ru_009d407d",
+      "sha256": "c279c349f1d99a6c87b050239d2c51c24f29271aa23897dc3d2587f376888875",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:28:45.982093+07:00",
+  "raw_size": 7953535,
+  "date_folder": "2025-05-15",
+  "eml_path": "eml/2025-05-15/B3BF16F0-D9F5-48D0-81F2-A50421DEBE1E_mail.ru_002845_977849.eml"
+}

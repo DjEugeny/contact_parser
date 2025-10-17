@@ -1,0 +1,54 @@
+{
+  "thread_id": "20250320_dna-technology_ru_19a682d7",
+  "message_id": "<e4e0e39e-3a2c-4721-b756-d3ef69b99e45@dna-technology.ru>",
+  "email_num_in_day": 21,
+  "total_emails_in_day": 27,
+  "from": "prisyazhnyuk@dna-technology.ru",
+  "to": "nipchi_irk_220132@mail.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "nipchi_irk_220132@mail.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Запрос ценовой информации",
+  "date": "Thu, 20 Mar 2025 12:49:41 +0300",
+  "parsed_date": "2025-03-20T16:49:41+07:00",
+  "body_raw": "Добрый день, Вера Юрьевна!\r\nКП во вложении.\r\n\n20.03.2025 5:40, Вера Юрьевна пишет:\r\n> С уважением,\r\n> Вера Юрьевна\r\n> nipchi_irk_220132@mail.ru\r\n\n-- \r\nС уважением, Присяжнюк Маргарита\r\nменеджер по продаже оборудования ООО \"ДНК-Технология\"\r\nТел\\факс: (495)640-17-71, доб.2007\r\nmailto: prisyazhnyuk@dna-technology.ru",
+  "body_clean": "Добрый день, Вера Юрьевна!\nКП во вложении.\n20.03.2025 5:40, Вера Юрьевна пишет:\n[quoted message elided #ad1106beba25]\n> С уважением,\n> Вера Юрьевна\n> nipchi_irk_220132@mail.ru\nС уважением, Присяжнюк Маргарита\nменеджер по продаже оборудования ООО \"ДНК-Технология\"\nТел\\факс: (495)640-17-71, доб.2007\nmailto: prisyazhnyuk@dna-technology.ru",
+  "char_count": 336,
+  "attachments": [
+    {
+      "id": 718,
+      "original_filename": "Ком.пред.20.03.2025 для ФКУЗ Иркутский научно-исследовательский противочумный  институт Роспотребнадзора (ДТпрайм 5М1).pdf",
+      "saved_filename": "20250320_d3e145fd_072111_356517_attach_Ком.пред.20.03.2025 для ФКУЗ Иркутский научно-исследовательский противочумный  институт Роспотребнадзора _ДТпрайм 5М1_.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-20/20250320_d3e145fd_072111_356517_attach_Ком.пред.20.03.2025 для ФКУЗ Иркутский научно-исследовательский противочумный  институт Роспотребнадзора _ДТпрайм 5М1_.pdf",
+      "relative_path": "attachments/2025-03-20/20250320_d3e145fd_072111_356517_attach_Ком.пред.20.03.2025 для ФКУЗ Иркутский научно-исследовательский противочумный  институт Роспотребнадзора _ДТпрайм 5М1_.pdf",
+      "file_size": 189105,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:21:11",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<e4e0e39e-3a2c-4721-b756-d3ef69b99e45@dna-technology.ru>",
+      "thread_id": "20250320_dna-technology_ru_19a682d7",
+      "sha256": "fff1d77ccae30e0f6bad93dc817fd3aa1e4a4a9eaf1ac7d5a7abf01d0378f46e",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:21:11.355188+07:00",
+  "raw_size": 262403,
+  "date_folder": "2025-03-20",
+  "eml_path": "eml/2025-03-20/e4e0e39e-3a2c-4721-b756-d3ef69b99e45_dna-technology.ru_072111_353405.eml"
+}

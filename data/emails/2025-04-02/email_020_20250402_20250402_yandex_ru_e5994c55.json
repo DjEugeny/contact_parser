@@ -1,0 +1,51 @@
+{
+  "thread_id": "20250402_yandex_ru_e5994c55",
+  "message_id": "<67841743590563@mail.yandex.ru>",
+  "email_num_in_day": 20,
+  "total_emails_in_day": 26,
+  "from": "uvs-bio@yandex.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Барун-Хемчикский ММЦ (Ак-Довурак)",
+  "date": "Wed, 02 Apr 2025 13:48:17 +0300",
+  "parsed_date": "2025-04-02T17:48:17+07:00",
+  "body_raw": "Юлия Геннадьевна\n\n8(983) 367-53-31\n\n8(983) 369-33-11\n\n \n\n-- \n\nС уважением,\n\nООО \"ЮВС-БИО\"\n\n(499) 157-74-49",
+  "body_clean": "Юлия Геннадьевна\n8(983) 367-53-31\n8(983) 369-33-11\nС уважением,\nООО \"ЮВС-БИО\"\n(499) 157-74-49",
+  "char_count": 93,
+  "attachments": [
+    {
+      "id": 24,
+      "original_filename": "Проект контракта 2025.284400.docx",
+      "saved_filename": "20250402_afb36448_215456_attach_Проект контракта 2025.284400.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-02/20250402_afb36448_215456_attach_Проект контракта 2025.284400.docx",
+      "relative_path": "attachments/2025-04-02/20250402_afb36448_215456_attach_Проект контракта 2025.284400.docx",
+      "file_size": 28222,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-11 14:54:56",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<67841743590563@mail.yandex.ru>",
+      "thread_id": "20250402_yandex_ru_e5994c55",
+      "sha256": "fc89c9a0c8581127ba584353603de42e08547dba50e4f091b7fc68fc437a997e"
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-12T23:48:15.711189+07:00",
+  "raw_size": 41702,
+  "date_folder": "2025-04-02",
+  "eml_path": "eml/2025-04-02/67841743590563_mail.yandex.ru_214144_257649.eml"
+}

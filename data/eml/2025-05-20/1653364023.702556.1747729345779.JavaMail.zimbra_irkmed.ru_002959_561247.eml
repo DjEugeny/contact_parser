@@ -1,0 +1,200 @@
+Received:  from mail.irkmed.ru ([84.244.51.106]:42634)
+	  by mail.dna-technology.ru with esmtps (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	 (Exim 4.98 (FreeBSD))
+	 (envelope-from <zapros_kp@irkmed.ru>)
+	 id 1uHIF2-000000009Jq-16aP ;
+	Tue, 20 May 2025 11:22:28 +0300
+Received: from localhost (localhost [127.0.0.1])
+	by mail.irkmed.ru (Postfix) with ESMTP id 89816B86855;
+	Tue, 20 May 2025 16:22:26 +0800 (+08)
+Received: from mail.irkmed.ru ([127.0.0.1])
+	by localhost (mail.irkmed.ru [127.0.0.1]) (amavisd-new, port 10032)
+	with ESMTP id OVRSFgu6PvUF; Tue, 20 May 2025 16:22:26 +0800 (+08)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.irkmed.ru (Postfix) with ESMTP id 233C4B8685B;
+	Tue, 20 May 2025 16:22:26 +0800 (+08)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.irkmed.ru 233C4B8685B
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=irkmed.ru;
+	s=6E827F8E-F633-11E9-AEDC-049B4D09BC06; t=1747729346;
+	bh=sEyUyamMC1skbXFNkolRTgm/wpwj+hTlgO8YAg6ErKY=;
+	h=Date:From:To:Message-ID:MIME-Version;
+	b=F2sFYOvQv2JsMdhhsjr+VDriWyDj+qk9cXfkiIKkbwpnFUeaJSej2C6HoeAuISNDW
+	 LQmz5xjWJbFXJ6GM//1DytbhHssVsbXvZsveGETUNSPoRPZFxUShXGNBPiJ8ucMAYs
+	 loRPjhYFZfItMFqjGP7qdRBwA1q1mbmb1qXZwhUIOuRlaB2KjlwLgI5rghdox4hKzP
+	 NSmoRt5mgJGTXb4Kwdb3d2aR8SvCjFNu0IuXhcdpdJ7szN/ja655HGguY1nMlBiKT0
+	 +inLR4Nbx42DksldHG/EBnAn+e3RgkXlJFePA8Twsz4yNMKkdyocYARIXuulpZYdiV
+	 sALNae+ia77vQ==
+X-Virus-Scanned: amavisd-new at irkmed.ru
+Received: from mail.irkmed.ru ([127.0.0.1])
+	by localhost (mail.irkmed.ru [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id lo-IryVTaCOa; Tue, 20 May 2025 16:22:26 +0800 (+08)
+Received: from mail.irkmed.ru (localhost [127.0.0.1])
+	by mail.irkmed.ru (Postfix) with ESMTP id 0EE73B86858;
+	Tue, 20 May 2025 16:22:26 +0800 (+08)
+Date: Tue, 20 May 2025 16:22:25 +0800 (IRKT)
+From: zapros_kp@irkmed.ru
+To: bilalov@dna-technology.ru
+Cc: s.voronova@dna-technology.ru
+Message-ID: <1653364023.702556.1747729345779.JavaMail.zimbra@irkmed.ru>
+Subject: =?utf-8?B?0JfQsNC/0YDQvtGBINCa0J8g0JrRgNCw0YHQvdC+0Y/RgNGB0Log0KbQtQ==?=
+ =?utf-8?B?0L3RgtGAINCh0J/QmNCUINCY0J3QnSAyNDY2MDU1MTc1?=
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="=_12597157-6c02-45e2-b25d-0d38b4486084"
+X-Originating-IP: [176.215.252.210]
+X-Mailer: Zimbra 8.8.12_GA_3866 (ZimbraWebClient - FF138 (Win)/8.8.12_GA_3844)
+Thread-Index: NFf6r3GOYSdK2GRRtUjoWE7dF5Jyvw==
+Thread-Topic: =?utf-8?B?0JfQsNC/0YDQvtGBINCa0J8g0JrRgNCw0YHQvdC+0Y/RgNGB0Log0KbQtdC90YLRgCDQodCf0JjQlCDQmNCd0J0=?= 2466055175
+Received-SPF: pass (mail.dna-technology.ru: domain of irkmed.ru designates 84.244.51.106 as permitted sender) client-ip=84.244.51.106; envelope-from=zapros_kp@irkmed.ru; helo=mail.irkmed.ru;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+--=_12597157-6c02-45e2-b25d-0d38b4486084
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+=D0=9E=D0=BB=D1=8C=D0=B3=D0=B0, =D0=B4=D0=BE=D0=B1=D1=80=D1=8B=D0=B9 =D0=B4=
+=D0=B5=D0=BD=D1=8C!=20
+
+=D0=9F=D1=80=D0=BE=D1=88=D1=83 =D0=BF=D1=80=D0=B5=D0=B4=D0=BE=D1=81=D1=82=
+=D0=B0=D0=B2=D0=B8=D1=82=D1=8C =D0=9A=D0=9F =D0=B8 =D0=A2=D0=A5 =D0=B4=D0=
+=BB=D1=8F =D0=9A=D0=A0=D0=90=D0=95=D0=92=D0=9E=D0=95 =D0=93=D0=9E=D0=A1=D0=
+=A3=D0=94=D0=90=D0=A0=D0=A1=D0=A2=D0=92=D0=95=D0=9D=D0=9D=D0=9E=D0=95 =D0=
+=90=D0=92=D0=A2=D0=9E=D0=9D=D0=9E=D0=9C=D0=9D=D0=9E=D0=95 =D0=A3=D0=A7=D0=
+=A0=D0=95=D0=96=D0=94=D0=95=D0=9D=D0=98=D0=95 =D0=97=D0=94=D0=A0=D0=90=D0=
+=92=D0=9E=D0=9E=D0=A5=D0=A0=D0=90=D0=9D=D0=95=D0=9D=D0=98=D0=AF "=D0=9A=D0=
+=A0=D0=90=D0=A1=D0=9D=D0=9E=D0=AF=D0=A0=D0=A1=D0=9A=D0=98=D0=99 =D0=9A=D0=
+=A0=D0=90=D0=95=D0=92=D0=9E=D0=99 =D0=A6=D0=95=D0=9D=D0=A2=D0=A0 =D0=9F=D0=
+=A0=D0=9E=D0=A4=D0=98=D0=9B=D0=90=D0=9A=D0=A2=D0=98=D0=9A=D0=98 =D0=98 =D0=
+=91=D0=9E=D0=A0=D0=AC=D0=91=D0=AB =D0=A1=D0=9E =D0=A1=D0=9F=D0=98=D0=94"=20
+=D0=98=D0=9D=D0=9D [ callto:2466055175 | 2466055175 ]=20
+=D0=94=D0=A2=D1=81=D1=82=D1=80=D0=B8=D0=BC=20
+
+=D0=B5=D1=81=D0=BB=D0=B8 =D0=B2=D0=BE=D0=B7=D0=BC=D0=BE=D0=B6=D0=BD=D0=BE=
+, =D0=BF=D1=80=D0=B5=D0=B4=D0=BB=D0=BE=D0=B6=D0=B8=D1=82=D0=B5 =D0=B5=D1=89=
+=D0=B5 =D0=BF=D1=80=D0=B8=D0=B1=D0=BE=D1=80 =D0=B2=D1=8B=D0=B4=D0=B5=D0=BB=
+=D0=B5=D0=BD=D0=B8=D0=B5, =D0=BD=D0=B0 =D0=BC=D0=B0=D0=BB=D0=B5=D0=BD=D1=8C=
+=D0=BA=D0=BE=D0=B5 =D0=B8 =D1=81=D1=80=D0=B5=D0=B4=D0=BD=D0=B5=D0=B5 =D0=BF=
+=D0=BE=D1=82=D1=80=D0=B5=D0=B1=D0=BB=D0=B5=D0=BD=D0=B8=D0=B5=20
+
++ =D0=BF=D0=B5=D1=80=D0=B8=D1=84=D0=B5=D1=80=D0=B8=D1=8F, =D0=BA=D0=BE=D1=
+=82=D0=BE=D1=80=D0=B0=D1=8F =D0=BD=D0=B5=D0=BE=D0=B1=D1=85=D0=BE=D0=B4=D0=
+=B8=D0=BC=D0=B0 =D0=B4=D0=BB=D1=8F =D0=BE=D0=B1=D0=BE=D1=80=D1=83=D0=B4=D0=
+=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F=20
+=D0=92=D1=8B=D0=BF=D0=B8=D1=81=D0=BA=D0=B0 =D0=B8=D1=85 =D1=80=D0=B5=D0=B5=
+=D1=81=D1=82=D1=80=D0=B0, =D0=A0=D0=A3 (=D0=BD=D0=BE=D0=BC=D0=B5=D1=80), =
+=D0=A2=D0=BE=D0=B2=D0=B0=D1=80=D0=BD=D1=8B=D0=B9 =D0=B7=D0=BD=D0=B0=D0=BA=
+=20
+
+=D0=97=D0=B0=D1=80=D0=B0=D0=BD=D0=B5=D0=B5 =D0=B1=D0=BB=D0=B0=D0=B3=D0=BE=
+=D0=B4=D0=B0=D1=80=D1=8E!=20
+
+=D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,=20
+=D0=9C=D0=B5=D1=81=D0=BC=D0=B5=D1=80 =D0=98=D0=BD=D0=B5=D1=81=D1=81=D0=B0=
+=20
+=D0=A0=D1=83=D0=BA=D0=BE=D0=B2=D0=BE=D0=B4=D0=B8=D1=82=D0=B5=D0=BB=D1=8C =
+=D0=BE=D1=82=D0=B4=D0=B5=D0=BB=D0=B0 =D0=B7=D0=B0=D0=BA=D1=83=D0=BF=D0=B0=
+=20
+=D0=9E=D0=9E=D0=9E "=D0=9B=D0=B0=D0=B1=D0=BE=D1=80=D0=B0"=20
+=D0=A2=D0=B5=D0=BB.8(3952)288867, =D0=B4=D0=BE=D0=B1. 3224=20
+=D0=BC=D0=BE=D0=B1.8-914-933-59-19=20
+mesmer.is@irkmed.ru=20
+
+--=_12597157-6c02-45e2-b25d-0d38b4486084
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><body><div style=3D"font-family: times new roman,new york,times,serif=
+; font-size: 12pt; color: #000099"><div style=3D"font-family: times new rom=
+an,new york,times,serif; font-size: 12pt; color: #000099">=D0=9E=D0=BB=D1=
+=8C=D0=B3=D0=B0, =D0=B4=D0=BE=D0=B1=D1=80=D1=8B=D0=B9 =D0=B4=D0=B5=D0=BD=D1=
+=8C!</div><div style=3D"font-family: times new roman,new york,times,serif; =
+font-size: 12pt; color: #000099"><br> <!--StartFragment--><div style=3D"fon=
+t-family: 'times new roman', 'new york', 'times', serif; font-size: 12pt; c=
+olor: #000099;" data-mce-style=3D"font-family: 'times new roman', 'new york=
+', 'times', serif; font-size: 12pt; color: #000099;">=D0=9F=D1=80=D0=BE=D1=
+=88=D1=83 =D0=BF=D1=80=D0=B5=D0=B4=D0=BE=D1=81=D1=82=D0=B0=D0=B2=D0=B8=D1=
+=82=D1=8C =D0=9A=D0=9F =D0=B8 =D0=A2=D0=A5 &nbsp; =D0=B4=D0=BB=D1=8F =D0=9A=
+=D0=A0=D0=90=D0=95=D0=92=D0=9E=D0=95 =D0=93=D0=9E=D0=A1=D0=A3=D0=94=D0=90=
+=D0=A0=D0=A1=D0=A2=D0=92=D0=95=D0=9D=D0=9D=D0=9E=D0=95 =D0=90=D0=92=D0=A2=
+=D0=9E=D0=9D=D0=9E=D0=9C=D0=9D=D0=9E=D0=95 =D0=A3=D0=A7=D0=A0=D0=95=D0=96=
+=D0=94=D0=95=D0=9D=D0=98=D0=95 =D0=97=D0=94=D0=A0=D0=90=D0=92=D0=9E=D0=9E=
+=D0=A5=D0=A0=D0=90=D0=9D=D0=95=D0=9D=D0=98=D0=AF "=D0=9A=D0=A0=D0=90=D0=A1=
+=D0=9D=D0=9E=D0=AF=D0=A0=D0=A1=D0=9A=D0=98=D0=99 =D0=9A=D0=A0=D0=90=D0=95=
+=D0=92=D0=9E=D0=99 =D0=A6=D0=95=D0=9D=D0=A2=D0=A0 =D0=9F=D0=A0=D0=9E=D0=A4=
+=D0=98=D0=9B=D0=90=D0=9A=D0=A2=D0=98=D0=9A=D0=98 =D0=98 =D0=91=D0=9E=D0=A0=
+=D0=AC=D0=91=D0=AB =D0=A1=D0=9E =D0=A1=D0=9F=D0=98=D0=94"</div><div style=
+=3D"font-family: 'times new roman', 'new york', 'times', serif; font-size: =
+12pt; color: #000099;" data-mce-style=3D"font-family: 'times new roman', 'n=
+ew york', 'times', serif; font-size: 12pt; color: #000099;">=D0=98=D0=9D=D0=
+=9D <span class=3D"Object" role=3D"link" id=3D"OBJ_PREFIX_DWT6929_com_zimbr=
+a_phone"><a href=3D"callto:2466055175" onclick=3D"window.top.Com_Zimbra_Pho=
+ne.unsetOnbeforeunload()" data-mce-href=3D"callto:2466055175">2466055175</a=
+></span></div><div style=3D"font-family: 'times new roman', 'new york', 'ti=
+mes', serif; font-size: 12pt; color: #000099;" data-mce-style=3D"font-famil=
+y: 'times new roman', 'new york', 'times', serif; font-size: 12pt; color: #=
+000099;"><span style=3D"font-family: times new roman, new york, times, seri=
+f; font-size: 12pt;" data-mce-style=3D"font-family: times new roman, new yo=
+rk, times, serif; font-size: 12pt;">=D0=94=D0=A2=D1=81=D1=82=D1=80=D0=B8=D0=
+=BC</span><!--StartFragment--><!--EndFragment--> </div><div style=3D"font-f=
+amily: 'times new roman', 'new york', 'times', serif; font-size: 12pt; colo=
+r: #000099;" data-mce-style=3D"font-family: 'times new roman', 'new york', =
+'times', serif; font-size: 12pt; color: #000099;"><br></div><div style=3D"f=
+ont-family: 'times new roman', 'new york', 'times', serif; font-size: 12pt;=
+ color: #000099;" data-mce-style=3D"font-family: 'times new roman', 'new yo=
+rk', 'times', serif; font-size: 12pt; color: #000099;">=D0=B5=D1=81=D0=BB=
+=D0=B8 =D0=B2=D0=BE=D0=B7=D0=BC=D0=BE=D0=B6=D0=BD=D0=BE, =D0=BF=D1=80=D0=B5=
+=D0=B4=D0=BB=D0=BE=D0=B6=D0=B8=D1=82=D0=B5 =D0=B5=D1=89=D0=B5 =D0=BF=D1=80=
+=D0=B8=D0=B1=D0=BE=D1=80 =D0=B2=D1=8B=D0=B4=D0=B5=D0=BB=D0=B5=D0=BD=D0=B8=
+=D0=B5, =D0=BD=D0=B0 =D0=BC=D0=B0=D0=BB=D0=B5=D0=BD=D1=8C=D0=BA=D0=BE=D0=B5=
+ =D0=B8 =D1=81=D1=80=D0=B5=D0=B4=D0=BD=D0=B5=D0=B5 =D0=BF=D0=BE=D1=82=D1=80=
+=D0=B5=D0=B1=D0=BB=D0=B5=D0=BD=D0=B8=D0=B5</div><div style=3D"font-family: =
+'times new roman', 'new york', 'times', serif; font-size: 12pt; color: #000=
+099;" data-mce-style=3D"font-family: 'times new roman', 'new york', 'times'=
+, serif; font-size: 12pt; color: #000099;"><span style=3D"background-color:=
+ #ffffff;" data-mce-style=3D"background-color: #ffffff;"><br></span></div><=
+div style=3D"font-family: 'times new roman', 'new york', 'times', serif; fo=
+nt-size: 12pt; color: #000099;" data-mce-style=3D"font-family: 'times new r=
+oman', 'new york', 'times', serif; font-size: 12pt; color: #000099;"><span =
+style=3D"background-color: #ffffff;" data-mce-style=3D"background-color: #f=
+fffff;">+ =D0=BF=D0=B5=D1=80=D0=B8=D1=84=D0=B5=D1=80=D0=B8=D1=8F, =D0=BA=D0=
+=BE=D1=82=D0=BE=D1=80=D0=B0=D1=8F =D0=BD=D0=B5=D0=BE=D0=B1=D1=85=D0=BE=D0=
+=B4=D0=B8=D0=BC=D0=B0 =D0=B4=D0=BB=D1=8F =D0=BE=D0=B1=D0=BE=D1=80=D1=83=D0=
+=B4=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F</span></div><div style=3D"font-fami=
+ly: 'times new roman', 'new york', 'times', serif; font-size: 12pt; color: =
+#000099;" data-mce-style=3D"font-family: 'times new roman', 'new york', 'ti=
+mes', serif; font-size: 12pt; color: #000099;"><span style=3D"background-co=
+lor: #ffffff;" data-mce-style=3D"background-color: #ffffff;">=D0=92=D1=8B=
+=D0=BF=D0=B8=D1=81=D0=BA=D0=B0 =D0=B8=D1=85 =D1=80=D0=B5=D0=B5=D1=81=D1=82=
+=D1=80=D0=B0, =D0=A0=D0=A3 (=D0=BD=D0=BE=D0=BC=D0=B5=D1=80), =D0=A2=D0=BE=
+=D0=B2=D0=B0=D1=80=D0=BD=D1=8B=D0=B9 =D0=B7=D0=BD=D0=B0=D0=BA</span></div><=
+div style=3D"font-family: 'times new roman', 'new york', 'times', serif; fo=
+nt-size: 12pt; color: #000099;" data-mce-style=3D"font-family: 'times new r=
+oman', 'new york', 'times', serif; font-size: 12pt; color: #000099;"><br></=
+div><div style=3D"font-family: 'times new roman', 'new york', 'times', seri=
+f; font-size: 12pt; color: #000099;" data-mce-style=3D"font-family: 'times =
+new roman', 'new york', 'times', serif; font-size: 12pt; color: #000099;">=
+=D0=97=D0=B0=D1=80=D0=B0=D0=BD=D0=B5=D0=B5 =D0=B1=D0=BB=D0=B0=D0=B3=D0=BE=
+=D0=B4=D0=B0=D1=80=D1=8E!</div><!--EndFragment-->&nbsp;</div><div style=3D"=
+font-family: times new roman,new york,times,serif; font-size: 12pt; color: =
+#000099"><br><div id=3D"ae2522a5-582c-4371-9177-52378795311b" data-marker=
+=3D"__SIG_PRE__"><div><span style=3D"font-family:'times new roman' , 'new y=
+ork' , 'times' , serif;font-size:12pt">=D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=
+=B5=D0=BD=D0=B8=D0=B5=D0=BC,</span><br><span style=3D"font-family:'times ne=
+w roman' , 'new york' , 'times' , serif;font-size:12pt">=D0=9C=D0=B5=D1=81=
+=D0=BC=D0=B5=D1=80 =D0=98=D0=BD=D0=B5=D1=81=D1=81=D0=B0</span><br><span sty=
+le=3D"font-family:'times new roman' , 'new york' , 'times' , serif;font-siz=
+e:12pt">=D0=A0=D1=83=D0=BA=D0=BE=D0=B2=D0=BE=D0=B4=D0=B8=D1=82=D0=B5=D0=BB=
+=D1=8C =D0=BE=D1=82=D0=B4=D0=B5=D0=BB=D0=B0 =D0=B7=D0=B0=D0=BA=D1=83=D0=BF=
+=D0=B0</span><br><span style=3D"font-family:'times new roman' , 'new york' =
+, 'times' , serif;font-size:12pt">=D0=9E=D0=9E=D0=9E "=D0=9B=D0=B0=D0=B1=D0=
+=BE=D1=80=D0=B0"</span><br><span style=3D"font-family:'times new roman' , '=
+new york' , 'times' , serif;font-size:12pt">=D0=A2=D0=B5=D0=BB.8(3952)28886=
+7, =D0=B4=D0=BE=D0=B1. 3224</span><br><span style=3D"font-family:'times new=
+ roman' , 'new york' , 'times' , serif;font-size:12pt">=D0=BC=D0=BE=D0=B1.8=
+-914-933-59-19</span><br><span style=3D"font-family:'times new roman' , 'ne=
+w york' , 'times' , serif;font-size:12pt">mesmer.is@irkmed.ru</span></div><=
+/div></div></div></body></html>
+--=_12597157-6c02-45e2-b25d-0d38b4486084--

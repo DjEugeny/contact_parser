@@ -1,0 +1,34 @@
+{
+  "thread_id": "20250904_mail_ru_7ba1363d",
+  "message_id": "<1756958116.138293333@f320.i.mail.ru>",
+  "email_num_in_day": 1,
+  "total_emails_in_day": 13,
+  "from": "spirinalvl@mail.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "заказ КП",
+  "date": "Thu, 04 Sep 2025 06:55:16 +0300",
+  "parsed_date": "2025-09-04T10:55:16+07:00",
+  "body_raw": "Светлана,\nдобрый день, высылаю позиции для заказа:\n* ФЕМОФЛОР II\n* набор для выделения с магнитными частицами\n\nСпирина Людмила Викторовна\nд.м.н., заведующий кафедрой биохимии и молекулярной биологии с курсом КЛД, Сибирский Государственный медицинский университет, г. Томск, Российская Федерация\n\nLiudmila Spirina\nDoctor of Medical Science, Leader Researcher, Siberian State Medical University, Division of Biochemistry and Molecular Biology with Course of Clinical Laboratory Diagnostics\n  +79609758577",
+  "body_clean": "Светлана,\nдобрый день, высылаю позиции для заказа:\n* ФЕМОФЛОР II\n* набор для выделения с магнитными частицами\nСпирина Людмила Викторовна\nд.м.н., заведующий кафедрой биохимии и молекулярной биологии с курсом КЛД, Сибирский Государственный медицинский университет, г. Томск, Российская Федерация\nLiudmila Spirina\nDoctor of Medical Science, Leader Researcher, Siberian State Medical University, Division of Biochemistry and Molecular Biology with Course of Clinical Laboratory Diagnostics\n+79609758577",
+  "char_count": 498,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:54:48.907233+07:00",
+  "raw_size": 11358,
+  "date_folder": "2025-09-04",
+  "eml_path": "eml/2025-09-04/1756958116.138293333_f320.i.mail.ru_005448_904415.eml"
+}

@@ -1,0 +1,77 @@
+{
+  "thread_id": "20250331_dna-technology_ru_558a4191",
+  "message_id": "<a00b7d32-e4fc-4c8e-80d5-c9d07a0644ef@dna-technology.ru>",
+  "email_num_in_day": 16,
+  "total_emails_in_day": 16,
+  "from": "prisyazhnyuk@dna-technology.ru",
+  "to": "nipchi_irk_220132@mail.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "nipchi_irk_220132@mail.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Fwd: Fwd: Запрос",
+  "date": "Mon, 31 Mar 2025 16:06:53 +0300",
+  "parsed_date": "2025-03-31T20:06:53+07:00",
+  "body_raw": "Добрый день, Вера Юрьевна!\r\n\nВо вложении КП и ТХ.\r\n\n> -------- Пересылаемое сообщение --------\r\n> 11:47, 31 марта 2025 г., \"Вера Юрьевна\" <nipchi_irk_220132@mail.ru>:\r\n>\r\n> Добрый день! Есть только одно предложение по ДТ КЛАССИК ОТ 19.03\r\n> ждем еще и тз\r\n>\r\n> Понедельник, 24 марта 2025, 11:35 +08:00 от Воронова Светлана\r\n> Сергеевна <s.voronova@dna-technology.ru>:\r\n> Добрый день, Вера Юрьевна!\r\n> Прошу оформить заявку на инсталляцию ДТпрайм.\r\n> Шаблон высылаю во вложении.\r\n> --\r\n> С уважением, Воронова Светлана Сергеевна\r\n> региональный представитель в СФО\r\n> ООО \"ДНК-Технология\"\r\n> моб. тел. 8 (995) 129-39-76\r\n> e-mail: s.voronova@dna-technology.ru\r\n> web: www.dna-technology.ru <http://www.dna-technology.ru>\r\n>\r\n> С уважением,\r\n> Вера Юрьевна\r\n> nipchi_irk_220132@mail.ru\r\n>\r\n>\r\n> -------- Конец пересылаемого сообщения --------\r\n\n-- \r\nС уважением, Присяжнюк Маргарита\r\nменеджер по продаже оборудования ООО \"ДНК-Технология\"\r\nТел\\факс: (495)640-17-71, доб.2007\r\nmailto:prisyazhnyuk@dna-technology.ru",
+  "body_clean": "Добрый день, Вера Юрьевна!\nВо вложении КП и ТХ.\n> -------- Пересылаемое сообщение --------\n> 11:47, 31 марта 2025 г., \"Вера Юрьевна\" nipchi_irk_220132@mail.ru:\n> Добрый день! Есть только одно предложение по ДТ КЛАССИК ОТ 19.03\n> ждем еще и тз\n> Понедельник, 24 марта 2025, 11:35 +08:00 от Воронова Светлана\n> Сергеевна s.voronova@dna-technology.ru:\n> Добрый день, Вера Юрьевна!\n> Прошу оформить заявку на инсталляцию ДТпрайм.\n> Шаблон высылаю во вложении.\n> С уважением, Воронова Светлана Сергеевна\n> региональный представитель в СФО\n> ООО \"ДНК-Технология\"\n> моб. тел. 8 (995) 129-39-76\n> e-mail: s.voronova@dna-technology.ru\n> web: www.dna-technology.ru http://www.dna-technology.ru\n> С уважением,\n> Вера Юрьевна\n> nipchi_irk_220132@mail.ru\n> -------- Конец пересылаемого сообщения --------\nС уважением, Присяжнюк Маргарита\nменеджер по продаже оборудования ООО \"ДНК-Технология\"\nТел\\факс: (495)640-17-71, доб.2007\nmailto:prisyazhnyuk@dna-technology.ru",
+  "char_count": 951,
+  "attachments": [
+    {
+      "id": 782,
+      "original_filename": "Ком.пред.31.03.2025 для ФКУЗ Иркутский НИПЧИ Роспотребнадзора (ДТклассик - 2шт) Далекс.pdf",
+      "saved_filename": "20250331_923cce95_072500_531152_attach_Ком.пред.31.03.2025 для ФКУЗ Иркутский НИПЧИ Роспотребнадзора _ДТклассик - 2шт_ Далекс.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-31/20250331_923cce95_072500_531152_attach_Ком.пред.31.03.2025 для ФКУЗ Иркутский НИПЧИ Роспотребнадзора _ДТклассик - 2шт_ Далекс.pdf",
+      "relative_path": "attachments/2025-03-31/20250331_923cce95_072500_531152_attach_Ком.пред.31.03.2025 для ФКУЗ Иркутский НИПЧИ Роспотребнадзора _ДТклассик - 2шт_ Далекс.pdf",
+      "file_size": 259460,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:25:00",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<a00b7d32-e4fc-4c8e-80d5-c9d07a0644ef@dna-technology.ru>",
+      "thread_id": "20250331_dna-technology_ru_558a4191",
+      "sha256": "f8a45332edddcab90570dcf9f04b322b79530531088c94a6dadf0bb3f2a1bca6",
+      "file_exists": true
+    },
+    {
+      "id": 783,
+      "original_filename": "Ком.пред.31.03.2025 для ФКУЗ Иркутский НИПЧИ Роспотребнадзора (ДТклассик - 2шт) Лаб.тех..pdf",
+      "saved_filename": "20250331_923cce95_072500_533111_attach_Ком.пред.31.03.2025 для ФКУЗ Иркутский НИПЧИ Роспотребнадзора _ДТклассик - 2шт_ Лаб.тех..pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-31/20250331_923cce95_072500_533111_attach_Ком.пред.31.03.2025 для ФКУЗ Иркутский НИПЧИ Роспотребнадзора _ДТклассик - 2шт_ Лаб.тех..pdf",
+      "relative_path": "attachments/2025-03-31/20250331_923cce95_072500_533111_attach_Ком.пред.31.03.2025 для ФКУЗ Иркутский НИПЧИ Роспотребнадзора _ДТклассик - 2шт_ Лаб.тех..pdf",
+      "file_size": 283440,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:25:00",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<a00b7d32-e4fc-4c8e-80d5-c9d07a0644ef@dna-technology.ru>",
+      "thread_id": "20250331_dna-technology_ru_558a4191",
+      "sha256": "3b52e8e945fb151455073bde836995fd0f139540aeda1928d7c29bd83ae523d0",
+      "file_exists": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:*ТЗ*",
+      "original_filename": "231212-ТЗ ДТклассик (2025).doc",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 3,
+    "saved": 2,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:25:00.529594+07:00",
+  "raw_size": 909305,
+  "date_folder": "2025-03-31",
+  "eml_path": "eml/2025-03-31/a00b7d32-e4fc-4c8e-80d5-c9d07a0644ef_dna-technology.ru_072500_528053.eml"
+}

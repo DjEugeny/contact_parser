@@ -1,0 +1,39 @@
+{
+  "thread_id": "20250701_skc-fmba_ru_9e71f4bb",
+  "message_id": "<b2013720-a962-4e60-92f7-96637c3b9d4c@smail14.skc-fmba.ru>",
+  "from": "paryigina_oa@skc-fmba.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Просьба обновить КП",
+  "date": "Tue, 01 Jul 2025 22:25:16 +0700",
+  "parsed_date": "2025-07-01T22:25:16+07:00",
+  "body": "Доброе утро!\nСветлана, очень просим обновить КП.\nБлагодарю!\nзаведующая ПЦР-лабораторией,\nбиолог КДЛ ФГБУ ФСНКЦ ФМБА России,\nПарыгина Ольга Александровна,\nм. т. 8-913-830-99-88\nФГБУ ФСНКЦ ФМБА России\nhttps://www.skc-fmba.ru\nДоброе утро!Светлана, очень просим обновить КП. Благодарю!\nС уважением,заведующая ПЦР-лабораторией, биолог КДЛ ФГБУ ФСНКЦ ФМБА России,Парыгина Ольга Александровна,",
+  "char_count": 386,
+  "attachments": [
+    {
+      "filename": "ru_9e71f4bb_190407_attach_КП ДНК-Технология.pdf",
+      "saved_filename": "20250701_skc-fmba_ru_9e71f4bb_190407_attach_КП ДНК-Технология.pdf",
+      "size": 201500,
+      "path": "attachments/2025-07-01/20250701_skc-fmba_ru_9e71f4bb_190407_attach_КП ДНК-Технология.pdf",
+      "status": "saved",
+      "type": "existing_attachment"
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-08-26T17:40:22.481223+07:00",
+  "raw_size": 281466,
+  "date_folder": "2025-07-01"
+}

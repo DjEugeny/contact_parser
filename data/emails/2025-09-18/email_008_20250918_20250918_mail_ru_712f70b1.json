@@ -1,0 +1,54 @@
+{
+  "thread_id": "20250918_mail_ru_712f70b1",
+  "message_id": "<1758183435.748232702@f75.i.mail.ru>",
+  "email_num_in_day": 8,
+  "total_emails_in_day": 14,
+  "from": "bak.lab.msch.nso@mail.ru",
+  "to": "333torg@gmail.com",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "333torg@gmail.com"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "ЗАЯВКА на пцр26.odt",
+  "date": "Thu, 18 Sep 2025 11:17:15 +0300",
+  "parsed_date": "2025-09-18T15:17:15+07:00",
+  "body_raw": "--\nЗаведующая бактериологической лабораторией, врач бактериолог\nБондаренко А.Е.",
+  "body_clean": "Заведующая бактериологической лабораторией, врач бактериолог\nБондаренко А.Е.",
+  "char_count": 76,
+  "attachments": [
+    {
+      "id": 491,
+      "original_filename": "ЗАЯВКА на пцр26.odt",
+      "saved_filename": "20250918_fd2424d4_005827_348743_attach_ЗАЯВКА на пцр26.odt",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-09-18/20250918_fd2424d4_005827_348743_attach_ЗАЯВКА на пцр26.odt",
+      "relative_path": "attachments/2025-09-18/20250918_fd2424d4_005827_348743_attach_ЗАЯВКА на пцр26.odt",
+      "file_size": 32222,
+      "file_type": "application/vnd.oasis.opendocument.text",
+      "content_type": "application/vnd.oasis.opendocument.text",
+      "saved_at": "2025-10-13 17:58:27",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<1758183435.748232702@f75.i.mail.ru>",
+      "thread_id": "20250918_mail_ru_712f70b1",
+      "sha256": "b3271760a73b338649155172c75bb99ca641f7f6ab8a7f1534d0ea84d0bd626d",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:58:27.347276+07:00",
+  "raw_size": 50611,
+  "date_folder": "2025-09-18",
+  "eml_path": "eml/2025-09-18/1758183435.748232702_f75.i.mail.ru_005827_338256.eml"
+}

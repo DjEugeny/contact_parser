@@ -1,0 +1,43 @@
+{
+  "thread_id": "20250402_siblabservice_ru_3d8d24f0",
+  "message_id": "<002c01dba38b$453144c0$cf93ce40$@siblabservice.ru>",
+  "email_num_in_day": 3,
+  "total_emails_in_day": 26,
+  "from": "kiwi@siblabservice.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "torgi@dna-technology.ru",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "torgi@dna-technology.ru"
+  ],
+  "subject": "СибЛабСервис запрос счёта",
+  "date": "Wed, 2 Apr 2025 12:54:09 +0800",
+  "parsed_date": "2025-04-02T11:54:09+07:00",
+  "body_raw": "Здравствуйте, Светлана и Дмитрий!\r\n\nПрошу отправить счёт по прямой закупке:\r\n\nпроба Рапид-генетика-2 - 1 набор\r\n\nДля Онкологического диспансера Иркутск, ИНН: 3809016338\r\n\nСпасибо!\r\n\n ЭДО Контур.Диадок\r\n\n 2BM-3812132920-2013022203542760504890000000000 \r\n\nМенеджер ООО <СибЛабСервис>\r\n\nКлебанова Ирина\r\n\nТел.(3952)78-25-79, доп. 121\r\n\nГ. Иркутск",
+  "body_clean": "Здравствуйте, Светлана и Дмитрий!\nПрошу отправить счёт по прямой закупке:\nпроба Рапид-генетика-2 - 1 набор\nДля Онкологического диспансера Иркутск, ИНН: 3809016338\nСпасибо!\nЭДО Контур.Диадок\n2BM-3812132920-2013022203542760504890000000000\nМенеджер ООО СибЛабСервис\nКлебанова Ирина\nТел.(3952)78-25-79, доп. 121\nГ. Иркутск",
+  "char_count": 318,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:image*",
+      "original_filename": "image003.jpg",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-13T23:54:59.009234+07:00",
+  "raw_size": 11811,
+  "date_folder": "2025-04-02",
+  "eml_path": "eml/2025-04-02/002c01dba38b_453144c0_cf93ce40_siblabservice.ru_214107_631238.eml"
+}

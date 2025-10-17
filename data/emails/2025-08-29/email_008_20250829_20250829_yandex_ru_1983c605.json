@@ -1,0 +1,34 @@
+{
+  "thread_id": "20250829_yandex_ru_1983c605",
+  "message_id": "<28181756460627@mail.yandex.ru>",
+  "email_num_in_day": 8,
+  "total_emails_in_day": 10,
+  "from": "altai-enzyme@yandex.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Re: 9770 новый 2",
+  "date": "Fri, 29 Aug 2025 16:45:29 +0700",
+  "parsed_date": "2025-08-29T16:45:29+07:00",
+  "body_raw": "Прошу прощения, по ошибке Вам адресовала это письмо, поэтому игнорируйте его.\n\n-- \n\n \n\nС уважением,\n\nкоманда Алтай-Энзим\n\n \n\naltai-enzyme.ru\n\naltai-enzyme@yandex.ru",
+  "body_clean": "Прошу прощения, по ошибке Вам адресовала это письмо, поэтому игнорируйте его.\nС уважением,\nкоманда Алтай-Энзим\naltai-enzyme.ru\naltai-enzyme@yandex.ru",
+  "char_count": 149,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:54:16.179525+07:00",
+  "raw_size": 3123,
+  "date_folder": "2025-08-29",
+  "eml_path": "eml/2025-08-29/28181756460627_mail.yandex.ru_005416_172081.eml"
+}

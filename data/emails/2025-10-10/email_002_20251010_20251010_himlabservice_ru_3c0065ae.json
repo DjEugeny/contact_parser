@@ -1,0 +1,52 @@
+{
+  "thread_id": "20251010_himlabservice_ru_3c0065ae",
+  "message_id": "<219551760081180@mail.360.yandex.ru>",
+  "email_num_in_day": 2,
+  "total_emails_in_day": 30,
+  "from": "hls@himlabservice.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Запрос КП под ОПЦ на 2026 г.",
+  "date": "Fri, 10 Oct 2025 14:32:50 +0700",
+  "parsed_date": "2025-10-10T14:32:50+07:00",
+  "body_raw": "Добрый день! Прошу предоставить КП и ТЗ для подготовки аукциона на 2026 г.\nОПЦ\n7017245682\n\n \n\n-- \n\nС уважением,\n\nСунцова Татьяна\n \n\nООО \"ХимЛабСервис\"\n\n8 (3822) 42-45-35, 8-923-424-72-81.\n\n https://himlabservice.ru",
+  "body_clean": "Добрый день! Прошу предоставить КП и ТЗ для подготовки аукциона на 2026 г.\nОПЦ\n7017245682\nС уважением,\nСунцова Татьяна\nООО \"ХимЛабСервис\"\n8 (3822) 42-45-35, 8-923-424-72-81.\nhttps://himlabservice.ru",
+  "char_count": 198,
+  "attachments": [
+    {
+      "id": 583,
+      "original_filename": "Заявка 2026.xlsx",
+      "saved_filename": "20251010_ae6b68c8_010509_006345_attach_Заявка 2026.xlsx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-10-10/20251010_ae6b68c8_010509_006345_attach_Заявка 2026.xlsx",
+      "relative_path": "attachments/2025-10-10/20251010_ae6b68c8_010509_006345_attach_Заявка 2026.xlsx",
+      "file_size": 18059,
+      "file_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "saved_at": "2025-10-13 18:05:09",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<219551760081180@mail.360.yandex.ru>",
+      "thread_id": "20251010_himlabservice_ru_3c0065ae",
+      "sha256": "69eb375fd1c269016dfc85c4c1f1d8a85d904e61b679488af978f8674f17d007",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T01:05:09.005752+07:00",
+  "raw_size": 28338,
+  "date_folder": "2025-10-10",
+  "eml_path": "eml/2025-10-10/219551760081180_mail.360.yandex.ru_010509_001309.eml"
+}

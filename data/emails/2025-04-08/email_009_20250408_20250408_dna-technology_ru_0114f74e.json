@@ -1,0 +1,71 @@
+{
+  "thread_id": "20250408_dna-technology_ru_0114f74e",
+  "message_id": "<470aeec2-c059-4575-a545-7e45a39ad176@dna-technology.ru>",
+  "email_num_in_day": 9,
+  "total_emails_in_day": 24,
+  "from": "m.gogoleva@dna-technology.ru",
+  "to": "ruslan.tlyashev@syntol.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "ruslan.tlyashev@syntol.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Счёт смэ Красноярска, № 4469",
+  "date": "Tue, 8 Apr 2025 10:28:26 +0300",
+  "parsed_date": "2025-04-08T14:28:26+07:00",
+  "body_raw": "Руслан, счёт и проект договора во вложении.\r\n\nС уважением,\r\nменеджер ООО \"ДНК-Технология\"\r\nГоголева Мария\r\nтел.: (495) 640-17-71, доб. 2030\r\n\n08.04.2025 9:24, Руслан Тляшев пишет:\r\n> На ООО Синтол\r\n>\r\n> 13:21, 8 апреля 2025 г., \"Гоголева Мария\" <m.gogoleva@dna-technology.ru>:\r\n>\r\n> Добрый день, Руслан!\r\n>\r\n> На какое юр. лицо выставлять счёт и договор?\r\n>\r\n> С уважением,\r\n> менеджер ООО \"ДНК-Технология\"\r\n> Гоголева Мария\r\n> тел.: (495) 640-17-71, доб. 2030\r\n>\r\n> 07.04.2025 19:36, Руслан Тляшев пишет:\r\n>\r\n>  Здравствуйте коллеги! Прошу выставить счёт на оплату дт прайм\r\n> ll,\r\n>  победили в аукционе клиента БСМЭ по Красноярскому краю.\r\n>\r\n>  --\r\n>  Отправлено из мобильного приложения Яндекс Почты\r\n>\r\n>\r\n>\r\n>\r\n> -- \r\n> Отправлено из мобильного приложения Яндекс Почты",
+  "body_clean": "Руслан, счёт и проект договора во вложении.\nС уважением,\nменеджер ООО \"ДНК-Технология\"\nГоголева Мария\nтел.: (495) 640-17-71, доб. 2030\n08.04.2025 9:24, Руслан Тляшев пишет:\n[quoted message elided #82c4bf765fb9]\n> На ООО Синтол\n> 13:21, 8 апреля 2025 г., \"Гоголева Мария\" m.gogoleva@dna-technology.ru:\n> Добрый день, Руслан!\n> На какое юр. лицо выставлять счёт и договор?\n> С уважением,\n> менеджер ООО \"ДНК-Технология\"\n> Гоголева Мария\n> тел.: (495) 640-17-71, доб. 2030\n> 07.04.2025 19:36, Руслан Тляшев пишет:\n>  Здравствуйте коллеги! Прошу выставить счёт на оплату дт прайм\n> ll,\n>  победили в аукционе клиента БСМЭ по Красноярскому краю.\n>  Отправлено из мобильного приложения Яндекс Почты\n> Отправлено из мобильного приложения Яндекс Почты",
+  "char_count": 743,
+  "attachments": [
+    {
+      "id": 53,
+      "original_filename": "4469 Синтол.pdf",
+      "saved_filename": "20250408_2064577b_215651_attach_4469 Синтол.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-08/20250408_2064577b_215651_attach_4469 Синтол.pdf",
+      "relative_path": "attachments/2025-04-08/20250408_2064577b_215651_attach_4469 Синтол.pdf",
+      "file_size": 238295,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-11 14:56:51",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<470aeec2-c059-4575-a545-7e45a39ad176@dna-technology.ru>",
+      "thread_id": "20250408_dna-technology_ru_0114f74e",
+      "sha256": "7b0b256176a1233145bc080273bda832264f43832cff93d9d2eeb5c2e7db9f48",
+      "file_exists": true
+    },
+    {
+      "id": 54,
+      "original_filename": "д116_25 поставка Москва ООО Синтол счет 4469 оборудование 100% предоплата самовывоз.doc",
+      "saved_filename": "20250408_2064577b_215651_attach_д116_25 поставка Москва ООО Синтол счет 4469 оборудование 100_ предоплата самовывоз.doc",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-08/20250408_2064577b_215651_attach_д116_25 поставка Москва ООО Синтол счет 4469 оборудование 100_ предоплата самовывоз.doc",
+      "relative_path": "attachments/2025-04-08/20250408_2064577b_215651_attach_д116_25 поставка Москва ООО Синтол счет 4469 оборудование 100_ предоплата самовывоз.doc",
+      "file_size": 76288,
+      "file_type": "application/msword",
+      "content_type": "application/msword",
+      "saved_at": "2025-10-11 14:56:51",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<470aeec2-c059-4575-a545-7e45a39ad176@dna-technology.ru>",
+      "thread_id": "20250408_dna-technology_ru_0114f74e",
+      "sha256": "a2a99953cdefa4e01421e08d85222f82969b101f76f63a6015f9502f7e68e20c",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 2,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:20:22.410151+07:00",
+  "raw_size": 437799,
+  "date_folder": "2025-04-08",
+  "eml_path": "eml/2025-04-08/470aeec2-c059-4575-a545-7e45a39ad176_dna-technology.ru_235651_389379.eml"
+}

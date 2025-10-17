@@ -1,0 +1,43 @@
+{
+  "thread_id": "20250410_dna-technology_ru_363cb6c8",
+  "message_id": "<cce6e953-bf4e-44e3-b966-a33cdf1cf71e@dna-technology.ru>",
+  "email_num_in_day": 18,
+  "total_emails_in_day": 24,
+  "from": "bilalov@dna-technology.ru",
+  "to": "dyakov_aa@24.fsin.gov.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "dyakov_aa@24.fsin.gov.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "ТЗ ДТпрайм 4M1",
+  "date": "Thu, 10 Apr 2025 11:33:10 +0300",
+  "parsed_date": "2025-04-10T15:33:10+07:00",
+  "body_raw": "Добрый день!\r\n\nВо вложении ТЗ на ДТпрайм 4M1\r\n\n-- \r\nС уважением, Билалов Альберт\r\nзам. начальника отдела продаж ООО \"ДНК-Технология\"\r\nТел\\факс: (495)640-17-71, доб.2031\r\nmailto: bilalov@dna-technology.ru",
+  "body_clean": "Добрый день!\nВо вложении ТЗ на ДТпрайм 4M1\nС уважением, Билалов Альберт\nзам. начальника отдела продаж ООО \"ДНК-Технология\"\nТел\\факс: (495)640-17-71, доб.2031\nmailto: bilalov@dna-technology.ru",
+  "char_count": 191,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:*ТЗ*",
+      "original_filename": "240424-ТЗ ДТпрайм 4М1 (2025) в комплекте с ноутбуком и ИБП (по КТРУ с доп. характеристиками).docx",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:21:57.546607+07:00",
+  "raw_size": 69088,
+  "date_folder": "2025-04-10",
+  "eml_path": "eml/2025-04-10/cce6e953-bf4e-44e3-b966-a33cdf1cf71e_dna-technology.ru_235857_844559.eml"
+}

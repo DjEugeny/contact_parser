@@ -1,0 +1,45 @@
+{
+  "thread_id": "20250429_dna-technology_ru_7da84d35",
+  "message_id": "<9ff4a262-b6e7-42c3-81ca-ce53fc031fd5@dna-technology.ru>",
+  "email_num_in_day": 6,
+  "total_emails_in_day": 11,
+  "from": "hotline@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "razlivakhina@dna-technology.ru, o.isaev@dna-technology.ru, litvinenko@dna-technology.ru",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "razlivakhina@dna-technology.ru",
+    "o.isaev@dna-technology.ru",
+    "litvinenko@dna-technology.ru"
+  ],
+  "subject": "Re: Пробные наборы Новокузнецк НГКБ 1",
+  "date": "Tue, 29 Apr 2025 14:21:45 +0300",
+  "parsed_date": "2025-04-29T18:21:45+07:00",
+  "body_raw": "Добрый день!\r\n\nХорошо, сможем отправить после майских праздников.\r\n\n29.04.2025 13:25, Воронова Светлана Сергеевна пишет:\r\n> Добрый день, уважаемые коллеги!\r\n> С целью перевода клиента на продукцию ДНК-Технология, прошу \r\n> предоставить пробные наборы в Новокузнецк, ГАУЗ \"НГКБ № 1\"\r\n> ИНН4216003989\r\n>\r\n> NTCM Комплекс, ВПЧ скрин,  Проба МЧ Рапид II, фасовка N, Проба Рапид\r\n>\r\n> Адрес получателя :\r\n> 654041, Кемеровская Область - Кузбасс, г Новокузнецк,\r\n> проспект Бардина, д. 28\r\n> Гомбойло Саяна Сергеевна\r\n> 8(983)223-07-36\r\n> Сатеник Аршавиловна\r\n> 8(906)934-59-09\r\n>\r\n> Спасибо!\r\n> --\r\n> С уважением, Воронова Светлана Сергеевна\r\n> региональный представитель в СФО\r\n> ООО \"ДНК-Технология\"\r\n> моб. тел. 8 (995) 129-39-76\r\n> e-mail: s.voronova@dna-technology.ru\r\n> web: www.dna-technology.ru <https://www.dna-technology.ru>\r\n--",
+  "body_clean": "Добрый день!\nХорошо, сможем отправить после майских праздников.\n29.04.2025 13:25, Воронова Светлана Сергеевна пишет:\n> Добрый день, уважаемые коллеги!\n> С целью перевода клиента на продукцию ДНК-Технология, прошу\n> предоставить пробные наборы в Новокузнецк, ГАУЗ \"НГКБ № 1\"\n> ИНН4216003989\n> NTCM Комплекс, ВПЧ скрин,  Проба МЧ Рапид II, фасовка N, Проба Рапид\n> Адрес получателя :\n> 654041, Кемеровская Область - Кузбасс, г Новокузнецк,\n> проспект Бардина, д. 28\n> Гомбойло Саяна Сергеевна\n> 8(983)223-07-36\n> Сатеник Аршавиловна\n> 8(906)934-59-09\n> Спасибо!\n> С уважением, Воронова Светлана Сергеевна\n> региональный представитель в СФО\n> ООО \"ДНК-Технология\"\n> моб. тел. 8 (995) 129-39-76\n> e-mail: s.voronova@dna-technology.ru\n> web: www.dna-technology.ru https://www.dna-technology.ru",
+  "char_count": 788,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part1.0t0I9H8s.XGBxAqB8@dna-technology.ru",
+      "original_filename": "подпись новая.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:26:43.615309+07:00",
+  "raw_size": 41679,
+  "date_folder": "2025-04-29",
+  "eml_path": "eml/2025-04-29/9ff4a262-b6e7-42c3-81ca-ce53fc031fd5_dna-technology.ru_002643_609003.eml"
+}

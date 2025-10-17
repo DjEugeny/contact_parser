@@ -1,0 +1,54 @@
+{
+  "thread_id": "20250704_dna-technology_ru_1f942328",
+  "message_id": "<8c28b409-e084-4212-9f1c-5bf43c15b214@dna-technology.ru>",
+  "email_num_in_day": 1,
+  "total_emails_in_day": 7,
+  "from": "prisyazhnyuk@dna-technology.ru",
+  "to": "kiwi@siblabservice.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "kiwi@siblabservice.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: КП ФБУЗ «Центр гигиены и эпидемиологии в Республике Тыва», ИНН: 1701037811",
+  "date": "Fri, 4 Jul 2025 11:51:45 +0300",
+  "parsed_date": "2025-07-04T15:51:45+07:00",
+  "body_raw": "Добрый день, Ирина!\r\nВо вложении КП на ДТпрайм 5М1 с поверкой.\r\n\n04.07.2025 11:06, s.voronova@dna-technology.ru пишет:\r\n> Добрый день, коллеги!\r\n> Прошу скорректировать КП\r\n> выставленое СибЛабСервису для поставки в :\r\n> ФБУЗ «Центр гигиены и эпидемиологии в Республике Тыва», ИНН: 1701037811\r\n> Необходимо выставить амплификаторы как средство измерения :\r\n> ДТпрайм5М1 - 2 шт.\r\n>\r\n> Спасибо!\r\n>\r\n> --\r\n> С уважением, Воронова Светлана Сергеевна\r\n> региональный представитель в СФО\r\n> ООО \"ДНК-Технология\"\r\n> моб. тел. 8 (995) 129-39-76\r\n> e-mail: s.voronova@dna-technology.ru\r\n> web: www.dna-technology.ru\r\n\n-- \r\nС уважением, Присяжнюк Маргарита\r\nменеджер по продаже оборудования ООО \"ДНК-Технология\"\r\nТел\\факс: (495)640-17-71, доб.2007\r\nmailto:prisyazhnyuk@dna-technology.ru",
+  "body_clean": "Добрый день, Ирина!\nВо вложении КП на ДТпрайм 5М1 с поверкой.\n04.07.2025 11:06, s.voronova@dna-technology.ru пишет:\n> Добрый день, коллеги!\n> Прошу скорректировать КП\n> выставленое СибЛабСервису для поставки в :\n> ФБУЗ «Центр гигиены и эпидемиологии в Республике Тыва», ИНН: 1701037811\n> Необходимо выставить амплификаторы как средство измерения :\n> ДТпрайм5М1 - 2 шт.\n> Спасибо!\n> С уважением, Воронова Светлана Сергеевна\n> региональный представитель в СФО\n> ООО \"ДНК-Технология\"\n> моб. тел. 8 (995) 129-39-76\n> e-mail: s.voronova@dna-technology.ru\n> web: www.dna-technology.ru\nС уважением, Присяжнюк Маргарита\nменеджер по продаже оборудования ООО \"ДНК-Технология\"\nТел\\факс: (495)640-17-71, доб.2007\nmailto:prisyazhnyuk@dna-technology.ru",
+  "char_count": 738,
+  "attachments": [
+    {
+      "id": 298,
+      "original_filename": "Ком.пред.04.07.2025 для Иркутск СибЛабСервис для Кызыл ЦГиЭ (ДТпрайм 5М1 - 2 шт с поверкой, ноутбук, ибп) .pdf",
+      "saved_filename": "20250704_cf7a4ba1_003930_379622_attach_Ком.пред.04.07.2025 для Иркутск СибЛабСервис для Кызыл ЦГиЭ _ДТпрайм 5М1 - 2 шт с поверкой_ ноутбук_ ибп_ .pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-07-04/20250704_cf7a4ba1_003930_379622_attach_Ком.пред.04.07.2025 для Иркутск СибЛабСервис для Кызыл ЦГиЭ _ДТпрайм 5М1 - 2 шт с поверкой_ ноутбук_ ибп_ .pdf",
+      "relative_path": "attachments/2025-07-04/20250704_cf7a4ba1_003930_379622_attach_Ком.пред.04.07.2025 для Иркутск СибЛабСервис для Кызыл ЦГиЭ _ДТпрайм 5М1 - 2 шт с поверкой_ ноутбук_ ибп_ .pdf",
+      "file_size": 206083,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:39:30",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<8c28b409-e084-4212-9f1c-5bf43c15b214@dna-technology.ru>",
+      "thread_id": "20250704_dna-technology_ru_1f942328",
+      "sha256": "b6272a7604cda6ad903353371fea9bd89e4e08821a08a72da1a9fa08d97fb5ad",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:39:30.378287+07:00",
+  "raw_size": 288913,
+  "date_folder": "2025-07-04",
+  "eml_path": "eml/2025-07-04/8c28b409-e084-4212-9f1c-5bf43c15b214_dna-technology.ru_003930_376201.eml"
+}

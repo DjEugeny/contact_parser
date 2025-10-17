@@ -1,0 +1,36 @@
+{
+  "thread_id": "20250812_himlabservice_ru_4bfa5852",
+  "message_id": "<631097311.20250812175137@himlabservice.ru>",
+  "email_num_in_day": 9,
+  "total_emails_in_day": 13,
+  "from": "hls@himlabservice.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "torgi@dna-technology.ru",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "torgi@dna-technology.ru"
+  ],
+  "subject": "Запрос КП T.vaginalis/N.gonorrhoeae Комплекс",
+  "date": "Tue, 12 Aug 2025 17:51:37 +0700",
+  "parsed_date": "2025-08-12T17:51:37+07:00",
+  "body_raw": "Здравствуйте!\r\n\nПрошу Вас выставить КП на набор T.vaginalis/N.gonorrhoeae Комплекс (96\r\nопределений), для работы на приборе CFX96 - 5 наборов для ТОКБ.\r\n\nЗаранее благодарен!\r\n\nС уважением Цыбанов Баир Валерьевич\r\nМенеджер по продажам\r\nООО \"ХимЛабСервис\"\r\n+7(3822)42-45-35\r\n634045 г. Томск, ул. Мокрушина 13А\r\nhttps://himlabservice.ru/",
+  "body_clean": "Здравствуйте!\nПрошу Вас выставить КП на набор T.vaginalis/N.gonorrhoeae Комплекс (96\nопределений), для работы на приборе CFX96 - 5 наборов для ТОКБ.\nЗаранее благодарен!\nС уважением Цыбанов Баир Валерьевич\nМенеджер по продажам\nООО \"ХимЛабСервис\"\n+7(3822)42-45-35\n634045 г. Томск, ул. Мокрушина 13А\nhttps://himlabservice.ru/",
+  "char_count": 322,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:50:03.850910+07:00",
+  "raw_size": 2807,
+  "date_folder": "2025-08-12",
+  "eml_path": "eml/2025-08-12/631097311.20250812175137_himlabservice.ru_005003_846778.eml"
+}

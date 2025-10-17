@@ -1,0 +1,37 @@
+{
+  "thread_id": "20250320_dna-technology_ru_c70e9c32",
+  "message_id": "<16c4d20a-c154-4f53-ac3d-21afc891651e@dna-technology.ru>",
+  "email_num_in_day": 18,
+  "total_emails_in_day": 27,
+  "from": "kozlova@dna-technology.ru",
+  "to": "kraslab24@mail.ru",
+  "cc": "savicheva@dna-technology.ru, s.voronova@dna-technology.ru",
+  "to_emails": [
+    "kraslab24@mail.ru"
+  ],
+  "cc_emails": [
+    "savicheva@dna-technology.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Красноярская краевая Ассоциация медицинской лабораторной диагностики» 17-18.04.25",
+  "date": "Thu, 20 Mar 2025 11:40:23 +0300",
+  "parsed_date": "2025-03-20T15:40:23+07:00",
+  "body_raw": "Дмитрий, добрый день !\r\n\nМеня зовут Ольга, представляю компанию \" ДНК - Технология\" занимаемся \r\nпроизводство  медицинского оборудования и наборов реагентов для ПЦР- \r\nисследований.\r\n\nХотели бы принять участие в мероприятии 17-18.04.25  «Актуальные вопросы \r\nклинической лабораторной диагностики».\r\n\nНас интересует стенд с столом, который может выдержать оборудование до \r\n30 кг.\r\n\nСпасибо,\r\n\n-- \r\nС уважением,\r\nКозлова Ольга\r\nВедущий сервис-менеджер\r\nООО \"ДНК-Технология\"\r\n\nTel: 8 (495) 640-17-71 (ext. 2026)\r\nTel Mob: +7 915-252-22-43\r\ne-mail: kozlova@dna-technology.ru\r\nweb: dna-technology.ru",
+  "body_clean": "Дмитрий, добрый день !\nМеня зовут Ольга, представляю компанию \" ДНК - Технология\" занимаемся\nпроизводство  медицинского оборудования и наборов реагентов для ПЦР-\nисследований.\nХотели бы принять участие в мероприятии 17-18.04.25  «Актуальные вопросы\nклинической лабораторной диагностики».\nНас интересует стенд с столом, который может выдержать оборудование до\n30 кг.\nСпасибо,\nС уважением,\nКозлова Ольга\nВедущий сервис-менеджер\nООО \"ДНК-Технология\"\nTel: 8 (495) 640-17-71 (ext. 2026)\nTel Mob: +7 915-252-22-43\ne-mail: kozlova@dna-technology.ru\nweb: dna-technology.ru",
+  "char_count": 564,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:21:06.167473+07:00",
+  "raw_size": 2210,
+  "date_folder": "2025-03-20",
+  "eml_path": "eml/2025-03-20/16c4d20a-c154-4f53-ac3d-21afc891651e_dna-technology.ru_072106_166236.eml"
+}

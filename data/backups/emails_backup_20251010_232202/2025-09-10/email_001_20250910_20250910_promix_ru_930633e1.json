@@ -1,0 +1,44 @@
+{
+  "thread_id": "20250910_promix_ru_930633e1",
+  "message_id": "<bfd4f0f4-48c1-472d-a34d-3207640a41b8@promix.ru>",
+  "from": "v.kinsht@promix.ru",
+  "to": "torgi@dna-technology.ru, s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "torgi@dna-technology.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Промикс, запрос КП",
+  "date": "Wed, 10 Sep 2025 11:57:34 +0700",
+  "parsed_date": "2025-09-10T11:57:34+07:00",
+  "body": "Коллеги, доброе утро! Выпишите нам счёт, пожалуйста! КП 2401 от 24.02.2025\nСсылка на конкурс:\nhttps://zakupki.gov.ru/epz/order/notice/ea20/view/common-info.html?regNumber=0319100004925000061\nС уважением.\nРуководитель отдела поставок ООО \"Промикс\"\nк.м.н. Владимир Н. Киншт\n+7(913)919-6419",
+  "char_count": 287,
+  "attachments": [
+    {
+      "original_filename": "Заявка 47011.xls",
+      "saved_filename": "20250910_promix_ru_930633e1_154114_attach_Заявка 47011.xls",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-09-10/20250910_promix_ru_930633e1_154114_attach_Заявка 47011.xls",
+      "relative_path": "attachments/2025-09-10/20250910_promix_ru_930633e1_154114_attach_Заявка 47011.xls",
+      "file_size": 36352,
+      "file_type": "application/vnd.ms-excel",
+      "content_type": "application/vnd.ms-excel",
+      "saved_at": "2025-10-08T15:41:14.755181+07:00",
+      "status": "saved",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T15:41:14.755202+07:00",
+  "raw_size": 52901,
+  "date_folder": "2025-09-10"
+}

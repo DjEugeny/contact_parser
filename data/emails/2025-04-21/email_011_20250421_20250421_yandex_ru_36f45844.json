@@ -1,0 +1,52 @@
+{
+  "thread_id": "20250421_yandex_ru_36f45844",
+  "message_id": "<4231251745240614@mail.yandex.ru>",
+  "email_num_in_day": 11,
+  "total_emails_in_day": 11,
+  "from": "poliart24@yandex.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "",
+  "date": "Mon, 21 Apr 2025 20:03:48 +0700",
+  "parsed_date": "2025-04-21T20:03:48+07:00",
+  "body_raw": "-- \n\nС уважением,\n\nОтель \"ПолиАрт\"\n\n+7 (391) 250-33-11",
+  "body_clean": "С уважением,\nОтель \"ПолиАрт\"\n+7 (391) 250-33-11",
+  "char_count": 47,
+  "attachments": [
+    {
+      "id": 132,
+      "original_filename": "img-250421200407-001.pdf",
+      "saved_filename": "20250421_5ab86285_002439_675632_attach_img-250421200407-001.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-21/20250421_5ab86285_002439_675632_attach_img-250421200407-001.pdf",
+      "relative_path": "attachments/2025-04-21/20250421_5ab86285_002439_675632_attach_img-250421200407-001.pdf",
+      "file_size": 469759,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:24:39",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<4231251745240614@mail.yandex.ru>",
+      "thread_id": "20250421_yandex_ru_36f45844",
+      "sha256": "00641c8c4c54566bbc46795a65cad4744ea56b0629ae00fa8c950351b7a6c665",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:24:39.672149+07:00",
+  "raw_size": 645608,
+  "date_folder": "2025-04-21",
+  "eml_path": "eml/2025-04-21/4231251745240614_mail.yandex.ru_002439_669584.eml"
+}

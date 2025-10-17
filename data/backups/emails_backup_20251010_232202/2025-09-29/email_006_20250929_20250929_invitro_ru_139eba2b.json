@@ -1,0 +1,75 @@
+{
+  "thread_id": "20250929_invitro_ru_139eba2b",
+  "message_id": "<e8ddede39c394eb7b211ef5f9f749da7@invitro.ru>",
+  "from": "AAllakhverdyan@invitro.ru",
+  "to": "hotline@dna-technology.ru, dubrovskih@dna-technology.ru, koshkina@dna-technology.ru",
+  "cc": "doc-lmgi@invitro.ru, abronnikova@invitro.ru, avdorofeeva@invitro.ru...",
+  "to_emails": [
+    "hotline@dna-technology.ru",
+    "dubrovskih@dna-technology.ru",
+    "koshkina@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "doc-lmgi@invitro.ru",
+    "abronnikova@invitro.ru",
+    "avdorofeeva@invitro.ru",
+    "okoval@invitro.ru",
+    "nluzanova@invitro.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "RE: Результат DRB *11,*11/14.",
+  "date": "Mon, 29 Sep 2025 12:37:14 +0000",
+  "parsed_date": "2025-09-29T19:37:14+07:00",
+  "body": "Здравствуйте.\nСпасибо за подробное объяснение.\nВ связи с наличием вот такого (жёсткого, как я понимаю, сцепления):\nЕсли получен результат DRB1*11,11/14  DQA1*0501, 0501  DQB1*0301,0301, то оставлять в таком виде.\nЕсли же результат DRB1*11,11/14  DQA1*0101, 0501  DQB1*0301,0503, то можно спокойно выдать DRB1*11,14  DQA1*0101, 0501  DQB1*0301,0503.\nВопрос к разработчикам ПО «Менеджер Протоколов»: можно ли это прописать в нем? Ведь ПО собирает результаты по всем трём локусам, сравнивает, прописывает согласно таблице сцеплений частое оно, редкое или крайне редкое… Может для таких ситуаций можно и корректировку окончательного генотипа по DRB1 прописать в ПО-на основании полученных результатов по DQA1 и DQB1?\nАллахвердян Александра Аркадьевна,\nЗаведующая лаборатории молекулярно-генетических исследований,\nврач-лабораторный генетик,\nООО  «ИНВИТРО-Сибирь»\nг. Новосибирск, Римского-Корсакова, (9), 2 этаж\nтел. 8 800 234 40 50, доб. 7704\nwww.invitro.ru<http://www.invitro.ru/>\n[cid:image001.png@01D23FE9.FDADA070]\nFrom: Ткаченко Виктория <hotline@dna-technology.ru>\nSent: Wednesday, September 24, 2025 6:39 PM\nTo: Оксана Форат <Okoval@invitro.ru>\nCc: Врач ЛМГИ <Doc-lmgi@invitro.ru>; Александра Бронникова <abronnikova@invitro.ru>; Анастасия Дорофеева <avdorofeeva@invitro.ru>; Наталья Лузанова <nluzanova@invitro.ru>; Александра Аллахвердян <AAllakhverdyan@invitro.ru>; 's.voronova@dna-technology.ru' <s.voronova@dna-technology.ru>\nSubject: Re: Результат DRB *11,*11/14.\nДобрый день, Оксана!\nКомментарии разработчика набора реагентов:\n1. К ранее заданному вопросу\nВ ходе работы с набором периодически получаются результаты, которые у ПО не получается трактовать. Для клиентов выдается рекомендация, как выдать предполагаемый результат и образец берется в секвенирование. На основании 2-х одинаковых обращений от клиентов был получен результат, когда работает DRB11 и DRB14-1. При этом сцепление для такого DRB1 всегда DQA1*0501, DQB1*0301. Было проведено секвенирование и установлено, что это DRB1*11:19:01. Соответственно, этот вариант был добавлен в ПО. Изменения в инструкцию будут внесены позже.\nЕсли Вы получаете результат DRB11, DRB13-b, DRB14-1, то скорее всего это результат DRB1*11,14. Но на 100% мы это гарантировать не можем, т.к. дважды видели DRB1*11:19:01. ПО не умеет объединять данные разных генов, да и не предназначено для этого. Поэтому, если по каким-то причинам не устраивает результат DRB1*11, 11/14, можно самостоятельно оценивать этот генотип с учетом данных по DQA1, DQB1.\n2. Смывы\nТо, что где-то срабатывает ВК DRB1 на 38-39 цикле, - ничего критичного. То, что есть положительный результат для 11 на 39 цикле, это потому что тут не сработал ВК DRB1, но сработал в другой пробирке. Тоже не критично. Проблемы, которая бы влияла на результаты обсчета, нет.\nПовторюсь, чаще всего под DRB1*11,11/14 скрывается обычная гомозигота DRB1*11,11. А это частый генотип.\n[cid:image002.jpg@01DC3178.72C85380]\n22.09.2025 8:57, Оксана Форат пишет:\nРезультаты запрошенных смывов во вложении.\nЖдем ответ разработчика реагентов.\nФорат Оксана Николаевна,\nВрач-генетик, врач лабораторный генетик\nлаборатории молекулярно-генетических исследований,\nООО «ИНВИТРО-Сибирь»\nг.Новосибирск, ул. Римского-Корсакова, (9)\nтел. +7 (383) 344-97-27, вн. 7717\n+7(923)227-17-31\nFrom: tkachenko <hotline@dna-technology.ru><mailto:hotline@dna-technology.ru>\nSent: Tuesday, September 16, 2025 12:50 PM\nTo: Александра Аллахвердян <AAllakhverdyan@invitro.ru><mailto:AAllakhverdyan@invitro.ru>; Разливахина Наталья <razlivakhina@dna-technology.ru><mailto:razlivakhina@dna-technology.ru>; 's.voronova@dna-technology.ru<mailto:s.voronova@dna-technology.ru>' <s.voronova@dna-technology.ru><mailto:s.voronova@dna-technology.ru>\nCc: Врач ЛМГИ <Doc-lmgi@invitro.ru><mailto:Doc-lmgi@invitro.ru>; Александра Бронникова <abronnikova@invitro.ru><mailto:abronnikova@invitro.ru>; Оксана Форат <Okoval@invitro.ru><mailto:Okoval@invitro.ru>; Анастасия Дорофеева <avdorofeeva@invitro.ru><mailto:avdorofeeva@invitro.ru>; Наталья Лузанова <nluzanova@invitro.ru><mailto:nluzanova@invitro.ru>\nВаш вопрос передан разработчику набора реагентов. Как только поступит ответ, сразу же будет отправлен Вам.\n[cid:image003.jpg@01DC3178.72C85380]\n16.09.2025 8:47, Александра Аллахвердян пишет:\nВиктория, пока аналитический этап на проверке по вашей просьбе (не смотря на все мои комментарии), я настоятельно прошу ответить на мой запрос: на каком основании ПО RelTime PCR обсчитывает один из аллелей в виде *11/14 в ситуации, когда такой вариант ответа не предполагается инструкцией производителя?\nКогда я изучаю таблицу Б1 из «приложения Б», то вижу, что при выявлении специфичностей в пробирке №6 стрипа А, пробирках №1 и №2 стрипа Б – получаем аллель *11 и *11. Варианта аллеля *11/14 (интерпретируемого как *11 или *14) нигде не указано. Откуда он взялся в ПО RealTime PCR и в связи с чем? Верна ли таблица Б1 в таком случае?\nЭто тот момент который меня заставил обратиться к Вам за разъяснениями.\n[imap://hotline%40dna-technology.ru@mail.dna-technology.ru:993/fetch%3EUID%3E.INBOX%3E135691?header=quotebody&part=1.6&filename=image001.png]\nВопрос о том, что этот генотип стал появляться чаще – это второй вопрос. Я в свою очередь предполагаю внелабораторные ошибки с ПО или с реагентами. Но это мы детальнее обсудим с Вами после итогов смывов.\nFrom: Оксана Форат <Okoval@invitro.ru><mailto:Okoval@invitro.ru>\nSent: Tuesday, September 16, 2025 11:09 AM\nTo: 'tkachenko' <hotline@dna-technology.ru><mailto:hotline@dna-technology.ru>; Александра Аллахвердян <AAllakhverdyan@invitro.ru><mailto:AAllakhverdyan@invitro.ru>\nCc: Врач ЛМГИ <Doc-lmgi@invitro.ru><mailto:Doc-lmgi@invitro.ru>; Александра Бронникова <abronnikova@invitro.ru><mailto:abronnikova@invitro.ru>; Анастасия Дорофеева <avdorofeeva@invitro.ru><mailto:avdorofeeva@invitro.ru>; Наталья Лузанова <nluzanova@invitro.ru><mailto:nluzanova@invitro.ru>; 's.voronova@dna-technology.ru<mailto:s.voronova@dna-technology.ru>' <s.voronova@dna-technology.ru><mailto:s.voronova@dna-technology.ru>; Разливахина Наталья <razlivakhina@dna-technology.ru><mailto:razlivakhina@dna-technology.ru>; Оксана Форат <Okoval@invitro.ru><mailto:Okoval@invitro.ru>\nSubject: RE: Результат DRB *11,*11/14.\nЗдравствуйте, ответы в тексте ниже.\nПротоколы смывов предоставим позже.\nFrom: tkachenko <hotline@dna-technology.ru<mailto:hotline@dna-technology.ru>>\nSent: Tuesday, September 16, 2025 11:01 AM\nTo: Александра Аллахвердян <AAllakhverdyan@invitro.ru<mailto:AAllakhverdyan@invitro.ru>>\nCc: Оксана Форат <Okoval@invitro.ru<mailto:Okoval@invitro.ru>>; Врач ЛМГИ <Doc-lmgi@invitro.ru<mailto:Doc-lmgi@invitro.ru>>; Александра Бронникова <abronnikova@invitro.ru<mailto:abronnikova@invitro.ru>>; Анастасия Дорофеева <avdorofeeva@invitro.ru<mailto:avdorofeeva@invitro.ru>>; Наталья Лузанова <nluzanova@invitro.ru<mailto:nluzanova@invitro.ru>>; 's.voronova@dna-technology.ru<mailto:s.voronova@dna-technology.ru>' <s.voronova@dna-technology.ru<mailto:s.voronova@dna-technology.ru>>; Разливахина Наталья <razlivakhina@dna-technology.ru<mailto:razlivakhina@dna-technology.ru>>\nДобрый день, Александра Аркадьевна!\nДля того, чтобы разобраться в сложившейся ситуации, нам необходимы ответы на заданные вопросы:\n- с какого именно момента данный генотип начал настолько часто встречаться; +/- месяц. Повторюсь, ранее данный генотип так же встречался (если брать этот год – единичные пробы были и в феврале, и в апреле, и в июне). При этом, прошу обратить внимание, ОКО в этих протоколах ( в том числе и тех, что вам были высланы) чистые\n- были ли изменения в коллективе, который работает в направлении данного исследования. «коллектив» не менялся, ТД работает в сменном графике, на разделе работают постоянные сотрудники, имеющие большой опыт в работе с данным видом исследований.\nТакже просим предоставить протоколы постановки исследования DRB для смывов с рабочих поверхностей зоны №1 и зоны №2, проведенных через этап выделения, а также зоны №3а и №3б без этапа выделения.\n[imap://hotline%40dna-technology.ru@mail.dna-technology.ru:993/fetch%3EUID%3E.INBOX%3E135691?header=quotebody&part=1.3&filename=image005.jpg]\n16.09.2025 2:46, Александра Аллахвердян пишет:\nЗдравствуйте, Виктория.\nСпасибо за бдительность и рекомендации, мы безусловно, следим за чистотой в отделе, о чем может свидетельствовать и комментарий вашего сервисного инженера, который недавно был у нас очно на ТО.\nМероприятия проведём, обратную связь дадим.\nОбращаю ваше внимание, что наш вопрос касался не этой стороны исследования.\nЕще раз вынуждена вас просить ответить на наш вопрос, не уводя разговор в другую сторону:\nДля образца в RealTime после амплификации данный генотип получается как следствие сочетания специфичностей 11, 13в, 14-1. При этом, в инструкции по DRB не представлен такой вариант ответа из RealTime.\nОписана схожая ситуация для *13/14 со сноской в условных обозначениях.\nПросьба прокомментировать вот это:\n\"в инструкции по DRB не представлен такой вариант ответа\"\nОжидаем ответа на поставленный вопрос.\nwww.invitro.ru<http://www.invitro.ru>\n15 сент. 2025 г. 19:23 пользователь Ткаченко Виктория <hotline@dna-technology.ru><mailto:hotline@dna-technology.ru> написал:\nПросим уточнить:\n- с какого именно момента данный генотип начал настолько часто встречаться;\n- были ли изменения в коллективе, который работает в направлении данного исследования.\nНа данный момент просим провести смывы с рабочих поверхностей зоны №1 и зоны №2, провести их через этап выделения, а также зоны №3а и №3б без этапа выделения. Провести ПЦР исследование DRB.\n[imap://hotline%40dna-technology.ru@mail.dna-technology.ru:993/fetch%3EUID%3E.INBOX%3E135691?header=quotebody&part=1.4&filename=image006.jpg]\n12.09.2025 13:13, Оксана Форат пишет:\nЧасто – это еженедельно, с периодичностью раз в несколько дней. Некоторые из протоколов во вложении.\nFrom: Ткаченко Виктория <hotline@dna-technology.ru><mailto:hotline@dna-technology.ru>\nSent: Friday, September 12, 2025 4:58 PM\nTo: Оксана Форат <Okoval@invitro.ru><mailto:Okoval@invitro.ru>\nCc: Врач ЛМГИ <Doc-lmgi\n\n[ТЕКСТ ОБРЕЗАН ДЛЯ ЭКОНОМИИ ТОКЕНОВ]",
+  "char_count": 10038,
+  "attachments": [
+    {
+      "original_filename": "image001.png",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: image001.png@01DC3178.72C85380",
+      "is_inline": true,
+      "content_id": "image001.png@01DC3178.72C85380"
+    },
+    {
+      "original_filename": "image002.jpg",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: image002.jpg@01DC3178.72C85380",
+      "is_inline": true,
+      "content_id": "image002.jpg@01DC3178.72C85380"
+    },
+    {
+      "original_filename": "image003.jpg",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: image003.jpg@01DC3178.72C85380",
+      "is_inline": true,
+      "content_id": "image003.jpg@01DC3178.72C85380"
+    },
+    {
+      "original_filename": "image004.png",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: image004.png@01DC3178.72C85380",
+      "is_inline": true,
+      "content_id": "image004.png@01DC3178.72C85380"
+    },
+    {
+      "original_filename": "image005.png",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: image005.png@01DC3178.72C85380",
+      "is_inline": true,
+      "content_id": "image005.png@01DC3178.72C85380"
+    }
+  ],
+  "attachments_stats": {
+    "total": 5,
+    "saved": 0,
+    "excluded": 5,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T22:24:30.756577+07:00",
+  "raw_size": 444576,
+  "date_folder": "2025-09-29"
+}

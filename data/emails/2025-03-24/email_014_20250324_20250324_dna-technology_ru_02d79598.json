@@ -1,0 +1,78 @@
+{
+  "thread_id": "20250324_dna-technology_ru_02d79598",
+  "message_id": "<4643ac93-3652-406d-97a1-252ee7ea4d76@dna-technology.ru>",
+  "email_num_in_day": 14,
+  "total_emails_in_day": 23,
+  "from": "bilalov@dna-technology.ru",
+  "to": "larisa@laboratorii.com",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "larisa@laboratorii.com"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Бурятский государственный университет, ИНН 0323085259",
+  "date": "Mon, 24 Mar 2025 11:18:42 +0300",
+  "parsed_date": "2025-03-24T15:18:42+07:00",
+  "body_raw": "Добрый день!\r\n\nКП во вложении.\r\n\n20.03.2025 11:29, Лариса Школьная пишет:\r\n> Добрый день,\r\n> прошу выставить КП на\r\n> O-DTPRIME5М1 + I-PC/03\r\n> конечный пользователь\r\n> Бурятский государственный университет, ИНН 0323085259\r\n>\r\n> <https://www.laboratorii.com/upload/actual_store_email.pdf>\r\n> -- \r\n> С уважением,\r\n> Школьная Лариса\r\n> менеджер по работе с клиентами\r\n> ООО \"Компания Пущинские лаборатории\"\r\n> тел. (499)110-03-07 доб. 12\r\n> моб. +7991-284-45-59\r\n> www.laboratorii.com <http://www.laboratorii.com>\r\n> <https://t.me/laboratorii_com> <https://vk.com/laboratoriicom> \r\n> <https://www.youtube.com/channel/UCPqTEjRYzt5BZNQke7IGiXg>\r\n\n-- \r\nС уважением, Билалов Альберт\r\nзам. начальника отдела продаж ООО \"ДНК-Технология\"\r\nТел\\факс: (495)640-17-71, доб.2031\r\nmailto:bilalov@dna-technology.ru",
+  "body_clean": "Добрый день!\nКП во вложении.\n20.03.2025 11:29, Лариса Школьная пишет:\n> Добрый день,\n> прошу выставить КП на\n> O-DTPRIME5М1 + I-PC/03\n> конечный пользователь\n> Бурятский государственный университет, ИНН 0323085259\n> https://www.laboratorii.com/upload/actual_store_email.pdf\n> С уважением,\n> Школьная Лариса\n> менеджер по работе с клиентами\n> ООО \"Компания Пущинские лаборатории\"\n> тел. (499)110-03-07 доб. 12\n> моб. +7991-284-45-59\n> www.laboratorii.com http://www.laboratorii.com\n> https://t.me/laboratorii_com https://vk.com/laboratoriicom\n> https://www.youtube.com/channel/UCPqTEjRYzt5BZNQke7IGiXg\nС уважением, Билалов Альберт\nзам. начальника отдела продаж ООО \"ДНК-Технология\"\nТел\\факс: (495)640-17-71, доб.2031\nmailto:bilalov@dna-technology.ru",
+  "char_count": 748,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part1.3zgQaB49.DGvfxqQx@dna-technology.ru",
+      "original_filename": "mailrusigimg_vGoELZwK.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part2.wf4zK3iL.5ZBRNWpJ@dna-technology.ru",
+      "original_filename": "mailrusigimg_XUiRaRXW.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part3.LtXXxwO7.RIPS7GbK@dna-technology.ru",
+      "original_filename": "mailrusigimg_FTFSEILE.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part4.O9G2Es9C.bZjpXG0i@dna-technology.ru",
+      "original_filename": "mailrusigimg_3nMTt03r.png",
+      "is_inline": true
+    },
+    {
+      "id": 740,
+      "original_filename": "Ком.пред.24.03.2025 для Пущино Пущинские лаборатории (для ФГБУ ВО БГУ, г. Улан-Удэ) ДТпрайм 5М1, ноутбук.pdf",
+      "saved_filename": "20250324_0368944d_072213_006655_attach_Ком.пред.24.03.2025 для Пущино Пущинские лаборатории _для ФГБУ ВО БГУ_ г. Улан-Удэ_ ДТпрайм 5М1_ ноутбук.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-24/20250324_0368944d_072213_006655_attach_Ком.пред.24.03.2025 для Пущино Пущинские лаборатории _для ФГБУ ВО БГУ_ г. Улан-Удэ_ ДТпрайм 5М1_ ноутбук.pdf",
+      "relative_path": "attachments/2025-03-24/20250324_0368944d_072213_006655_attach_Ком.пред.24.03.2025 для Пущино Пущинские лаборатории _для ФГБУ ВО БГУ_ г. Улан-Удэ_ ДТпрайм 5М1_ ноутбук.pdf",
+      "file_size": 149487,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:22:13",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<4643ac93-3652-406d-97a1-252ee7ea4d76@dna-technology.ru>",
+      "thread_id": "20250324_dna-technology_ru_02d79598",
+      "sha256": "58e6c9925f7de3450c69142dd131d2de8b0562b268b7744fd5fb7262e16b6e38",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 5,
+    "saved": 1,
+    "excluded": 4,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:22:13.005390+07:00",
+  "raw_size": 321541,
+  "date_folder": "2025-03-24",
+  "eml_path": "eml/2025-03-24/4643ac93-3652-406d-97a1-252ee7ea4d76_dna-technology.ru_072213_003176.eml"
+}

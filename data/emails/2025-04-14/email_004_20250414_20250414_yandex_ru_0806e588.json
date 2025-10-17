@@ -1,0 +1,53 @@
+{
+  "thread_id": "20250414_yandex_ru_0806e588",
+  "message_id": "<104141744617592@mail.yandex.ru>",
+  "email_num_in_day": 4,
+  "total_emails_in_day": 7,
+  "from": "uvs-bio@yandex.ru",
+  "to": "suchkova@dna-technology.ru, s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "suchkova@dna-technology.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Заявка",
+  "date": "Mon, 14 Apr 2025 11:03:06 +0300",
+  "parsed_date": "2025-04-14T15:03:06+07:00",
+  "body_raw": "Добрый день, прошу по КП 1139 и КП 4268 выписать счет\n\n \n\n \n\n-- \n\nС уважением,\n\nООО \"ЮВС-БИО\"\n\n(499) 157-74-49",
+  "body_clean": "Добрый день, прошу по КП 1139 и КП 4268 выписать счет\nС уважением,\nООО \"ЮВС-БИО\"\n(499) 157-74-49",
+  "char_count": 96,
+  "attachments": [
+    {
+      "id": 85,
+      "original_filename": "Заявка ПЦР1 — копия.docx",
+      "saved_filename": "20250414_a6f794df_220001_attach_Заявка ПЦР1 _ копия.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-14/20250414_a6f794df_220001_attach_Заявка ПЦР1 _ копия.docx",
+      "relative_path": "attachments/2025-04-14/20250414_a6f794df_220001_attach_Заявка ПЦР1 _ копия.docx",
+      "file_size": 12959,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-11 15:00:01",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<104141744617592@mail.yandex.ru>",
+      "thread_id": "20250414_yandex_ru_0806e588",
+      "sha256": "ae1e0939d432c01dd64176bdb66afa49a7130aa2f5b2907987cd4baea96b1bef",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:22:44.604054+07:00",
+  "raw_size": 20799,
+  "date_folder": "2025-04-14",
+  "eml_path": "eml/2025-04-14/104141744617592_mail.yandex.ru_002244_601734.eml"
+}

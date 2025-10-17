@@ -1,0 +1,60 @@
+{
+  "thread_id": "20250317_dna-technology_ru_97a066ee",
+  "message_id": "<193c43ff-1169-4f29-9654-657b3f09b605@dna-technology.ru>",
+  "email_num_in_day": 15,
+  "total_emails_in_day": 22,
+  "from": "torgi@dna-technology.ru",
+  "to": "lab@igcmd.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "lab@igcmd.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: ООО Клиника ЦМД Fwd:",
+  "date": "Mon, 17 Mar 2025 13:10:03 +0300",
+  "parsed_date": "2025-03-17T17:10:03+07:00",
+  "body_raw": "Добрый день!\r\n\nКП во вложении к письму.\r\n\n>\r\n> -------- Пересылаемое сообщение --------\r\n> 13:46, 17 марта 2025 г., \"lab@igcmd.ru\" <lab@igcmd.ru>:\r\n>\r\n> Добрый день!\r\n> Сделайте, пожалуйста, коммерческое предложение на наборы реагентов.\r\n> ООО \"Клиника ЦМД\" г. Иркутск\r\n> Елена Георгиевна Михайлова\r\n> тел.: 8 914 92 705 12\r\n>\r\n>\r\n> -------- Конец пересылаемого сообщения --------\r\n-- \r\n\n-- \r\nПросьба сохранять переписку при ответе.\r\nС уважением, специалист по тендерам\r\nООО \"ДНК-Технология\" Разливахин Дмитрий Алексеевич\r\nТелефон 8 (495) 640 -17 -71 доб.2039\r\nmailto:torgi@dna-technology.ru",
+  "body_clean": "Добрый день!\nКП во вложении к письму.\n> -------- Пересылаемое сообщение --------\n> 13:46, 17 марта 2025 г., \"lab@igcmd.ru\" lab@igcmd.ru:\n> Добрый день!\n> Сделайте, пожалуйста, коммерческое предложение на наборы реагентов.\n> ООО \"Клиника ЦМД\" г. Иркутск\n> Елена Георгиевна Михайлова\n> тел.: 8 914 92 705 12\n> -------- Конец пересылаемого сообщения --------\nПросьба сохранять переписку при ответе.\nС уважением, специалист по тендерам\nООО \"ДНК-Технология\" Разливахин Дмитрий Алексеевич\nТелефон 8 (495) 640 -17 -71 доб.2039\nmailto:torgi@dna-technology.ru",
+  "char_count": 550,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part1.213EI4Cc.UvXKyPW2@dna-technology.ru",
+      "original_filename": "открытка_днк_8_марта.jpg",
+      "is_inline": true
+    },
+    {
+      "id": 687,
+      "original_filename": "КП 3463 от 17.03.2025.pdf",
+      "saved_filename": "20250317_d50afcc5_071925_622612_attach_КП 3463 от 17.03.2025.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-17/20250317_d50afcc5_071925_622612_attach_КП 3463 от 17.03.2025.pdf",
+      "relative_path": "attachments/2025-03-17/20250317_d50afcc5_071925_622612_attach_КП 3463 от 17.03.2025.pdf",
+      "file_size": 232934,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:19:25",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<193c43ff-1169-4f29-9654-657b3f09b605@dna-technology.ru>",
+      "thread_id": "20250317_dna-technology_ru_97a066ee",
+      "sha256": "a44ce59a30367732d94cf7930b9ac6dc8079ead3eb5f2b8732b6afe27d66746a",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 1,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:19:25.621089+07:00",
+  "raw_size": 1166917,
+  "date_folder": "2025-03-17",
+  "eml_path": "eml/2025-03-17/193c43ff-1169-4f29-9654-657b3f09b605_dna-technology.ru_071925_619256.eml"
+}

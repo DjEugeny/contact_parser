@@ -1,0 +1,69 @@
+{
+  "thread_id": "20250703_dna-technology_ru_ac60a6b9",
+  "message_id": "<5b6cfb73-159f-4f08-9071-b5eab3f965df@dna-technology.ru>",
+  "email_num_in_day": 14,
+  "total_emails_in_day": 15,
+  "from": "bilalov@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Fwd: Fwd: по поставке товара",
+  "date": "Thu, 3 Jul 2025 19:10:36 +0300",
+  "parsed_date": "2025-07-03T23:10:36+07:00",
+  "body_raw": "Светлана, добрый день!\r\n\nПолучили письмо от Алтайского ЦГиЭ и фото внешних повреждений коробки.\r\nПрибор, как я понял. не будут доставать до вашего прибытия на инсталляцию.\r\nЯ передал информацию в СКП для составления рекламации на качество \r\nперевозки через ТК Major.\r\n\nЧто точно плохо - вскрывать прибор они не будут до вашего прибытия и это \r\nне есть хорошо, если инсталлировать будет нечего и придется менять прибор.\r\nПока не знаю, что делать...\r\n\n-------- Перенаправленное сообщение --------\r\nТема: Fwd: по поставке товара\r\nДата: Thu, 03 Jul 2025 16:18:54 +0300\r\nОт: ООО АгроДиагностика <agrodiagnostica@bk.ru>\r\nОтвечать: ООО АгроДиагностика <agrodiagnostica@bk.ru>\r\nКому: ????????????»????°????»???????? ????????»????????±????µ???????? \r\n<bilalov@dna-technology.ru>, prisyazhnyuk \r\n<prisyazhnyuk@dna-technology.ru>, Гоголева Мария \r\n<m.gogoleva@dna-technology.ru>\r\n\n-------- Пересылаемое сообщение --------\r\nОт кого: Олеся Харлова <metrol4@altcge.ru>\r\nКому: agrodiagnostica@bk.ru\r\nДата: Четверг, 3 июля 2025, 6:16 +03:00\r\nТема: по поставке товара\r\nЗдравствуйте!\r\nПисьмо в приложении\r\n\nС уважением, Харлова Олеся Анатольевна\r\nВрач по общей гигиене отделения метрологии и стандартизации\r\nФБУЗ «Центр гигиены и эпидемиологии в Алтайском крае»\r\n8-3852-50-40-38\r\n------------------------------------------------------------------------\r\nС уважением, Николай Кокорев\r\nООО \"АгроДиагностика\"",
+  "body_clean": "Светлана, добрый день!\nПолучили письмо от Алтайского ЦГиЭ и фото внешних повреждений коробки.\nПрибор, как я понял. не будут доставать до вашего прибытия на инсталляцию.\nЯ передал информацию в СКП для составления рекламации на качество\nперевозки через ТК Major.\nЧто точно плохо - вскрывать прибор они не будут до вашего прибытия и это\nне есть хорошо, если инсталлировать будет нечего и придется менять прибор.\nПока не знаю, что делать...\n-------- Перенаправленное сообщение --------\nТема: Fwd: по поставке товара\nДата: Thu, 03 Jul 2025 16:18:54 +0300\nОт: ООО АгроДиагностика agrodiagnostica@bk.ru\nОтвечать: ООО АгроДиагностика agrodiagnostica@bk.ru\nКому: ????????????»????°????»???????? ????????»????????±????µ????????\nbilalov@dna-technology.ru, prisyazhnyuk\nprisyazhnyuk@dna-technology.ru, Гоголева Мария\nm.gogoleva@dna-technology.ru\n-------- Пересылаемое сообщение --------\nОт кого: Олеся Харлова metrol4@altcge.ru\nКому: agrodiagnostica@bk.ru\nДата: Четверг, 3 июля 2025, 6:16 +03:00\nТема: по поставке товара\nЗдравствуйте!\nПисьмо в приложении\nС уважением, Харлова Олеся Анатольевна\nВрач по общей гигиене отделения метрологии и стандартизации\nФБУЗ «Центр гигиены и эпидемиологии в Алтайском крае»\n8-3852-50-40-38\nС уважением, Николай Кокорев\nООО \"АгроДиагностика\"",
+  "char_count": 1262,
+  "attachments": [
+    {
+      "id": 296,
+      "original_filename": "Письмо.PDF",
+      "saved_filename": "20250703_a58de41b_003926_936131_attach_Письмо.PDF",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-07-03/20250703_a58de41b_003926_936131_attach_Письмо.PDF",
+      "relative_path": "attachments/2025-07-03/20250703_a58de41b_003926_936131_attach_Письмо.PDF",
+      "file_size": 83775,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:39:26",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<5b6cfb73-159f-4f08-9071-b5eab3f965df@dna-technology.ru>",
+      "thread_id": "20250703_dna-technology_ru_ac60a6b9",
+      "sha256": "f44de73f17fa36d0dbddd047468dac2e357e588663326ee7c76cbeea8bf7eea9",
+      "file_exists": true
+    },
+    {
+      "id": 297,
+      "original_filename": "Фото.docx",
+      "saved_filename": "20250703_a58de41b_003926_941402_attach_Фото.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-07-03/20250703_a58de41b_003926_941402_attach_Фото.docx",
+      "relative_path": "attachments/2025-07-03/20250703_a58de41b_003926_941402_attach_Фото.docx",
+      "file_size": 854833,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-13 17:39:26",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<5b6cfb73-159f-4f08-9071-b5eab3f965df@dna-technology.ru>",
+      "thread_id": "20250703_dna-technology_ru_ac60a6b9",
+      "sha256": "8cff8cad4e9f30ad38db5b6ed989a4fc3ef72f4a286233e327fb056877dde652",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 2,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:39:26.935272+07:00",
+  "raw_size": 1295181,
+  "date_folder": "2025-07-03",
+  "eml_path": "eml/2025-07-03/5b6cfb73-159f-4f08-9071-b5eab3f965df_dna-technology.ru_003926_931331.eml"
+}

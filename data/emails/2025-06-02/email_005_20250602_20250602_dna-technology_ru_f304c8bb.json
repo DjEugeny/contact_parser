@@ -1,0 +1,41 @@
+{
+  "thread_id": "20250602_dna-technology_ru_f304c8bb",
+  "message_id": "<d88253da-f06e-4814-8568-8405ab5442b0@dna-technology.ru>",
+  "email_num_in_day": 5,
+  "total_emails_in_day": 7,
+  "from": "ozernaya@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Fwd: Запрос авторизации ФБУЗ центр гигиены и эпидемиологии в Красноярском крае",
+  "date": "Mon, 2 Jun 2025 18:26:23 +0700",
+  "parsed_date": "2025-06-02T18:26:23+07:00",
+  "body_raw": "Светлана, я сегодня говорила про этот запрос.\r\n\n-------- Перенаправленное сообщение --------\r\nТема: Запрос авторизации ФБУЗ центр гигиены и эпидемиологии в \r\nКрасноярском крае\r\nДата: Fri, 23 May 2025 11:55:55 +0300\r\nОт: Юлия Чикиткина <yuch@millab.ru>\r\nОтвечать: yuch@millab.ru\r\nОрганизация: МИЛЛАБ\r\nКому: s.voronova@dna-technology.ru, ozernaya@dna-technology.ru\r\n\nДобрый день, коллеги!\r\n\nПрошу авторизовать проект и выставить КП на закупку амплификатора \r\n*ДТпрайм 5М1* – 1 шт\r\n\nКонечный пользователь: ФБУЗ центр гигиены и эпидемиологии в Красноярском \r\nкрае в г. Заозерном\r\n\nИНН: 2463070760\r\n\nСпасибо!\r\n\n*С уважением, Чикиткина Юлия*\r\n\n**\r\n\n*2025-03-26_16-23-39*\r\n\nМенеджер отдела микробиологии и биотехнологии\r\n\n*Тел.*8 (495) 933-71-47(доб. 182)\r\n\n*Email*yuch@millab.ru**",
+  "body_clean": "Светлана, я сегодня говорила про этот запрос.\n-------- Перенаправленное сообщение --------\nТема: Запрос авторизации ФБУЗ центр гигиены и эпидемиологии в\nКрасноярском крае\nДата: Fri, 23 May 2025 11:55:55 +0300\nОт: Юлия Чикиткина yuch@millab.ru\nОтвечать: yuch@millab.ru\nОрганизация: МИЛЛАБ\nКому: s.voronova@dna-technology.ru, ozernaya@dna-technology.ru\nДобрый день, коллеги!\nПрошу авторизовать проект и выставить КП на закупку амплификатора\n*ДТпрайм 5М1* – 1 шт\nКонечный пользователь: ФБУЗ центр гигиены и эпидемиологии в Красноярском\nкрае в г. Заозерном\nИНН: 2463070760\nСпасибо!\n*С уважением, Чикиткина Юлия*\n*2025-03-26_16-23-39*\nМенеджер отдела микробиологии и биотехнологии\n*Тел.*8 (495) 933-71-47(доб. 182)\n*Email*yuch@millab.ru**",
+  "char_count": 733,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image001.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:32:26.359927+07:00",
+  "raw_size": 20870,
+  "date_folder": "2025-06-02",
+  "eml_path": "eml/2025-06-02/d88253da-f06e-4814-8568-8405ab5442b0_dna-technology.ru_003226_353247.eml"
+}

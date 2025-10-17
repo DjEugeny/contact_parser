@@ -1,0 +1,58 @@
+{
+  "thread_id": "20250312_dna-technology_ru_1c343393",
+  "message_id": "<409b25e8-e64a-4964-b1ab-bc1ef741a616@dna-technology.ru>",
+  "email_num_in_day": 11,
+  "total_emails_in_day": 22,
+  "from": "hotline@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "ПРОБА-МЧ-РАПИД II_Рекомендации по предобработке образцов",
+  "date": "Wed, 12 Mar 2025 11:36:01 +0300",
+  "parsed_date": "2025-03-12T15:36:01+07:00",
+  "body_raw": "Светлана, добрый день!\r\n\nРекомендации по предобработке образцов для работы с набором реагентов \r\nПРОБА-МЧ-РАПИД II во вложениях.\r\n\n--",
+  "body_clean": "Светлана, добрый день!\nРекомендации по предобработке образцов для работы с набором реагентов\nПРОБА-МЧ-РАПИД II во вложениях.",
+  "char_count": 124,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part1.S9p5KKk8.w01VSwVF@dna-technology.ru",
+      "original_filename": "__.jpg",
+      "is_inline": true
+    },
+    {
+      "id": 672,
+      "original_filename": "ПРОБА-МЧ-РАПИД II_Рекомендации по предобработке образцов.docx",
+      "saved_filename": "20250312_6a022aee_071747_677881_attach_ПРОБА-МЧ-РАПИД II_Рекомендации по предобработке образцов.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-12/20250312_6a022aee_071747_677881_attach_ПРОБА-МЧ-РАПИД II_Рекомендации по предобработке образцов.docx",
+      "relative_path": "attachments/2025-03-12/20250312_6a022aee_071747_677881_attach_ПРОБА-МЧ-РАПИД II_Рекомендации по предобработке образцов.docx",
+      "file_size": 30605,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-14 00:17:47",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<409b25e8-e64a-4964-b1ab-bc1ef741a616@dna-technology.ru>",
+      "thread_id": "20250312_dna-technology_ru_1c343393",
+      "sha256": "5c6855bc4e5836eecc4960753d477a8ce57d7bd37ff50d6940e57cdf13fba2d8",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 1,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:17:47.676887+07:00",
+  "raw_size": 76627,
+  "date_folder": "2025-03-12",
+  "eml_path": "eml/2025-03-12/409b25e8-e64a-4964-b1ab-bc1ef741a616_dna-technology.ru_071747_675817.eml"
+}

@@ -1,0 +1,40 @@
+{
+  "thread_id": "20250716_centerld_ru_30025ba1",
+  "message_id": "<7e167-68774580-1-19f44fa0@73195648>",
+  "from": "oper11@centerld.ru",
+  "to": "sklad@centerld.ru, s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "sklad@centerld.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Реагенты ПЦР",
+  "date": "Wed, 16 Jul 2025 13:23:10 +0700",
+  "parsed_date": "2025-07-16T13:23:10+07:00",
+  "body": "",
+  "char_count": 0,
+  "attachments": [
+    {
+      "filename": "ru_30025ba1_081806_attach_Заявка от 16.07.2025.ПЦР-DNA.docx",
+      "saved_filename": "20250716_centerld_ru_30025ba1_081806_attach_Заявка от 16.07.2025.ПЦР-DNA.docx",
+      "size": 22568,
+      "path": "attachments/2025-07-16/20250716_centerld_ru_30025ba1_081806_attach_Заявка от 16.07.2025.ПЦР-DNA.docx",
+      "status": "saved",
+      "type": "existing_attachment"
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-08-26T17:50:45.367995+07:00",
+  "raw_size": 34225,
+  "date_folder": "2025-07-16"
+}

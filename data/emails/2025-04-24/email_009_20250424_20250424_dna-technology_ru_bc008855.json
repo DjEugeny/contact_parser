@@ -1,0 +1,71 @@
+{
+  "thread_id": "20250424_dna-technology_ru_bc008855",
+  "message_id": "<7951918a-2ec7-4db5-a0e5-cd9a4788803d@dna-technology.ru>",
+  "email_num_in_day": 9,
+  "total_emails_in_day": 10,
+  "from": "torgi@dna-technology.ru",
+  "to": "2940200@mail.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "2940200@mail.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Запрос ТЗ и КП РЖД",
+  "date": "Thu, 24 Apr 2025 14:53:09 +0300",
+  "parsed_date": "2025-04-24T18:53:09+07:00",
+  "body_raw": "Добрый день, Виктор!\r\n\nТЗ дозаполнила.\r\n\nОбратите внимание!!! У заказчика прописан срок _\"Гарантийный срок: 12 \r\n(двенадцать) месяцев с даты поставки Товара\" _Это Вы должны поправить у \r\nЗаказчика._\r\n_\r\n\n_Н_аши реагенты всего имеют срок годности 12 мес. Остаточный на момент \r\nпоставки 9 мес.\r\n\nКП так же направляю.\r\n\n23.04.2025 16:15, Виктор Пашов пишет:\r\n> Добрый день!\r\n> Во вложении, запрос РЖД. В первую очередь, заведующая просит ТЗ на то, \r\n> что выделено желтым. Ну и КП для меня примерно по пять наборов каждой \r\n> позиции, но количество пока не точное и может увеличиваться.\r\n> С Уважением!\r\n> Директор ООО «ЭкоМед»  Виктор Пашов\r\n> тел 8 905 088 88 82\r\n\n-- \r\nС уважением,\r\nспециалист по тендерам ООО \"ДНК-Технология\"\r\nЧурочкина Ольга Александровна\r\nТел. (495) 640 17 71 доб.2037\r\nmailto:torgi@dna-technology.ru\r\nhttp://www.dna-technology.ru",
+  "body_clean": "Добрый день, Виктор!\nТЗ дозаполнила.\nОбратите внимание!!! У заказчика прописан срок _\"Гарантийный срок: 12\n(двенадцать) месяцев с даты поставки Товара\" _Это Вы должны поправить у\nЗаказчика._\n_Н_аши реагенты всего имеют срок годности 12 мес. Остаточный на момент\nпоставки 9 мес.\nКП так же направляю.\n23.04.2025 16:15, Виктор Пашов пишет:\n> Добрый день!\n> Во вложении, запрос РЖД. В первую очередь, заведующая просит ТЗ на то,\n> что выделено желтым. Ну и КП для меня примерно по пять наборов каждой\n> позиции, но количество пока не точное и может увеличиваться.\n> С Уважением!\n> Директор ООО «ЭкоМед»  Виктор Пашов\n> тел 8 905 088 88 82\nС уважением,\nспециалист по тендерам ООО \"ДНК-Технология\"\nЧурочкина Ольга Александровна\nТел. (495) 640 17 71 доб.2037\nmailto:torgi@dna-technology.ru\nhttp://www.dna-technology.ru",
+  "char_count": 811,
+  "attachments": [
+    {
+      "id": 144,
+      "original_filename": "КП 5256 от 24.04.2025.pdf",
+      "saved_filename": "20250424_3c74b0a0_002544_047309_attach_КП 5256 от 24.04.2025.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-24/20250424_3c74b0a0_002544_047309_attach_КП 5256 от 24.04.2025.pdf",
+      "relative_path": "attachments/2025-04-24/20250424_3c74b0a0_002544_047309_attach_КП 5256 от 24.04.2025.pdf",
+      "file_size": 269464,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:25:44",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<7951918a-2ec7-4db5-a0e5-cd9a4788803d@dna-technology.ru>",
+      "thread_id": "20250424_dna-technology_ru_bc008855",
+      "sha256": "4b6d8ec1c5c9a7a132730d577abce8fce79c4c0ac0b1cbe654ebe87855134550",
+      "file_exists": true
+    },
+    {
+      "id": 145,
+      "original_filename": "Прил №1 Техзадание 2025 .xls",
+      "saved_filename": "20250424_3c74b0a0_002544_049715_attach_Прил _1 Техзадание 2025 .xls",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-24/20250424_3c74b0a0_002544_049715_attach_Прил _1 Техзадание 2025 .xls",
+      "relative_path": "attachments/2025-04-24/20250424_3c74b0a0_002544_049715_attach_Прил _1 Техзадание 2025 .xls",
+      "file_size": 102400,
+      "file_type": "application/vnd.ms-excel",
+      "content_type": "application/vnd.ms-excel",
+      "saved_at": "2025-10-13 17:25:44",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<7951918a-2ec7-4db5-a0e5-cd9a4788803d@dna-technology.ru>",
+      "thread_id": "20250424_dna-technology_ru_bc008855",
+      "sha256": "63c2d1d602e4911a52ce52b16e69ef12ee3096e3aaa28a1f5a70469bde182236",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 2,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:25:44.044558+07:00",
+  "raw_size": 515866,
+  "date_folder": "2025-04-24",
+  "eml_path": "eml/2025-04-24/7951918a-2ec7-4db5-a0e5-cd9a4788803d_dna-technology.ru_002544_041386.eml"
+}

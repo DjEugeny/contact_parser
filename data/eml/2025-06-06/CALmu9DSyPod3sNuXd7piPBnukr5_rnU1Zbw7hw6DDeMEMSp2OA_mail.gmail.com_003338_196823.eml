@@ -1,0 +1,723 @@
+Received:  from mail-qv1-f53.google.com ([209.85.219.53]:50385)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	 (Exim 4.98 (FreeBSD))
+	 (envelope-from <stanislav.kryukov@gmail.com>)
+	 id 1uNTaO-00000000Gus-0Mji ;
+	Fri, 06 Jun 2025 12:42:05 +0300
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-6f8a70fe146so36216226d6.0;
+        Fri, 06 Jun 2025 02:42:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1749202922; x=1749807722; darn=dna-technology.ru;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=hiQi8b73deO+3TTcV10+duO7zY0A0Eac33CE13VRZto=;
+        b=Wu9xqlMXebHen5RydZnFiO5HzyVKQKeXgwsvW9Tuf19lyHt0HHDYaBaehAVArhp4IJ
+         1lWkuUzEUrfVoDkm+2KThQOazQOh1hMwG3qd6BD+r48pqFHipzNAGErW+A8Ei2vwCvRE
+         gs/w5E5gCqyDhFRh/Jx2tyGXxfjfBtBkjSzME0J0rbOnS32cHHkuHSwKUetZO0gLoutQ
+         5h4klvx8IP8wYZI97DaUeOe9h/p9/xX6IHQ8BXAC3cYzNu48TAjbQ4wkAtRsnKDlA+/X
+         h5LZ+v7d9gH+Ig9Ou/I+g0ehX+Y312QeG90CdGLxRHbSDe9zhKEh2aOtFy1EWu3dtVI3
+         JO0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749202922; x=1749807722;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=hiQi8b73deO+3TTcV10+duO7zY0A0Eac33CE13VRZto=;
+        b=Ym17RvOFY48ekHUIHdNrpbgptWk1/pNi9X3h7ZnRFEDVlnnD5VuL+Wnjs86gjYC53i
+         HoHANJ3jzhtK8/XsyjvCjC+Y4Lkjk8/3l9xtAmvxHWka7F3HQu3zYEuCfot0fLCqXiqq
+         bQmxv21coGCico8s2n55oKpivomchdBkU3fqAI6s5K2gFK8tbnXFntVv5jmGEGHCrHAX
+         9UpV/yTIsv5ZcmL7PeEnDyR25SJUXzcRtb7lFWUsvoIXoLySL3aHxfjXlSCUtp5F5xb0
+         6sqfL66u6y15zkC/7fosvPRSB+PjGAODzd1KOIotq83Qr7kEBnZ1LYBhJpQ/wxI7L3T6
+         KQmg==
+X-Forwarded-Encrypted: i=1; AJvYcCXnLRF14c0OCJSNRXtN/HPB6u0ODexA5aPcXkNMXVduemE5uq/TYHlGZQ11lnYFICcyPKisvESIdBgU@dna-technology.ru
+X-Gm-Message-State: AOJu0YzncOgi8uqWLpwaFAo2M+zF/S7hrmA44flmDJZqQGhwkG0MuiLZ
+	rgqGe2OVSFVjExI3Ot536wbFvX6RlHOc6VVYxzJUGy9qBy3N7jre1kNJV6eUTvWgqOSujtUs5LS
+	baQMO48jLedVlRNhf5nY1EFqUJSekFa/CgQ==
+X-Gm-Gg: ASbGncsV+bl88rH4/S8vbkbsE5QFx8DOaAPACqn7vdwvpbk4ylsgQzbTA0agnSFP9Ld
+	YnR4JJx3Uf2Pg5p8c5bdnpRkHv5zVatDXXCSqKO6hYJ94WUQMYE9DrPGLxtGZYU2qrXDSBT5hPk
+	M4b7eEybe7AOSssh6MbDiYtbipHJAnHhE=
+X-Google-Smtp-Source: AGHT+IGR+uVJwh0ZOaK6a2lgg0a6U0nbxO17TEUrEt3T8IiTVfekodAwbnhz1SCU6u6rT2FXyroceWtPCtG1Z6ESrL4=
+X-Received: by 2002:ad4:5c42:0:b0:6f8:af20:367d with SMTP id
+ 6a1803df08f44-6fb0905521fmr40349206d6.39.1749202921803; Fri, 06 Jun 2025
+ 02:42:01 -0700 (PDT)
+MIME-Version: 1.0
+References: <CALmu9DR24QKcq=OSSVOoAH_DUh5AjWcLi_an50o6qnsrSvXrqQ@mail.gmail.com>
+ <444d5af6-a015-4246-9af2-4ae17f16978d@dna-technology.ru> <07dd9030-cfdc-4fbc-b659-d3efbbb661db@dna-technology.ru>
+In-Reply-To: <07dd9030-cfdc-4fbc-b659-d3efbbb661db@dna-technology.ru>
+From: =?UTF-8?B?0KHRgtCw0L3QuNGB0LvQsNCyINCT0YDQuNCz0L7RgNGM0LXQstC40Ycg0JrRgNGO0LrQvtCy?= <stanislav.kryukov@gmail.com>
+Date: Fri, 6 Jun 2025 12:41:57 +0300
+X-Gm-Features: AX0GCFtX1k69mrQLqQlrzmhGs6iI18jm3QAChjK1-TTq0t4Ff3gxRSPwo89asQY
+Message-ID: <CALmu9DSyPod3sNuXd7piPBnukr5_rnU1Zbw7hw6DDeMEMSp2OA@mail.gmail.com>
+Subject: =?UTF-8?B?UmU6IEZ3ZDog0JfQsNC/0YDQvtGBINCa0J8=?=
+To: =?UTF-8?B?0KfRg9GA0L7Rh9C60LjQvdCwINCe0LvRjNCz0LAg0JDQu9C10LrRgdCw0L3QtNGA0L7QstC90LA=?= <torgi@dna-technology.ru>
+Cc: =?UTF-8?B?0JHQuNC70LDQu9C+0LIg0JDQu9GM0LHQtdGA0YIg0JDQs9C70Y/QvNC+0LLQuNGH?= <bilalov@dna-technology.ru>, 
+	=?UTF-8?B?0JLQvtGA0L7QvdC+0LLQsCDQodCy0LXRgtC70LDQvdCwINCh0LXRgNCz0LXQtdCy0L3QsA==?= <s.voronova@dna-technology.ru>
+Content-Type: multipart/alternative; boundary="000000000000cb526e0636e40a24"
+Received-SPF: pass (mail.dna-technology.ru: domain of gmail.com designates 209.85.219.53 as permitted sender) client-ip=209.85.219.53; envelope-from=stanislav.kryukov@gmail.com; helo=mail-qv1-f53.google.com;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+--000000000000cb526e0636e40a24
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+0JrQvtC70LvQtdCz0LgsINC00L7QsdGA0YvQuSDQtNC10L3RjCENCtCi0LUg0LrQsNC60LjQtSDQ
+vtC/0YLQuNC80LDQu9GM0L3Ri9C1INC00LXQudGB0YLQstC40Y8g0LfQsNC60LDQt9GH0LjQutCw
+Pw0KDQrRh9GCLCA1INC40Y7QvS4gMjAyNeKAr9CzLiDQsiAxMzoyOSwg0KfRg9GA0L7Rh9C60LjQ
+vdCwINCe0LvRjNCz0LAg0JDQu9C10LrRgdCw0L3QtNGA0L7QstC90LAgPA0KdG9yZ2lAZG5hLXRl
+Y2hub2xvZ3kucnU+Og0KDQo+INCU0L7QsdGA0YvQuSDQtNC10L3RjCwg0LrQvtC70LvQtdCz0Lgh
+DQo+DQo+INCf0YDQuCDQv9GD0LHQu9C40LrQsNGG0LjQuCDQt9Cw0LrRg9C/0LrQuCDQv9C+IDk3
+NyDQmtCi0KDQoyDRgNCw0LfQvNC10YnQtdC90LjQtSDQtNC+0L8uINGF0LDRgNCw0LrRgtC10YDQ
+uNGB0YLQuNC6INC90LUNCj4g0L/RgNC10LTRg9GB0LzQvtGC0YDQtdC90L3Ri9GFINCa0KLQoNCj
+ICrQt9Cw0L/RgNC10YnQtdC90L4qLg0KPg0KPiDQodC60L7RgNC10LUg0LLRgdC10LPQviDQsiDQ
+sdC70LjQttCw0LnRiNC40LUg0LTQvdC4INCX0LDQutCw0LfRh9C40Log0L/QvtC70YPRh9C40YIg
+0LfQsNC/0YDQvtGBINC90LAg0YDQsNC30YrRj9GB0L3QtdC90LjQtSDRgQ0KPiDRhtC10LvRjNGO
+INC40YHQutC70Y7Rh9C40YLRjCDQuNC30LHRi9GC0L7Rh9C90YvQtSDRgtGA0LXQsdC+0LLQsNC9
+0LjRjyDQvdC1INC/0YDQtdC00YPRgdC80L7RgtGA0LXQvdC90YvQtSDQmtCi0KDQoy4NCj4NCj4g
+INCV0YHQu9C4INCX0LDQutCw0LfRh9C40Log0Y3RgtC+INC90LUg0LLRi9C/0L7Qu9C90LjRgiwg
+0LHRg9C00LXRgiDQpNCQ0KEg0YEg0LLQtdGA0L7Rj9GC0L3QvtGB0YLRjNGOIDk5JS4NCj4gMDUu
+MDYuMjAyNSAxMzoxNCwg0JHQuNC70LDQu9C+0LIg0JDQu9GM0LHQtdGA0YIg0JDQs9C70Y/QvNC+
+0LLQuNGHINC/0LjRiNC10YI6DQo+DQo+INCj0YfQsNGB0YLQstGD0LXRgiDQv9C+0YHRgNC10LTQ
+vdC40Log0JrQvtC70YzRhtC+0LLQviAtINCh0JvQoi4NCj4g0JIg0L7Qv9C40YHQsNC90LjQuCDQ
+vtCx0YrQtdC60YLQsCDQt9Cw0LrRg9C/0LrQuCDRg9C60LDQt9Cw0L0gOTc3INCa0KLQoNCjLiDQ
+kdGD0LTQtdGCINCk0JDQoSA/DQo+DQo+DQo+IC0tLS0tLS0tINCf0LXRgNC10L3QsNC/0YDQsNCy
+0LvQtdC90L3QvtC1INGB0L7QvtCx0YnQtdC90LjQtSAtLS0tLS0tLQ0KPiDQotC10LzQsDogUmU6
+INCX0LDQv9GA0L7RgSDQmtCfDQo+INCU0LDRgtCwOiBUaHUsIDUgSnVuIDIwMjUgMTI6NTE6MzEg
+KzAzMDANCj4g0J7Rgjog0KHRgtCw0L3QuNGB0LvQsNCyINCT0YDQuNCz0L7RgNGM0LXQstC40Ycg
+0JrRgNGO0LrQvtCyIDxzdGFuaXNsYXYua3J5dWtvdkBnbWFpbC5jb20+DQo+IDxzdGFuaXNsYXYu
+a3J5dWtvdkBnbWFpbC5jb20+DQo+INCa0L7QvNGDOiDQkdC40LvQsNC70L7QsiDQkNC70YzQsdC1
+0YDRgiDQkNCz0LvRj9C80L7QstC40YcgPGJpbGFsb3ZAZG5hLXRlY2hub2xvZ3kucnU+DQo+IDxi
+aWxhbG92QGRuYS10ZWNobm9sb2d5LnJ1Pg0KPiDQmtC+0L/QuNGPOiB2bGFkeWtpbkBkbmEtdGVj
+aG5vbG9neS5ydSA8dmxhZHlraW5AZG5hLXRlY2hub2xvZ3kucnU+DQo+IDx2bGFkeWtpbkBkbmEt
+dGVjaG5vbG9neS5ydT4sINCY0YHQsNC10LIg0J7Qu9C10LMg0K7RgNGM0LXQstC40YcNCj4gPG8u
+aXNhZXZAZG5hLXRlY2hub2xvZ3kucnU+IDxvLmlzYWV2QGRuYS10ZWNobm9sb2d5LnJ1Pg0KPg0K
+PiDQmtC+0LvQu9C10LPQuCwg0LTQvtCx0YDRi9C5INC00LXQvdGMIQ0KPiDQndCw0Ygg0LrQvtC9
+0LrRg9GA0YEg0LLRi9GI0LXQuw0KPiBodHRwczovL3pha3Vwa2kuZ292LnJ1L2Vwei9vcmRlci9u
+b3RpY2UvZWEyMC92aWV3L2NvbW1vbi1pbmZvLmh0bWw/cmVnTnVtYmVyPTAzNTExMDAwMjE3MjUw
+MDAwMTANCj4NCj4g0L/QvSwgMjgg0LDQv9GALiAyMDI14oCv0LMuINCyIDEyOjA1LCDQkdC40LvQ
+sNC70L7QsiDQkNC70YzQsdC10YDRgiDQkNCz0LvRj9C80L7QstC40YcgPA0KPiBiaWxhbG92QGRu
+YS10ZWNobm9sb2d5LnJ1PjoNCj4NCj4+INCU0L7QsdGA0YvQuSDQtNC10L3RjCENCj4+DQo+PiDQ
+ktC+INCy0LvQvtC20LXQvdC40Lgg0JrQnyDQuCDQotCXINC90LAg0JTQotC/0YDQsNC50LwgNU0x
+ICsg0YPQv9GA0LDQstC70Y/RjtGJ0LjQuSDQvdC+0YPRgtCx0YPQui4NCj4+DQo+Pg0KPj4gMjUu
+MDQuMjAyNSAxMjo0Niwg0KHRgtCw0L3QuNGB0LvQsNCyINCT0YDQuNCz0L7RgNGM0LXQstC40Ycg
+0JrRgNGO0LrQvtCyINC/0LjRiNC10YI6DQo+Pg0KPj4g0JTQvtCx0YDRi9C5INC00LXQvdGMLCDQ
+utC+0LvQu9C10LPQuCENCj4+INCf0YDQvtGI0YMg0L/QvtC00L7QsdGA0LDRgtGMINC60L7QvdGE
+0LjQs9GD0YDQsNGG0LjRjiDQtNC70Y8g0L/QtdGA0LXRh9C90Y8g0YEg0LDQvNC/0LvQuNGE0LjQ
+utCw0YLQvtGA0L7QvCDQv9GA0L7QuNC30LLQvtC00YHRgtCy0LANCj4+INCU0J3Qmi3QotC10YXQ
+vdC+0LvQvtCz0LjRjywg0Lgg0LLRi9GB0YLQsNCy0LjRgtGMINC60L7QvNC80LXRgNGH0LXRgdC6
+0L7QtSDQv9GA0LXQtNC70L7QttC10L3QuNC1Lg0KPj4NCj4+ICDQvdCw0LjQvNC10L3QvtCy0LDQ
+vdC40LU6INCk0JXQlNCV0KDQkNCb0KzQndCe0JUg0JPQntCh0KPQlNCQ0KDQodCi0JLQldCd0J3Q
+ntCVINCR0K7QlNCW0JXQotCd0J7QlSDQntCR0KDQkNCX0J7QktCQ0KLQldCb0KzQndCe0JUNCj4+
+INCj0KfQoNCV0JbQlNCV0J3QmNCVINCS0KvQodCo0JXQk9CeINCe0JHQoNCQ0JfQntCS0JDQndCY
+0K8gItCd0J7QktCe0KHQmNCR0JjQoNCh0JrQmNCZINCT0J7QodCj0JTQkNCg0KHQotCS0JXQndCd
+0KvQmSDQkNCT0KDQkNCg0J3Qq9CZDQo+PiDQo9Cd0JjQktCV0KDQodCY0KLQldCiIg0KPj4gPGh0
+dHBzOi8vd3d3Lmxpc3Qtb3JnLmNvbS9zZWFyY2g/dHlwZT1uYW1lJnZhbD0lRDAlQTQlRDAlOTUl
+RDAlOTQlRDAlOTUlRDAlQTAlRDAlOTAlRDAlOUIlRDAlQUMlRDAlOUQlRDAlOUUlRDAlOTUlMjAl
+RDAlOTMlRDAlOUUlRDAlQTElRDAlQTMlRDAlOTQlRDAlOTAlRDAlQTAlRDAlQTElRDAlQTIlRDAl
+OTIlRDAlOTUlRDAlOUQlRDAlOUQlRDAlOUUlRDAlOTUlMjAlRDAlOTElRDAlQUUlRDAlOTQlRDAl
+OTYlRDAlOTUlRDAlQTIlRDAlOUQlRDAlOUUlRDAlOTUlMjAlRDAlOUUlRDAlOTElRDAlQTAlRDAl
+OTAlRDAlOTclRDAlOUUlRDAlOTIlRDAlOTAlRDAlQTIlRDAlOTUlRDAlOUIlRDAlQUMlRDAlOUQl
+RDAlOUUlRDAlOTUlMjAlRDAlQTMlRDAlQTclRDAlQTAlRDAlOTUlRDAlOTYlRDAlOTQlRDAlOTUl
+RDAlOUQlRDAlOTglRDAlOTUlMjAlRDAlOTIlRDAlQUIlRDAlQTElRDAlQTglRDAlOTUlRDAlOTMl
+RDAlOUUlMjAlRDAlOUUlRDAlOTElRDAlQTAlRDAlOTAlRDAlOTclRDAlOUUlRDAlOTIlRDAlOTAl
+RDAlOUQlRDAlOTglRDAlQUYlMjAlMjAlRDAlOUQlRDAlOUUlRDAlOTIlRDAlOUUlRDAlQTElRDAl
+OTglRDAlOTElRDAlOTglRDAlQTAlRDAlQTElRDAlOUElRDAlOTglRDAlOTklMjAlRDAlOTMlRDAl
+OUUlRDAlQTElRDAlQTMlRDAlOTQlRDAlOTAlRDAlQTAlRDAlQTElRDAlQTIlRDAlOTIlRDAlOTUl
+RDAlOUQlRDAlOUQlRDAlQUIlRDAlOTklMjAlRDAlOTAlRDAlOTMlRDAlQTAlRDAlOTAlRDAlQTAl
+RDAlOUQlRDAlQUIlRDAlOTklMjAlRDAlQTMlRDAlOUQlRDAlOTglRDAlOTIlRDAlOTUlRDAlQTAl
+RDAlQTElRDAlOTglRDAlQTIlRDAlOTUlRDAlQTI+INCY0J3QnQ0KPj4gNTQwNTExNTk5Mw0KPj4g
+MSBYOTYwQiDQkNC90LDQu9C40LfQsNGC0L7RgCDQn9Cm0KAg0LIg0YDQtdC20LjQvNC1INGA0LXQ
+sNC70YzQvdC+0LPQviDQstGA0LXQvNC10L3QuCBIZWFsRm9yY2UgWDk2MCwgNQ0KPj4g0LrQsNC9
+0LDQu9C+0LIgMSA0MzAgMDAwDQo+PiAyIExhcHRvcEdlbmVyYWwg0KPQv9GA0LDQstC70Y/RjtGJ
+0LjQuSDQsdC70L7QuiDQtNC70Y8g0L/RgNC40LHQvtGA0LAgMTI5IDg3MA0KPj4gMyDQodC40YHR
+gtC10LzQsCDQvtGH0LjRgdGC0LrQuCDQstC+0LTRiyBOdVphciBRIDk3MyA0NDANCj4+IDQg0KDQ
+tdC30LXRgNCy0YPQsNGAIDMwINC7INGBINCQ0KHQnCwg0LTQsNGC0YfQuNC60L7QvCDRg9GA0L7Q
+stC90Y8g0Lgg0LTQsNGC0YfQuNC60L7QvCDQv9C10YDQtdC70LjQstCwIDE3MSAzNjANCj4+IDUg
+TnVaYXIgSCDQmtCw0YDRgtGA0LjQtNC2IDUwIDQwMA0KPj4gNiBOdVphciBVINCa0LDRgNGC0YDQ
+uNC00LYgNTkgNzYwDQo+PiA3INCk0LjQvdC40YjQvdGL0Lkg0YTQuNC70YzRgtGAIFBFUyAwLjIg
+zrxtINC00LvRjyBHZW5pZS9OdVphciAyMiA2ODANCj4+IDEwINGB0YLRg9C7INGA0YPQuiAoMSDR
+iNGC0YPQutCwKSA0MCAwMDANCj4+IDEyINC60L7QvdC00LjRhtC40L7QvdC10YAgKDEg0YjRgtGD
+0LrQsCkgNDAgMDAwDQo+PiAxMyDQk9C10LvRjC3QtNC+0LrRg9C80LXQvdGC0LjRgNGD0Y7RidCw
+0Y8g0YHQuNGB0YLQtdC80LAgQkstQUcxMDAgNDcwIDAwMA0KPj4gLS0NCj4+INChINGD0LLQsNC2
+0LXQvdC40LXQvCwNCj4+INCa0YDRjtC60L7QsiDQodGC0LDQvdC40YHQu9Cw0LIg0JPRgNC40LPQ
+vtGA0YzQtdCy0LjRhw0KPj4g0KLQtdC7LiArNyAoOTY4KSA1MDYtMjQtOTcNCj4+DQo+Pg0KPj4g
+LS0NCj4+INChINGD0LLQsNC20LXQvdC40LXQvCwg0JHQuNC70LDQu9C+0LIg0JDQu9GM0LHQtdGA
+0YINCj4+INC30LDQvC4g0L3QsNGH0LDQu9GM0L3QuNC60LAg0L7RgtC00LXQu9CwINC/0YDQvtC0
+0LDQtiDQntCe0J4gItCU0J3Qmi3QotC10YXQvdC+0LvQvtCz0LjRjyINCj4+INCi0LXQu1zRhNCw
+0LrRgTogKDQ5NSk2NDAtMTctNzEsINC00L7QsS4yMDMxDQo+PiBtYWlsdG86IGJpbGFsb3ZAZG5h
+LXRlY2hub2xvZ3kucnUNCj4+DQo+Pg0KPg0KPiAtLQ0KPiDQoSDRg9Cy0LDQttC10L3QuNC10Lws
+DQo+INCa0YDRjtC60L7QsiDQodGC0LDQvdC40YHQu9Cw0LIg0JPRgNC40LPQvtGA0YzQtdCy0LjR
+hw0KPg0KPiAtLQ0KPg0KPiDQp9GD0YDQvtGH0LrQuNC90LAg0J7Qu9GM0LPQsCDQkNC70LXQutGB
+0LDQvdC00YDQvtCy0L3QsA0KPiDQktC10LTRg9GJ0LjQuSDRgdC/0LXRhtC40LDQu9C40YHRgiDQ
+v9C+INGC0LXQvdC00LXRgNCw0LwgfCDQntCe0J4gwqvQlNCd0Jot0KLQtdGF0L3QvtC70L7Qs9C4
+0Y/Cuw0KPg0KPiDQoNCw0LHQvtGH0LjQuTogKzcgKDQ5NSkgNjQwLTE3LTcxICjQtNC+0LEuIDIw
+MzcpIDwrNzQ5NTY0MDE3NzEsMjAzNz4NCj4gRW1haWw6IHRvcmdpQGRuYS10ZWNobm9sb2d5LnJ1
+DQo+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KPg0KPiDQodCw0LnRgjogZG5hLXRl
+Y2hub2xvZ3kucnUNCj4gVGVsZWdyYW06IEBkbmFfdGVjaF9ydXMgPGh0dHBzOi8vdC5tZS9kbmFf
+dGVjaF9ydXM+DQo+IFlvdVR1YmUgPGh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL2NoYW5uZWwvVUNx
+VXJwcWZaNjV6MjZDVVItNGY5NmlBPiB8DQo+IFJ1dHViZSA8aHR0cHM6Ly9ydXR1YmUucnUvY2hh
+bm5lbC82MzkxMjIzOS8+DQo+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KPg0KPiDQ
+nNC+0YHQutCy0LAsINCS0LDRgNGI0LDQstGB0LrQvtC1INGI0L7RgdGB0LUsINC00L7QvCAxMjXQ
+liwg0LrQvtGA0L/Rg9GBIDUNCj4gW2ltYWdlOiDQlNCd0Jot0KLQtdGF0L3QvtC70L7Qs9C40Y9d
+DQo+DQo+INCf0YDQvtGE0LjQu9GMINC60L7QvNC/0LDQvdC40Lg6INGA0LDQt9GA0LDQsdC+0YLQ
+utCwINC4INC/0YDQvtC40LfQstC+0LTRgdGC0LLQviDQu9Cw0LHQvtGA0LDRgtC+0YDQvdC+0LPQ
+viDQvtCx0L7RgNGD0LTQvtCy0LDQvdC40Y8sINCf0J4NCj4g0Lgg0YDQtdCw0LPQtdC90YLQvtCy
+INC00LvRjyDQvNC+0LvQtdC60YPQu9GP0YDQvdC+LdCz0LXQvdC10YLQuNGH0LXRgdC60LjRhSDQ
+uNGB0YHQu9C10LTQvtCy0LDQvdC40LkgKNCf0KbQoCwgTkdTKS4NCj4NCg0KDQotLSANCtChINGD
+0LLQsNC20LXQvdC40LXQvCwNCtCa0YDRjtC60L7QsiDQodGC0LDQvdC40YHQu9Cw0LIg0JPRgNC4
+0LPQvtGA0YzQtdCy0LjRhw0K
+--000000000000cb526e0636e40a24
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">=D0=9A=D0=BE=D0=BB=D0=BB=D0=B5=D0=B3=D0=B8, =D0=B4=D0=BE=
+=D0=B1=D1=80=D1=8B=D0=B9 =D0=B4=D0=B5=D0=BD=D1=8C!<div>=D0=A2=D0=B5 =D0=BA=
+=D0=B0=D0=BA=D0=B8=D0=B5 =D0=BE=D0=BF=D1=82=D0=B8=D0=BC=D0=B0=D0=BB=D1=8C=
+=D0=BD=D1=8B=D0=B5 =D0=B4=D0=B5=D0=B9=D1=81=D1=82=D0=B2=D0=B8=D1=8F =D0=B7=
+=D0=B0=D0=BA=D0=B0=D0=B7=D1=87=D0=B8=D0=BA=D0=B0?</div></div><br><div class=
+=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gmail_attr=
+">=D1=87=D1=82, 5 =D0=B8=D1=8E=D0=BD. 2025=E2=80=AF=D0=B3. =D0=B2 13:29, =
+=D0=A7=D1=83=D1=80=D0=BE=D1=87=D0=BA=D0=B8=D0=BD=D0=B0 =D0=9E=D0=BB=D1=8C=
+=D0=B3=D0=B0 =D0=90=D0=BB=D0=B5=D0=BA=D1=81=D0=B0=D0=BD=D0=B4=D1=80=D0=BE=
+=D0=B2=D0=BD=D0=B0 &lt;<a href=3D"mailto:torgi@dna-technology.ru">torgi@dna=
+-technology.ru</a>&gt;:<br></div><blockquote class=3D"gmail_quote" style=3D=
+"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-le=
+ft:1ex"><u></u>
+
+ =20
+   =20
+ =20
+  <div>
+    <p>=D0=94=D0=BE=D0=B1=D1=80=D1=8B=D0=B9 =D0=B4=D0=B5=D0=BD=D1=8C, =D0=
+=BA=D0=BE=D0=BB=D0=BB=D0=B5=D0=B3=D0=B8!</p>
+    <p>=D0=9F=D1=80=D0=B8 =D0=BF=D1=83=D0=B1=D0=BB=D0=B8=D0=BA=D0=B0=D1=86=
+=D0=B8=D0=B8 =D0=B7=D0=B0=D0=BA=D1=83=D0=BF=D0=BA=D0=B8 =D0=BF=D0=BE 977 =
+=D0=9A=D0=A2=D0=A0=D0=A3 =D1=80=D0=B0=D0=B7=D0=BC=D0=B5=D1=89=D0=B5=D0=BD=
+=D0=B8=D0=B5 =D0=B4=D0=BE=D0=BF. =D1=85=D0=B0=D1=80=D0=B0=D0=BA=D1=82=D0=B5=
+=D1=80=D0=B8=D1=81=D1=82=D0=B8=D0=BA
+      =D0=BD=D0=B5 =D0=BF=D1=80=D0=B5=D0=B4=D1=83=D1=81=D0=BC=D0=BE=D1=82=
+=D1=80=D0=B5=D0=BD=D0=BD=D1=8B=D1=85 =D0=9A=D0=A2=D0=A0=D0=A3 <u>=D0=B7=D0=
+=B0=D0=BF=D1=80=D0=B5=D1=89=D0=B5=D0=BD=D0=BE</u>.</p>
+    <p>=D0=A1=D0=BA=D0=BE=D1=80=D0=B5=D0=B5 =D0=B2=D1=81=D0=B5=D0=B3=D0=BE =
+=D0=B2 =D0=B1=D0=BB=D0=B8=D0=B6=D0=B0=D0=B9=D1=88=D0=B8=D0=B5 =D0=B4=D0=BD=
+=D0=B8 =D0=97=D0=B0=D0=BA=D0=B0=D0=B7=D1=87=D0=B8=D0=BA =D0=BF=D0=BE=D0=BB=
+=D1=83=D1=87=D0=B8=D1=82 =D0=B7=D0=B0=D0=BF=D1=80=D0=BE=D1=81 =D0=BD=D0=B0
+      =D1=80=D0=B0=D0=B7=D1=8A=D1=8F=D1=81=D0=BD=D0=B5=D0=BD=D0=B8=D0=B5 =
+=D1=81 =D1=86=D0=B5=D0=BB=D1=8C=D1=8E =D0=B8=D1=81=D0=BA=D0=BB=D1=8E=D1=87=
+=D0=B8=D1=82=D1=8C =D0=B8=D0=B7=D0=B1=D1=8B=D1=82=D0=BE=D1=87=D0=BD=D1=8B=
+=D0=B5 =D1=82=D1=80=D0=B5=D0=B1=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D1=8F =D0=BD=
+=D0=B5
+      =D0=BF=D1=80=D0=B5=D0=B4=D1=83=D1=81=D0=BC=D0=BE=D1=82=D1=80=D0=B5=D0=
+=BD=D0=BD=D1=8B=D0=B5 =D0=9A=D0=A2=D0=A0=D0=A3.</p>
+    <p>=C2=A0=D0=95=D1=81=D0=BB=D0=B8 =D0=97=D0=B0=D0=BA=D0=B0=D0=B7=D1=87=
+=D0=B8=D0=BA =D1=8D=D1=82=D0=BE =D0=BD=D0=B5 =D0=B2=D1=8B=D0=BF=D0=BE=D0=BB=
+=D0=BD=D0=B8=D1=82, =D0=B1=D1=83=D0=B4=D0=B5=D1=82 =D0=A4=D0=90=D0=A1 =D1=
+=81 =D0=B2=D0=B5=D1=80=D0=BE=D1=8F=D1=82=D0=BD=D0=BE=D1=81=D1=82=D1=8C=D1=
+=8E 99%.<br>
+    </p>
+    <div>05.06.2025 13:14, =D0=91=D0=B8=D0=BB=D0=B0=D0=BB=D0=BE=D0=B2 =D0=
+=90=D0=BB=D1=8C=D0=B1=D0=B5=D1=80=D1=82
+      =D0=90=D0=B3=D0=BB=D1=8F=D0=BC=D0=BE=D0=B2=D0=B8=D1=87 =D0=BF=D0=B8=
+=D1=88=D0=B5=D1=82:<br>
+    </div>
+    <blockquote type=3D"cite">
+     =20
+      =D0=A3=D1=87=D0=B0=D1=81=D1=82=D0=B2=D1=83=D0=B5=D1=82 =D0=BF=D0=BE=
+=D1=81=D1=80=D0=B5=D0=B4=D0=BD=D0=B8=D0=BA =D0=9A=D0=BE=D0=BB=D1=8C=D1=86=
+=D0=BE=D0=B2=D0=BE - =D0=A1=D0=9B=D0=A2.<br>
+      =D0=92 =D0=BE=D0=BF=D0=B8=D1=81=D0=B0=D0=BD=D0=B8=D0=B8 =D0=BE=D0=B1=
+=D1=8A=D0=B5=D0=BA=D1=82=D0=B0 =D0=B7=D0=B0=D0=BA=D1=83=D0=BF=D0=BA=D0=B8 =
+=D1=83=D0=BA=D0=B0=D0=B7=D0=B0=D0=BD 977 =D0=9A=D0=A2=D0=A0=D0=A3. =D0=91=
+=D1=83=D0=B4=D0=B5=D1=82 =D0=A4=D0=90=D0=A1 ?<br>
+      <div><br>
+        <br>
+        -------- =D0=9F=D0=B5=D1=80=D0=B5=D0=BD=D0=B0=D0=BF=D1=80=D0=B0=D0=
+=B2=D0=BB=D0=B5=D0=BD=D0=BD=D0=BE=D0=B5 =D1=81=D0=BE=D0=BE=D0=B1=D1=89=D0=
+=B5=D0=BD=D0=B8=D0=B5 --------
+        <table cellpadding=3D"0" cellspacing=3D"0" border=3D"0">
+          <tbody>
+            <tr>
+              <th valign=3D"BASELINE" align=3D"RIGHT" nowrap>=D0=A2=D0=B5=
+=D0=BC=D0=B0:
+              </th>
+              <td>Re: =D0=97=D0=B0=D0=BF=D1=80=D0=BE=D1=81 =D0=9A=D0=9F</td=
+>
+            </tr>
+            <tr>
+              <th valign=3D"BASELINE" align=3D"RIGHT" nowrap>=D0=94=D0=B0=
+=D1=82=D0=B0:
+              </th>
+              <td>Thu, 5 Jun 2025 12:51:31 +0300</td>
+            </tr>
+            <tr>
+              <th valign=3D"BASELINE" align=3D"RIGHT" nowrap>=D0=9E=D1=82: =
+</th>
+              <td>=D0=A1=D1=82=D0=B0=D0=BD=D0=B8=D1=81=D0=BB=D0=B0=D0=B2 =
+=D0=93=D1=80=D0=B8=D0=B3=D0=BE=D1=80=D1=8C=D0=B5=D0=B2=D0=B8=D1=87 =D0=9A=
+=D1=80=D1=8E=D0=BA=D0=BE=D0=B2 <a href=3D"mailto:stanislav.kryukov@gmail.co=
+m" target=3D"_blank">&lt;stanislav.kryukov@gmail.com&gt;</a></td>
+            </tr>
+            <tr>
+              <th valign=3D"BASELINE" align=3D"RIGHT" nowrap>=D0=9A=D0=BE=
+=D0=BC=D1=83:
+              </th>
+              <td>=D0=91=D0=B8=D0=BB=D0=B0=D0=BB=D0=BE=D0=B2 =D0=90=D0=BB=
+=D1=8C=D0=B1=D0=B5=D1=80=D1=82 =D0=90=D0=B3=D0=BB=D1=8F=D0=BC=D0=BE=D0=B2=
+=D0=B8=D1=87 <a href=3D"mailto:bilalov@dna-technology.ru" target=3D"_blank"=
+>&lt;bilalov@dna-technology.ru&gt;</a></td>
+            </tr>
+            <tr>
+              <th valign=3D"BASELINE" align=3D"RIGHT" nowrap>=D0=9A=D0=BE=
+=D0=BF=D0=B8=D1=8F:
+              </th>
+              <td><a href=3D"mailto:vladykin@dna-technology.ru" target=3D"_=
+blank">vladykin@dna-technology.ru</a>
+                <a href=3D"mailto:vladykin@dna-technology.ru" target=3D"_bl=
+ank">&lt;vladykin@dna-technology.ru&gt;</a>,
+                =D0=98=D1=81=D0=B0=D0=B5=D0=B2 =D0=9E=D0=BB=D0=B5=D0=B3 =D0=
+=AE=D1=80=D1=8C=D0=B5=D0=B2=D0=B8=D1=87 <a href=3D"mailto:o.isaev@dna-techn=
+ology.ru" target=3D"_blank">&lt;o.isaev@dna-technology.ru&gt;</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <br>
+        <div dir=3D"ltr">
+          <div dir=3D"ltr">=D0=9A=D0=BE=D0=BB=D0=BB=D0=B5=D0=B3=D0=B8, =D0=
+=B4=D0=BE=D0=B1=D1=80=D1=8B=D0=B9 =D0=B4=D0=B5=D0=BD=D1=8C!
+            <div>=D0=9D=D0=B0=D1=88 =D0=BA=D0=BE=D0=BD=D0=BA=D1=83=D1=80=D1=
+=81 =D0=B2=D1=8B=D1=88=D0=B5=D0=BB=C2=A0<a href=3D"https://zakupki.gov.ru/e=
+pz/order/notice/ea20/view/common-info.html?regNumber=3D0351100021725000010"=
+ target=3D"_blank">https://zakupki.gov.ru/epz/order/notice/ea20/view/common=
+-info.html?regNumber=3D0351100021725000010</a></div>
+          </div>
+          <br>
+          <div class=3D"gmail_quote">
+            <div dir=3D"ltr" class=3D"gmail_attr">=D0=BF=D0=BD, 28 =D0=B0=
+=D0=BF=D1=80. 2025=E2=80=AF=D0=B3. =D0=B2
+              12:05, =D0=91=D0=B8=D0=BB=D0=B0=D0=BB=D0=BE=D0=B2 =D0=90=D0=
+=BB=D1=8C=D0=B1=D0=B5=D1=80=D1=82 =D0=90=D0=B3=D0=BB=D1=8F=D0=BC=D0=BE=D0=
+=B2=D0=B8=D1=87 &lt;<a href=3D"mailto:bilalov@dna-technology.ru" target=3D"=
+_blank">bilalov@dna-technology.ru</a>&gt;:<br>
+            </div>
+            <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
+.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+              <div> =D0=94=D0=BE=D0=B1=D1=80=D1=8B=D0=B9 =D0=B4=D0=B5=D0=BD=
+=D1=8C!<br>
+                <br>
+                =D0=92=D0=BE =D0=B2=D0=BB=D0=BE=D0=B6=D0=B5=D0=BD=D0=B8=D0=
+=B8 =D0=9A=D0=9F =D0=B8 =D0=A2=D0=97 =D0=BD=D0=B0 =D0=94=D0=A2=D0=BF=D1=80=
+=D0=B0=D0=B9=D0=BC 5M1 + =D1=83=D0=BF=D1=80=D0=B0=D0=B2=D0=BB=D1=8F=D1=8E=
+=D1=89=D0=B8=D0=B9
+                =D0=BD=D0=BE=D1=83=D1=82=D0=B1=D1=83=D0=BA.<br>
+                <br>
+                <br>
+                <div>25.04.2025 12:46, =D0=A1=D1=82=D0=B0=D0=BD=D0=B8=D1=81=
+=D0=BB=D0=B0=D0=B2 =D0=93=D1=80=D0=B8=D0=B3=D0=BE=D1=80=D1=8C=D0=B5=D0=B2=
+=D0=B8=D1=87 =D0=9A=D1=80=D1=8E=D0=BA=D0=BE=D0=B2
+                  =D0=BF=D0=B8=D1=88=D0=B5=D1=82:<br>
+                </div>
+                <blockquote type=3D"cite">
+                  <div dir=3D"ltr">
+                    <div>=D0=94=D0=BE=D0=B1=D1=80=D1=8B=D0=B9 =D0=B4=D0=B5=
+=D0=BD=D1=8C, =D0=BA=D0=BE=D0=BB=D0=BB=D0=B5=D0=B3=D0=B8!</div>
+                    <div>=D0=9F=D1=80=D0=BE=D1=88=D1=83 =D0=BF=D0=BE=D0=B4=
+=D0=BE=D0=B1=D1=80=D0=B0=D1=82=D1=8C =D0=BA=D0=BE=D0=BD=D1=84=D0=B8=D0=B3=
+=D1=83=D1=80=D0=B0=D1=86=D0=B8=D1=8E =D0=B4=D0=BB=D1=8F =D0=BF=D0=B5=D1=80=
+=D0=B5=D1=87=D0=BD=D1=8F =D1=81
+                      =D0=B0=D0=BC=D0=BF=D0=BB=D0=B8=D1=84=D0=B8=D0=BA=D0=
+=B0=D1=82=D0=BE=D1=80=D0=BE=D0=BC=C2=A0=D0=BF=D1=80=D0=BE=D0=B8=D0=B7=D0=B2=
+=D0=BE=D0=B4=D1=81=D1=82=D0=B2=D0=B0 =D0=94=D0=9D=D0=9A-=D0=A2=D0=B5=D1=85=
+=D0=BD=D0=BE=D0=BB=D0=BE=D0=B3=D0=B8=D1=8F, =D0=B8
+                      =D0=B2=D1=8B=D1=81=D1=82=D0=B0=D0=B2=D0=B8=D1=82=D1=
+=8C =D0=BA=D0=BE=D0=BC=D0=BC=D0=B5=D1=80=D1=87=D0=B5=D1=81=D0=BA=D0=BE=D0=
+=B5 =D0=BF=D1=80=D0=B5=D0=B4=D0=BB=D0=BE=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5.</di=
+v>
+                    <div><br>
+                    </div>
+                    <table style=3D"caption-side:bottom;border-collapse:col=
+lapse;width:811px;margin:7px 0px 5px;color:rgb(33,37,41);vertical-align:top=
+;border-color:rgb(222,226,230);font-family:system-ui,-apple-system,&quot;Se=
+goe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,Arial,&quot;Noto Sans&quot;,=
+&quot;Liberation Sans&quot;,sans-serif,&quot;Apple Color Emoji&quot;,&quot;=
+Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Noto Color Emoji&quo=
+t;;font-size:16px">
+                      <tbody style=3D"box-sizing:border-box;border-style:so=
+lid;border-width:0px;vertical-align:inherit">
+                        <tr style=3D"box-sizing:border-box;border-style:sol=
+id;border-width:0px">
+                          <td style=3D"box-sizing:border-box;border-color:i=
+nherit;border-style:solid;border-width:0px 0px 1px;padding:0.25rem"><span s=
+tyle=3D"box-sizing:border-box;color:rgb(119,119,119)">=C2=A0=D0=BD=D0=B0=D0=
+=B8=D0=BC=D0=B5=D0=BD=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D0=B5:</span></td>
+                          <td style=3D"box-sizing:border-box;border-color:i=
+nherit;border-style:solid;border-width:0px 0px 1px;padding:0.25rem"><a titl=
+e=3D"=D0=BF=D0=BE=D0=B8=D1=81=D0=BA =D0=B2=D1=81=D0=B5=D1=85 =D0=BE=D1=80=
+=D0=B3=D0=B0=D0=BD=D0=B8=D0=B7=D0=B0=D1=86=D0=B8=D0=B9 =D1=81 =D0=B8=D0=BC=
+=D0=B5=D0=BD=D0=B5=D0=BC =D0=A4=D0=95=D0=94=D0=95=D0=A0=D0=90=D0=9B=D0=AC=
+=D0=9D=D0=9E=D0=95 =D0=93=D0=9E=D0=A1=D0=A3=D0=94=D0=90=D0=A0=D0=A1=D0=A2=
+=D0=92=D0=95=D0=9D=D0=9D=D0=9E=D0=95 =D0=91=D0=AE=D0=94=D0=96=D0=95=D0=A2=
+=D0=9D=D0=9E=D0=95 =D0=9E=D0=91=D0=A0=D0=90=D0=97=D0=9E=D0=92=D0=90=D0=A2=
+=D0=95=D0=9B=D0=AC=D0=9D=D0=9E=D0=95 =D0=A3=D0=A7=D0=A0=D0=95=D0=96=D0=94=
+=D0=95=D0=9D=D0=98=D0=95 =D0=92=D0=AB=D0=A1=D0=A8=D0=95=D0=93=D0=9E =D0=9E=
+=D0=91=D0=A0=D0=90=D0=97=D0=9E=D0=92=D0=90=D0=9D=D0=98=D0=AF &quot;=D0=9D=
+=D0=9E=D0=92=D0=9E=D0=A1=D0=98=D0=91=D0=98=D0=A0=D0=A1=D0=9A=D0=98=D0=99 =
+=D0=93=D0=9E=D0=A1=D0=A3=D0=94=D0=90=D0=A0=D0=A1=D0=A2=D0=92=D0=95=D0=9D=D0=
+=9D=D0=AB=D0=99 =D0=90=D0=93=D0=A0=D0=90=D0=A0=D0=9D=D0=AB=D0=99 =D0=A3=D0=
+=9D=D0=98=D0=92=D0=95=D0=A0=D0=A1=D0=98=D0=A2=D0=95=D0=A2&quot;" href=3D"ht=
+tps://www.list-org.com/search?type=3Dname&amp;val=3D%D0%A4%D0%95%D0%94%D0%9=
+5%D0%A0%D0%90%D0%9B%D0%AC%D0%9D%D0%9E%D0%95%20%D0%93%D0%9E%D0%A1%D0%A3%D0%9=
+4%D0%90%D0%A0%D0%A1%D0%A2%D0%92%D0%95%D0%9D%D0%9D%D0%9E%D0%95%20%D0%91%D0%A=
+E%D0%94%D0%96%D0%95%D0%A2%D0%9D%D0%9E%D0%95%20%D0%9E%D0%91%D0%A0%D0%90%D0%9=
+7%D0%9E%D0%92%D0%90%D0%A2%D0%95%D0%9B%D0%AC%D0%9D%D0%9E%D0%95%20%D0%A3%D0%A=
+7%D0%A0%D0%95%D0%96%D0%94%D0%95%D0%9D%D0%98%D0%95%20%D0%92%D0%AB%D0%A1%D0%A=
+8%D0%95%D0%93%D0%9E%20%D0%9E%D0%91%D0%A0%D0%90%D0%97%D0%9E%D0%92%D0%90%D0%9=
+D%D0%98%D0%AF%20%20%D0%9D%D0%9E%D0%92%D0%9E%D0%A1%D0%98%D0%91%D0%98%D0%A0%D=
+0%A1%D0%9A%D0%98%D0%99%20%D0%93%D0%9E%D0%A1%D0%A3%D0%94%D0%90%D0%A0%D0%A1%D=
+0%A2%D0%92%D0%95%D0%9D%D0%9D%D0%AB%D0%99%20%D0%90%D0%93%D0%A0%D0%90%D0%A0%D=
+0%9D%D0%AB%D0%99%20%D0%A3%D0%9D%D0%98%D0%92%D0%95%D0%A0%D0%A1%D0%98%D0%A2%D=
+0%95%D0%A2" style=3D"box-sizing:border-box;color:rgb(0,0,255);text-decorati=
+on-line:none;font-size:0.9em;text-transform:uppercase;font-family:Tahoma" t=
+arget=3D"_blank">=D0=A4=D0=95=D0=94=D0=95=D0=A0=D0=90=D0=9B=D0=AC=D0=9D=D0=
+=9E=D0=95
+                              =D0=93=D0=9E=D0=A1=D0=A3=D0=94=D0=90=D0=A0=D0=
+=A1=D0=A2=D0=92=D0=95=D0=9D=D0=9D=D0=9E=D0=95 =D0=91=D0=AE=D0=94=D0=96=D0=
+=95=D0=A2=D0=9D=D0=9E=D0=95 =D0=9E=D0=91=D0=A0=D0=90=D0=97=D0=9E=D0=92=D0=
+=90=D0=A2=D0=95=D0=9B=D0=AC=D0=9D=D0=9E=D0=95
+                              =D0=A3=D0=A7=D0=A0=D0=95=D0=96=D0=94=D0=95=D0=
+=9D=D0=98=D0=95 =D0=92=D0=AB=D0=A1=D0=A8=D0=95=D0=93=D0=9E =D0=9E=D0=91=D0=
+=A0=D0=90=D0=97=D0=9E=D0=92=D0=90=D0=9D=D0=98=D0=AF
+                              &quot;=D0=9D=D0=9E=D0=92=D0=9E=D0=A1=D0=98=D0=
+=91=D0=98=D0=A0=D0=A1=D0=9A=D0=98=D0=99 =D0=93=D0=9E=D0=A1=D0=A3=D0=94=D0=
+=90=D0=A0=D0=A1=D0=A2=D0=92=D0=95=D0=9D=D0=9D=D0=AB=D0=99 =D0=90=D0=93=D0=
+=A0=D0=90=D0=A0=D0=9D=D0=AB=D0=99
+                              =D0=A3=D0=9D=D0=98=D0=92=D0=95=D0=A0=D0=A1=D0=
+=98=D0=A2=D0=95=D0=A2&quot;</a>=C2=A0=D0=98=D0=9D=D0=9D=C2=A0 5405115993</t=
+d>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div>
+                      <table border=3D"0" cellpadding=3D"0" cellspacing=3D"=
+0" width=3D"655" style=3D"border-collapse:collapse;width:492pt">
+                        <colgroup><col width=3D"64" style=3D"width:48pt"> <=
+col width=3D"529" style=3D"width:397pt"> <col width=3D"62" style=3D"width:4=
+7pt"> </colgroup><tbody>
+                          <tr height=3D"18" style=3D"height:13.5pt">
+                            <td height=3D"18" width=3D"64" style=3D"height:=
+13.5pt;width:48pt;text-align:center;border:0.5pt solid windowtext;padding-t=
+op:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-f=
+amily:Calibri,sans-serif;vertical-align:bottom">1</td>
+                            <td width=3D"529" style=3D"border-left:none;wid=
+th:397pt;border-top:0.5pt solid windowtext;border-right:0.5pt solid windowt=
+ext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right:1px;=
+padding-left:1px;color:black;font-size:11pt;font-family:Calibri,sans-serif;=
+vertical-align:bottom">X960B
+                              =D0=90=D0=BD=D0=B0=D0=BB=D0=B8=D0=B7=D0=B0=D1=
+=82=D0=BE=D1=80 =D0=9F=D0=A6=D0=A0 =D0=B2 =D1=80=D0=B5=D0=B6=D0=B8=D0=BC=D0=
+=B5 =D1=80=D0=B5=D0=B0=D0=BB=D1=8C=D0=BD=D0=BE=D0=B3=D0=BE =D0=B2=D1=80=D0=
+=B5=D0=BC=D0=B5=D0=BD=D0=B8
+                              HealForce X960, 5 =D0=BA=D0=B0=D0=BD=D0=B0=D0=
+=BB=D0=BE=D0=B2</td>
+                            <td align=3D"right" width=3D"62" style=3D"borde=
+r-left:none;width:47pt;border-top:0.5pt solid windowtext;border-right:0.5pt=
+ solid windowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padd=
+ing-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:Calib=
+ri,sans-serif;vertical-align:bottom">1
+                              430 000</td>
+                          </tr>
+                          <tr height=3D"19" style=3D"height:14.25pt">
+                            <td height=3D"19" style=3D"height:14.25pt;borde=
+r-top:none;text-align:center;border-right:0.5pt solid windowtext;border-bot=
+tom:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1=
+px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-famil=
+y:Calibri,sans-serif;vertical-align:bottom">2</td>
+                            <td style=3D"border-top:none;border-left:none;b=
+order-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;pad=
+ding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;=
+font-family:Calibri,sans-serif;vertical-align:bottom">LaptopGeneral
+                              =D0=A3=D0=BF=D1=80=D0=B0=D0=B2=D0=BB=D1=8F=D1=
+=8E=D1=89=D0=B8=D0=B9 =D0=B1=D0=BB=D0=BE=D0=BA =D0=B4=D0=BB=D1=8F =D0=BF=D1=
+=80=D0=B8=D0=B1=D0=BE=D1=80=D0=B0</td>
+                            <td align=3D"right" style=3D"border-top:none;bo=
+rder-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt soli=
+d windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black=
+;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:bottom">129
+                              870</td>
+                          </tr>
+                          <tr height=3D"20" style=3D"height:15pt">
+                            <td height=3D"20" style=3D"height:15pt;border-t=
+op:none;text-align:center;border-right:0.5pt solid windowtext;border-bottom=
+:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;=
+padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:C=
+alibri,sans-serif;vertical-align:bottom">3</td>
+                            <td style=3D"border-top:none;border-left:none;b=
+order-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;pad=
+ding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;=
+font-family:Calibri,sans-serif;vertical-align:bottom">=D0=A1=D0=B8=D1=81=D1=
+=82=D0=B5=D0=BC=D0=B0
+                              =D0=BE=D1=87=D0=B8=D1=81=D1=82=D0=BA=D0=B8 =
+=D0=B2=D0=BE=D0=B4=D1=8B NuZar Q</td>
+                            <td align=3D"right" style=3D"border-top:none;bo=
+rder-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt soli=
+d windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black=
+;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:bottom">973
+                              440</td>
+                          </tr>
+                          <tr height=3D"20" style=3D"height:15pt">
+                            <td height=3D"20" style=3D"height:15pt;border-t=
+op:none;text-align:center;border-right:0.5pt solid windowtext;border-bottom=
+:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;=
+padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:C=
+alibri,sans-serif;vertical-align:bottom">4</td>
+                            <td style=3D"border-top:none;border-left:none;b=
+order-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;pad=
+ding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;=
+font-family:Calibri,sans-serif;vertical-align:bottom">=D0=A0=D0=B5=D0=B7=D0=
+=B5=D1=80=D0=B2=D1=83=D0=B0=D1=80
+                              30 =D0=BB =D1=81 =D0=90=D0=A1=D0=9C, =D0=B4=
+=D0=B0=D1=82=D1=87=D0=B8=D0=BA=D0=BE=D0=BC =D1=83=D1=80=D0=BE=D0=B2=D0=BD=
+=D1=8F =D0=B8 =D0=B4=D0=B0=D1=82=D1=87=D0=B8=D0=BA=D0=BE=D0=BC
+                              =D0=BF=D0=B5=D1=80=D0=B5=D0=BB=D0=B8=D0=B2=D0=
+=B0</td>
+                            <td align=3D"right" style=3D"border-top:none;bo=
+rder-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt soli=
+d windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black=
+;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:bottom">171
+                              360</td>
+                          </tr>
+                          <tr height=3D"20" style=3D"height:15pt">
+                            <td height=3D"20" style=3D"height:15pt;border-t=
+op:none;text-align:center;border-right:0.5pt solid windowtext;border-bottom=
+:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;=
+padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:C=
+alibri,sans-serif;vertical-align:bottom">5</td>
+                            <td style=3D"border-top:none;border-left:none;b=
+order-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;pad=
+ding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;=
+font-family:Calibri,sans-serif;vertical-align:bottom">NuZar
+                              H =D0=9A=D0=B0=D1=80=D1=82=D1=80=D0=B8=D0=B4=
+=D0=B6</td>
+                            <td align=3D"right" style=3D"border-top:none;bo=
+rder-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt soli=
+d windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black=
+;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:bottom">50
+                              400</td>
+                          </tr>
+                          <tr height=3D"20" style=3D"height:15pt">
+                            <td height=3D"20" style=3D"height:15pt;border-t=
+op:none;text-align:center;border-right:0.5pt solid windowtext;border-bottom=
+:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;=
+padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:C=
+alibri,sans-serif;vertical-align:bottom">6</td>
+                            <td style=3D"border-top:none;border-left:none;b=
+order-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;pad=
+ding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;=
+font-family:Calibri,sans-serif;vertical-align:bottom">NuZar
+                              U =D0=9A=D0=B0=D1=80=D1=82=D1=80=D0=B8=D0=B4=
+=D0=B6</td>
+                            <td align=3D"right" style=3D"border-top:none;bo=
+rder-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt soli=
+d windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black=
+;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:bottom">59
+                              760</td>
+                          </tr>
+                          <tr height=3D"20" style=3D"height:15pt">
+                            <td height=3D"20" style=3D"height:15pt;border-t=
+op:none;text-align:center;border-right:0.5pt solid windowtext;border-bottom=
+:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;=
+padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:C=
+alibri,sans-serif;vertical-align:bottom">7</td>
+                            <td style=3D"border-top:none;border-left:none;b=
+order-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;pad=
+ding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;=
+font-family:Calibri,sans-serif;vertical-align:bottom">=D0=A4=D0=B8=D0=BD=D0=
+=B8=D1=88=D0=BD=D1=8B=D0=B9
+                              =D1=84=D0=B8=D0=BB=D1=8C=D1=82=D1=80 PES 0.2 =
+=CE=BCm =D0=B4=D0=BB=D1=8F Genie/NuZar</td>
+                            <td align=3D"right" style=3D"border-top:none;bo=
+rder-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt soli=
+d windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black=
+;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:bottom">22
+                              680</td>
+                          </tr>
+                          <tr height=3D"20" style=3D"height:15pt">
+                            <td height=3D"20" style=3D"height:15pt;border-t=
+op:none;text-align:center;border-right:0.5pt solid windowtext;border-bottom=
+:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;=
+padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:C=
+alibri,sans-serif;vertical-align:bottom">10</td>
+                            <td style=3D"border-top:none;border-left:none;b=
+order-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;pad=
+ding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;=
+font-family:Calibri,sans-serif;vertical-align:bottom">=D1=81=D1=82=D1=83=D0=
+=BB
+                              =D1=80=D1=83=D0=BA (1 =D1=88=D1=82=D1=83=D0=
+=BA=D0=B0)</td>
+                            <td align=3D"right" style=3D"border-top:none;bo=
+rder-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt soli=
+d windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black=
+;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:bottom">40
+                              000</td>
+                          </tr>
+                          <tr height=3D"20" style=3D"height:15pt">
+                            <td height=3D"20" style=3D"height:15pt;border-t=
+op:none;text-align:center;border-right:0.5pt solid windowtext;border-bottom=
+:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;=
+padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:C=
+alibri,sans-serif;vertical-align:bottom">12</td>
+                            <td style=3D"border-top:none;border-left:none;b=
+order-right:0.5pt solid windowtext;border-bottom:0.5pt solid windowtext;pad=
+ding-top:1px;padding-right:1px;padding-left:1px;color:black;font-size:11pt;=
+font-family:Calibri,sans-serif;vertical-align:bottom">=D0=BA=D0=BE=D0=BD=D0=
+=B4=D0=B8=D1=86=D0=B8=D0=BE=D0=BD=D0=B5=D1=80
+                              (1 =D1=88=D1=82=D1=83=D0=BA=D0=B0)</td>
+                            <td align=3D"right" style=3D"border-top:none;bo=
+rder-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt soli=
+d windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black=
+;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:bottom">40
+                              000</td>
+                          </tr>
+                          <tr height=3D"20" style=3D"height:15pt">
+                            <td height=3D"20" style=3D"height:15pt;border-t=
+op:none;text-align:center;border-right:0.5pt solid windowtext;border-bottom=
+:0.5pt solid windowtext;border-left:0.5pt solid windowtext;padding-top:1px;=
+padding-right:1px;padding-left:1px;color:black;font-size:11pt;font-family:C=
+alibri,sans-serif;vertical-align:bottom">13</td>
+                            <td style=3D"border-top:none;border-left:none;c=
+olor:rgb(63,63,65);font-family:Arial,sans-serif;border-right:0.5pt solid wi=
+ndowtext;border-bottom:0.5pt solid windowtext;padding-top:1px;padding-right=
+:1px;padding-left:1px;font-size:11pt;vertical-align:bottom">=D0=93=D0=B5=D0=
+=BB=D1=8C-=D0=B4=D0=BE=D0=BA=D1=83=D0=BC=D0=B5=D0=BD=D1=82=D0=B8=D1=80=D1=
+=83=D1=8E=D1=89=D0=B0=D1=8F
+                              =D1=81=D0=B8=D1=81=D1=82=D0=B5=D0=BC=D0=B0 BK=
+-AG100</td>
+                            <td align=3D"right" style=3D"border-top:none;bo=
+rder-left:none;border-right:0.5pt solid windowtext;border-bottom:0.5pt soli=
+d windowtext;padding-top:1px;padding-right:1px;padding-left:1px;color:black=
+;font-size:11pt;font-family:Calibri,sans-serif;vertical-align:bottom">470
+                              000</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <span class=3D"gmail_signature_prefix">-- </span><br>
+                    <div dir=3D"ltr" class=3D"gmail_signature">=D0=A1 =D1=
+=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,<br>
+                      =D0=9A=D1=80=D1=8E=D0=BA=D0=BE=D0=B2 =D0=A1=D1=82=D0=
+=B0=D0=BD=D0=B8=D1=81=D0=BB=D0=B0=D0=B2 =D0=93=D1=80=D0=B8=D0=B3=D0=BE=D1=
+=80=D1=8C=D0=B5=D0=B2=D0=B8=D1=87</div>
+                    <div class=3D"gmail_signature">=D0=A2=D0=B5=D0=BB.=C2=
+=A0+7 (968) 506-24-97</div>
+                  </div>
+                </blockquote>
+                <br>
+                <pre cols=3D"72">--=20
+=D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC, =D0=91=D0=B8=
+=D0=BB=D0=B0=D0=BB=D0=BE=D0=B2 =D0=90=D0=BB=D1=8C=D0=B1=D0=B5=D1=80=D1=82
+=D0=B7=D0=B0=D0=BC. =D0=BD=D0=B0=D1=87=D0=B0=D0=BB=D1=8C=D0=BD=D0=B8=D0=BA=
+=D0=B0 =D0=BE=D1=82=D0=B4=D0=B5=D0=BB=D0=B0 =D0=BF=D1=80=D0=BE=D0=B4=D0=B0=
+=D0=B6 =D0=9E=D0=9E=D0=9E &quot;=D0=94=D0=9D=D0=9A-=D0=A2=D0=B5=D1=85=D0=BD=
+=D0=BE=D0=BB=D0=BE=D0=B3=D0=B8=D1=8F&quot;
+=D0=A2=D0=B5=D0=BB\=D1=84=D0=B0=D0=BA=D1=81: (495)640-17-71, =D0=B4=D0=BE=
+=D0=B1.2031
+mailto: <a href=3D"mailto:bilalov@dna-technology.ru" target=3D"_blank">bila=
+lov@dna-technology.ru</a></pre>
+              </div>
+            </blockquote>
+          </div>
+          <div><br clear=3D"all">
+          </div>
+          <div><br>
+          </div>
+          <span class=3D"gmail_signature_prefix">-- </span><br>
+          <div dir=3D"ltr" class=3D"gmail_signature">=D0=A1 =D1=83=D0=B2=D0=
+=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,<br>
+            =D0=9A=D1=80=D1=8E=D0=BA=D0=BE=D0=B2 =D0=A1=D1=82=D0=B0=D0=BD=
+=D0=B8=D1=81=D0=BB=D0=B0=D0=B2 =D0=93=D1=80=D0=B8=D0=B3=D0=BE=D1=80=D1=8C=
+=D0=B5=D0=B2=D0=B8=D1=87</div>
+        </div>
+      </div>
+    </blockquote>
+    <div>-- <br>
+      <div style=3D"font-family:Arial,sans-serif;font-size:12px;line-height=
+:1.4;color:rgb(51,51,51);max-width:500px">
+       =20
+        <p style=3D"font-weight:bold;margin:0px 0px 5px;text-align:left">
+          =D0=A7=D1=83=D1=80=D0=BE=D1=87=D0=BA=D0=B8=D0=BD=D0=B0 =D0=9E=D0=
+=BB=D1=8C=D0=B3=D0=B0 =D0=90=D0=BB=D0=B5=D0=BA=D1=81=D0=B0=D0=BD=D0=B4=D1=
+=80=D0=BE=D0=B2=D0=BD=D0=B0<br>
+          =D0=92=D0=B5=D0=B4=D1=83=D1=89=D0=B8=D0=B9 =D1=81=D0=BF=D0=B5=D1=
+=86=D0=B8=D0=B0=D0=BB=D0=B8=D1=81=D1=82 =D0=BF=D0=BE =D1=82=D0=B5=D0=BD=D0=
+=B4=D0=B5=D1=80=D0=B0=D0=BC | =D0=9E=D0=9E=D0=9E =C2=AB=D0=94=D0=9D=D0=9A-=
+=D0=A2=D0=B5=D1=85=D0=BD=D0=BE=D0=BB=D0=BE=D0=B3=D0=B8=D1=8F=C2=BB </p>
+       =20
+        <p style=3D"margin:5px 0px;text-align:left"> =D0=A0=D0=B0=D0=B1=D0=
+=BE=D1=87=D0=B8=D0=B9: <a href=3D"tel:+74956401771,2037" style=3D"color:rgb=
+(0,102,204);text-decoration:none" target=3D"_blank">+7 (495)
+            640-17-71 (=D0=B4=D0=BE=D0=B1. 2037)</a><br>
+          Email: <a href=3D"mailto:torgi@dna-technology.ru" style=3D"color:=
+rgb(0,102,204);text-decoration:none" target=3D"_blank"> torgi@dna-technolog=
+y.ru</a> </p>
+       =20
+        <hr style=3D"border-width:1px 0px 0px;border-right-style:initial;bo=
+rder-bottom-style:initial;border-left-style:initial;border-right-color:init=
+ial;border-bottom-color:initial;border-left-color:initial;border-top-style:=
+solid;border-top-color:rgb(224,224,224);margin:10px 0px;width:100%">
+       =20
+        <p style=3D"margin:5px 0px;text-align:left"> =D0=A1=D0=B0=D0=B9=D1=
+=82: <a href=3D"https://dna-technology.ru" style=3D"color:rgb(0,102,204);te=
+xt-decoration:none" target=3D"_blank">dna-technology.ru</a><br>
+          Telegram: <a href=3D"https://t.me/dna_tech_rus" style=3D"color:rg=
+b(0,102,204);text-decoration:none" target=3D"_blank">@dna_tech_rus</a><br>
+          <a href=3D"https://www.youtube.com/channel/UCqUrpqfZ65z26CUR-4f96=
+iA" style=3D"color:rgb(0,102,204);text-decoration:none" target=3D"_blank">Y=
+ouTube</a> |
+          <a href=3D"https://rutube.ru/channel/63912239/" style=3D"color:rg=
+b(0,102,204);text-decoration:none" target=3D"_blank">Rutube</a> </p>
+       =20
+        <hr style=3D"border-width:1px 0px 0px;border-right-style:initial;bo=
+rder-bottom-style:initial;border-left-style:initial;border-right-color:init=
+ial;border-bottom-color:initial;border-left-color:initial;border-top-style:=
+solid;border-top-color:rgb(224,224,224);margin:10px 0px;width:100%">
+       =20
+        <p style=3D"margin:5px 0px;text-align:left"> =D0=9C=D0=BE=D1=81=D0=
+=BA=D0=B2=D0=B0, =D0=92=D0=B0=D1=80=D1=88=D0=B0=D0=B2=D1=81=D0=BA=D0=BE=D0=
+=B5
+          =D1=88=D0=BE=D1=81=D1=81=D0=B5, =D0=B4=D0=BE=D0=BC 125=D0=96, =D0=
+=BA=D0=BE=D1=80=D0=BF=D1=83=D1=81 5 </p>
+       =20
+        <div style=3D"margin:15px 0px 10px;text-align:left"> <img src=3D"ht=
+tps://dna-technology.ru/sites/all/themes/dnk/img/photo_2025-05-30_11-46-42.=
+jpg" alt=3D"=D0=94=D0=9D=D0=9A-=D0=A2=D0=B5=D1=85=D0=BD=D0=BE=D0=BB=D0=BE=
+=D0=B3=D0=B8=D1=8F" style=3D"max-width: 200px; height: auto; display: block=
+;"> </div>
+       =20
+        <p style=3D"margin:5px 0px;font-style:italic;color:rgb(85,85,85);te=
+xt-align:left">
+          =D0=9F=D1=80=D0=BE=D1=84=D0=B8=D0=BB=D1=8C =D0=BA=D0=BE=D0=BC=D0=
+=BF=D0=B0=D0=BD=D0=B8=D0=B8: =D1=80=D0=B0=D0=B7=D1=80=D0=B0=D0=B1=D0=BE=D1=
+=82=D0=BA=D0=B0 =D0=B8 =D0=BF=D1=80=D0=BE=D0=B8=D0=B7=D0=B2=D0=BE=D0=B4=D1=
+=81=D1=82=D0=B2=D0=BE =D0=BB=D0=B0=D0=B1=D0=BE=D1=80=D0=B0=D1=82=D0=BE=D1=
+=80=D0=BD=D0=BE=D0=B3=D0=BE
+          =D0=BE=D0=B1=D0=BE=D1=80=D1=83=D0=B4=D0=BE=D0=B2=D0=B0=D0=BD=D0=
+=B8=D1=8F, =D0=9F=D0=9E =D0=B8 =D1=80=D0=B5=D0=B0=D0=B3=D0=B5=D0=BD=D1=82=
+=D0=BE=D0=B2 =D0=B4=D0=BB=D1=8F =D0=BC=D0=BE=D0=BB=D0=B5=D0=BA=D1=83=D0=BB=
+=D1=8F=D1=80=D0=BD=D0=BE-=D0=B3=D0=B5=D0=BD=D0=B5=D1=82=D0=B8=D1=87=D0=B5=
+=D1=81=D0=BA=D0=B8=D1=85
+          =D0=B8=D1=81=D1=81=D0=BB=D0=B5=D0=B4=D0=BE=D0=B2=D0=B0=D0=BD=D0=
+=B8=D0=B9 (=D0=9F=D0=A6=D0=A0, NGS). </p>
+      </div>
+    </div>
+  </div>
+
+</blockquote></div><div><br clear=3D"all"></div><div><br></div><span class=
+=3D"gmail_signature_prefix">-- </span><br><div dir=3D"ltr" class=3D"gmail_s=
+ignature">=D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,<br=
+>=D0=9A=D1=80=D1=8E=D0=BA=D0=BE=D0=B2 =D0=A1=D1=82=D0=B0=D0=BD=D0=B8=D1=81=
+=D0=BB=D0=B0=D0=B2 =D0=93=D1=80=D0=B8=D0=B3=D0=BE=D1=80=D1=8C=D0=B5=D0=B2=
+=D0=B8=D1=87</div>
+
+--000000000000cb526e0636e40a24--

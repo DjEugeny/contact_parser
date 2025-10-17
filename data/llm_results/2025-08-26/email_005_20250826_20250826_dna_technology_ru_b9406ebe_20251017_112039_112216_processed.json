@@ -1,0 +1,1352 @@
+{
+  "source_file": "email_005_20250826_20250826_dna-technology_ru_b9406ebe.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": null,
+        "website": "www.dna-technology.ru",
+        "city": null,
+        "address": null,
+        "emails": [
+          "product@dna-technology.ru"
+        ],
+        "phones": [
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "8(495)640-17-71",
+            "extension": "2008"
+          }
+        ],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Воронова Светлана",
+        "organization_id": 1,
+        "position": "Региональный представитель в СФО",
+        "email": "s.voronova@dna-technology.ru",
+        "phones": [
+          {
+            "type": "mobile",
+            "number": "+7 (995) 129-39-76",
+            "normalized": "+79951293976",
+            "original": "8 (995) 129-39-76",
+            "extension": null
+          },
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "8(495)640-17-71",
+            "extension": "2008"
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "recipient",
+        "confidence": 0.95,
+        "value_score": 11,
+        "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "s.voronova@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674926.289423,
+          "version": "1.0.0"
+        },
+        "email_valid": true,
+        "name_original": "Светлана Воронова"
+      },
+      {
+        "contact_id": 2,
+        "name": "Владыкин Павел Сергеевич",
+        "organization_id": 1,
+        "position": "Специалист по продукции",
+        "email": "vladykin@dna-technology.ru",
+        "phones": [
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "8(495)640-17-71",
+            "extension": "2008"
+          },
+          {
+            "type": "mobile",
+            "number": "+7 (926) 892-31-14",
+            "normalized": "+79268923114",
+            "original": "+7(926)892-31-14",
+            "extension": null
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 0.95,
+        "value_score": 11,
+        "gid": "3f76c2a1-b874-54f3-bfbf-5b94121b0034",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "vladykin@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674927.092771,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 3,
+        "name": "Kosacheva@dna-technology.ru",
+        "organization_id": 1,
+        "position": null,
+        "email": "kosacheva@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.7,
+        "value_score": 7,
+        "gid": "f3bd4a96-aed9-500f-9bac-9688a2705b62",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "kosacheva@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674927.886236,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 4,
+        "name": "Nyrkova@dna-technology.ru",
+        "organization_id": 1,
+        "position": null,
+        "email": "nyrkova@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.7,
+        "value_score": 7,
+        "gid": "38beaa6d-6456-5afd-922f-64d09dbffe31",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "nyrkova@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674928.63769,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 5,
+        "name": "Ponomareva@dna-technology.ru",
+        "organization_id": 1,
+        "position": null,
+        "email": "ponomareva@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.7,
+        "value_score": 7,
+        "gid": "9f865694-bb4a-5f34-8ade-294beac46b61",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "ponomareva@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674929.3818629,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 6,
+        "name": "Zolotareva@dna-technology.ru",
+        "organization_id": 1,
+        "position": null,
+        "email": "zolotareva@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.7,
+        "value_score": 7,
+        "gid": "54356106-01ee-50df-b7b0-b9269e6c7e31",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "zolotareva@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674930.190607,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 7,
+        "name": "K.bukharova@dna-technology.ru",
+        "organization_id": 1,
+        "position": null,
+        "email": "k.bukharova@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.7,
+        "value_score": 7,
+        "gid": "94220ca2-60ab-595e-9853-b40709eedd4b",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "k.bukharova@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674930.9821382,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 8,
+        "name": "L.ivanova@dna-technology.ru",
+        "organization_id": 1,
+        "position": null,
+        "email": "l.ivanova@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.7,
+        "value_score": 7,
+        "gid": "7c83a70a-3e43-5b6c-b529-c6cc8c6c27ce",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "l.ivanova@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674931.761611,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 9,
+        "name": "Sivkova@dna-technology.ru",
+        "organization_id": 1,
+        "position": null,
+        "email": "sivkova@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.7,
+        "value_score": 7,
+        "gid": "a223d0a9-f50d-5d04-a0c8-7faa29c74136",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "sivkova@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674932.555246,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 10,
+        "name": "Pipko@dna-technology.ru",
+        "organization_id": 1,
+        "position": null,
+        "email": "pipko@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.7,
+        "value_score": 7,
+        "gid": "c7bda2cb-c3e3-5410-80b0-33a2e1960c86",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "pipko@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674933.346375,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 11,
+        "name": "Karapetyan@dna-technology.ru",
+        "organization_id": 1,
+        "position": null,
+        "email": "karapetyan@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.7,
+        "value_score": 7,
+        "gid": "8a0292a7-2b1f-5d86-96f9-e4b095a8069d",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "karapetyan@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674934.145975,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 12,
+        "name": "Soprun@dna-technology.ru",
+        "organization_id": 1,
+        "position": null,
+        "email": "soprun@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.7,
+        "value_score": 7,
+        "gid": "5d1d806a-8236-5bf3-a9a2-3a42aadc9770",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "soprun@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674934.9463859,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 13,
+        "name": "Ivahnishina@dna-technology.ru",
+        "organization_id": 1,
+        "position": null,
+        "email": "ivahnishina@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.7,
+        "value_score": 7,
+        "gid": "4257cf6c-3358-5778-a62b-c5bc6194289c",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "ivahnishina@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674935.756307,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 14,
+        "name": "Ozernaya@dna-technology.ru",
+        "organization_id": 1,
+        "position": null,
+        "email": "ozernaya@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.7,
+        "value_score": 7,
+        "gid": "63e484b9-8855-58bb-9f60-91e348f9332d",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "ozernaya@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674936.556753,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      }
+    ],
+    "business_context": "Владыкин Павел Сергеевич (ДНК-Технология) обсуждает с коллегами возможность добавления новых биоматериалов при ВИРД набора ПРОБА-МЧ-РАПИД II. Светлана Воронова (ДНК-Технология) предлагает синовиальную жидкость.",
+    "summary": {
+      "topic": "Обсуждение дополнительных биоматериалов для набора ПРОБА-МЧ-РАПИД II",
+      "product_interest": "Набор ПРОБА-МЧ-РАПИД II",
+      "communication_stage": "обсуждение",
+      "request_type": "предложение"
+    },
+    "key_points": [
+      "Владыкин Павел Сергеевич инициировал обсуждение новых биоматериалов",
+      "Обсуждается добавление биоматериалов для набора ПРОБА-МЧ-РАПИД II",
+      "Светлана Воронова предложила синовиальную жидкость"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 2,
+        "organization_id": 1,
+        "message_subject": "Re: Дополнительные биоматериалы ПРОБА-МЧ-РАПИД II",
+        "message_date": "2025-08-26T14:03:58+07:00",
+        "message_id_hint": "1f325cf9-6fc8-4dd6-8a90-03e03a0f75e6@dna-technology.ru",
+        "role_in_message": "sender",
+        "interaction_type": "clarification",
+        "summary": "Павел Владыкин инициировал обсуждение о возможности добавления новых биоматериалов при ВИРД набора ПРОБА-МЧ-РАПИД II.",
+        "human_note": "Павел Владыкин (ДНК-Технология) инициировал обсуждение с коллегами о возможности добавления новых биоматериалов для набора ПРОБА-МЧ-РАПИД II.",
+        "participants": {
+          "actor": "Владыкин Павел Сергеевич (ДНК-Технология, Специалист по продукции)",
+          "audience": [
+            "kosacheva@dna-technology.ru",
+            "nyrkova@dna-technology.ru",
+            "ponomareva@dna-technology.ru",
+            "zolotareva@dna-technology.ru",
+            "k.bukharova@dna-technology.ru",
+            "l.ivanova@dna-technology.ru",
+            "sivkova@dna-technology.ru",
+            "pipko@dna-technology.ru",
+            "karapetyan@dna-technology.ru",
+            "soprun@dna-technology.ru",
+            "ivahnishina@dna-technology.ru",
+            "s.voronova@dna-technology.ru",
+            "ozernaya@dna-technology.ru"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 2,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "Re: Дополнительные биоматериалы ПРОБА-МЧ-РАПИД II",
+        "message_date": "2025-08-26T14:03:58+07:00",
+        "message_id_hint": "1f325cf9-6fc8-4dd6-8a90-03e03a0f75e6@dna-technology.ru",
+        "role_in_message": "recipient",
+        "interaction_type": "clarification",
+        "summary": "Светлана Воронова предложила синовиальную жидкость в качестве дополнительного биоматериала.",
+        "human_note": "Светлана Воронова (ДНК-Технология) предложила добавить синовиальную жидкость в список биоматериалов для набора ПРОБА-МЧ-РАПИД II.",
+        "participants": {
+          "actor": "Воронова Светлана Сергеевна (ДНК-Технология, региональный представитель в СФО)",
+          "audience": [
+            "Владыкин Павел Сергеевич (ДНК-Технология)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.8
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": null,\n      \"website\": \"www.dna-technology.ru\",\n      \"city\": null,\n      \"address\": null,\n      \"emails\": [\n        \"product@dna-technology.ru\"\n      ],\n      \"phones\": [\n        {\n          \"type\": \"office\",\n          \"number\": \"8 (495) 640-17-71\",\n          \"normalized\": \"+74956401771\",\n          \"original\": \"8(495)640-17-71\",\n          \"extension\": \"2008\"\n        }\n      ]\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Светлана Воронова\",\n      \"organization_id\": 1,\n      \"position\": \"региональный представитель в СФО\",\n      \"email\": \"s.voronova@dna-technology.ru\",\n      \"phones\": [\n        {\n          \"type\": \"mobile\",\n          \"number\": \"8 (995) 129-39-76\",\n          \"normalized\": null,\n          \"original\": \"8 (995) 129-39-76\",\n          \"extension\": null\n        }\n      ],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"recipient\",\n      \"confidence\": 0.95\n    },\n    {\n      \"contact_id\": 2,\n      \"name\": \"Владыкин Павел Сергеевич\",\n      \"organization_id\": 1,\n      \"position\": \"Специалист по продукции\",\n      \"email\": \"vladykin@dna-technology.ru\",\n      \"phones\": [\n        {\n          \"type\": \"office\",\n          \"number\": \"8(495)640-17-71\",\n          \"normalized\": \"+74956401771\",\n          \"original\": \"8(495)640-17-71\",\n          \"extension\": \"2008\"\n        },\n        {\n          \"type\": \"mobile\",\n          \"number\": \"+7(926)892-31-14\",\n          \"normalized\": \"+79268923114\",\n          \"original\": \"+7(926)892-31-14\",\n          \"extension\": null\n        }\n      ],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.95\n    },\n    {\n      \"contact_id\": 3,\n      \"name\": \"kosacheva@dna-technology.ru\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"kosacheva@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.7\n    },\n    {\n      \"contact_id\": 4,\n      \"name\": \"nyrkova@dna-technology.ru\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"nyrkova@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.7\n    },\n    {\n      \"contact_id\": 5,\n      \"name\": \"ponomareva@dna-technology.ru\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"ponomareva@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.7\n    },\n    {\n      \"contact_id\": 6,\n      \"name\": \"zolotareva@dna-technology.ru\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"zolotareva@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.7\n    },\n    {\n      \"contact_id\": 7,\n      \"name\": \"k.bukharova@dna-technology.ru\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"k.bukharova@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.7\n    },\n    {\n      \"contact_id\": 8,\n      \"name\": \"l.ivanova@dna-technology.ru\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"l.ivanova@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.7\n    },\n    {\n      \"contact_id\": 9,\n      \"name\": \"sivkova@dna-technology.ru\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"sivkova@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.7\n    },\n    {\n      \"contact_id\": 10,\n      \"name\": \"pipko@dna-technology.ru\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"pipko@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.7\n    },\n    {\n      \"contact_id\": 11,\n      \"name\": \"karapetyan@dna-technology.ru\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"karapetyan@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.7\n    },\n    {\n      \"contact_id\": 12,\n      \"name\": \"soprun@dna-technology.ru\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"soprun@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.7\n    },\n    {\n      \"contact_id\": 13,\n      \"name\": \"ivahnishina@dna-technology.ru\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"ivahnishina@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.7\n    },\n    {\n      \"contact_id\": 14,\n      \"name\": \"ozernaya@dna-technology.ru\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"ozernaya@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.7\n    }\n  ],\n  \"business_context\": \"Владыкин Павел Сергеевич (ДНК-Технология) обсуждает с коллегами возможность добавления новых биоматериалов при ВИРД набора ПРОБА-МЧ-РАПИД II. Светлана Воронова (ДНК-Технология) предлагает синовиальную жидкость.\",\n  \"summary\": {\n    \"topic\": \"Обсуждение дополнительных биоматериалов для набора ПРОБА-МЧ-РАПИД II\",\n    \"product_interest\": \"Набор ПРОБА-МЧ-РАПИД II\",\n    \"communication_stage\": \"обсуждение\",\n    \"request_type\": \"предложение\"\n  },\n  \"key_points\": [\n    \"Владыкин Павел Сергеевич инициировал обсуждение новых биоматериалов\",\n    \"Обсуждается добавление биоматериалов для набора ПРОБА-МЧ-РАПИД II\",\n    \"Светлана Воронова предложила синовиальную жидкость\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 2,\n      \"organization_id\": 1,\n      \"message_subject\": \"Re: Дополнительные биоматериалы ПРОБА-МЧ-РАПИД II\",\n      \"message_date\": \"2025-08-26T14:03:58+07:00\",\n      \"message_id_hint\": \"<1f325cf9-6fc8-4dd6-8a90-03e03a0f75e6@dna-technology.ru>\",\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Павел Владыкин инициировал обсуждение о возможности добавления новых биоматериалов при ВИРД набора ПРОБА-МЧ-РАПИД II.\",\n      \"human_note\": \"Павел Владыкин (ДНК-Технология) инициировал обсуждение с коллегами о возможности добавления новых биоматериалов для набора ПРОБА-МЧ-РАПИД II.\",\n      \"participants\": {\n        \"actor\": \"Владыкин Павел Сергеевич (ДНК-Технология, Специалист по продукции)\",\n        \"audience\": [\n          \"kosacheva@dna-technology.ru\",\n          \"nyrkova@dna-technology.ru\",\n          \"ponomareva@dna-technology.ru\",\n          \"zolotareva@dna-technology.ru\",\n          \"k.bukharova@dna-technology.ru\",\n          \"l.ivanova@dna-technology.ru\",\n          \"sivkova@dna-technology.ru\",\n          \"pipko@dna-technology.ru\",\n          \"karapetyan@dna-technology.ru\",\n          \"soprun@dna-technology.ru\",\n          \"ivahnishina@dna-technology.ru\",\n          \"s.voronova@dna-technology.ru\",\n          \"ozernaya@dna-technology.ru\"\n        ]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    },\n    {\n      \"interaction_local_id\": 2,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"Re: Дополнительные биоматериалы ПРОБА-МЧ-РАПИД II\",\n      \"message_date\": \"2025-08-26T14:03:58+07:00\",\n      \"message_id_hint\": \"<1f325cf9-6fc8-4dd6-8a90-03e03a0f75e6@dna-technology.ru>\",\n      \"role_in_message\": \"recipient\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Светлана Воронова предложила синовиальную жидкость в качестве дополнительного биоматериала.\",\n      \"human_note\": \"Светлана Воронова (ДНК-Технология) предложила добавить синовиальную жидкость в список биоматериалов для набора ПРОБА-МЧ-РАПИД II.\",\n      \"participants\": {\n        \"actor\": \"Воронова Светлана Сергеевна (ДНК-Технология, региональный представитель в СФО)\",\n        \"audience\": [\"Владыкин Павел Сергеевич (ДНК-Технология)\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.8\n    }\n  ]\n}\n```",
+    "contact_mentions": [],
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-17T11:22:16.559470",
+      "stats": {
+        "processed_emails": 40,
+        "total_organizations_processed": 82,
+        "total_contacts_processed": 125,
+        "organizations_deduplicated": 1,
+        "contacts_filtered": 17,
+        "contacts_enriched": 108,
+        "data_normalized": 189,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 1,
+        "phones_added_to_contacts": 1
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1
+      },
+      "contact_mapping": {
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5,
+        "6": 6,
+        "7": 7,
+        "8": 8,
+        "9": 9,
+        "10": 10,
+        "11": 11,
+        "12": 12,
+        "13": 13,
+        "14": 14
+      },
+      "filtering": {
+        "contacts_without_info_filtered": 0,
+        "mentions_saved": 0
+      },
+      "provenance": {
+        "contacts": {
+          "1": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "2": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "3": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "4": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "5": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "6": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "7": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "8": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "9": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "10": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "11": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "12": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "13": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "14": {
+            "backfill_skipped": "no_personal_location_signal"
+          }
+        }
+      },
+      "email_classification": {
+        "1": {
+          "kept": [
+            "product@dna-technology.ru"
+          ],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "DOMAIN",
+            "key_tuple": [
+              "ORG",
+              "DOMAIN",
+              "dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "s.voronova@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 2,
+            "gid": "3f76c2a1-b874-54f3-bfbf-5b94121b0034",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "vladykin@dna-technology.ru"
+            ],
+            "alias_added": true,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 3,
+            "gid": "f3bd4a96-aed9-500f-9bac-9688a2705b62",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "kosacheva@dna-technology.ru"
+            ],
+            "alias_added": true,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 4,
+            "gid": "38beaa6d-6456-5afd-922f-64d09dbffe31",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "nyrkova@dna-technology.ru"
+            ],
+            "alias_added": true,
+            "source": "new",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 5,
+            "gid": "9f865694-bb4a-5f34-8ade-294beac46b61",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "ponomareva@dna-technology.ru"
+            ],
+            "alias_added": true,
+            "source": "new",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 6,
+            "gid": "54356106-01ee-50df-b7b0-b9269e6c7e31",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "zolotareva@dna-technology.ru"
+            ],
+            "alias_added": true,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 7,
+            "gid": "94220ca2-60ab-595e-9853-b40709eedd4b",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "k.bukharova@dna-technology.ru"
+            ],
+            "alias_added": true,
+            "source": "new",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 8,
+            "gid": "7c83a70a-3e43-5b6c-b529-c6cc8c6c27ce",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "l.ivanova@dna-technology.ru"
+            ],
+            "alias_added": true,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 9,
+            "gid": "a223d0a9-f50d-5d04-a0c8-7faa29c74136",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "sivkova@dna-technology.ru"
+            ],
+            "alias_added": true,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 10,
+            "gid": "c7bda2cb-c3e3-5410-80b0-33a2e1960c86",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "pipko@dna-technology.ru"
+            ],
+            "alias_added": true,
+            "source": "new",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 11,
+            "gid": "8a0292a7-2b1f-5d86-96f9-e4b095a8069d",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "karapetyan@dna-technology.ru"
+            ],
+            "alias_added": true,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 12,
+            "gid": "5d1d806a-8236-5bf3-a9a2-3a42aadc9770",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "soprun@dna-technology.ru"
+            ],
+            "alias_added": true,
+            "source": "new",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 13,
+            "gid": "4257cf6c-3358-5778-a62b-c5bc6194289c",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "ivahnishina@dna-technology.ru"
+            ],
+            "alias_added": true,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 14,
+            "gid": "63e484b9-8855-58bb-9f60-91e348f9332d",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "ozernaya@dna-technology.ru"
+            ],
+            "alias_added": true,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          }
+        ],
+        "conflicts": [
+          {
+            "entity": "contact",
+            "key": [
+              "CONTACT",
+              "PHONE",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "+74956401771"
+            ],
+            "existing_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+            "target_gid": "3f76c2a1-b874-54f3-bfbf-5b94121b0034"
+          }
+        ]
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.4,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.4,
+            "candidates": [
+              {
+                "inn": "7723537840",
+                "ogrn": "1057746762105",
+                "name": "ООО \"ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 5, помещ 12",
+                "opf": "ООО",
+                "score": 0.4,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723537840"
+              },
+              {
+                "inn": "7713668153",
+                "ogrn": "5087746543870",
+                "name": "ООО \"ДНК-ТЕХНОЛОГИЯ ТС\"",
+                "name_norm": "днк технология тс",
+                "city": "Москва",
+                "address": "г Москва, Научный проезд, д 20 стр 4",
+                "opf": "ООО",
+                "score": 0.26666666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7713668153"
+              },
+              {
+                "inn": "5037004152",
+                "ogrn": "1065043016521",
+                "name": "ООО \"НПО ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "нпо днк технология",
+                "city": "Протвино",
+                "address": "Московская обл, г Серпухов, г Протвино, ул Железнодорожная, д 20",
+                "opf": "ООО",
+                "score": 0.26666666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=5037004152"
+              },
+              {
+                "inn": "7723396678",
+                "ogrn": "1157746566031",
+                "name": "ООО \"НПФ ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "нпф днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 7",
+                "opf": "ООО",
+                "score": 0.26666666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723396678"
+              }
+            ],
+            "checked_at": "2025-10-17T11:21:54.384906",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+              "contact_name": "Светлана Воронова",
+              "phones_added": [
+                {
+                  "phone": "+74956401771",
+                  "type": "office",
+                  "confidence": 0.85,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.85
+              ],
+              "decision": {
+                "confidence": 0.85,
+                "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:21:54.386014",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (0.85 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "3f76c2a1-b874-54f3-bfbf-5b94121b0034",
+              "contact_name": "Владыкин Павел Сергеевич",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "phone": "+74956401771",
+                  "reason": "duplicate_from_unknown",
+                  "message": "Телефон уже существует у контакта"
+                }
+              ],
+              "confidence_scores": [
+                0.85
+              ],
+              "decision": {
+                "confidence": 0.85,
+                "contact_gid": "3f76c2a1-b874-54f3-bfbf-5b94121b0034",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:21:54.386100",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (0.85 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "f3bd4a96-aed9-500f-9bac-9688a2705b62",
+              "contact_name": "Kosacheva@dna-technology.ru",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.45 < 0.5)",
+                  "confidence": 0.44999999999999996
+                }
+              ],
+              "confidence_scores": [
+                0.44999999999999996
+              ],
+              "decision": {
+                "confidence": 0.44999999999999996,
+                "contact_gid": "f3bd4a96-aed9-500f-9bac-9688a2705b62",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:21:54.386143",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.45 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            },
+            {
+              "contact_gid": "38beaa6d-6456-5afd-922f-64d09dbffe31",
+              "contact_name": "Nyrkova@dna-technology.ru",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.45 < 0.5)",
+                  "confidence": 0.44999999999999996
+                }
+              ],
+              "confidence_scores": [
+                0.44999999999999996
+              ],
+              "decision": {
+                "confidence": 0.44999999999999996,
+                "contact_gid": "38beaa6d-6456-5afd-922f-64d09dbffe31",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:21:54.386172",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.45 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            },
+            {
+              "contact_gid": "9f865694-bb4a-5f34-8ade-294beac46b61",
+              "contact_name": "Ponomareva@dna-technology.ru",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.45 < 0.5)",
+                  "confidence": 0.44999999999999996
+                }
+              ],
+              "confidence_scores": [
+                0.44999999999999996
+              ],
+              "decision": {
+                "confidence": 0.44999999999999996,
+                "contact_gid": "9f865694-bb4a-5f34-8ade-294beac46b61",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:21:54.386202",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.45 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            },
+            {
+              "contact_gid": "54356106-01ee-50df-b7b0-b9269e6c7e31",
+              "contact_name": "Zolotareva@dna-technology.ru",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.45 < 0.5)",
+                  "confidence": 0.44999999999999996
+                }
+              ],
+              "confidence_scores": [
+                0.44999999999999996
+              ],
+              "decision": {
+                "confidence": 0.44999999999999996,
+                "contact_gid": "54356106-01ee-50df-b7b0-b9269e6c7e31",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:21:54.386229",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.45 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            },
+            {
+              "contact_gid": "94220ca2-60ab-595e-9853-b40709eedd4b",
+              "contact_name": "K.bukharova@dna-technology.ru",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.45 < 0.5)",
+                  "confidence": 0.44999999999999996
+                }
+              ],
+              "confidence_scores": [
+                0.44999999999999996
+              ],
+              "decision": {
+                "confidence": 0.44999999999999996,
+                "contact_gid": "94220ca2-60ab-595e-9853-b40709eedd4b",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:21:54.386259",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.45 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            },
+            {
+              "contact_gid": "7c83a70a-3e43-5b6c-b529-c6cc8c6c27ce",
+              "contact_name": "L.ivanova@dna-technology.ru",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.45 < 0.5)",
+                  "confidence": 0.44999999999999996
+                }
+              ],
+              "confidence_scores": [
+                0.44999999999999996
+              ],
+              "decision": {
+                "confidence": 0.44999999999999996,
+                "contact_gid": "7c83a70a-3e43-5b6c-b529-c6cc8c6c27ce",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:21:54.386283",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.45 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            },
+            {
+              "contact_gid": "a223d0a9-f50d-5d04-a0c8-7faa29c74136",
+              "contact_name": "Sivkova@dna-technology.ru",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.45 < 0.5)",
+                  "confidence": 0.44999999999999996
+                }
+              ],
+              "confidence_scores": [
+                0.44999999999999996
+              ],
+              "decision": {
+                "confidence": 0.44999999999999996,
+                "contact_gid": "a223d0a9-f50d-5d04-a0c8-7faa29c74136",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:21:54.386311",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.45 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            },
+            {
+              "contact_gid": "c7bda2cb-c3e3-5410-80b0-33a2e1960c86",
+              "contact_name": "Pipko@dna-technology.ru",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.45 < 0.5)",
+                  "confidence": 0.44999999999999996
+                }
+              ],
+              "confidence_scores": [
+                0.44999999999999996
+              ],
+              "decision": {
+                "confidence": 0.44999999999999996,
+                "contact_gid": "c7bda2cb-c3e3-5410-80b0-33a2e1960c86",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:21:54.386339",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.45 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            },
+            {
+              "contact_gid": "8a0292a7-2b1f-5d86-96f9-e4b095a8069d",
+              "contact_name": "Karapetyan@dna-technology.ru",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.45 < 0.5)",
+                  "confidence": 0.44999999999999996
+                }
+              ],
+              "confidence_scores": [
+                0.44999999999999996
+              ],
+              "decision": {
+                "confidence": 0.44999999999999996,
+                "contact_gid": "8a0292a7-2b1f-5d86-96f9-e4b095a8069d",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:21:54.386364",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.45 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            },
+            {
+              "contact_gid": "5d1d806a-8236-5bf3-a9a2-3a42aadc9770",
+              "contact_name": "Soprun@dna-technology.ru",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.45 < 0.5)",
+                  "confidence": 0.44999999999999996
+                }
+              ],
+              "confidence_scores": [
+                0.44999999999999996
+              ],
+              "decision": {
+                "confidence": 0.44999999999999996,
+                "contact_gid": "5d1d806a-8236-5bf3-a9a2-3a42aadc9770",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:21:54.386391",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.45 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            },
+            {
+              "contact_gid": "4257cf6c-3358-5778-a62b-c5bc6194289c",
+              "contact_name": "Ivahnishina@dna-technology.ru",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.45 < 0.5)",
+                  "confidence": 0.44999999999999996
+                }
+              ],
+              "confidence_scores": [
+                0.44999999999999996
+              ],
+              "decision": {
+                "confidence": 0.44999999999999996,
+                "contact_gid": "4257cf6c-3358-5778-a62b-c5bc6194289c",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:21:54.386420",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.45 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            },
+            {
+              "contact_gid": "63e484b9-8855-58bb-9f60-91e348f9332d",
+              "contact_name": "Ozernaya@dna-technology.ru",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.45 < 0.5)",
+                  "confidence": 0.44999999999999996
+                }
+              ],
+              "confidence_scores": [
+                0.44999999999999996
+              ],
+              "decision": {
+                "confidence": 0.44999999999999996,
+                "contact_gid": "63e484b9-8855-58bb-9f60-91e348f9332d",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:21:54.386444",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.45 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 14,
+            "contacts_enriched": 1,
+            "phones_added_total": 1,
+            "phones_skipped_total": 1,
+            "avg_confidence": 0.5071428571428571,
+            "phones_skipped_by_reason": {
+              "low_confidence": 12,
+              "no_org_phones": 0,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 1,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-17T04:21:54.386470",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 5,
+        "organizations_processed": 1,
+        "contacts_processed": 2,
+        "ui_format_applied": 5,
+        "phones_sanitized": 5
+      }
+    },
+    "provider_used": "OpenRouter",
+    "model": "google/gemini-2.0-flash-001",
+    "processing_time": 2.696042060852051,
+    "text_length": 2524,
+    "chunks_processed": 1,
+    "total_contacts_found": 14,
+    "unique_contacts_found": 14,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-08-26/email_005_20250826_20250826_dna-technology_ru_b9406ebe.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 44.847
+  }
+}

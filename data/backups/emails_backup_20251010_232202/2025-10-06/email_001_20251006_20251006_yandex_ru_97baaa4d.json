@@ -1,0 +1,51 @@
+{
+  "thread_id": "20251006_yandex_ru_97baaa4d",
+  "message_id": "<f4d9cc00-0d46-4c3c-913c-79002ef80e43@yandex.ru>",
+  "from": "kes.snab@yandex.ru",
+  "to": "torgi@dna-technology.ru, s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "torgi@dna-technology.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Запрос коммерческого предложения для КГБУЗ \"Краевая клиническая больница\" (ИНН 2225021067)",
+  "date": "Mon, 6 Oct 2025 10:18:47 +0700",
+  "parsed_date": "2025-10-06T10:18:47+07:00",
+  "body": "Добрый день!\nПрошу предоставить коммерческое предложение для КГБУЗ \"Краевая\nклиническая больница\" (ИНН 2225021067)\nR3-P439-S3/5 Набор реагентов для выявления нуклеиновых кислот\nвозбудителей острых респираторных вирусных инфекций человека методом\nОТ-ПЦР в режиме реального времени ОРВИ комплекс ( фасовка S, стрипы) - 1 наб\nПрошу уточнить наличие и срок поставки.\nРеквизиты во вложении.\n/Убедительная просьба - отвечайте на письма с сохранением истории\nпереписки./\nС уважением, Лучшева Евгения Сергеевна\nг. Барнаул, пер. Прудской, 71А\nMob.: 7-906-946-10-58\nEmail: kes.snab@yandex.ru\nWeb: www.amedservice.ru <http://www.amedservice.ru>\nПриглашаем к электронному документообороту.\nНаш оператор: СБИС.\nНаш идентификатор в ЭДО СБИС: 2BEe5599d6fb33547349929c9418dc13c04./\nДобрый день! Прошу предоставить коммерческое предложение для КГБУЗ \"Краевая клиническая больница\" (ИНН 2225021067) R3-P439-S3/5 Набор реагентов для выявления нуклеиновых кислот возбудителей острых респираторных вирусных инфекций человека методом ОТ-ПЦР в режиме реального времени ОРВИ комплекс ( фасовка S, стрипы) - 1 наб Прошу уточнить наличие и срок поставки. Реквизиты во вложении.",
+  "char_count": 1151,
+  "attachments": [
+    {
+      "original_filename": "tYPaGzLhi0qxwHII.png",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: part1.4MRg2ozr.sYWN2jzN@yandex.ru",
+      "is_inline": true,
+      "content_id": "part1.4MRg2ozr.sYWN2jzN@yandex.ru"
+    },
+    {
+      "original_filename": "АМС АльянсМедСервис ВТБ с 28.09.2023.doc",
+      "saved_filename": "20251006_yandex_ru_97baaa4d_222621_attach_АМС АльянсМедСервис ВТБ с 28.09.2023.doc",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-10-06/20251006_yandex_ru_97baaa4d_222621_attach_АМС АльянсМедСервис ВТБ с 28.09.2023.doc",
+      "relative_path": "attachments/2025-10-06/20251006_yandex_ru_97baaa4d_222621_attach_АМС АльянсМедСервис ВТБ с 28.09.2023.doc",
+      "file_size": 26624,
+      "file_type": "application/msword",
+      "content_type": "application/msword",
+      "saved_at": "2025-10-08T22:26:21.752964+07:00",
+      "status": "saved",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 1,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T22:26:21.752984+07:00",
+  "raw_size": 76539,
+  "date_folder": "2025-10-06"
+}

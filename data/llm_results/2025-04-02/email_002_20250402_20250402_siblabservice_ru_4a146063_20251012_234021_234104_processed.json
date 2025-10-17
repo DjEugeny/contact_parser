@@ -1,0 +1,18 @@
+{
+  "source_file": "email_002_20250402_20250402_siblabservice_ru_4a146063.json",
+  "processed_result": {
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-04-02/email_002_20250402_20250402_siblabservice_ru_4a146063.json",
+    "success": false,
+    "processing_strategy": "standard",
+    "processing_time_seconds": 20.14,
+    "errors": [
+      "Ошибка валидации"
+    ],
+    "validation_error": true,
+    "error": "Ошибка валидации",
+    "organizations": [],
+    "contacts": [],
+    "commercial_offers": [],
+    "interactions": []
+  }
+}

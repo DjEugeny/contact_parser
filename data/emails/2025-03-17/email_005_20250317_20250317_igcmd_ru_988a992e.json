@@ -1,0 +1,52 @@
+{
+  "thread_id": "20250317_igcmd_ru_988a992e",
+  "message_id": "<584251742193736@mail.yandex.ru>",
+  "email_num_in_day": 5,
+  "total_emails_in_day": 22,
+  "from": "lab@igcmd.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "",
+  "date": "Mon, 17 Mar 2025 14:46:43 +0800",
+  "parsed_date": "2025-03-17T13:46:43+07:00",
+  "body_raw": "Добрый день!\n\nСделайте, пожалуйста, коммерческое предложение на наборы реагентов.\n\n \n\n \n\n \n\nООО \"Клиника ЦМД\" г. Иркутск\n\nЕлена Георгиевна Михайлова\n\nтел.: 8 914 92 705 12",
+  "body_clean": "Добрый день!\nСделайте, пожалуйста, коммерческое предложение на наборы реагентов.\nООО \"Клиника ЦМД\" г. Иркутск\nЕлена Георгиевна Михайлова\nтел.: 8 914 92 705 12",
+  "char_count": 158,
+  "attachments": [
+    {
+      "id": 684,
+      "original_filename": "Шаблон ДТ.doc",
+      "saved_filename": "20250317_028f464f_071908_758433_attach_Шаблон ДТ.doc",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-17/20250317_028f464f_071908_758433_attach_Шаблон ДТ.doc",
+      "relative_path": "attachments/2025-03-17/20250317_028f464f_071908_758433_attach_Шаблон ДТ.doc",
+      "file_size": 49664,
+      "file_type": "application/msword",
+      "content_type": "application/msword",
+      "saved_at": "2025-10-14 00:19:08",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<584251742193736@mail.yandex.ru>",
+      "thread_id": "20250317_igcmd_ru_988a992e",
+      "sha256": "a13c1086cc682d9354046d86d4454e2be232684b70de5a986e4fe83f5542b36f",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:19:08.757210+07:00",
+  "raw_size": 70549,
+  "date_folder": "2025-03-17",
+  "eml_path": "eml/2025-03-17/584251742193736_mail.yandex.ru_071908_754370.eml"
+}

@@ -1,0 +1,36 @@
+{
+  "thread_id": "20251008_himlabservice_ru_a1e283d8",
+  "message_id": "<58447258.20251008175901@himlabservice.ru>",
+  "email_num_in_day": 14,
+  "total_emails_in_day": 22,
+  "from": "hls@himlabservice.ru",
+  "to": "fetisova@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "fetisova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Запрос КП наборы",
+  "date": "Wed, 8 Oct 2025 17:59:01 +0700",
+  "parsed_date": "2025-10-08T17:59:01+07:00",
+  "body_raw": "Здравствуйте!\r\n\nПрошу Вас выставить КП на набор реактивов \"Генетика метаболизма\r\nлактозы\" арт.R1-H963-N3/4 - 2 шт\r\n\nДля НИИ Медицинской Генетики Томского НИМЦ ИНН 7019011979.\r\n\nЗаранее благодарен!\r\n\nС уважением Цыбанов Баир Валерьевич\r\nМенеджер по продажам\r\nООО \"ХимЛабСервис\"\r\n+7(3822)42-45-35\r\n634045 г. Томск, ул. Мокрушина 13А\r\nhttps://himlabservice.ru/",
+  "body_clean": "Здравствуйте!\nПрошу Вас выставить КП на набор реактивов \"Генетика метаболизма\nлактозы\" арт.R1-H963-N3/4 - 2 шт\nДля НИИ Медицинской Генетики Томского НИМЦ ИНН 7019011979.\nЗаранее благодарен!\nС уважением Цыбанов Баир Валерьевич\nМенеджер по продажам\nООО \"ХимЛабСервис\"\n+7(3822)42-45-35\n634045 г. Томск, ул. Мокрушина 13А\nhttps://himlabservice.ru/",
+  "char_count": 343,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T01:04:00.643653+07:00",
+  "raw_size": 2857,
+  "date_folder": "2025-10-08",
+  "eml_path": "eml/2025-10-08/58447258.20251008175901_himlabservice.ru_010400_639863.eml"
+}

@@ -1,0 +1,782 @@
+{
+  "source_file": "email_006_20250822_20250822_bk_ru_209d7bb5.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": null,
+        "website": "dna-technology.ru",
+        "city": "Москва",
+        "address": "Варшавское шоссе, дом 125Ж, корпус 5",
+        "emails": [
+          "mail@dna-technology.ru"
+        ],
+        "phones": [
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71",
+            "extension": "2030"
+          }
+        ],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      },
+      {
+        "organization_id": 2,
+        "name": "Крона",
+        "inn": null,
+        "website": null,
+        "city": null,
+        "address": null,
+        "emails": [],
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (983) 253-01-39",
+            "normalized": "+79832530139",
+            "original": "+79832530139",
+            "extension": null
+          }
+        ],
+        "gid": "8dd4f9e4-96b4-5bd2-a959-fa01024b70c7"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Гоголева Мария Михайловна",
+        "organization_id": 1,
+        "position": "Менеджер по продаже оборудования",
+        "email": "m.gogoleva@dna-technology.ru",
+        "phones": [
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71 (доб. 2030)",
+            "extension": "2030"
+          },
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71",
+            "extension": "2030"
+          }
+        ],
+        "city": "Москва",
+        "address": "Варшавское шоссе, дом 125Ж, корпус 5",
+        "role_in_message": "sender",
+        "confidence": 0.95,
+        "value_score": 12,
+        "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "m.gogoleva@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674125.9527428,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 2,
+        "name": "Мишенин Александр",
+        "organization_id": 2,
+        "position": "Коммерческий директор",
+        "email": "krona_med@bk.ru",
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (983) 253-01-39",
+            "normalized": "+79832530139",
+            "original": "+79832530139",
+            "extension": null
+          },
+          {
+            "type": "main",
+            "number": "+7 (983) 253-01-39",
+            "normalized": "+79832530139",
+            "original": "+79832530139",
+            "extension": null
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "recipient",
+        "confidence": 0.95,
+        "value_score": 11,
+        "gid": "d5c6ced4-afd2-51f1-9fae-dd51de1b067a",
+        "enrichment_skipped": true,
+        "enrichment_reason": "public_provider_bk.ru",
+        "email_valid": true,
+        "name_original": "Александр Мишенин"
+      },
+      {
+        "contact_id": 3,
+        "name": "Колдашова Елена",
+        "organization_id": 1,
+        "position": "Секретарь офиса",
+        "email": "mail@dna-technology.ru",
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 495 640-17-71 доб. 2000",
+            "extension": "2000"
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.8,
+        "value_score": 9,
+        "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+        "email_source": "organization_email_fallback",
+        "enrichment_skipped": false,
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "smart_enrichment": {
+          "source_email": "mail@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674126.766037,
+          "version": "1.0.0"
+        },
+        "email_valid": true,
+        "name_original": "Елена Колдашова"
+      }
+    ],
+    "business_context": "Александр Мишенин (Крона) уточняет у Марии Гоголевой (ДНК-Технология) по поводу соответствия КТРУ полуавтоматического амплификатора. Ранее Мария отправляла КП и ТЗ по запросу Александра.",
+    "summary": {
+      "topic": "Уточнение по КТРУ амплификатора",
+      "product_interest": "Амплификатор ДТпрайм II 5M1",
+      "communication_stage": "обсуждение условий",
+      "request_type": "clarification"
+    },
+    "key_points": [
+      "Александр Мишенин (Крона) уточняет соответствие КТРУ",
+      "Речь идет об амплификаторе ДТпрайм II 5M1",
+      "Ранее ДНК-Технология отправляла КП и ТЗ"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 2,
+        "organization_id": 2,
+        "message_subject": "Re[2]: ФГБУ ННИИТ Fwd: запрос кп",
+        "message_date": "2025-08-22T13:49:52+07:00",
+        "message_id_hint": "1755845391.121386088@f411.i.mail.ru",
+        "role_in_message": "recipient",
+        "interaction_type": "clarification",
+        "summary": "Александр Мишенин спрашивает про соответствие КТРУ полуавтоматического амплификатора.",
+        "human_note": "Александр Мишенин (Крона) спрашивает у Марии Гоголевой (ДНК-Технология) про соответствие КТРУ полуавтоматического амплификатора.",
+        "participants": {
+          "actor": "Александр Мишенин (Крона, Коммерческий директор)",
+          "audience": [
+            "Гоголева Мария Михайловна (ДНК-Технология)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 2,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "Re[2]: ФГБУ ННИИТ Fwd: запрос кп",
+        "message_date": "2025-08-22T09:37:00+00:00",
+        "message_id_hint": null,
+        "role_in_message": "sender",
+        "interaction_type": "clarification",
+        "summary": "Мария Гоголева отвечает, что прибор соответствует КТРУ ...977.",
+        "human_note": "Мария Гоголева (ДНК-Технология) отвечает Александру Мишенину (Крона), что прибор соответствует КТРУ ...977.",
+        "participants": {
+          "actor": "Гоголева Мария Михайловна (ДНК-Технология, Менеджер по продаже оборудования)",
+          "audience": [
+            "Александр Мишенин (Крона)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 3,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "Re[2]: ФГБУ ННИИТ Fwd: запрос кп",
+        "message_date": "2025-08-22T05:32:00+00:00",
+        "message_id_hint": null,
+        "role_in_message": "sender",
+        "interaction_type": "clarification",
+        "summary": "Мария Гоголева объясняет Александру Мишенину причины использования КТРУ ...233.",
+        "human_note": "Мария Гоголева (ДНК-Технология) объясняет Александру Мишенину (Крона) причины использования КТРУ ...233, чтобы избежать конкуренции с китайскими производителями.",
+        "participants": {
+          "actor": "Гоголева Мария Михайловна (ДНК-Технология, Менеджер по продаже оборудования)",
+          "audience": [
+            "Александр Мишенин (Крона)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 4,
+        "contact_id": 2,
+        "organization_id": 2,
+        "message_subject": "Re[2]: ФГБУ ННИИТ Fwd: запрос кп",
+        "message_date": "2025-08-22T01:16:00+00:00",
+        "message_id_hint": null,
+        "role_in_message": "recipient",
+        "interaction_type": "clarification",
+        "summary": "Александр Мишенин спрашивает, является ли аппарат автоматическим.",
+        "human_note": "Александр Мишенин (Крона) спрашивает у Марии Гоголевой (ДНК-Технология), является ли аппарат автоматическим.",
+        "participants": {
+          "actor": "Александр Мишенин (Крона, Коммерческий директор)",
+          "audience": [
+            "Гоголева Мария Михайловна (ДНК-Технология)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 5,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "Re[2]: ФГБУ ННИИТ Fwd: запрос кп",
+        "message_date": "2025-08-20T17:57:00+03:00",
+        "message_id_hint": null,
+        "role_in_message": "sender",
+        "interaction_type": "sent_quote",
+        "summary": "Мария Гоголева отправила КП и ТЗ Александру Мишенину.",
+        "human_note": "Мария Гоголева (ДНК-Технология) отправила КП и ТЗ Александру Мишенину (Крона).",
+        "participants": {
+          "actor": "Гоголева Мария Михайловна (ДНК-Технология, Менеджер по продаже оборудования)",
+          "audience": [
+            "Александр Мишенин (Крона)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 6,
+        "contact_id": 2,
+        "organization_id": 2,
+        "message_subject": "запрос кп",
+        "message_date": "2025-08-20T18:49:14+03:00",
+        "message_id_hint": null,
+        "role_in_message": "requested_quote",
+        "interaction_type": "requested_quote",
+        "summary": "Александр Мишенин запросил КП на ДТ Прайм 5М3 и ДТ Прайм 2 5 канальный для конечника ИНН 5401109396 ФГБУ ННИИТ.",
+        "human_note": "Александр Мишенин (Крона) запросил КП на ДТ Прайм 5М3 и ДТ Прайм 2 5 канальный для ФГБУ ННИИТ (ИНН 5401109396).",
+        "participants": {
+          "actor": "Александр Мишенин (Крона, Коммерческий директор)",
+          "audience": [
+            "Секретариат ДНК-Технология",
+            "s.voronova@dna-technology.ru"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 7,
+        "contact_id": 3,
+        "organization_id": 1,
+        "message_subject": "запрос кп",
+        "message_date": "2025-08-20T18:11:00+07:00",
+        "message_id_hint": null,
+        "role_in_message": "cc",
+        "interaction_type": "other",
+        "summary": "Елена Колдашова предоставила ссылки на продукцию ДНК-Технология.",
+        "human_note": "Елена Колдашова (ДНК-Технология) предоставила Александру Мишенину (Крона) ссылки на продукцию ДНК-Технология.",
+        "participants": {
+          "actor": "Елена Колдашова (ДНК-Технология, Секретарь офиса)",
+          "audience": [
+            "Александр Мишенин (Крона)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.8
+      },
+      {
+        "interaction_local_id": 8,
+        "contact_id": 2,
+        "organization_id": 2,
+        "message_subject": null,
+        "message_date": "2025-08-20T14:01:00+00:00",
+        "message_id_hint": null,
+        "role_in_message": "recipient",
+        "interaction_type": "clarification",
+        "summary": "Александр Мишенин спрашивает, является ли амплификатор нуклеиновых кислот позицией ДНК-Технологии.",
+        "human_note": "Александр Мишенин (Крона) спрашивает у ДНК-Технологии, является ли амплификатор нуклеиновых кислот их позицией.",
+        "participants": {
+          "actor": "Александр Мишенин (Крона, Коммерческий директор)",
+          "audience": [
+            "ДНК-Технология"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": null,\n      \"website\": \"dna-technology.ru\",\n      \"city\": \"Москва\",\n      \"address\": \"Варшавское шоссе, дом 125Ж, корпус 5\",\n      \"emails\": [\n        \"mail@dna-technology.ru\"\n      ],\n      \"phones\": [\n        {\n          \"type\": \"office\",\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": null,\n          \"original\": \"+7 (495) 640-17-71\",\n          \"extension\": \"2030\"\n        }\n      ]\n    },\n    {\n      \"organization_id\": 2,\n      \"name\": \"Крона\",\n      \"inn\": null,\n      \"website\": null,\n      \"city\": null,\n      \"address\": null,\n      \"emails\": [],\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+79832530139\",\n          \"normalized\": null,\n          \"original\": \"+79832530139\",\n          \"extension\": null\n        }\n      ]\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Гоголева Мария Михайловна\",\n      \"organization_id\": 1,\n      \"position\": \"Менеджер по продаже оборудования\",\n      \"email\": \"m.gogoleva@dna-technology.ru\",\n      \"phones\": [\n        {\n          \"type\": \"office\",\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": null,\n          \"original\": \"+7 (495) 640-17-71 (доб. 2030)\",\n          \"extension\": \"2030\"\n        }\n      ],\n      \"city\": \"Москва\",\n      \"address\": \"Варшавское шоссе, дом 125Ж, корпус 5\",\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.95\n    },\n    {\n      \"contact_id\": 2,\n      \"name\": \"Александр Мишенин\",\n      \"organization_id\": 2,\n      \"position\": \"Коммерческий директор\",\n      \"email\": \"krona_med@bk.ru\",\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+79832530139\",\n          \"normalized\": null,\n          \"original\": \"+79832530139\",\n          \"extension\": null\n        }\n      ],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"recipient\",\n      \"confidence\": 0.95\n    },\n    {\n      \"contact_id\": 3,\n      \"name\": \"Елена Колдашова\",\n      \"organization_id\": 1,\n      \"position\": \"Секретарь офиса\",\n      \"email\": null,\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7 495 640-17-71\",\n          \"normalized\": null,\n          \"original\": \"+7 495 640-17-71 доб. 2000\",\n          \"extension\": \"2000\"\n        }\n      ],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.8\n    }\n  ],\n  \"business_context\": \"Александр Мишенин (Крона) уточняет у Марии Гоголевой (ДНК-Технология) по поводу соответствия КТРУ полуавтоматического амплификатора. Ранее Мария отправляла КП и ТЗ по запросу Александра.\",\n  \"summary\": {\n    \"topic\": \"Уточнение по КТРУ амплификатора\",\n    \"product_interest\": \"Амплификатор ДТпрайм II 5M1\",\n    \"communication_stage\": \"обсуждение условий\",\n    \"request_type\": \"clarification\"\n  },\n  \"key_points\": [\n    \"Александр Мишенин (Крона) уточняет соответствие КТРУ\",\n    \"Речь идет об амплификаторе ДТпрайм II 5M1\",\n    \"Ранее ДНК-Технология отправляла КП и ТЗ\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 2,\n      \"organization_id\": 2,\n      \"message_subject\": \"Re[2]: ФГБУ ННИИТ Fwd: запрос кп\",\n      \"message_date\": \"2025-08-22T13:49:52+07:00\",\n      \"message_id_hint\": \"<1755845391.121386088@f411.i.mail.ru>\",\n      \"role_in_message\": \"recipient\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Александр Мишенин спрашивает про соответствие КТРУ полуавтоматического амплификатора.\",\n      \"human_note\": \"Александр Мишенин (Крона) спрашивает у Марии Гоголевой (ДНК-Технология) про соответствие КТРУ полуавтоматического амплификатора.\",\n      \"participants\": {\n        \"actor\": \"Александр Мишенин (Крона, Коммерческий директор)\",\n        \"audience\": [\"Гоголева Мария Михайловна (ДНК-Технология)\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    },\n    {\n      \"interaction_local_id\": 2,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"Re[2]: ФГБУ ННИИТ Fwd: запрос кп\",\n      \"message_date\": \"2025-08-22T09:37:00+00:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Мария Гоголева отвечает, что прибор соответствует КТРУ ...977.\",\n      \"human_note\": \"Мария Гоголева (ДНК-Технология) отвечает Александру Мишенину (Крона), что прибор соответствует КТРУ ...977.\",\n      \"participants\": {\n        \"actor\": \"Гоголева Мария Михайловна (ДНК-Технология, Менеджер по продаже оборудования)\",\n        \"audience\": [\"Александр Мишенин (Крона)\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    },\n    {\n      \"interaction_local_id\": 3,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"Re[2]: ФГБУ ННИИТ Fwd: запрос кп\",\n      \"message_date\": \"2025-08-22T05:32:00+00:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Мария Гоголева объясняет Александру Мишенину причины использования КТРУ ...233.\",\n      \"human_note\": \"Мария Гоголева (ДНК-Технология) объясняет Александру Мишенину (Крона) причины использования КТРУ ...233, чтобы избежать конкуренции с китайскими производителями.\",\n      \"participants\": {\n        \"actor\": \"Гоголева Мария Михайловна (ДНК-Технология, Менеджер по продаже оборудования)\",\n        \"audience\": [\"Александр Мишенин (Крона)\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    },\n    {\n      \"interaction_local_id\": 4,\n      \"contact_id\": 2,\n      \"organization_id\": 2,\n      \"message_subject\": \"Re[2]: ФГБУ ННИИТ Fwd: запрос кп\",\n      \"message_date\": \"2025-08-22T01:16:00+00:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"recipient\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Александр Мишенин спрашивает, является ли аппарат автоматическим.\",\n      \"human_note\": \"Александр Мишенин (Крона) спрашивает у Марии Гоголевой (ДНК-Технология), является ли аппарат автоматическим.\",\n      \"participants\": {\n        \"actor\": \"Александр Мишенин (Крона, Коммерческий директор)\",\n        \"audience\": [\"Гоголева Мария Михайловна (ДНК-Технология)\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    },\n    {\n      \"interaction_local_id\": 5,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"Re[2]: ФГБУ ННИИТ Fwd: запрос кп\",\n      \"message_date\": \"2025-08-20T17:57:00+03:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"sent_quote\",\n      \"summary\": \"Мария Гоголева отправила КП и ТЗ Александру Мишенину.\",\n      \"human_note\": \"Мария Гоголева (ДНК-Технология) отправила КП и ТЗ Александру Мишенину (Крона).\",\n      \"participants\": {\n        \"actor\": \"Гоголева Мария Михайловна (ДНК-Технология, Менеджер по продаже оборудования)\",\n        \"audience\": [\"Александр Мишенин (Крона)\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    },\n    {\n      \"interaction_local_id\": 6,\n      \"contact_id\": 2,\n      \"organization_id\": 2,\n      \"message_subject\": \"запрос кп\",\n      \"message_date\": \"2025-08-20T18:49:14+03:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"requested_quote\",\n      \"interaction_type\": \"requested_quote\",\n      \"summary\": \"Александр Мишенин запросил КП на ДТ Прайм 5М3 и ДТ Прайм 2 5 канальный для конечника ИНН 5401109396 ФГБУ ННИИТ.\",\n      \"human_note\": \"Александр Мишенин (Крона) запросил КП на ДТ Прайм 5М3 и ДТ Прайм 2 5 канальный для ФГБУ ННИИТ (ИНН 5401109396).\",\n      \"participants\": {\n        \"actor\": \"Александр Мишенин (Крона, Коммерческий директор)\",\n        \"audience\": [\"Секретариат ДНК-Технология\", \"s.voronova@dna-technology.ru\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    },\n    {\n      \"interaction_local_id\": 7,\n      \"contact_id\": 3,\n      \"organization_id\": 1,\n      \"message_subject\": \"запрос кп\",\n      \"message_date\": \"2025-08-20T18:11:00+07:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"cc\",\n      \"interaction_type\": \"other\",\n      \"summary\": \"Елена Колдашова предоставила ссылки на продукцию ДНК-Технология.\",\n      \"human_note\": \"Елена Колдашова (ДНК-Технология) предоставила Александру Мишенину (Крона) ссылки на продукцию ДНК-Технология.\",\n      \"participants\": {\n        \"actor\": \"Елена Колдашова (ДНК-Технология, Секретарь офиса)\",\n        \"audience\": [\"Александр Мишенин (Крона)\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.8\n    },\n    {\n      \"interaction_local_id\": 8,\n      \"contact_id\": 2,\n      \"organization_id\": 2,\n      \"message_subject\": null,\n      \"message_date\": \"2025-08-20T14:01:00+00:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"recipient\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Александр Мишенин спрашивает, является ли амплификатор нуклеиновых кислот позицией ДНК-Технологии.\",\n      \"human_note\": \"Александр Мишенин (Крона) спрашивает у ДНК-Технологии, является ли амплификатор нуклеиновых кислот их позицией.\",\n      \"participants\": {\n        \"actor\": \"Александр Мишенин (Крона, Коммерческий директор)\",\n        \"audience\": [\"ДНК-Технология\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    }\n  ]\n}\n```",
+    "contact_mentions": [],
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-17T11:08:46.769367",
+      "stats": {
+        "processed_emails": 5,
+        "total_organizations_processed": 15,
+        "total_contacts_processed": 18,
+        "organizations_deduplicated": 0,
+        "contacts_filtered": 0,
+        "contacts_enriched": 18,
+        "data_normalized": 33,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 2,
+        "phones_added_to_contacts": 2
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1,
+        "2": 2
+      },
+      "contact_mapping": {
+        "1": 1,
+        "2": 2,
+        "3": 3
+      },
+      "filtering": {
+        "contacts_without_info_filtered": 0,
+        "mentions_saved": 0
+      },
+      "provenance": {
+        "contacts": {
+          "2": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "3": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "1": {
+            "address_removed": "org_hq_match"
+          }
+        }
+      },
+      "email_classification": {
+        "1": {
+          "kept": [
+            "mail@dna-technology.ru"
+          ],
+          "removed": [],
+          "removed_types": {}
+        },
+        "2": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "DOMAIN",
+            "key_tuple": [
+              "ORG",
+              "DOMAIN",
+              "dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 2,
+            "gid": "8dd4f9e4-96b4-5bd2-a959-fa01024b70c7",
+            "match_rule": "FALLBACK",
+            "key_tuple": [
+              "ORG",
+              "FALLBACK",
+              "953f5816bb91dc67"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "m.gogoleva@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 2,
+            "gid": "d5c6ced4-afd2-51f1-9fae-dd51de1b067a",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "8dd4f9e4-96b4-5bd2-a959-fa01024b70c7",
+              "krona_med@bk.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 2,
+            "organization_gid": "8dd4f9e4-96b4-5bd2-a959-fa01024b70c7"
+          },
+          {
+            "entity": "contact",
+            "local_id": 3,
+            "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+            "match_rule": "PHONE",
+            "key_tuple": [
+              "CONTACT",
+              "PHONE",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "+74956401771"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          }
+        ],
+        "conflicts": []
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "needs_review",
+            "inn": null,
+            "confidence": 0.68,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.68,
+            "candidates": [
+              {
+                "inn": "7723537840",
+                "ogrn": "1057746762105",
+                "name": "ООО \"ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 5, помещ 12",
+                "opf": "ООО",
+                "score": 0.68,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723537840"
+              },
+              {
+                "inn": "7723396678",
+                "ogrn": "1157746566031",
+                "name": "ООО \"НПФ ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "нпф днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 7",
+                "opf": "ООО",
+                "score": 0.5541666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723396678"
+              }
+            ],
+            "checked_at": "2025-10-17T11:08:44.141666",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "8dd4f9e4-96b4-5bd2-a959-fa01024b70c7": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.4,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.4,
+            "candidates": [
+              {
+                "inn": "6114011550",
+                "ogrn": "1126191003025",
+                "name": "ЗАО \"КРОНА\"",
+                "name_norm": "крона",
+                "city": "Ростовская обл",
+                "address": "Ростовская обл, Каменский р-н, хутор Красновка, ул Заречная, д 1",
+                "opf": "НАО",
+                "score": 0.4,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=6114011550"
+              },
+              {
+                "inn": "7701710749",
+                "ogrn": "5077746319393",
+                "name": "ЗАО \"КРОНА\"",
+                "name_norm": "крона",
+                "city": "Москва",
+                "address": "г Москва, ул Фридриха Энгельса, д 75 стр 5",
+                "opf": "НАО",
+                "score": 0.4,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7701710749"
+              },
+              {
+                "inn": "7813055827",
+                "ogrn": "1037828032483",
+                "name": "ЗАО \"КРОНА\"",
+                "name_norm": "крона",
+                "city": "Ленинградская обл",
+                "address": "Ленинградская обл, Всеволожский р-н, тер Производственная (д Новое Девяткино), ул Турбостроителей, зд 38А",
+                "opf": "НАО",
+                "score": 0.4,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7813055827"
+              },
+              {
+                "inn": "2540267267",
+                "ogrn": "1222500004583",
+                "name": "ООО \"КРОНА\"",
+                "name_norm": "крона",
+                "city": "Владивосток",
+                "address": "690090, ПРИМОРСКИЙ КРАЙ, Г.О. ВЛАДИВОСТОКСКИЙ, Г ВЛАДИВОСТОК, УЛ ПОГРАНИЧНАЯ, Д. 15А, ОФИС/ПОМЕЩ 301/1",
+                "opf": "ООО",
+                "score": 0.4,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=2540267267"
+              },
+              {
+                "inn": "7300034081",
+                "ogrn": "1247300006073",
+                "name": "ООО \"КРОНА\"",
+                "name_norm": "крона",
+                "city": "Ульяновск",
+                "address": "г Ульяновск, ул Ипподромная, д 4Б, помещ 36",
+                "opf": "ООО",
+                "score": 0.4,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7300034081"
+              },
+              {
+                "inn": "7811744148",
+                "ogrn": "1207800013520",
+                "name": "ООО \"КРОНА\"",
+                "name_norm": "крона",
+                "city": "Санкт-Петербург",
+                "address": "г Санкт-Петербург, ул Смоляная, д 11 к 2 литера ш, помещ 10",
+                "opf": "ООО",
+                "score": 0.4,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7811744148"
+              },
+              {
+                "inn": "7717500850",
+                "ogrn": "1037739994511",
+                "name": "ООО \"КРОНА\"",
+                "name_norm": "крона",
+                "city": "Москва",
+                "address": "г Москва, проезд Ольминского, д 5, помещ 1Н/9",
+                "opf": "ООО",
+                "score": 0.4,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7717500850"
+              },
+              {
+                "inn": "7743935021",
+                "ogrn": "1147746889718",
+                "name": "АО \"КРОНА\"",
+                "name_norm": "ао крона",
+                "city": "Москва",
+                "address": "г Москва, ул Адмирала Макарова, д 6 стр 13, помещ 32",
+                "opf": "НАО",
+                "score": 0.2,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7743935021"
+              },
+              {
+                "inn": "4401142271",
+                "ogrn": "1134401004814",
+                "name": "АО \"КРОНА\"",
+                "name_norm": "ао крона",
+                "city": "Кострома",
+                "address": "г Кострома, ул Сутырина, д 3, офис 2",
+                "opf": "НАО",
+                "score": 0.2,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=4401142271"
+              },
+              {
+                "inn": "7811011366",
+                "ogrn": "1027806061623",
+                "name": "АО \"КРОНА\"",
+                "name_norm": "ао крона",
+                "city": "Санкт-Петербург",
+                "address": "192029, Г.САНКТ-ПЕТЕРБУРГ, ВН.ТЕР.Г. МУНИЦИПАЛЬНЫЙ ОКРУГ НЕВСКАЯ ЗАСТАВА, ПР-КТ ОБУХОВСКОЙ ОБОРОНЫ, Д. 51, ЛИТЕРА К, ПОМЕЩ. 19-Н ЧАСТЬ №22, 23",
+                "opf": "НАО",
+                "score": 0.2,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7811011366"
+              }
+            ],
+            "checked_at": "2025-10-17T11:08:44.400476",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+              "contact_name": "Гоголева Мария Михайловна",
+              "phones_added": [
+                {
+                  "phone": "+74956401771",
+                  "type": "office",
+                  "confidence": 1.0,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                1.0
+              ],
+              "decision": {
+                "confidence": 1.0,
+                "contact_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:08:44.402093",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (1.00 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "d5c6ced4-afd2-51f1-9fae-dd51de1b067a",
+              "contact_name": "Александр Мишенин",
+              "phones_added": [
+                {
+                  "phone": "+79832530139",
+                  "type": "main",
+                  "confidence": 0.55,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.55
+              ],
+              "decision": {
+                "confidence": 0.55,
+                "contact_gid": "d5c6ced4-afd2-51f1-9fae-dd51de1b067a",
+                "org_gid": "8dd4f9e4-96b4-5bd2-a959-fa01024b70c7",
+                "timestamp": "2025-10-17T04:08:44.402177",
+                "decision": "needs_review",
+                "reason": "Средний уровень уверенности (0.55), требуется проверка"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+              "contact_name": "Елена Колдашова",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.35 < 0.5)",
+                  "confidence": 0.35
+                }
+              ],
+              "confidence_scores": [
+                0.35
+              ],
+              "decision": {
+                "confidence": 0.35,
+                "contact_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:08:44.402226",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.35 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 3,
+            "contacts_enriched": 2,
+            "phones_added_total": 2,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.6333333333333333,
+            "phones_skipped_by_reason": {
+              "low_confidence": 1,
+              "no_org_phones": 0,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-17T04:08:44.402254",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 7,
+        "organizations_processed": 2,
+        "contacts_processed": 3,
+        "ui_format_applied": 7,
+        "phones_sanitized": 7
+      }
+    },
+    "provider_used": "OpenRouter",
+    "model": "google/gemini-2.0-flash-001",
+    "processing_time": 2.461091995239258,
+    "text_length": 4581,
+    "chunks_processed": 1,
+    "total_contacts_found": 3,
+    "unique_contacts_found": 3,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-08-22/email_006_20250822_20250822_bk_ru_209d7bb5.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 24.133
+  }
+}

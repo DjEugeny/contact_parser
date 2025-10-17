@@ -1,0 +1,47 @@
+{
+  "thread_id": "20250721_mail_ru_fd4716d7",
+  "message_id": "<1753103489.815909317@f721.i.mail.ru>",
+  "from": "bourmenska@mail.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "BRAF 9_Вкладыш S_v.2_ПРОЕКТ.pdf, BRAF3_Вкладыш S_v.2_ПРОЕКТ.pdf",
+  "date": "Mon, 21 Jul 2025 16:11:29 +0300",
+  "parsed_date": "2025-07-21T20:11:29+07:00",
+  "body": "Ольга\nС уважением,Ольга",
+  "char_count": 23,
+  "attachments": [
+    {
+      "filename": "ru_fd4716d7_084003_attach_BRAF 9_Вкладыш S_v.2_ПРОЕКТ.pdf",
+      "saved_filename": "20250721_mail_ru_fd4716d7_084003_attach_BRAF 9_Вкладыш S_v.2_ПРОЕКТ.pdf",
+      "size": 232318,
+      "path": "attachments/2025-07-21/20250721_mail_ru_fd4716d7_084003_attach_BRAF 9_Вкладыш S_v.2_ПРОЕКТ.pdf",
+      "status": "saved",
+      "type": "existing_attachment"
+    },
+    {
+      "filename": "ru_fd4716d7_084003_attach_BRAF3_Вкладыш S_v.2_ПРОЕКТ.pdf",
+      "saved_filename": "20250721_mail_ru_fd4716d7_084003_attach_BRAF3_Вкладыш S_v.2_ПРОЕКТ.pdf",
+      "size": 228934,
+      "path": "attachments/2025-07-21/20250721_mail_ru_fd4716d7_084003_attach_BRAF3_Вкладыш S_v.2_ПРОЕКТ.pdf",
+      "status": "saved",
+      "type": "existing_attachment"
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 2,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-08-26T17:52:16.855042+07:00",
+  "raw_size": 637148,
+  "date_folder": "2025-07-21"
+}

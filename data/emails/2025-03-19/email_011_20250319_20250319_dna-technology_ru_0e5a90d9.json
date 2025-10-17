@@ -1,0 +1,54 @@
+{
+  "thread_id": "20250319_dna-technology_ru_0e5a90d9",
+  "message_id": "<a97a4681-245a-4e87-b45d-611255c9cbb7@dna-technology.ru>",
+  "email_num_in_day": 11,
+  "total_emails_in_day": 19,
+  "from": "prisyazhnyuk@dna-technology.ru",
+  "to": "nipchi_irk_220132@mail.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "nipchi_irk_220132@mail.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Fwd: Запрос ценовой информации",
+  "date": "Wed, 19 Mar 2025 12:56:33 +0300",
+  "parsed_date": "2025-03-19T16:56:33+07:00",
+  "body_raw": "Добрый день, Вера Юрьевна!\r\nКоммерческое предложение во вложении.\r\n\n> -------- Пересылаемое сообщение --------\r\n> 14:54, 19 марта 2025 г., \"Вера Юрьевна\" <nipchi_irk_220132@mail.ru>:\r\n>\r\n> С уважением,\r\n> Вера Юрьевна\r\n> nipchi_irk_220132@mail.ru\r\n>\r\n>\r\n> -------- Конец пересылаемого сообщения --------\r\n\n-- \r\nС уважением, Присяжнюк Маргарита\r\nменеджер по продаже оборудования ООО \"ДНК-Технология\"\r\nТел\\факс: (495)640-17-71, доб.2007\r\nmailto:prisyazhnyuk@dna-technology.ru",
+  "body_clean": "Добрый день, Вера Юрьевна!\nКоммерческое предложение во вложении.\n> -------- Пересылаемое сообщение --------\n> 14:54, 19 марта 2025 г., \"Вера Юрьевна\" nipchi_irk_220132@mail.ru:\n> С уважением,\n> Вера Юрьевна\n> nipchi_irk_220132@mail.ru\n> -------- Конец пересылаемого сообщения --------\nС уважением, Присяжнюк Маргарита\nменеджер по продаже оборудования ООО \"ДНК-Технология\"\nТел\\факс: (495)640-17-71, доб.2007\nmailto:prisyazhnyuk@dna-technology.ru",
+  "char_count": 444,
+  "attachments": [
+    {
+      "id": 699,
+      "original_filename": "Ком.пред.19.03.2025 для ФКУЗ Иркутский научно-исследовательский противочумный  институт Роспотребнадзора (ДТклассик).pdf",
+      "saved_filename": "20250319_1530e2c5_072017_979461_attach_Ком.пред.19.03.2025 для ФКУЗ Иркутский научно-исследовательский противочумный  институт Роспотребнадзора _ДТклассик_.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-19/20250319_1530e2c5_072017_979461_attach_Ком.пред.19.03.2025 для ФКУЗ Иркутский научно-исследовательский противочумный  институт Роспотребнадзора _ДТклассик_.pdf",
+      "relative_path": "attachments/2025-03-19/20250319_1530e2c5_072017_979461_attach_Ком.пред.19.03.2025 для ФКУЗ Иркутский научно-исследовательский противочумный  институт Роспотребнадзора _ДТклассик_.pdf",
+      "file_size": 190945,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:20:17",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<a97a4681-245a-4e87-b45d-611255c9cbb7@dna-technology.ru>",
+      "thread_id": "20250319_dna-technology_ru_0e5a90d9",
+      "sha256": "01b33a0a40e69e5a71ac0d888ac545ec913a1165cb35061029cb33d5c2e278cb",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:20:17.977042+07:00",
+  "raw_size": 267147,
+  "date_folder": "2025-03-19",
+  "eml_path": "eml/2025-03-19/a97a4681-245a-4e87-b45d-611255c9cbb7_dna-technology.ru_072017_973401.eml"
+}

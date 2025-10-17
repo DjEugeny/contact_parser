@@ -1,0 +1,39 @@
+Received:  from forward103a.mail.yandex.net ([178.154.239.86]:51530)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98.2 (FreeBSD))
+	 (envelope-from <uvs-bio@yandex.ru>)
+	 id 1uWYpu-00000000J6g-3Fkb ;
+	Tue, 01 Jul 2025 14:07:39 +0300
+Received: from mail-nwsmtp-mxback-production-main-689.vla.yp-c.yandex.net (mail-nwsmtp-mxback-production-main-689.vla.yp-c.yandex.net [IPv6:2a02:6b8:c18:1581:0:640:9499:0])
+	by forward103a.mail.yandex.net (Yandex) with ESMTPS id 037AA60F25;
+	Tue,  1 Jul 2025 14:07:38 +0300 (MSK)
+Received: from mail.yandex.ru (2a02:6b8:c1d:5a45:0:640:d218:0 [2a02:6b8:c1d:5a45:0:640:d218:0])
+	by mail-nwsmtp-mxback-production-main-689.vla.yp-c.yandex.net (mxback/Yandex) with HTTPS id Z7YwAR2LACg0-M5JpglEA;
+	Tue, 01 Jul 2025 14:07:37 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1751368057; bh=sKzGO1hrCYex5zO8IvFCKz174cOTrQGhBjuY0+6YSqM=;
+	h=Message-Id:Date:Subject:To:From;
+	b=udCachPSmdVumZloDgRT5KsM0JE8KxyBy43mTloPfcQLonKK1gZBow58mVHQP79XK
+	 19nHYPjhZGZeMxpn8Eyx022npmejiYK+yegWjIqfIqWaM8bHjb0tDy5oqKLFpqItPR
+	 TVV9rr72Lw7MfZuVm64Xb8Am/wEDicsvEv0NYnk8=
+Authentication-Results: mail-nwsmtp-mxback-production-main-689.vla.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+Received: by ntgyeftcchh4gifo.vla.yp-c.yandex.net (sendbernar/Yandex) with HTTPS id 0adf0ad2230ab27806a7a63da2c8a9fb;
+	Tue, 01 Jul 2025 14:07:37 +0300
+From: =?utf-8?B?0J7QntCeICLQrtCS0KEt0JHQmNCeIg==?= <uvs-bio@yandex.ru>
+To: =?utf-8?B?0J3QsNGC0LDQu9GM0Y8g0KHRg9GH0LrQvtCy0LA=?= <suchkova@dna-technology.ru>,
+	"s.voronova@dna-technology.ru" <s.voronova@dna-technology.ru>
+Subject: =?utf-8?B?0JfQsNGP0LLQutCw?=
+MIME-Version: 1.0
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Tue, 01 Jul 2025 14:07:37 +0300
+Message-Id: <247171751367726@mail.yandex.ru>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/html; charset=utf-8
+Received-SPF: pass (mail.dna-technology.ru: domain of yandex.ru designates 178.154.239.86 as permitted sender) client-ip=178.154.239.86; envelope-from=uvs-bio@yandex.ru; helo=forward103a.mail.yandex.net;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+<div>Добрый день, прошу выписать счет (ГБУЗ РТ Рескожвендиспансер ИНН 1701010182)</div><div>R1-P122-23/9 NTCM комплекс - 5 шт</div><div>Р-002/1 проба НК - 2 шт</div><div>Р-001/1 проба Рапид - 3 шт</div><div><div> </div><div> </div></div><div> </div><div>-- </div><div>С уважением,</div><div>ООО "ЮВС-БИО"</div><div>(499) 157-74-49</div><div> </div>

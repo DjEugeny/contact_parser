@@ -1,0 +1,36 @@
+{
+  "thread_id": "20250303_dna-technology_ru_de1741d6",
+  "message_id": "<09a47c53-31ef-4325-bb09-2525f5e0ae1e@dna-technology.ru>",
+  "email_num_in_day": 7,
+  "total_emails_in_day": 25,
+  "from": "torgi@dna-technology.ru",
+  "to": "litvinenko@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "litvinenko@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Fwd: Fwd: КККВД №1",
+  "date": "Mon, 3 Mar 2025 10:49:55 +0300",
+  "parsed_date": "2025-03-03T14:49:55+07:00",
+  "body_raw": "Юля, добрый день!\r\n\nПодписаны ли Договора с ИП Ковалевич?\r\n\nЗакреплена ли автоматическая скидка?\r\n\nМожем ли выставить КП?\r\n\n-------- Перенаправленное сообщение --------\r\nТема: Fwd: КККВД №1\r\nДата: Mon, 3 Mar 2025 10:15:08 +0300\r\nОт: Фетисова Ирина Николаевна <fetisova@dna-technology.ru>\r\nКому: Чурочкина Ольга Александровна <torgi@dna-technology.ru>\r\n\n-------- Перенаправленное сообщение --------\r\nТема: КККВД №1\r\nДата: Mon, 03 Mar 2025 07:21:29 +0300\r\nОт: ИП Ковалевич А.С. <ip_kas@inbox.ru>\r\nОтвечать: ИП Ковалевич А.С. <ip_kas@inbox.ru>\r\nКому: Фетисова Ирина Николаевна <fetisova@dna-technology.ru>\r\nКопия: s.voronova <s.voronova@dna-technology.ru>\r\n\nИрина, добрый день!\r\nПришлите пожалуйста КП с согласованной скидкой на набор Андрофлор 12 \r\nтестов — 3 набора\r\nПоставка в КГБУЗ КККВД №1 по прямому договору\r\nС уважением,\r\nИП Ковалевич А.С.",
+  "body_clean": "Юля, добрый день!\nПодписаны ли Договора с ИП Ковалевич?\nЗакреплена ли автоматическая скидка?\nМожем ли выставить КП?\n-------- Перенаправленное сообщение --------\nТема: Fwd: КККВД №1\nДата: Mon, 3 Mar 2025 10:15:08 +0300\nОт: Фетисова Ирина Николаевна fetisova@dna-technology.ru\nКому: Чурочкина Ольга Александровна torgi@dna-technology.ru\nТема: КККВД №1\nДата: Mon, 03 Mar 2025 07:21:29 +0300\nОт: ИП Ковалевич А.С. ip_kas@inbox.ru\nОтвечать: ИП Ковалевич А.С. ip_kas@inbox.ru\nКому: Фетисова Ирина Николаевна fetisova@dna-technology.ru\nКопия: s.voronova s.voronova@dna-technology.ru\nИрина, добрый день!\nПришлите пожалуйста КП с согласованной скидкой на набор Андрофлор 12\nтестов — 3 набора\nПоставка в КГБУЗ КККВД №1 по прямому договору\nС уважением,\nИП Ковалевич А.С.",
+  "char_count": 759,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:13:13.444726+07:00",
+  "raw_size": 8970,
+  "date_folder": "2025-03-03",
+  "eml_path": "eml/2025-03-03/09a47c53-31ef-4325-bb09-2525f5e0ae1e_dna-technology.ru_071313_440038.eml"
+}

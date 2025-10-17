@@ -1,0 +1,53 @@
+{
+  "thread_id": "20250416_dna-technology_ru_86476fe6",
+  "message_id": "<fcf7ae1f-aa2c-4830-9e7f-3c8ad6d61fde@dna-technology.ru>",
+  "email_num_in_day": 12,
+  "total_emails_in_day": 19,
+  "from": "torgi@dna-technology.ru",
+  "to": "labdc42@gmail.com, s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "labdc42@gmail.com",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "письмо",
+  "date": "Wed, 16 Apr 2025 11:17:22 +0300",
+  "parsed_date": "2025-04-16T15:17:22+07:00",
+  "body_raw": "-- \r\nПросьба сохранять переписку при ответе.\r\nС уважением, специалист по тендерам ООО \"ДНК-Технология\"\r\nФролова Мария Борисовна\r\nТелефон 8 (495) 640 -17 -71 доб.2036\r\nmailto:torgi@dna-technology.ru\r\n\nПросим обращать внимание на сроки действия, указанные в коммерческих предложениях и наличие или\r\n отсутствие доставки в них. Просим также обратить внимание на наименование производителя в\r\nрегистрационных удостоверениях, вывешенных на сайте! Позаботьтесь о природе!\r\nНе распечатывайте этот документ без необходимости!",
+  "body_clean": "Просьба сохранять переписку при ответе.\nС уважением, специалист по тендерам ООО \"ДНК-Технология\"\nФролова Мария Борисовна\nТелефон 8 (495) 640 -17 -71 доб.2036\nmailto:torgi@dna-technology.ru\nПросим обращать внимание на сроки действия, указанные в коммерческих предложениях и наличие или\nотсутствие доставки в них. Просим также обратить внимание на наименование производителя в\nрегистрационных удостоверениях, вывешенных на сайте! Позаботьтесь о природе!\nНе распечатывайте этот документ без необходимости!",
+  "char_count": 502,
+  "attachments": [
+    {
+      "id": 117,
+      "original_filename": "Письмо про отутствие баллов.docx",
+      "saved_filename": "20250416_289cb0ca_002334_918961_attach_Письмо про отутствие баллов.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-16/20250416_289cb0ca_002334_918961_attach_Письмо про отутствие баллов.docx",
+      "relative_path": "attachments/2025-04-16/20250416_289cb0ca_002334_918961_attach_Письмо про отутствие баллов.docx",
+      "file_size": 15998,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-13 17:23:34",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<fcf7ae1f-aa2c-4830-9e7f-3c8ad6d61fde@dna-technology.ru>",
+      "thread_id": "20250416_dna-technology_ru_86476fe6",
+      "sha256": "5ec31f6d83ff5ddf490842eaa55e5906e6aca706e55793604038cc4ac706caf6",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:23:34.918144+07:00",
+  "raw_size": 24519,
+  "date_folder": "2025-04-16",
+  "eml_path": "eml/2025-04-16/fcf7ae1f-aa2c-4830-9e7f-3c8ad6d61fde_dna-technology.ru_002334_914143.eml"
+}

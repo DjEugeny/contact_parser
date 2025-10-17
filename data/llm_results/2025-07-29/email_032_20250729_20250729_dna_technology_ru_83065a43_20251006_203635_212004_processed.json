@@ -1,0 +1,394 @@
+{
+  "source_file": "email_032_20250729_20250729_dna-technology_ru_83065a43.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": "7728469349",
+        "website": "dna-technology.ru",
+        "city": "Москва",
+        "address": "Москва, Варшавское шоссе, дом 125Ж, корпус 5",
+        "emails": [],
+        "phones": [
+          {
+            "type": "main",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "тел. (495) 640-17-71 доб. 2018",
+            "extension": "2018"
+          }
+        ],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      },
+      {
+        "organization_id": 2,
+        "name": "Алтайский центр прикладной биотехнологии Алтайского Государственного Университета",
+        "inn": null,
+        "website": null,
+        "city": "Барнаул",
+        "address": "г. Барнаул, пр-т Ленина 61",
+        "emails": [],
+        "phones": [],
+        "gid": "d4f9af71-626d-5525-9597-7daff1782b97"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Воронова Светлана Сергеевна",
+        "organization_id": 1,
+        "position": "Региональный представитель в СФО",
+        "email": "s.voronova@dna-technology.ru",
+        "phones": [
+          {
+            "type": "mobile",
+            "number": "+7 (995) 129-39-76",
+            "normalized": "+79951293976",
+            "original": "Тел.: +7 (995) 129-39-76",
+            "extension": null
+          },
+          {
+            "type": "main",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "тел. (495) 640-17-71 доб. 2018",
+            "extension": "2018"
+          }
+        ],
+        "city": "Новосибирск",
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 1.0,
+        "value_score": 12,
+        "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "s.voronova@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1759760403.988757,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 2,
+        "name": "Литвиненко Юлия",
+        "organization_id": 1,
+        "position": "Менеджер по работе с клиентами",
+        "email": "litvinenko@dna-technology.ru",
+        "phones": [
+          {
+            "type": "mobile",
+            "number": "+7 (985) 170-03-87",
+            "normalized": "+79851700387",
+            "original": "моб. +7(985)-170-03-87",
+            "extension": null
+          },
+          {
+            "type": "main",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "тел. (495) 640-17-71 доб. 2018",
+            "extension": "2018"
+          }
+        ],
+        "city": "Москва",
+        "address": "Москва, Варшавское шоссе, дом 125Ж, корпус 5",
+        "role_in_message": "recipient",
+        "confidence": 0.9,
+        "value_score": 12,
+        "gid": "bcef587c-79b9-5bc0-9d7f-6ae557cdd806",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "litvinenko@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1759760404.827831,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      }
+    ],
+    "business_context": "Воронова Светлана Сергеевна (ДНК-Технология) информирует коллег о планируемой служебной командировке в Барнаул с 07.08 по 08.08.2025 для инсталляции оборудования Дтпрайм 5М1 по заказу №8399. Следующий шаг - согласование бюджета расходов в размере 17000 рублей.",
+    "summary": {
+      "topic": "Планирование служебной командировки для инсталляции оборудования",
+      "product_interest": "Дтпрайм 5М1 с ноутбуком",
+      "communication_stage": "подготовка к выполнению работ",
+      "request_type": "информирование о командировке и бюджете"
+    },
+    "key_points": [
+      "Воронова С.С. планирует командировку в Барнаул 07-08.08.2025 для инсталляции Дтпрайм 5М1",
+      "Оборудование поставлено по прямому договору, заказ в 1С №8399",
+      "Запрошен бюджет расходов 17000 рублей на командировку"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "Командировка г. Барнаул 07.08-08.08.2025",
+        "message_date": "2025-07-29T17:12:00+07:00",
+        "message_id_hint": null,
+        "role_in_message": "sender",
+        "interaction_type": "follow_up",
+        "summary": "Воронова Светлана информирует о планируемой командировке для инсталляции оборудования Дтпрайм 5М1 в Барнауле",
+        "human_note": "Воронова Светлана (ДНК-Технология) сообщает коллегам о командировке в Барнаул 7-8 августа для установки оборудования по заказу №8399 и запрашивает бюджет 17000 рублей",
+        "participants": {
+          "actor": "Воронова Светлана Сергеевна (ДНК-Технология, Региональный представитель в СФО)",
+          "audience": [
+            "Литвиненко Юлия (ДНК-Технология, менеджер по работе с клиентами)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.95
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": \"7728469349\",\n      \"website\": \"dna-technology.ru\",\n      \"city\": \"Москва\",\n      \"address\": \"Москва, Варшавское шоссе, дом 125Ж, корпус 5\",\n      \"emails\": [],\n      \"phones\": [\n        {\n          \"type\": \"main\",\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": \"+74956401771\",\n          \"original\": \"тел. (495) 640-17-71 доб. 2018\",\n          \"extension\": \"2018\"\n        }\n      ]\n    },\n    {\n      \"organization_id\": 2,\n      \"name\": \"Алтайский центр прикладной биотехнологии Алтайского Государственного Университета\",\n      \"inn\": null,\n      \"website\": null,\n      \"city\": \"Барнаул\",\n      \"address\": \"г. Барнаул, пр-т Ленина 61\",\n      \"emails\": [],\n      \"phones\": []\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Воронова Светлана Сергеевна\",\n      \"organization_id\": 1,\n      \"position\": \"Региональный представитель в СФО\",\n      \"email\": \"s.voronova@dna-technology.ru\",\n      \"phones\": [\n        {\n          \"type\": \"mobile\",\n          \"number\": \"+7 (995) 129-39-76\",\n          \"normalized\": \"+79951293976\",\n          \"original\": \"Тел.: +7 (995) 129-39-76\",\n          \"extension\": null\n        }\n      ],\n      \"city\": \"Новосибирск\",\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 1.0\n    },\n    {\n      \"contact_id\": 2,\n      \"name\": \"Литвиненко Юлия\",\n      \"organization_id\": 1,\n      \"position\": \"менеджер по работе с клиентами\",\n      \"email\": \"litvinenko@dna-technology.ru\",\n      \"phones\": [\n        {\n          \"type\": \"mobile\",\n          \"number\": \"+7 (985) 170-03-87\",\n          \"normalized\": \"+79851700387\",\n          \"original\": \"моб. +7(985)-170-03-87\",\n          \"extension\": null\n        }\n      ],\n      \"city\": \"Москва\",\n      \"address\": null,\n      \"role_in_message\": \"recipient\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"business_context\": \"Воронова Светлана Сергеевна (ДНК-Технология) информирует коллег о планируемой служебной командировке в Барнаул с 07.08 по 08.08.2025 для инсталляции оборудования Дтпрайм 5М1 по заказу №8399. Следующий шаг - согласование бюджета расходов в размере 17000 рублей.\",\n  \"summary\": {\n    \"topic\": \"Планирование служебной командировки для инсталляции оборудования\",\n    \"product_interest\": \"Дтпрайм 5М1 с ноутбуком\",\n    \"communication_stage\": \"подготовка к выполнению работ\",\n    \"request_type\": \"информирование о командировке и бюджете\"\n  },\n  \"key_points\": [\n    \"Воронова С.С. планирует командировку в Барнаул 07-08.08.2025 для инсталляции Дтпрайм 5М1\",\n    \"Оборудование поставлено по прямому договору, заказ в 1С №8399\",\n    \"Запрошен бюджет расходов 17000 рублей на командировку\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"Командировка г. Барнаул 07.08-08.08.2025\",\n      \"message_date\": \"2025-07-29T17:12:00+07:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"follow_up\",\n      \"summary\": \"Воронова Светлана информирует о планируемой командировке для инсталляции оборудования Дтпрайм 5М1 в Барнауле\",\n      \"human_note\": \"Воронова Светлана (ДНК-Технология) сообщает коллегам о командировке в Барнаул 7-8 августа для установки оборудования по заказу №8399 и запрашивает бюджет 17000 рублей\",\n      \"participants\": {\n        \"actor\": \"Воронова Светлана Сергеевна (ДНК-Технология, Региональный представитель в СФО)\",\n        \"audience\": [\"Литвиненко Юлия (ДНК-Технология, менеджер по работе с клиентами)\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.95\n    }\n  ]\n}\n```",
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-06T21:20:04.828248",
+      "stats": {
+        "processed_emails": 27,
+        "total_organizations_processed": 69,
+        "total_contacts_processed": 82,
+        "organizations_deduplicated": 0,
+        "contacts_filtered": 0,
+        "contacts_enriched": 82,
+        "data_normalized": 151,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 2,
+        "phones_added_to_contacts": 2
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1,
+        "2": 2
+      },
+      "contact_mapping": {
+        "1": 1,
+        "2": 2
+      },
+      "email_classification": {
+        "1": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        },
+        "2": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "7728469349"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 2,
+            "gid": "d4f9af71-626d-5525-9597-7daff1782b97",
+            "match_rule": "NAME_CITY",
+            "key_tuple": [
+              "ORG",
+              "NAME_CITY",
+              "алтайский центр прикладной биотехнологии алтайского государственного университета",
+              "барнаул"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "s.voronova@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 2,
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "gid": "bcef587c-79b9-5bc0-9d7f-6ae557cdd806",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "litvinenko@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          }
+        ],
+        "conflicts": []
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.0,
+            "source": "none",
+            "method": "no_candidates_found",
+            "score": 0.0,
+            "candidates": [],
+            "checked_at": "2025-10-06T21:20:01.129277",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "d4f9af71-626d-5525-9597-7daff1782b97": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.0,
+            "source": "none",
+            "method": "no_candidates_found",
+            "score": 0.0,
+            "candidates": [],
+            "checked_at": "2025-10-06T21:20:01.129674",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+              "contact_name": "Воронова Светлана Сергеевна",
+              "phones_added": [
+                {
+                  "phone": "+74956401771",
+                  "type": "main",
+                  "confidence": 0.85,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.85
+              ],
+              "decision": {
+                "confidence": 0.85,
+                "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-06T14:20:01.130359",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (0.85 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "bcef587c-79b9-5bc0-9d7f-6ae557cdd806",
+              "contact_name": "Литвиненко Юлия",
+              "phones_added": [
+                {
+                  "phone": "+74956401771",
+                  "type": "main",
+                  "confidence": 1.0,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                1.0
+              ],
+              "decision": {
+                "confidence": 1.0,
+                "contact_gid": "bcef587c-79b9-5bc0-9d7f-6ae557cdd806",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-06T14:20:01.130387",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (1.00 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 2,
+            "contacts_enriched": 2,
+            "phones_added_total": 2,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.925,
+            "phones_skipped_by_reason": {
+              "low_confidence": 0,
+              "no_org_phones": 0,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-06T14:20:01.130401",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 5,
+        "organizations_processed": 1,
+        "contacts_processed": 2,
+        "ui_format_applied": 5,
+        "phones_sanitized": 5
+      }
+    },
+    "provider_used": "OpenRouter",
+    "processing_time": 1.2663381099700928,
+    "text_length": 1695,
+    "chunks_processed": 1,
+    "total_contacts_found": 2,
+    "unique_contacts_found": 2,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-07-29/email_032_20250729_20250729_dna-technology_ru_83065a43.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 76.364
+  }
+}

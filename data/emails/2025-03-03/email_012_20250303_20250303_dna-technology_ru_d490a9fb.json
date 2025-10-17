@@ -1,0 +1,77 @@
+{
+  "thread_id": "20250303_dna-technology_ru_d490a9fb",
+  "message_id": "<321e3d4f-767a-4097-b557-d3e2ddf6703d@dna-technology.ru>",
+  "email_num_in_day": 12,
+  "total_emails_in_day": 25,
+  "from": "bilalov@dna-technology.ru",
+  "to": "popova.es@irkmed.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "popova.es@irkmed.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Fwd: Запрос КП,ТХ,РУ на Встряхиватель лабораторный ДТспин ИНН 3808049193",
+  "date": "Mon, 3 Mar 2025 12:00:32 +0300",
+  "parsed_date": "2025-03-03T16:00:32+07:00",
+  "body_raw": "Добрый день, Екатерина Сергеевна!\r\n\nКП, ТХ и РУ на ДТспин во вложении.\r\n\n>\r\n> -------- Перенаправленное сообщение --------\r\n> Тема: Запрос КП,ТХ,РУ на Встряхиватель лабораторный ДТспин ИНН \r\n> 3808049193\r\n> Дата: Fri, 28 Feb 2025 16:28:51 +0800 (IRKT)\r\n> От: Попова Екатерина Сергеевна <popova.es@irkmed.ru>\r\n> Кому: bilalov <bilalov@dna-technology.ru>\r\n> Копия: s voronova <s.voronova@dna-technology.ru>\r\n>\r\n>\r\n>\r\n> Добрый день!\r\n> Прошу прислать коммерческое предложение, технические характеристики и \r\n> РУ на Встряхиватель лабораторный ДТспин\r\n> Конечный пользователь - Федеральное государственное бюджетное научное \r\n> учреждение «Научный центр проблем здоровья семьи и репродукции \r\n> человека» ИНН 3808049193\r\n> Заранее спасибо!\r\n> -- \r\n> С уважением,\r\n> Попова Екатерина Сергеевна\r\n> Младший специалист по продукции и технологиям ООО «Лабора»\r\n> E-mail: popova.es@irkmed.ru\r\n> Раб.телефон +7(3952)288867 (вн.тел: 32-77)\r\n>\r\n\n-- \r\nС уважением, Билалов Альберт\r\nзам. начальника отдела продаж ООО \"ДНК-Технология\"\r\nТел\\факс: (495)640-17-71, доб.2031\r\nmailto:bilalov@dna-technology.ru",
+  "body_clean": "Добрый день, Екатерина Сергеевна!\nКП, ТХ и РУ на ДТспин во вложении.\n> -------- Перенаправленное сообщение --------\n> Тема: Запрос КП,ТХ,РУ на Встряхиватель лабораторный ДТспин ИНН\n> 3808049193\n> Дата: Fri, 28 Feb 2025 16:28:51 +0800 (IRKT)\n> От: Попова Екатерина Сергеевна popova.es@irkmed.ru\n> Кому: bilalov bilalov@dna-technology.ru\n> Копия: s voronova s.voronova@dna-technology.ru\n> Добрый день!\n> Прошу прислать коммерческое предложение, технические характеристики и\n> РУ на Встряхиватель лабораторный ДТспин\n> Конечный пользователь - Федеральное государственное бюджетное научное\n> учреждение «Научный центр проблем здоровья семьи и репродукции\n> человека» ИНН 3808049193\n> Заранее спасибо!\n> С уважением,\n> Попова Екатерина Сергеевна\n> Младший специалист по продукции и технологиям ООО «Лабора»\n> E-mail: popova.es@irkmed.ru\n> Раб.телефон +7(3952)288867 (вн.тел: 32-77)\nС уважением, Билалов Альберт\nзам. начальника отдела продаж ООО \"ДНК-Технология\"\nТел\\факс: (495)640-17-71, доб.2031\nmailto:bilalov@dna-technology.ru",
+  "char_count": 1024,
+  "attachments": [
+    {
+      "id": 598,
+      "original_filename": "Ком.пред.03.03.2025 для Иркутск Лабора (ДТспин).pdf",
+      "saved_filename": "20250303_cc2dcc87_071324_308831_attach_Ком.пред.03.03.2025 для Иркутск Лабора _ДТспин_.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-03/20250303_cc2dcc87_071324_308831_attach_Ком.пред.03.03.2025 для Иркутск Лабора _ДТспин_.pdf",
+      "relative_path": "attachments/2025-03-03/20250303_cc2dcc87_071324_308831_attach_Ком.пред.03.03.2025 для Иркутск Лабора _ДТспин_.pdf",
+      "file_size": 148829,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:13:24",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<321e3d4f-767a-4097-b557-d3e2ddf6703d@dna-technology.ru>",
+      "thread_id": "20250303_dna-technology_ru_d490a9fb",
+      "sha256": "f698e798bbfcfe1b931968f5e1509e4f3c6e79ae3f62f20a58160f9654e32788",
+      "file_exists": true
+    },
+    {
+      "id": 599,
+      "original_filename": "ДТспин.pdf",
+      "saved_filename": "20250303_cc2dcc87_071324_329856_attach_ДТспин.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-03/20250303_cc2dcc87_071324_329856_attach_ДТспин.pdf",
+      "relative_path": "attachments/2025-03-03/20250303_cc2dcc87_071324_329856_attach_ДТспин.pdf",
+      "file_size": 4275991,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:13:24",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<321e3d4f-767a-4097-b557-d3e2ddf6703d@dna-technology.ru>",
+      "thread_id": "20250303_dna-technology_ru_d490a9fb",
+      "sha256": "d03710c58ceeaef8c521b4252cd26ee3452bd75b9af391a226bf48b66b95e39a",
+      "file_exists": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:*ТХ*",
+      "original_filename": "241029 - ТХ Встряхиватель лабораторный медицинский ДТспин (2024).docx",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 3,
+    "saved": 2,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:13:24.307702+07:00",
+  "raw_size": 6122635,
+  "date_folder": "2025-03-03",
+  "eml_path": "eml/2025-03-03/321e3d4f-767a-4097-b557-d3e2ddf6703d_dna-technology.ru_071324_294116.eml"
+}

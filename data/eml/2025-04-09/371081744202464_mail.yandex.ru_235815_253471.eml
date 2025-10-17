@@ -1,0 +1,63 @@
+Received:  from forward502a.mail.yandex.net ([178.154.239.82]:55510)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98 (FreeBSD))
+	 (envelope-from <semen-evdokimov@yandex.ru>)
+	 id 1u2UkN-000000003Ce-0x9p 
+	for s.voronova@dna-technology.ru;
+	Wed, 09 Apr 2025 15:41:40 +0300
+Received: from mail-nwsmtp-mxback-production-main-73.iva.yp-c.yandex.net (mail-nwsmtp-mxback-production-main-73.iva.yp-c.yandex.net [IPv6:2a02:6b8:c0c:9190:0:640:3726:0])
+	by forward502a.mail.yandex.net (Yandex) with ESMTPS id 42ACA6178D
+	for <s.voronova@dna-technology.ru>; Wed,  9 Apr 2025 15:41:39 +0300 (MSK)
+Received: from mail.yandex.ru (2a02:6b8:c0c:9189:0:640:a143:0 [2a02:6b8:c0c:9189:0:640:a143:0])
+	by mail-nwsmtp-mxback-production-main-73.iva.yp-c.yandex.net (mxback/Yandex) with HTTPS id YfdrGgBL5Ko0-U7IZUToT;
+	Wed, 09 Apr 2025 15:41:39 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1744202499; bh=6Y1MnRqBy50BT5VjNgaMfZ+WDvExjsLNEPYpFpUlx5k=;
+	h=Message-Id:References:Date:Subject:To:In-Reply-To:From;
+	b=a0eueB4XIfFJ87Wl2MJiGJ3Z++DQnUeAONlK1EOg/XJ2wuUGmUO1Xqjop+ZqEm9Nf
+	 k6K0up+c9TWBAuQ30fNyaHctuM4UxHZs4ounAAUxHUx+j8MeDyWZiuIliSs+uePDO0
+	 KU09yQwQcRRkQtS33FFSgUh5lSjSo4pa7lgy0nqY=
+Authentication-Results: mail-nwsmtp-mxback-production-main-73.iva.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+Received: by zoi6tk2f4jzk7zd7.iva.yp-c.yandex.net with HTTP;
+	Wed, 09 Apr 2025 15:41:38 +0300
+From: evdokimov semen <semen-evdokimov@yandex.ru>
+To: =?utf-8?B?0JLQvtGA0L7QvdC+0LLQsCDQodCy0LXRgtC70LDQvdCwINCh0LXRgNCz0LXQtdCy0L3QsA==?= <s.voronova@dna-technology.ru>
+In-Reply-To: <c1421dd6-3e54-4772-a13c-2e313d45175a@dna-technology.ru>
+References: <c1421dd6-3e54-4772-a13c-2e313d45175a@dna-technology.ru>
+Subject: =?utf-8?B?UmU6INCf0YDQvtC10LrRgiDQv9C+0YHRgtCw0LLQutC4INC+0LHQvtGA0YPQtNC+0LLQsNC90LjRjyA=?=
+	=?utf-8?B?0JrRi9C30YvQuyDQotGD0LLQuNC90YHQutCw0Y8g0J/Qp9Ch?=
+MIME-Version: 1.0
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Wed, 09 Apr 2025 15:41:38 +0300
+Message-Id: <371081744202464@mail.yandex.ru>
+Content-Transfer-Encoding: base64
+Content-Type: text/html; charset=utf-8
+Received-SPF: pass (mail.dna-technology.ru: domain of yandex.ru designates 178.154.239.82 as permitted sender) client-ip=178.154.239.82; envelope-from=semen-evdokimov@yandex.ru; helo=forward502a.mail.yandex.net;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+PGRpdj7QvtCx0L7RgNGD0LTQvtCy0LDQvdC40LUg0LLQvdC10YHQtdC90L4g0LIg0L/RgNC+0LXQ
+utGC0L3Rg9GOINC00L7QutGD0LzQtdC90YLQsNGG0LjRjjwvZGl2PjxkaXY+0LbQtNC10Lwg0L3Q
+sNGH0LDQu9CwINC30LDQutGD0L/QvtC6PC9kaXY+PGRpdj7CoDwvZGl2PjxkaXY+LS0tLS0tLS0t
+LS0tLS0tLTwvZGl2PjxkaXY+0JrQvtC80YM6IHNlbWVuLWV2ZG9raW1vdkB5YW5kZXgucnUgKHNl
+bWVuLWV2ZG9raW1vdkB5YW5kZXgucnUpOzwvZGl2PjxkaXY+0KLQtdC80LA6INCf0YDQvtC10LrR
+giDQv9C+0YHRgtCw0LLQutC4INC+0LHQvtGA0YPQtNC+0LLQsNC90LjRjyDQmtGL0LfRi9C7INCi
+0YPQstC40L3RgdC60LDRjyDQn9Cn0KE7PC9kaXY+PGRpdj4wOC4wNC4yMDI1LCAwODoxMywgItCS
+0L7RgNC+0L3QvtCy0LAg0KHQstC10YLQu9Cw0L3QsCDQodC10YDQs9C10LXQstC90LAiICZsdDtz
+LnZvcm9ub3ZhQGRuYS10ZWNobm9sb2d5LnJ1Jmd0Ozo8L2Rpdj48YmxvY2txdW90ZT48cD7QlNC+
+0LHRgNGL0Lkg0LTQtdC90YwsINCh0LXQvNC10L0g0KTQtdC00L7RgNC+0LLQuNGHITxiciAvPjxi
+ciAvPtCf0YDQvtGI0YMg0LDQutGC0YPQsNC70LjQt9C40YDQvtCy0LDRgtGMINC40L3RhNC+0YDQ
+vNCw0YbQuNGOINC/0L4g0LTQsNC90L3QvtC80YMg0L/RgNC+0LXQutGC0YMsINGA0LDQvdC10LUg
+0LLRi9GB0YLQsNCy0LvQtdC90L3QvtC1PGJyIC8+0JrQnyDQstC+INCy0LvQvtC20LXQvdC40Lgu
+PGJyIC8+wqA8L3A+LS08YnIgLz7QoSDRg9Cy0LDQttC10L3QuNC10LwsPGJyIC8+0JLQvtGA0L7Q
+vdC+0LLQsCDQodCy0LXRgtC70LDQvdCwINCh0LXRgNCz0LXQtdCy0L3QsDxiciAvPtGA0LXQs9C4
+0L7QvdCw0LvRjNC90YvQuSDQv9GA0LXQtNGB0YLQsNCy0LjRgtC10LvRjCDQsiDQodCk0J48YnIg
+Lz7QntCe0J4gItCU0J3Qmi3QotC10YXQvdC+0LvQvtCz0LjRjyI8YnIgLz7QnNC+0LEu0YLQtdC7
+LiA4ICg5OTUpIDEyOS0zOS03NjxiciAvPmUtbWFpbDogPGEgaHJlZj0ibWFpbHRvOnMudm9yb25v
+dmFAZG5hLXRlY2hub2xvZ3kucnUiIHJlbD0ibm9vcGVuZXIgbm9yZWZlcnJlciI+cy52b3Jvbm92
+YUBkbmEtdGVjaG5vbG9neS5ydTwvYT48YnIgLz53ZWI6IDxhIGhyZWY9Imh0dHBzOi8vd3d3LmRu
+YS10ZWNobm9sb2d5LnJ1LyIgcmVsPSJub29wZW5lciBub3JlZmVycmVyIj53d3cuZG5hLXRlY2hu
+b2xvZ3kucnU8L2E+PC9ibG9ja3F1b3RlPg==

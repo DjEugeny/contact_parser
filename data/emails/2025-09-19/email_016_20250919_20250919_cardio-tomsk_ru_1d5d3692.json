@@ -1,0 +1,58 @@
+{
+  "thread_id": "20250919_cardio-tomsk_ru_1d5d3692",
+  "message_id": "<2DF89B13FC6ECA43A7CE03AA109108E001702CF206@post1.cardio-tomsk.ru>",
+  "email_num_in_day": 16,
+  "total_emails_in_day": 19,
+  "from": "maslov@cardio-tomsk.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "проф Маслова 3",
+  "date": "Fri, 19 Sep 2025 10:32:58 +0000",
+  "parsed_date": "2025-09-19T17:32:58+07:00",
+  "body_raw": "",
+  "body_clean": "",
+  "char_count": 0,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "extension_excluded:.pptx",
+      "original_filename": "Технологический запрос.pptx",
+      "is_inline": false
+    },
+    {
+      "id": 495,
+      "original_filename": "ПисьмоУчСекретаря.doc",
+      "saved_filename": "20250919_20f52c77_005903_402608_attach_ПисьмоУчСекретаря.doc",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-09-19/20250919_20f52c77_005903_402608_attach_ПисьмоУчСекретаря.doc",
+      "relative_path": "attachments/2025-09-19/20250919_20f52c77_005903_402608_attach_ПисьмоУчСекретаря.doc",
+      "file_size": 25088,
+      "file_type": "application/msword",
+      "content_type": "application/msword",
+      "saved_at": "2025-10-13 17:59:03",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<2DF89B13FC6ECA43A7CE03AA109108E001702CF206@post1.cardio-tomsk.ru>",
+      "thread_id": "20250919_cardio-tomsk_ru_1d5d3692",
+      "sha256": "2414fcb71849b63948b39a9acabcfef37bd0c9a4be3c4b4faddde22dac8cbc2e",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 1,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:59:03.401585+07:00",
+  "raw_size": 1136966,
+  "date_folder": "2025-09-19",
+  "eml_path": "eml/2025-09-19/2DF89B13FC6ECA43A7CE03AA109108E001702CF206_post1.cardio-tomsk.ru_005903_399159.eml"
+}

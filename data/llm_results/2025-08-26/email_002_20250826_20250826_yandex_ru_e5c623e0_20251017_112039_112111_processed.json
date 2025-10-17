@@ -1,0 +1,219 @@
+{
+  "source_file": "email_002_20250826_20250826_yandex_ru_e5c623e0.json",
+  "processed_result": {
+    "organizations": [],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Светлана",
+        "organization_id": null,
+        "position": null,
+        "email": "s.voronova@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "recipient",
+        "confidence": 0.5,
+        "value_score": 5,
+        "gid": "7f596bfb-83e0-5330-99f5-ce4a4876a24f",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "s.voronova@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674871.605868,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 2,
+        "name": "Хаташкеева Ольга",
+        "organization_id": null,
+        "position": null,
+        "email": "khatashkeeva@yandex.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 0.5,
+        "value_score": 5,
+        "gid": "ecaa9b68-a68b-5ed8-9e38-863d70db3f5e",
+        "enrichment_skipped": true,
+        "enrichment_reason": "public_provider_yandex.ru",
+        "email_valid": true,
+        "name_original": "Ольга Хаташкеева"
+      }
+    ],
+    "business_context": "Ольга Хаташкеева просит Светлану прислать остатки по контрактам.",
+    "summary": {
+      "topic": "Запрос остатков по контрактам",
+      "product_interest": null,
+      "communication_stage": "follow up",
+      "request_type": "запрос информации"
+    },
+    "key_points": [
+      "Ольга Хаташкеева запрашивает информацию",
+      "Запрос остатков по контрактам",
+      "Адресовано Светлане"
+    ],
+    "commercial_offers": [],
+    "interactions": [],
+    "original_response": "```json\n{\n  \"organizations\": [],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Светлана\",\n      \"organization_id\": null,\n      \"position\": null,\n      \"email\": \"s.voronova@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"recipient\",\n      \"confidence\": 0.5\n    },\n    {\n      \"contact_id\": 2,\n      \"name\": \"Ольга Хаташкеева\",\n      \"organization_id\": null,\n      \"position\": null,\n      \"email\": \"khatashkeeva@yandex.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.5\n    }\n  ],\n  \"business_context\": \"Ольга Хаташкеева просит Светлану прислать остатки по контрактам.\",\n  \"summary\": {\n    \"topic\": \"Запрос остатков по контрактам\",\n    \"product_interest\": null,\n    \"communication_stage\": \"follow up\",\n    \"request_type\": \"запрос информации\"\n  },\n  \"key_points\": [\n    \"Ольга Хаташкеева запрашивает информацию\",\n    \"Запрос остатков по контрактам\",\n    \"Адресовано Светлане\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 2,\n      \"organization_id\": null,\n      \"message_subject\": \"Остатки по контрактам\",\n      \"message_date\": \"2025-08-26T12:31:54+07:00\",\n      \"message_id_hint\": \"<40111756186246@mail.yandex.ru>\",\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"other\",\n      \"summary\": \"Запрос остатков по контрактам\",\n      \"human_note\": \"Ольга Хаташкеева просит Светлану прислать остатки по контрактам.\",\n      \"participants\": {\n        \"actor\": \"Ольга Хаташкеева (yandex.ru)\",\n        \"audience\": [\"Светлана (dna-technology.ru)\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.5\n    }\n  ]\n}\n```",
+    "contact_mentions": [],
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-17T11:21:11.606189",
+      "stats": {
+        "processed_emails": 37,
+        "total_organizations_processed": 79,
+        "total_contacts_processed": 108,
+        "organizations_deduplicated": 1,
+        "contacts_filtered": 16,
+        "contacts_enriched": 92,
+        "data_normalized": 170,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 0,
+        "phones_added_to_contacts": 0
+      },
+      "version": "1.3.0",
+      "organization_mapping": {},
+      "contact_mapping": {
+        "1": 1,
+        "2": 2
+      },
+      "filtering": {
+        "contacts_without_info_filtered": 0,
+        "mentions_saved": 0
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "gid": "7f596bfb-83e0-5330-99f5-ce4a4876a24f",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "PERSONAL",
+              "s.voronova@dna-technology.ru"
+            ],
+            "alias_added": true,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 2,
+            "gid": "ecaa9b68-a68b-5ed8-9e38-863d70db3f5e",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "PERSONAL",
+              "khatashkeeva@yandex.ru"
+            ],
+            "alias_added": true,
+            "source": "new"
+          }
+        ],
+        "conflicts": []
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {},
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "7f596bfb-83e0-5330-99f5-ce4a4876a24f",
+              "contact_name": "Светлана",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "no_organization",
+                  "message": "Контакт не связан с организацией"
+                }
+              ],
+              "confidence_scores": [],
+              "decision": null,
+              "skip_reasons": [
+                "no_organization"
+              ]
+            },
+            {
+              "contact_gid": "ecaa9b68-a68b-5ed8-9e38-863d70db3f5e",
+              "contact_name": "Ольга Хаташкеева",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "no_organization",
+                  "message": "Контакт не связан с организацией"
+                }
+              ],
+              "confidence_scores": [],
+              "decision": null,
+              "skip_reasons": [
+                "no_organization"
+              ]
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 2,
+            "contacts_enriched": 0,
+            "phones_added_total": 0,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.0,
+            "phones_skipped_by_reason": {
+              "low_confidence": 0,
+              "no_org_phones": 0,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 2
+            }
+          },
+          "timestamp": "2025-10-17T04:21:10.066721",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 0,
+        "organizations_processed": 0,
+        "contacts_processed": 0,
+        "ui_format_applied": 0,
+        "phones_sanitized": 0
+      }
+    },
+    "provider_used": "OpenRouter",
+    "model": "google/gemini-2.0-flash-001",
+    "processing_time": 1.9987602233886719,
+    "text_length": 116,
+    "chunks_processed": 1,
+    "total_contacts_found": 2,
+    "unique_contacts_found": 2,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-08-26/email_002_20250826_20250826_yandex_ru_e5c623e0.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 7.957
+  }
+}

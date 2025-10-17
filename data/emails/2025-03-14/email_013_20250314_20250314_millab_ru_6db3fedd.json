@@ -1,0 +1,43 @@
+{
+  "thread_id": "20250314_millab_ru_6db3fedd",
+  "message_id": "<011401db94d2$efd442f0$cf7cc8d0$@millab.ru>",
+  "email_num_in_day": 13,
+  "total_emails_in_day": 22,
+  "from": "ivak@millab.ru",
+  "to": "s.voronova@dna-technology.ru, m.gogoleva@dna-technology.ru, bilalov@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru",
+    "m.gogoleva@dna-technology.ru",
+    "bilalov@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "ФБУЗ \"Центр Гигиены и Эпидемиологии в Республике Хакасия\"",
+  "date": "Fri, 14 Mar 2025 14:19:22 +0300",
+  "parsed_date": "2025-03-14T18:19:22+07:00",
+  "body_raw": "Добрый день, коллеги!\r\n\nПрошу Вас уточнить возможность работать по следующему проекту:\r\n\nКонечный пользователь: ФБУЗ \"Центр Гигиены и Эпидемиологии в Республике\r\nХакасия\"\r\n\nИНН: 1901066506\r\n\nОборудование: DTprime 5М6\r\n\nСпасибо!\r\n\n----\r\nС уважением,\r\nАкутин Иван Алексеевич\r\nМенеджер отдела\r\n\"Оборудование для микробиологии и биотехнологий\"\r\nКомпания МИЛЛАБ \r\nТ: +7 (495) 933 71 47 (48), доб.171\r\n\nМоб: +7 (968) 628 75 81\r\nЕ: <mailto:ivak@millab.ru> ivak@millab.ru\r\n <http://www.millab.ru/> www.millab.ru\r\nТелеграм",
+  "body_clean": "Добрый день, коллеги!\nПрошу Вас уточнить возможность работать по следующему проекту:\nКонечный пользователь: ФБУЗ \"Центр Гигиены и Эпидемиологии в Республике\nХакасия\"\nИНН: 1901066506\nОборудование: DTprime 5М6\nСпасибо!\nС уважением,\nАкутин Иван Алексеевич\nМенеджер отдела\n\"Оборудование для микробиологии и биотехнологий\"\nКомпания МИЛЛАБ\nТ: +7 (495) 933 71 47 (48), доб.171\nМоб: +7 (968) 628 75 81\nЕ: mailto:ivak@millab.ru ivak@millab.ru\nhttp://www.millab.ru/ www.millab.ru\nТелеграм",
+  "char_count": 478,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:image*",
+      "original_filename": "image001.jpg",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:18:52.662931+07:00",
+  "raw_size": 79827,
+  "date_folder": "2025-03-14",
+  "eml_path": "eml/2025-03-14/011401db94d2_efd442f0_cf7cc8d0_millab.ru_071852_659684.eml"
+}

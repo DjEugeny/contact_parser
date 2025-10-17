@@ -1,0 +1,53 @@
+{
+  "thread_id": "20250319_dna-technology_ru_4e5d3db3",
+  "message_id": "<0a65d1fa-9ae6-4a30-898d-3eb8d77e002b@dna-technology.ru>",
+  "email_num_in_day": 18,
+  "total_emails_in_day": 19,
+  "from": "sivkova@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Fwd: Сценарий Allsheng Рапид II",
+  "date": "Wed, 19 Mar 2025 16:07:28 +0300",
+  "parsed_date": "2025-03-19T20:07:28+07:00",
+  "body_raw": "Светик, это KF\r\n\n-------- Перенаправленное сообщение --------\r\nТема: Re: Сценарий Allsheng Рапид II\r\nДата: Mon, 17 Mar 2025 19:47:00 +0300\r\nОт: Кошкина Татьяна <koshkina@dna-technology.ru>\r\nКому: Елена Сивкова <sivkova@dna-technology.ru>\r\nКопия: Лара <l.ivanova@dna-technology.ru>\r\n\nво вложении все про кингфишер\r\n\n-- \r\nС уважением,\r\nКошкина Татьяна\r\nНачальник отдела внедрения\r\nООО \"ДНК-Технология\"\r\nт/ф (495)980-45-55\r\nмоб. +7-916-028-83-41\r\n\n17.03.2025 18:54, Елена Сивкова пишет:\r\n\n> Танюшкин, привет!\r\n> Молниеносно)) спасибо!\r\n> А скажи, пожалуйста, на KF и Allsheng различаются?\r\n>\r\n> Получить BlueMail для Android <https://bluemail.me>\r\n> На 17 мар. 2025 г., в 20:46, \"Кошкина Татьяна\" \r\n> <koshkina@dna-technology.ru> написал:п\r\n>\r\n> Девочки, привет.\r\n>\r\n> Сценарий во вложении.\r\n>",
+  "body_clean": "Светик, это KF\n-------- Перенаправленное сообщение --------\nТема: Re: Сценарий Allsheng Рапид II\nДата: Mon, 17 Mar 2025 19:47:00 +0300\nОт: Кошкина Татьяна koshkina@dna-technology.ru\nКому: Елена Сивкова sivkova@dna-technology.ru\nКопия: Лара l.ivanova@dna-technology.ru\nво вложении все про кингфишер\nС уважением,\nКошкина Татьяна\nНачальник отдела внедрения\nООО \"ДНК-Технология\"\nт/ф (495)980-45-55\nмоб. +7-916-028-83-41\n17.03.2025 18:54, Елена Сивкова пишет:\n> Танюшкин, привет!\n> Молниеносно)) спасибо!\n> А скажи, пожалуйста, на KF и Allsheng различаются?\n> Получить BlueMail для Android https://bluemail.me\n> На 17 мар. 2025 г., в 20:46, \"Кошкина Татьяна\"\n> koshkina@dna-technology.ru написал:п\n> Девочки, привет.\n> Сценарий во вложении.",
+  "char_count": 735,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:*руководство*",
+      "original_filename": "Руководство по запуску сценария RAPID ПРОБА-МЧ-РАПИД II KingFisher Flex 96.docx",
+      "is_inline": false
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:*руководство*",
+      "original_filename": "Руководство по установке сценария RAPID ПРОБА-МЧ-РАПИД II KingFisher Flex 96.docx",
+      "is_inline": false
+    },
+    {
+      "status": "excluded",
+      "reason": "extension_excluded:.7z",
+      "original_filename": "RAPID_K-01.7z",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 3,
+    "saved": 0,
+    "excluded": 3,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:20:37.485150+07:00",
+  "raw_size": 14317872,
+  "date_folder": "2025-03-19",
+  "eml_path": "eml/2025-03-19/0a65d1fa-9ae6-4a30-898d-3eb8d77e002b_dna-technology.ru_072037_480440.eml"
+}

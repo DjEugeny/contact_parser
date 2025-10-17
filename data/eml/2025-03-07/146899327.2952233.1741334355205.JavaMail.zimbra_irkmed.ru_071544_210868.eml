@@ -1,0 +1,131 @@
+Received:  from mail.irkmed.ru ([84.244.51.106]:58066)
+	  by mail.dna-technology.ru with esmtps (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	 (Exim 4.98 (FreeBSD))
+	 (envelope-from <popova.es@irkmed.ru>)
+	 id 1tqSbc-00000000CMm-0KN2 ;
+	Fri, 07 Mar 2025 10:59:19 +0300
+Received: from localhost (localhost [127.0.0.1])
+	by mail.irkmed.ru (Postfix) with ESMTP id B0655AA80F2;
+	Fri,  7 Mar 2025 15:59:15 +0800 (+08)
+Received: from mail.irkmed.ru ([127.0.0.1])
+	by localhost (mail.irkmed.ru [127.0.0.1]) (amavisd-new, port 10032)
+	with ESMTP id Ht8HPMV116ey; Fri,  7 Mar 2025 15:59:15 +0800 (+08)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.irkmed.ru (Postfix) with ESMTP id 493C2AA80EE;
+	Fri,  7 Mar 2025 15:59:15 +0800 (+08)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.irkmed.ru 493C2AA80EE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=irkmed.ru;
+	s=6E827F8E-F633-11E9-AEDC-049B4D09BC06; t=1741334355;
+	bh=LbbfaKxSet6Yna5kz1ZAwb+imsJ/5ZbHQiw6EDytUbQ=;
+	h=Date:From:To:Message-ID:MIME-Version;
+	b=IKQgHnj268hKxd70dMvNcTWo18Rbrgp8VUNwkTKf5WwGnHHd/S1K1Ai81asS+sn5E
+	 tnZqS6Ns5nLDCVDqUo3L4yk81CZ7A2k738ZCpF5XIeocOl8vK64dGk3A8WIfxYVe8n
+	 UaA1oMdJxJP5XWOw6xaQMf0J5Z8DZE7FLBvtLlZKHcyAULuUKiMlhp24yCDLUyuY3n
+	 Tco+Bln9UiBk+3pqXDcoq1y3B3D4nM6PYZO+qeXqYQ3mZxfmL45fFsbfks8xBIgBMi
+	 P5AiqojrqKhzEp3SLqfoGunZk2EsKwreGiy+M3Tqb/H/uJ10erzq8XNB5USLI2wn8E
+	 vcW6QNtLPv4+A==
+X-Virus-Scanned: amavisd-new at irkmed.ru
+Received: from mail.irkmed.ru ([127.0.0.1])
+	by localhost (mail.irkmed.ru [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id W4OLxqj6i75h; Fri,  7 Mar 2025 15:59:15 +0800 (+08)
+Received: from mail.irkmed.ru (localhost [127.0.0.1])
+	by mail.irkmed.ru (Postfix) with ESMTP id 37527AA80F1;
+	Fri,  7 Mar 2025 15:59:15 +0800 (+08)
+Date: Fri, 7 Mar 2025 15:59:15 +0800 (IRKT)
+From: =?utf-8?B?0J/QvtC/0L7QstCwINCV0LrQsNGC0LXRgNC40L3QsCDQodC10YDQs9C10LXQstC90LA=?= <popova.es@irkmed.ru>
+To: bilalov <bilalov@dna-technology.ru>
+Cc: s voronova <s.voronova@dna-technology.ru>
+Message-ID: <146899327.2952233.1741334355205.JavaMail.zimbra@irkmed.ru>
+Subject: =?utf-8?B?0JfQsNC/0YDQvtGBINCa0J8g0Lgg0KLQpSDQvdCwINCS0YHRgg==?=
+ =?utf-8?B?0YDRj9GF0LjQstCw0YLQtdC70Ywg0LvQsNCx0L7RgNCw0YLQvtGA0L3Riw==?=
+ =?utf-8?B?0Lkg0LzQtdC00LjRhtC40L3RgdC60LjQuSAi0JTQotGB0L/QuNC9?=
+ =?utf-8?B?IiAyINGI0YIgINCY0J3QnSAxNDM1MDI2NTEw?=
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="=_f7c9d83f-8b42-4397-91a8-d6b59ff91347"
+X-Originating-IP: [10.65.0.24]
+X-Mailer: Zimbra 8.8.12_GA_3866 (ZimbraWebClient - FF132 (Win)/8.8.12_GA_3844)
+Thread-Index: DWGTA+OoRtubNqfWEZGzhcEluzLysA==
+Thread-Topic: =?utf-8?B?0JfQsNC/0YDQvtGBINCa0J8g0Lgg0KLQpSDQvdCwINCS0YHRgtGA0Y/RhdC40LLQsNGC0LXQu9GMINC70LDQsdC+0YDQsNGC0L7RgNC90YvQuSDQvNC10LTQuNGG0LjQvdGB0LrQuNC5ICLQlNCi0YHQv9C40L0iIDIg0YjRgiDQmNCd0J0=?= 1435026510
+Received-SPF: pass (mail.dna-technology.ru: domain of irkmed.ru designates 84.244.51.106 as permitted sender) client-ip=84.244.51.106; envelope-from=popova.es@irkmed.ru; helo=mail.irkmed.ru;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+--=_f7c9d83f-8b42-4397-91a8-d6b59ff91347
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+=D0=94=D0=BE=D0=B1=D1=80=D1=8B=D0=B9 =D0=B4=D0=B5=D0=BD=D1=8C!=20
+=D0=9F=D1=80=D0=BE=D1=88=D1=83 =D0=BF=D1=80=D0=B8=D1=81=D0=BB=D0=B0=D1=82=
+=D1=8C =D0=9A=D0=9F =D0=B8 =D0=A2=D0=A5 =D0=BF=D0=BE =D0=9A=D0=A2=D0=A0=D0=
+=A3 =D0=BD=D0=B0 =D0=92=D1=81=D1=82=D1=80=D1=8F=D1=85=D0=B8=D0=B2=D0=B0=D1=
+=82=D0=B5=D0=BB=D1=8C =D0=BB=D0=B0=D0=B1=D0=BE=D1=80=D0=B0=D1=82=D0=BE=D1=
+=80=D0=BD=D1=8B=D0=B9 =D0=BC=D0=B5=D0=B4=D0=B8=D1=86=D0=B8=D0=BD=D1=81=D0=
+=BA=D0=B8=D0=B9 "=D0=94=D0=A2=D1=81=D0=BF=D0=B8=D0=BD" 2 =D1=88=D1=82=20
+=D0=9A=D0=BE=D0=BD=D0=B5=D1=87=D0=BD=D1=8B=D0=B9 =D0=BF=D0=BE=D0=BB=D1=8C=
+=D0=B7=D0=BE=D0=B2=D0=B0=D1=82=D0=B5=D0=BB=D1=8C: =D0=93=D0=91=D0=A3 =D0=A0=
+=D0=A1(=D0=AF) "=D0=AF=D0=A0=D0=9A=D0=91" =D0=98=D0=9D=D0=9D [ callto:143=
+5026510 | 1435026510 ]=20
+=D0=A1=D0=BF=D0=B0=D1=81=D0=B8=D0=B1=D0=BE!=20
+--=20
+=D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,=20
+=D0=9F=D0=BE=D0=BF=D0=BE=D0=B2=D0=B0 =D0=95=D0=BA=D0=B0=D1=82=D0=B5=D1=80=
+=D0=B8=D0=BD=D0=B0 =D0=A1=D0=B5=D1=80=D0=B3=D0=B5=D0=B5=D0=B2=D0=BD=D0=B0=
+=20
+=D0=9C=D0=BB=D0=B0=D0=B4=D1=88=D0=B8=D0=B9 =D1=81=D0=BF=D0=B5=D1=86=D0=B8=
+=D0=B0=D0=BB=D0=B8=D1=81=D1=82 =D0=BF=D0=BE =D0=BF=D1=80=D0=BE=D0=B4=D1=83=
+=D0=BA=D1=86=D0=B8=D0=B8 =D0=B8 =D1=82=D0=B5=D1=85=D0=BD=D0=BE=D0=BB=D0=BE=
+=D0=B3=D0=B8=D1=8F=D0=BC =D0=9E=D0=9E=D0=9E =C2=AB=D0=9B=D0=B0=D0=B1=D0=BE=
+=D1=80=D0=B0=C2=BB=20
+E-mail: popova.es@irkmed.ru=20
+=D0=A0=D0=B0=D0=B1.=D1=82=D0=B5=D0=BB=D0=B5=D1=84=D0=BE=D0=BD +7(3952)288=
+867 (=D0=B2=D0=BD.=D1=82=D0=B5=D0=BB: 32-77)=20
+
+
+--=_f7c9d83f-8b42-4397-91a8-d6b59ff91347
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><body><div id=3D"zimbraEditorContainer" style=3D"font-family: arial, =
+helvetica, sans-serif; font-size: 12pt; color: #000000" class=3D"6"><div> <=
+!--StartFragment--><div><span style=3D"font-family: 'arial', 'helvetica', s=
+ans-serif;" data-mce-style=3D"font-family: 'arial', 'helvetica', sans-serif=
+;">=D0=94=D0=BE=D0=B1=D1=80=D1=8B=D0=B9 =D0=B4=D0=B5=D0=BD=D1=8C! </span><b=
+r></div><div><span style=3D"font-family: 'arial', 'helvetica', sans-serif;"=
+ data-mce-style=3D"font-family: 'arial', 'helvetica', sans-serif;">=D0=9F=
+=D1=80=D0=BE=D1=88=D1=83 =D0=BF=D1=80=D0=B8=D1=81=D0=BB=D0=B0=D1=82=D1=8C =
+=D0=9A=D0=9F =D0=B8 =D0=A2=D0=A5 =D0=BF=D0=BE =D0=9A=D0=A2=D0=A0=D0=A3 =D0=
+=BD=D0=B0 =D0=92=D1=81=D1=82=D1=80=D1=8F=D1=85=D0=B8=D0=B2=D0=B0=D1=82=D0=
+=B5=D0=BB=D1=8C =D0=BB=D0=B0=D0=B1=D0=BE=D1=80=D0=B0=D1=82=D0=BE=D1=80=D0=
+=BD=D1=8B=D0=B9 =D0=BC=D0=B5=D0=B4=D0=B8=D1=86=D0=B8=D0=BD=D1=81=D0=BA=D0=
+=B8=D0=B9 "=D0=94=D0=A2=D1=81=D0=BF=D0=B8=D0=BD" 2 =D1=88=D1=82  </span></d=
+iv><div><span style=3D"font-family: 'arial', 'helvetica', sans-serif;" data=
+-mce-style=3D"font-family: 'arial', 'helvetica', sans-serif;"><span style=
+=3D"font-size: 12pt; line-height: 107%;" data-mce-style=3D"font-size: 12pt;=
+ line-height: 107%;">=D0=9A=D0=BE=D0=BD=D0=B5=D1=87=D0=BD=D1=8B=D0=B9 =D0=
+=BF=D0=BE=D0=BB=D1=8C=D0=B7=D0=BE=D0=B2=D0=B0=D1=82=D0=B5=D0=BB=D1=8C: =D0=
+=93=D0=91=D0=A3 =D0=A0=D0=A1(=D0=AF) "=D0=AF=D0=A0=D0=9A=D0=91" =D0=98=D0=
+=9D=D0=9D <span class=3D"BxUVEf ILfuVd" lang=3D"ru"><span class=3D"hgKElc">=
+<span class=3D"Object" id=3D"OBJ_PREFIX_DWT2447_com_zimbra_phone"><span cla=
+ss=3D"Object" role=3D"link" id=3D"OBJ_PREFIX_DWT3221_com_zimbra_phone"><a h=
+ref=3D"callto:1435026510" onclick=3D"window.top.Com_Zimbra_Phone.unsetOnbef=
+oreunload()" data-mce-href=3D"callto:1435026510">1435026510</a></span></spa=
+n></span></span> <br></span></span></div><div><span style=3D"font-family: '=
+arial', 'helvetica', sans-serif;" data-mce-style=3D"font-family: 'arial', '=
+helvetica', sans-serif;"><span style=3D"font-size: 12pt; line-height: 107%;=
+" data-mce-style=3D"font-size: 12pt; line-height: 107%;">=D0=A1=D0=BF=D0=B0=
+=D1=81=D0=B8=D0=B1=D0=BE!</span></span></div><!--EndFragment--> </div><div =
+data-marker=3D"__SIG_POST__">-- <br></div><div>=D0=A1 =D1=83=D0=B2=D0=B0=D0=
+=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,<br>=D0=9F=D0=BE=D0=BF=D0=BE=D0=B2=D0=B0 =
+=D0=95=D0=BA=D0=B0=D1=82=D0=B5=D1=80=D0=B8=D0=BD=D0=B0 =D0=A1=D0=B5=D1=80=
+=D0=B3=D0=B5=D0=B5=D0=B2=D0=BD=D0=B0<br>=D0=9C=D0=BB=D0=B0=D0=B4=D1=88=D0=
+=B8=D0=B9 =D1=81=D0=BF=D0=B5=D1=86=D0=B8=D0=B0=D0=BB=D0=B8=D1=81=D1=82 =D0=
+=BF=D0=BE =D0=BF=D1=80=D0=BE=D0=B4=D1=83=D0=BA=D1=86=D0=B8=D0=B8 =D0=B8 =D1=
+=82=D0=B5=D1=85=D0=BD=D0=BE=D0=BB=D0=BE=D0=B3=D0=B8=D1=8F=D0=BC =D0=9E=D0=
+=9E=D0=9E =C2=AB=D0=9B=D0=B0=D0=B1=D0=BE=D1=80=D0=B0=C2=BB<br>E-mail: popov=
+a.es@irkmed.ru<br>=D0=A0=D0=B0=D0=B1.=D1=82=D0=B5=D0=BB=D0=B5=D1=84=D0=BE=
+=D0=BD +7(3952)288867 (=D0=B2=D0=BD.=D1=82=D0=B5=D0=BB: 32-77)<br><br></div=
+></div></body></html>
+--=_f7c9d83f-8b42-4397-91a8-d6b59ff91347--

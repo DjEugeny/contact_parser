@@ -1,0 +1,52 @@
+{
+  "thread_id": "20250711_himlabservice_ru_ae495947",
+  "message_id": "<426631472.20250711153844@himlabservice.ru>",
+  "email_num_in_day": 14,
+  "total_emails_in_day": 32,
+  "from": "hls@himlabservice.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Запрос КП НИИ кардиологии",
+  "date": "Fri, 11 Jul 2025 15:38:44 +0700",
+  "parsed_date": "2025-07-11T15:38:44+07:00",
+  "body_raw": "Здравствуйте, Светлана Сергеевна!\r\n\nПрошу Вас выставить КП на позиции:\r\n\nТермостат твердотельный с таймером ТТ-2 «Термит» - 2 шт\r\nВстряхиватель лабораторный ДТспин - 3 шт\r\n\nДля НИИ Мед. генетики Томского НИМЦ, по реквизитам во вложении.\r\n\nЗаранее благодарен!\r\n\nС уважением Цыбанов Баир Валерьевич\r\nМенеджер по продажам\r\nООО \"ХимЛабСервис\"\r\n+7(3822)42-45-35\r\n634045 г. Томск, ул. Мокрушина 13А\r\nhttps://himlabservice.ru/",
+  "body_clean": "Здравствуйте, Светлана Сергеевна!\nПрошу Вас выставить КП на позиции:\nТермостат твердотельный с таймером ТТ-2 «Термит» - 2 шт\nВстряхиватель лабораторный ДТспин - 3 шт\nДля НИИ Мед. генетики Томского НИМЦ, по реквизитам во вложении.\nЗаранее благодарен!\nС уважением Цыбанов Баир Валерьевич\nМенеджер по продажам\nООО \"ХимЛабСервис\"\n+7(3822)42-45-35\n634045 г. Томск, ул. Мокрушина 13А\nhttps://himlabservice.ru/",
+  "char_count": 403,
+  "attachments": [
+    {
+      "id": 320,
+      "original_filename": "АНКЕТА   Лабиомед 2022 (1).doc",
+      "saved_filename": "20250711_b0b60082_004103_396683_attach_АНКЕТА   Лабиомед 2022 _1_.doc",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-07-11/20250711_b0b60082_004103_396683_attach_АНКЕТА   Лабиомед 2022 _1_.doc",
+      "relative_path": "attachments/2025-07-11/20250711_b0b60082_004103_396683_attach_АНКЕТА   Лабиомед 2022 _1_.doc",
+      "file_size": 48128,
+      "file_type": "application/msword",
+      "content_type": "application/msword",
+      "saved_at": "2025-10-13 17:41:03",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<426631472.20250711153844@himlabservice.ru>",
+      "thread_id": "20250711_himlabservice_ru_ae495947",
+      "sha256": "b26e7273dee1a8f0a2c1bb2a412c6ea74dc4093f1b91c3945713539091b6e04a",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:41:03.395486+07:00",
+  "raw_size": 69470,
+  "date_folder": "2025-07-11",
+  "eml_path": "eml/2025-07-11/426631472.20250711153844_himlabservice.ru_004103_389023.eml"
+}

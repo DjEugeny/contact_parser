@@ -1,0 +1,203 @@
+Received:  from mail.skc-fmba.ru ([80.255.143.161]:46234)
+	  by mail.dna-technology.ru with esmtps (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	 (Exim 4.98.2 (FreeBSD))
+	 (envelope-from <paryigina_oa@skc-fmba.ru>)
+	 id 1uXA9m-00000000LCr-07hn ;
+	Thu, 03 Jul 2025 05:58:40 +0300
+Received: from srv-ksmg.skc-fmba.ru (localhost [127.0.0.1])
+	by mail.skc-fmba.ru (Postfix) with ESMTP id 83126100007;
+	Thu,  3 Jul 2025 09:58:37 +0700 (+07)
+Received: from mail.skc-fmba.ru (unknown [172.16.1.10])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA256 (256/256 bits))
+	(No client certificate requested)
+	by mail.skc-fmba.ru (Postfix) with ESMTPS;
+	Thu,  3 Jul 2025 09:58:32 +0700 (+07)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=simple/simple; d=skc-fmba.ru; s=mail;
+	bh=TuWYnZzr7USFt0B+Sv0eEOR7GV/hYdb+Ys4ExLgstSs=;
+	h=Content-Type:MIME-Version:To:References:In-Reply-To:From:Cc:Message-ID:Date
+	:Subject; b=npzwP7H1GbrEzBOU2pilFe9GhZPvVJfIgVlwLQu54pGsDsqL4n13++QmsJXewzigb
+	ZnVg1x1/UO6SkSyfuL/WmEGTjeQbLNzPVGjyT2lY4vwAnExW/7E+rl5MSa2cY9d/IBp+lHcTozOmR
+	9qBtOVTOv3/jI4b4eTrDt+SoCFefs=
+Received: from internal.domain; Thu, 03 Jul 2025 09:58:31 +0700
+Subject: =?utf-8?B?UmU6IEZ3ZDog0J/RgNC+0YHRjNCx0LAg0L7QsdC90L7QstC4?=
+ =?utf-8?B?0YLRjCDQmtCf?=
+Date: Thu, 03 Jul 2025 09:58:29 +0700
+Message-ID: <04ef6e3c-1481-4014-bd84-b340f5a2a99e@smail14.skc-fmba.ru>
+X-Mailer: SamowareQt 4.9.4
+Cc: ozernaya@dna-technology.ru, s.voronova@dna-technology.ru
+From: =?utf-8?B?0J7Qu9GM0LPQsCDQkC4g0J/QsNGA0YvQs9C40L3QsA==?=
+ <paryigina_oa@skc-fmba.ru>
+In-Reply-To: <2a1a67df-0032-4de9-90b4-fea369df34b9@dna-technology.ru>
+References: <b2013720-a962-4e60-92f7-96637c3b9d4c@smail14.skc-fmba.ru>
+  <4310791751384889@ni2pthndfrraonnh.sas.yp-c.yandex.net>
+  <2a1a67df-0032-4de9-90b4-fea369df34b9@dna-technology.ru>
+To: =?utf-8?B?0KDQsNC30LvQuNCy0LDRhdC40L0g0JTQvNC40YLRgNC40Lkg0JA=?=
+ =?utf-8?B?0LvQtdC60YHQtdC10LLQuNGH?= <torgi@dna-technology.ru>
+MIME-Version: 1.0
+Content-Type: multipart/alternative;boundary="_===4044827====cgpmail.skc-fmba.ru===_"
+X-KSMG-Rule-ID: 4
+X-KSMG-Message-Action: clean
+X-KSMG-AntiSpam-Status: not scanned, disabled by settings
+X-KSMG-AntiSpam-Interceptor-Info: not scanned
+X-KSMG-AntiPhishing: not scanned, disabled by settings
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 1.1.2.30, bases: 2025/06/28 20:43:00 #27600246
+X-KSMG-AntiVirus-Status: Clean, skipped
+Received-SPF: pass (mail.dna-technology.ru: domain of skc-fmba.ru designates 80.255.143.161 as permitted sender) client-ip=80.255.143.161; envelope-from=paryigina_oa@skc-fmba.ru; helo=mail.skc-fmba.ru;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+
+--_===4044827====cgpmail.skc-fmba.ru===_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Добрый день!
+
+Благодарю за обновленное КП. Но очень прошу указать еще старну производителя. Требует отдел  закупок.
+
+
+Спасибо!
+
+С уважением,
+заведующая ПЦР-лабораторией, 
+биолог КДЛ ФГБУ ФСНКЦ ФМБА России,
+Парыгина Ольга Александровна,
+м. т. 8-913-830-99-88
+On 15:23 02.07.2025
+Разливахин Дмитрий Алексеевич <torgi@dna-technology.ru> wrote:
+Добрый день!
+
+Обновленное КП во вложении к письму.
+
+
+-------- Пересылаемое сообщение --------
+Кому: "s.voronova@dna-technology.ru" <s.voronova@dna-technology.ru>;
+Тема: Просьба обновить КП;
+22:25, 1 июля 2025 г., "Ольга А. Парыгина" <paryigina_oa@skc-fmba.ru>:
+Доброе утро!
+
+Светлана, очень просим обновить КП. 
+Благодарю!
+
+С уважением,
+заведующая ПЦР-лабораторией, 
+биолог КДЛ ФГБУ ФСНКЦ ФМБА России,
+Парыгина Ольга Александровна, 
+м. т. 8-913-830-99-88
+ФГБУ ФСНКЦ ФМБА России
+https://www.skc-fmba.ru
+
+-------- Конец пересылаемого сообщения --------
+-- 
+Разливахин Дмитрий   Алексеевич 
+Специалист по тендерам | ООО «ДНК-Технология»
+Тел. +7 (495) 640‒17‒71 (доб. 2039)
+Email: torgi@dna-technology.ru
+Сайт: dna-technology.ru
+Telegram: @dna_tech_rus
+YouTube | RUTUBE
+Москва, Варшавское шоссе, дом 125Ж, корпус 5
+
+Профиль компании: разработка и производство лабораторного оборудования, ПО и реагентов для молекулярно-генетических исследований (ПЦР, NGS).
+
+ФГБУ ФСНКЦ ФМБА России
+https://www.skc-fmba.ru
+
+
+--_===4044827====cgpmail.skc-fmba.ru===_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html><head><meta charset="utf-8"> </head><body style="font-family: Century; font-size: 16px; color: #000000"><div style="font-family: Century; font-size: 16px; color: #000000">Добрый день!</div><div style="font-family: Century; font-size: 16px; color: #000000"><br></div><div style="font-family: Century; font-size: 16px; color: #000000">Благодарю за обновленное КП. Но очень прошу указать еще старну производителя. Требует отдел &nbsp;закупок.</div><div style="font-family: Century; font-size: 16px; color: #000000"><br></div><div style="font-family: Century; font-size: 16px; color: #000000"><br></div><div style="font-family: Century; font-size: 16px; color: #000000">Спасибо!</div>
+<div style="font-family: Century; font-size: 16px; color: #000000"><br></div><div align="left"  id="smwr-signature-gMgpWqtwGkKU" style="padding-top: 8px; padding-bottom: 8px;"><span style="font-family: 'Open Sans'; font-size: 14px; background-color: rgb(255, 255, 255);">С уважением,</span><br style="font-family: 'Open Sans'; font-size: 14px;"><span style="font-family: 'Open Sans'; font-size: 14px; background-color: rgb(255, 255, 255);">заведующая ПЦР-лабораторией,&nbsp;</span><br style="font-family: 'Open Sans'; font-size: 14px;"><span style="font-family: 'Open Sans'; font-size: 14px; background-color: rgb(255, 255, 255);">биолог КДЛ ФГБУ ФСНКЦ ФМБА России,</span>
+<br style="font-family: 'Open Sans'; font-size: 14px;"><span style="font-family: 'Open Sans'; font-size: 14px; background-color: rgb(255, 255, 255);">Парыгина Ольга Александровна,</span><br style="font-family: 'Open Sans'; font-size: 14px;"><span style="font-family: 'Open Sans'; font-size: 14px; background-color: rgb(255, 255, 255);">м. т. 8-913-830-99-88</span></div><div id="smwr-reply-gMgpWqtwGkKU" style="padding-top: 8px;">On 15:23 02.07.2025<br> Разливахин Дмитрий Алексеевич &lt;torgi@dna-technology.ru&gt; wrote:<blockquote type="cite">
+
+  
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  
+    <p>Добрый день!</p>
+    <p>Обновленное КП во вложении к письму.<br>
+    </p>
+    <blockquote type="cite" cite="mid:4310791751384889@ni2pthndfrraonnh.sas.yp-c.yandex.net">
+      <div><br>
+        <br>
+        -------- Пересылаемое сообщение --------<br>
+        <b>Кому:</b> <a class="moz-txt-link-rfc2396E" href="mailto:s.voronova@dna-technology.ru">"s.voronova@dna-technology.ru"</a>
+        <a class="moz-txt-link-rfc2396E" href="mailto:s.voronova@dna-technology.ru">&lt;s.voronova@dna-technology.ru&gt;</a>;<br>
+        <b>Тема:</b> Просьба обновить КП;<br>
+        22:25, 1 июля 2025 г., "Ольга А. Парыгина"
+        <a class="moz-txt-link-rfc2396E" href="mailto:paryigina_oa@skc-fmba.ru">&lt;paryigina_oa@skc-fmba.ru&gt;</a>:<br>
+        <blockquote class="210e7a848e8fcb45wmi-quote">
+          <div style="color:#000000;font-family:'century';font-size:16px">
+            <div style="color:#000000;font-family:'century';font-size:16px">Доброе
+              утро!</div>
+            <div style="color:#000000;font-family:'century';font-size:16px"><br>
+            </div>
+            <div style="color:#000000;font-family:'century';font-size:16px">Светлана,
+              очень просим обновить КП.&nbsp;</div>
+            <div style="color:#000000;font-family:'century';font-size:16px">Благодарю!</div>
+            <div style="color:#000000;font-family:'century';font-size:16px"><br>
+            </div>
+            <div id="b60d45b68b42708cd6d361bca0e15f14smwr-signature-OsaOSDQPRZLA" align="left" style="padding-bottom:8px;padding-top:8px">
+              <span style="background-color:rgb( 255 , 255 , 255 );font-family:'open sans';font-size:14px">С
+                уважением,</span><br style="font-family:'open sans';font-size:14px">
+              <span style="background-color:rgb( 255 , 255 , 255 );font-family:'open sans';font-size:14px">заведующая
+                ПЦР-лабораторией,&nbsp;</span><br style="font-family:'open sans';font-size:14px">
+              <span style="background-color:rgb( 255 , 255 , 255 );font-family:'open sans';font-size:14px">биолог
+                КДЛ ФГБУ ФСНКЦ ФМБА России,</span><br style="font-family:'open sans';font-size:14px">
+              <span style="background-color:rgb( 255 , 255 , 255 );font-family:'open sans';font-size:14px">Парыгина
+                Ольга Александровна,</span>
+              <br style="font-family:'open sans';font-size:14px">
+              <span style="background-color:rgb( 255 , 255 , 255 );font-family:'open sans';font-size:14px">м.
+                т. <span class="1f1ea193f6735cf0wmi-callto">8-913-830-99-88</span></span></div>
+          </div>
+          <pre>ФГБУ ФСНКЦ ФМБА России
+<a href="https://www.skc-fmba.ru" moz-do-not-send="true" class="moz-txt-link-freetext">https://www.skc-fmba.ru</a>
+</pre>
+        </blockquote>
+        <br>
+        -------- Конец пересылаемого сообщения --------<br>
+      </div>
+    </blockquote>
+    <div class="moz-signature">-- <br>
+      <div style="font-family: Arial, sans-serif; font-size: 12px; line-height: 1.4; color: #333333; max-width: 500px;">
+        <!-- Имя и должность -->
+        <p style="font-weight: bold; margin: 0 0 5px 0; text-align: left;">
+          Разливахин Дмитрий &nbsp; Алексеевич <br>
+          Специалист по тендерам | ООО&nbsp;«ДНК-Технология» </p>
+        <!-- Контакты -->
+        <p style="margin: 5px 0; text-align: left;"> Тел. <a href="tel:+74956401771,2039" style="color: #0066cc; text-decoration: none;">+7&nbsp;(495)&nbsp;640‒17‒71
+            (доб.&nbsp;2039)</a><br>
+          Email: <a href="mailto: torgi@dna-technology.ru " style="color: #0066cc; text-decoration: none;" class="moz-txt-link-freetext"> torgi@dna-technology.ru </a>
+        </p>
+        <!-- Разделитель -->
+        <hr style="border: 0; border-top: 1px solid #e0e0e0; margin: 10px 0; width: 100%;">
+        <!-- Соцсети -->
+        <p style="margin: 5px 0; text-align: left;"> Сайт: <a href="https://dna-technology.ru" style="color: #0066cc; text-decoration: none;">dna-technology.ru</a><br>
+          Telegram: <a href="https://t.me/dna_tech_rus" style="color: #0066cc; text-decoration: none;">@dna_tech_rus</a><br>
+          <a href="https://www.youtube.com/channel/UCqUrpqfZ65z26CUR-4f96iA" style="color: #0066cc; text-decoration: none;">YouTube</a> |
+          <a href="https://rutube.ru/channel/63912239/" style="color: #0066cc; text-decoration: none;">RUTUBE</a> </p>
+        <!-- Разделитель -->
+        <hr style="border: 0; border-top: 1px solid #e0e0e0; margin: 10px 0; width: 100%;">
+        <!-- Адрес -->
+        <p style="margin: 5px 0; text-align: left;"> Москва, Варшавское
+          шоссе, дом&nbsp;125Ж, корпус&nbsp;5 </p>
+        <!-- Логотип -->
+        <div style="margin: 15px 0 10px 0; text-align: left;"> <img src="https://dna-technology.ru/sites/all/themes/dnk/img/photo_2025-05-30_11-46-42.jpg" alt="«ДНК-Технология»" style="max-width: 200px; height: auto; display: block;"> </div>
+        <!-- О компании -->
+        <p style="margin: 5px 0; font-style: italic; color: #555555; text-align: left;">
+          Профиль компании: разработка и&nbsp;производство лабораторного
+          оборудования, ПО&nbsp;и&nbsp;реагентов для&nbsp;молекулярно-генетических
+          исследований&nbsp;(ПЦР,&nbsp;NGS). </p>
+      </div>
+    </div>
+  
+<br> </blockquote></div></body></html>
+<pre>ФГБУ ФСНКЦ ФМБА России
+https://www.skc-fmba.ru
+</pre>
+
+--_===4044827====cgpmail.skc-fmba.ru===_--

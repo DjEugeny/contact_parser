@@ -1,0 +1,44 @@
+{
+  "thread_id": "20250512_dna-technology_ru_2cfed939",
+  "message_id": "<2ac62dce-4cca-47d6-85e9-5bd9e7b48173@dna-technology.ru>",
+  "email_num_in_day": 6,
+  "total_emails_in_day": 15,
+  "from": "bortsova@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru, litvinenko@dna-technology.ru",
+  "cc": "razlivakhina@dna-technology.ru",
+  "to_emails": [
+    "s.voronova@dna-technology.ru",
+    "litvinenko@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "razlivakhina@dna-technology.ru"
+  ],
+  "subject": "Re: Пробный набор ЦНМТ (ЦПМ) Новосибирск",
+  "date": "Mon, 12 May 2025 09:39:07 +0300",
+  "parsed_date": "2025-05-12T13:39:07+07:00",
+  "body_raw": "Добрый день!\r\n\nПеремещение D23ТС000137, ИНН организации 5408308707.\r\n\n27.04.2025 11:22, Борцова Лариса пишет:\r\n>\r\n> Добрый день!\r\n>\r\n> Набор есть, отправить сможем после майских праздников.\r\n>\r\n> 26.04.2025 10:15, s.voronova@dna-technology.ru пишет:\r\n>> Добрый день, уважаемые коллеги!\r\n>> Прошу предоставить  набор для апробации с целью перевода на новую \r\n>> методику выделения НК :\r\n>> Проба - ОПТИМА в\r\n>> Центр Новых Медицинских Технологий на Пирогова,\r\n>> ООО «Центр персонализированной медицины»\r\n>>\r\n>> Адрес получателя:\r\n>>  г. Новосибирск, ул.Пирогова 25/4 ЦНМТ, Лаборатория\r\n>>  Степанов Андрей Александрович\r\n>> 8-912-906-74-11\r\n>>  Кондратюк Екатерина Юрьевна\r\n>> 8-913-919-23-26\r\n>>\r\n>> Спасибо!\r\n>> --\r\n>> С уважением, Воронова Светлана Сергеевна\r\n>> региональный представитель в СФО\r\n>> ООО \"ДНК-Технология\"\r\n>> моб. тел. 8 (995) 129-39-76\r\n>> e-mail: s.voronova@dna-technology.ru\r\n>> web: www.dna-technology.ru <https://www.dna-technology.ru>\r\n> --",
+  "body_clean": "Добрый день!\nПеремещение D23ТС000137, ИНН организации 5408308707.\n27.04.2025 11:22, Борцова Лариса пишет:\n> Добрый день!\n> Набор есть, отправить сможем после майских праздников.\n> 26.04.2025 10:15, s.voronova@dna-technology.ru пишет:\n>> Добрый день, уважаемые коллеги!\n>> Прошу предоставить  набор для апробации с целью перевода на новую\n>> методику выделения НК :\n>> Проба - ОПТИМА в\n>> Центр Новых Медицинских Технологий на Пирогова,\n>> ООО «Центр персонализированной медицины»\n>> Адрес получателя:\n>>  г. Новосибирск, ул.Пирогова 25/4 ЦНМТ, Лаборатория\n>>  Степанов Андрей Александрович\n>> 8-912-906-74-11\n>>  Кондратюк Екатерина Юрьевна\n>> 8-913-919-23-26\n>> Спасибо!\n>> С уважением, Воронова Светлана Сергеевна\n>> региональный представитель в СФО\n>> ООО \"ДНК-Технология\"\n>> моб. тел. 8 (995) 129-39-76\n>> e-mail: s.voronova@dna-technology.ru\n>> web: www.dna-technology.ru https://www.dna-technology.ru",
+  "char_count": 906,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part1.h26h7Rb1.SZlxfv05@dna-technology.ru",
+      "original_filename": "подпись новая.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:27:42.252208+07:00",
+  "raw_size": 42989,
+  "date_folder": "2025-05-12",
+  "eml_path": "eml/2025-05-12/2ac62dce-4cca-47d6-85e9-5bd9e7b48173_dna-technology.ru_002742_245726.eml"
+}

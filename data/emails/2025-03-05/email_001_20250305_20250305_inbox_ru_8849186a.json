@@ -1,0 +1,36 @@
+{
+  "thread_id": "20250305_inbox_ru_8849186a",
+  "message_id": "<D5D46073-3AA1-482E-A3B4-37BB355EB17E@inbox.ru>",
+  "email_num_in_day": 1,
+  "total_emails_in_day": 19,
+  "from": "ip_kas@inbox.ru",
+  "to": "fetisova@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "fetisova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "КККВД #1",
+  "date": "Wed, 5 Mar 2025 10:55:50 +0700",
+  "parsed_date": "2025-03-05T10:55:50+07:00",
+  "body_raw": "Ирина, доброе утро!\r\nПришлите пожалуйста счет для поставки в КККВД #1 по прямому договору \r\nАндрофлор - 4 набора\r\nФемофлор - 1 набор\r\nНабор для выделения - 2 шт\r\n\nОтправлено с iPhone",
+  "body_clean": "Ирина, доброе утро!\nПришлите пожалуйста счет для поставки в КККВД #1 по прямому договору\nАндрофлор - 4 набора\nФемофлор - 1 набор\nНабор для выделения - 2 шт\nОтправлено с iPhone",
+  "char_count": 175,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:14:30.187338+07:00",
+  "raw_size": 4942,
+  "date_folder": "2025-03-05",
+  "eml_path": "eml/2025-03-05/D5D46073-3AA1-482E-A3B4-37BB355EB17E_inbox.ru_071430_186318.eml"
+}

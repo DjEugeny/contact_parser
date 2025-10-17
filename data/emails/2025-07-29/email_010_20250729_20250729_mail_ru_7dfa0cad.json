@@ -1,0 +1,34 @@
+{
+  "thread_id": "20250729_mail_ru_7dfa0cad",
+  "message_id": "<1753777569.32229678@f308.i.mail.ru>",
+  "email_num_in_day": 10,
+  "total_emails_in_day": 36,
+  "from": "voronina_l@mail.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Купить наборы ДНК-Технология",
+  "date": "Tue, 29 Jul 2025 11:26:09 +0300",
+  "parsed_date": "2025-07-29T15:26:09+07:00",
+  "body_raw": "Добрый день. \nЯ хотела бы приобрести наборы \nHLA-ДНК-ТЕХ (HLA-DRB1)\nHLA-ДНК-ТЕХ (HLA-DQB1)\nHLA-ДНК-ТЕХ (HLA-DQA1)\nЗаказчик: ООО \"БИОСИНТЕК\", ИНН 5408287373, КПП 540801001, 630090, Новосибирская обл, г. Новосибирск, ул. Терешковой, дом 10, квартира 180\nКонтактное лицо: Воронина Елена Николаевна, E-mail: voronina_l@mail.ru,  Тел.: +7 (913) 930-03-26\n\nС уважением, Воронина Елена.",
+  "body_clean": "Добрый день.\nЯ хотела бы приобрести наборы\nHLA-ДНК-ТЕХ (HLA-DRB1)\nHLA-ДНК-ТЕХ (HLA-DQB1)\nHLA-ДНК-ТЕХ (HLA-DQA1)\nЗаказчик: ООО \"БИОСИНТЕК\", ИНН 5408287373, КПП 540801001, 630090, Новосибирская обл, г. Новосибирск, ул. Терешковой, дом 10, квартира 180\nКонтактное лицо: Воронина Елена Николаевна, E-mail: voronina_l@mail.ru,  Тел.: +7 (913) 930-03-26\nС уважением, Воронина Елена.",
+  "char_count": 376,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:46:05.431274+07:00",
+  "raw_size": 8477,
+  "date_folder": "2025-07-29",
+  "eml_path": "eml/2025-07-29/1753777569.32229678_f308.i.mail.ru_100724_366762.eml"
+}

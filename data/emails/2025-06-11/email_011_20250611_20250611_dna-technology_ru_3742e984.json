@@ -1,0 +1,59 @@
+{
+  "thread_id": "20250611_dna-technology_ru_3742e984",
+  "message_id": "<3c846e0a-fd68-4e10-ad53-dfe4b8441204@dna-technology.ru>",
+  "email_num_in_day": 11,
+  "total_emails_in_day": 21,
+  "from": "bilalov@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Fwd: Алтайская ПЧС ФКУЗ Роспотребнадзора ИНН 0411008567",
+  "date": "Wed, 11 Jun 2025 11:11:43 +0300",
+  "parsed_date": "2025-06-11T15:11:43+07:00",
+  "body_raw": "Светлана, добрый день!\r\n\nЗапрос от посредника.\r\nЧто отвечать?\r\n\n-------- Перенаправленное сообщение --------\r\nТема: Алтайская ПЧС ФКУЗ Роспотребнадзора ИНН 0411008567\r\nДата: Tue, 10 Jun 2025 21:25:13 +0300\r\nОт: Лариса Школьная <larisa@laboratorii.com>\r\nОтвечать: Лариса Школьная <larisa@laboratorii.com>\r\nКому: bilalov <bilalov@dna-technology.ru>\r\n\nДобрый день,\r\nпрошу выставить КП на 2 единицы\r\nO-DTPRIME5М1 + I-PC/03\r\n\n<https://www.laboratorii.com/upload/actual_store_email.pdf>\r\n-- \r\nС уважением,\r\nШкольная Лариса\r\nменеджер по работе с клиентами\r\nООО \"Компания Пущинские лаборатории\"\r\nтел. (499)110-03-07 доб. 12\r\nмоб. +7991-284-45-59\r\nwww.laboratorii.com <http://www.laboratorii.com>\r\n<https://t.me/laboratorii_com> <https://vk.com/laboratoriicom> \r\n<https://www.youtube.com/channel/UCPqTEjRYzt5BZNQke7IGiXg>",
+  "body_clean": "Светлана, добрый день!\nЗапрос от посредника.\nЧто отвечать?\n-------- Перенаправленное сообщение --------\nТема: Алтайская ПЧС ФКУЗ Роспотребнадзора ИНН 0411008567\nДата: Tue, 10 Jun 2025 21:25:13 +0300\nОт: Лариса Школьная larisa@laboratorii.com\nОтвечать: Лариса Школьная larisa@laboratorii.com\nКому: bilalov bilalov@dna-technology.ru\nДобрый день,\nпрошу выставить КП на 2 единицы\nO-DTPRIME5М1 + I-PC/03\nhttps://www.laboratorii.com/upload/actual_store_email.pdf\nС уважением,\nШкольная Лариса\nменеджер по работе с клиентами\nООО \"Компания Пущинские лаборатории\"\nтел. (499)110-03-07 доб. 12\nмоб. +7991-284-45-59\nwww.laboratorii.com http://www.laboratorii.com\nhttps://t.me/laboratorii_com https://vk.com/laboratoriicom\nhttps://www.youtube.com/channel/UCPqTEjRYzt5BZNQke7IGiXg",
+  "char_count": 765,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part1.mFcXdplX.4w0PiiGb@dna-technology.ru",
+      "original_filename": "mailrusigimg_vGoELZwK.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part2.Jewti1dI.ZrF5qSKj@dna-technology.ru",
+      "original_filename": "mailrusigimg_XUiRaRXW.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part3.T8iyhe7Q.644AyoFS@dna-technology.ru",
+      "original_filename": "mailrusigimg_FTFSEILE.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part4.hjvnx7aV.Idd3cTbG@dna-technology.ru",
+      "original_filename": "mailrusigimg_3nMTt03r.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 4,
+    "saved": 0,
+    "excluded": 4,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:34:58.092279+07:00",
+  "raw_size": 115986,
+  "date_folder": "2025-06-11",
+  "eml_path": "eml/2025-06-11/3c846e0a-fd68-4e10-ad53-dfe4b8441204_dna-technology.ru_003458_090359.eml"
+}

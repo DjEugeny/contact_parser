@@ -1,0 +1,64 @@
+{
+  "thread_id": "20250915_dna-technology_ru_99d8dc76",
+  "message_id": "<f0079ef6-92cc-4d18-8074-e44b28d49d10@dna-technology.ru>",
+  "email_num_in_day": 9,
+  "total_emails_in_day": 14,
+  "from": "bilalov@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "адреса, таблица и ТЗ",
+  "date": "Mon, 15 Sep 2025 12:02:52 +0300",
+  "parsed_date": "2025-09-15T16:02:52+07:00",
+  "body_raw": "ООО \"ИНВИТА-ГРУПП\" ИНН 6163070358 КПП 616801001 344090, Ростовская обл, \r\nРостов-на-Дону г, Малиновского ул, дом № 52Б/63 , e-mail: \r\ninfo@invita-group.ru\r\nООО \"Далекс\", ИНН 7607023040, КПП 760401001, 150023, Ярославская обл, \r\nЯрославль г, Курчатова ул, дом № 2, кв.31, e-mail: info@dalekslab.ru\r\n\n+ ТЗ и сравнительная таблица.\r\n\n-- \r\nДокумент без названия\r\n\n*С уважением, Билалов Альберт Аглямович,*\r\n\n*зам. начальника отдела продаж *\r\n\n**ООО \"ДНК-Технология\" **\r\n\n***Тел:**+7 (495) 640-17-71, доб.2031***\r\n\n**\r\n\n*E-mail:**bilalov@dna-technology.ru *\r\n\n*Web:**www.dna-technology.ru <https://dna-technology.ru>*\r\n\n<https://dna-technology.ru>**",
+  "body_clean": "ООО \"ИНВИТА-ГРУПП\" ИНН 6163070358 КПП 616801001 344090, Ростовская обл,\nРостов-на-Дону г, Малиновского ул, дом № 52Б/63 , e-mail:\ninfo@invita-group.ru\nООО \"Далекс\", ИНН 7607023040, КПП 760401001, 150023, Ярославская обл,\nЯрославль г, Курчатова ул, дом № 2, кв.31, e-mail: info@dalekslab.ru\n+ ТЗ и сравнительная таблица.\nДокумент без названия\n*С уважением, Билалов Альберт Аглямович,*\n*зам. начальника отдела продаж *\n**ООО \"ДНК-Технология\" **\n***Тел:**+7 (495) 640-17-71, доб.2031***\n*E-mail:**bilalov@dna-technology.ru *\n*Web:**www.dna-technology.ru https://dna-technology.ru*\nhttps://dna-technology.ru**",
+  "char_count": 605,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:logo*",
+      "original_filename": "logo.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:*ТЗ*",
+      "original_filename": "Усредненное ТЗ ДТпрайм 5M1 по КТРУ 233 (29.08.2025).docx",
+      "is_inline": false
+    },
+    {
+      "id": 477,
+      "original_filename": "Сравнительная таблица ДТпрайм-CFX- QuantStudio(НКМИ).docx",
+      "saved_filename": "20250915_017c5a88_005727_574044_attach_Сравнительная таблица ДТпрайм-CFX- QuantStudio_НКМИ_.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-09-15/20250915_017c5a88_005727_574044_attach_Сравнительная таблица ДТпрайм-CFX- QuantStudio_НКМИ_.docx",
+      "relative_path": "attachments/2025-09-15/20250915_017c5a88_005727_574044_attach_Сравнительная таблица ДТпрайм-CFX- QuantStudio_НКМИ_.docx",
+      "file_size": 20054,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-13 17:57:27",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<f0079ef6-92cc-4d18-8074-e44b28d49d10@dna-technology.ru>",
+      "thread_id": "20250915_dna-technology_ru_99d8dc76",
+      "sha256": "4b386be2a8448c9a926151b6a4c46eaaefe764bbc8850469821854d0fa07c49a",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 3,
+    "saved": 1,
+    "excluded": 2,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:57:27.572389+07:00",
+  "raw_size": 172599,
+  "date_folder": "2025-09-15",
+  "eml_path": "eml/2025-09-15/f0079ef6-92cc-4d18-8074-e44b28d49d10_dna-technology.ru_005727_562690.eml"
+}

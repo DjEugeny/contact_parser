@@ -1,0 +1,62 @@
+[
+  {
+    "file_path": "/tmp/test_caching_image.png",
+    "file_name": "test_caching_image.png",
+    "success": true,
+    "text": "Test Image for OCR\nCaching Logic Test\n2025-12-31",
+    "method": "google_vision_image_optimized",
+    "confidence": 0.9839170575141907,
+    "error": null,
+    "processing_time_sec": 1.947972059249878,
+    "timestamp": "2025-08-23T20:00:50.281485",
+    "txt_file_path": "data/final_results/texts/2025-12-31/test_caching_image___google_vision_image_optimized.txt"
+  },
+  {
+    "file_name": "test_caching_image.png",
+    "file_path": "/tmp/test_caching_image.png",
+    "file_size_mb": 0.01,
+    "success": true,
+    "text": "Test Image for OCR\nCaching Logic Test\n2025-12-31",
+    "method": "google_vision_image_optimized_cached",
+    "confidence": 1.0,
+    "processing_time_sec": 0.0,
+    "error": null,
+    "txt_file_path": "data/final_results/texts/2025-12-31/test_caching_image___google_vision_image_optimized_cached.txt"
+  },
+  {
+    "file_name": "test_caching_image.png",
+    "file_path": "/tmp/test_caching_image.png",
+    "file_size_mb": 0.01,
+    "success": true,
+    "text": "Test Image for OCR\nCaching Logic Test\n2025-12-31",
+    "method": "google_vision_image_optimized_cached_cached",
+    "confidence": 1.0,
+    "processing_time_sec": 0.0,
+    "error": null,
+    "txt_file_path": "data/final_results/texts/2025-12-31/test_caching_image___google_vision_image_optimized_cached_cached.txt"
+  },
+  {
+    "file_name": "test_caching_image.png",
+    "file_path": "/tmp/test_caching_image.png",
+    "file_size_mb": 0.01,
+    "success": true,
+    "text": "Test Image for OCR\nCaching Logic Test\n2025-12-31",
+    "method": "google_vision_image_optimized_cached_cached_cached",
+    "confidence": 1.0,
+    "processing_time_sec": 0.0,
+    "error": null,
+    "txt_file_path": "data/final_results/texts/2025-12-31/test_caching_image___google_vision_image_optimized_cached_cached_cached.txt"
+  },
+  {
+    "file_name": "test_caching_image.png",
+    "file_path": "/tmp/test_caching_image.png",
+    "file_size_mb": 0.01,
+    "success": true,
+    "text": "Test Image for OCR\nCaching Logic Test\n2025-12-31",
+    "method": "google_vision_image_optimized_cached_cached_cached",
+    "confidence": 1.0,
+    "processing_time_sec": 0.0,
+    "error": null,
+    "txt_file_path": "data/final_results/texts/2025-12-31/test_caching_image___google_vision_image_optimized_cached_cached_cached.txt"
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "thread_id": "20250909_imedpro_ru_b4252910",
+  "message_id": "<539ac1b0cfb14e5fa40552441d1e0cc5@imedpro.ru>",
+  "email_num_in_day": 11,
+  "total_emails_in_day": 18,
+  "from": "ChertanovSP@imedpro.ru",
+  "to": "m.gogoleva@dna-technology.ru, s.voronova@dna-technology.ru",
+  "cc": "shevchenkona@imedpro.ru, rybalkone@imedpro.ru, rybalkone@imedpro.ru...",
+  "to_emails": [
+    "m.gogoleva@dna-technology.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "shevchenkona@imedpro.ru",
+    "rybalkone@imedpro.ru",
+    "rybalkone@imedpro.ru",
+    "losnikovalv@imedpro.ru",
+    "romanovva@imedpro.ru"
+  ],
+  "subject": "ДТпрайм 5М1 для ООО \"ХЕЛИКС НОВОСИБИРСК\", ИНН 5402083133",
+  "date": "Tue, 9 Sep 2025 12:16:51 +0000",
+  "parsed_date": "2025-09-09T19:16:51+07:00",
+  "body_raw": "Коллеги, добрый день.\r\n\nПрошу прислать КП на ДТпрайм 5М1 + ноут + ИБП\r\n\nдля ООО \"ХЕЛИКС НОВОСИБИРСК\", ИНН 5402083133\r\n\nРеализация в 4 квартале 2025 года.\r\n\nС уважением,\r\nЧертанов Сергей Петрович,\r\n\nСПП отдела ММГТ, ИМЕД\r\n\nМ.Т.: +7 903 009 13 47",
+  "body_clean": "Коллеги, добрый день.\nПрошу прислать КП на ДТпрайм 5М1 + ноут + ИБП\nдля ООО \"ХЕЛИКС НОВОСИБИРСК\", ИНН 5402083133\nРеализация в 4 квартале 2025 года.\nС уважением,\nЧертанов Сергей Петрович,\nСПП отдела ММГТ, ИМЕД\nМ.Т.: +7 903 009 13 47",
+  "char_count": 231,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:55:50.841609+07:00",
+  "raw_size": 5985,
+  "date_folder": "2025-09-09",
+  "eml_path": "eml/2025-09-09/539ac1b0cfb14e5fa40552441d1e0cc5_imedpro.ru_005550_831034.eml"
+}

@@ -1,0 +1,82 @@
+Received:  from [46.148.205.66] (port=59556 helo=[10.2.11.28])
+	  by mail.dna-technology.ru with esmtpsa (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	 (Exim 4.98 (FreeBSD))
+	 (envelope-from <vladykin@dna-technology.ru>)
+	 id 1uERDL-00000000B7T-2IJP ;
+	Mon, 12 May 2025 14:20:55 +0300
+Content-Type: multipart/alternative;
+ boundary="------------Pql0ymjM0UHJfieOPfPrtIpq"
+Message-ID: <4ef5ceb6-bb18-43f8-ae44-6304a0d88183@dna-technology.ru>
+Date: Mon, 12 May 2025 14:20:55 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: product@dna-technology.ru,
+ =?UTF-8?B?0KDQsNC30LvQuNCy0LDRhdC40L0g0JTQvNC40YLRgNC40Lkg0JDQu9C10LrRgdC1?=
+ =?UTF-8?B?0LXQstC40Yc=?= <torgi@dna-technology.ru>,
+ =?UTF-8?B?0JLQvtGA0L7QvdC+0LLQsCDQodCy0LXRgtC70LDQvdCwINCh0LXRgNCz0LXQtdCy?=
+ =?UTF-8?B?0L3QsA==?= <s.voronova@dna-technology.ru>
+Content-Language: ru
+To: sobolev.riov@yandex.ru
+From: =?UTF-8?B?0JLQu9Cw0LTRi9C60LjQvSDQn9Cw0LLQtdC7INCh0LXRgNCz0LXQtdCy0Lg=?=
+ =?UTF-8?B?0Yc=?= <vladykin@dna-technology.ru>
+Subject: =?UTF-8?B?SExBLdCt0LrRgdC/0LXRgNGC?=
+Organization: =?UTF-8?B?0JTQndCaLdCi0LXRhdC90L7Qu9C+0LPQuNGP?=
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+This is a multi-part message in MIME format.
+--------------Pql0ymjM0UHJfieOPfPrtIpq
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Иван, добрый день.
+
+Набор HLA-Эксперт у нас представлен в двух вариантах:
+
+  * Комплектация только с частью для амплификации, подготовки библиотек
+    с индексами;
+  * Комплектация с химией для MiSeq.
+
+Коллеги, просьба выставить КП на фасовку N v1 и фасовку N v3-600.
+
+С уважением,
+Владыкин Павел Сергеевич
+Специалист по продукции
+ООО «ДНК-Технология»
+Раб.тел.: 8(495)640-17-71 (доб.2008)
+Моб.тел.: +7(926)892-31-14
+mailto:vladykin@dna-technology.ru
+
+--------------Pql0ymjM0UHJfieOPfPrtIpq
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p>Иван, добрый день.</p>
+    <p>Набор HLA-Эксперт у нас представлен в двух вариантах:</p>
+    <ul>
+      <li>Комплектация только с частью для амплификации, подготовки
+        библиотек с индексами;</li>
+      <li>Комплектация с химией для MiSeq.</li>
+    </ul>
+    <p>Коллеги, просьба выставить КП на фасовку N v1 и фасовку N v3-600.<br>
+    </p>
+    <pre class="moz-signature" cols="72">С уважением,
+Владыкин Павел Сергеевич
+Специалист по продукции
+ООО «ДНК-Технология»
+Раб.тел.: 8(495)640-17-71 (доб.2008)
+Моб.тел.: +7(926)892-31-14
+mailto: <a class="moz-txt-link-abbreviated" href="mailto:vladykin@dna-technology.ru">vladykin@dna-technology.ru</a></pre>
+  </body>
+</html>
+
+--------------Pql0ymjM0UHJfieOPfPrtIpq--

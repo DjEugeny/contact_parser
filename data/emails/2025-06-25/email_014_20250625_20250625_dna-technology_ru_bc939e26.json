@@ -1,0 +1,41 @@
+{
+  "thread_id": "20250625_dna-technology_ru_bc939e26",
+  "message_id": "<07ced62a-5037-417a-8ea5-90c854fe7d37@dna-technology.ru>",
+  "email_num_in_day": 14,
+  "total_emails_in_day": 14,
+  "from": "ivahnishina@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Фемофлор II",
+  "date": "Tue, 24 Jun 2025 22:21:00 +0300",
+  "parsed_date": "2025-06-25T02:21:00+07:00",
+  "body_raw": "Доброе утро, Светлана! В продолжение нашего разговора - фемофлор II",
+  "body_clean": "Доброе утро, Светлана! В продолжение нашего разговора - фемофлор II",
+  "char_count": 67,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "extension_excluded:.pptx",
+      "original_filename": "Знакомьтесь_ФФ_05.04.pptx",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:37:18.509685+07:00",
+  "raw_size": 3905731,
+  "date_folder": "2025-06-25",
+  "eml_path": "eml/2025-06-25/07ced62a-5037-417a-8ea5-90c854fe7d37_dna-technology.ru_003718_504439.eml"
+}

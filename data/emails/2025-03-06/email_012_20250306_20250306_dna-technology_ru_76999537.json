@@ -1,0 +1,52 @@
+{
+  "thread_id": "20250306_dna-technology_ru_76999537",
+  "message_id": "<E1tq7gh-ieDXVi-OL@ucs761-ucs-14.msgpanel.com>",
+  "email_num_in_day": 12,
+  "total_emails_in_day": 25,
+  "from": "ermakov@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Открытка к 8 марта",
+  "date": "Thu, 6 Mar 2025 09:29:11 +0000",
+  "parsed_date": "2025-03-06T16:29:11+07:00",
+  "body_raw": "Коллеги, добрый день!\n\nПодготовили поздравительную открытку к 8 марта, которую можно использовать для поздравления наших партнеров.\nТакже будет новость на сайте и рассылка оформленного письма по базе клиентов (завтра утром).\n\nС уважением, Ермаков Григорий\nСпециалист по digital-маркетингу ООО \"ДНК-Технология\"\nTel: 8 (495) 640-17-71 (add. 2051)\nTel Mob: +7 916 080-35-93\ne-mail: ermakov@dna-technology.ru\nweb: dna-technology.ru\n\nЧтобы отписаться от этой рассылки, перейдите по ссылке (https://trk.emlbest.com/ru/unsubscribe?hash=6ctgofri38cboryypub4qnbkzzbq48q6ppte3krwgkbqwymbyax53zasohk6jpq6m39dkoqi74meg6#no_tracking)",
+  "body_clean": "Коллеги, добрый день!\nПодготовили поздравительную открытку к 8 марта, которую можно использовать для поздравления наших партнеров.\nТакже будет новость на сайте и рассылка оформленного письма по базе клиентов (завтра утром).\nС уважением, Ермаков Григорий\nСпециалист по digital-маркетингу ООО \"ДНК-Технология\"\nTel: 8 (495) 640-17-71 (add. 2051)\nTel Mob: +7 916 080-35-93\ne-mail: ermakov@dna-technology.ru\nweb: dna-technology.ru\nЧтобы отписаться от этой рассылки, перейдите по ссылке (https://trk.emlbest.com/ru/unsubscribe?hash=#no_tracking)",
+  "char_count": 539,
+  "attachments": [
+    {
+      "id": 620,
+      "original_filename": "открытка_днк_8_марта.jpg",
+      "saved_filename": "20250306_ea2498d8_071516_877828_attach_открытка_днк_8_марта.jpg",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-06/20250306_ea2498d8_071516_877828_attach_открытка_днк_8_марта.jpg",
+      "relative_path": "attachments/2025-03-06/20250306_ea2498d8_071516_877828_attach_открытка_днк_8_марта.jpg",
+      "file_size": 614474,
+      "file_type": "image/jpeg",
+      "content_type": "image/jpeg",
+      "saved_at": "2025-10-14 00:15:16",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<E1tq7gh-ieDXVi-OL@ucs761-ucs-14.msgpanel.com>",
+      "thread_id": "20250306_dna-technology_ru_76999537",
+      "sha256": "575cdb94fa56e86d330df11a6b50f105fc51e7812c8f13fd4af56f736083429f",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:15:16.873297+07:00",
+  "raw_size": 853074,
+  "date_folder": "2025-03-06",
+  "eml_path": "eml/2025-03-06/E1tq7gh-ieDXVi-OL_ucs761-ucs-14.msgpanel.com_071516_868469.eml"
+}

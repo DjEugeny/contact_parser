@@ -1,0 +1,91 @@
+Received:  from emx1.centerld.ru ([109.202.28.158]:60244)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98 (FreeBSD))
+	 (envelope-from <sklad@centerld.ru>)
+	 id 1uJTis-000000003vp-0Xvk ;
+	Mon, 26 May 2025 12:02:18 +0300
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPA id D21831C0047;
+	Mon, 26 May 2025 16:02:14 +0700 (+07)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=centerld.ru; s=dkim;
+	t=1748250134;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type;
+	bh=VYpCKLGqfDaNys2mYaeF5ZbJfYUYfnXNxplhmmVw8/Y=;
+	b=fC6dmy2fdEokg/ve1sruogusSxE0+CQpisZ+YzlXqdAr1iAQQsX3TecGgm5rRryx13yGOT
+	FZGxt24Op4u0eHOG4kzPYUuMEg2U80SsXqMFwd/2vGzvgGwZ16JNF0PpQR7bfqIJajM+du
+	c3tev03HdkRVwMEdLW+5DEROlqTCBP4dqEOB9jlxAElSqHHLqdYlva6wgTPDki5fnwfVD2
+	AIBAkd3XsT4RMzSyNh/JU5E5aXA9K66AhzoasnNe15KfeUZTeItfYCBc+ZULa8sDRn+vQR
+	z5G/mZr9MQ0TUUsFfTN0CezlDPGDvyGjTjBCnM7SAGwZgBEv5TJCTTrXaa/wEA==
+From: =?utf-8?q?=D0=A6=2E=D0=9B=2E=D0=94=2E_=D0=BE=D1=82=D0=B4=2E_=D0=A1=D0=BD=D0=B0=D0=B1=D0=B6=D0=B5=D0=BD=D0=B8=D1=8F?= <sklad@centerld.ru>
+Content-Type: multipart/alternative; boundary="----=_=-_OpenGroupware_org_NGMime-3741080-1748250134.482194-301------"
+Date: Mon, 26 May 2025 16:02:14 +0700
+To: =?utf-8?q?=D0=92=D0=BE=D1=80=D0=BE=D0=BD=D0=BE=D0=B2=D0=B0_=D0=A1=D0=B2=D0=B5=D1=82=D0=BB=D0=B0=D0=BD=D0=B0_=D0=A1=D0=B5=D1=80=D0=B3=D0=B5=D0=B5=D0=B2=D0=BD=D0=B0?= <s.voronova@dna-technology.ru>, =?utf-8?q?=D0=94=D0=9D=D0=9A-=D0=A2=D0=B5=D1=85=D0=BD=D0=BE=D0=BB=D0=BE=D0=B3=D0=B8=D1=8F?= <torgi@dna-technology.ru>, =?utf-8?q?=D0=A4=D0=B5=D1=82=D0=B8=D1=81=D0=BE=D0=B2=D0=B0_=D0=98=D1=80=D0=B8=D0=BD=D0=B0_=D0=9D=D0=B8=D0=BA=D0=BE=D0=BB=D0=B0=D0=B5=D0=B2=D0=BD=D0=B0?= <fetisova@dna-technology.ru>
+MIME-Version: 1.0
+Message-ID: <391598-68342e00-155-3f7981c0@47346297>
+Disposition-Notification-To: sklad@centerld.ru
+Subject: =?utf-8?q?=D0=97=D0=B0=D0=BA=D0=B0=D0=B7=2E?=
+User-Agent: SOGoMail 5.11.2
+X-Last-TLS-Session-Version: None
+Received-SPF: pass (mail.dna-technology.ru: domain of centerld.ru designates 109.202.28.158 as permitted sender) client-ip=109.202.28.158; envelope-from=sklad@centerld.ru; helo=emx1.centerld.ru;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+------=_=-_OpenGroupware_org_NGMime-3741080-1748250134.482194-301------
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Length: 1334
+
+
+=D0=97=D0=B4=D1=80=D0=B0=D0=B2=D1=81=D1=82=D0=B2=D1=83=D0=B9=D1=82=D0=B5=
+! =D0=BA=D0=BE=D0=B3=D0=B4=D0=B0 =D0=BF=D0=BB=D0=B0=D0=BD=D0=B8=D1=80=D1=
+=83=D0=B5=D1=82=D1=81=D1=8F =D0=BE=D1=82=D0=B3=D1=80=D1=83=D0=B7=D0=BA=D0=
+=B0 =D0=BF=D0=BE =D1=81=D1=87 5959 =D0=BE=D1=82 16 =D0=BC=D0=B0=D1=8F 2=
+025
+
+--=C2=A0
+=C2=A0=D0=B3=D1=80=D0=B0=D1=84=D0=B8=D0=BA =D1=80=D0=B0=D0=B1=D0=BE=D1=82=
+=D1=8B: =D1=81 9-00 =D0=B4=D0=BE 16-00.=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0=D0=BE=D0=B1=D0=B5=D0=B4: =D1=81 12-00 =D0=B4=
+=D0=BE 13-00.=C2=A0=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=D0=A1 =D1=
+=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,"=D0=A6=D0=B5=D0=BD=
+=D1=82=D1=80 =D0=9B=D0=B0=D0=B1=D0=BE=D1=80=D0=B0=D1=82=D0=BE=D1=80=D0=BD=
+=D0=BE=D0=B9 =D0=94=D0=B8=D0=B0=D0=B3=D0=BD=D0=BE=D1=81=D1=82=D0=B8=D0=BA=
+=D0=B8"630075, =D0=B3.=D0=9D=D0=BE=D0=B2=D0=BE=D1=81=D0=B8=D0=B1=D0=B8=D1=
+=80=D1=81=D0=BA, =D0=9D=D0=B0=D1=80=D0=BE=D0=B4=D0=BD=D0=B0=D1=8F 3.=D0=
+=A0=D1=83=D0=BA=D0=BE=D0=B2=D0=BE=D0=B4=D0=B8=D1=82=D0=B5=D0=BB=D1=8C =D0=
+=9E=D0=9C=D0=A2=D0=A1,=D0=98=D0=B2=D0=B0=D0=BD =D0=A1=D0=B5=D1=80=D0=B3=
+=D0=B5=D0=B5=D0=B2=D0=B8=D1=87 =D0=91=D0=B0=D0=B1=D0=B8=D1=87=D0=B5=D0=BD=
+=D0=BA=D0=BE,=D1=82. +7-913-399-32-72
+
+------=_=-_OpenGroupware_org_NGMime-3741080-1748250134.482194-301------
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Length: 1568
+
+<html><p>=D0=97=D0=B4=D1=80=D0=B0=D0=B2=D1=81=D1=82=D0=B2=D1=83=D0=B9=D1=
+=82=D0=B5! =D0=BA=D0=BE=D0=B3=D0=B4=D0=B0 =D0=BF=D0=BB=D0=B0=D0=BD=D0=B8=
+=D1=80=D1=83=D0=B5=D1=82=D1=81=D1=8F =D0=BE=D1=82=D0=B3=D1=80=D1=83=D0=B7=
+=D0=BA=D0=B0 =D0=BF=D0=BE =D1=81=D1=87 5959 =D0=BE=D1=82 16 =D0=BC=D0=B0=
+=D1=8F 2025<br><br>--&nbsp;<br>&nbsp;</p><div class=3D"raw-html-embed s=
+ogo-raw-html-embed"><div>=D0=B3=D1=80=D0=B0=D1=84=D0=B8=D0=BA =D1=80=D0=
+=B0=D0=B1=D0=BE=D1=82=D1=8B: =D1=81 9-00 =D0=B4=D0=BE 16-00.</div><div>=
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=D0=BE=D0=
+=B1=D0=B5=D0=B4: =D1=81 12-00 =D0=B4=D0=BE 13-00.</div><div>&nbsp;=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=
+=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F=5F</div><div><i>=D0=A1 =D1=83=D0=B2=
+=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,</i></div><div><i>"=D0=A6=D0=
+=B5=D0=BD=D1=82=D1=80 =D0=9B=D0=B0=D0=B1=D0=BE=D1=80=D0=B0=D1=82=D0=BE=D1=
+=80=D0=BD=D0=BE=D0=B9 =D0=94=D0=B8=D0=B0=D0=B3=D0=BD=D0=BE=D1=81=D1=82=D0=
+=B8=D0=BA=D0=B8"</i></div><div><i>630075, =D0=B3.=D0=9D=D0=BE=D0=B2=D0=BE=
+=D1=81=D0=B8=D0=B1=D0=B8=D1=80=D1=81=D0=BA, =D0=9D=D0=B0=D1=80=D0=BE=D0=
+=B4=D0=BD=D0=B0=D1=8F 3.</i></div><div><i>=D0=A0=D1=83=D0=BA=D0=BE=D0=B2=
+=D0=BE=D0=B4=D0=B8=D1=82=D0=B5=D0=BB=D1=8C =D0=9E=D0=9C=D0=A2=D0=A1,</i=
+></div><div><i>=D0=98=D0=B2=D0=B0=D0=BD =D0=A1=D0=B5=D1=80=D0=B3=D0=B5=D0=
+=B5=D0=B2=D0=B8=D1=87 =D0=91=D0=B0=D0=B1=D0=B8=D1=87=D0=B5=D0=BD=D0=BA=D0=
+=BE,</i></div><div><i>=D1=82. +7-913-399-32-72</i></div></div></html>
+
+------=_=-_OpenGroupware_org_NGMime-3741080-1748250134.482194-301--------
+

@@ -1,0 +1,280 @@
+Received:  from emx2.centerld.ru ([212.164.48.202]:38872 helo=emx1.centerld.ru)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98.2 (FreeBSD))
+	 (envelope-from <sklad@centerld.ru>)
+	 id 1ucDUv-00000000MqV-19Ih ;
+	Thu, 17 Jul 2025 04:33:22 +0300
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPA id 024F81C0040;
+	Thu, 17 Jul 2025 08:33:18 +0700 (+07)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=centerld.ru; s=dkim;
+	t=1752715999; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=gViVrTsQxjgNhlehpL+SfAXyCt5Nc4qwkIWE4i+T6uw=;
+	b=R7reXEuH6VO05n7UBE/BYFObwqIgWWeJOfrQggE8yt/InKvqkbO0nc6QO2Jv/l8lerCPuw
+	80FSESa5mwcXqob3G+TgAeTyDWmNtjvAv1O3VQgtXggD+i2EW82ni3v53/pAnpM3R12Efo
+	g2P0hZAE906QBSTf7LklTWd1NObKpSf5kGXkOHLGWFC+gsG17uLqawY08sXJWw5/RCbGdG
+	Cd+EOOjWy7SG7LgUfL4jNe42gohF6F/1DoOCS2Z1QV0gEZikt6uEAgRHkDP7I/G1IKiVVH
+	a6jD6x2qREj6G3wRcBhAAuB8yh+SsRZpzsL9OQx8nVi7hOG+zC+DvU2K3l+mow==
+From: =?utf-8?q?=D0=A6=2E=D0=9B=2E=D0=94=2E_=D0=BE=D1=82=D0=B4=2E_=D0=A1=D0=BD=D0=B0=D0=B1=D0=B6=D0=B5=D0=BD=D0=B8=D1=8F?= <sklad@centerld.ru>
+In-Reply-To: <0f607d67-58e5-4f62-be42-5250e2db5dbe@dna-technology.ru>
+Content-Type: multipart/alternative; boundary="----=_=-_OpenGroupware_org_NGMime-516455-1752715998.639034-7------"
+References: <7e167-68774580-1-19f44fa0@73195648>
+ <12193311752647481@megd36izw2gubgrl.vla.yp-c.yandex.net> <0f607d67-58e5-4f62-be42-5250e2db5dbe@dna-technology.ru>
+Date: Thu, 17 Jul 2025 08:33:18 +0700
+Cc: =?utf-8?q?s=2Evoronova=40dna-technology=2Eru?= <s.voronova@dna-technology.ru>
+To: =?utf-8?q?=D0=A4=D0=B5=D1=82=D0=B8=D1=81=D0=BE=D0=B2=D0=B0_=D0=98=D1=80=D0=B8=D0=BD=D0=B0_=D0=9D=D0=B8=D0=BA=D0=BE=D0=BB=D0=B0=D0=B5=D0=B2=D0=BD=D0=B0?= <fetisova@dna-technology.ru>
+MIME-Version: 1.0
+Message-ID: <7e167-68785300-b-19f44fa0@73195813>
+Subject: =?utf-8?q?Re=3A?==?utf-8?q?_=D1=81=D1=87=D0=B5=D1=82?= 8164
+User-Agent: SOGoMail 5.12.0
+X-Last-TLS-Session-Version: None
+X-Warning: 212.164.48.202 is listed at zen.spamhaus.org (127.0.0.11: Listed by PBL, see https://check.spamhaus.org/query/ip/212.164.48.202)
+X-Spam-DNSBL-Host: yes
+X-HELO-Warning: Remote host 212.164.48.202 (emx2.centerld.ru) incorrectly presented itself as emx1.centerld.ru
+Received-SPF: pass (mail.dna-technology.ru: domain of centerld.ru designates 212.164.48.202 as permitted sender) client-ip=212.164.48.202; envelope-from=sklad@centerld.ru; helo=emx1.centerld.ru;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+------=_=-_OpenGroupware_org_NGMime-516455-1752715998.639034-7------
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Length: 4879
+
+
+=D1=81=D0=BE=D0=B3=D0=BB=D0=B0=D1=81=D0=BE=D0=B2=D0=B0=D0=BD=D0=BE
+
+=D0=A1=D1=80=D0=B5=D0=B4=D0=B0, =D0=98=D1=8E=D0=BB=D1=8C 16, 2025 15:46=
+ +07, =D0=A4=D0=B5=D1=82=D0=B8=D1=81=D0=BE=D0=B2=D0=B0 =D0=98=D1=80=D0=B8=
+=D0=BD=D0=B0 =D0=9D=D0=B8=D0=BA=D0=BE=D0=BB=D0=B0=D0=B5=D0=B2=D0=BD=D0=B0=
+ <fetisova@dna-technology.ru> =D0=BF=D0=B8=D1=81=D0=B0=D0=BB(=D0=B0):
+
+=C2=A0
+=D0=92=D1=81=D0=B5=D0=BC =D0=B4=D0=BE=D0=B1=D1=80=D1=8B=D0=B9 =D0=B4=D0=
+=B5=D0=BD=D1=8C!
+=D0=A0=D0=B0=D0=BF=D0=B8=D0=B4=D0=B0 II (=D0=BE=D0=B1=D0=BE=D0=B8=D1=85=
+) =D0=B8 =D0=A4=D0=B5=D0=BC=D0=BE=D1=84=D0=BB=D0=BE=D1=80=D0=B0 II =D0=BD=
+=D0=B5=D1=82 =D0=B2 =D0=BD=D0=B0=D0=BB=D0=B8=D1=87=D0=B8=D0=B8 =D0=BD=D0=
+=B0 =D0=B4=D0=B0=D0=BD=D0=BD=D1=8B=D0=B9 =D0=BC=D0=BE=D0=BC=D0=B5=D0=BD=
+=D1=82.
+=D0=9F=D1=80=D0=BE=D1=81=D1=8C=D0=B1=D0=B0 =D0=BF=D0=BE=D0=B4=D1=82=D0=B2=
+=D0=B5=D1=80=D0=B4=D0=B8=D1=82=D1=8C =D1=81=D1=87=D0=B5=D1=82.
+=C2=A0
+=D0=A1=D1=80=D0=BE=D0=BA =D0=B8=D0=B7=D0=B3=D0=BE=D1=82=D0=BE=D0=B2=D0=BB=
+=D0=B5=D0=BD=D0=B8=D1=8F =D0=BE=D0=BA=D0=BE=D0=BB=D0=BE 2-=D1=85 =D0=BD=
+=D0=B5=D0=B4=D0=B5=D0=BB=D1=8C
+=C2=A016.07.2025 9:35, s.voronova@dna-technology.ru =D0=BF=D0=B8=D1=88=D0=
+=B5=D1=82:
+=C2=A0
+=D0=94=D0=BE=D0=B1=D1=80=D1=8B=D0=B9 =D0=B4=D0=B5=D0=BD=D1=8C, =D0=BA=D0=
+=BE=D0=BB=D0=BB=D0=B5=D0=B3=D0=B8!=C2=A0=D0=9F=D1=80=D0=BE=D1=88=D1=83 =
+=D0=B2=D1=8B=D1=81=D1=82=D0=B0=D0=B2=D0=B8=D1=82=D1=8C =D1=81=D1=87=D1=91=
+=D1=82, =D0=B2=D0=BA=D0=BB=D1=8E=D1=87=D0=B0=D1=8F =D0=B4=D0=BE=D1=81=D1=
+=82=D0=B0=D0=B2=D0=BA=D1=83, =D0=B7=D0=B0=D1=8F=D0=B2=D0=BA=D0=B0 =D0=B2=
+=D0=BE =D0=B2=D0=BB=D0=BE=D0=B6=D0=B5=D0=BD=D0=B8=D0=B8=C2=A0=D0=9E=D0=9E=
+=D0=9E "=D0=A6=D0=95=D0=9D=D0=A2=D0=A0 =D0=9B=D0=90=D0=91=D0=9E=D0=A0=D0=
+=90=D0=A2=D0=9E=D0=A0=D0=9D=D0=9E=D0=99 =D0=94=D0=98=D0=90=D0=93=D0=9D=D0=
+=9E=D0=A1=D0=A2=D0=98=D0=9A=D0=98"=D0=98=D0=9D=D0=9D	5403181503
+
+--
+=D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC, =D0=92=D0=
+=BE=D1=80=D0=BE=D0=BD=D0=BE=D0=B2=D0=B0 =D0=A1=D0=B2=D0=B5=D1=82=D0=BB=D0=
+=B0=D0=BD=D0=B0 =D0=A1=D0=B5=D1=80=D0=B3=D0=B5=D0=B5=D0=B2=D0=BD=D0=B0
+=D1=80=D0=B5=D0=B3=D0=B8=D0=BE=D0=BD=D0=B0=D0=BB=D1=8C=D0=BD=D1=8B=D0=B9=
+ =D0=BF=D1=80=D0=B5=D0=B4=D1=81=D1=82=D0=B0=D0=B2=D0=B8=D1=82=D0=B5=D0=BB=
+=D1=8C =D0=B2 =D0=A1=D0=A4=D0=9E
+=D0=9E=D0=9E=D0=9E "=D0=94=D0=9D=D0=9A-=D0=A2=D0=B5=D1=85=D0=BD=D0=BE=D0=
+=BB=D0=BE=D0=B3=D0=B8=D1=8F"
+=D0=BC=D0=BE=D0=B1. =D1=82=D0=B5=D0=BB. 8 (995) 129-39-76
+e-mail: s.voronova@dna-technology.ru
+web: www.dna-technology.ru
+
+-------- =D0=9F=D0=B5=D1=80=D0=B5=D1=81=D1=8B=D0=BB=D0=B0=D0=B5=D0=BC=D0=
+=BE=D0=B5 =D1=81=D0=BE=D0=BE=D0=B1=D1=89=D0=B5=D0=BD=D0=B8=D0=B5 ------=
+--
+=D0=9A=D0=BE=D0=BC=D1=83: "=D0=9A=D0=BE=D0=BD=D1=81=D1=82=D0=B0=D0=BD=D1=
+=82=D0=B8=D0=BD =D0=A4=D0=B5=D0=BE=D1=84=D0=B8=D0=BB=D0=B0=D0=BA=D1=82=D0=
+=BE=D0=B2" <sklad@centerld.ru>, "s.voronova@dna-technology.ru" <s.voron=
+ova@dna-technology.ru>;
+=D0=A2=D0=B5=D0=BC=D0=B0: =D0=A0=D0=B5=D0=B0=D0=B3=D0=B5=D0=BD=D1=82=D1=
+=8B =D0=9F=D0=A6=D0=A0;
+13:23, 16 =D0=B8=D1=8E=D0=BB=D1=8F 2025 =D0=B3., "=D0=95=D0=B2=D0=B4=D0=
+=BE=D0=BA=D0=B8=D0=BC=D0=BE=D0=B2=D0=B0 =D0=9B=D1=8E=D0=B1=D0=BE=D0=B2=D1=
+=8C" <oper11@centerld.ru>:
+=C2=A0=C2=A0
+
+-------- =D0=9A=D0=BE=D0=BD=D0=B5=D1=86 =D0=BF=D0=B5=D1=80=D0=B5=D1=81=D1=
+=8B=D0=BB=D0=B0=D0=B5=D0=BC=D0=BE=D0=B3=D0=BE =D1=81=D0=BE=D0=BE=D0=B1=D1=
+=89=D0=B5=D0=BD=D0=B8=D1=8F --------
+=C2=A0--=20
+C =D0=A3=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,
+=D0=BC=D0=B5=D0=BD=D0=B5=D0=B4=D0=B6=D0=B5=D1=80 =D0=BF=D0=BE =D0=BF=D1=
+=80=D0=BE=D0=B4=D0=B0=D0=B6=D0=B0=D0=BC =D0=9E=D0=9E=D0=9E "=D0=94=D0=9D=
+=D0=9A-=D0=A2=D0=B5=D1=85=D0=BD=D0=BE=D0=BB=D0=BE=D0=B3=D0=B8=D1=8F"
+=D0=A4=D0=B5=D1=82=D0=B8=D1=81=D0=BE=D0=B2=D0=B0 =D0=98=D1=80=D0=B8=D0=BD=
+=D0=B0.
+=D0=9D=D0=B0=D1=88 =D1=81=D0=B0=D0=B9=D1=82:www.dna-technology.ru
+
+=D1=82=D0=B5=D0=BB. 8(495)6401771
+
+
+
+--=C2=A0
+=C2=A0
+=D0=93=D1=80=D0=B0=D1=84=D0=B8=D0=BA =D1=80=D0=B0=D0=B1=D0=BE=D1=82=D1=8B=
+:
+=D0=9F=D0=BD-=D0=9F=D1=82: =D1=81 9:00 =D0=B4=D0=BE 16:00
+=D0=9E=D0=B1=D0=B5=D0=B4: =D1=81 12:00 =D0=B4=D0=BE 13:00
+=D0=9A=D0=BE=D0=BD=D1=82=D0=B0=D0=BA=D1=82=D1=8B:
+=F0=9F=93=8D =D0=90=D0=B4=D1=80=D0=B5=D1=81: 630075, =D0=B3. =D0=9D=D0=BE=
+=D0=B2=D0=BE=D1=81=D0=B8=D0=B1=D0=B8=D1=80=D1=81=D0=BA, =D1=83=D0=BB. =D0=
+=9D=D0=B0=D1=80=D0=BE=D0=B4=D0=BD=D0=B0=D1=8F, 3
+=F0=9F=93=9E =D0=A0=D1=83=D0=BA=D0=BE=D0=B2=D0=BE=D0=B4=D0=B8=D1=82=D0=B5=
+=D0=BB=D1=8C =D0=9E=D0=9C=D0=A2=D0=A1: =D0=91=D0=B0=D0=B1=D0=B8=D1=87=D0=
+=B5=D0=BD=D0=BA=D0=BE =D0=98=D0=B2=D0=B0=D0=BD =D0=A1=D0=B5=D1=80=D0=B3=
+=D0=B5=D0=B5=D0=B2=D0=B8=D1=87
+=E2=98=8E =D0=A2=D0=B5=D0=BB=D0=B5=D1=84=D0=BE=D0=BD: +7-913-399-32-72
+=D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,
+"=D0=A6=D0=B5=D0=BD=D1=82=D1=80 =D0=9B=D0=B0=D0=B1=D0=BE=D1=80=D0=B0=D1=
+=82=D0=BE=D1=80=D0=BD=D0=BE=D0=B9 =D0=94=D0=B8=D0=B0=D0=B3=D0=BD=D0=BE=D1=
+=81=D1=82=D0=B8=D0=BA=D0=B8"
+
+------=_=-_OpenGroupware_org_NGMime-516455-1752715998.639034-7------
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Length: 9475
+
+<html><p>=D1=81=D0=BE=D0=B3=D0=BB=D0=B0=D1=81=D0=BE=D0=B2=D0=B0=D0=BD=D0=
+=BE<br><br>=D0=A1=D1=80=D0=B5=D0=B4=D0=B0, =D0=98=D1=8E=D0=BB=D1=8C 16,=
+ 2025 15:46 +07, =D0=A4=D0=B5=D1=82=D0=B8=D1=81=D0=BE=D0=B2=D0=B0 =D0=98=
+=D1=80=D0=B8=D0=BD=D0=B0 =D0=9D=D0=B8=D0=BA=D0=BE=D0=BB=D0=B0=D0=B5=D0=B2=
+=D0=BD=D0=B0 &lt;fetisova@dna-technology.ru&gt; =D0=BF=D0=B8=D1=81=D0=B0=
+=D0=BB(=D0=B0):<br><br>&nbsp;</p><blockquote type=3D"cite" cite=3D"0f60=
+7d67-58e5-4f62-be42-5250e2db5dbe@dna-technology.ru"><meta http-equiv=3D=
+"Content-Type" content=3D"text/html; "><p>=D0=92=D1=81=D0=B5=D0=BC =D0=B4=
+=D0=BE=D0=B1=D1=80=D1=8B=D0=B9 =D0=B4=D0=B5=D0=BD=D1=8C!</p><p>=D0=A0=D0=
+=B0=D0=BF=D0=B8=D0=B4=D0=B0 II (=D0=BE=D0=B1=D0=BE=D0=B8=D1=85) =D0=B8 =
+=D0=A4=D0=B5=D0=BC=D0=BE=D1=84=D0=BB=D0=BE=D1=80=D0=B0 II =D0=BD=D0=B5=D1=
+=82 =D0=B2 =D0=BD=D0=B0=D0=BB=D0=B8=D1=87=D0=B8=D0=B8 =D0=BD=D0=B0 =D0=B4=
+=D0=B0=D0=BD=D0=BD=D1=8B=D0=B9 =D0=BC=D0=BE=D0=BC=D0=B5=D0=BD=D1=82.</p=
+><p>=D0=9F=D1=80=D0=BE=D1=81=D1=8C=D0=B1=D0=B0 =D0=BF=D0=BE=D0=B4=D1=82=
+=D0=B2=D0=B5=D1=80=D0=B4=D0=B8=D1=82=D1=8C =D1=81=D1=87=D0=B5=D1=82.<br=
+>&nbsp;</p><p>=D0=A1=D1=80=D0=BE=D0=BA =D0=B8=D0=B7=D0=B3=D0=BE=D1=82=D0=
+=BE=D0=B2=D0=BB=D0=B5=D0=BD=D0=B8=D1=8F =D0=BE=D0=BA=D0=BE=D0=BB=D0=BE =
+2-=D1=85 =D0=BD=D0=B5=D0=B4=D0=B5=D0=BB=D1=8C<br>&nbsp;</p><div class=3D=
+"moz-cite-prefix">16.07.2025 9:35, <a class=3D"moz-txt-link-abbreviated=
+" href=3D"mailto:s.voronova@dna-technology.ru">s.voronova@dna-technolog=
+y.ru</a> =D0=BF=D0=B8=D1=88=D0=B5=D1=82:<br>&nbsp;</div><blockquote typ=
+e=3D"cite" cite=3D"mid:12193311752647481@megd36izw2gubgrl.vla.yp-c.yand=
+ex.net"><meta http-equiv=3D"content-type" content=3D"text/html; "><p>=D0=
+=94=D0=BE=D0=B1=D1=80=D1=8B=D0=B9 =D0=B4=D0=B5=D0=BD=D1=8C, =D0=BA=D0=BE=
+=D0=BB=D0=BB=D0=B5=D0=B3=D0=B8!&nbsp;</p><div>=D0=9F=D1=80=D0=BE=D1=88=D1=
+=83 =D0=B2=D1=8B=D1=81=D1=82=D0=B0=D0=B2=D0=B8=D1=82=D1=8C =D1=81=D1=87=
+=D1=91=D1=82, =D0=B2=D0=BA=D0=BB=D1=8E=D1=87=D0=B0=D1=8F =D0=B4=D0=BE=D1=
+=81=D1=82=D0=B0=D0=B2=D0=BA=D1=83, =D0=B7=D0=B0=D1=8F=D0=B2=D0=BA=D0=B0=
+ =D0=B2=D0=BE =D0=B2=D0=BB=D0=BE=D0=B6=D0=B5=D0=BD=D0=B8=D0=B8&nbsp;</d=
+iv><div><div><span style=3D"font-size:16px;">=D0=9E=D0=9E=D0=9E "=D0=A6=
+=D0=95=D0=9D=D0=A2=D0=A0 =D0=9B=D0=90=D0=91=D0=9E=D0=A0=D0=90=D0=A2=D0=9E=
+=D0=A0=D0=9D=D0=9E=D0=99 =D0=94=D0=98=D0=90=D0=93=D0=9D=D0=9E=D0=A1=D0=A2=
+=D0=98=D0=9A=D0=98"</span></div><div><span style=3D"font-size:16px;">=D0=
+=98=D0=9D=D0=9D<span style=3D"white-space:pre;">	</span></span></div><d=
+iv><span style=3D"font-size:16px;">5403181503</span></div></div><div><p=
+><br>--<br>=D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC=
+, =D0=92=D0=BE=D1=80=D0=BE=D0=BD=D0=BE=D0=B2=D0=B0 =D0=A1=D0=B2=D0=B5=D1=
+=82=D0=BB=D0=B0=D0=BD=D0=B0 =D0=A1=D0=B5=D1=80=D0=B3=D0=B5=D0=B5=D0=B2=D0=
+=BD=D0=B0<br>=D1=80=D0=B5=D0=B3=D0=B8=D0=BE=D0=BD=D0=B0=D0=BB=D1=8C=D0=BD=
+=D1=8B=D0=B9 =D0=BF=D1=80=D0=B5=D0=B4=D1=81=D1=82=D0=B0=D0=B2=D0=B8=D1=82=
+=D0=B5=D0=BB=D1=8C =D0=B2 =D0=A1=D0=A4=D0=9E<br>=D0=9E=D0=9E=D0=9E "=D0=
+=94=D0=9D=D0=9A-=D0=A2=D0=B5=D1=85=D0=BD=D0=BE=D0=BB=D0=BE=D0=B3=D0=B8=D1=
+=8F"<br>=D0=BC=D0=BE=D0=B1. =D1=82=D0=B5=D0=BB. 8 (995) <span class=3D"=
+1f1ea193f6735cf0wmi-callto">129-39-76</span><br>e-mail: <a class=3D"moz=
+-txt-link-freetext" href=3D"mailto:s.voronova@dna-technology.ru" moz-do=
+-not-send=3D"true">s.voronova@dna-technology.ru</a><br>web: <a href=3D"=
+https://www.dna-technology.ru" moz-do-not-send=3D"true">www.dna-technol=
+ogy.ru</a><br><br>-------- =D0=9F=D0=B5=D1=80=D0=B5=D1=81=D1=8B=D0=BB=D0=
+=B0=D0=B5=D0=BC=D0=BE=D0=B5 =D1=81=D0=BE=D0=BE=D0=B1=D1=89=D0=B5=D0=BD=D0=
+=B8=D0=B5 --------<br><strong>=D0=9A=D0=BE=D0=BC=D1=83:</strong> "=D0=9A=
+=D0=BE=D0=BD=D1=81=D1=82=D0=B0=D0=BD=D1=82=D0=B8=D0=BD =D0=A4=D0=B5=D0=BE=
+=D1=84=D0=B8=D0=BB=D0=B0=D0=BA=D1=82=D0=BE=D0=B2" &lt;<a class=3D"moz-t=
+xt-link-freetext" href=3D"mailto:sklad@centerld.ru" moz-do-not-send=3D"=
+true">sklad@centerld.ru</a>&gt;, "<a class=3D"moz-txt-link-freetext" hr=
+ef=3D"mailto:s.voronova@dna-technology.ru" moz-do-not-send=3D"true">s.v=
+oronova@dna-technology.ru</a>" &lt;<a class=3D"moz-txt-link-freetext" h=
+ref=3D"mailto:s.voronova@dna-technology.ru" moz-do-not-send=3D"true">s.=
+voronova@dna-technology.ru</a>&gt;;<br><strong>=D0=A2=D0=B5=D0=BC=D0=B0=
+:</strong> =D0=A0=D0=B5=D0=B0=D0=B3=D0=B5=D0=BD=D1=82=D1=8B =D0=9F=D0=A6=
+=D0=A0;<br>13:23, 16 =D0=B8=D1=8E=D0=BB=D1=8F 2025 =D0=B3., "=D0=95=D0=B2=
+=D0=B4=D0=BE=D0=BA=D0=B8=D0=BC=D0=BE=D0=B2=D0=B0 =D0=9B=D1=8E=D0=B1=D0=BE=
+=D0=B2=D1=8C" &lt;<a class=3D"moz-txt-link-freetext" href=3D"mailto:ope=
+r11@centerld.ru" moz-do-not-send=3D"true">oper11@centerld.ru</a>&gt;:<b=
+r>&nbsp;</p><blockquote class=3D"6a6ddf86685b2d9e917940cc9abaad6210e7a8=
+48e8fcb45wmi-quote">&nbsp;</blockquote><p><br>-------- =D0=9A=D0=BE=D0=BD=
+=D0=B5=D1=86 =D0=BF=D0=B5=D1=80=D0=B5=D1=81=D1=8B=D0=BB=D0=B0=D0=B5=D0=BC=
+=D0=BE=D0=B3=D0=BE =D1=81=D0=BE=D0=BE=D0=B1=D1=89=D0=B5=D0=BD=D0=B8=D1=8F=
+ --------<br>&nbsp;</p></div></blockquote><pre class=3D"moz-signature" =
+cols=3D"72">--=20
+C =D0=A3=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,
+=D0=BC=D0=B5=D0=BD=D0=B5=D0=B4=D0=B6=D0=B5=D1=80 =D0=BF=D0=BE =D0=BF=D1=
+=80=D0=BE=D0=B4=D0=B0=D0=B6=D0=B0=D0=BC =D0=9E=D0=9E=D0=9E "=D0=94=D0=9D=
+=D0=9A-=D0=A2=D0=B5=D1=85=D0=BD=D0=BE=D0=BB=D0=BE=D0=B3=D0=B8=D1=8F"
+=D0=A4=D0=B5=D1=82=D0=B8=D1=81=D0=BE=D0=B2=D0=B0 =D0=98=D1=80=D0=B8=D0=BD=
+=D0=B0.
+=D0=9D=D0=B0=D1=88 =D1=81=D0=B0=D0=B9=D1=82:www.dna-technology.ru
+
+=D1=82=D0=B5=D0=BB. 8(495)6401771</pre></blockquote><p><br><br><br>--&n=
+bsp;<br>&nbsp;</p><div class=3D"raw-html-embed sogo-raw-html-embed"><p =
+class=3D"ds-markdown-paragraph" style=3D"-webkit-text-stroke-width:0px;=
+background-color:rgb(255, 255, 255);color:rgb(64, 64, 64);font-family:q=
+uote-cjk-patch, Inter, system-ui, -apple-system, BlinkMacSystemFont, &q=
+uot;Segoe UI&quot;, Roboto, &quot;Noto Sans&quot;, Ubuntu, Cantarell, &=
+quot;Helvetica Neue&quot;, Oxygen, &quot;Open Sans&quot;, sans-serif;fo=
+nt-size:16.002px;font-style:normal;font-variant-caps:normal;font-varian=
+t-ligatures:normal;font-weight:400;letter-spacing:normal;line-height:28=
+.575px;margin:13.716px 0px;orphans:2;text-align:start;text-decoration-c=
+olor:initial;text-decoration-style:initial;text-decoration-thickness:in=
+itial;text-indent:0px;text-transform:none;white-space:normal;widows:2;w=
+ord-spacing:0px;"><strong>=D0=93=D1=80=D0=B0=D1=84=D0=B8=D0=BA =D1=80=D0=
+=B0=D0=B1=D0=BE=D1=82=D1=8B:</strong><br>=D0=9F=D0=BD-=D0=9F=D1=82: =D1=
+=81 9:00 =D0=B4=D0=BE 16:00<br>=D0=9E=D0=B1=D0=B5=D0=B4: =D1=81 12:00 =D0=
+=B4=D0=BE 13:00</p><p class=3D"ds-markdown-paragraph" style=3D"-webkit-=
+text-stroke-width:0px;background-color:rgb(255, 255, 255);color:rgb(64,=
+ 64, 64);font-family:quote-cjk-patch, Inter, system-ui, -apple-system, =
+BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Noto Sans&quot;=
+, Ubuntu, Cantarell, &quot;Helvetica Neue&quot;, Oxygen, &quot;Open San=
+s&quot;, sans-serif;font-size:16.002px;font-style:normal;font-variant-c=
+aps:normal;font-variant-ligatures:normal;font-weight:400;letter-spacing=
+:normal;line-height:28.575px;margin:13.716px 0px;orphans:2;text-align:s=
+tart;text-decoration-color:initial;text-decoration-style:initial;text-d=
+ecoration-thickness:initial;text-indent:0px;text-transform:none;white-s=
+pace:normal;widows:2;word-spacing:0px;"><strong>=D0=9A=D0=BE=D0=BD=D1=82=
+=D0=B0=D0=BA=D1=82=D1=8B:</strong><br>=F0=9F=93=8D =D0=90=D0=B4=D1=80=D0=
+=B5=D1=81: 630075, =D0=B3. =D0=9D=D0=BE=D0=B2=D0=BE=D1=81=D0=B8=D0=B1=D0=
+=B8=D1=80=D1=81=D0=BA, =D1=83=D0=BB. =D0=9D=D0=B0=D1=80=D0=BE=D0=B4=D0=BD=
+=D0=B0=D1=8F, 3<br>=F0=9F=93=9E =D0=A0=D1=83=D0=BA=D0=BE=D0=B2=D0=BE=D0=
+=B4=D0=B8=D1=82=D0=B5=D0=BB=D1=8C =D0=9E=D0=9C=D0=A2=D0=A1: =D0=91=D0=B0=
+=D0=B1=D0=B8=D1=87=D0=B5=D0=BD=D0=BA=D0=BE =D0=98=D0=B2=D0=B0=D0=BD =D0=
+=A1=D0=B5=D1=80=D0=B3=D0=B5=D0=B5=D0=B2=D0=B8=D1=87<br>=E2=98=8E =D0=A2=
+=D0=B5=D0=BB=D0=B5=D1=84=D0=BE=D0=BD: <a style=3D"border-bottom-width:2=
+px;border-color:rgba(255, 255, 255, 0);border-left-width:3px;border-rad=
+ius:6.858px;border-right-width:3px;border-style:solid;border-top-width:=
+2px;color:rgb(59, 130, 246);margin-left:-3px;margin-right:-3px;position=
+:relative;text-decoration:none;transition:box-shadow 0.2s cubic-bezier(=
+0.4, 0, 0.2, 1);" target=3D"=5Fblank" rel=3D"noreferrer">+7-913-399-32-=
+72</a></p><p class=3D"ds-markdown-paragraph" style=3D"-webkit-text-stro=
+ke-width:0px;background-color:rgb(255, 255, 255);color:rgb(64, 64, 64);=
+font-family:quote-cjk-patch, Inter, system-ui, -apple-system, BlinkMacS=
+ystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Noto Sans&quot;, Ubuntu,=
+ Cantarell, &quot;Helvetica Neue&quot;, Oxygen, &quot;Open Sans&quot;, =
+sans-serif;font-size:16.002px;font-style:normal;font-variant-caps:norma=
+l;font-variant-ligatures:normal;font-weight:400;letter-spacing:normal;l=
+ine-height:28.575px;margin:13.716px 0px;orphans:2;text-align:start;text=
+-decoration-color:initial;text-decoration-style:initial;text-decoration=
+-thickness:initial;text-indent:0px;text-transform:none;white-space:norm=
+al;widows:2;word-spacing:0px;"><i>=D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=
+=D0=BD=D0=B8=D0=B5=D0=BC,</i><br><i>"=D0=A6=D0=B5=D0=BD=D1=82=D1=80 =D0=
+=9B=D0=B0=D0=B1=D0=BE=D1=80=D0=B0=D1=82=D0=BE=D1=80=D0=BD=D0=BE=D0=B9 =D0=
+=94=D0=B8=D0=B0=D0=B3=D0=BD=D0=BE=D1=81=D1=82=D0=B8=D0=BA=D0=B8"</i></p=
+></div></html>
+
+------=_=-_OpenGroupware_org_NGMime-516455-1752715998.639034-7--------
+

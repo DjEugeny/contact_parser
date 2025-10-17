@@ -1,0 +1,330 @@
+{
+  "source_file": "email_002_20250723_20250723_dna-technology_ru_9d0a92b0.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": "7728469349",
+        "website": "dna-technology.ru",
+        "city": "Москва",
+        "address": "г. Москва, вн. тер. г. муниципальный округ Чертаново Северное, Варшавское ш., д. 125Ж, корп. 5",
+        "emails": [
+          "mail@dna-technology.ru"
+        ],
+        "phones": [],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      },
+      {
+        "organization_id": 2,
+        "name": "МЕД КОНГРЕСС",
+        "city": "Москва",
+        "address": null,
+        "emails": [],
+        "phones": [],
+        "gid": "e4a92525-b053-5a8f-a6b4-1817412146b2"
+      },
+      {
+        "organization_id": 3,
+        "name": "МГЦ ЛМГД",
+        "city": null,
+        "address": null,
+        "emails": [],
+        "phones": [],
+        "gid": "e330183c-40c1-57f3-ac17-d0364718985d"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Визерова Валерия",
+        "organization_id": 1,
+        "position": "Старший менеджер по взаимодействию с клиентами",
+        "email": "mail@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 0.5,
+        "value_score": 7,
+        "gid": "855e8894-eef0-5543-8c9f-de498b553ed8",
+        "email_source": "organization_email_fallback",
+        "enrichment_skipped": false,
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "smart_enrichment": {
+          "source_email": "mail@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1759983380.157056,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      }
+    ],
+    "business_context": "Визерова Валерия (ДНК-Технология) запрашивает у Светланы (ДНК-Технология) информацию о наличии необходимого для работы с набором реагентов.",
+    "summary": {
+      "topic": "Наличие необходимого для работы с набором реагентов",
+      "product_interest": "Неоскрин",
+      "communication_stage": "follow_up",
+      "request_type": "information_request"
+    },
+    "key_points": [
+      "Визерова Валерия запрашивает у Светланы информацию о наличии необходимого для работы с набором реагентов",
+      "Светлана (ДНК-Технология) должна предоставить информацию Визеровой Валерии",
+      "Неоскрнин - продукт, по которому требуется информация"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "Неоскрнин",
+        "message_date": "2025-07-23T13:43:57+07:00",
+        "message_id_hint": null,
+        "role_in_message": "sender",
+        "interaction_type": "follow_up",
+        "summary": "Визерова Валерия (ДНК-Технология) запрашивает у Светланы (ДНК-Технология) информацию о наличии необходимого для работы с набором реагентов.",
+        "human_note": "Визерова Валерия (ДНК-Технология) запросила Светлану (ДНК-Технология) о наличии необходимого для работы с набором реагентов.",
+        "participants": {
+          "actor": "Визерова Валерия (ДНК-Технология)",
+          "audience": [
+            "Светлана (ДНК-Технология)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      }
+    ],
+    "auto_corrected": true,
+    "validation_error": false,
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": \"7728469349\",\n      \"website\": \"dna-technology.ru\",\n      \"city\": \"Москва\",\n      \"address\": \"г. Москва, вн. тер. г. муниципальный округ Чертаново Северное, Варшавское ш., д. 125Ж, корп. 5\",\n      \"emails\": [\n        \"mail@dna-technology.ru\"\n      ],\n      \"phones\": []\n    },\n    {\n      \"organization_id\": 2,\n      \"name\": \"МЕД КОНГРЕСС\",\n      \"city\": \"Москва\",\n      \"address\": null,\n      \"emails\": [],\n      \"phones\": []\n    },\n    {\n      \"organization_id\": 3,\n      \"name\": \"МГЦ ЛМГД\",\n      \"city\": null,\n      \"address\": null,\n      \"emails\": [],\n      \"phones\": []\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Визерова Валерия\",\n      \"organization_id\": 1,\n      \"position\": \"старший менеджер по взаимодействию с клиентами\",\n      \"email\": null,\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\"\n    }\n  ],\n  \"business_context\": \"Визерова Валерия (ДНК-Технология) запрашивает у Светланы (ДНК-Технология) информацию о наличии необходимого для работы с набором реагентов.\",\n  \"summary\": {\n    \"topic\": \"Наличие необходимого для работы с набором реагентов\",\n    \"product_interest\": \"Неоскрин\",\n    \"communication_stage\": \"follow_up\",\n    \"request_type\": \"information_request\"\n  },\n  \"key_points\": [\n    \"Визерова Валерия запрашивает у Светланы информацию о наличии необходимого для работы с набором реагентов\",\n    \"Светлана (ДНК-Технология) должна предоставить информацию Визеровой Валерии\",\n    \"Неоскрнин - продукт, по которому требуется информация\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"Неоскрнин\",\n      \"message_date\": \"2025-07-23T13:43:57+07:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"follow_up\",\n      \"summary\": \"Визерова Валерия (ДНК-Технология) запрашивает у Светланы (ДНК-Технология) информацию о наличии необходимого для работы с набором реагентов.\",\n      \"human_note\": \"Визерова Валерия (ДНК-Технология) запросила Светлану (ДНК-Технология) о наличии необходимого для работы с набором реагентов.\",\n      \"participants\": {\n        \"actor\": \"Визерова Валерия (ДНК-Технология)\",\n        \"audience\": [\"Светлана (ДНК-Технология)\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    }\n  ]\n}\n```<｜begin▁of▁sentence｜>",
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-09T11:16:20.157161",
+      "stats": {
+        "processed_emails": 1,
+        "total_organizations_processed": 4,
+        "total_contacts_processed": 3,
+        "organizations_deduplicated": 0,
+        "contacts_filtered": 0,
+        "contacts_enriched": 3,
+        "data_normalized": 7,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 0,
+        "phones_added_to_contacts": 0
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1,
+        "2": 2,
+        "3": 3
+      },
+      "contact_mapping": {
+        "1": 1
+      },
+      "provenance": {
+        "contacts": {
+          "1": {
+            "backfill_skipped": "no_personal_location_signal"
+          }
+        }
+      },
+      "email_classification": {
+        "1": {
+          "kept": [
+            "mail@dna-technology.ru"
+          ],
+          "removed": [],
+          "removed_types": {}
+        },
+        "2": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        },
+        "3": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "7728469349"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 2,
+            "gid": "e4a92525-b053-5a8f-a6b4-1817412146b2",
+            "match_rule": "NAME_CITY",
+            "key_tuple": [
+              "ORG",
+              "NAME_CITY",
+              "мед конгресс",
+              "москва"
+            ],
+            "alias_added": true,
+            "source": "new"
+          },
+          {
+            "entity": "organization",
+            "local_id": 3,
+            "gid": "e330183c-40c1-57f3-ac17-d0364718985d",
+            "match_rule": "FALLBACK",
+            "key_tuple": [
+              "ORG",
+              "FALLBACK",
+              "9e402b023ff805d8"
+            ],
+            "alias_added": false,
+            "source": "new"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "gid": "855e8894-eef0-5543-8c9f-de498b553ed8",
+            "match_rule": "NAME_POSITION",
+            "key_tuple": [
+              "CONTACT",
+              "NAME_POSITION",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "визерова валерия",
+              "старший менеджер по взаимодействию с клиентами"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          }
+        ],
+        "conflicts": []
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.0,
+            "source": "none",
+            "method": "no_candidates_found",
+            "score": 0.0,
+            "candidates": [],
+            "checked_at": "2025-10-09T11:16:19.401111",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "e4a92525-b053-5a8f-a6b4-1817412146b2": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.0,
+            "source": "none",
+            "method": "no_candidates_found",
+            "score": 0.0,
+            "candidates": [],
+            "checked_at": "2025-10-09T11:16:19.401404",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "e330183c-40c1-57f3-ac17-d0364718985d": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.0,
+            "source": "none",
+            "method": "no_candidates_found",
+            "score": 0.0,
+            "candidates": [],
+            "checked_at": "2025-10-09T11:16:19.401677",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "855e8894-eef0-5543-8c9f-de498b553ed8",
+              "contact_name": "Визерова Валерия",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "no_org_phones",
+                  "message": "Организация не имеет телефонов"
+                }
+              ],
+              "confidence_scores": [],
+              "decision": null,
+              "skip_reasons": [
+                "no_org_phones"
+              ]
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 1,
+            "contacts_enriched": 0,
+            "phones_added_total": 0,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.0,
+            "phones_skipped_by_reason": {
+              "low_confidence": 0,
+              "no_org_phones": 1,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-09T04:16:19.401780",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 0,
+        "organizations_processed": 0,
+        "contacts_processed": 0,
+        "ui_format_applied": 0,
+        "phones_sanitized": 0
+      }
+    },
+    "provider_used": "OpenRouter",
+    "processing_time": 9.792188882827759,
+    "text_length": 1642,
+    "chunks_processed": 1,
+    "total_contacts_found": 1,
+    "unique_contacts_found": 1,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-07-23/email_002_20250723_20250723_dna-technology_ru_9d0a92b0.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 58.648
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "thread_id": "20251010_laboratorii_com_5f3c39ad",
+  "message_id": "<1760077186.753808627@f317.i.mail.ru>",
+  "email_num_in_day": 5,
+  "total_emails_in_day": 30,
+  "from": "larisa@laboratorii.com",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "elizaveta@laboratorii.com",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "elizaveta@laboratorii.com"
+  ],
+  "subject": "Re: Проект Алтайская ПЧС г. Горно-Алтайск",
+  "date": "Fri, 10 Oct 2025 09:19:46 +0300",
+  "parsed_date": "2025-10-10T13:19:46+07:00",
+  "body_raw": "Светлана, данный проект Елизаветы Синяевой (она в копии сообщения)\n\nона Вам ответит по проекту\n\n-- \nС уважением,\nШкольная Лариса\nменеджер по работе с клиентами\nООО \"Компания Пущинские лаборатории\"\nтел. (499)110-03-07 доб. 12\nмоб.   +7991-284-45-59\nwww.laboratorii.com\n\n>От кого: Воронова Светлана Сергеевна < s.voronova@dna-technology.ru >\n>Кому: larisa@laboratorii.com\n>Дата: Пятница, 10 октября 2025, 09:15 +03:00\n> \n>Добрый день, Лариса!\n>Просьба сориентировать, на какой стадии проект для Алтайской ПЧС, г. Горно-Алтайск? Ранее выставленное КП прилагаю. Прошу обратить внимание, что при актуальности проекта, необходимо запросить обновление КП.\n>--\n>Воронова Светлана Сергеевна\n>Региональный представитель в СФО, г. Новосибирск | ООО «ДНК-Технология»\n>Тел.: +7 (995) 129-39-76\n>Email: s.voronova@dna-technology.ru\n>----------------------------------------------------------------------\n>Сайт: dna-technology.ru\n>Telegram: @dna_tech_rus\n>YouTube | Rutube\n>----------------------------------------------------------------------\n>Москва, Варшавское шоссе, дом 125Ж, корпус 5\n>Профиль компании: разработка и производство лабораторного оборудования, ПО и реагентов для молекулярно-генетических исследований (ПЦР, NGS).",
+  "body_clean": "Светлана, данный проект Елизаветы Синяевой (она в копии сообщения)\nона Вам ответит по проекту\nС уважением,\nШкольная Лариса\nменеджер по работе с клиентами\nООО \"Компания Пущинские лаборатории\"\nтел. (499)110-03-07 доб. 12\nмоб. +7991-284-45-59\nwww.laboratorii.com\n>От кого: Воронова Светлана Сергеевна s.voronova@dna-technology.ru\n>Кому: larisa@laboratorii.com\n>Дата: Пятница, 10 октября 2025, 09:15 +03:00\n>Добрый день, Лариса!\n>Просьба сориентировать, на какой стадии проект для Алтайской ПЧС, г. Горно-Алтайск? Ранее выставленное КП прилагаю. Прошу обратить внимание, что при актуальности проекта, необходимо запросить обновление КП.\n>Воронова Светлана Сергеевна\n>Региональный представитель в СФО, г. Новосибирск | ООО «ДНК-Технология»\n>Тел.: +7 (995) 129-39-76\n>Email: s.voronova@dna-technology.ru\n>Сайт: dna-technology.ru\n>Telegram: @dna_tech_rus\n>YouTube | Rutube\n>Москва, Варшавское шоссе, дом 125Ж, корпус 5\n>Профиль компании: разработка и производство лабораторного оборудования, ПО и реагентов для молекулярно-генетических исследований (ПЦР, NGS).",
+  "char_count": 1053,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part1.r1H46MLd.AV0YEFoC@dna-technology.ru",
+      "original_filename": "70zPbAnYp12JGs1E.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:9uD5Lnne0KRCFter",
+      "original_filename": "mailrusigimg_FTFSEILE.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:cJPUV8p4ppHh2wpd",
+      "original_filename": "mailrusigimg_XUiRaRXW.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:GeObybhpag7AGY4M",
+      "original_filename": "mailrusigimg_vG5GYjL4.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:ZWr8L82d6H3Fg44R",
+      "original_filename": "mailrusigimg_adVsvpj9.jpg",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 5,
+    "saved": 0,
+    "excluded": 5,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T01:05:13.837239+07:00",
+  "raw_size": 265591,
+  "date_folder": "2025-10-10",
+  "eml_path": "eml/2025-10-10/1760077186.753808627_f317.i.mail.ru_010513_823967.eml"
+}

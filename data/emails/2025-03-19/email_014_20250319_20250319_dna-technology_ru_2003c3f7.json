@@ -1,0 +1,75 @@
+{
+  "thread_id": "20250319_dna-technology_ru_2003c3f7",
+  "message_id": "<5eafdd15-c7c5-41dd-808a-599a55ab66e5@dna-technology.ru>",
+  "email_num_in_day": 14,
+  "total_emails_in_day": 19,
+  "from": "kozlova@dna-technology.ru",
+  "to": "o.isaev@dna-technology.ru, kalashnikov@dna-technology.ru",
+  "cc": "savicheva@dna-technology.ru, s.voronova@dna-technology.ru, aslanidi@dna-technology.ru...",
+  "to_emails": [
+    "o.isaev@dna-technology.ru",
+    "kalashnikov@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "savicheva@dna-technology.ru",
+    "s.voronova@dna-technology.ru",
+    "aslanidi@dna-technology.ru",
+    "inozemceva@dna-technology.ru"
+  ],
+  "subject": "участие в мероприятиях",
+  "date": "Wed, 19 Mar 2025 13:56:48 +0300",
+  "parsed_date": "2025-03-19T17:56:48+07:00",
+  "body_raw": "Коллеги, добрый день!\r\n\nОт Вороновой Светланы поступило предложение об участие в мероприятии \r\n\"VII Всероссийская конференция Опухолевые маркеры: \r\nМолекулярно-генетические и клинические аспекты\"   Материалы прилагаю.\r\n\n25-27 июля – Практические Школы, 28-30 июля 2025 г. - Конференция.\r\n\nМесто проведения:  Новосибирская область, городской округ Бердск, \r\nтерритория сан.Речкуновский, 5\r\n\nПодскажите, заинтересованы мы в данной конференции?\r\n\nСпасибо,\r\n\n-- \r\nС уважением,\r\nКозлова Ольга\r\nВедущий сервис-менеджер\r\nООО \"ДНК-Технология\"\r\n\nTel: 8 (495) 640-17-71 (ext. 2026)\r\nTel Mob: +7 915-252-22-43\r\ne-mail: kozlova@dna-technology.ru\r\nweb: dna-technology.ru",
+  "body_clean": "Коллеги, добрый день!\nОт Вороновой Светланы поступило предложение об участие в мероприятии\n\"VII Всероссийская конференция Опухолевые маркеры:\nМолекулярно-генетические и клинические аспекты\" Материалы прилагаю.\n25-27 июля – Практические Школы, 28-30 июля 2025 г. - Конференция.\nМесто проведения:  Новосибирская область, городской округ Бердск,\nтерритория сан.Речкуновский, 5\nПодскажите, заинтересованы мы в данной конференции?\nСпасибо,\nС уважением,\nКозлова Ольга\nВедущий сервис-менеджер\nООО \"ДНК-Технология\"\nTel: 8 (495) 640-17-71 (ext. 2026)\nTel Mob: +7 915-252-22-43\ne-mail: kozlova@dna-technology.ru\nweb: dna-technology.ru",
+  "char_count": 624,
+  "attachments": [
+    {
+      "id": 701,
+      "original_filename": "Анонс ОМ2025  (1).pdf",
+      "saved_filename": "20250319_9a016a53_072023_939641_attach_Анонс ОМ2025  _1_.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-19/20250319_9a016a53_072023_939641_attach_Анонс ОМ2025  _1_.pdf",
+      "relative_path": "attachments/2025-03-19/20250319_9a016a53_072023_939641_attach_Анонс ОМ2025  _1_.pdf",
+      "file_size": 812710,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:20:23",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<5eafdd15-c7c5-41dd-808a-599a55ab66e5@dna-technology.ru>",
+      "thread_id": "20250319_dna-technology_ru_2003c3f7",
+      "sha256": "1822a7ab89b64f69d9ff0081d2eb864ed567215e21cb5151997acbf7f1afa1aa",
+      "file_exists": true
+    },
+    {
+      "id": 702,
+      "original_filename": "Информационное_письмо_спонсорам ОМ2025.docx",
+      "saved_filename": "20250319_9a016a53_072023_942059_attach_Информационное_письмо_спонсорам ОМ2025.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-19/20250319_9a016a53_072023_942059_attach_Информационное_письмо_спонсорам ОМ2025.docx",
+      "relative_path": "attachments/2025-03-19/20250319_9a016a53_072023_942059_attach_Информационное_письмо_спонсорам ОМ2025.docx",
+      "file_size": 28878,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-14 00:20:23",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<5eafdd15-c7c5-41dd-808a-599a55ab66e5@dna-technology.ru>",
+      "thread_id": "20250319_dna-technology_ru_2003c3f7",
+      "sha256": "87ae1ca74ce6636bbb03d4bcfb505837a6cc91fd4cf78d362794f1b37e7696a8",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 2,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:20:23.936025+07:00",
+  "raw_size": 1156943,
+  "date_folder": "2025-03-19",
+  "eml_path": "eml/2025-03-19/5eafdd15-c7c5-41dd-808a-599a55ab66e5_dna-technology.ru_072023_934637.eml"
+}

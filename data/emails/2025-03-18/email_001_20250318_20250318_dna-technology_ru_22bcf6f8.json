@@ -1,0 +1,43 @@
+{
+  "thread_id": "20250318_dna-technology_ru_22bcf6f8",
+  "message_id": "<7c12155b-1a92-49d3-9c0a-c94454536868@dna-technology.ru>",
+  "email_num_in_day": 1,
+  "total_emails_in_day": 12,
+  "from": "hotline@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "razlivakhina@dna-technology.ru",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "razlivakhina@dna-technology.ru"
+  ],
+  "subject": "Re: Программа для автоматического выделения. Проба МЧ Рапид ll",
+  "date": "Tue, 18 Mar 2025 09:09:46 +0300",
+  "parsed_date": "2025-03-18T13:09:46+07:00",
+  "body_raw": "Добрый день!\r\n\nОТП и сценарий процедуры выделения для станции Kingfisher Flex 96 вы \r\nможете скачать по ссылке:\r\n\nhttps://cloud.dna-technology.ru/s/k8Ay54Ef4rAZ2gY\r\n\nОТП и архив папки со сценарием процедуры выделения для станции Allsheng \r\nAuto-Pure 96 вы можете скачать по ссылке:\r\n\nhttps://cloud.dna-technology.ru/s/aPQb9p9HCwJAQQq\r\n\n18.03.2025 6:27, s.voronova@dna-technology.ru пишет:\r\n> Добрый день, уважаемые коллеги!\r\n> Прошу предоставить программу и ОТП для автоматического выделения НК на \r\n> AUTO PURE96 и Кинг Фишер с использованием набора Проба МЧ Рапид ll.\r\n> Спасибо!\r\n>\r\n> --\r\n> С уважением, Воронова Светлана Сергеевна\r\n> региональный представитель в СФО\r\n> ООО \"ДНК-Технология\"\r\n> моб. тел. 8 (995) 129-39-76\r\n> e-mail: s.voronova@dna-technology.ru\r\n> web: www.dna-technology.ru",
+  "body_clean": "Добрый день!\nОТП и сценарий процедуры выделения для станции Kingfisher Flex 96 вы\nможете скачать по ссылке:\nhttps://cloud.dna-technology.ru/s/k8Ay54Ef4rAZ2gY\nОТП и архив папки со сценарием процедуры выделения для станции Allsheng\nAuto-Pure 96 вы можете скачать по ссылке:\nhttps://cloud.dna-technology.ru/s/aPQb9p9HCwJAQQq\n18.03.2025 6:27, s.voronova@dna-technology.ru пишет:\n> Добрый день, уважаемые коллеги!\n> Прошу предоставить программу и ОТП для автоматического выделения НК на\n> AUTO PURE96 и Кинг Фишер с использованием набора Проба МЧ Рапид ll.\n> Спасибо!\n> С уважением, Воронова Светлана Сергеевна\n> региональный представитель в СФО\n> ООО \"ДНК-Технология\"\n> моб. тел. 8 (995) 129-39-76\n> e-mail: s.voronova@dna-technology.ru\n> web: www.dna-technology.ru",
+  "char_count": 761,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part1.0UVzYwX1.MolehLbR@dna-technology.ru",
+      "original_filename": "подпись новая.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:19:37.682127+07:00",
+  "raw_size": 41067,
+  "date_folder": "2025-03-18",
+  "eml_path": "eml/2025-03-18/7c12155b-1a92-49d3-9c0a-c94454536868_dna-technology.ru_071937_678004.eml"
+}

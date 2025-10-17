@@ -1,0 +1,54 @@
+{
+  "thread_id": "20250812_centerld_ru_7086654e",
+  "message_id": "<12e-689acb80-18d-253552c0@154914392>",
+  "email_num_in_day": 4,
+  "total_emails_in_day": 13,
+  "from": "sklad@centerld.ru",
+  "to": "fetisova@dna-technology.ru, s.voronova@dna-technology.ru, torgi@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "fetisova@dna-technology.ru",
+    "s.voronova@dna-technology.ru",
+    "torgi@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Fwd: Реагенты ПЦР",
+  "date": "Tue, 12 Aug 2025 12:05:58 +0700",
+  "parsed_date": "2025-08-12T12:05:58+07:00",
+  "body_raw": "-------- Исходное сообщение --------\r\nТема: Реагенты ПЦР\r\nДата: Вторник, Август 12, 2025 11:07 +07\r\nОт: Евдокимова Любовь <oper11@centerld.ru>\r\nКому: Константин Феофилактов <sklad@centerld.ru>\r\n\n-- \r\n\nГрафик работы:\r\nПн-Пт: с 9:00 до 16:00\r\nОбед: с 12:00 до 13:00\r\nКонтакты:\r\n📍 Адрес: 630075, г. Новосибирск, ул. Народная, 3\r\n📞 Руководитель ОМТС: Бабиченко Иван Сергеевич\r\n☎ Телефон: +7-913-399-32-72\r\nС уважением,\r\n\"Центр Лабораторной Диагностики\"",
+  "body_clean": "-------- Исходное сообщение --------\nТема: Реагенты ПЦР\nДата: Вторник, Август 12, 2025 11:07 +07\nОт: Евдокимова Любовь oper11@centerld.ru\nКому: Константин Феофилактов sklad@centerld.ru\nГрафик работы:\nПн-Пт: с 9:00 до 16:00\nОбед: с 12:00 до 13:00\nКонтакты:\n📍 Адрес: 630075, г. Новосибирск, ул. Народная, 3\n📞 Руководитель ОМТС: Бабиченко Иван Сергеевич\n☎ Телефон: +7-913-399-32-72\nС уважением,\n\"Центр Лабораторной Диагностики\"",
+  "char_count": 424,
+  "attachments": [
+    {
+      "id": 402,
+      "original_filename": "Заявка от 11.08.2025.ПЦР-DNA.docx",
+      "saved_filename": "20250812_5ca73924_004957_088943_attach_Заявка от 11.08.2025.ПЦР-DNA.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-08-12/20250812_5ca73924_004957_088943_attach_Заявка от 11.08.2025.ПЦР-DNA.docx",
+      "relative_path": "attachments/2025-08-12/20250812_5ca73924_004957_088943_attach_Заявка от 11.08.2025.ПЦР-DNA.docx",
+      "file_size": 22476,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-13 17:49:57",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<12e-689acb80-18d-253552c0@154914392>",
+      "thread_id": "20250812_centerld_ru_7086654e",
+      "sha256": "54650082dcb9411c4e8a1f0a601b6f5e7d3dde263fb010b297aacf377304124a",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:49:57.087685+07:00",
+  "raw_size": 40660,
+  "date_folder": "2025-08-12",
+  "eml_path": "eml/2025-08-12/12e-689acb80-18d-253552c0_154914392_004957_079780.eml"
+}

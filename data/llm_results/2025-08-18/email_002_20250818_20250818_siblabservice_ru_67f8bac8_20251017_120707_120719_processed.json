@@ -1,0 +1,416 @@
+{
+  "source_file": "email_002_20250818_20250818_siblabservice_ru_67f8bac8.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": null,
+        "website": null,
+        "city": null,
+        "address": null,
+        "emails": [],
+        "phones": [],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      },
+      {
+        "organization_id": 2,
+        "name": "Сиблабсервис",
+        "inn": null,
+        "website": null,
+        "city": "Иркутск",
+        "address": "664033, г. Иркутск, ул. Фаворского, 1 Г, оф.9",
+        "emails": [],
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (395) 278-25-79",
+            "normalized": "+73952782579",
+            "original": "(3952) 78-25-79/78",
+            "extension": "123"
+          },
+          {
+            "type": null,
+            "number": "+7 (395) 239-52-78",
+            "normalized": "+73952395278",
+            "original": "(3952) 78-25-79/78",
+            "extension": "123"
+          }
+        ],
+        "gid": "e3966a5b-5572-543a-b855-416b9b44e76b"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Иванова Татьяна Валерьевна",
+        "organization_id": 2,
+        "position": "Руководитель отдела поставки",
+        "email": "tatyana@siblabservice.ru",
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (395) 278-25-79",
+            "normalized": "+73952782579",
+            "original": "Тел. (3952) 78-25-79/78 доб. 123",
+            "extension": "123"
+          },
+          {
+            "type": null,
+            "number": "+7 (395) 239-52-78",
+            "normalized": "+73952395278",
+            "original": "Тел. (3952) 78-25-79/78 доб. 123",
+            "extension": "123"
+          },
+          {
+            "type": "main",
+            "number": "+7 (395) 278-25-79",
+            "normalized": "+73952782579",
+            "original": "(3952) 78-25-79/78",
+            "extension": "123"
+          },
+          {
+            "type": "main",
+            "number": "+7 (395) 239-52-78",
+            "normalized": "+73952395278",
+            "original": "(3952) 78-25-79/78",
+            "extension": "123"
+          }
+        ],
+        "city": "Иркутск",
+        "address": "ул. Фаворского, 1 Г, оф.9",
+        "role_in_message": "sender",
+        "confidence": 0.95,
+        "value_score": 12,
+        "gid": "e0f71416-633c-57d5-babc-f05ded8a2bfd",
+        "website": "https://www.siblabservice.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_siblabservice.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "tatyana@siblabservice.ru",
+          "extracted_domain": "siblabservice.ru",
+          "website_found": "https://www.siblabservice.ru",
+          "enriched_at": 1760677639.730807,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      }
+    ],
+    "business_context": "Иванова Татьяна Валерьевна (Сиблабсервис) информирует об оплате по счету №9302 от 14.08.2025 в адрес ДНК-Технология на сумму 4 758 400,00 руб.",
+    "summary": {
+      "topic": "Оплата по счету №9302 от 14.08.2025",
+      "product_interest": "товар",
+      "communication_stage": "оплата счета",
+      "request_type": "уведомление об оплате"
+    },
+    "key_points": [
+      "Сиблабсервис уведомил об оплате счета №9302",
+      "Оплата в адрес ДНК-Технология",
+      "Сумма оплаты 4 758 400,00 руб."
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 1,
+        "organization_id": 2,
+        "message_subject": "18.08 оплачен сч 9302 ДНК-Технология",
+        "message_date": "2025-08-18T14:10:40+07:00",
+        "message_id_hint": "00d101dc100f$349a17e0$9dce47a0$@siblabservice.ru",
+        "role_in_message": "sender",
+        "interaction_type": "invoice_paid",
+        "summary": "Уведомление об оплате счета №9302 от 14.08.2025 в адрес ДНК-Технология",
+        "human_note": "Иванова Татьяна Валерьевна (Сиблабсервис) сообщила об оплате счета №9302 от 14.08.2025 в адрес ДНК-Технология.",
+        "participants": {
+          "actor": "Иванова Татьяна Валерьевна (Сиблабсервис, руководитель отдела поставки)",
+          "audience": [
+            "ДНК-Технология"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.95
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": null,\n      \"website\": null,\n      \"city\": null,\n      \"address\": null,\n      \"emails\": [],\n      \"phones\": []\n    },\n    {\n      \"organization_id\": 2,\n      \"name\": \"Сиблабсервис\",\n      \"inn\": null,\n      \"website\": null,\n      \"city\": \"Иркутск\",\n      \"address\": \"664033, г. Иркутск, ул. Фаворского, 1 Г, оф.9\",\n      \"emails\": [\n        \"tatyana@siblabservice.ru\"\n      ],\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"(3952) 78-25-79\",\n          \"normalized\": null,\n          \"original\": \"(3952) 78-25-79/78\",\n          \"extension\": \"123\"\n        },\n        {\n          \"type\": null,\n          \"number\": \"(3952) 78\",\n          \"normalized\": null,\n          \"original\": \"(3952) 78-25-79/78\",\n          \"extension\": \"123\"\n        }\n      ]\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Иванова Татьяна Валерьевна\",\n      \"organization_id\": 2,\n      \"position\": \"руководитель отдела поставки\",\n      \"email\": \"tatyana@siblabservice.ru\",\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"(3952) 78-25-79\",\n          \"normalized\": null,\n          \"original\": \"Тел. (3952) 78-25-79/78 доб. 123\",\n          \"extension\": \"123\"\n        },\n        {\n          \"type\": null,\n          \"number\": \"(3952) 78\",\n          \"normalized\": null,\n          \"original\": \"Тел. (3952) 78-25-79/78 доб. 123\",\n          \"extension\": \"123\"\n        }\n      ],\n      \"city\": \"Иркутск\",\n      \"address\": \"ул. Фаворского, 1 Г, оф.9\",\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.95\n    }\n  ],\n  \"business_context\": \"Иванова Татьяна Валерьевна (Сиблабсервис) информирует об оплате по счету №9302 от 14.08.2025 в адрес ДНК-Технология на сумму 4 758 400,00 руб.\",\n  \"summary\": {\n    \"topic\": \"Оплата по счету №9302 от 14.08.2025\",\n    \"product_interest\": \"товар\",\n    \"communication_stage\": \"оплата счета\",\n    \"request_type\": \"уведомление об оплате\"\n  },\n  \"key_points\": [\n    \"Сиблабсервис уведомил об оплате счета №9302\",\n    \"Оплата в адрес ДНК-Технология\",\n    \"Сумма оплаты 4 758 400,00 руб.\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 1,\n      \"organization_id\": 2,\n      \"message_subject\": \"18.08 оплачен сч 9302 ДНК-Технология\",\n      \"message_date\": \"2025-08-18T14:10:40+07:00\",\n      \"message_id_hint\": \"<00d101dc100f$349a17e0$9dce47a0$@siblabservice.ru>\",\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"invoice_paid\",\n      \"summary\": \"Уведомление об оплате счета №9302 от 14.08.2025 в адрес ДНК-Технология\",\n      \"human_note\": \"Иванова Татьяна Валерьевна (Сиблабсервис) сообщила об оплате счета №9302 от 14.08.2025 в адрес ДНК-Технология.\",\n      \"participants\": {\n        \"actor\": \"Иванова Татьяна Валерьевна (Сиблабсервис, руководитель отдела поставки)\",\n        \"audience\": [\"ДНК-Технология\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.95\n    }\n  ]\n}\n```",
+    "contact_mentions": [],
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-17T12:07:19.731748",
+      "stats": {
+        "processed_emails": 0,
+        "total_organizations_processed": 2,
+        "total_contacts_processed": 1,
+        "organizations_deduplicated": 0,
+        "contacts_filtered": 0,
+        "contacts_enriched": 1,
+        "data_normalized": 3,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 1,
+        "phones_added_to_contacts": 2
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1,
+        "2": 2
+      },
+      "contact_mapping": {
+        "1": 1
+      },
+      "filtering": {
+        "contacts_without_info_filtered": 0,
+        "mentions_saved": 0
+      },
+      "email_classification": {
+        "1": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        },
+        "2": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "FALLBACK",
+            "key_tuple": [
+              "ORG",
+              "FALLBACK",
+              "ea4f1f3cf4766e62"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 2,
+            "gid": "e3966a5b-5572-543a-b855-416b9b44e76b",
+            "match_rule": "NAME_CITY",
+            "key_tuple": [
+              "ORG",
+              "NAME_CITY",
+              "сиблабсервис",
+              "иркутск"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "gid": "e0f71416-633c-57d5-babc-f05ded8a2bfd",
+            "match_rule": "PHONE",
+            "key_tuple": [
+              "CONTACT",
+              "PHONE",
+              "e3966a5b-5572-543a-b855-416b9b44e76b",
+              "+3952782579"
+            ],
+            "alias_added": true,
+            "source": "registry",
+            "organization_id": 2,
+            "organization_gid": "e3966a5b-5572-543a-b855-416b9b44e76b"
+          }
+        ],
+        "conflicts": []
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.4,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.4,
+            "candidates": [
+              {
+                "inn": "7723537840",
+                "ogrn": "1057746762105",
+                "name": "ООО \"ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 5, помещ 12",
+                "opf": "ООО",
+                "score": 0.4,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723537840"
+              },
+              {
+                "inn": "7713668153",
+                "ogrn": "5087746543870",
+                "name": "ООО \"ДНК-ТЕХНОЛОГИЯ ТС\"",
+                "name_norm": "днк технология тс",
+                "city": "Москва",
+                "address": "г Москва, Научный проезд, д 20 стр 4",
+                "opf": "ООО",
+                "score": 0.26666666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7713668153"
+              },
+              {
+                "inn": "5037004152",
+                "ogrn": "1065043016521",
+                "name": "ООО \"НПО ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "нпо днк технология",
+                "city": "Протвино",
+                "address": "Московская обл, г Серпухов, г Протвино, ул Железнодорожная, д 20",
+                "opf": "ООО",
+                "score": 0.26666666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=5037004152"
+              },
+              {
+                "inn": "7723396678",
+                "ogrn": "1157746566031",
+                "name": "ООО \"НПФ ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "нпф днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 7",
+                "opf": "ООО",
+                "score": 0.26666666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723396678"
+              }
+            ],
+            "checked_at": "2025-10-17T12:07:17.954753",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "e3966a5b-5572-543a-b855-416b9b44e76b": {
+            "decision": "needs_review",
+            "inn": null,
+            "confidence": 0.6875,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.6875,
+            "candidates": [
+              {
+                "inn": "3812132920",
+                "ogrn": "1113850010174",
+                "name": "ООО \"СИБЛАБСЕРВИС\"",
+                "name_norm": "сиблабсервис",
+                "city": "Иркутск",
+                "address": "г Иркутск, ул Фаворского, д 1",
+                "opf": "ООО",
+                "score": 0.6875,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=3812132920"
+              },
+              {
+                "inn": "5408017916",
+                "ogrn": "1175476117915",
+                "name": "ООО \"СИБЛАБСЕРВИС\"",
+                "name_norm": "сиблабсервис",
+                "city": "Новосибирск",
+                "address": "г Новосибирск, ул Арбузова, д 6, помещ 47",
+                "opf": "ООО",
+                "score": 0.41875,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=5408017916"
+              }
+            ],
+            "checked_at": "2025-10-17T12:07:18.163486",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "e0f71416-633c-57d5-babc-f05ded8a2bfd",
+              "contact_name": "Иванова Татьяна Валерьевна",
+              "phones_added": [
+                {
+                  "phone": "+73952782579",
+                  "type": "main",
+                  "confidence": 0.7000000000000001,
+                  "source": "org_enrichment"
+                },
+                {
+                  "phone": "+73952395278",
+                  "type": "main",
+                  "confidence": 0.7000000000000001,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.7000000000000001
+              ],
+              "decision": {
+                "confidence": 0.7000000000000001,
+                "contact_gid": "e0f71416-633c-57d5-babc-f05ded8a2bfd",
+                "org_gid": "e3966a5b-5572-543a-b855-416b9b44e76b",
+                "timestamp": "2025-10-17T05:07:18.167256",
+                "decision": "needs_review",
+                "reason": "Средний уровень уверенности (0.70), требуется проверка"
+              },
+              "skip_reasons": []
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 1,
+            "contacts_enriched": 1,
+            "phones_added_total": 2,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.7000000000000001,
+            "phones_skipped_by_reason": {
+              "low_confidence": 0,
+              "no_org_phones": 0,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-17T05:07:18.167322",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 6,
+        "organizations_processed": 1,
+        "contacts_processed": 1,
+        "ui_format_applied": 6,
+        "phones_sanitized": 6
+      }
+    },
+    "provider_used": "OpenRouter",
+    "model": "google/gemini-2.0-flash-001",
+    "processing_time": 2.621577024459839,
+    "text_length": 674,
+    "chunks_processed": 1,
+    "total_contacts_found": 1,
+    "unique_contacts_found": 1,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-08-18/email_002_20250818_20250818_siblabservice_ru_67f8bac8.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 12.709
+  }
+}

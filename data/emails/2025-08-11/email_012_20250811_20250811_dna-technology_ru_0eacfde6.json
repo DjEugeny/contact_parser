@@ -1,0 +1,41 @@
+{
+  "thread_id": "20250811_dna-technology_ru_0eacfde6",
+  "message_id": "<d4ccc111-8fa0-4453-b223-d888ab43f9a9@dna-technology.ru>",
+  "email_num_in_day": 12,
+  "total_emails_in_day": 14,
+  "from": "litvinenko@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Re: Заявление на отпуск Воронова С.С.",
+  "date": "Mon, 11 Aug 2025 17:12:46 +0300",
+  "parsed_date": "2025-08-11T21:12:46+07:00",
+  "body_raw": "принято\r\n\n11.08.2025 16:37, Воронова Светлана Сергеевна пишет:\r\n>\r\n> Добрый день!\r\n>\r\n> Прошу предоставить ежегодный оплачиваемый отпуск  с 01 по 15 сентября \r\n> 2025 года, заявление во вложении.\r\n>\r\n> -- \r\n>\r\n> С уважением, Воронова Светлана Сергеевна\r\n> Региональный представитель в СФО, г. Новосибирск | ООО «ДНК-Технология»\r\n>\r\n> Тел.: +7 (995) 129-39-76 <tel:+79951293976>\r\n> Email: s.voronova@dna-technology.ru\r\n>\r\n> ------------------------------------------------------------------------\r\n>\r\n> Сайт: dna-technology.ru <https://dna-technology.ru>\r\n> Telegram: @dna_tech_rus <https://t.me/dna_tech_rus>\r\n> YouTube <https://www.youtube.com/channel/UCqUrpqfZ65z26CUR-4f96iA> | \r\n> Rutube <https://rutube.ru/channel/63912239/>\r\n>\r\n> ------------------------------------------------------------------------\r\n>\r\n> Москва, Варшавское шоссе, дом 125Ж, корпус 5\r\n>\r\n> ДНК-Технология\r\n>\r\n> Профиль компании: разработка и производство лабораторного \r\n> оборудования, ПО и реагентов для молекулярно-генетических исследований \r\n> (ПЦР, NGS).\r\n>\r\n> ДТпрайм II\r\n\n-- \r\nС уважением,\r\nменеджер по работе с клиентами\r\nООО \"ДНК-Технология\"\r\nЛитвиненко Юлия. Москва.\r\nтел. (495) 640-17-71 доб. 2018\r\nмоб. +7(985)-170-03-87\r\nlitvinenko@dna-technology.ru",
+  "body_clean": "принято\n11.08.2025 16:37, Воронова Светлана Сергеевна пишет:\n[quoted message elided #0a4e554dabfb]\nДобрый день!\nПрошу предоставить ежегодный оплачиваемый отпуск  с 01 по 15 сентября\n2025 года, заявление во вложении.\n[quoted message elided #80039d3eca43]\nС уважением, Воронова Светлана Сергеевна\nРегиональный представитель в СФО, г. Новосибирск | ООО «ДНК-Технология»\nТел.: +7 (995) 129-39-76 tel:+79951293976\nEmail: s.voronova@dna-technology.ru\nСайт: dna-technology.ru https://dna-technology.ru\nTelegram: @dna_tech_rus https://t.me/dna_tech_rus\nYouTube https://www.youtube.com/channel/UCqUrpqfZ65z26CUR-4f96iA |\nRutube https://rutube.ru/channel/63912239/\nМосква, Варшавское шоссе, дом 125Ж, корпус 5\nДНК-Технология\n[quoted message elided #66b785bec95a]\nС уважением,\nменеджер по работе с клиентами\nООО \"ДНК-Технология\"\nЛитвиненко Юлия. Москва.\nтел. (495) 640-17-71 доб. 2018\nмоб. +7(985)-170-03-87\nlitvinenko@dna-technology.ru",
+  "char_count": 925,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part1.OGPlO2CS.jF4gBK1y@dna-technology.ru",
+      "original_filename": "fyhEP7PfF3EFEXDB.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:49:49.610531+07:00",
+  "raw_size": 121953,
+  "date_folder": "2025-08-11",
+  "eml_path": "eml/2025-08-11/d4ccc111-8fa0-4453-b223-d888ab43f9a9_dna-technology.ru_004949_600821.eml"
+}

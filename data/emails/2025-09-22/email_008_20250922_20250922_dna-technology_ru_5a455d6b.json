@@ -1,0 +1,41 @@
+{
+  "thread_id": "20250922_dna-technology_ru_5a455d6b",
+  "message_id": "<48a2345f-25a4-49cb-8118-1a64e4ee60a3@dna-technology.ru>",
+  "email_num_in_day": 8,
+  "total_emails_in_day": 10,
+  "from": "bilalov@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Fwd: запрос ИЦиГ СО РАН, г. Новосибирск",
+  "date": "Mon, 22 Sep 2025 11:43:22 +0300",
+  "parsed_date": "2025-09-22T15:43:22+07:00",
+  "body_raw": "Светлана,\r\n\nна адрес Далекслаб info@dalekslab.ru запрос также не поступал\r\n\nНет, не было такого.\r\n\nС уважением,\r\nЗам.директора ООО Далекслаб\r\nХорева Эйла\r\n8-903-828-48-69\r\n\n Понедельник, 22 сентября 2025, 11:30 +03:00 от Билалов Альберт\r\n Аглямович <bilalov@dna-technology.ru\r\n <https://e.mail.ru/compose/?mailto=mailto%3Abilalov%40dna-technology.ru>>:\r\n Добрый день, Эйла!\r\n\n На адрес Далекс <info@dalekslab.ru> должен был поступить запрос от\r\n нашего клиента ИЦиГ СО РАН, г. Новосибирск\r\n Не приходил такой?\r\n\n -- \r\n\n *С уважением, Билалов Альберт Аглямович,*\r\n\n *зам. начальника отдела продаж *\r\n\n **ООО \"ДНК-Технология\" **\r\n\n ***Тел:**+7 (495) 640-17-71, доб.2031***\r\n\n ****\r\n\n ***E-mail:**bilalov@dna-technology.ru ***\r\n\n ****\r\n\n ***Web:**www.dna-technology.ru <https://dna-technology.ru>***\r\n\n **<https://dna-technology.ru>**",
+  "body_clean": "Светлана,\nна адрес Далекслаб info@dalekslab.ru запрос также не поступал\nНет, не было такого.\nС уважением,\nЗам.директора ООО Далекслаб\nХорева Эйла\n8-903-828-48-69\nПонедельник, 22 сентября 2025, 11:30 +03:00 от Билалов Альберт\nАглямович >:\nДобрый день, Эйла!\nНа адрес Далекс info@dalekslab.ru должен был поступить запрос от\nнашего клиента ИЦиГ СО РАН, г. Новосибирск\nНе приходил такой?\n*С уважением, Билалов Альберт Аглямович,*\n*зам. начальника отдела продаж *\n**ООО \"ДНК-Технология\" **\n***Тел:**+7 (495) 640-17-71, доб.2031***\n***E-mail:**bilalov@dna-technology.ru ***\n***Web:**www.dna-technology.ru https://dna-technology.ru***\n**https://dna-technology.ru**",
+  "char_count": 657,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:logo*",
+      "original_filename": "logo.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:59:28.694170+07:00",
+  "raw_size": 121985,
+  "date_folder": "2025-09-22",
+  "eml_path": "eml/2025-09-22/48a2345f-25a4-49cb-8118-1a64e4ee60a3_dna-technology.ru_005928_689826.eml"
+}

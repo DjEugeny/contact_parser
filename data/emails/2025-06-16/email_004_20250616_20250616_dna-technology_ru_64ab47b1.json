@@ -1,0 +1,47 @@
+{
+  "thread_id": "20250616_dna-technology_ru_64ab47b1",
+  "message_id": "<c6c9b01c-1b8f-4d8d-8149-6f9206cddf08@dna-technology.ru>",
+  "email_num_in_day": 4,
+  "total_emails_in_day": 10,
+  "from": "o.isaev@dna-technology.ru",
+  "to": "shpinkova@dna-technology.ru, ivaschuk@dna-technology.ru, suchkova@dna-technology.ru...",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "shpinkova@dna-technology.ru",
+    "ivaschuk@dna-technology.ru",
+    "suchkova@dna-technology.ru",
+    "fetisova@dna-technology.ru",
+    "torgi@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "ХимЛабСервис",
+  "date": "Mon, 16 Jun 2025 11:21:32 +0300",
+  "parsed_date": "2025-06-16T15:21:32+07:00",
+  "body_raw": "Коллеги, информирую,что при поступлении заявки на наборы реагентов от \r\nООО Лабиотест(ИНН7017450804) или ООО ЛабиоМед(ИНН 7017413489) или ИП \r\nКислюк Сергей Петрович(ИНН 701702862630) выставляем со скидками для \r\nХимЛабСервис г.Томск (20%) в связи с аффилированностью данных \r\nорганизаций. Скидки будут закреплены после выхода Литвиненко из отпуска.\r\n\n-- \r\nДокумент без названия\r\n\n*С уважением, Исаев Олег Юрьевич,*\r\n\n*Руководитель отдела регионального развития *\r\n\n**ООО \"ДНК-Технология\" **\r\n\n***Тел:**+7 (495) 640-17-71***\r\n\n**\r\n\n*E-mail:**o.isaev@dna-technology.ru *\r\n\n*Web:**www.dna-technology.ru <https://dna-technology.ru>*\r\n\n<https://dna-technology.ru>**",
+  "body_clean": "Коллеги, информирую,что при поступлении заявки на наборы реагентов от\nООО Лабиотест(ИНН7017450804) или ООО ЛабиоМед(ИНН 7017413489) или ИП\nКислюк Сергей Петрович(ИНН 701702862630) выставляем со скидками для\nХимЛабСервис г.Томск (20%) в связи с аффилированностью данных\nорганизаций. Скидки будут закреплены после выхода Литвиненко из отпуска.\nДокумент без названия\n*С уважением, Исаев Олег Юрьевич,*\n*Руководитель отдела регионального развития *\n**ООО \"ДНК-Технология\" **\n***Тел:**+7 (495) 640-17-71***\n*E-mail:**o.isaev@dna-technology.ru *\n*Web:**www.dna-technology.ru https://dna-technology.ru*\nhttps://dna-technology.ru**",
+  "char_count": 623,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:logo*",
+      "original_filename": "logo.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:35:20.378334+07:00",
+  "raw_size": 81996,
+  "date_folder": "2025-06-16",
+  "eml_path": "eml/2025-06-16/c6c9b01c-1b8f-4d8d-8149-6f9206cddf08_dna-technology.ru_003520_368844.eml"
+}

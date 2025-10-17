@@ -1,0 +1,54 @@
+{
+  "thread_id": "20250722_dna-technology_ru_17cb0020",
+  "message_id": "<8a49f12f-deb1-4c2b-aae3-0ae8e5930bdc@dna-technology.ru>",
+  "email_num_in_day": 3,
+  "total_emails_in_day": 14,
+  "from": "kozlova@dna-technology.ru",
+  "to": "oncomarkers2025@mail.ru",
+  "cc": "savicheva@dna-technology.ru, s.voronova@dna-technology.ru",
+  "to_emails": [
+    "oncomarkers2025@mail.ru"
+  ],
+  "cc_emails": [
+    "savicheva@dna-technology.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "участие в мероприятии 25-27.07.25 и 28-30.07.25",
+  "date": "Tue, 22 Jul 2025 11:04:01 +0300",
+  "parsed_date": "2025-07-22T15:04:01+07:00",
+  "body_raw": "Коллеги, добрый день!\r\n\nМеня зовут Ольга, представляю компанию \"ДНК-Технология\" коллеги передали \r\nинформацию по поводу участия в мероприятии «Практические школы по \r\nмолекулярно-генетической диагностике» 25-27.07.25.\r\n\nПоскольку мероприятие уже совсем скоро, хотели бы оперативно оплатить \r\nсвое участие   и заключить договор.\r\n\nКарточку организации прилагаю.\r\n\nСпасибо,\r\n\n-- \r\n\nКозлова Ольга\r\nВедущий сервис-менеджер | ООО «ДНК-Технология»\r\n\nТел.: +7-915-252-22-43 <tel:+7-915-252-22-43>\r\nРабочий: +7 (495) 640-17-71 (доб. 2026) <tel:+74956401771,2026>\r\nEmail: kozlova@dna-technology.ru\r\n\n------------------------------------------------------------------------\r\n\nСайт: dna-technology.ru <https://dna-technology.ru>\r\nTelegram: @dna_tech_rus <https://t.me/dna_tech_rus>\r\nYouTube <https://www.youtube.com/channel/UCqUrpqfZ65z26CUR-4f96iA> | \r\nRutube <https://rutube.ru/channel/63912239/>\r\n\n------------------------------------------------------------------------\r\n\nМосква, Варшавское шоссе, дом 125Ж, корпус 6, этаж 5\r\n\nДНК-Технология\r\n\nПрофиль компании: разработка и производство лабораторного оборудования, \r\nПО и реагентов для молекулярно-генетических исследований (ПЦР, NGS).",
+  "body_clean": "Коллеги, добрый день!\nМеня зовут Ольга, представляю компанию \"ДНК-Технология\" коллеги передали\nинформацию по поводу участия в мероприятии «Практические школы по\nмолекулярно-генетической диагностике» 25-27.07.25.\nПоскольку мероприятие уже совсем скоро, хотели бы оперативно оплатить\nсвое участие и заключить договор.\nКарточку организации прилагаю.\nСпасибо,\nКозлова Ольга\nВедущий сервис-менеджер | ООО «ДНК-Технология»\nТел.: +7-915-252-22-43 tel:+7-915-252-22-43\nРабочий: +7 (495) 640-17-71 (доб. 2026) tel:+74956401771,2026\nEmail: kozlova@dna-technology.ru\nСайт: dna-technology.ru https://dna-technology.ru\nTelegram: @dna_tech_rus https://t.me/dna_tech_rus\nYouTube https://www.youtube.com/channel/UCqUrpqfZ65z26CUR-4f96iA |\nRutube https://rutube.ru/channel/63912239/\nМосква, Варшавское шоссе, дом 125Ж, корпус 6, этаж 5\nДНК-Технология\nПрофиль компании: разработка и производство лабораторного оборудования,\nПО и реагентов для молекулярно-генетических исследований (ПЦР, NGS).",
+  "char_count": 974,
+  "attachments": [
+    {
+      "id": 100,
+      "original_filename": "реквизиты ООО.doc",
+      "saved_filename": "20250722_7bd81070_101026_179965_attach_реквизиты ООО.doc",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-07-22/20250722_7bd81070_101026_179965_attach_реквизиты ООО.doc",
+      "relative_path": "attachments/2025-07-22/20250722_7bd81070_101026_179965_attach_реквизиты ООО.doc",
+      "file_size": 28160,
+      "file_type": "application/msword",
+      "content_type": "application/msword",
+      "saved_at": "2025-10-13 03:10:26",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<8a49f12f-deb1-4c2b-aae3-0ae8e5930bdc@dna-technology.ru>",
+      "thread_id": "20250722_dna-technology_ru_17cb0020",
+      "sha256": "0216a68b6755527bd003f51f666013867b3d162cfc963e0978167e1fd5dae5e4"
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-13T10:10:26.178154+07:00",
+  "raw_size": 46444,
+  "date_folder": "2025-07-22",
+  "eml_path": "eml/2025-07-22/8a49f12f-deb1-4c2b-aae3-0ae8e5930bdc_dna-technology.ru_101026_172919.eml"
+}

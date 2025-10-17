@@ -1,0 +1,69 @@
+{
+  "thread_id": "20250428_assa-group_ru_73aaac8c",
+  "message_id": "<00b401dbb80d$3865c180$a9314480$@assa-group.ru>",
+  "email_num_in_day": 3,
+  "total_emails_in_day": 21,
+  "from": "matulskaya@assa-group.ru",
+  "to": "m.gogoleva@dna-technology.ru",
+  "cc": "anufrieva@assa-group.ru, zolotareva@dna-technology.ru, s.voronova@dna-technology.ru",
+  "to_emails": [
+    "m.gogoleva@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "anufrieva@assa-group.ru",
+    "zolotareva@dna-technology.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Запрос на ПЦР-амплификатор - АССА Лабораторные системы",
+  "date": "Mon, 28 Apr 2025 14:14:44 +0700",
+  "parsed_date": "2025-04-28T14:14:44+07:00",
+  "body_raw": "Мария, добрый день!\r\n\nПрошу выставить КП на поставку: амплификатор ДТпрайм DTprime 5М1.\r\n\nКлиент: ОГАУ \"Межрайонная ветстанция по Волоконовскому и Валуйскому районам\", Белгородская обл., п. Волоконовка.\r\n\nАдрес: 309651, Белгородская область, Волоконовский район, город Валуйки, ул. М. Горького, д. 107.\r\n\nИНН: 3106002204.\r\n\nПланируют приобретать в Q3 - 2025\r\n\nПрошу закрепить проект за нашей организацией, указать в КП:\r\n- стоимость товара,\r\n\n- размер скидки,\r\n\n- сроки доставки,\r\n\n- условия предоплаты,\r\n\n- срок гарантии.\r\n\nБуду очень благодарна за оперативный ответ.\r\n\nПродуктивного рабочего дня!\r\n\nЕлизавета Матульская\r\n\nСпециалист отдела решений для научных исследований\r\n\nОтдел продаж | АССА ЛАБОРАТОРНЫЕ СИСТЕМЫ\r\n\n _____ \r\n\n <tel:+74994900272> \r\n\n <tel:+74994900272> +7 (499) 490-02-72, доб. 1050 | <tel:+79528973634> +7 (952) 897-36-34\r\n\n <mailto:matulskaya@assa-group.ru> matulskaya@assa-group.ru\r\n\n <http://assa-group.ru/> \r\n\n <https://assa-group.ru/> assa-group.ru\r\n\nТомск, 634012, ул. Елизаровых, 53/2​, 804 офис",
+  "body_clean": "Мария, добрый день!\nПрошу выставить КП на поставку: амплификатор ДТпрайм DTprime 5М1.\nКлиент: ОГАУ \"Межрайонная ветстанция по Волоконовскому и Валуйскому районам\", Белгородская обл., п. Волоконовка.\nАдрес: 309651, Белгородская область, Волоконовский район, город Валуйки, ул. М. Горького, д. 107.\nИНН: 3106002204.\nПланируют приобретать в Q3 - 2025\nПрошу закрепить проект за нашей организацией, указать в КП:\n- стоимость товара,\n- размер скидки,\n- сроки доставки,\n- условия предоплаты,\n- срок гарантии.\nБуду очень благодарна за оперативный ответ.\nПродуктивного рабочего дня!\nЕлизавета Матульская\nСпециалист отдела решений для научных исследований\nОтдел продаж | АССА ЛАБОРАТОРНЫЕ СИСТЕМЫ\ntel:+74994900272\ntel:+74994900272 +7 (499) 490-02-72, доб. 1050 | tel:+79528973634 +7 (952) 897-36-34\nmailto:matulskaya@assa-group.ru matulskaya@assa-group.ru\nhttp://assa-group.ru/\nhttps://assa-group.ru/ assa-group.ru\nТомск, 634012, ул. Елизаровых, 53/2​, 804 офис",
+  "char_count": 951,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image001.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image002.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image003.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image004.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image005.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 5,
+    "saved": 0,
+    "excluded": 5,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:26:00.782907+07:00",
+  "raw_size": 27771,
+  "date_folder": "2025-04-28",
+  "eml_path": "eml/2025-04-28/00b401dbb80d_3865c180_a9314480_assa-group.ru_002600_780270.eml"
+}

@@ -1,0 +1,45 @@
+{
+  "date": "2025-08-28",
+  "run_id": "20251016_175515",
+  "timezone": "UTC",
+  "started_at": "2025-10-16T17:55:15.266115+07:00",
+  "completed_at": "2025-10-16T17:55:42.870372+07:00",
+  "totals": {
+    "emails": 1,
+    "success": 1,
+    "failed": 0,
+    "organizations": 3,
+    "contacts": 3,
+    "commercial_offers": 0,
+    "interactions": 2
+  },
+  "entries": [
+    {
+      "filename": "email_004_20250828_20250828_dna-technology_ru_4c4b54bc.json",
+      "success": true,
+      "organizations": 3,
+      "contacts": 3,
+      "commercial_offers": 0,
+      "interactions": 2,
+      "processing_time_seconds": 27.595,
+      "raw_json": "raw/email_004_20250828_20250828_dna_technology_ru_4c4b54bc_20251016_175515_175542_raw.json",
+      "processed_json": "email_004_20250828_20250828_dna_technology_ru_4c4b54bc_20251016_175515_175542_processed.json",
+      "errors": [],
+      "processing_strategy": "standard",
+      "fallback_reason": null,
+      "was_retried": false
+    }
+  ],
+  "run_stats": {
+    "emails_total": 1,
+    "emails_successful": 1,
+    "emails_failed": 0,
+    "total_processing_time": 27.595,
+    "average_processing_time": 27.595,
+    "organizations": 3,
+    "contacts": 3,
+    "commercial_offers": 0,
+    "interactions": 2,
+    "failures": []
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "thread_id": "20250522_irkmed_ru_1e5e55fc",
+  "message_id": "<262655799.1038580.1747904511885.JavaMail.zimbra@irkmed.ru>",
+  "email_num_in_day": 14,
+  "total_emails_in_day": 16,
+  "from": "mesmer.is@irkmed.ru",
+  "to": "m.gogoleva@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "m.gogoleva@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Клиент ФГБУ НИИ ВХ Гусака г.Донецк ИНН 9308020983",
+  "date": "Thu, 22 May 2025 17:01:51 +0800 (IRKT)",
+  "parsed_date": "2025-05-22T16:01:51+07:00",
+  "body_raw": "Мария, у меня еще запрос на \r\nФГБУ НИИ восстановительной хирургии им Гусака г. Донецк ИНН [ callto:9308020983 | 9308020983 ] \r\nна амплификаторы ДТ-прайм 4 и ДТ-Лайт 4 - прямая продажа \r\n\nЗаранее благодарю! \r\n\nС уважением, \r\nМесмер Инесса \r\nРуководитель отдела закупа \r\nООО \"Лабора\" \r\nТел.8(3952)288867, доб. 3224 \r\nмоб.8-914-933-59-19 \r\nmesmer.is@irkmed.ru",
+  "body_clean": "Мария, у меня еще запрос на\nФГБУ НИИ восстановительной хирургии им Гусака г. Донецк ИНН [ callto:9308020983 | 9308020983 ]\nна амплификаторы ДТ-прайм 4 и ДТ-Лайт 4 - прямая продажа\nЗаранее благодарю!\nС уважением,\nМесмер Инесса\nРуководитель отдела закупа\nООО \"Лабора\"\nТел.8(3952)288867, доб. 3224\nмоб.8-914-933-59-19\nmesmer.is@irkmed.ru",
+  "char_count": 334,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:30:46.443775+07:00",
+  "raw_size": 7637,
+  "date_folder": "2025-05-22",
+  "eml_path": "eml/2025-05-22/262655799.1038580.1747904511885.JavaMail.zimbra_irkmed.ru_003046_437972.eml"
+}

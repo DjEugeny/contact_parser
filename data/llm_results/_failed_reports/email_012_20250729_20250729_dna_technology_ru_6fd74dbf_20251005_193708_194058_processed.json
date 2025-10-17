@@ -1,0 +1,347 @@
+{
+  "source_file": "email_012_20250729_20250729_dna-technology_ru_6fd74dbf.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": "7728469349",
+        "website": "www.dna-technology.ru",
+        "city": null,
+        "address": null,
+        "emails": [],
+        "phones": [
+          {
+            "type": "main",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71, доб.2031",
+            "extension": "2031"
+          }
+        ],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      },
+      {
+        "organization_id": 2,
+        "name": "АгроДиагностика",
+        "inn": "7721531360",
+        "website": null,
+        "city": "Москва",
+        "address": "117587, Москва г, муниципальный округ Чертаново Северное, Варшавское ш, д. 125Ж, корп.6, этаж 3, пом.5",
+        "emails": [],
+        "phones": [],
+        "gid": "941277e9-82a4-590a-ab3b-be08f9db30e9"
+      },
+      {
+        "organization_id": 3,
+        "name": "ФБУЗ Центр гигиены и эпидемиологии в Алтайском крае",
+        "inn": "2225068322",
+        "website": null,
+        "city": "Барнаул",
+        "address": "656049, Алтайский край, г.Барнаул, пер. Радищева, 50",
+        "emails": [],
+        "phones": [],
+        "gid": "ac12ae29-7a6b-5c7b-858d-0c26108cfc88"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Билалов Альберт Аглямович",
+        "organization_id": 1,
+        "position": "Зам. начальника отдела продаж",
+        "email": "bilalov@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 1.0,
+        "value_score": 9,
+        "gid": "459251c8-e1af-5c99-a267-186d6f6fd001",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "bilalov@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1759668058.1384609,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 2,
+        "name": "Кокорев Николай Вадимович",
+        "organization_id": 2,
+        "position": "Генеральный директор",
+        "email": null,
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "mentioned",
+        "confidence": 0.9,
+        "value_score": 7,
+        "gid": "473a85c2-01e2-5273-a507-15cbac38197c",
+        "enrichment_skipped": true,
+        "enrichment_reason": "no_email"
+      },
+      {
+        "contact_id": 3,
+        "name": "Панченко Денис Игоревич",
+        "organization_id": 3,
+        "position": "Главный врач",
+        "email": null,
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "mentioned",
+        "confidence": 0.9,
+        "value_score": 7,
+        "gid": "632db04e-17ee-5b69-b22e-7c01b586b2f9",
+        "enrichment_skipped": true,
+        "enrichment_reason": "no_email"
+      }
+    ],
+    "business_context": "Билалов Альберт Аглямович (ДНК-Технология) отправляет акт приема-передачи оборудования и УПД от 23 июля получателю. Документы относятся к контракту №К-6 от 13.05.2025 между АгроДиагностикой и ФБУЗ Центром гигиены и эпидемиологии в Алтайском крае на поставку амплификатора ДТпрайм 5М1 стоимостью 1 902 742,25 руб.",
+    "summary": {
+      "topic": "Отправка акта приема-передачи оборудования и УПД по контракту №К-6",
+      "product_interest": "Амплификатор детектирующий ДТпрайм 5М1",
+      "communication_stage": "постпродажное сопровождение",
+      "request_type": "передача документов"
+    },
+    "key_points": [
+      "Билалов Альберт (ДНК-Технология) отправляет акт и УПД от 23.07.2025",
+      "Документы по контракту №К-6 от 13.05.2025 между АгроДиагностикой и ФБУЗ Центром гигиены",
+      "Передано оборудование: амплификатор ДТпрайм 5М1 стоимостью 1 902 742,25 руб. без НДС"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "документы с датой 23.07",
+        "message_date": "2025-07-29T16:09:56+07:00",
+        "message_id_hint": "f916015b-ee54-471b-a030-abe9b1b4688f@dna-technology.ru",
+        "role_in_message": "sender",
+        "interaction_type": "delivery",
+        "summary": "Билалов Альберт отправляет акт приема-передачи оборудования и УПД от 23 июля по контракту №К-6",
+        "human_note": "Билалов Альберт (ДНК-Технология) отправляет получателю акт и УПД с датой 23 июля по завершенной поставке оборудования",
+        "participants": {
+          "actor": "Билалов Альберт (ДНК-Технология, зам. начальника отдела продаж)",
+          "audience": [
+            "Получатель (не указан)"
+          ]
+        },
+        "attachments": [
+          "Sales20250729115854.pdf",
+          "Sales20250729115910.pdf"
+        ],
+        "confidence": 0.95
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": \"7728469349\",\n      \"website\": \"www.dna-technology.ru\",\n      \"city\": null,\n      \"address\": null,\n      \"emails\": [],\n      \"phones\": [\n        {\n          \"type\": \"main\",\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": \"+74956401771\",\n          \"original\": \"+7 (495) 640-17-71, доб.2031\",\n          \"extension\": \"2031\"\n        }\n      ]\n    },\n    {\n      \"organization_id\": 2,\n      \"name\": \"АгроДиагностика\",\n      \"inn\": \"7721531360\",\n      \"website\": null,\n      \"city\": \"Москва\",\n      \"address\": \"117587, Москва г, муниципальный округ Чертаново Северное, Варшавское ш, д. 125Ж, корп.6, этаж 3, пом.5\",\n      \"emails\": [],\n      \"phones\": []\n    },\n    {\n      \"organization_id\": 3,\n      \"name\": \"ФБУЗ Центр гигиены и эпидемиологии в Алтайском крае\",\n      \"inn\": \"2225068322\",\n      \"website\": null,\n      \"city\": \"Барнаул\",\n      \"address\": \"656049, Алтайский край, г.Барнаул, пер. Радищева, 50\",\n      \"emails\": [],\n      \"phones\": []\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Билалов Альберт Аглямович\",\n      \"organization_id\": 1,\n      \"position\": \"зам. начальника отдела продаж\",\n      \"email\": \"bilalov@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 1.0\n    },\n    {\n      \"contact_id\": 2,\n      \"name\": \"Кокорев Николай Вадимович\",\n      \"organization_id\": 2,\n      \"position\": \"генеральный директор\",\n      \"email\": null,\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"mentioned\",\n      \"confidence\": 0.9\n    },\n    {\n      \"contact_id\": 3,\n      \"name\": \"Панченко Денис Игоревич\",\n      \"organization_id\": 3,\n      \"position\": \"главный врач\",\n      \"email\": null,\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"mentioned\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"business_context\": \"Билалов Альберт Аглямович (ДНК-Технология) отправляет акт приема-передачи оборудования и УПД от 23 июля получателю. Документы относятся к контракту №К-6 от 13.05.2025 между АгроДиагностикой и ФБУЗ Центром гигиены и эпидемиологии в Алтайском крае на поставку амплификатора ДТпрайм 5М1 стоимостью 1 902 742,25 руб.\",\n  \"summary\": {\n    \"topic\": \"Отправка акта приема-передачи оборудования и УПД по контракту №К-6\",\n    \"product_interest\": \"Амплификатор детектирующий ДТпрайм 5М1\",\n    \"communication_stage\": \"постпродажное сопровождение\",\n    \"request_type\": \"передача документов\"\n  },\n  \"key_points\": [\n    \"Билалов Альберт (ДНК-Технология) отправляет акт и УПД от 23.07.2025\",\n    \"Документы по контракту №К-6 от 13.05.2025 между АгроДиагностикой и ФБУЗ Центром гигиены\",\n    \"Передано оборудование: амплификатор ДТпрайм 5М1 стоимостью 1 902 742,25 руб. без НДС\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"документы с датой 23.07\",\n      \"message_date\": \"2025-07-29T16:09:56+07:00\",\n      \"message_id_hint\": \"<f916015b-ee54-471b-a030-abe9b1b4688f@dna-technology.ru>\",\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"delivery\",\n      \"summary\": \"Билалов Альберт отправляет акт приема-передачи оборудования и УПД от 23 июля по контракту №К-6\",\n      \"human_note\": \"Билалов Альберт (ДНК-Технология) отправляет получателю акт и УПД с датой 23 июля по завершенной поставке оборудования\",\n      \"participants\": {\n        \"actor\": \"Билалов Альберт (ДНК-Технология, зам. начальника отдела продаж)\",\n        \"audience\": [\"Получатель (не указан)\"]\n      },\n      \"attachments\": [\"Sales20250729115854.pdf\", \"Sales20250729115910.pdf\"],\n      \"confidence\": 0.95\n    }\n  ]\n}\n```",
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-05T19:40:58.139515",
+      "stats": {
+        "processed_emails": 3,
+        "total_organizations_processed": 11,
+        "total_contacts_processed": 13,
+        "organizations_deduplicated": 0,
+        "contacts_filtered": 0,
+        "contacts_enriched": 13,
+        "data_normalized": 24,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1,
+        "2": 2,
+        "3": 3
+      },
+      "contact_mapping": {
+        "1": 1,
+        "2": 2,
+        "3": 3
+      },
+      "provenance": {
+        "contacts": {
+          "1": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "2": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "3": {
+            "backfill_skipped": "no_personal_location_signal"
+          }
+        }
+      },
+      "email_classification": {
+        "1": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        },
+        "2": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        },
+        "3": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "7728469349"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 2,
+            "gid": "941277e9-82a4-590a-ab3b-be08f9db30e9",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "7721531360"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 3,
+            "gid": "ac12ae29-7a6b-5c7b-858d-0c26108cfc88",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "2225068322"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "gid": "459251c8-e1af-5c99-a267-186d6f6fd001",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "bilalov@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 2,
+            "organization_id": 2,
+            "organization_gid": "941277e9-82a4-590a-ab3b-be08f9db30e9",
+            "gid": "473a85c2-01e2-5273-a507-15cbac38197c",
+            "match_rule": "NAME_POSITION",
+            "key_tuple": [
+              "CONTACT",
+              "NAME_POSITION",
+              "941277e9-82a4-590a-ab3b-be08f9db30e9",
+              "кокорев николай вадимович",
+              "генеральный директор"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 3,
+            "organization_id": 3,
+            "organization_gid": "ac12ae29-7a6b-5c7b-858d-0c26108cfc88",
+            "gid": "632db04e-17ee-5b69-b22e-7c01b586b2f9",
+            "match_rule": "NAME_POSITION",
+            "key_tuple": [
+              "CONTACT",
+              "NAME_POSITION",
+              "ac12ae29-7a6b-5c7b-858d-0c26108cfc88",
+              "панченко денис игоревич",
+              "главный врач"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          }
+        ],
+        "conflicts": []
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.0,
+            "source": "none",
+            "method": "no_candidates_found",
+            "score": 0.0,
+            "candidates": [],
+            "checked_at": "2025-10-05T19:40:56.384740",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "941277e9-82a4-590a-ab3b-be08f9db30e9": {
+            "decision": "skipped",
+            "inn": "7721531360",
+            "confidence": 1.0,
+            "source": "existing",
+            "method": "existing_valid_inn",
+            "score": 1.0,
+            "candidates": [],
+            "checked_at": "2025-10-05T19:40:56.384770",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "ac12ae29-7a6b-5c7b-858d-0c26108cfc88": {
+            "decision": "skipped",
+            "inn": "2225068322",
+            "confidence": 1.0,
+            "source": "existing",
+            "method": "existing_valid_inn",
+            "score": 1.0,
+            "candidates": [],
+            "checked_at": "2025-10-05T19:40:56.384796",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {
+          "evidence_count": 1,
+          "organizations_enriched": 0,
+          "cities_added": 0,
+          "addresses_added": 0,
+          "conflicts_detected": 0,
+          "location_evidence": {
+            "3": 

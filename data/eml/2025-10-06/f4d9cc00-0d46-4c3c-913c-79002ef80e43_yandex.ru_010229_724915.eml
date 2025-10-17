@@ -1,0 +1,1175 @@
+Received:  from forward501b.mail.yandex.net ([178.154.239.145]:52236)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98.2 (FreeBSD))
+	 (envelope-from <kes.snab@yandex.ru>)
+	 id 1v5bkQ-00000000DkU-33ah ;
+	Mon, 06 Oct 2025 06:18:51 +0300
+Received: from mail-nwsmtp-smtp-production-main-91.sas.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-91.sas.yp-c.yandex.net [IPv6:2a02:6b8:c1e:3990:0:640:454b:0])
+	by forward501b.mail.yandex.net (Yandex) with ESMTPS id 8FC7E80F9B;
+	Mon, 06 Oct 2025 06:18:48 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-91.sas.yp-c.yandex.net (smtp/Yandex) with ESMTPSA id lIapmVjLvKo0-fP7WsHIm;
+	Mon, 06 Oct 2025 06:18:48 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1759720728; bh=+qAYmq92LcJN2sENfNuIz5sWdvlijm3KLSLQ0P5EIbg=;
+	h=In-Reply-To:To:Date:References:Subject:Message-ID:From;
+	b=LeCeJlcgjlQ0alxvzl3kiJKc/4i+UuNCW6xUyuglAxW6GXRSd+lEQ0mb0rMMCKlb1
+	 w1AQVgjCzyYRv88vdc+HnrsnlBc4TF5KS0tQU66+ptLMG1a87QXKXQNlHeTgElfUTN
+	 fbvC+c4FR/f4/DI6Q+rUe6nBPuynbRQlxRLafyCU=
+Authentication-Results: mail-nwsmtp-smtp-production-main-91.sas.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+Content-Type: multipart/mixed; boundary="------------XDNlCSO0fu4BV0WEfZP28LcK"
+Message-ID: <f4d9cc00-0d46-4c3c-913c-79002ef80e43@yandex.ru>
+Date: Mon, 6 Oct 2025 10:18:47 +0700
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: =?UTF-8?B?0JfQsNC/0YDQvtGBINC60L7QvNC80LXRgNGH0LXRgdC60L7Qs9C+INC/?=
+ =?UTF-8?B?0YDQtdC00LvQvtC20LXQvdC40Y8g0LTQu9GPINCa0JPQkdCj0JcgItCa0YDQsNC1?=
+ =?UTF-8?B?0LLQsNGPINC60LvQuNC90LjRh9C10YHQutCw0Y8g0LHQvtC70YzQvdC40YbQsCIg?=
+ =?UTF-8?B?KNCY0J3QnSAyMjI1MDIxMDY3KQ==?=
+Content-Language: en-US
+References: <7044f0ea-daad-42d3-ab9b-0dd19e804fa2@yandex.ru>
+To: =?UTF-8?B?0JTQndCaIC0g0KLQtdGF0L3QvtC70L7Qs9C40Y8g0KfRg9GA0L7Rh9C60Lg=?=
+ =?UTF-8?B?0L3QsCDQntC70YzQs9CwINCQ0LvQtdC60YHQsNC90LTRgNC+0LLQvdCw?=
+ <torgi@dna-technology.ru>,
+ =?UTF-8?B?0JTQndCaLdCi0LXRhdC90L7Qu9C+0LPQuNGPINCS0L7RgNC+0L3QvtCy0LAg0KE=?=
+ =?UTF-8?B?0LLQtdGC0LvQsNC90LAg0KHQtdGA0LPQtdC10LLQvdCwKg==?=
+ <s.voronova@dna-technology.ru>
+From: =?UTF-8?B?0JXQstCz0LXQvdC40Y8g0JvRg9GH0YjQtdCy0LA=?=
+ <kes.snab@yandex.ru>
+In-Reply-To: <7044f0ea-daad-42d3-ab9b-0dd19e804fa2@yandex.ru>
+X-Forwarded-Message-Id: <7044f0ea-daad-42d3-ab9b-0dd19e804fa2@yandex.ru>
+Received-SPF: pass (mail.dna-technology.ru: domain of yandex.ru designates 178.154.239.145 as permitted sender) client-ip=178.154.239.145; envelope-from=kes.snab@yandex.ru; helo=forward501b.mail.yandex.net;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+This is a multi-part message in MIME format.
+--------------XDNlCSO0fu4BV0WEfZP28LcK
+Content-Type: multipart/alternative;
+ boundary="------------V2UeM8bB0DET1oL9x3nOBrhv"
+
+--------------V2UeM8bB0DET1oL9x3nOBrhv
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Добрый день!
+
+Прошу предоставить коммерческое предложение для КГБУЗ "Краевая 
+клиническая больница" (ИНН 2225021067)
+
+R3-P439-S3/5 Набор реагентов для выявления нуклеиновых кислот 
+возбудителей острых респираторных вирусных инфекций человека методом 
+ОТ-ПЦР в режиме реального времени ОРВИ комплекс ( фасовка S, стрипы) - 1 наб
+
+Прошу уточнить наличие и срок поставки.
+
+
+Реквизиты во вложении.
+-- 
+
+/Убедительная просьба - отвечайте на письма с сохранением истории 
+переписки./
+
+С уважением, Лучшева Евгения Сергеевна
+
+г. Барнаул, пер. Прудской, 71А
+Mob.: 7-906-946-10-58
+Email: kes.snab@yandex.ru
+Web: www.amedservice.ru <http://www.amedservice.ru>
+/
+Приглашаем к электронному документообороту.
+Наш оператор: СБИС.
+Наш идентификатор в ЭДО СБИС: 2BEe5599d6fb33547349929c9418dc13c04./
+--------------V2UeM8bB0DET1oL9x3nOBrhv
+Content-Type: multipart/related;
+ boundary="------------uBRPqytOYrorJJy0f4KlG0kn"
+
+--------------uBRPqytOYrorJJy0f4KlG0kn
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <font face="Times New Roman">Добрый день! </font><br>
+    <div class="moz-forward-container">
+      <div class="moz-forward-container">
+        <div class="moz-forward-container">
+          <div class="moz-forward-container">
+            <div class="moz-forward-container">
+              <div class="moz-forward-container">
+                <div class="moz-forward-container">
+                  <div class="moz-forward-container">
+                    <div class="moz-forward-container">
+                      <div class="moz-forward-container">
+                        <div class="moz-forward-container">
+                          <div class="moz-forward-container">
+                            <div class="moz-forward-container">
+                              <div class="moz-forward-container">
+                                <div class="moz-forward-container">
+                                  <div class="moz-forward-container">
+                                    <div class="moz-forward-container">
+                                      <div class="moz-forward-container">
+                                        <div
+                                          class="moz-forward-container">
+                                          <div
+class="moz-forward-container">
+                                            <div
+class="moz-forward-container">
+                                              <div
+class="moz-forward-container">
+                                                <div
+class="moz-forward-container">
+                                                  <div
+class="moz-forward-container">
+                                                    <div
+class="moz-forward-container">
+                                                      <div
+class="moz-forward-container">
+                                                        <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <p><font
+face="Times New Roman, Times, serif">Прошу предоставить коммерческое
+                                                          предложение 
+                                                          для КГБУЗ
+                                                          "Краевая
+                                                          клиническая
+                                                          больница" (ИНН
+                                                          2225021067)</font>
+                                                          </p>
+                                                          <font
+face="Times New Roman, Times, serif">R3-P439-S3/5 Набор реагентов для
+                                                          выявления
+                                                          нуклеиновых
+                                                          кислот
+                                                          возбудителей
+                                                          острых
+                                                          респираторных
+                                                          вирусных
+                                                          инфекций
+                                                          человека
+                                                          методом ОТ-ПЦР
+                                                          в режиме
+                                                          реального
+                                                          времени ОРВИ
+                                                          комплекс (
+                                                          фасовка S,
+                                                          стрипы) - 1
+                                                          наб</font><br>
+                                                          <p><font
+face="Times New
+                                                    Roman">Прошу
+                                                          уточнить
+                                                          наличие и срок
+                                                          поставки.</font>
+                                                          </p>
+                                                          </div>
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container"><span
+style="color:
+                                                        rgb(51, 51, 51);
+                                                        font-family:
+                                                        &quot;Open
+                                                        Sans&quot;,
+                                                        sans-serif;
+                                                        font-size: 14px;
+                                                        font-style:
+                                                        normal;
+font-variant-ligatures: normal; font-variant-caps: normal; font-weight:
+                                                        400;
+                                                        letter-spacing:
+                                                        normal; orphans:
+                                                        2; text-align:
+                                                        start;
+                                                        text-indent:
+                                                        0px;
+                                                        text-transform:
+                                                        none;
+                                                        white-space:
+                                                        normal; widows:
+                                                        2; word-spacing:
+                                                        0px;
+-webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);
+text-decoration-thickness: initial; text-decoration-style: initial;
+                                                        text-decoration-color:
+                                                        initial;
+                                                        display: inline
+                                                        !important;
+                                                        float: none;"><span></span></span>
+                                                          <div
+class="moz-forward-container"><span
+style="color:
+                                                          rgb(51, 51,
+                                                          51);
+                                                          font-family:
+                                                          &quot;Open
+                                                          Sans&quot;,
+                                                          sans-serif;
+                                                          font-size:
+                                                          14px;
+                                                          font-style:
+                                                          normal;
+font-variant-ligatures: normal; font-variant-caps: normal; font-weight:
+                                                          400;
+                                                          letter-spacing:
+                                                          normal;
+                                                          orphans: 2;
+                                                          text-align:
+                                                          start;
+                                                          text-indent:
+                                                          0px;
+                                                          text-transform:
+                                                          none;
+                                                          white-space:
+                                                          normal;
+                                                          widows: 2;
+                                                          word-spacing:
+                                                          0px;
+-webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);
+text-decoration-thickness: initial; text-decoration-style: initial;
+                                                          text-decoration-color:
+                                                          initial;
+                                                          display:
+                                                          inline
+                                                          !important;
+                                                          float: none;"><br>
+                                                          </span><font
+face="Times
+                                                          New Roman,
+                                                          Times, serif">
+                                                          </font></div>
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-forward-container"> <font
+face="Times
+                                                          New Roman,
+                                                          Times, serif">Реквизиты
+                                                          во вложении.</font><br>
+                                                          <div
+class="moz-forward-container">
+                                                          <div
+class="moz-signature">-- <br>
+                                                          <img
+src="cid:part1.4MRg2ozr.sYWN2jzN@yandex.ru" class=""> <font size="-2">
+                                                          <br>
+                                                          <i>Убедительная
+                                                          просьба -
+                                                          отвечайте на
+                                                          письма с
+                                                          сохранением
+                                                          истории
+                                                          переписки.</i><br>
+                                                          </font> <font
+                                                          size="-1"> <br>
+                                                          С уважением,
+                                                          Лучшева
+                                                          Евгения
+                                                          Сергеевна <br>
+                                                          <br>
+                                                          г. Барнаул,
+                                                          пер. Прудской,
+                                                          71А <br>
+                                                          Mob.:
+                                                          7-906-946-10-58
+                                                          <br>
+                                                          Email: <a
+href="mailto:kes.snab@yandex.ru" class="moz-txt-link-freetext"
+moz-do-not-send="true">kes.snab@yandex.ru</a> <br>
+                                                          Web: <a
+href="http://www.amedservice.ru" moz-do-not-send="true">www.amedservice.ru</a>
+                                                          <br>
+                                                          <font
+                                                          size="-1"
+color="#1E90FF"> <i><br>
+                                                          Приглашаем к
+                                                          электронному
+                                                          документообороту.
+                                                          <br>
+                                                          Наш оператор:
+                                                          СБИС. <br>
+                                                          Наш
+                                                          идентификатор
+                                                          в ЭДО СБИС:
+2BEe5599d6fb33547349929c9418dc13c04.</i> </font> <br>
+                                                          </font></div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+--------------uBRPqytOYrorJJy0f4KlG0kn
+Content-Type: image/png; name="tYPaGzLhi0qxwHII.png"
+Content-Disposition: inline; filename="tYPaGzLhi0qxwHII.png"
+Content-Id: <part1.4MRg2ozr.sYWN2jzN@yandex.ru>
+Content-Transfer-Encoding: base64
+
+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
+
+--------------uBRPqytOYrorJJy0f4KlG0kn--
+
+
+--------------V2UeM8bB0DET1oL9x3nOBrhv--
+--------------XDNlCSO0fu4BV0WEfZP28LcK
+Content-Type: application/msword;
+ name="=?UTF-8?B?0JDQnNChINCQ0LvRjNGP0L3RgdCc0LXQtNCh0LXRgNCy0LjRgSDQktCi?=
+ =?UTF-8?B?0JEg0YEgMjguMDkuMjAyMy5kb2M=?="
+Content-Disposition: attachment;
+ filename*0*=UTF-8''%D0%90%D0%9C%D0%A1%20%D0%90%D0%BB%D1%8C%D1%8F%D0%BD;
+ filename*1*=%D1%81%D0%9C%D0%B5%D0%B4%D0%A1%D0%B5%D1%80%D0%B2%D0%B8%D1%81;
+ filename*2*=%20%D0%92%D0%A2%D0%91%20%D1%81%20%32%38%2E%30%39%2E%32%30%32;
+ filename*3*=%33%2E%64%6F%63
+Content-Transfer-Encoding: base64
+
+0M8R4KGxGuEAAAAAAAAAAAAAAAAAAAAAPgADAP7/CQAGAAAAAAAAAAAAAAABAAAALwAAAAAA
+AAAAEAAAMQAAAAEAAAD+////AAAAAC4AAAD/////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+///////////////////////////////////spcEAGQAZBAAA8BK/AAAAAAAAEAAAAAAACAAA
+CBQAAA4AYmpiauD74PsAAAAAAAAAAAAAAAAAAAAAAAAZBBYAQBoAAIKRumeCkbpnBAMAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//w8AAAAAAAAAAAD//w8AAAAAAAAAAAD//w8A
+AAAAAAAAAAAAAAAAAAAAALcAAAAAAN4HAAAAAAAA3gcAAJIVAAAAAAAAkhUAAAAAAACSFQAA
+AAAAAJIVAAAAAAAAkhUAABQAAAAAAAAAAAAAAP////8AAAAAphUAAAAAAACmFQAAAAAAAKYV
+AAAAAAAAphUAABwAAADCFQAAFAAAAKYVAAAAAAAA/hkAAKoBAADWFQAAAAAAANYVAAAAAAAA
+1hUAAAAAAADWFQAAAAAAANYVAAAAAAAAsRYAAAAAAACxFgAAAAAAALEWAAAAAAAAcRkAAAIA
+AABzGQAAAAAAAHMZAAAAAAAAcxkAAAAAAABzGQAAAAAAAHMZAAAAAAAAcxkAACQAAACoGwAA
+tgIAAF4eAABOAAAAlxkAACEAAAAAAAAAAAAAAAAAAAAAAAAAkhUAAAAAAACxFgAAAAAAAAAA
+AAAAAAAAAAAAAAAAAACxFgAAAAAAALEWAAAAAAAAsRYAAAAAAACxFgAAAAAAAJcZAAAAAAAA
+AAAAAAAAAACSFQAAAAAAAJIVAAAAAAAA1hUAAAAAAAAAAAAAAAAAANYVAADbAAAAuBkAABYA
+AADVFwAAAAAAANUXAAAAAAAA1RcAAAAAAACxFgAAdgAAAJIVAAAAAAAA1hUAAAAAAACSFQAA
+AAAAANYVAAAAAAAAcRkAAAAAAAAAAAAAAAAAANUXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsRYAAAAAAABxGQAAAAAAAAAAAAAAAAAA
+1RcAAAAAAAAAAAAAAAAAANUXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA1RcAAAAAAADWFQAA
+AAAAAP////8AAAAAcHwUi5j12QEAAAAAAAAAAP////8AAAAAJxcAACgAAADVFwAAAAAAAAAA
+AAAAAAAAXRkAABQAAADOGQAAMAAAAP4ZAAAAAAAA1RcAAAAAAACsHgAAAAAAAE8XAAAiAAAA
+rB4AAAAAAADVFwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADVFwAAOAAAAKweAAAAAAAAAAAAAAAAAACSFQAA
+AAAAAA0YAABQAQAAAAAAAAAAAAAAAAAAAAAAANUXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAsRYAAAAAAACxFgAAAAAAALEWAAAAAAAA
+lxkAAAAAAACXGQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcRcAAGQA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALEWAAAAAAAAsRYAAAAAAACxFgAA
+AAAAAP4ZAAAAAAAAsRYAAAAAAACxFgAAAAAAALEWAAAAAAAAsRYAAAAAAAAAAAAAAAAAAP//
+//8AAAAA/////wAAAAD/////AAAAAAAAAAAAAAAA/////wAAAAD/////AAAAAP////8AAAAA
+/////wAAAAD/////AAAAAP////8AAAAA/////wAAAAD/////AAAAAP////8AAAAA/////wAA
+AAD/////AAAAAP////8AAAAA/////wAAAAD/////AAAAAKweAAAAAAAAsRYAAAAAAACxFgAA
+AAAAALEWAAAAAAAAsRYAAAAAAACxFgAAAAAAALEWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACxFgAAAAAAALEWAAAAAAAA
+sRYAAAAAAADeBwAAegwAAFgUAAA6AQAABQASAQAAGQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAIAAgACAAIAAgACAAIAAgACAAGgQwBEAEQgQ+BEcE
+OgQwBCAAPwRABDUENAQ/BEAEOARPBEIEOARPBA0ATwAxBEkENQRBBEIEMgQ+BCAAQQQgAD4E
+MwRABDAEPQQ4BEcENQQ9BD0EPgQ5BCAAPgRCBDIENQRCBEEEQgQyBDUEPQQ9BD4EQQRCBEwE
+TgQNACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAA
+IAAgACAAIACrABAEOwRMBE8EPQRBBBwENQQ0BCEENQRABDIEOARBBLsADQAoAB4EHgQeBCAA
+qwAQBDsETARPBD0EQQQcBDUENAQhBDUEQAQyBDgEQQS7ACkADQAYBB0EHQQ6ACAAMgAyADIA
+NQAxADgAMQAyADAAOAAgACAAIAAgABoEHwQfBDoAMgAyADIANQAwADEAMAAwADEADQAeBBME
+IAQdBDoAMQAxADcAMgAyADIANQAwADEANgAxADUAMAANAC4EQAQ4BDQEOARHBDUEQQQ6BDgE
+OQQgADAENARABDUEQQQ6AA0ANgA1ADYAMAA0ADkALAAgACAEPgRBBEEEOAQ5BEEEOgQwBE8E
+IAAkBDUENAQ1BEAEMARGBDgETwQsACAAEAQ7BEIEMAQ5BEEEOgQ4BDkEIAA6BEAEMAQ5BCwA
+IAAzBC4AIAARBDAEQAQ9BDAEQwQ7BCwAIAA/BDUEQAQuACAAHwRABEMENARBBDoEPgQ5BCwA
+IAA3ADEAIACrADAEuwAsACAAPgREBDgEQQQgADMAMAA1AA0AHwQ+BEcEQgQ+BDIESwQ5BCAA
+MAQ0BEAENQRBBDoAIAANADYANQA2ADAANAA5ACwAIAAgBD4EQQRBBDgEOQRBBDoEMARPBCAA
+JAQ1BDQENQRABDAERgQ4BE8ELAAgABAEOwRCBDAEOQRBBDoEOAQ5BCAAOgRABDAEOQQsACAA
+MwQuACAAEQQwBEAEPQQwBEMEOwQsACAAPwQ1BEAELgAgAB8EQARDBDQEQQQ6BD4EOQQsACAA
+NwAxACAAqwAwBLsALAAgAD4ERAQ4BEEEIAAzADAANQANABEEMAQ9BDoEPgQyBEEEOgQ4BDUE
+IABABDUEOgQyBDgENwQ4BEIESwQ6AA0AJAQYBBsEGAQQBBsEIAAiACYEFQQdBCIEIAQQBBsE
+LAQdBCsEGQQiACAAEQQQBB0EGgQQBCAAEgQiBBEEIAAoAB8EEAQeBCkAIAANAEAELwBBBDoA
+IAA0ADAANwAwADIAOAAxADAANgAxADQAMAAzADAAMAAwADEANwAxADcADQA6BC8AQQQ6ACAA
+MwAwADEAMAAxADgAMQAwADEANAAACAAABggAABQIAAA8CAAAPggAAEAIAABMCAAATggAAJAI
+AADKCAAAzAgAAOoIAADsCAAA7ggAABwJAAAeCQAAJgkAACgJAAA8CQAARAkAAGAJAABmCQAA
+hAkAAIYJAACoCQAAqgkAAKwJAAD16tzRv7S0tLSmtKa0m5CFhXeFaYWFhVtOQxQVaHlPlgAW
+aO5RjgBDSiAAYUogAAAYFWh5T5YAFmjuUY4AQIj0/0NKIABhSiAAABsVaHlPlgAWaO5RjgA1
+CIFAiPT/Q0ogAGFKIAAbFWh1YaUAFmjuUY4ANQiBQIjx/0NKKABhSigAGxVo+yXFABZo7lGO
+ADUIgUCI8f9DSigAYUooABUWaO5RjgA1CIFAiPH/Q0ooAGFKKAAUFWicU40AFmjuUY4AQ0oc
+AGFKHAAAFBZo7lGOADUIgUNKHABcCIFhShwAABoVaBE2wQAWaO5RjgA1CIFDSigAXAiBYUoo
+AAAUFmjuUY4ANQiBQ0ooAFwIgWFKKAAAIhVoETbBABZo7lGOADUIgUNKKABcCIFhSigAbUgJ
+BHNICQQAFBZo7lGOADUIgUNKMABcCIFhSjAAABoVaBE2wQAWaO5RjgA1CIFDSjAAXAiBYUow
+AAAUFmgRNsEANQiBQ0owAFwIgWFKMAAAFBZoXWz3ADUIgUNKMABcCIFhSjAAGgAIAAA+CAAA
+kAgAAO4IAAAeCQAAYAkAAIYJAACsCQAAYAoAAIIKAAA2CwAAYgsAAK4LAADiCwAAFhIAADQS
+AAA2EgAA5wAAAAAAAAAAAAAAANcAAAAAAAAAAAAAAADXAAAAAAAAAAAAAAAAxwAAAAAAAAAA
+AAAAALYAAAAAAAAAAAAAAAC2AAAAAAAAAAAAAAAAtgAAAAAAAAAAAAAAAKEAAAAAAAAAAAAA
+AAChAAAAAAAAAAAAAAAAoQAAAAAAAAAAAAAAAOcAAAAAAAAAAAAAAACMAAAAAAAAAAAAAAAA
+jAAAAAAAAAAAAAAAAIwAAAAAAAAAAAAAAACMAAAAAAAAAAAAAAAAjAAAAAAAAAAAAAAAAAAA
+AAAAFAAADcYFAAGwEwATpGQALUQAAU3GCgAAAP////8AAABbJAFnZHgxfQAAFAAADcYFAAGw
+EwATpGQALUQAAU3GCgAAAP////8AAABbJAFnZO5RjgARAAAPhBYALUQAAU3GCgAAAP////8A
+AABehBYAZ2TuUY4AEAAAAyQBLUQAAU3GCgAAAP////8AAABhJAFnZO5RjgAQAAASZH/9AAAt
+RAABTcYKAAAA/////wAAAGdk7lGOABgAAA+EwwcRhDH7EmR//QAALUQAAU3GCgAAAP////8A
+AABehMMHYIQx+2dk7lGOAAAQrAkAALwJAAAACgAACAoAAAwKAAAOCgAAIAoAAEQKAABaCgAA
+XgoAAGAKAAB8CgAAgAoAAIIKAACSCgAA3goAAOIKAADkCgAA9goAADALAAA0CwAANgsAAF4L
+AABgCwAAYgsAAI4LAACsCwAArgsAALgLAADgCwAA4gsAAOwLAAAADAAAABIAABQSAAAWEgAA
+IBIAADISAAA0EgAANhIAAIISAADx8fHx8fHx8fHx4fHx8fHx8fHx8fHRxcW2tqqej56ej42P
+noGPxXJnAAAUFWh5T5YAFmjuUY4AQ0ogAGFKIAAAHBVoShPOABZo7lGOAECI/v9DSigARUgF
+AGFKKAAAFhZoShPOAECI/v9DSigARUgFAGFKKAAAA1UIARwVaI9G/QAWaI9G/QBAiP7/Q0oo
+AEVIBQBhSigAABYWaAJs/wBAiP7/Q0ooAEVIBQBhSigAABYWaLJtpQBAiP7/Q0ooAEVIBQBh
+SigAABwVaLJtpQAWaLJtpQBAiP7/Q0ooAEVIBQBhSigAABYWaHgxfQBAiP7/Q0ooAEVIBQBh
+SigAAB8VaCxXRQAWaHgxfQA1CIFAiP7/Q0ooAEVIBQBhSigAHxVoeU+WABZo7lGOADUIgUCI
+/v9DSiAARUgFAGFKIAAcFWh5T5YAFmjuUY4AQIj+/0NKIABFSAUAYUogACg1ADIANQAwADAA
+MAAwADQAMQAxAA0AEQQYBBoEOgAgADAANAA0ADUAMgA1ADQAMQAxAA0ADQAeBBoEHwQeBDoA
+IAAxADUAMQAwADMAMwAwADMAIAAgACAAIAAgACAAHgQaBCIEHAQeBDoAIAAwADEANwAwADEA
+MAAwADAAMAAwADEADQAeBBoEEAQiBB4EOgAgADAAMQA0ADAAMQAzADcAMAAwADAAMAANAGUA
+LQBtAGEAaQBsADoAIABvAG8AbwBhAGwAaQBhAG4AcwBtAGUAZABzAGUAcgB2AGkAcwBAAHkA
+YQBuAGQAZQB4AC4AcgB1AA0AIgQ1BDsENQREBD4EPQQ6ACAAOAAgACgAMwA4ADUAMgApACAA
+MgAyADIALQA4ADYAMAAsACAAMgAyADMALQAxADkAMwAsACAAMgAyADIALQA4ADcAMAANACEE
+MAQ5BEIEOgAgAGgAdAB0AHAAOgAvAC8AYQBtAGUAZABzAGUAcgB2AGkAYwBlAC4AcgB1AC8A
+DQANABMENQQ9BDUEQAQwBDsETAQ9BEsEOQQgADQEOARABDUEOgRCBD4EQAQ6ACAAIAAgACAA
+IAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAIAAgACAAFgRDBDoEIAAQBD0EPQQwBCAA
+HAQ4BEUEMAQ5BDsEPgQyBD0EMAQNAA0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAghIAAIQSAACOEgAA
+qhIAAKwSAACuEgAAthIAALoSAADeEgAA4BIAAOwSAADuEgAA8hIAAPQSAAAUEwAAHBMAAB4T
+AAAgEwAAJhMAAEoTAABMEwAAhhMAAIgTAACwEwAAshMAALQTAAC4EwAA2BMAAN4TAADiEwAA
+BBQAAAYUAAAIFAAA9fXq2+rb6tvq2+rb6vX19fX19fX10sbGxr29vb29xrEAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAFxVoeBhfABZoKBmvADUIgUNKKABhSigAERZo7lGOADUIgUNK
+IABhSiAAFxVoeU+WABZo7lGOADUIgUNKIABhSiAAERZo7lGOADUIgUNKKABhSigAHBVoeU+W
+ABZo7lGOAENKIABhSiAAbUgJBHNICQQAFBVo7lGOABZo7lGOAENKIABhSiAAABQVaHlPlgAW
+aO5RjgBDSiAAYUogACA2EgAAhBIAAKoSAAD0EgAATBMAAIYTAACIEwAABhQAAAgUAAD6AAAA
+AAAAAAAAAAAA+gAAAAAAAAAAAAAAAPoAAAAAAAAAAAAAAAD6AAAAAAAAAAAAAAAA+gAAAAAA
+AAAAAAAAAPoAAAAAAAAAAAAAAAD6AAAAAAAAAAAAAAAA+gAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAABnZO5RjgAACD4ACTAAEjAAHFABADpw
+vFZNAB+whS4gsMJBIbBJBiKwxgIjkFMDJJCqASWwAAAXsNACGLDQAgyQPABEcAEAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAEgYRABIAAQB4AQ8ABwAAAAAAAAAAAAQACAAAAAgAAAAOAAAADgAAAA4A
+AAAOAAAADgAAAA4AAAAOAAAADgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAACAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAMgYAABgAAADAAwAA0AMAAOADAADwAwAAAAQAABAEAAAgBAAAMAQAAEAE
+AABQBAAAYAQAAHAEAACABAAAkAQAAMADAADQAwAA4AMAAPADAAAABAAAEAQAADIGAAAoAgAA
+2AEAAOgBAAAgBAAAMAQAAEAEAABQBAAAYAQAAHAEAACABAAAkAQAAMADAADQAwAA4AMAAPAD
+AAAABAAAEAQAACAEAAAwBAAAQAQAAFAEAABgBAAAcAQAAIAEAACQBAAAwAMAANADAADgAwAA
+8AMAAAAEAAAQBAAAIAQAADAEAABABAAAUAQAAGAEAABwBAAAgAQAAJAEAADAAwAA0AMAAOAD
+AADwAwAAAAQAABAEAAAgBAAAMAQAAEAEAABQBAAAYAQAAHAEAACABAAAkAQAAMADAADQAwAA
+4AMAAPADAAAABAAAEAQAACAEAAAwBAAAQAQAAFAEAABgBAAAcAQAAIAEAACQBAAAwAMAANAD
+AADgAwAA8AMAAAAEAAAQBAAAIAQAADAEAABABAAAUAQAAGAEAABwBAAAgAQAAJAEAAA4AQAA
+WAEAAPgBAAAIAgAAGAIAAFYCAAB+AgAAkAIAAKACAACwAgAAwAIAANACAACAAgAA4AIAAPAC
+AAAAAwAAEAMAACADAAAwAwAAQAMAAOACAADwAgAAAAMAABADAAAgAwAAMAMAAEADAADgAgAA
+8AIAAAADAAAQAwAAIAMAADADAABAAwAA4AIAAPACAAAAAwAAEAMAACADAAAwAwAAQAMAAOAC
+AADwAgAAAAMAABADAAAgAwAAMAMAAEADAADgAgAA8AIAAAADAAAQAwAAIAMAADADAABAAwAA
+4AIAAPACAAAAAwAAEAMAACADAAAwAwAAQAMAAOACAADwAgAAAAMAABADAAAgAwAAMAMAAEAD
+AADgAgAA8AIAAAADAAAQAwAAIAMAADADAABAAwAA4AIAAPACAAAAAwAAEAMAACADAAAwAwAA
+QAMAAOACAADwAgAAAAMAABADAAAgAwAAMAMAAEADAADgAgAA8AIAAAADAAAQAwAAIAMAADAD
+AABAAwAA4AIAAPACAAAAAwAAEAMAACADAAAwAwAAQAMAAOACAADwAgAAAAMAABADAAAgAwAA
+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
+bmFnZXIueG1sLnJlbHNQSwUGAAAAAAUABQBdAQAABwsAAAAAPD94bWwgdmVyc2lvbj0iMS4w
+IiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/Pg0KPGE6Y2xyTWFwIHhtbG5z
+OmE9Imh0dHA6Ly9zY2hlbWFzLm9wZW54bWxmb3JtYXRzLm9yZy9kcmF3aW5nbWwvMjAwNi9t
+YWluIiBiZzE9Imx0MSIgdHgxPSJkazEiIGJnMj0ibHQyIiB0eDI9ImRrMiIgYWNjZW50MT0i
+YWNjZW50MSIgYWNjZW50Mj0iYWNjZW50MiIgYWNjZW50Mz0iYWNjZW50MyIgYWNjZW50ND0i
+YWNjZW50NCIgYWNjZW50NT0iYWNjZW50NSIgYWNjZW50Nj0iYWNjZW50NiIgaGxpbms9Imhs
+aW5rIiBmb2xIbGluaz0iZm9sSGxpbmsiLz4AAAAABAMAACsAABoAAAAA/////wAIAACsCQAA
+ghIAAAgUAAAGAAAACAAAAAsAAAAACAAANhIAAAgUAAAHAAAADAAAAA8AAPA4AAAAAAAG8BgA
+AAACBAAAAgAAAAEAAAABAAAAAQAAAAIAAABAAB7xEAAAAP//AAAAAP8AgICAAPcAABAADwAC
+8JIAAAAQAAjwCAAAAAEAAAABBAAADwAD8DAAAAAPAATwKAAAAAEACfAQAAAAAAAAAAAAAAAA
+AAAAAAAAAAIACvAIAAAAAAQAAAUAAAAPAATwQgAAABIACvAIAAAAAQQAAAAOAABTAAvwHgAA
+AL8BAAAQAMsBAAAAAP8BAAAIAAQDCQAAAD8DAQABAAAAEfAEAAAAAQAAAAAAAAAgAAAAJwAA
+AGYAAAB1AAAAfQAAAIwAAAAVAQAAHQEAAIABAACIAQAA1wEAANoBAABdAgAAbwIAAHACAAB2
+AgAAdwIAAHkCAAAGAwAABwAcAAcAHAAHABwABwAcAAcAHAAHAAQABwAcAAcAHAAHABwABwAA
+AAAAsQEAANcBAADwAQAA0AIAANwCAAAGAwAABwADAAQABwAzAAcAAAAAANcBAADwAQAAxAIA
+AAMDAAAGAwAABwAEAAcABQAHAAAAAAAaAgAAGwIAAEcCAABVAgAAVgIAAFcCAABbAgAAXQIA
+AG8CAABwAgAAdgIAAHcCAAB5AgAAegIAAAMDAAAGAwAABAADAAQAAwAEAAMABAADAAQAAwAE
+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
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+/wAA
+CgACAAAAAAAAAAAAAAAAAAAAAAABAAAA4IWf8vlPaBCrkQgAKyez2TAAAACEAQAAEgAAAAEA
+AACYAAAAAgAAAKAAAAADAAAArAAAAAQAAAC4AAAABQAAAMgAAAAGAAAA1AAAAAcAAADgAAAA
+CAAAAPAAAAAJAAAACAEAABIAAAAUAQAACgAAADQBAAALAAAAQAEAAAwAAABMAQAADQAAAFgB
+AAAOAAAAZAEAAA8AAABsAQAAEAAAAHQBAAATAAAAfAEAAAIAAADjBAAAHgAAAAQAAAAAAAAA
+HgAAAAQAAAAAAAAAHgAAAAgAAADA5Ozo7QAAAB4AAAAEAAAAAAAAAB4AAAAEAAAAAAAAAB4A
+AAAIAAAATm9ybWFsAAAeAAAAEAAAAMDw8uXs7uLgIMDt7eAAAAAeAAAABAAAADEwNgAeAAAA
+GAAAAE1pY3Jvc29mdCBPZmZpY2UgV29yZAAAAEAAAAAAQp7yDgAAAEAAAAAAbKBGTvTRAUAA
+AAAAIFtScVDJAUAAAAAAfjJtmPXZAQMAAAABAAAAAwAAAHMAAAADAAAAkQIAAAMAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/v8AAAoAAgAAAAAA
+AAAAAAAAAAAAAAAAAQAAAALVzdWcLhsQk5cIACss+a4wAAAA7AAAAAwAAAABAAAAaAAAAA8A
+AABwAAAABQAAAHwAAAAGAAAAhAAAABEAAACMAAAAFwAAAJQAAAALAAAAnAAAABAAAACkAAAA
+EwAAAKwAAAAWAAAAtAAAAA0AAAC8AAAADAAAAMkAAAACAAAA4wQAAB4AAAAEAAAAAAAAAAMA
+AAAFAAAAAwAAAAEAAAADAAAAAwMAAAMAAAAAABAACwAAAAAAAAALAAAAAAAAAAsAAAAAAAAA
+CwAAAAAAAAAeEAAAAQAAAAEAAAAADBAAAAIAAAAeAAAACQAAAM3g5+Lg7ejlAAMAAAABAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAACAAAAAwAAAAQAAAAFAAAA
+BgAAAAcAAAAIAAAACQAAAAoAAAALAAAADAAAAA0AAAD+////DwAAABAAAAARAAAAEgAAABMA
+AAAUAAAAFQAAABYAAAAXAAAAGAAAABkAAAAaAAAAGwAAABwAAAAdAAAA/v///x8AAAAgAAAA
+IQAAACIAAAAjAAAAJAAAACUAAAD+////JwAAACgAAAApAAAAKgAAACsAAAAsAAAALQAAAP7/
+///9////MAAAAP7////+/////v//////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////UgBvAG8AdAAgAEUAbgB0AHIAeQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAABYABQH//////////wMAAAAGCQIAAAAAAMAAAAAAAABGAAAAAAAA
+AAAAAAAAsBgVi5j12QEyAAAAgAAAAAAAAAAxAFQAYQBiAGwAZQAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgACAf////8FAAAA/////wAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AAACsHgAAAAAAAFcAbwByAGQA
+RABvAGMAdQBtAGUAbgB0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAaAAIBAQAAAP//////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAEAaAAAAAAAABQBTAHUAbQBtAGEAcgB5AEkAbgBmAG8AcgBtAGEAdABpAG8AbgAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAgECAAAABAAAAP////8AAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAeAAAAABAAAAAAAAAFAEQAbwBjAHUAbQBlAG4AdABTAHUA
+bQBtAGEAcgB5AEkAbgBmAG8AcgBtAGEAdABpAG8AbgAAAAAAAAAAAAAAOAACAf//////////
+/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACYAAAAAEAAAAAAAAAEA
+QwBvAG0AcABPAGIAagAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAASAAIA////////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAHIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///////////////8AAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//
+/////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAEAAAD+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////AQD+/wMKAAD/////BgkCAAAAAADAAAAA
+AAAARiAAAADE7urz7OXt8iBNaWNyb3NvZnQgV29yZCA5Ny0yMDAzAAoAAABNU1dvcmREb2MA
+EAAAAFdvcmQuRG9jdW1lbnQuOAD0ObJxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAA=
+
+--------------XDNlCSO0fu4BV0WEfZP28LcK--

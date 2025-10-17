@@ -1,0 +1,38 @@
+{
+  "thread_id": "20250617_siblabservice_ru_a7437ced",
+  "message_id": "<05aa01dbdf50$70579f90$5106deb0$@siblabservice.ru>",
+  "from": "svetlana@siblabservice.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "СЛС запросить",
+  "date": "Tue, 17 Jun 2025 14:24:11 +0800",
+  "parsed_date": "2025-06-17T13:24:11+07:00",
+  "body": "Добрый день, Светлана!\nПрошу предоставить КП  Амплификатор детектирующий ДТпрайм 5М1\nДнк-технология.\nДля ПЧС г. Тыва ИНН: 1701012091\nСпасибо\nМенеджер ООО <СибЛабСервис>\nКостерева Светлана\nТел.(3952)78-25-79, доп. 118\nГ. Иркутск\nДобрый день, Светлана!Прошу предоставить КП  Амплификатор детектирующий ДТпрайм 5М1 Днк-технология.Для ПЧС г. Тыва ИНН: 1701012091 Спасибо Менеджер ООО «СибЛабСервис»Костерева СветланаТел.(3952)78-25-79, доп. 118Г. Иркутск",
+  "char_count": 450,
+  "attachments": [
+    {
+      "original_filename": "image001.jpg",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: image001.jpg@01DBDF93.522514B0",
+      "is_inline": true,
+      "content_id": "image001.jpg@01DBDF93.522514B0"
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-09-03T18:43:16.824136+07:00",
+  "raw_size": 9670,
+  "date_folder": "2025-06-17"
+}

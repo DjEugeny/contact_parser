@@ -1,0 +1,45 @@
+{
+  "thread_id": "20250918_mail_ru_712f70b1",
+  "message_id": "<1758183435.748232702@f75.i.mail.ru>",
+  "from": "bak.lab.msch.nso@mail.ru",
+  "to": "333torg@gmail.com",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "333torg@gmail.com"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "ЗАЯВКА на пцр26.odt",
+  "date": "Thu, 18 Sep 2025 11:17:15 +0300",
+  "parsed_date": "2025-09-18T15:17:15+07:00",
+  "body": "Заведующая бактериологической лабораторией, врач бактериолог\nБондаренко А.Е.\n--Заведующая бактериологической лабораторией, врач бактериологБондаренко А.Е.",
+  "char_count": 154,
+  "attachments": [
+    {
+      "original_filename": "ЗАЯВКА на пцр26.odt",
+      "saved_filename": null,
+      "file_path": null,
+      "relative_path": null,
+      "file_size": 0,
+      "file_type": "unsupported",
+      "exclusion_reason": "расширение .odt не поддерживается",
+      "saved_at": "2025-10-08T22:22:27.016217+07:00",
+      "status": "unsupported",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 1,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T22:22:27.016241+07:00",
+  "raw_size": 50611,
+  "date_folder": "2025-09-18"
+}

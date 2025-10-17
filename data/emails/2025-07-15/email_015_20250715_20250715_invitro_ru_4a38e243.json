@@ -1,0 +1,53 @@
+{
+  "thread_id": "20250715_invitro_ru_4a38e243",
+  "message_id": "<bce9520a2cff4e4db867cd008cdc46d6@invitro.ru>",
+  "email_num_in_day": 15,
+  "total_emails_in_day": 28,
+  "from": "AAllakhverdyan@invitro.ru",
+  "to": "mail@dna-technology.ru, hotline@dna-technology.ru, s.voronova@dna-technology.ru...",
+  "cc": "arubayko@invitro.ru, aallakhverdyan@invitro.ru, abronnikova@invitro.ru...",
+  "to_emails": [
+    "mail@dna-technology.ru",
+    "hotline@dna-technology.ru",
+    "s.voronova@dna-technology.ru",
+    "help@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "arubayko@invitro.ru",
+    "aallakhverdyan@invitro.ru",
+    "abronnikova@invitro.ru",
+    "avdorofeeva@invitro.ru",
+    "apevnev@invitro.ru",
+    "doc-lmgi@invitro.ru",
+    "nluzanova@invitro.ru",
+    "okoval@invitro.ru"
+  ],
+  "subject": "списание амплификатора",
+  "date": "Tue, 15 Jul 2025 10:09:48 +0000",
+  "parsed_date": "2025-07-15T17:09:48+07:00",
+  "body_raw": "From: Наталья Лузанова <nluzanova@invitro.ru>\r\nSent: Tuesday, July 15, 2025 5:04 PM\r\nTo: 'mail@dna-technology.ru' <mail@dna-technology.ru>; 'hotline@dna-technology.ru' <hotline@dna-technology.ru>\r\nCc: Александра Аллахвердян <AAllakhverdyan@invitro.ru>; Генетики НСК <genetiki_nsk@invitro.ru>\r\nSubject: списание амплификатора\r\n\nЗдравствуйте.\r\nВ лаборатории ИНВИТРО-Сибирь (г. Новосибирск) амплификатор выдаёт ошибку привода (код ошибки HCLOSE), справиться с ошибкой самостоятельно не получилось.\r\nПрибор в этом году планировался под списание, просьба предоставить документ на списание как обоснование для бухгалтерии.\r\n\nЛунтик\r\n\nАмплификатор детектирующий ДТ prime5\r\n\nA5BN03\r\n\nян0000242/1\r\n\nООО \"НПО ДНК-Технология\", Россия\r\n\n2013/2014\r\n\nС уважением,\r\nЛузанова Наталья Геннадьевна,\r\nврач клинической лабораторной диагностики,\r\nлаборатория молекулярно-генетических исследований,\r\n\nООО <ИНВИТРО-Новосибирск>,\r\nг.Новосибирск, Ул.Римского-Корсакова (9)\r\n88002344050, доб. 7717\r\nwww.invitro.ru<http://www.invitro.ru/>\r\n\n[cid:image001.png@01D23FE9.FDADA070]\r\n\nУВЕДОМЛЕНИЕ О КОНФИДЕНЦИАЛЬНОСТИ: Информация, содержащаяся в данном электронном сообщении, не является договорённостью сторон, не влечёт за собой возникновение никаких прав и/или обязанностей, не может служить основанием для осуществления каких-либо юридических действий или отказа от действий. Данное электронное сообщение предназначено только для адресата и может содержать конфиденциальную информацию. Любое рассмотрение, повторная передача, распространение или иное использование информации лицами или организациями, кроме предполагаемого получателя, запрещены.\r\n\nCONFIDENTIALITY NOTICE: The information contained in this electronic message is not an agreement of the parties, does not entail the appearance of any rights and/or obligations. It can't be a basis for the implementation of any legal action or refusal to act. This e-mail is for the intended recipient only and may contain confidential information. Any consideration, retransmission, distribution or other use of information by persons or organizations other than the intended recipient is prohibited.\r\n\nУВЕДОМЛЕНИЕ О КОНФИДЕНЦИАЛЬНОСТИ: Информация, содержащаяся в данном электронном сообщении, не является договорённостью сторон, не влечёт за собой возникновение никаких прав и/или обязанностей, не может служить основанием для осуществления каких-либо юридических действий или отказа от действий. Данное электронное сообщение предназначено только для адресата и может содержать конфиденциальную информацию. Любое рассмотрение, повторная передача, распространение или иное использование информации лицами или организациями, кроме предполагаемого получателя, запрещены.\r\n\nCONFIDENTIALITY NOTICE: The information contained in this electronic message is not an agreement of the parties, does not entail the appearance of any rights and/or obligations. It can't be a basis for the implementation of any legal action or refusal to act. This e-mail is for the intended recipient only and may contain confidential information. Any consideration, retransmission, distribution or other use of information by persons or organizations other than the intended recipient is prohibited.",
+  "body_clean": "From: Наталья Лузанова nluzanova@invitro.ru\nSent: Tuesday, July 15, 2025 5:04 PM\nTo: 'mail@dna-technology.ru' mail@dna-technology.ru; 'hotline@dna-technology.ru' hotline@dna-technology.ru\nCc: Александра Аллахвердян AAllakhverdyan@invitro.ru; Генетики НСК genetiki_nsk@invitro.ru\nSubject: списание амплификатора\nЗдравствуйте.\nВ лаборатории ИНВИТРО-Сибирь (г. Новосибирск) амплификатор выдаёт ошибку привода (код ошибки HCLOSE), справиться с ошибкой самостоятельно не получилось.\nПрибор в этом году планировался под списание, просьба предоставить документ на списание как обоснование для бухгалтерии.\nЛунтик\nАмплификатор детектирующий ДТ prime5\nA5BN03\nян0000242/1\nООО \"НПО ДНК-Технология\", Россия\n2013/2014\nС уважением,\nЛузанова Наталья Геннадьевна,\nврач клинической лабораторной диагностики,\nлаборатория молекулярно-генетических исследований,\nООО ИНВИТРО-Новосибирск,\nг.Новосибирск, Ул.Римского-Корсакова (9)\n88002344050, доб. 7717\nwww.invitro.ruhttp://www.invitro.ru/\n[cid:image001.png@01D23FE9.FDADA070]\nУВЕДОМЛЕНИЕ О КОНФИДЕНЦИАЛЬНОСТИ: Информация, содержащаяся в данном электронном сообщении, не является договорённостью сторон, не влечёт за собой возникновение никаких прав и/или обязанностей, не может служить основанием для осуществления каких-либо юридических действий или отказа от действий. Данное электронное сообщение предназначено только для адресата и может содержать конфиденциальную информацию. Любое рассмотрение, повторная передача, распространение или иное использование информации лицами или организациями, кроме предполагаемого получателя, запрещены.\nCONFIDENTIALITY NOTICE: The information contained in this electronic message is not an agreement of the parties, does not entail the appearance of any rights and/or obligations. It can't be a basis for the implementation of any legal action or refusal to act. This e-mail is for the intended recipient only and may contain confidential information. Any consideration, retransmission, distribution or other use of information by persons or organizations other than the intended recipient is prohibited.",
+  "char_count": 2072,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image001.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:42:15.241284+07:00",
+  "raw_size": 33473,
+  "date_folder": "2025-07-15",
+  "eml_path": "eml/2025-07-15/bce9520a2cff4e4db867cd008cdc46d6_invitro.ru_004215_229688.eml"
+}

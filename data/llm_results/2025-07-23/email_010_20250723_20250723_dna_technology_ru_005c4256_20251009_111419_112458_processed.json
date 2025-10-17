@@ -1,0 +1,464 @@
+{
+  "source_file": "email_010_20250723_20250723_dna-technology_ru_005c4256.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": "7728469349",
+        "website": "dna-technology.ru",
+        "city": "Москва",
+        "address": "117587, г. Москва, вн. тер. г. муниципальный округ Чертаново Северное, Варшавское шоссе, д. 125Ж, корп. 5",
+        "emails": [],
+        "phones": [],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      },
+      {
+        "organization_id": 2,
+        "name": "ЦЛД г.Новосибирск",
+        "inn": "5403181503",
+        "website": null,
+        "city": "Новосибирск",
+        "address": "630075, Новосибирская область, город Новосибирск, Народная ул., д. 3, офис 302",
+        "emails": [],
+        "phones": [],
+        "gid": "9b25954c-ed22-5fb9-83d9-0265c363d18b"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Воронова Светлана Сергеевна",
+        "organization_id": 1,
+        "position": "Региональный представитель в СФО",
+        "email": "s.voronova@dna-technology.ru",
+        "phones": [
+          {
+            "type": "mobile",
+            "number": "+7 (995) 129-39-76",
+            "normalized": "+79951293976",
+            "original": "+7 (995) 129-39-76",
+            "extension": null
+          }
+        ],
+        "city": "Новосибирск",
+        "address": null,
+        "role_in_message": "recipient",
+        "confidence": 1.0,
+        "value_score": 12,
+        "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "s.voronova@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1759983897.00909,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 2,
+        "name": "Ткаченко Виктория",
+        "organization_id": 1,
+        "position": null,
+        "email": "hotline@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 0.9,
+        "value_score": 7,
+        "gid": "79c7462a-997c-523b-b237-ca11da19de55",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "hotline@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1759983897.768427,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 3,
+        "name": "Евдокимова Любовь Станиславовна",
+        "organization_id": 2,
+        "position": null,
+        "email": "oper11@centerld.ru",
+        "phones": [
+          {
+            "type": "mobile",
+            "number": "+7 (913) 462-75-22",
+            "normalized": "+79134627522",
+            "original": "8-913-462-75-22",
+            "extension": null
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "requested_quote",
+        "confidence": 0.9,
+        "value_score": 9,
+        "gid": "f315fe46-1f5b-5f70-b438-d6d93d533fab",
+        "website": "https://www.centerld.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_centerld.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "oper11@centerld.ru",
+          "extracted_domain": "centerld.ru",
+          "website_found": "https://www.centerld.ru",
+          "enriched_at": 1759983898.0878,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      }
+    ],
+    "business_context": "Евдокимова Любовь (ЦЛД г.Новосибирск) запросила пробные наборы ФФII, ФФ АльфаСкрин, ФФ ДельтаСкрин для оборудования ДТпрайм 5М1. Воронова Светлана (ДНК-Технология) переадресовала запрос коллегам. Ткаченко Виктория сообщает о текущей недоступности дистрибутива анализа и предлагает отправить доступные материалы (сценарий для станции, руководства пользователя и ОТП) напрямую клиенту.",
+    "summary": {
+      "topic": "Запрос пробных наборов и технических ресурсов для оборудования ДТпрайм 5М1",
+      "product_interest": "ФФII, ФФ АльфаСкрин, ФФ ДельтаСкрин, ДТмастер, программа для AutoPure96",
+      "communication_stage": "обсуждение технических возможностей и доступности ресурсов",
+      "request_type": "запрос пробников и технической документации"
+    },
+    "key_points": [
+      "Евдокимова Любовь (ЦЛД г.Новосибирск) запросила пробные наборы для двух приборов ДТпрайм 5М1 с заводскими номерами А5J725 и А5 КД10",
+      "Ткаченко Виктория (ДНК-Технология) сообщает о недоступности дистрибутива анализа и невозможности удаленной установки сценария на AutoPure96",
+      "Ожидается отправка доступных материалов (сценарий, руководства, ОТП) напрямую клиенту после получения подтверждения"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 3,
+        "organization_id": 2,
+        "message_subject": "Новые тесты",
+        "message_date": "2025-07-10T11:29:21+07:00",
+        "message_id_hint": null,
+        "role_in_message": "sender",
+        "interaction_type": "requested_quote",
+        "summary": "Евдокимова Любовь запросила обновление программы ДТмастер для новых тестов и пробные наборы",
+        "human_note": "Евдокимова Любовь (ЦЛД Новосибирск) обратилась за помощью с обновлением программного обеспечения для новых тестов на оборудовании ДТпрайм 5М1",
+        "participants": {
+          "actor": "Евдокимова Любовь (ЦЛД г.Новосибирск)",
+          "audience": [
+            "Воронова Светлана (ДНК-Технология)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 2,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "Пробные наборы ЦЛД Новосибирск",
+        "message_date": "2025-07-11T11:18:00+07:00",
+        "message_id_hint": null,
+        "role_in_message": "sender",
+        "interaction_type": "follow_up",
+        "summary": "Воронова Светлана переадресовала запрос клиента на пробные наборы и технические ресурсы",
+        "human_note": "Воронова Светлана (ДНК-Технология) передала запрос клиента на пробники Фемофлор и техническое сопровождение для оборудования",
+        "participants": {
+          "actor": "Воронова Светлана (ДНК-Технология)",
+          "audience": [
+            "Ткаченко Виктория (ДНК-Технология)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 3,
+        "contact_id": 2,
+        "organization_id": 1,
+        "message_subject": "Re: Пробные наборы ЦЛД Новосибирск",
+        "message_date": "2025-07-11T17:51:04+07:00",
+        "message_id_hint": null,
+        "role_in_message": "sender",
+        "interaction_type": "clarification",
+        "summary": "Ткаченко Виктория предоставила разъяснения по доступности ресурсов и возможностям удаленной установки",
+        "human_note": "Ткаченко Виктория (ДНК-Технология) объяснила текущие ограничения с дистрибутивом и предложила отправить доступные материалы клиенту",
+        "participants": {
+          "actor": "Ткаченко Виктория (ДНК-Технология)",
+          "audience": [
+            "Воронова Светлана (ДНК-Технология)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      }
+    ],
+    "original_response": "```json\n{\n    \"organizations\": [\n        {\n            \"organization_id\": 1,\n            \"name\": \"ДНК-Технология\",\n            \"inn\": \"7728469349\",\n            \"website\": \"dna-technology.ru\",\n            \"city\": \"Москва\",\n            \"address\": \"117587, г. Москва, вн. тер. г. муниципальный округ Чертаново Северное, Варшавское шоссе, д. 125Ж, корп. 5\",\n            \"emails\": [\"hotline@dna-technology.ru\"],\n            \"phones\": []\n        },\n        {\n            \"organization_id\": 2,\n            \"name\": \"ЦЛД г.Новосибирск\",\n            \"inn\": \"5403181503\",\n            \"website\": null,\n            \"city\": \"Новосибирск\",\n            \"address\": \"630075, Новосибирская область, город Новосибирск, Народная ул., д. 3, офис 302\",\n            \"emails\": [\"oper11@centerld.ru\"],\n            \"phones\": []\n        }\n    ],\n    \"contacts\": [\n        {\n            \"contact_id\": 1,\n            \"name\": \"Воронова Светлана Сергеевна\",\n            \"organization_id\": 1,\n            \"position\": \"Региональный представитель в СФО\",\n            \"email\": \"s.voronova@dna-technology.ru\",\n            \"phones\": [\n                {\n                    \"type\": \"mobile\",\n                    \"number\": \"+7 (995) 129-39-76\",\n                    \"normalized\": \"+79951293976\",\n                    \"original\": \"+7 (995) 129-39-76\",\n                    \"extension\": null\n                }\n            ],\n            \"city\": \"Новосибирск\",\n            \"address\": null,\n            \"role_in_message\": \"recipient\",\n            \"confidence\": 1.0\n        },\n        {\n            \"contact_id\": 2,\n            \"name\": \"Ткаченко Виктория\",\n            \"organization_id\": 1,\n            \"position\": null,\n            \"email\": \"hotline@dna-technology.ru\",\n            \"phones\": [],\n            \"city\": null,\n            \"address\": null,\n            \"role_in_message\": \"sender\",\n            \"confidence\": 0.9\n        },\n        {\n            \"contact_id\": 3,\n            \"name\": \"Евдокимова Любовь Станиславовна\",\n            \"organization_id\": 2,\n            \"position\": null,\n            \"email\": \"oper11@centerld.ru\",\n            \"phones\": [\n                {\n                    \"type\": \"mobile\",\n                    \"number\": \"8-913-462-75-22\",\n                    \"normalized\": null,\n                    \"original\": \"8-913-462-75-22\",\n                    \"extension\": null\n                }\n            ],\n            \"city\": null,\n            \"address\": null,\n            \"role_in_message\": \"requested_quote\",\n            \"confidence\": 0.9\n        }\n    ],\n    \"business_context\": \"Евдокимова Любовь (ЦЛД г.Новосибирск) запросила пробные наборы ФФII, ФФ АльфаСкрин, ФФ ДельтаСкрин для оборудования ДТпрайм 5М1. Воронова Светлана (ДНК-Технология) переадресовала запрос коллегам. Ткаченко Виктория сообщает о текущей недоступности дистрибутива анализа и предлагает отправить доступные материалы (сценарий для станции, руководства пользователя и ОТП) напрямую клиенту.\",\n    \"summary\": {\n        \"topic\": \"Запрос пробных наборов и технических ресурсов для оборудования ДТпрайм 5М1\",\n        \"product_interest\": \"ФФII, ФФ АльфаСкрин, ФФ ДельтаСкрин, ДТмастер, программа для AutoPure96\",\n        \"communication_stage\": \"обсуждение технических возможностей и доступности ресурсов\",\n        \"request_type\": \"запрос пробников и технической документации\"\n    },\n    \"key_points\": [\n        \"Евдокимова Любовь (ЦЛД г.Новосибирск) запросила пробные наборы для двух приборов ДТпрайм 5М1 с заводскими номерами А5J725 и А5 КД10\",\n        \"Ткаченко Виктория (ДНК-Технология) сообщает о недоступности дистрибутива анализа и невозможности удаленной установки сценария на AutoPure96\",\n        \"Ожидается отправка доступных материалов (сценарий, руководства, ОТП) напрямую клиенту после получения подтверждения\"\n    ],\n    \"commercial_offers\": [],\n    \"interactions\": [\n        {\n            \"interaction_local_id\": 1,\n            \"contact_id\": 3,\n            \"organization_id\": 2,\n            \"message_subject\": \"Новые тесты\",\n            \"message_date\": \"2025-07-10T11:29:21+07:00\",\n            \"message_id_hint\": null,\n            \"role_in_message\": \"sender\",\n            \"interaction_type\": \"requested_quote\",\n            \"summary\": \"Евдокимова Любовь запросила обновление программы ДТмастер для новых тестов и пробные наборы\",\n            \"human_note\": \"Евдокимова Любовь (ЦЛД Новосибирск) обратилась за помощью с обновлением программного обеспечения для новых тестов на оборудовании ДТпрайм 5М1\",\n            \"participants\": {\n                \"actor\": \"Евдокимова Любовь (ЦЛД г.Новосибирск)\",\n                \"audience\": [\"Воронова Светлана (ДНК-Технология)\"]\n            },\n            \"attachments\": [],\n            \"confidence\": 0.9\n        },\n        {\n            \"interaction_local_id\": 2,\n            \"contact_id\": 1,\n            \"organization_id\": 1,\n            \"message_subject\": \"Пробные наборы ЦЛД Новосибирск\",\n            \"message_date\": \"2025-07-11T11:18:00+07:00\",\n            \"message_id_hint\": null,\n            \"role_in_message\": \"sender\",\n            \"interaction_type\": \"follow_up\",\n            \"summary\": \"Воронова Светлана переадресовала запрос клиента на пробные наборы и технические ресурсы\",\n            \"human_note\": \"Воронова Светлана (ДНК-Технология) передала запрос клиента на пробники Фемофлор и техническое сопровождение для оборудования\",\n            \"participants\": {\n                \"actor\": \"Воронова Светлана (ДНК-Технология)\",\n                \"audience\": [\"Ткаченко Виктория (ДНК-Технология)\"]\n            },\n            \"attachments\": [],\n            \"confidence\": 0.9\n        },\n        {\n            \"interaction_local_id\": 3,\n            \"contact_id\": 2,\n            \"organization_id\": 1,\n            \"message_subject\": \"Re: Пробные наборы ЦЛД Новосибирск\",\n            \"message_date\": \"2025-07-11T17:51:04+07:00\",\n            \"message_id_hint\": null,\n            \"role_in_message\": \"sender\",\n            \"interaction_type\": \"clarification\",\n            \"summary\": \"Ткаченко Виктория предоставила разъяснения по доступности ресурсов и возможностям удаленной установки\",\n            \"human_note\": \"Ткаченко Виктория (ДНК-Технология) объяснила текущие ограничения с дистрибутивом и предложила отправить доступные материалы клиенту\",\n            \"participants\": {\n                \"actor\": \"Ткаченко Виктория (ДНК-Технология)\",\n                \"audience\": [\"Воронова Светлана (ДНК-Технология)\"]\n            },\n            \"attachments\": [],\n            \"confidence\": 0.9\n        }\n    ]\n}\n```",
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-09T11:24:58.088254",
+      "stats": {
+        "processed_emails": 9,
+        "total_organizations_processed": 21,
+        "total_contacts_processed": 18,
+        "organizations_deduplicated": 2,
+        "contacts_filtered": 0,
+        "contacts_enriched": 18,
+        "data_normalized": 37,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 0,
+        "phones_added_to_contacts": 0
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1,
+        "2": 2
+      },
+      "contact_mapping": {
+        "1": 1,
+        "2": 2,
+        "3": 3
+      },
+      "provenance": {
+        "contacts": {
+          "2": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "3": {
+            "backfill_skipped": "no_personal_location_signal"
+          }
+        }
+      },
+      "email_classification": {
+        "1": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        },
+        "2": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "7728469349"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 2,
+            "gid": "9b25954c-ed22-5fb9-83d9-0265c363d18b",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "5403181503"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "s.voronova@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 2,
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "gid": "79c7462a-997c-523b-b237-ca11da19de55",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "hotline@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 3,
+            "organization_id": 2,
+            "organization_gid": "9b25954c-ed22-5fb9-83d9-0265c363d18b",
+            "gid": "f315fe46-1f5b-5f70-b438-d6d93d533fab",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "9b25954c-ed22-5fb9-83d9-0265c363d18b",
+              "oper11@centerld.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          }
+        ],
+        "conflicts": []
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.0,
+            "source": "none",
+            "method": "no_candidates_found",
+            "score": 0.0,
+            "candidates": [],
+            "checked_at": "2025-10-09T11:24:53.680458",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "9b25954c-ed22-5fb9-83d9-0265c363d18b": {
+            "decision": "skipped",
+            "inn": "5403181503",
+            "confidence": 1.0,
+            "source": "existing",
+            "method": "existing_valid_inn",
+            "score": 1.0,
+            "candidates": [],
+            "checked_at": "2025-10-09T11:24:53.680472",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+              "contact_name": "Воронова Светлана Сергеевна",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "no_org_phones",
+                  "message": "Организация не имеет телефонов"
+                }
+              ],
+              "confidence_scores": [],
+              "decision": null,
+              "skip_reasons": [
+                "no_org_phones"
+              ]
+            },
+            {
+              "contact_gid": "79c7462a-997c-523b-b237-ca11da19de55",
+              "contact_name": "Ткаченко Виктория",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "no_org_phones",
+                  "message": "Организация не имеет телефонов"
+                }
+              ],
+              "confidence_scores": [],
+              "decision": null,
+              "skip_reasons": [
+                "no_org_phones"
+              ]
+            },
+            {
+              "contact_gid": "f315fe46-1f5b-5f70-b438-d6d93d533fab",
+              "contact_name": "Евдокимова Любовь Станиславовна",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "no_org_phones",
+                  "message": "Организация не имеет телефонов"
+                }
+              ],
+              "confidence_scores": [],
+              "decision": null,
+              "skip_reasons": [
+                "no_org_phones"
+              ]
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 3,
+            "contacts_enriched": 0,
+            "phones_added_total": 0,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.0,
+            "phones_skipped_by_reason": {
+              "low_confidence": 0,
+              "no_org_phones": 3,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-09T04:24:53.680995",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 2,
+        "organizations_processed": 0,
+        "contacts_processed": 2,
+        "ui_format_applied": 2,
+        "phones_sanitized": 2
+      }
+    },
+    "provider_used": "replicate",
+    "processing_time": 18.43660593032837,
+    "text_length": 8526,
+    "chunks_processed": 1,
+    "total_contacts_found": 3,
+    "unique_contacts_found": 3,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-07-23/email_010_20250723_20250723_dna-technology_ru_005c4256.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 39.583
+  }
+}

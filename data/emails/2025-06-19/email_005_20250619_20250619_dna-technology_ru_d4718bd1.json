@@ -1,0 +1,54 @@
+{
+  "thread_id": "20250619_dna-technology_ru_d4718bd1",
+  "message_id": "<a6f025ec-a0ee-4b47-97f4-7bb68806b546@dna-technology.ru>",
+  "email_num_in_day": 5,
+  "total_emails_in_day": 14,
+  "from": "prisyazhnyuk@dna-technology.ru",
+  "to": "vetrova.ev@irkmed.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "vetrova.ev@irkmed.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: запрос КП_ДТпрайм_ЛукаЛаб",
+  "date": "Thu, 19 Jun 2025 11:15:40 +0300",
+  "parsed_date": "2025-06-19T15:15:40+07:00",
+  "body_raw": "Добрый день, Екатерина!\r\nКП во вложении.\r\n\n18.06.2025 12:21, Ветрова Екатерина Владиславовна пишет:\r\n> Добрый день!\r\n> Прошу отправить КП на ДТпрайм 5м1 для клиента: Общество с ограниченной \r\n> ответственностью Центр лабораторной диагностики ЛУКАЛАБ ИНН 3811472017\r\n>\r\n> С уважением,\r\n> Ветрова Екатерина Владиславовна,\r\n> Продакт-менеджер ООО «Лабора».\r\n> Раб. телефон: +7(3952)288867 (вн.тел: 32-68)\r\n> E-mail: vetrova.ev@irkmed.ru\r\n> Моб:89643598397\r\n\n-- \r\nС уважением, Присяжнюк Маргарита\r\nменеджер по продаже оборудования ООО \"ДНК-Технология\"\r\nТел\\факс: (495)640-17-71, доб.2007\r\nmailto:prisyazhnyuk@dna-technology.ru",
+  "body_clean": "Добрый день, Екатерина!\nКП во вложении.\n18.06.2025 12:21, Ветрова Екатерина Владиславовна пишет:\n> Добрый день!\n> Прошу отправить КП на ДТпрайм 5м1 для клиента: Общество с ограниченной\n> ответственностью Центр лабораторной диагностики ЛУКАЛАБ ИНН 3811472017\n> С уважением,\n> Ветрова Екатерина Владиславовна,\n> Продакт-менеджер ООО «Лабора».\n> Раб. телефон: +7(3952)288867 (вн.тел: 32-68)\n> E-mail: vetrova.ev@irkmed.ru\n> Моб:89643598397\nС уважением, Присяжнюк Маргарита\nменеджер по продаже оборудования ООО \"ДНК-Технология\"\nТел\\факс: (495)640-17-71, доб.2007\nmailto:prisyazhnyuk@dna-technology.ru",
+  "char_count": 596,
+  "attachments": [
+    {
+      "id": 264,
+      "original_filename": "Ком.пред.19.06.2025 для Иркутск Лабора для Иркутск ООО ЦЛД Лукалаб (ДТпрайм 5М1).pdf",
+      "saved_filename": "20250619_ee0cac58_003627_152229_attach_Ком.пред.19.06.2025 для Иркутск Лабора для Иркутск ООО ЦЛД Лукалаб _ДТпрайм 5М1_.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-06-19/20250619_ee0cac58_003627_152229_attach_Ком.пред.19.06.2025 для Иркутск Лабора для Иркутск ООО ЦЛД Лукалаб _ДТпрайм 5М1_.pdf",
+      "relative_path": "attachments/2025-06-19/20250619_ee0cac58_003627_152229_attach_Ком.пред.19.06.2025 для Иркутск Лабора для Иркутск ООО ЦЛД Лукалаб _ДТпрайм 5М1_.pdf",
+      "file_size": 194839,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:36:27",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<a6f025ec-a0ee-4b47-97f4-7bb68806b546@dna-technology.ru>",
+      "thread_id": "20250619_dna-technology_ru_d4718bd1",
+      "sha256": "99fadc53e66e737475a633b2f022f510d56ff5cfdb9936a5b539408b328424f9",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:36:27.150947+07:00",
+  "raw_size": 272720,
+  "date_folder": "2025-06-19",
+  "eml_path": "eml/2025-06-19/a6f025ec-a0ee-4b47-97f4-7bb68806b546_dna-technology.ru_003627_148515.eml"
+}

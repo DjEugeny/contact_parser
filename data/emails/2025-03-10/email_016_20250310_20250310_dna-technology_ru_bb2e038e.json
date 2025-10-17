@@ -1,0 +1,38 @@
+{
+  "thread_id": "20250310_dna-technology_ru_bb2e038e",
+  "message_id": "<ad00aa4a-0711-401b-bb76-d36505773640@dna-technology.ru>",
+  "email_num_in_day": 16,
+  "total_emails_in_day": 16,
+  "from": "babiy@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru, bortsova@dna-technology.ru",
+  "cc": "litvinenko@dna-technology.ru, razlivakhina@dna-technology.ru",
+  "to_emails": [
+    "s.voronova@dna-technology.ru",
+    "bortsova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "litvinenko@dna-technology.ru",
+    "razlivakhina@dna-technology.ru"
+  ],
+  "subject": "Re: ГНОКБ Re: Пробник ЦМВ",
+  "date": "Mon, 10 Mar 2025 17:32:26 +0300",
+  "parsed_date": "2025-03-10T21:32:26+07:00",
+  "body_raw": "D23ТС000087\r\n\n10.03.2025 17:13, Воронова Светлана Сергеевна пишет:\r\n> Добрый день, коллеги!\r\n>\r\n> Прошу предоставить  набор на ЦМВ в пробирках для  апробации в ГНОКБ -  \r\n> ИНН *5403106150*\r\n>\r\n> Адрес получателя:\r\n>\r\n> г.Новосибирск ул.Немировича-Данченко, 130\r\n>\r\n> ГНОКБ  Лабораторный корпус, 3 этаж\r\n>\r\n>  Галкин Владимир Иванович  +7 913 925-45-89\r\n>\r\n> Дементьева Элина Сергеевна +7 953 880-74-11\r\n>\r\n> Спасибо!\r\n>\r\n-- \r\nС уважением,\r\nБабий Александр\r\nНачальник отдела обучения\r\nООО \"ДНК-Технология\"\r\n+7(916)175-03-75",
+  "body_clean": "D23ТС000087\n10.03.2025 17:13, Воронова Светлана Сергеевна пишет:\n> Добрый день, коллеги!\n> Прошу предоставить  набор на ЦМВ в пробирках для  апробации в ГНОКБ -\n> ИНН *5403106150*\n> Адрес получателя:\n> г.Новосибирск ул.Немировича-Данченко, 130\n> ГНОКБ  Лабораторный корпус, 3 этаж\n>  Галкин Владимир Иванович  +7 913 925-45-89\n> Дементьева Элина Сергеевна +7 953 880-74-11\n> Спасибо!\nС уважением,\nБабий Александр\nНачальник отдела обучения\nООО \"ДНК-Технология\"\n+7(916)175-03-75",
+  "char_count": 476,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:16:23.467162+07:00",
+  "raw_size": 2365,
+  "date_folder": "2025-03-10",
+  "eml_path": "eml/2025-03-10/ad00aa4a-0711-401b-bb76-d36505773640_dna-technology.ru_071623_461336.eml"
+}

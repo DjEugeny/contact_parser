@@ -1,0 +1,52 @@
+{
+  "thread_id": "20250609_igcmd_ru_3999ecf6",
+  "message_id": "<2554261749463744@mail.360.yandex.ru>",
+  "email_num_in_day": 6,
+  "total_emails_in_day": 9,
+  "from": "lab@igcmd.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "",
+  "date": "Mon, 09 Jun 2025 18:15:01 +0800",
+  "parsed_date": "2025-06-09T17:15:01+07:00",
+  "body_raw": "Добрый день, Светлана Сергеевна!\n\nРеквизиты во вложении\n\n \n\n \n\nООО \"Клиника ЦМД\" г. Иркутск\n\nЕлена Георгиевна Михайлова\n\nтел.: 8 914 92 705 12",
+  "body_clean": "Добрый день, Светлана Сергеевна!\nРеквизиты во вложении\nООО \"Клиника ЦМД\" г. Иркутск\nЕлена Георгиевна Михайлова\nтел.: 8 914 92 705 12",
+  "char_count": 132,
+  "attachments": [
+    {
+      "id": 237,
+      "original_filename": "КАРТОЧКА Клиника ЦМД.doc",
+      "saved_filename": "20250609_f2d88a52_003408_676766_attach_КАРТОЧКА Клиника ЦМД.doc",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-06-09/20250609_f2d88a52_003408_676766_attach_КАРТОЧКА Клиника ЦМД.doc",
+      "relative_path": "attachments/2025-06-09/20250609_f2d88a52_003408_676766_attach_КАРТОЧКА Клиника ЦМД.doc",
+      "file_size": 70144,
+      "file_type": "application/msword",
+      "content_type": "application/msword",
+      "saved_at": "2025-10-13 17:34:08",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<2554261749463744@mail.360.yandex.ru>",
+      "thread_id": "20250609_igcmd_ru_3999ecf6",
+      "sha256": "b20370c56c27e6908654d0bf01da51c72185029bbf20d1f507afca933b1f3089",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:34:08.675329+07:00",
+  "raw_size": 98774,
+  "date_folder": "2025-06-09",
+  "eml_path": "eml/2025-06-09/2554261749463744_mail.360.yandex.ru_003408_670011.eml"
+}

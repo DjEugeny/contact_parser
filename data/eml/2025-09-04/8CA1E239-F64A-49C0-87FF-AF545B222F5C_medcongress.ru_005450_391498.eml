@@ -1,0 +1,489 @@
+Received:  from p-east3-cluster3-host5-snip4-10.eps.apple.com ([57.103.86.53]:43620 helo=outbound.qs.icloud.com)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98.2 (FreeBSD))
+	 (envelope-from <evk@medcongress.ru>)
+	 id 1uu3Px-00000000IsU-0iKt 
+	for s.voronova@dna-technology.ru;
+	Thu, 04 Sep 2025 09:25:58 +0300
+Received: from outbound.qs.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-2d-60-percent-6 (Postfix) with ESMTPS id 5C55D18000BE;
+	Thu,  4 Sep 2025 06:25:52 +0000 (UTC)
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=medcongress.ru; s=sig1; bh=sc3OYMbMzzIKrfpRGPDueqSGJsKyeBvHAFHMvsoyJ6I=; h=Content-Type:From:Mime-Version:Subject:Date:Message-Id:To:x-icloud-hme; b=Q0VZ4N7/Z74N4lNGIsjuNZc3VXNz2uR5g5tejPPLTphAnvMWDcs+sRlUS2hwfz7tcAeBMI4f94CW/0mD+2L2h1yPsenptM5K8PfDT/Vpy3sxchrmxqcNyPbAwrgQ3A1F+s6xCPO24ZY5j7+C8vNy8mPlpgczG5/s7OOUmZ6F3pEca6UWKr/rvov+/usmPS3aHWFS2PBRgUwBEknIicW8oTSqDDSt47b+lJJjXphm5uPS2PPfUVNXZjYLbh81eT6GO7RW+A2lfBPo2ybS/vIlfngqOBqnW20D4eLQ+hC27okzg0oCUSkv3RRXI5FSb6cYKm9Y5pMDG4YQMmKRLwqehQ==
+mail-alias-created-date: 1692732998864
+Received: from smtpclient.apple (qs-asmtp-me-k8s.p00.prod.me.com [17.57.155.37])
+	by p00-icloudmta-asmtp-us-east-2d-60-percent-6 (Postfix) with ESMTPSA id 7147D18000B5;
+	Thu,  4 Sep 2025 06:25:51 +0000 (UTC)
+Content-Type: multipart/alternative; boundary=Apple-Mail-0E2C2AA6-5FF4-4119-985C-DADF6DC9AA71
+Content-Transfer-Encoding: 7bit
+From: =?utf-8?B?0JzQldCUINCa0J7QndCT0KDQldCh0KE=?= <evk@medcongress.ru>
+Mime-Version: 1.0 (1.0)
+Subject: =?utf-8?B?UmU6INCd0L7QstC+0LrRg9C30L3QtdGG0LogRndkOiDQmtC+0L0=?=
+ =?utf-8?B?0YTQtdGA0LXQvdGG0LjRjyDQv9C+INCa0JTQmw==?=
+Date: Thu, 4 Sep 2025 09:25:38 +0300
+Message-Id: <8CA1E239-F64A-49C0-87FF-AF545B222F5C@medcongress.ru>
+References: <FD9DB3E3-F27B-43A9-BDFB-528525382C2B@medcongress.ru>
+Cc: s.voronova@dna-technology.ru
+In-Reply-To: <FD9DB3E3-F27B-43A9-BDFB-528525382C2B@medcongress.ru>
+To: Olga Kozlova <kozlova@dna-technology.ru>
+X-Mailer: iPhone Mail (22D82)
+X-Proofpoint-GUID: mrH7l9xsPyMrUopBindlVtOfJ4J58Fda
+X-Proofpoint-ORIG-GUID: mrH7l9xsPyMrUopBindlVtOfJ4J58Fda
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjUwOTA0MDA2NCBTYWx0ZWRfXwCavq0t+fufX
+ 7i6g8HTJT9uw74m3ObkAqEH0Jjdm3/Trbi7M6u6ivjiY/yZ82UuWXlcMQJCz/zoTYvGiIaiMgi9
+ rkZERbfMqUAzWaIw2hbj9WNns+Llsp2aIzZKK4GezR8JfrKOk3YttU1NTtkX/Ko2L6uBOdrID7E
+ fz7DIHQy6QIgfr4MCiM8NQnmmG2v89Bxe36uNKZXO+qm5QmSibFZmiTJxuzIfjnVa3v4vnmT6fP
+ gnd18Lsq11fpmTL5l7Y1J0OkTz/M0kI4u9hrEuNzYbaqnA1Dfh/Tet/NNqSrdDaDHGQnXNJzU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1117,Hydra:6.1.9,FMLib:17.12.80.40
+ definitions=2025-09-04_02,2025-08-28_01,2025-03-28_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ mlxlogscore=999 malwarescore=0 mlxscore=0 suspectscore=0 spamscore=0
+ phishscore=0 clxscore=1030 bulkscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.22.0-2506270000 definitions=main-2509040064
+X-JNJ: AAAAAAABqT42YudtmhKz6YGKRc7ZLavRqvCZ1IbyEA5ha6AoP1kJPdHrrpZkfQxhqc933SrnxVPtkHv56QgasDwvEuBfI5LjLM3fV3dSYczc5Mduf3vQi0dwP+adoT9XJnhra+Sf4k+G9DUPNW5oXmgh4Lk0mKGXMLxBWsQpf37fw+H+++Cr+o92VfzhlyWCSkKH8/Jg2U0H6TbJpYAB1ggSl978JoWC7YE+YbDYJ2jiaswYxD1eaWxfdXHGdayIKSoS6HYuekuy3ypcHx6aIL6b3/fBcKg5pFcmNVI/ZbpWipQCF9KmpHG18ohKAKCABZPwttIH1nC6tvEsGfHwd74V9Rk7cfZy9tAgeAvYuJl9nHWhU4hWk6TeK67U9l2Z7w9+IRS6MOn7tL2lZyyIWxhhR8h1x460IVtApGBLcWE9NB+ELEbntxyVFLzoHreCrYnyPTZCrgf8OXgBFFC6Mey5RlIjicQNZ9Q4b5qJD4uZ4rtFRnex5r1mDXq2QmeKbO1KETOg2TSjcXVeW+Cwm9ahG9MGtYcp0F3VLUrCfoSjNRBc1TivLJjDLdIkdp+quGyqxRvv0p6dF3a1QJ4QNe7Ku0BECxHFlsp8SMR2AzBIxp1gwGqHF5w8
+X-HELO-Warning: Remote host 57.103.86.53 (p-east3-cluster3-host5-snip4-10.eps.apple.com) incorrectly presented itself as outbound.qs.icloud.com
+Received-SPF: pass (mail.dna-technology.ru: domain of medcongress.ru designates 57.103.86.53 as permitted sender) client-ip=57.103.86.53; envelope-from=evk@medcongress.ru; helo=outbound.qs.icloud.com;
+X-Spam_score: 49.0
+X-Spam_score_int: 490
+X-Spam_bar: +++++++++++++++++++++++++++++++++++++++++++++++++
+X-Spam_report: Spam score: 49
+
+
+--Apple-Mail-0E2C2AA6-5FF4-4119-985C-DADF6DC9AA71
+Content-Type: text/html;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
+utf-8"></head><body dir=3D"auto">=D0=9E=D0=BB=D1=8C=D0=B3=D0=B0, =D0=B4=D0=BE=
+=D0=B1=D1=80=D1=8B=D0=B9 =D0=B4=D0=B5=D0=BD=D1=8C!<div>=D0=9C=D0=BD=D0=B5 =D1=
+=81=D1=80=D0=BE=D1=87=D0=BD=D0=BE =D0=BD=D1=83=D0=B6=D0=BD=D0=B0 =D0=B8=D0=BD=
+=D1=84=D0=BE=D1=80=D0=BC=D0=B0=D1=86=D0=B8=D1=8E =D0=BF=D0=BE =D0=BD=D0=B0=D0=
+=B7=D0=B2=D0=B0=D0=BD=D0=B8=D1=8E =D0=BC=D0=B0=D1=81=D1=82=D0=B5=D1=80 =D0=BA=
+=D0=BB=D0=B0=D1=81=D1=81=D0=B0 31 =D0=BE=D0=BA=D1=82=D1=8F=D0=B1=D1=80=D1=8F=
+ =D0=B8 =D0=BA=D1=80=D0=B0=D1=82=D0=BA=D0=BE =D0=BE=D0=BF=D0=B8=D1=81=D0=B0=D0=
+=BD=D0=B8=D0=B5 =D0=BF=D0=BE =D0=BD=D0=B5=D0=BC=D1=83&nbsp;<br id=3D"lineBre=
+akAtBeginningOfSignature"><div dir=3D"ltr"><p class=3D"p1"><span class=3D"s1=
+" style=3D"background-color: rgba(255, 255, 255, 0);">&nbsp;</span></p><p cl=
+ass=3D"p1"><span class=3D"s1" style=3D"background-color: rgba(255, 255, 255,=
+ 0);">____<br>&nbsp;<br>=D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=
+=B5=D0=BC, =D0=95=D0=BB=D0=B5=D0=BD=D0=B0 =D0=A5=D0=B0=D0=BC=D0=B5=D0=BD=D0=BA=
+=D0=BE=D0=B2=D0=B0.<br>=D1=82=D0=B5=D0=BB.: +7&nbsp;(913) 928-12-94<br>=D0=BF=
+=D0=BE=D1=87=D1=82=D0=B0: evk@medcongress.ru</span></p><p class=3D"p1"><span=
+ class=3D"s1" style=3D"background-color: rgba(255, 255, 255, 0);">=D0=9E=D0=9E=
+=D0=9E =C2=AB=D0=9C=D0=95=D0=94 =D0=9A=D0=9E=D0=9D=D0=93=D0=A0=D0=95=D0=A1=D0=
+=A1=C2=BB<br>=D0=90=D0=B4=D1=80=D0=B5=D1=81: =D0=B3.&nbsp;=D0=9D=D0=BE=D0=B2=
+=D0=BE=D1=81=D0=B8=D0=B1=D0=B8=D1=80=D1=81=D0=BA, =D1=83=D0=BB. =D0=9A=D1=80=
+=D0=B0=D1=81=D0=B8=D0=BD=D0=B0 43.<br>=D0=A2=D0=B5=D0=BB=D0=B5=D1=84=D0=BE=D0=
+=BD.: +7&nbsp;(905) 952-20-20, +7 (383) 380-21-04</span></p><p class=3D"p1">=
+<span class=3D"s1" style=3D"background-color: rgba(255, 255, 255, 0);">=D0=AD=
+=D0=BB.=D0=BF=D0=BE=D1=87=D1=82=D0=B0: mail@medcongress.ru<br>=D0=A1=D0=B0=D0=
+=B9=D1=82:&nbsp;medcongress.ru</span></p></div><div dir=3D"ltr"><br><blockqu=
+ote type=3D"cite">8 =D0=B0=D0=B2=D0=B3. 2025=E2=80=AF=D0=B3., =D0=B2 09:07, =D0=
+=9C=D0=95=D0=94 =D0=9A=D0=9E=D0=9D=D0=93=D0=A0=D0=95=D0=A1=D0=A1 &lt;evk@med=
+congress.ru&gt; =D0=BD=D0=B0=D0=BF=D0=B8=D1=81=D0=B0=D0=BB(=D0=B0):<br><br><=
+/blockquote></div><blockquote type=3D"cite"><div dir=3D"ltr">=EF=BB=BF<meta h=
+ttp-equiv=3D"content-type" content=3D"text/html; charset=3Dutf-8"><br id=3D"=
+lineBreakAtBeginningOfSignature"><div dir=3D"ltr"><p class=3D"p1"><span clas=
+s=3D"s1" style=3D"background-color: rgba(255, 255, 255, 0);">=D0=94=D0=BE=D0=
+=B1=D1=80=D1=8B=D0=B9 =D0=B4=D0=B5=D0=BD=D1=8C, =D0=9E=D0=BB=D1=8C=D0=B3=D0=B0=
+!</span></p><p class=3D"p1"><span class=3D"s1" style=3D"background-color: rg=
+ba(255, 255, 255, 0);">=D0=A1 =D0=AD=D0=94=D0=9E =D0=BF=D0=BE=D0=BA=D0=B0 =D0=
+=BD=D0=B5 =D1=80=D0=B0=D0=B1=D0=BE=D1=82=D0=B0=D0=B5=D0=BC, =D1=81=D0=BA=D0=B0=
+=D0=BD =D0=B4=D0=BE=D0=B3=D0=BE=D0=B2=D0=BE=D1=80=D0=B0 =D0=BF=D0=BE=D0=B4=D0=
+=BF=D0=B8=D1=88=D0=B5=D0=BC =D0=BE=D1=82=D0=BF=D1=80=D0=B0=D0=B2=D0=BB=D1=8E=
+ =D0=B2=D0=B0=D0=BC =D1=81=D0=BA=D0=B0=D0=BD =D0=B8 =D1=81=D1=80=D0=B0=D0=B7=
+=D1=83 =D1=81=D1=87=D1=91=D1=82 =D0=B8 =D0=B0=D0=BA=D1=82.</span></p><p clas=
+s=3D"p1"><span style=3D"background-color: rgba(255, 255, 255, 0);">=D0=9F=D0=
+=BE =D0=90=D0=BB=D0=B5=D0=BA=D1=81=D0=B0=D0=BD=D0=B4=D1=80=D1=83 =D0=9C=D0=B8=
+=D1=85=D0=B0=D0=B9=D0=BB=D0=BE=D0=B2=D0=B8=D1=87=D1=83 =D0=BD=D0=B0=D0=BF=D0=
+=B8=D1=88=D0=B8=D1=82=D0=B5 =D0=BF=D0=BE=D0=BB=D0=BD=D0=BE=D1=81=D1=82=D1=8C=
+=D1=8E =D0=B4=D0=BE=D0=BB=D0=B6=D0=BD=D0=BE=D1=81=D1=82=D1=8C, =D0=BC=D0=B5=D1=
+=81=D1=82=D0=BE =D1=80=D0=B0=D0=B1=D0=BE=D1=82=D1=8B, =D0=B3=D0=BE=D1=80=D0=BE=
+=D0=B4 =D0=B4=D0=BB=D1=8F =D0=B2=D0=BD=D0=B5=D1=81=D0=B5=D0=BD=D0=B8=D1=8F =D0=
+=B4=D0=B0=D0=BD=D0=BD=D1=8B=D1=85 =D0=B2 =D0=BF=D1=80=D0=BE=D0=B3=D1=80=D0=B0=
+=D0=BC=D0=BC=D1=83 =D0=BA=D0=BE=D0=BD=D1=84=D0=B5=D1=80=D0=B5=D0=BD=D1=86=D0=
+=B8=D0=B8&nbsp;</span></p><p class=3D"p1"><span class=3D"s1" style=3D"backgr=
+ound-color: rgba(255, 255, 255, 0);">____<br>&nbsp;<br>=D0=A1 =D1=83=D0=B2=D0=
+=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC, =D0=95=D0=BB=D0=B5=D0=BD=D0=B0 =D0=A5=
+=D0=B0=D0=BC=D0=B5=D0=BD=D0=BA=D0=BE=D0=B2=D0=B0.<br>=D1=82=D0=B5=D0=BB.: +7=
+&nbsp;(913) 928-12-94<br>=D0=BF=D0=BE=D1=87=D1=82=D0=B0: evk@medcongress.ru<=
+/span></p><p class=3D"p1"><span class=3D"s1" style=3D"background-color: rgba=
+(255, 255, 255, 0);">=D0=9E=D0=9E=D0=9E =C2=AB=D0=9C=D0=95=D0=94 =D0=9A=D0=9E=
+=D0=9D=D0=93=D0=A0=D0=95=D0=A1=D0=A1=C2=BB<br>=D0=90=D0=B4=D1=80=D0=B5=D1=81=
+: =D0=B3.&nbsp;=D0=9D=D0=BE=D0=B2=D0=BE=D1=81=D0=B8=D0=B1=D0=B8=D1=80=D1=81=D0=
+=BA, =D1=83=D0=BB. =D0=9A=D1=80=D0=B0=D1=81=D0=B8=D0=BD=D0=B0 43.<br>=D0=A2=D0=
+=B5=D0=BB=D0=B5=D1=84=D0=BE=D0=BD.: +7&nbsp;(905) 952-20-20, +7 (383) 380-21=
+-04</span></p><p class=3D"p1"><span class=3D"s1" style=3D"background-color: r=
+gba(255, 255, 255, 0);">=D0=AD=D0=BB.=D0=BF=D0=BE=D1=87=D1=82=D0=B0: mail@me=
+dcongress.ru<br>=D0=A1=D0=B0=D0=B9=D1=82:&nbsp;medcongress.ru</span></p></di=
+v><div dir=3D"ltr"><br><blockquote type=3D"cite">7 =D0=B0=D0=B2=D0=B3. 2025=E2=
+=80=AF=D0=B3., =D0=B2 16:21, Olga Kozlova &lt;kozlova@dna-technology.ru&gt; =D0=
+=BD=D0=B0=D0=BF=D0=B8=D1=81=D0=B0=D0=BB(=D0=B0):<br><br></blockquote></div><=
+blockquote type=3D"cite"><div dir=3D"ltr">=EF=BB=BF
+
+ =20
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8"=
+>
+ =20
+ =20
+    <p>=D0=95=D0=BB=D0=B5=D0=BD=D0=B0, =D0=B4=D0=BE=D0=B1=D1=80=D1=8B=D0=B9 =D0=
+=B4=D0=B5=D0=BD=D1=8C!&nbsp;</p>
+    <p>=D0=91=D0=BB=D0=B0=D0=B3=D0=BE=D0=B4=D0=B0=D1=80=D0=B8=D0=BC =D0=B7=D0=
+=B0 =D0=BF=D0=B8=D1=81=D1=8C=D0=BC=D0=BE.&nbsp;</p>
+    <p>=D0=9D=D0=B0=D0=BF=D1=80=D0=B0=D0=B2=D0=BB=D1=8F=D1=8E =D0=92=D0=B0=D0=
+=BC =D0=B8=D0=BD=D1=84=D0=BE=D1=80=D0=BC=D0=B0=D1=86=D0=B8=D1=8E&nbsp; =D0=BF=
+=D0=BE =D0=BC=D0=B0=D1=81=D1=82=D0=B5=D1=80-=D0=BA=D0=BB=D0=B0=D1=81=D1=81=D1=
+=83 - =D0=B1=D1=83=D0=B4=D0=B5=D1=82 =D0=BF=D1=80=D0=BE=D0=B2=D0=BE=D0=B4=D0=
+=B8=D1=82=D1=8C&nbsp;
+      =D0=91=D0=B0=D0=B1=D0=B8=D0=B9 =D0=90=D0=BB=D0=B5=D0=BA=D1=81=D0=B0=D0=
+=BD=D0=B4=D1=80 =D0=9C=D0=B8=D1=85=D0=B0=D0=B9=D0=BB=D0=BE=D0=B2=D0=B8=D1=87=
+&nbsp; &nbsp;=D0=9D=D0=B0=D1=87=D0=B0=D0=BB=D1=8C=D0=BD=D0=B8=D0=BA =D0=BE=D1=
+=82=D0=B4=D0=B5=D0=BB=D0=B0 =D0=BE=D0=B1=D1=83=D1=87=D0=B5=D0=BD=D0=B8=D1=8F=
+.</p>
+    <p>=D0=A2=D0=B0=D0=BA=D0=B6=D0=B5 =D0=BF=D1=80=D0=B8=D0=BB=D0=B0=D0=B3=D0=
+=B0=D1=8E =D0=BF=D0=BE=D0=B4=D0=BF=D0=B8=D1=81=D0=B0=D0=BD=D0=BD=D1=8B=D0=B9=
+ =D0=B4=D0=BE=D0=B3=D0=BE=D0=B2=D0=BE=D1=80 =D1=81 =D0=BD=D0=B0=D1=88=D0=B5=D0=
+=B9 =D1=81=D1=82=D0=BE=D1=80=D0=BE=D0=BD=D1=8B. =D0=9F=D0=BE=D0=B4=D1=81=D0=BA=
+=D0=B0=D0=B6=D0=B8=D1=82=D0=B5,
+      =D1=80=D0=B0=D0=B1=D0=BE=D1=82=D0=B0=D0=B5=D1=82=D0=B5 =D0=BB=D0=B8 =D0=
+=92=D1=8B =D0=B2 =D0=AD=D0=94=D0=9E?&nbsp;</p>
+    <p>=D0=A1=D0=BF=D0=B0=D1=81=D0=B8=D0=B1=D0=BE,&nbsp;</p>
+    <div class=3D"moz-signature">
+      <div style=3D"font-family: Arial, sans-serif; font-size: 12px; line-he=
+ight: 1.4; color: #333333; max-width: 500px;">
+        <!-- =D0=98=D0=BC=D1=8F =D0=B8 =D0=B4=D0=BE=D0=BB=D0=B6=D0=BD=D0=BE=D1=
+=81=D1=82=D1=8C -->
+        <p style=3D"font-weight: bold; margin: 0 0 5px 0; text-align: left;"=
+> =D0=9A=D0=BE=D0=B7=D0=BB=D0=BE=D0=B2=D0=B0
+          =D0=9E=D0=BB=D1=8C=D0=B3=D0=B0 <br>
+          =D0=92=D0=B5=D0=B4=D1=83=D1=89=D0=B8=D0=B9 =D1=81=D0=B5=D1=80=D0=B2=
+=D0=B8=D1=81-=D0=BC=D0=B5=D0=BD=D0=B5=D0=B4=D0=B6=D0=B5=D1=80 | =D0=9E=D0=9E=
+=D0=9E =C2=AB=D0=94=D0=9D=D0=9A-=D0=A2=D0=B5=D1=85=D0=BD=D0=BE=D0=BB=D0=BE=D0=
+=B3=D0=B8=D1=8F=C2=BB </p>
+        <!-- =D0=9A=D0=BE=D0=BD=D1=82=D0=B0=D0=BA=D1=82=D1=8B -->
+        <p style=3D"margin: 5px 0; text-align: left;"> =D0=A2=D0=B5=D0=BB.: <=
+a href=3D"tel:+7-915-252-22-43" style=3D"color: #0066cc; text-decoration: no=
+ne;">+7-915-252-22-43</a><br>
+          =D0=A0=D0=B0=D0=B1=D0=BE=D1=87=D0=B8=D0=B9: <a href=3D"tel:+749564=
+01771,2026" style=3D"color: #0066cc; text-decoration: none;">+7 (495)
+            640-17-71 (=D0=B4=D0=BE=D0=B1. 2026)</a><br>
+          Email: <a href=3D"mailto:kozlova@dna-technology.ru" style=3D"color=
+: #0066cc; text-decoration: none;" class=3D"moz-txt-link-freetext">kozlova@d=
+na-technology.ru</a>
+        </p>
+        <!-- =D0=A0=D0=B0=D0=B7=D0=B4=D0=B5=D0=BB=D0=B8=D1=82=D0=B5=D0=BB=D1=
+=8C -->
+        <hr style=3D"border: 0; border-top: 1px solid #e0e0e0; margin: 10px 0=
+; width: 100%;">
+        <!-- =D0=A1=D0=BE=D1=86=D1=81=D0=B5=D1=82=D0=B8 -->
+        <p style=3D"margin: 5px 0; text-align: left;"> =D0=A1=D0=B0=D0=B9=D1=
+=82: <a href=3D"https://dna-technology.ru" style=3D"color: #0066cc; text-dec=
+oration: none;">dna-technology.ru</a><br>
+          Telegram: <a href=3D"https://t.me/dna_tech_rus" style=3D"color: #0=
+066cc; text-decoration: none;">@dna_tech_rus</a><br>
+          <a href=3D"https://www.youtube.com/channel/UCqUrpqfZ65z26CUR-4f96i=
+A" style=3D"color: #0066cc; text-decoration: none;">YouTube</a> |
+          <a href=3D"https://rutube.ru/channel/63912239/" style=3D"color: #0=
+066cc; text-decoration: none;">Rutube</a> </p>
+        <!-- =D0=A0=D0=B0=D0=B7=D0=B4=D0=B5=D0=BB=D0=B8=D1=82=D0=B5=D0=BB=D1=
+=8C -->
+        <hr style=3D"border: 0; border-top: 1px solid #e0e0e0; margin: 10px 0=
+; width: 100%;">
+        <!-- =D0=90=D0=B4=D1=80=D0=B5=D1=81 -->
+        <p style=3D"margin: 5px 0; text-align: left;"> =D0=9C=D0=BE=D1=81=D0=
+=BA=D0=B2=D0=B0, =D0=92=D0=B0=D1=80=D1=88=D0=B0=D0=B2=D1=81=D0=BA=D0=BE=D0=B5=
+
+          =D1=88=D0=BE=D1=81=D1=81=D0=B5, =D0=B4=D0=BE=D0=BC 125=D0=96, =D0=BA=
+=D0=BE=D1=80=D0=BF=D1=83=D1=81 6, =D1=8D=D1=82=D0=B0=D0=B6 5 </p>
+        <!-- =D0=9B=D0=BE=D0=B3=D0=BE=D1=82=D0=B8=D0=BF -->
+        <div style=3D"margin: 15px 0 10px 0; text-align: left;"> <img src=3D=
+"https://dna-technology.ru/sites/all/themes/dnk/img/photo_2025-05-30_11-46-4=
+2.jpg" alt=3D"=D0=94=D0=9D=D0=9A-=D0=A2=D0=B5=D1=85=D0=BD=D0=BE=D0=BB=D0=BE=D0=
+=B3=D0=B8=D1=8F" style=3D"max-width: 200px; height: auto; display: block;" d=
+ata-unique-identifier=3D""> </div>
+        <!-- =D0=9E =D0=BA=D0=BE=D0=BC=D0=BF=D0=B0=D0=BD=D0=B8=D0=B8 -->
+        <p style=3D"margin: 5px 0; font-style: italic; color: #555555; text-=
+align: left;">
+          =D0=9F=D1=80=D0=BE=D1=84=D0=B8=D0=BB=D1=8C =D0=BA=D0=BE=D0=BC=D0=BF=
+=D0=B0=D0=BD=D0=B8=D0=B8: =D1=80=D0=B0=D0=B7=D1=80=D0=B0=D0=B1=D0=BE=D1=82=D0=
+=BA=D0=B0 =D0=B8 =D0=BF=D1=80=D0=BE=D0=B8=D0=B7=D0=B2=D0=BE=D0=B4=D1=81=D1=82=
+=D0=B2=D0=BE =D0=BB=D0=B0=D0=B1=D0=BE=D1=80=D0=B0=D1=82=D0=BE=D1=80=D0=BD=D0=
+=BE=D0=B3=D0=BE
+          =D0=BE=D0=B1=D0=BE=D1=80=D1=83=D0=B4=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=
+=D1=8F, =D0=9F=D0=9E =D0=B8 =D1=80=D0=B5=D0=B0=D0=B3=D0=B5=D0=BD=D1=82=D0=BE=
+=D0=B2 =D0=B4=D0=BB=D1=8F =D0=BC=D0=BE=D0=BB=D0=B5=D0=BA=D1=83=D0=BB=D1=8F=D1=
+=80=D0=BD=D0=BE-=D0=B3=D0=B5=D0=BD=D0=B5=D1=82=D0=B8=D1=87=D0=B5=D1=81=D0=BA=
+=D0=B8=D1=85
+          =D0=B8=D1=81=D1=81=D0=BB=D0=B5=D0=B4=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=
+=D0=B9 (=D0=9F=D0=A6=D0=A0, NGS). </p>
+      </div>
+    </div>
+    <div class=3D"moz-cite-prefix">14.07.2025 11:38, "=D0=95=D0=BB=D0=B5=D0=BD=
+=D0=B0 =D0=A5=D0=B0=D0=BC=D0=B5=D0=BD=D0=BA=D0=BE=D0=B2=D0=B0,
+      =D0=9A=D0=BE=D0=BC=D0=BF=D0=B0=D0=BD=D0=B8=D1=8F =C2=AB=D0=9C=D0=95=D0=
+=94 =D0=9A=D0=9E=D0=9D=D0=93=D0=A0=D0=95=D0=A1=D0=A1=C2=BB" =D0=BF=D0=B8=D1=88=
+=D0=B5=D1=82:<br>
+    </div>
+    <blockquote type=3D"cite" cite=3D"mid:D25D02DE-8D3F-49D1-A7F7-E223F7F293=
+EF@medcongress.ru">=D0=94=D0=BE=D0=B1=D1=80=D1=8B=D0=B9
+      =D0=B4=D0=B5=D0=BD=D1=8C, =D0=9E=D0=BB=D1=8C=D0=B3=D0=B0!
+      <div>=D0=92=D0=BE =D0=B2=D0=BB=D0=BE=D0=B6=D0=B5=D0=BD=D0=B8=D0=B8 =D1=
+=88=D0=B0=D0=B1=D0=BB=D0=BE=D0=BD =D0=B4=D0=BE=D0=B3=D0=BE=D0=B2=D0=BE=D1=80=
+=D0=B0, =D1=82=D0=B0=D0=BA=D0=B6=D0=B5 =D0=BC=D0=BD=D0=B5 =D0=BD=D0=B5=D0=BE=
+=D0=B1=D1=85=D0=BE=D0=B4=D0=B8=D0=BC=D0=B0 =D0=B8=D0=BD=D1=84=D0=BE=D1=80=D0=
+=BC=D0=B0=D1=86=D0=B8=D1=8F
+        =D0=BF=D0=BE =D0=BB=D0=B5=D0=BA=D1=82=D0=BE=D1=80=D1=83 =D0=B8 =D0=BD=
+=D0=B0=D0=B7=D0=B2=D0=B0=D0=BD=D0=B8=D1=8E =D0=B4=D0=BE=D0=BA=D0=BB=D0=B0=D0=
+=B4=D0=B0, =D0=B0 =D1=82=D0=B0=D0=BA=D0=B6=D0=B5 =D0=BD=D0=B0=D0=B7=D0=B2=D0=
+=B0=D0=BD=D0=B8=D0=B5 =D0=BC=D0=B0=D1=81=D1=82=D0=B5=D1=80 =D0=BA=D0=BB=D0=B0=
+=D1=81=D1=81=D0=B0 =D0=B8
+        =D0=BA=D1=82=D0=BE =D0=B1=D1=83=D0=B4=D0=B5=D1=82 =D0=B5=D0=B3=D0=BE=
+ =D0=BF=D1=80=D0=BE=D0=B2=D0=BE=D0=B4=D0=B8=D1=82=D1=8C, =D1=87=D1=82=D0=BE=D0=
+=B1=D1=8B =D0=BC=D1=8B =D1=81=D0=BC=D0=BE=D0=B3=D0=BB=D0=B0 =D0=B2 =D0=BF=D1=
+=80=D0=BE=D0=B3=D1=80=D0=B0=D0=BC=D0=BC=D0=B5 =D0=B7=D0=B0=D0=BA=D1=80=D0=B5=
+=D0=BF=D0=B8=D1=82=D1=8C
+        =D0=B7=D0=B0 =D0=B2=D0=B0=D0=BC=D0=B8 =D0=BC=D0=B5=D1=81=D1=82=D0=BE=
+</div>
+      <div><br>
+      </div>
+      <div><br>
+      </div>
+      <br>
+      <fieldset class=3D"moz-mime-attachment-header"></fieldset>
+      <div><br id=3D"lineBreakAtBeginningOfMessage">
+        <div><br>
+          <blockquote type=3D"cite">
+            <div>9 =D0=B8=D1=8E=D0=BB=D1=8F 2025=E2=80=AF=D0=B3., =D0=B2 18:=
+02, =D0=9A=D0=BE=D0=B7=D0=BB=D0=BE=D0=B2=D0=B0 =D0=9E=D0=BB=D1=8C=D0=B3=D0=B0=
+ =D0=90=D0=BB=D0=B5=D0=BA=D1=81=D0=B0=D0=BD=D0=B4=D1=80=D0=BE=D0=B2=D0=BD=D0=
+=B0
+              <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:kozlova@dna-=
+technology.ru">&lt;kozlova@dna-technology.ru&gt;</a> =D0=BD=D0=B0=D0=BF=D0=B8=
+=D1=81=D0=B0=D0=BB(=D0=B0):</div>
+            <br class=3D"Apple-interchange-newline">
+            <div>
+              <div>
+                <p>=D0=95=D0=BB=D0=B5=D0=BD=D0=B0, =D0=B4=D0=BE=D0=B1=D1=80=D1=
+=8B=D0=B9 =D0=B4=D0=B5=D0=BD=D1=8C!&nbsp;</p>
+                <p>=D0=91=D0=BB=D0=B0=D0=B3=D0=BE=D0=B4=D0=B0=D1=80=D0=B8=D0=
+=BC =D0=B7=D0=B0 =D0=BF=D0=B8=D1=81=D1=8C=D0=BC=D0=BE.</p>
+                <p>=D0=A1=D0=BE =D1=81=D0=B2=D0=BE=D0=B5=D0=B9 =D1=81=D1=82=D0=
+=BE=D1=80=D0=BE=D0=BD=D1=8B =D1=85=D0=BE=D1=82=D0=B5=D0=BB=D0=B8 =D0=B1=D1=8B=
+ =D0=BF=D1=80=D0=B8=D0=BD=D1=8F=D1=82=D1=8C =D1=83=D1=87=D0=B0=D1=81=D1=82=D0=
+=B8=D0=B5 =D0=B2
+                  =D0=BC=D0=B5=D1=80=D0=BE=D0=BF=D1=80=D0=B8=D1=8F=D1=82=D0=B8=
+=D0=B8 30.10.25 =D0=B2 =D0=9D=D0=BE=D0=B2=D0=BE=D0=BA=D1=83=D0=B7=D0=BD=D0=B5=
+=D1=86=D0=BA=D0=B5.&nbsp;</p>
+                <p>=D0=A5=D0=BE=D1=82=D0=B5=D0=BB=D0=B8 =D0=B1=D1=8B =D0=B2=D0=
+=B7=D1=8F=D1=82=D1=8C =D0=BF=D0=B0=D0=BA=D0=B5=D1=82 =D1=81 =D1=81=D1=82=D0=B5=
+=D0=BD=D0=B4=D0=BE=D0=BC( =D1=81 =D0=B2=D0=BE=D0=B7=D0=BC=D0=BE=D0=B6=D0=BD=D0=
+=BE=D1=81=D1=82=D1=8C=D1=8E
+                  =D0=BF=D1=80=D0=B5=D0=B4=D1=81=D1=82=D0=B0=D0=B2=D0=B8=D1=82=
+=D1=8C =D0=BE=D0=B1=D0=BE=D1=80=D1=83=D0=B4=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D0=
+=B5), =D0=B4=D0=BE=D0=BA=D0=BB=D0=B0=D0=B4=D0=BE=D0=BC =D1=81=D0=BF=D0=B8=D0=
+=BA=D0=B5=D1=80=D0=B0 =D0=BD=D0=B0 20
+                  =D0=BC=D0=B8=D0=BD=D1=83=D1=82&nbsp; + =D0=BC=D0=B0=D1=81=D1=
+=82=D0=B5=D1=80 =D0=BA=D0=BB=D0=B0=D1=81=D1=81.&nbsp;</p>
+                <p>=D0=9C=D0=BE=D0=B3=D1=83 =D0=BF=D0=BE=D0=BF=D1=80=D0=BE=D1=
+=81=D0=B8=D1=82=D1=8C =D0=92=D0=B0=D1=81 =D0=BD=D0=B0=D0=BF=D1=80=D0=B0=D0=B2=
+=D0=B8=D1=82=D1=8C =D1=88=D0=B0=D0=B1=D0=BB=D0=BE=D0=BD =D0=B4=D0=BE=D0=B3=D0=
+=BE=D0=B2=D0=BE=D1=80=D0=B0 =D0=B4=D0=BB=D1=8F
+                  =D0=B4=D0=B0=D0=BB=D1=8C=D0=BD=D0=B5=D0=B9=D1=88=D0=B5=D0=B3=
+=D0=BE =D0=B7=D0=B0=D0=BA=D0=BB=D1=8E=D1=87=D0=B5=D0=BD=D0=B8=D1=8F. =D0=A2=D0=
+=B0=D0=BA=D0=B6=D0=B5 =D0=B2 =D0=BF=D0=B8=D1=81=D1=8C=D0=BC=D0=B5 =D0=BF=D1=80=
+=D0=B8=D0=BB=D0=B0=D0=B3=D0=B0=D1=8E
+                  =D0=BA=D0=B0=D1=80=D1=82=D0=BE=D1=87=D0=BA=D1=83 =D0=BA=D0=
+=BE=D0=BC=D0=BF=D0=B0=D0=BD=D0=B8=D0=B8.&nbsp;</p>
+                <p>=D0=A1=D0=BF=D0=B0=D1=81=D0=B8=D0=B1=D0=BE,&nbsp;</p>
+                <p>-- </p>
+                <div>
+                  <p> =D0=9A=D0=BE=D0=B7=D0=BB=D0=BE=D0=B2=D0=B0 =D0=9E=D0=BB=
+=D1=8C=D0=B3=D0=B0 <br>
+                    =D0=92=D0=B5=D0=B4=D1=83=D1=89=D0=B8=D0=B9 =D1=81=D0=B5=D1=
+=80=D0=B2=D0=B8=D1=81-=D0=BC=D0=B5=D0=BD=D0=B5=D0=B4=D0=B6=D0=B5=D1=80 | =D0=
+=9E=D0=9E=D0=9E =C2=AB=D0=94=D0=9D=D0=9A-=D0=A2=D0=B5=D1=85=D0=BD=D0=BE=D0=BB=
+=D0=BE=D0=B3=D0=B8=D1=8F=C2=BB </p>
+                  <p> =D0=A2=D0=B5=D0=BB.: <a href=3D"tel:+7-915-252-22-43" m=
+oz-do-not-send=3D"true">+7-915-252-22-43</a><br>
+                    =D0=A0=D0=B0=D0=B1=D0=BE=D1=87=D0=B8=D0=B9: <a href=3D"t=
+el:+74956401771,2026" moz-do-not-send=3D"true">+7 (495) 640-17-71 (=D0=B4=D0=
+=BE=D0=B1.
+                      2026)</a><br>
+                    Email: <a href=3D"mailto:kozlova@dna-technology.ru" clas=
+s=3D"moz-txt-link-freetext" moz-do-not-send=3D"true">kozlova@dna-technology.=
+ru</a>
+                  </p>
+                  <hr>
+                  <p> =D0=A1=D0=B0=D0=B9=D1=82: <a href=3D"https://dna-techn=
+ology.ru/" moz-do-not-send=3D"true">dna-technology.ru</a><br>
+                    Telegram: <a href=3D"https://t.me/dna_tech_rus" moz-do-n=
+ot-send=3D"true">@dna_tech_rus</a><br>
+                    <a href=3D"https://www.youtube.com/channel/UCqUrpqfZ65z2=
+6CUR-4f96iA" moz-do-not-send=3D"true">YouTube</a> | <a href=3D"https://rutub=
+e.ru/channel/63912239/" moz-do-not-send=3D"true">Rutube</a> </p>
+                  <hr>
+                  <p> =D0=9C=D0=BE=D1=81=D0=BA=D0=B2=D0=B0, =D0=92=D0=B0=D1=80=
+=D1=88=D0=B0=D0=B2=D1=81=D0=BA=D0=BE=D0=B5 =D1=88=D0=BE=D1=81=D1=81=D0=B5, =D0=
+=B4=D0=BE=D0=BC 125=D0=96, =D0=BA=D0=BE=D1=80=D0=BF=D1=83=D1=81 6, =D1=8D=D1=
+=82=D0=B0=D0=B6
+                    5 </p>
+                  <div> <img alt=3D"=D0=94=D0=9D=D0=9A-=D0=A2=D0=B5=D1=85=D0=
+=BD=D0=BE=D0=BB=D0=BE=D0=B3=D0=B8=D1=8F" moz-do-not-send=3D"true" data-uniqu=
+e-identifier=3D""> </div>
+                  <p> =D0=9F=D1=80=D0=BE=D1=84=D0=B8=D0=BB=D1=8C =D0=BA=D0=BE=
+=D0=BC=D0=BF=D0=B0=D0=BD=D0=B8=D0=B8: =D1=80=D0=B0=D0=B7=D1=80=D0=B0=D0=B1=D0=
+=BE=D1=82=D0=BA=D0=B0 =D0=B8 =D0=BF=D1=80=D0=BE=D0=B8=D0=B7=D0=B2=D0=BE=D0=B4=
+=D1=81=D1=82=D0=B2=D0=BE
+                    =D0=BB=D0=B0=D0=B1=D0=BE=D1=80=D0=B0=D1=82=D0=BE=D1=80=D0=
+=BD=D0=BE=D0=B3=D0=BE =D0=BE=D0=B1=D0=BE=D1=80=D1=83=D0=B4=D0=BE=D0=B2=D0=B0=
+=D0=BD=D0=B8=D1=8F, =D0=9F=D0=9E =D0=B8 =D1=80=D0=B5=D0=B0=D0=B3=D0=B5=D0=BD=
+=D1=82=D0=BE=D0=B2 =D0=B4=D0=BB=D1=8F
+                    =D0=BC=D0=BE=D0=BB=D0=B5=D0=BA=D1=83=D0=BB=D1=8F=D1=80=D0=
+=BD=D0=BE-=D0=B3=D0=B5=D0=BD=D0=B5=D1=82=D0=B8=D1=87=D0=B5=D1=81=D0=BA=D0=B8=
+=D1=85 =D0=B8=D1=81=D1=81=D0=BB=D0=B5=D0=B4=D0=BE=D0=B2=D0=B0=D0=BD=D0=B8=D0=
+=B9 (=D0=9F=D0=A6=D0=A0, NGS). </p>
+                </div>
+                <p><br>
+                </p>
+                <p><br>
+                </p>
+                <blockquote type=3D"cite" cite=3D"mid:10397711750323905@tlzf=
+nq74f336m6wy.iva.yp-c.yandex.net">
+                  <div>-------- =D0=9F=D0=B5=D1=80=D0=B5=D1=81=D1=8B=D0=BB=D0=
+=B0=D0=B5=D0=BC=D0=BE=D0=B5 =D1=81=D0=BE=D0=BE=D0=B1=D1=89=D0=B5=D0=BD=D0=B8=
+=D0=B5 --------<br>
+                    19:00, 18 =D0=B8=D1=8E=D0=BD=D1=8F 2025 =D0=B3., "=D0=95=
+=D0=BB=D0=B5=D0=BD=D0=B0 =D0=A5=D0=B0=D0=BC=D0=B5=D0=BD=D0=BA=D0=BE=D0=B2=D0=
+=B0, =D0=9A=D0=BE=D0=BC=D0=BF=D0=B0=D0=BD=D0=B8=D1=8F
+                    =C2=AB=D0=9C=D0=95=D0=94 =D0=9A=D0=9E=D0=9D=D0=93=D0=A0=D0=
+=95=D0=A1=D0=A1=C2=BB" <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:evk=
+@medcongress.ru" moz-do-not-send=3D"true">&lt;evk@medcongress.ru&gt;</a>:<br=
+>
+                    <blockquote class=3D"210e7a848e8fcb45wmi-quote">
+                      <div dir=3D"auto"><span>=D0=94=D0=BE=D0=B1=D1=80=D1=8B=
+=D0=B9 =D0=B4=D0=B5=D0=BD=D1=8C, =D0=A1=D0=B2=D0=B5=D1=82=D0=BB=D0=B0=D0=BD=D0=
+=B0!</span>
+                        <div><span>=D0=9E=D1=82=D0=BF=D1=80=D0=B0=D0=B2=D0=BB=
+=D1=8F=D1=8E =D0=B2=D0=B0=D0=BC =D0=B8=D0=BD=D1=84=D0=BE=D1=80=D0=BC=D0=B0=D1=
+=86=D0=B8=D1=8E =D0=BF=D0=BE
+                            =D0=BA=D0=BE=D0=BD=D1=84=D0=B5=D1=80=D0=B5=D0=BD=
+=D1=86=D0=B8=D0=B8 =D0=9A=D0=94=D0=9B =D0=B2 =D0=9D=D0=BE=D0=B2=D0=BE=D0=BA=D1=
+=83=D0=B7=D0=BD=D0=B5=D1=86=D0=BA=D0=B5&nbsp;</span></div>
+                      </div>
+                      <div dir=3D"auto">
+                        <div><br>
+                          <div dir=3D"ltr">
+                            <p class=3D"2003c9fbcc5ba826aee4a9f8b8244e64p1">=
+<span class=3D"8fbbc9574f1126d0e623268c383f13bbs1">____<br>
+                                &nbsp;<br>
+                                =D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=
+=B8=D0=B5=D0=BC, =D0=95=D0=BB=D0=B5=D0=BD=D0=B0 =D0=A5=D0=B0=D0=BC=D0=B5=D0=BD=
+=D0=BA=D0=BE=D0=B2=D0=B0.<br>
+                                =D1=82=D0=B5=D0=BB.: +7&nbsp;<span class=3D"=
+1f1ea193f6735cf0wmi-callto">(913)
+                                  928-12-94</span><br>
+                                =D0=BF=D0=BE=D1=87=D1=82=D0=B0: <a href=3D"m=
+ailto:evk@medcongress.ru" class=3D"moz-txt-link-freetext" moz-do-not-send=3D=
+"true">evk@medcongress.ru</a></span></p>
+                            <p class=3D"2003c9fbcc5ba826aee4a9f8b8244e64p1">=
+<span class=3D"8fbbc9574f1126d0e623268c383f13bbs1">=D0=9E=D0=9E=D0=9E =C2=AB=
+=D0=9C=D0=95=D0=94 =D0=9A=D0=9E=D0=9D=D0=93=D0=A0=D0=95=D0=A1=D0=A1=C2=BB<br=
+>
+                                =D0=90=D0=B4=D1=80=D0=B5=D1=81: =D0=B3.&nbsp=
+;=D0=9D=D0=BE=D0=B2=D0=BE=D1=81=D0=B8=D0=B1=D0=B8=D1=80=D1=81=D0=BA, =D1=83=D0=
+=BB. =D0=9A=D1=80=D0=B0=D1=81=D0=B8=D0=BD=D0=B0 43.<br>
+                                =D0=A2=D0=B5=D0=BB=D0=B5=D1=84=D0=BE=D0=BD.:=
+ +7&nbsp;<span class=3D"1f1ea193f6735cf0wmi-callto">(905)
+                                  952-20-20</span>, <span class=3D"1f1ea193f=
+6735cf0wmi-callto">+7
+                                  (383) 380-21-04</span></span></p>
+                            <p class=3D"2003c9fbcc5ba826aee4a9f8b8244e64p1">=
+<span class=3D"8fbbc9574f1126d0e623268c383f13bbs1">=D0=AD=D0=BB.=D0=BF=D0=BE=
+=D1=87=D1=82=D0=B0: <a href=3D"mailto:mail@medcongress.ru" class=3D"moz-txt-=
+link-freetext" moz-do-not-send=3D"true">mail@medcongress.ru</a><br>
+                                =D0=A1=D0=B0=D0=B9=D1=82:&nbsp;medcongress.r=
+u</span></p>
+                          </div>
+                        </div>
+                      </div>
+                    </blockquote>
+                    <br>
+                    -------- =D0=9A=D0=BE=D0=BD=D0=B5=D1=86 =D0=BF=D0=B5=D1=80=
+=D0=B5=D1=81=D1=8B=D0=BB=D0=B0=D0=B5=D0=BC=D0=BE=D0=B3=D0=BE =D1=81=D0=BE=D0=
+=BE=D0=B1=D1=89=D0=B5=D0=BD=D0=B8=D1=8F --------<br>
+                  </div>
+                </blockquote>
+                <pre class=3D"moz-signature" cols=3D"72">--=20
+--
+=D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,
+=D0=9A=D0=BE=D0=B7=D0=BB=D0=BE=D0=B2=D0=B0 =D0=9E=D0=BB=D1=8C=D0=B3=D0=B0
+=D0=92=D0=B5=D0=B4=D1=83=D1=89=D0=B8=D0=B9 =D1=81=D0=B5=D1=80=D0=B2=D0=B8=D1=
+=81-=D0=BC=D0=B5=D0=BD=D0=B5=D0=B4=D0=B6=D0=B5=D1=80
+=D0=9E=D0=9E=D0=9E "=D0=94=D0=9D=D0=9A-=D0=A2=D0=B5=D1=85=D0=BD=D0=BE=D0=BB=D0=
+=BE=D0=B3=D0=B8=D1=8F"
+
+Tel: 8 (495) 640-17-71 (ext. 2026)
+Tel Mob: +7 915-252-22-43
+e-mail: <a class=3D"moz-txt-link-abbreviated moz-txt-link-freetext" href=3D"=
+mailto:kozlova@dna-technology.ru" moz-do-not-send=3D"true">kozlova@dna-techn=
+ology.ru</a>
+web: dna-technology.ru</pre>
+              </div>
+              <span id=3D"cid:7B3CDF5C-A403-4C00-95F9-36BC42F61AF1">&lt;=D1=80=
+=D0=B5=D0=BA=D0=B2=D0=B8=D0=B7=D0=B8=D1=82=D1=8B
+                =D0=9E=D0=9E=D0=9E.doc&gt;</span></div>
+          </blockquote>
+        </div>
+        <br>
+        <div>
+          <div dir=3D"auto">
+            <div dir=3D"auto">
+              <div dir=3D"auto">
+                <div>=E2=80=A8=E2=80=A8</div>
+                <div><br>
+                </div>
+                <div>____<br>
+                  &nbsp;<br>
+                  =D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=
+=BC, =D0=95=D0=BB=D0=B5=D0=BD=D0=B0 =D0=A5=D0=B0=D0=BC=D0=B5=D0=BD=D0=BA=D0=BE=
+=D0=B2=D0=B0.=E2=80=A8</div>
+                <div>=D1=82=D0=B5=D0=BB.: +7&nbsp;(913) 928-12-94=E2=80=A8</=
+div>
+                <div>=D0=BF=D0=BE=D1=87=D1=82=D0=B0: <a class=3D"moz-txt-lin=
+k-abbreviated" href=3D"mailto:evk@medcongress.ru">evk@medcongress.ru</a><br>=
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <span></span><br class=3D"Apple-interchange-newline">
+          <span></span><span></span><span></span><span></span></div>
+      </div>
+      <br>
+      <fieldset class=3D"moz-mime-attachment-header"></fieldset>
+      <div>
+        <div><span></span>
+          <div><br class=3D"Apple-interchange-newline">
+            <br class=3D"Apple-interchange-newline">
+            =D0=9E=D0=9E=D0=9E =C2=AB=D0=9C=D0=95=D0=94 =D0=9A=D0=9E=D0=9D=D0=
+=93=D0=A0=D0=95=D0=A1=D0=A1=C2=BB=E2=80=A8</div>
+          <div>=D0=90=D0=B4=D1=80=D0=B5=D1=81: =D0=B3.&nbsp;=D0=9D=D0=BE=D0=B2=
+=D0=BE=D1=81=D0=B8=D0=B1=D0=B8=D1=80=D1=81=D0=BA, =D1=83=D0=BB. =D0=9A=D1=80=
+=D0=B0=D1=81=D0=B8=D0=BD=D0=B0 43.=E2=80=A8</div>
+          <div>=D0=A2=D0=B5=D0=BB=D0=B5=D1=84=D0=BE=D0=BD.: +7&nbsp;(905) 95=
+2-20-20, +7 (383) 380-21-04</div>
+          <div>=D0=AD=D0=BB.=D0=BF=D0=BE=D1=87=D1=82=D0=B0: <a class=3D"moz-=
+txt-link-abbreviated" href=3D"mailto:mail@medcongress.ru">mail@medcongress.r=
+u</a>=E2=80=A8</div>
+          <div>=D0=A1=D0=B0=D0=B9=D1=82:&nbsp;medcongress.ru&nbsp;</div>
+        </div>
+        <br>
+      </div>
+    </blockquote>
+ =20
+
+<div>&lt;Marketing20250806164039.pdf&gt;</div></div></blockquote></div></blo=
+ckquote></div></body></html>=
+
+--Apple-Mail-0E2C2AA6-5FF4-4119-985C-DADF6DC9AA71--

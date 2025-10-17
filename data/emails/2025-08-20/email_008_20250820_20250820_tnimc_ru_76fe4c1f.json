@@ -1,0 +1,52 @@
+{
+  "thread_id": "20250820_tnimc_ru_76fe4c1f",
+  "message_id": "<004b01dc11bb$306fc4a0$914f4de0$@tnimc.ru>",
+  "email_num_in_day": 8,
+  "total_emails_in_day": 12,
+  "from": "e.valeeva@tnimc.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Порект договора Томский НИМЦ 115 223 25 ООО ДНК Технология",
+  "date": "Wed, 20 Aug 2025 17:14:18 +0700",
+  "parsed_date": "2025-08-20T17:14:18+07:00",
+  "body_raw": "Здравствуйте, Светлана Сергеевна.\r\n\nНаправляю на рассмотрение и согласование проект договора по счету\r\n(коммерческому предложению) № 8852 от 04.08.2025\r\n\nПрошу заполнить пункты договора, выделенные цветом. Спасибо!\r\n\nЕсли не будет исправлений по договору – выслать подписанную скан-копию\r\nдоговора, в ответ подпишем со стороны заказчика.\r\n\nС уважением,\r\n\nВалеева Екатерина Александровна\r\n\nспециалист по закупкам контрактной службы Томского НИМЦ\r\n\nтел. +7(3822) 51-53-39",
+  "body_clean": "Здравствуйте, Светлана Сергеевна.\nНаправляю на рассмотрение и согласование проект договора по счету\n(коммерческому предложению) № 8852 от 04.08.2025\nПрошу заполнить пункты договора, выделенные цветом. Спасибо!\nЕсли не будет исправлений по договору – выслать подписанную скан-копию\nдоговора, в ответ подпишем со стороны заказчика.\nС уважением,\nВалеева Екатерина Александровна\nспециалист по закупкам контрактной службы Томского НИМЦ\nтел. +7(3822) 51-53-39",
+  "char_count": 453,
+  "attachments": [
+    {
+      "id": 425,
+      "original_filename": "Договор 115 223ЕП 25 ООО ДНК Технология.doc",
+      "saved_filename": "20250820_ec74bd8e_005145_540681_attach_Договор 115 223ЕП 25 ООО ДНК Технология.doc",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-08-20/20250820_ec74bd8e_005145_540681_attach_Договор 115 223ЕП 25 ООО ДНК Технология.doc",
+      "relative_path": "attachments/2025-08-20/20250820_ec74bd8e_005145_540681_attach_Договор 115 223ЕП 25 ООО ДНК Технология.doc",
+      "file_size": 155136,
+      "file_type": "application/msword",
+      "content_type": "application/msword",
+      "saved_at": "2025-10-13 17:51:45",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<004b01dc11bb$306fc4a0$914f4de0$@tnimc.ru>",
+      "thread_id": "20250820_tnimc_ru_76fe4c1f",
+      "sha256": "02e1c5a3218b0c3b3b836e7ae4b711ff6371b3f694bf9389f70cdc0a048cd05a",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:51:45.538462+07:00",
+  "raw_size": 220085,
+  "date_folder": "2025-08-20",
+  "eml_path": "eml/2025-08-20/004b01dc11bb_306fc4a0_914f4de0_tnimc.ru_005145_531542.eml"
+}

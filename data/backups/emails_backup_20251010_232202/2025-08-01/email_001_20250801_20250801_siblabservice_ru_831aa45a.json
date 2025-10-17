@@ -1,0 +1,38 @@
+{
+  "thread_id": "20250801_siblabservice_ru_831aa45a",
+  "message_id": "<09cb01dc02a2$588c75f0$09a561d0$@siblabservice.ru>",
+  "from": "kiwi@siblabservice.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "СибЛабСервис запрос",
+  "date": "Fri, 1 Aug 2025 13:08:40 +0800",
+  "parsed_date": "2025-08-01T12:08:40+07:00",
+  "body": "Здравствуйте, Светлана!\nПрошу отправить КП на ДТ Лайт\nКонечный пользователь: ЦГиЭ Абакан, ИНН: 1901066506\nСпасибо!\nЭДО Контур.Диадок\n2BM-3812132920-2013022203542760504890000000000\nМенеджер ООО <СибЛабСервис>\nКлебанова Ирина\nТел.(3952)78-25-79, доп. 121\nГ. Иркутск\nЗдравствуйте, Светлана! Прошу отправить КП на ДТ Лайт Конечный пользователь: ЦГиЭ Абакан, ИНН: 1901066506 Спасибо! ЭДО Контур.Диадок 2BM-3812132920-2013022203542760504890000000000  Менеджер ООО «СибЛабСервис»Клебанова ИринаТел.(3952)78-25-79, доп. 121Г. Иркутск",
+  "char_count": 525,
+  "attachments": [
+    {
+      "original_filename": "image001.jpg",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: image001.jpg@01DC02E5.6695C550",
+      "is_inline": true,
+      "content_id": "image001.jpg@01DC02E5.6695C550"
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T22:14:18.891815+07:00",
+  "raw_size": 11043,
+  "date_folder": "2025-08-01"
+}

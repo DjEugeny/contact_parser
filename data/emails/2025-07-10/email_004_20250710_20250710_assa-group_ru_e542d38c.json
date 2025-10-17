@@ -1,0 +1,71 @@
+{
+  "thread_id": "20250710_assa-group_ru_e542d38c",
+  "message_id": "<065601dbf16c$45f15f10$d1d41d30$@assa-group.ru>",
+  "email_num_in_day": 4,
+  "total_emails_in_day": 13,
+  "from": "malysheva@assa-group.ru",
+  "to": "zolotareva@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru, m.gogoleva@dna-technology.ru, prisyazhnyuk@dna-technology.ru...",
+  "to_emails": [
+    "zolotareva@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru",
+    "m.gogoleva@dna-technology.ru",
+    "prisyazhnyuk@dna-technology.ru",
+    "bilalov@dna-technology.ru",
+    "anufrieva@assa-group.ru"
+  ],
+  "subject": "Запрос КП АССА Клиент: ИМБ РАН",
+  "date": "Thu, 10 Jul 2025 14:28:45 +0700",
+  "parsed_date": "2025-07-10T14:28:45+07:00",
+  "body_raw": "Коллеги, добрый день!\r\n\nПрошу направить коммерческое предложение на оборудование ниже, с учетом если везти под заказ.\r\n\n1. Амплификатор реал-тайм ДТлайт (5S1) с принадлежностями – 1 шт\r\n2. Амплификатор Real-time DT-Prime 5М1 с принадлежностями – 1 шт\r\n\nКлиент: ФГБУН Институт молекулярной биологии им. В.А. Энгельгардта, РАН (Лаборатория технологий молекулярной диагностики)\r\n\nИНН: 7736055393\r\nПрогноз отгрузки квартала: 3-4 квартал, 2025 год\r\n\nПрошу закрепить проект за нашей организацией , указать в КП:\r\n\n- размер скидки\r\n\n- сроки доставки \r\n\n- условия предоплаты \r\n\n- срок гарантии\r\n\n-стоимость ПНР \r\n\nБуду очень благодарна за оперативный ответ!\r\n\nПродуктивного рабочего дня!\r\n\nС уважением,\r\n\nЮлия Малышева\r\n\nМенеджер отдела продаж\r\n\nОтдел продаж | АССА ЛАБОРАТОРНЫЕ СИСТЕМЫ\r\n\n _____ \r\n\n <tel:+74994900272> \r\n\n <tel:+74994900272> +7 (499) 490-02-72, доб. 1007 I <tel:+79635173914> +7 (963) 517-39-14\r\n\n <mailto:malysheva@assa-group.ru> malysheva@assa-group.ru\r\n\n <http://assa-group.ru/> \r\n\n <https://assa-group.ru/> assa-group.ru\r\n\nТомск, 634012, ул. Елизаровых, 53/2​, 804 офис",
+  "body_clean": "Коллеги, добрый день!\nПрошу направить коммерческое предложение на оборудование ниже, с учетом если везти под заказ.\n1. Амплификатор реал-тайм ДТлайт (5S1) с принадлежностями – 1 шт\n2. Амплификатор Real-time DT-Prime 5М1 с принадлежностями – 1 шт\nКлиент: ФГБУН Институт молекулярной биологии им. В.А. Энгельгардта, РАН (Лаборатория технологий молекулярной диагностики)\nИНН: 7736055393\nПрогноз отгрузки квартала: 3-4 квартал, 2025 год\nПрошу закрепить проект за нашей организацией , указать в КП:\n- размер скидки\n- сроки доставки\n- условия предоплаты\n- срок гарантии\n-стоимость ПНР\nБуду очень благодарна за оперативный ответ!\nПродуктивного рабочего дня!\nС уважением,\nЮлия Малышева\nМенеджер отдела продаж\nОтдел продаж | АССА ЛАБОРАТОРНЫЕ СИСТЕМЫ\ntel:+74994900272\ntel:+74994900272 +7 (499) 490-02-72, доб. 1007 I tel:+79635173914 +7 (963) 517-39-14\nmailto:malysheva@assa-group.ru malysheva@assa-group.ru\nhttp://assa-group.ru/\nhttps://assa-group.ru/ assa-group.ru\nТомск, 634012, ул. Елизаровых, 53/2​, 804 офис",
+  "char_count": 1004,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image001.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image002.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image003.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image004.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image005.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 5,
+    "saved": 0,
+    "excluded": 5,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:40:29.508853+07:00",
+  "raw_size": 32468,
+  "date_folder": "2025-07-10",
+  "eml_path": "eml/2025-07-10/065601dbf16c_45f15f10_d1d41d30_assa-group.ru_004029_503143.eml"
+}

@@ -1,0 +1,47 @@
+{
+  "thread_id": "20250618_medcongress_ru_f16204fc",
+  "message_id": "<4C720642-1BB6-4DD9-AA01-6762DBFF9442@medcongress.ru>",
+  "email_num_in_day": 10,
+  "total_emails_in_day": 13,
+  "from": "evk@medcongress.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Конференция по КДЛ",
+  "date": "Wed, 18 Jun 2025 19:00:02 +0700",
+  "parsed_date": "2025-06-18T19:00:02+07:00",
+  "body_raw": "Добрый день, Светлана!\r\nОтправляю вам информацию по конференции КДЛ в Новокузнецке \r\n\n____\r\n\nС уважением, Елена Хаменкова.\r\nтел.: +7 (913) 928-12-94\r\nпочта: evk@medcongress.ru\r\n\nООО «МЕД КОНГРЕСС»\r\nАдрес: г. Новосибирск, ул. Красина 43.\r\nТелефон.: +7 (905) 952-20-20, +7 (383) 380-21-04\r\n\nЭл.почта: mail@medcongress.ru\r\nСайт: medcongress.ru",
+  "body_clean": "Добрый день, Светлана!\nОтправляю вам информацию по конференции КДЛ в Новокузнецке\nС уважением, Елена Хаменкова.\nтел.: +7 (913) 928-12-94\nпочта: evk@medcongress.ru\nООО «МЕД КОНГРЕСС»\nАдрес: г. Новосибирск, ул. Красина 43.\nТелефон.: +7 (905) 952-20-20, +7 (383) 380-21-04\nЭл.почта: mail@medcongress.ru\nСайт: medcongress.ru",
+  "char_count": 320,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:Информационное письмо*",
+      "original_filename": "Информационное письмо 30 10 25.pdf",
+      "is_inline": false
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:Условия участия*",
+      "original_filename": "Условия участия 30 10 25.pdf",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 0,
+    "excluded": 2,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:36:13.493192+07:00",
+  "raw_size": 631781,
+  "date_folder": "2025-06-18",
+  "eml_path": "eml/2025-06-18/4C720642-1BB6-4DD9-AA01-6762DBFF9442_medcongress.ru_003613_490853.eml"
+}

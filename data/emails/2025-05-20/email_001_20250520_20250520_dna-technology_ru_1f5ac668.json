@@ -1,0 +1,61 @@
+{
+  "thread_id": "20250520_dna-technology_ru_1f5ac668",
+  "message_id": "<c51b2999-ea6e-4846-b4f3-25ee5100cea0@dna-technology.ru>",
+  "email_num_in_day": 1,
+  "total_emails_in_day": 12,
+  "from": "torgi@dna-technology.ru",
+  "to": "m.shchigoleva@galen.ru, s.voronova@dna-technology.ru",
+  "cc": "i.lapunova@galen.ru",
+  "to_emails": [
+    "m.shchigoleva@galen.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "i.lapunova@galen.ru"
+  ],
+  "subject": "Re: запрос КП",
+  "date": "Tue, 20 May 2025 09:54:42 +0300",
+  "parsed_date": "2025-05-20T13:54:42+07:00",
+  "body_raw": "Добрый день\r\n\nКп во вложении\r\n\nПросьба сохранять переписку при ответе.\r\nС уважением, специалист по тендерам ООО \"ДНК-Технология\"\r\nФролова Мария Борисовна\r\nТелефон 8 (495) 640 -17 -71 доб.2036\r\nmailto:torgi@dna-technology.ru\r\n\nПросим обращать внимание на сроки действия, указанные в коммерческих предложениях и наличие или\r\n отсутствие доставки в них. Просим также обратить внимание на наименование производителя в\r\nрегистрационных удостоверениях, вывешенных на сайте! Позаботьтесь о природе!\r\nНе распечатывайте этот документ без необходимости!\r\n\n19.05.2025 13:06, Щиголева Мария Александровна пишет:\r\n>\r\n> Добрый день!\r\n>\r\n> Прошу выставить КП на:\r\n>\r\n> R1-P809-S3/6 – 8 наборов\r\n>\r\n> R1-P801-S3/6 – 8 наборов\r\n>\r\n> Конечный пользователь: ООО \"СКЛ Эксперт\", ИНН: 4205388624\r\n>\r\n> С уважением,\r\n>\r\n> Мария Щиголева\r\n>\r\n> ЗАО «ФИРМА ГАЛЕН»\r\n>\r\n> Младший менеджер по продукции «Молекулярная диагностика»\r\n>\r\n> Тел./факс: +7 (495) 925-56-75 (доб.653)\r\n>\r\n> Моб. +7(967)-508-39-99\r\n>\r\n> УВЕДОМЛЕНИЕ О КОНФИДЕНЦИАЛЬНОСТИ: Это электронное сообщение и любые \r\n> документы, приложенные к нему, содержат конфиденциальную информацию. \r\n> Настоящим уведомляем Вас о том, что если это сообщение не \r\n> предназначено Вам, использование, копирование, распространение \r\n> информации, содержащейся в настоящем сообщении, а также осуществление \r\n> любых действий на основе этой информации, строго запрещено. Если Вы \r\n> получили это сообщение по ошибке, пожалуйста, сообщите об этом \r\n> отправителю по электронной почте и удалите это сообщение. \r\n> CONFIDENTIALITY NOTICE: This email and any files attached to it are \r\n> confidential. If you are not the intended recipient you are notified \r\n> that using, copying, distributing or taking any action in reliance on \r\n> the contents of this information is strictly prohibited. If you have \r\n> received this email in error please notify the sender and delete this \r\n> email.",
+  "body_clean": "Добрый день\nКп во вложении\nПросьба сохранять переписку при ответе.\nС уважением, специалист по тендерам ООО \"ДНК-Технология\"\nФролова Мария Борисовна\nТелефон 8 (495) 640 -17 -71 доб.2036\nmailto:torgi@dna-technology.ru\nПросим обращать внимание на сроки действия, указанные в коммерческих предложениях и наличие или\nотсутствие доставки в них. Просим также обратить внимание на наименование производителя в\nрегистрационных удостоверениях, вывешенных на сайте! Позаботьтесь о природе!\nНе распечатывайте этот документ без необходимости!\n19.05.2025 13:06, Щиголева Мария Александровна пишет:\n> Добрый день!\n> Прошу выставить КП на:\n> R1-P809-S3/6 – 8 наборов\n> R1-P801-S3/6 – 8 наборов\n> Конечный пользователь: ООО \"СКЛ Эксперт\", ИНН: 4205388624\n> С уважением,\n> Мария Щиголева\n> ЗАО «ФИРМА ГАЛЕН»\n> Младший менеджер по продукции «Молекулярная диагностика»\n> Тел./факс: +7 (495) 925-56-75 (доб.653)\n> Моб. +7(967)-508-39-99\n>\n[disclaimer truncated #08c3183fd551]",
+  "char_count": 954,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:image*",
+      "original_filename": "image001.jpg",
+      "is_inline": true
+    },
+    {
+      "id": 188,
+      "original_filename": "КП 6034 от 20.05.2025.pdf",
+      "saved_filename": "20250520_5b6cbd5b_002954_335118_attach_КП 6034 от 20.05.2025.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-05-20/20250520_5b6cbd5b_002954_335118_attach_КП 6034 от 20.05.2025.pdf",
+      "relative_path": "attachments/2025-05-20/20250520_5b6cbd5b_002954_335118_attach_КП 6034 от 20.05.2025.pdf",
+      "file_size": 199076,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:29:54",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<c51b2999-ea6e-4846-b4f3-25ee5100cea0@dna-technology.ru>",
+      "thread_id": "20250520_dna-technology_ru_1f5ac668",
+      "sha256": "43b205311a5aa470019db04e71070d2f9e19476d287cf02f9b162eaf1aab4b11",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 1,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:29:54.332349+07:00",
+  "raw_size": 288490,
+  "date_folder": "2025-05-20",
+  "eml_path": "eml/2025-05-20/c51b2999-ea6e-4846-b4f3-25ee5100cea0_dna-technology.ru_002954_326994.eml"
+}

@@ -1,0 +1,36 @@
+{
+  "thread_id": "20250616_dna-technology_ru_074a3a03",
+  "message_id": "<b112ecc1-02c6-4d04-b3ae-d4674a4951a4@dna-technology.ru>",
+  "email_num_in_day": 1,
+  "total_emails_in_day": 10,
+  "from": "bilalov@dna-technology.ru",
+  "to": "ozernaya@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "ozernaya@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Fwd: Запрос КП",
+  "date": "Mon, 16 Jun 2025 09:36:21 +0300",
+  "parsed_date": "2025-06-16T13:36:21+07:00",
+  "body_raw": "Добрый день, Мария!\r\n\nЗапрос от посредника Хабаровск-ДС. Действующих КП нет.\r\nВыставляем КП?\r\n\n-------- Перенаправленное сообщение --------\r\nТема: Запрос КП\r\nДата: Mon, 16 Jun 2025 08:00:10 +0300\r\nОт: DS-Vostok <kubernikov@mail.ru>\r\nОтвечать: DS-Vostok <kubernikov@mail.ru>\r\nКому: Билалов Альберт <bilalov@dna-technology.ru>\r\n\nДобрый день! Просим выставить КП на ДТлайт 5S1 для ГУЗ «Сретенская ЦРБ», \r\nЗабайкальский край. Спасибо!\r\nС уважением, Куберников Михаил.\r\nООО \"Диагностические Системы\"\r\n680000 г.Хабаровск\r\nУссурийский бульвар д.45\r\nтел/факс (4212) 751-445;\r\nсот.8-914-198-66-90",
+  "body_clean": "Добрый день, Мария!\nЗапрос от посредника Хабаровск-ДС. Действующих КП нет.\nВыставляем КП?\n-------- Перенаправленное сообщение --------\nТема: Запрос КП\nДата: Mon, 16 Jun 2025 08:00:10 +0300\nОт: DS-Vostok kubernikov@mail.ru\nОтвечать: DS-Vostok kubernikov@mail.ru\nКому: Билалов Альберт bilalov@dna-technology.ru\nДобрый день! Просим выставить КП на ДТлайт 5S1 для ГУЗ «Сретенская ЦРБ»,\nЗабайкальский край. Спасибо!\nС уважением, Куберников Михаил.\nООО \"Диагностические Системы\"\n680000 г.Хабаровск\nУссурийский бульвар д.45\nтел/факс (4212) 751-445;\nсот.8-914-198-66-90",
+  "char_count": 561,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:35:16.187994+07:00",
+  "raw_size": 4896,
+  "date_folder": "2025-06-16",
+  "eml_path": "eml/2025-06-16/b112ecc1-02c6-4d04-b3ae-d4674a4951a4_dna-technology.ru_003516_181733.eml"
+}

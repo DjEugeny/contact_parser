@@ -1,0 +1,46 @@
+{
+  "thread_id": "20251006_clt-lab_ru_3fb7d298",
+  "message_id": "<1c843725633514d3e2f8ff394bc19e87@clt-lab.ru>",
+  "from": "zn@clt-lab.ru",
+  "to": "fetisova@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru, m.varlamov@clt-lab.ru",
+  "to_emails": [
+    "fetisova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru",
+    "m.varlamov@clt-lab.ru"
+  ],
+  "subject": "заявка на октябрь",
+  "date": "Mon, 06 Oct 2025 18:33:12 +0700",
+  "parsed_date": "2025-10-06T18:33:12+07:00",
+  "body": "Ирина Николаевна, день добрый!\nВо вложении заявка, просьба выставить счет\nЦентр лабораторных технологий АБВ\nЛавицкая Елена\nтел.: +7 (913) 532-83-09\nwww.clt-lab.ru [1]\nLinks:\n[1] http://www.clt-lab.ru/\nИрина Николаевна, день добрый!Во вложении заявка, просьба выставить счет С уважением,Центр лабораторных технологий АБВЛавицкая Еленател.: +7 (913) 532-83-09 www.clt-lab.ru",
+  "char_count": 372,
+  "attachments": [
+    {
+      "original_filename": "ДНК-Технология 03.10.25.xlsx",
+      "saved_filename": "20251006_clt-lab_ru_3fb7d298_222701_attach_ДНК-Технология 03.10.25.xlsx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-10-06/20251006_clt-lab_ru_3fb7d298_222701_attach_ДНК-Технология 03.10.25.xlsx",
+      "relative_path": "attachments/2025-10-06/20251006_clt-lab_ru_3fb7d298_222701_attach_ДНК-Технология 03.10.25.xlsx",
+      "file_size": 56392,
+      "file_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "saved_at": "2025-10-08T22:27:01.411946+07:00",
+      "status": "saved",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T22:27:01.412038+07:00",
+  "raw_size": 82917,
+  "date_folder": "2025-10-06"
+}

@@ -1,0 +1,45 @@
+{
+  "thread_id": "20250908_mail_ru_286ce307",
+  "message_id": "<1757311516.611568649@f226.i.mail.ru>",
+  "from": "darmun@mail.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "khatashkeeva@yandex.ru",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "khatashkeeva@yandex.ru"
+  ],
+  "subject": "запрос ПЦР герпет 08.09.2025.xls",
+  "date": "Mon, 08 Sep 2025 09:05:16 +0300",
+  "parsed_date": "2025-09-08T13:05:16+07:00",
+  "body": "С уважением Дарья Матвеевна.\n--С уважением Дарья Матвеевна.",
+  "char_count": 59,
+  "attachments": [
+    {
+      "original_filename": "запрос ПЦР герпет 08.09.2025.xls",
+      "saved_filename": "20250908_mail_ru_286ce307_154020_attach_запрос ПЦР герпет 08.09.2025.xls",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-09-08/20250908_mail_ru_286ce307_154020_attach_запрос ПЦР герпет 08.09.2025.xls",
+      "relative_path": "attachments/2025-09-08/20250908_mail_ru_286ce307_154020_attach_запрос ПЦР герпет 08.09.2025.xls",
+      "file_size": 35840,
+      "file_type": "application/vnd.ms-excel",
+      "content_type": "application/vnd.ms-excel",
+      "saved_at": "2025-10-08T15:40:20.024504+07:00",
+      "status": "saved",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T15:40:20.024542+07:00",
+  "raw_size": 55158,
+  "date_folder": "2025-09-08"
+}

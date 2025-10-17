@@ -1,0 +1,586 @@
+{
+  "source_file": "email_005_20250828_20250828_dna-technology_ru_667fe7e1.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": "7723537840",
+        "website": "www.dna-technology.ru",
+        "city": "Москва",
+        "address": "117587, Москва г, вн.тер.г. муниципальный округ Чертаново Северное, Варшавское ш, дом № 125Ж, корпус 5 этаж 1, помещение 12",
+        "emails": [
+          "torgi@dna-technology.ru"
+        ],
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "(495) 640-17-71",
+            "extension": null
+          }
+        ],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      },
+      {
+        "organization_id": 2,
+        "name": "АЛТАЙ-ЭНЗИМ",
+        "inn": "2221237918",
+        "website": null,
+        "city": "Барнаул",
+        "address": "656049, Алтайский край, г Барнаул, пр-кт Ленина, д. 61, кабинет 211",
+        "emails": [],
+        "phones": [],
+        "gid": "9c7dbbe0-eff4-558b-a5f6-6dcb043a3439"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Воронова Светлана",
+        "organization_id": 1,
+        "position": "Региональный представитель в СФО",
+        "email": "s.voronova@dna-technology.ru",
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (995) 129-39-76",
+            "normalized": "+79951293976",
+            "original": "+7 (995) 129-39-76",
+            "extension": null
+          },
+          {
+            "type": "main",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "(495) 640-17-71",
+            "extension": null
+          }
+        ],
+        "city": "Новосибирск",
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 0.95,
+        "value_score": 12,
+        "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "s.voronova@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760675679.195165,
+          "version": "1.0.0"
+        },
+        "email_valid": true,
+        "name_original": "Светлана Воронова"
+      },
+      {
+        "contact_id": 2,
+        "name": "Разливахин Дмитрий Алексеевич",
+        "organization_id": 1,
+        "position": null,
+        "email": "torgi@dna-technology.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.8,
+        "value_score": 7,
+        "gid": "bc8372a9-45af-581c-b793-849941e3dfb9",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "torgi@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760675679.989504,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 3,
+        "name": "Сучкова Наталья Александровна",
+        "organization_id": 1,
+        "position": "Менеджер по продажам",
+        "email": "suchkova@dna-technology.ru",
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "(495) 640-17-71",
+            "extension": "2038"
+          },
+          {
+            "type": "main",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "(495) 640-17-71",
+            "extension": null
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 0.9,
+        "value_score": 11,
+        "gid": "7ed059c7-3ab7-5eea-bf6d-255383008442",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "suchkova@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760675680.779128,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      }
+    ],
+    "business_context": "Светлана Воронова (ДНК-Технология) запросила у Дмитрия Разливахина (ДНК-Технология) счет для компании Алтай-Энзим на наборы \"пол плода\" и \"проба-НК-фет\" с учетом доставки в Новосибирскую область. Наталья Сучкова (ДНК-Технология) отправила счет №9770 и ждет подтверждения оплаты.",
+    "summary": {
+      "topic": "Счет №9770 для Алтай-Энзим на наборы \"пол плода\" и \"проба-НК-фет\"",
+      "product_interest": "Наборы \"пол плода\" и \"проба-НК-фет\"",
+      "communication_stage": "выставление счета",
+      "request_type": "счет"
+    },
+    "key_points": [
+      "Светлана Воронова запросила счет для Алтай-Энзим",
+      "Наталья Сучкова отправила счет №9770",
+      "В счете наборы \"пол плода\" и \"проба-НК-фет\" с доставкой"
+    ],
+    "commercial_offers": [
+      {
+        "found": true,
+        "offer_type": "Наборы",
+        "offer_number": "9770",
+        "offer_date": "2025-08-28",
+        "end_user": "ООО \"АЛТАЙ-ЭНЗИМ\"",
+        "end_user_inn": "2221237918",
+        "intermediary": "ООО \"АЛТАЙ-ЭНЗИМ\"",
+        "intermediary_date": "656049, Алтайский край, г Барнаул, пр-кт Ленина, д. 61, кабинет 211",
+        "payment_terms": null,
+        "delivery_time": null,
+        "delivery_terms": null,
+        "valid_until": "2025-09-07",
+        "equipment_items": [
+          {
+            "name": "Комплект реагентов для выделения фетальной ДНК из крови матери. \nПРОБА-НК-ФЕТ по ТУ 9398-078-46482062-2015 (50 тестов)",
+            "model": null,
+            "article": "P-027/2",
+            "quantity": 1,
+            "unit_price": 4070.0,
+            "total_price": 4070.0,
+            "vat": "10%"
+          },
+          {
+            "name": "Набор реагентов для выявления фрагмента Y хромосомы плода в крови \nматери методом ПЦР в режиме реального времени (Пол плода) по ТУ \n9398-089-46482062-2015  (стрипы 8 х 0,2 мл; ДТ; 96 тестов)",
+            "model": null,
+            "article": "R1-H803-S3/9",
+            "quantity": 1,
+            "unit_price": 37950.0,
+            "total_price": 37950.0,
+            "vat": "10%"
+          },
+          {
+            "name": "Доставка",
+            "model": null,
+            "article": null,
+            "quantity": 1,
+            "unit_price": 6700.0,
+            "total_price": 6700.0,
+            "vat": "20%"
+          }
+        ],
+        "total_cost": 48720.0,
+        "comments": null
+      }
+    ],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "9770",
+        "message_date": "2025-08-28T16:08:33+07:00",
+        "message_id_hint": "6a5aafa9-c265-4c92-8981-257f41d679d1@dna-technology.ru",
+        "role_in_message": "recipient",
+        "interaction_type": "requested_quote",
+        "summary": "Светлана Воронова (ДНК-Технология) просит выставить счет для компании Алтай-Энзим на наборы \"пол плода\" и \"проба-НК-фет\" с учетом доставки.",
+        "human_note": "Светлана Воронова (ДНК-Технология) запросила счет для Алтай-Энзим на наборы с доставкой.",
+        "participants": {
+          "actor": "Светлана Воронова (ДНК-Технология, Региональный представитель в СФО)",
+          "audience": [
+            "Разливахин Дмитрий Алексеевич (ДНК-Технология)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 2,
+        "contact_id": 3,
+        "organization_id": 1,
+        "message_subject": "9770",
+        "message_date": "2025-08-28T16:08:33+07:00",
+        "message_id_hint": "6a5aafa9-c265-4c92-8981-257f41d679d1@dna-technology.ru",
+        "role_in_message": "sender",
+        "interaction_type": "invoice_sent",
+        "summary": "Наталья Сучкова (ДНК-Технология) отправила счет №9770 и ждет подтверждения оплаты.",
+        "human_note": "Наталья Сучкова (ДНК-Технология) отправила счет №9770 и ждет подтверждения.",
+        "participants": {
+          "actor": "Сучкова Наталья Александровна (ДНК-Технология, менеджер по продажам)",
+          "audience": [
+            "Светлана Воронова (ДНК-Технология)"
+          ]
+        },
+        "attachments": [
+          "Счет на оплату № 9770 от 28.08.2025.pdf"
+        ],
+        "confidence": 0.9
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": \"7723537840\",\n      \"website\": \"www.dna-technology.ru\",\n      \"city\": \"Москва\",\n      \"address\": \"117587, Москва г, вн.тер.г. муниципальный округ Чертаново Северное, Варшавское ш, дом № 125Ж, корпус 5 этаж 1, помещение 12\",\n      \"emails\": [\n        \"torgi@dna-technology.ru\",\n        \"altai-enzyme@yandex.ru\",\n        \"suchkova@dna-technology.ru\"\n      ],\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": \"+74956401771\",\n          \"original\": \"(495) 640-17-71\",\n          \"extension\": null\n        }\n      ]\n    },\n    {\n      \"organization_id\": 2,\n      \"name\": \"АЛТАЙ-ЭНЗИМ\",\n      \"inn\": \"2221237918\",\n      \"website\": null,\n      \"city\": \"Барнаул\",\n      \"address\": \"656049, Алтайский край, г Барнаул, пр-кт Ленина, д. 61, кабинет 211\",\n      \"emails\": [],\n      \"phones\": []\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Светлана Воронова\",\n      \"organization_id\": 1,\n      \"position\": \"Региональный представитель в СФО\",\n      \"email\": \"s.voronova@dna-technology.ru\",\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7 (995) 129-39-76\",\n          \"normalized\": \"+79951293976\",\n          \"original\": \"+7 (995) 129-39-76\",\n          \"extension\": null\n        }\n      ],\n      \"city\": \"Новосибирск\",\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.95\n    },\n    {\n      \"contact_id\": 2,\n      \"name\": \"Разливахин Дмитрий Алексеевич\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"torgi@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.8\n    },\n    {\n      \"contact_id\": 3,\n      \"name\": \"Сучкова Наталья Александровна\",\n      \"organization_id\": 1,\n      \"position\": \"менеджер по продажам\",\n      \"email\": \"suchkova@dna-technology.ru\",\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": null,\n          \"original\": \"(495) 640-17-71\",\n          \"extension\": \"2038\"\n        }\n      ],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.9\n    },\n    {\n      \"contact_id\": 4,\n      \"name\": \"Колин В. В.\",\n      \"organization_id\": 1,\n      \"position\": \"Генеральный директор\",\n      \"email\": null,\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"other\",\n      \"confidence\": 0.7\n    },\n    {\n      \"contact_id\": 5,\n      \"name\": \"Лосева М. В.\",\n      \"organization_id\": 1,\n      \"position\": \"Бухгалтер\",\n      \"email\": null,\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"other\",\n      \"confidence\": 0.7\n    }\n  ],\n  \"business_context\": \"Светлана Воронова (ДНК-Технология) запросила у Дмитрия Разливахина (ДНК-Технология) счет для компании Алтай-Энзим на наборы \\\"пол плода\\\" и \\\"проба-НК-фет\\\" с учетом доставки в Новосибирскую область. Наталья Сучкова (ДНК-Технология) отправила счет №9770 и ждет подтверждения оплаты.\",\n  \"summary\": {\n    \"topic\": \"Счет №9770 для Алтай-Энзим на наборы \\\"пол плода\\\" и \\\"проба-НК-фет\\\"\",\n    \"product_interest\": \"Наборы \\\"пол плода\\\" и \\\"проба-НК-фет\\\"\",\n    \"communication_stage\": \"выставление счета\",\n    \"request_type\": \"счет\"\n  },\n  \"key_points\": [\n    \"Светлана Воронова запросила счет для Алтай-Энзим\",\n    \"Наталья Сучкова отправила счет №9770\",\n    \"В счете наборы \\\"пол плода\\\" и \\\"проба-НК-фет\\\" с доставкой\"\n  ],\n  \"commercial_offers\": [\n    {\n      \"found\": true,\n      \"offer_type\": \"Наборы\",\n      \"offer_number\": \"9770\",\n      \"offer_date\": \"2025-08-28\",\n      \"end_user\": \"ООО \\\"АЛТАЙ-ЭНЗИМ\\\"\",\n      \"end_user_inn\": \"2221237918\",\n      \"intermediary\": \"ООО \\\"АЛТАЙ-ЭНЗИМ\\\"\",\n      \"intermediary_date\": \"656049, Алтайский край, г Барнаул, пр-кт Ленина, д. 61, кабинет 211\",\n      \"payment_terms\": null,\n      \"delivery_time\": null,\n      \"delivery_terms\": null,\n      \"valid_until\": \"2025-09-07\",\n      \"equipment_items\": [\n        {\n          \"name\": \"Комплект реагентов для выделения фетальной ДНК из крови матери. \\nПРОБА-НК-ФЕТ по ТУ 9398-078-46482062-2015 (50 тестов)\",\n          \"model\": null,\n          \"article\": \"P-027/2\",\n          \"quantity\": 1,\n          \"unit_price\": 4070.00,\n          \"total_price\": 4070.00,\n          \"vat\": \"10%\"\n        },\n        {\n          \"name\": \"Набор реагентов для выявления фрагмента Y хромосомы плода в крови \\nматери методом ПЦР в режиме реального времени (Пол плода) по ТУ \\n9398-089-46482062-2015  (стрипы 8 х 0,2 мл; ДТ; 96 тестов)\",\n          \"model\": null,\n          \"article\": \"R1-H803-S3/9\",\n          \"quantity\": 1,\n          \"unit_price\": 37950.00,\n          \"total_price\": 37950.00,\n          \"vat\": \"10%\"\n        },\n        {\n          \"name\": \"Доставка\",\n          \"model\": null,\n          \"article\": null,\n          \"quantity\": 1,\n          \"unit_price\": 6700.00,\n          \"total_price\": 6700.00,\n          \"vat\": \"20%\"\n        }\n      ],\n      \"total_cost\": 48720.00,\n      \"comments\": null\n    }\n  ],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"9770\",\n      \"message_date\": \"2025-08-28T16:08:33+07:00\",\n      \"message_id_hint\": \"<6a5aafa9-c265-4c92-8981-257f41d679d1@dna-technology.ru>\",\n      \"role_in_message\": \"recipient\",\n      \"interaction_type\": \"requested_quote\",\n      \"summary\": \"Светлана Воронова (ДНК-Технология) просит выставить счет для компании Алтай-Энзим на наборы \\\"пол плода\\\" и \\\"проба-НК-фет\\\" с учетом доставки.\",\n      \"human_note\": \"Светлана Воронова (ДНК-Технология) запросила счет для Алтай-Энзим на наборы с доставкой.\",\n      \"participants\": {\n        \"actor\": \"Светлана Воронова (ДНК-Технология, Региональный представитель в СФО)\",\n        \"audience\": [\"Разливахин Дмитрий Алексеевич (ДНК-Технология)\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    },\n    {\n      \"interaction_local_id\": 2,\n      \"contact_id\": 3,\n      \"organization_id\": 1,\n      \"message_subject\": \"9770\",\n      \"message_date\": \"2025-08-28T16:08:33+07:00\",\n      \"message_id_hint\": \"<6a5aafa9-c265-4c92-8981-257f41d679d1@dna-technology.ru>\",\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"invoice_sent\",\n      \"summary\": \"Наталья Сучкова (ДНК-Технология) отправила счет №9770 и ждет подтверждения оплаты.\",\n      \"human_note\": \"Наталья Сучкова (ДНК-Технология) отправила счет №9770 и ждет подтверждения.\",\n      \"participants\": {\n        \"actor\": \"Сучкова Наталья Александровна (ДНК-Технология, менеджер по продажам)\",\n        \"audience\": [\"Светлана Воронова (ДНК-Технология)\"]\n      },\n      \"attachments\": [\n        \"Счет на оплату № 9770 от 28.08.2025.pdf\"\n      ],\n      \"confidence\": 0.9\n    }\n  ]\n}\n```",
+    "contact_mentions": [
+      {
+        "name": "Колин В. В.",
+        "position": "Генеральный директор",
+        "organization_id": 1,
+        "role_in_message": "other",
+        "confidence": 0.7,
+        "city": null,
+        "address": null
+      },
+      {
+        "name": "Лосева М. В.",
+        "position": "Бухгалтер",
+        "organization_id": 1,
+        "role_in_message": "other",
+        "confidence": 0.7,
+        "city": null,
+        "address": null
+      }
+    ],
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-17T11:34:40.781602",
+      "stats": {
+        "processed_emails": 74,
+        "total_organizations_processed": 152,
+        "total_contacts_processed": 245,
+        "organizations_deduplicated": 1,
+        "contacts_filtered": 31,
+        "contacts_enriched": 214,
+        "data_normalized": 365,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 2,
+        "phones_added_to_contacts": 2
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1,
+        "2": 2
+      },
+      "contact_mapping": {
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 4,
+        "5": 5
+      },
+      "filtering": {
+        "contacts_without_info_filtered": 2,
+        "mentions_saved": 2
+      },
+      "provenance": {
+        "contacts": {
+          "2": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "3": {
+            "backfill_skipped": "no_personal_location_signal"
+          }
+        }
+      },
+      "email_classification": {
+        "1": {
+          "kept": [
+            "torgi@dna-technology.ru"
+          ],
+          "removed": [],
+          "removed_types": {}
+        },
+        "2": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "7723537840"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 2,
+            "gid": "9c7dbbe0-eff4-558b-a5f6-6dcb043a3439",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "2221237918"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "s.voronova@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 2,
+            "gid": "bc8372a9-45af-581c-b793-849941e3dfb9",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "torgi@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 3,
+            "gid": "7ed059c7-3ab7-5eea-bf6d-255383008442",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "suchkova@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          }
+        ],
+        "conflicts": [
+          {
+            "entity": "contact",
+            "key": [
+              "CONTACT",
+              "PHONE",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "+74956401771"
+            ],
+            "existing_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+            "target_gid": "7ed059c7-3ab7-5eea-bf6d-255383008442"
+          }
+        ]
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "skipped",
+            "inn": "7723537840",
+            "confidence": 1.0,
+            "source": "existing",
+            "method": "existing_valid_inn",
+            "score": 1.0,
+            "candidates": [],
+            "checked_at": "2025-10-17T11:34:35.944492",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "9c7dbbe0-eff4-558b-a5f6-6dcb043a3439": {
+            "decision": "skipped",
+            "inn": "2221237918",
+            "confidence": 1.0,
+            "source": "existing",
+            "method": "existing_valid_inn",
+            "score": 1.0,
+            "candidates": [],
+            "checked_at": "2025-10-17T11:34:35.944505",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+              "contact_name": "Светлана Воронова",
+              "phones_added": [
+                {
+                  "phone": "+74956401771",
+                  "type": "main",
+                  "confidence": 0.85,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.85
+              ],
+              "decision": {
+                "confidence": 0.85,
+                "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:34:35.944969",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (0.85 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "bc8372a9-45af-581c-b793-849941e3dfb9",
+              "contact_name": "Разливахин Дмитрий Алексеевич",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.45 < 0.5)",
+                  "confidence": 0.44999999999999996
+                }
+              ],
+              "confidence_scores": [
+                0.44999999999999996
+              ],
+              "decision": {
+                "confidence": 0.44999999999999996,
+                "contact_gid": "bc8372a9-45af-581c-b793-849941e3dfb9",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:34:35.944996",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.45 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            },
+            {
+              "contact_gid": "7ed059c7-3ab7-5eea-bf6d-255383008442",
+              "contact_name": "Сучкова Наталья Александровна",
+              "phones_added": [
+                {
+                  "phone": "+74956401771",
+                  "type": "main",
+                  "confidence": 0.85,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.85
+              ],
+              "decision": {
+                "confidence": 0.85,
+                "contact_gid": "7ed059c7-3ab7-5eea-bf6d-255383008442",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:34:35.945009",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (0.85 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 3,
+            "contacts_enriched": 2,
+            "phones_added_total": 2,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.7166666666666667,
+            "phones_skipped_by_reason": {
+              "low_confidence": 1,
+              "no_org_phones": 0,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-17T04:34:35.945028",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 5,
+        "organizations_processed": 1,
+        "contacts_processed": 2,
+        "ui_format_applied": 5,
+        "phones_sanitized": 5
+      }
+    },
+    "provider_used": "OpenRouter",
+    "model": "google/gemini-2.0-flash-001",
+    "processing_time": 2.4450860023498535,
+    "text_length": 6003,
+    "chunks_processed": 1,
+    "total_contacts_found": 3,
+    "unique_contacts_found": 3,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-08-28/email_005_20250828_20250828_dna-technology_ru_667fe7e1.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 25.827
+  }
+}

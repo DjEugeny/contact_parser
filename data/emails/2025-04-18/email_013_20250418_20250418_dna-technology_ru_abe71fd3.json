@@ -1,0 +1,35 @@
+{
+  "thread_id": "20250418_dna-technology_ru_abe71fd3",
+  "message_id": "<0d475583-a2df-4bca-b828-19cc9f44cea1@dna-technology.ru>",
+  "email_num_in_day": 13,
+  "total_emails_in_day": 14,
+  "from": "torgi@dna-technology.ru",
+  "to": "khatashkeeva@yandex.ru, s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "khatashkeeva@yandex.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Re: Заявка на поставку реактивов 18.04.2025",
+  "date": "Fri, 18 Apr 2025 17:44:35 +0300",
+  "parsed_date": "2025-04-18T21:44:35+07:00",
+  "body_raw": "Добрый день!\r\n\n  Отгрузка запланирована на 22.04.\r\n\n18.04.2025 12:06, Ольга Хаташкеева пишет:\r\n> -- \r\n> С уважением Ольга Хаташкеева\r\n\n-- \r\nС уважением,\r\nспециалист по тендерам ООО \"ДНК-Технология\"\r\nЧурочкина Ольга Александровна\r\nТел. (495) 640 17 71 доб.2037\r\nmailto:torgi@dna-technology.ru\r\nhttp://www.dna-technology.ru",
+  "body_clean": "Добрый день!\nОтгрузка запланирована на 22.04.\n18.04.2025 12:06, Ольга Хаташкеева пишет:\n> С уважением Ольга Хаташкеева\nС уважением,\nспециалист по тендерам ООО \"ДНК-Технология\"\nЧурочкина Ольга Александровна\nТел. (495) 640 17 71 доб.2037\nmailto:torgi@dna-technology.ru\nhttp://www.dna-technology.ru",
+  "char_count": 295,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:24:21.942847+07:00",
+  "raw_size": 1638,
+  "date_folder": "2025-04-18",
+  "eml_path": "eml/2025-04-18/0d475583-a2df-4bca-b828-19cc9f44cea1_dna-technology.ru_002421_941651.eml"
+}

@@ -1,0 +1,43 @@
+{
+  "thread_id": "20250924_sib-med_ru_63fd9dcc",
+  "message_id": "<003f01dc2d21$7a40ccb0$6ec26610$@sib-med.ru>",
+  "from": "sale2@sib-med.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "запрос от Светланы",
+  "date": "Wed, 24 Sep 2025 14:04:31 +0700",
+  "parsed_date": "2025-09-24T14:04:31+07:00",
+  "body": "Добрый день! Прошу Вас выставить КП и ТХ  на Амплификаторы детектирующие\nДТпрайм II , конечный пользователь    БУЗ РА \"Республиканская больница\"  ИНН\nС уважением к Вам и  Вашему делу ,\nБокова Светлана Николаевна\nПродажа медицинских расходных материалов и оборудования\nТел/факс: 8(3852) 22-29-42, доб.113,  8-983-176-49-90\nДобрый день! Прошу Вас выставить КП и ТХ  на Амплификаторы детектирующие ДТпрайм II , конечный пользователь БУЗ РА \"Республиканская больница\"  ИНН 0411008373 С уважением к Вам и  Вашему делу ,  Бокова Светлана НиколаевнаПродажа медицинских расходных материалов и оборудованияТел/факс: 8(3852) 22-29-42, доб.113,  8-983-176-49-90",
+  "char_count": 650,
+  "attachments": [
+    {
+      "original_filename": "Карточка организации Стом-Ин.docx",
+      "saved_filename": "20250924_sib-med_ru_63fd9dcc_154757_attach_Карточка организации Стом-Ин.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-09-24/20250924_sib-med_ru_63fd9dcc_154757_attach_Карточка организации Стом-Ин.docx",
+      "relative_path": "attachments/2025-09-24/20250924_sib-med_ru_63fd9dcc_154757_attach_Карточка организации Стом-Ин.docx",
+      "file_size": 15190,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-08T15:47:57.564687+07:00",
+      "status": "saved",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T15:47:57.564718+07:00",
+  "raw_size": 33658,
+  "date_folder": "2025-09-24"
+}

@@ -1,0 +1,60 @@
+{
+  "thread_id": "20250513_dna-technology_ru_78262642",
+  "message_id": "<a036bcde-762b-4370-a996-f6eaf745449e@dna-technology.ru>",
+  "email_num_in_day": 10,
+  "total_emails_in_day": 13,
+  "from": "torgi@dna-technology.ru",
+  "to": "natalya.neretina@nais-medical.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "natalya.neretina@nais-medical.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Fwd: Запрос КП для ООО \"ТерраМЕД\" 13.05.2025",
+  "date": "Tue, 13 May 2025 15:03:23 +0300",
+  "parsed_date": "2025-05-13T19:03:23+07:00",
+  "body_raw": "Добрый день!\r\n\nКП во вложении к письму.\r\n\n> Тема: Запрос КП для ООО \"ТерраМЕД\" 13.05.2025\r\n> Дата: Tue, 13 May 2025 17:23:11 +0700\r\n> От: Наталья Неретина <natalya.neretina@nais-medical.ru>\r\n> Кому: mail@dna-technology.ru <mail@dna-technology.ru>\r\n>\r\n>\r\n>\r\n> Добрый день. Просим дать КП для ООО \"ТерраМЕД\" на :\r\n> ####### НАБОР РЕАГЕНТОВ ДЛЯ ОПРЕДЕЛЕНИЯ МУТАЦИЙ В ГЕНАХ BRCA, \r\n> АССОЦИИРОВАННЫХ С РИСКОМ РАЗВИТИЯ РАКА МОЛОЧНОЙ ЖЕЛЕЗЫ И ЯИЧНИКОВ, \r\n> МЕТОДОМ ПЦР В РЕАЛЬНОМ ВРЕМЕНИ R1-H927-N3/4 набор 1 \r\n> ######## ПРОБА-РАПИД-ГЕНЕТИКА НАБОР РЕАГЕНТОВ ДЛЯ ВЫДЕЛЕНИЯ ДНК \r\n> P-021/4 набор 1 \r\n>\r\n> Конечный пользователь - ГАУЗ ККДЦ им. Колпинского\r\n> С уважением,\r\n> Наталья Неретина\r\n> Медицинский представитель\r\n>  сот. тел.: +7 (950) 262-56-37\r\n>  ________________________________________\r\n>   ООО \"НАЙС\"\r\n>   650000, г. Кемерово, ул. Мичурина, д.56, оф. 1\r\n>   тел.: +7 (3842) 588-127, 588-275\r\n>   тел./факс +7 (3842) 587-994\r\n> йцу\r\n\n-- \r\nПросьба сохранять переписку при ответе.\r\nС уважением, специалист по тендерам\r\nООО \"ДНК-Технология\" Разливахин Дмитрий Алексеевич\r\nТелефон 8 (495) 640 -17 -71 доб.2039\r\nmailto:torgi@dna-technology.ru",
+  "body_clean": "Добрый день!\nКП во вложении к письму.\n> Тема: Запрос КП для ООО \"ТерраМЕД\" 13.05.2025\n> Дата: Tue, 13 May 2025 17:23:11 +0700\n> От: Наталья Неретина natalya.neretina@nais-medical.ru\n> Кому: mail@dna-technology.ru mail@dna-technology.ru\n> Добрый день. Просим дать КП для ООО \"ТерраМЕД\" на :\n> ####### НАБОР РЕАГЕНТОВ ДЛЯ ОПРЕДЕЛЕНИЯ МУТАЦИЙ В ГЕНАХ BRCA,\n> АССОЦИИРОВАННЫХ С РИСКОМ РАЗВИТИЯ РАКА МОЛОЧНОЙ ЖЕЛЕЗЫ И ЯИЧНИКОВ,\n> МЕТОДОМ ПЦР В РЕАЛЬНОМ ВРЕМЕНИ R1-H927-N3/4 набор 1\n> ######## ПРОБА-РАПИД-ГЕНЕТИКА НАБОР РЕАГЕНТОВ ДЛЯ ВЫДЕЛЕНИЯ ДНК\n> P-021/4 набор 1\n> Конечный пользователь - ГАУЗ ККДЦ им. Колпинского\n> С уважением,\n> Наталья Неретина\n> Медицинский представитель\n>  сот. тел.: +7 (950) 262-56-37\n> ООО \"НАЙС\"\n> 650000, г. Кемерово, ул. Мичурина, д.56, оф. 1\n> тел.: +7 (3842) 588-127, 588-275\n> тел./факс +7 (3842) 587-994\n> йцу\nПросьба сохранять переписку при ответе.\nС уважением, специалист по тендерам\nООО \"ДНК-Технология\" Разливахин Дмитрий Алексеевич\nТелефон 8 (495) 640 -17 -71 доб.2039\nmailto:torgi@dna-technology.ru",
+  "char_count": 1035,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:image*",
+      "original_filename": "image001.gif",
+      "is_inline": true
+    },
+    {
+      "id": 171,
+      "original_filename": "КП 5762 от 13.05.2025.pdf",
+      "saved_filename": "20250513_a1ffd156_002814_958759_attach_КП 5762 от 13.05.2025.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-05-13/20250513_a1ffd156_002814_958759_attach_КП 5762 от 13.05.2025.pdf",
+      "relative_path": "attachments/2025-05-13/20250513_a1ffd156_002814_958759_attach_КП 5762 от 13.05.2025.pdf",
+      "file_size": 194958,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:28:14",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<a036bcde-762b-4370-a996-f6eaf745449e@dna-technology.ru>",
+      "thread_id": "20250513_dna-technology_ru_78262642",
+      "sha256": "58459a55ef66fa106f5105c62cc7b7c86d2761e8fc9f53bc784711a59777e411",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 1,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:28:14.956845+07:00",
+  "raw_size": 289026,
+  "date_folder": "2025-05-13",
+  "eml_path": "eml/2025-05-13/a036bcde-762b-4370-a996-f6eaf745449e_dna-technology.ru_002814_953445.eml"
+}

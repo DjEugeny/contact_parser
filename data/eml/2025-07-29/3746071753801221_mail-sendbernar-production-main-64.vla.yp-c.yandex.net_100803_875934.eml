@@ -1,0 +1,39 @@
+Received:  from forward102a.mail.yandex.net ([178.154.239.85]:53008)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98.2 (FreeBSD))
+	 (envelope-from <evgenyzach@yandex.ru>)
+	 id 1ugloV-00000000Mfp-2Kae 
+	for s.voronova@dna-technology.ru;
+	Tue, 29 Jul 2025 18:00:23 +0300
+Received: from mail-nwsmtp-mxback-production-main-75.vla.yp-c.yandex.net (mail-nwsmtp-mxback-production-main-75.vla.yp-c.yandex.net [IPv6:2a02:6b8:c1f:3c9e:0:640:ce2e:0])
+	by forward102a.mail.yandex.net (Yandex) with ESMTPS id F0A0FC00ED
+	for <s.voronova@dna-technology.ru>; Tue, 29 Jul 2025 18:00:21 +0300 (MSK)
+Received: from mail.yandex.ru (2a02:6b8:c15:288a:0:640:e839:0 [2a02:6b8:c15:288a:0:640:e839:0])
+	by mail-nwsmtp-mxback-production-main-75.vla.yp-c.yandex.net (mxback/Yandex) with HTTPS id E0bQ8USMqeA0-SzFhoeCF;
+	Tue, 29 Jul 2025 18:00:21 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1753801221; bh=kqYNZDoKl5Selx4vDw60I1YziGJZSUVmP7wUVb+YnsM=;
+	h=Message-Id:Date:Subject:To:From;
+	b=IX88m3x4XfrHwyk38lOPahwu7Mg8v3LHyA7eK+FflBvpFR8UCATsTCSpaPhxYSU+E
+	 tKGdNtRVbIjgdqro+D9G5KFuCfzPONGHRVxHF2HZvDKiNyN3fw+BkWTivw7nUj2BmN
+	 EBGBhavQyDewZ2jmfxs6v9wzpxk7M8LMyvcX3XLQ=
+Authentication-Results: mail-nwsmtp-mxback-production-main-75.vla.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+Received: by mail-sendbernar-production-main-64.vla.yp-c.yandex.net (sendbernar/Yandex) with HTTPS id 270d3c5993e998f48e68229b56a0de99;
+	Tue, 29 Jul 2025 18:00:21 +0300
+From: =?utf-8?B?0JXQstCz0LXQvdC40Lk=?= <evgenyzach@yandex.ru>
+To: s.voronova@dna-technology.ru
+Subject: =?utf-8?B?0KLQtdGB0YLQvtCy0L7QtQ==?=
+MIME-Version: 1.0
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Tue, 29 Jul 2025 22:00:21 +0700
+Message-Id: <3746071753801221@mail-sendbernar-production-main-64.vla.yp-c.yandex.net>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/html; charset=utf-8
+Received-SPF: pass (mail.dna-technology.ru: domain of yandex.ru designates 178.154.239.85 as permitted sender) client-ip=178.154.239.85; envelope-from=evgenyzach@yandex.ru; helo=forward102a.mail.yandex.net;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+Тест<br /><br />С уважением, Захаров Евгений

@@ -1,0 +1,36 @@
+{
+  "thread_id": "20250307_irkmed_ru_b81ebfaf",
+  "message_id": "<146899327.2952233.1741334355205.JavaMail.zimbra@irkmed.ru>",
+  "email_num_in_day": 4,
+  "total_emails_in_day": 13,
+  "from": "popova.es@irkmed.ru",
+  "to": "bilalov@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "bilalov@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Запрос КП и ТХ на Встряхиватель лабораторный медицинский \"ДТспин\" 2 шт  ИНН 1435026510",
+  "date": "Fri, 7 Mar 2025 15:59:15 +0800 (IRKT)",
+  "parsed_date": "2025-03-07T14:59:15+07:00",
+  "body_raw": "Добрый день! \r\nПрошу прислать КП и ТХ по КТРУ на Встряхиватель лабораторный медицинский \"ДТспин\" 2 шт \r\nКонечный пользователь: ГБУ РС(Я) \"ЯРКБ\" ИНН [ callto:1435026510 | 1435026510 ] \r\nСпасибо! \r\n-- \r\nС уважением, \r\nПопова Екатерина Сергеевна \r\nМладший специалист по продукции и технологиям ООО «Лабора» \r\nE-mail: popova.es@irkmed.ru \r\nРаб.телефон +7(3952)288867 (вн.тел: 32-77)",
+  "body_clean": "Добрый день!\nПрошу прислать КП и ТХ по КТРУ на Встряхиватель лабораторный медицинский \"ДТспин\" 2 шт\nКонечный пользователь: ГБУ РС(Я) \"ЯРКБ\" ИНН [ callto:1435026510 | 1435026510 ]\nСпасибо!\nС уважением,\nПопова Екатерина Сергеевна\nМладший специалист по продукции и технологиям ООО «Лабора»\nE-mail: popova.es@irkmed.ru\nРаб.телефон +7(3952)288867 (вн.тел: 32-77)",
+  "char_count": 357,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:15:44.214769+07:00",
+  "raw_size": 8031,
+  "date_folder": "2025-03-07",
+  "eml_path": "eml/2025-03-07/146899327.2952233.1741334355205.JavaMail.zimbra_irkmed.ru_071544_210868.eml"
+}

@@ -1,0 +1,30 @@
+{
+  "thread_id": "20250828_yandex_ru_6caea8a0",
+  "message_id": "<67781756365426@mail.yandex.ru>",
+  "from": "anda4@yandex.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Билеты",
+  "date": "Thu, 28 Aug 2025 10:23:20 +0300",
+  "parsed_date": "2025-08-28T14:23:20+07:00",
+  "body": "Светлана Сергеевна, нашла удобные по времени рейсы23.09.2025 S7 2510 в 15:30 Новосибирск-Москва28.09.2025 S7 2505 в 11:25 Москва-Новосибирск+багажПаспортные данные:Кузнецова Ирина Андреевна, 01.01.19875024 820013ГУ МВД России по Новосибирской области от 12.10.2024  -- С уважениемКузнецова Ирина Андреевна+7(913)482-05-32",
+  "char_count": 321,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T22:18:24.542739+07:00",
+  "raw_size": 2896,
+  "date_folder": "2025-08-28"
+}

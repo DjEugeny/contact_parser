@@ -1,0 +1,52 @@
+Received:  from forward501b.mail.yandex.net ([178.154.239.145]:48578)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98.2 (FreeBSD))
+	 (envelope-from <altai-enzyme@yandex.ru>)
+	 id 1urZKJ-000000002Cc-2hiw 
+	for s.voronova@dna-technology.ru;
+	Thu, 28 Aug 2025 12:53:52 +0300
+Received: from mail-nwsmtp-mxback-production-main-34.iva.yp-c.yandex.net (mail-nwsmtp-mxback-production-main-34.iva.yp-c.yandex.net [IPv6:2a02:6b8:c0c:3284:0:640:5f53:0])
+	by forward501b.mail.yandex.net (Yandex) with ESMTPS id 5B2DA88D46
+	for <s.voronova@dna-technology.ru>; Thu, 28 Aug 2025 12:53:51 +0300 (MSK)
+Received: from mail.yandex.ru (2a02:6b8:c0c:9805:0:640:c92b:0 [2a02:6b8:c0c:9805:0:640:c92b:0])
+	by mail-nwsmtp-mxback-production-main-34.iva.yp-c.yandex.net (mxback/Yandex) with HTTPS id lrWj8p40u4Y0-pMMOglKR;
+	Thu, 28 Aug 2025 12:53:51 +0300
+X-Yandex-Fwd: 2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1756374831; bh=21ivB5gF6PLxLQ6mz/XObCSOhkdibvFa2hFSmvcJhIE=;
+	h=References:Date:Message-Id:Subject:In-Reply-To:To:From;
+	b=DPLghNEkh2pY6MrHa62Sh2hzvS4E/HzAVoEpkPovBtvcsUC2gTKMN+ROPmUHEjmD8
+	 qgBoL9etprYBFO/60btrJs5tApRbreP0eaqvBTz+htWf7LfZoTCj3nQjS1vBpGOuR8
+	 w+l5puxw32ed49xgabHb9Zo6pXdgKVMKomolD7uc=
+Authentication-Results: mail-nwsmtp-mxback-production-main-34.iva.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+Received: from mail-sendbernar-production-main-83.klg.yp-c.yandex.net (mail-sendbernar-production-main-83.klg.yp-c.yandex.net [2a02:6b8:c43:4478:0:640:dc9e:0])
+	by mail-nwsmtp-mxback-production-main-38.klg.yp-c.yandex.net (mxback/Yandex) with HTTPS id ErWngK5scSw0-R7HdsSNy
+	for <altai-enzyme@yandex.ru>; Thu, 28 Aug 2025 12:53:16 +0300
+Received: by mail-sendbernar-production-main-83.klg.yp-c.yandex.net (sendbernar/Yandex) with HTTPS id 01ba42d63009082f3480ca6f67f52dc5;
+	Thu, 28 Aug 2025 12:53:16 +0300
+From: =?utf-8?B?0JDQu9GC0LDQuSDQrdC90LfQuNC8?= <altai-enzyme@yandex.ru>
+To: =?utf-8?B?0KHQstC10YLQu9Cw0L3QsCDQktC+0YDQvtC90L7QstCw?= <s.voronova@dna-technology.ru>
+In-Reply-To: <3463871756374708@mail-sendbernar-production-main-62.vla.yp-c.yandex.net>
+References: <2551756111458@mail.yandex.ru>
+	 <791998e0-1bdd-4038-9479-0c74cded59fa@dna-technology.ru>
+	 <198e10b06c8.27b4.ade9f7f6804fd40147651af4d9cb12bb@dna-technology.ru>
+	 <7a51d7a4-ce16-48f5-9373-4df557b7051c@dna-technology.ru>
+	 <198efc5e2a0.27b4.ade9f7f6804fd40147651af4d9cb12bb@dna-technology.ru>
+	 <6a5aafa9-c265-4c92-8981-257f41d679d1@dna-technology.ru>
+	 <198eff821e8.27b4.ade9f7f6804fd40147651af4d9cb12bb@dna-technology.ru>
+	 <62171756372901@mail.yandex.ru>
+	 <198f0044f18.27b4.ade9f7f6804fd40147651af4d9cb12bb@dna-technology.ru> <891a224a-3bb8-4567-a3d3-c4557806df35@dna-technology.ru> <3463871756374708@mail-sendbernar-production-main-62.vla.yp-c.yandex.net>
+Subject: =?utf-8?B?UmU6IDk3NzAg0L3QvtCy0YvQuQ==?=
+MIME-Version: 1.0
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Thu, 28 Aug 2025 16:53:51 +0700
+Message-Id: <694141756374779@mail.yandex.ru>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/html; charset=utf-8
+Received-SPF: pass (mail.dna-technology.ru: domain of yandex.ru designates 178.154.239.145 as permitted sender) client-ip=178.154.239.145; envelope-from=altai-enzyme@yandex.ru; helo=forward501b.mail.yandex.net;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+<div>Получили, все верно, завтра оплатим!</div><div><br /></div><div><br /></div><div>-- </div><div> </div><div>С уважением,</div><div>команда Алтай-Энзим</div><div> </div><div>altai-enzyme.ru</div><div>altai-enzyme@yandex.ru<br /> </div><div><br /></div>

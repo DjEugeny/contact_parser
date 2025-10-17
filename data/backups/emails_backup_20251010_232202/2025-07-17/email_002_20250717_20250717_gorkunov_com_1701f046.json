@@ -1,0 +1,39 @@
+{
+  "thread_id": "20250717_gorkunov_com_1701f046",
+  "message_id": "<1752719640.58031321@f727.i.mail.ru>",
+  "from": "labmkl.tkn@gorkunov.com",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Заявка на подключение и апробацию ПЦР оборудования",
+  "date": "Thu, 17 Jul 2025 05:34:00 +0300",
+  "parsed_date": "2025-07-17T09:34:00+07:00",
+  "body": "Светлана, добрый день! Прикрепляю Вам заявочку.\nЗаведующий отделением клонального микроразмножения\nООО ТК Новосибирский\nСветлана Релина\nСветлана, добрый день! Прикрепляю Вам заявочку. --С уважением, Заведующий отделением клонального микроразмноженияООО ТК Новосибирский Светлана Релина",
+  "char_count": 285,
+  "attachments": [
+    {
+      "filename": "com_1701f046_081902_attach_Заявка ПЦР диагностика.xlsx",
+      "saved_filename": "20250717_gorkunov_com_1701f046_081902_attach_Заявка ПЦР диагностика.xlsx",
+      "size": 11838,
+      "path": "attachments/2025-07-17/20250717_gorkunov_com_1701f046_081902_attach_Заявка ПЦР диагностика.xlsx",
+      "status": "saved",
+      "type": "existing_attachment"
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-08-26T17:51:09.928087+07:00",
+  "raw_size": 23249,
+  "date_folder": "2025-07-17"
+}

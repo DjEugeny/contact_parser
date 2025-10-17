@@ -1,0 +1,51 @@
+{
+  "thread_id": "20250702_invitro_ru_418e7d84",
+  "message_id": "<3b38745180ac4fccb4839b1c8a956cbe@invitro.ru>",
+  "email_num_in_day": 10,
+  "total_emails_in_day": 10,
+  "from": "Okoval@invitro.ru",
+  "to": "dubrovskih@dna-technology.ru, help@dna-technology.ru, s.voronova@dna-technology.ru",
+  "cc": "arubayko@invitro.ru, aallakhverdyan@invitro.ru, abronnikova@invitro.ru...",
+  "to_emails": [
+    "dubrovskih@dna-technology.ru",
+    "help@dna-technology.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "arubayko@invitro.ru",
+    "aallakhverdyan@invitro.ru",
+    "abronnikova@invitro.ru",
+    "avdorofeeva@invitro.ru",
+    "apevnev@invitro.ru",
+    "doc-lmgi@invitro.ru",
+    "nluzanova@invitro.ru"
+  ],
+  "subject": "RE: Формат записи генотипа в ПМ DRB1",
+  "date": "Wed, 2 Jul 2025 14:18:17 +0000",
+  "parsed_date": "2025-07-02T21:18:17+07:00",
+  "body_raw": "Ждем ответ.\r\n\nС уважением,\r\n\nФорат Оксана Николаевна,\r\nВрач-генетик, врач лабораторный генетик\r\nлаборатории молекулярно-генетических исследований,\r\n\nООО <ИНВИТРО-Сибирь>\r\nг.Новосибирск, ул. Римского-Корсакова, (9)\r\nтел. +7 (383) 344-97-27, вн. 7717\r\n+7(923)227-17-31\r\n\nFrom: Оксана Форат\r\nSent: Tuesday, July 1, 2025 5:03 PM\r\nTo: 'Дубровских Даниил' <dubrovskih@dna-technology.ru>\r\nCc: Александр Рубайко <arubayko@invitro.ru>; Александра Аллахвердян <AAllakhverdyan@invitro.ru>; Александра Бронникова <abronnikova@invitro.ru>; Анастасия Дорофеева <avdorofeeva@invitro.ru>; Артём Певнев <apevnev@invitro.ru>; Врач ЛМГИ <Doc-lmgi@invitro.ru>; Наталья Лузанова <nluzanova@invitro.ru>; Оксана Форат <Okoval@invitro.ru>\r\nSubject: Формат записи генотипа в ПМ DRB1\r\nImportance: High\r\n\nЗдравствуйте.\r\nОбнаружили ошибку в формате записи генотипа в МП для DRB1.\r\nСейчас так: 11,11:/14\r\nВерно так: 11, 11/14\r\n\nНеобходимо исправить.\r\n\n[cid:image001.png@01DBEB96.D3581AF0]\r\n\nС уважением,\r\n\nФорат Оксана Николаевна,\r\nВрач-генетик, врач лабораторный генетик\r\nлаборатории молекулярно-генетических исследований,\r\n\nООО <ИНВИТРО-Сибирь>\r\nг.Новосибирск, ул. Римского-Корсакова, (9)\r\nтел. +7 (383) 344-97-27, вн. 7717\r\n+7(923)227-17-31",
+  "body_clean": "Ждем ответ.\nС уважением,\nФорат Оксана Николаевна,\nВрач-генетик, врач лабораторный генетик\nлаборатории молекулярно-генетических исследований,\nООО ИНВИТРО-Сибирь\nг.Новосибирск, ул. Римского-Корсакова, (9)\nтел. +7 (383) 344-97-27, вн. 7717\n+7(923)227-17-31\nFrom: Оксана Форат\nSent: Tuesday, July 1, 2025 5:03 PM\nTo: 'Дубровских Даниил' dubrovskih@dna-technology.ru\nCc: Александр Рубайко arubayko@invitro.ru; Александра Аллахвердян AAllakhverdyan@invitro.ru; Александра Бронникова abronnikova@invitro.ru; Анастасия Дорофеева avdorofeeva@invitro.ru; Артём Певнев apevnev@invitro.ru; Врач ЛМГИ Doc-lmgi@invitro.ru; Наталья Лузанова nluzanova@invitro.ru; Оксана Форат Okoval@invitro.ru\nSubject: Формат записи генотипа в ПМ DRB1\nImportance: High\nЗдравствуйте.\nОбнаружили ошибку в формате записи генотипа в МП для DRB1.\nСейчас так: 11,11:/14\nВерно так: 11, 11/14\nНеобходимо исправить.\n[cid:image001.png@01DBEB96.D3581AF0]",
+  "char_count": 912,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image001.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:39:10.056939+07:00",
+  "raw_size": 511288,
+  "date_folder": "2025-07-02",
+  "eml_path": "eml/2025-07-02/3b38745180ac4fccb4839b1c8a956cbe_invitro.ru_003910_050813.eml"
+}

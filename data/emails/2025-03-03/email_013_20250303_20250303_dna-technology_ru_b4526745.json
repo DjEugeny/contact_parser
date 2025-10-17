@@ -1,0 +1,71 @@
+{
+  "thread_id": "20250303_dna-technology_ru_b4526745",
+  "message_id": "<b9f9c2ea-0ad6-4640-89bb-83f284716f70@dna-technology.ru>",
+  "email_num_in_day": 13,
+  "total_emails_in_day": 25,
+  "from": "m.gogoleva@dna-technology.ru",
+  "to": "corp@med3843.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "corp@med3843.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Fwd: Fwd: ОБРАЩЕНИЕ.pdf",
+  "date": "Mon, 3 Mar 2025 12:03:26 +0300",
+  "parsed_date": "2025-03-03T16:03:26+07:00",
+  "body_raw": "Добрый день!\r\n\nКП по обращению во вложении.\r\n\n-------- Перенаправленное сообщение --------\r\nТема: ОБРАЩЕНИЕ.pdf\r\nДата: Thu, 27 Feb 2025 04:57:04 +0300\r\nОт: Валентина Панова <panovavalentina.niikpg@mail.ru>\r\nОтвечать: Валентина Панова <panovavalentina.niikpg@mail.ru>\r\nКому: hotline@dna-technology.ru\r\n\nУважаемый партнер!\r\nУбедительная просьба рассмотреть наше обращение.\r\nСпасибо!\r\nС уважением,\r\nВалентина Панова,\r\nконтрактный управляющий НИИ КПГПЗ",
+  "body_clean": "Добрый день!\nКП по обращению во вложении.\n-------- Перенаправленное сообщение --------\nТема: ОБРАЩЕНИЕ.pdf\nДата: Thu, 27 Feb 2025 04:57:04 +0300\nОт: Валентина Панова panovavalentina.niikpg@mail.ru\nОтвечать: Валентина Панова panovavalentina.niikpg@mail.ru\nКому: hotline@dna-technology.ru\nУважаемый партнер!\nУбедительная просьба рассмотреть наше обращение.\nСпасибо!\nС уважением,\nВалентина Панова,\nконтрактный управляющий НИИ КПГПЗ",
+  "char_count": 428,
+  "attachments": [
+    {
+      "id": 600,
+      "original_filename": "ОБРАЩЕНИЕ.pdf",
+      "saved_filename": "20250303_5e4a37f8_071327_924191_attach_ОБРАЩЕНИЕ.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-03/20250303_5e4a37f8_071327_924191_attach_ОБРАЩЕНИЕ.pdf",
+      "relative_path": "attachments/2025-03-03/20250303_5e4a37f8_071327_924191_attach_ОБРАЩЕНИЕ.pdf",
+      "file_size": 3136484,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:13:27",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<b9f9c2ea-0ad6-4640-89bb-83f284716f70@dna-technology.ru>",
+      "thread_id": "20250303_dna-technology_ru_b4526745",
+      "sha256": "de4d2d55305836161f49410e0250d7903c0762a517677f3c41dd0c02e3842ce3",
+      "file_exists": true
+    },
+    {
+      "id": 601,
+      "original_filename": "Ком.пред.03.03.2025 для Новокузнецк МЕДТЕХНИКА для НИИ комплексных проблем гигиены и проф. заболеваний (ДТпрайм 4М1).pdf",
+      "saved_filename": "20250303_5e4a37f8_071327_930453_attach_Ком.пред.03.03.2025 для Новокузнецк МЕДТЕХНИКА для НИИ комплексных проблем гигиены и проф. заболеваний _ДТпрайм 4М1_.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-03/20250303_5e4a37f8_071327_930453_attach_Ком.пред.03.03.2025 для Новокузнецк МЕДТЕХНИКА для НИИ комплексных проблем гигиены и проф. заболеваний _ДТпрайм 4М1_.pdf",
+      "relative_path": "attachments/2025-03-03/20250303_5e4a37f8_071327_930453_attach_Ком.пред.03.03.2025 для Новокузнецк МЕДТЕХНИКА для НИИ комплексных проблем гигиены и проф. заболеваний _ДТпрайм 4М1_.pdf",
+      "file_size": 323866,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:13:27",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<b9f9c2ea-0ad6-4640-89bb-83f284716f70@dna-technology.ru>",
+      "thread_id": "20250303_dna-technology_ru_b4526745",
+      "sha256": "8b5bf4554814aa0cb90e58c6aba3b12ca2428c2710813c94884b285643386a79",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 2,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:13:27.909475+07:00",
+  "raw_size": 4748642,
+  "date_folder": "2025-03-03",
+  "eml_path": "eml/2025-03-03/b9f9c2ea-0ad6-4640-89bb-83f284716f70_dna-technology.ru_071327_900266.eml"
+}

@@ -1,0 +1,68 @@
+{
+  "thread_id": "20250717_assa-group_ru_6c9068c1",
+  "message_id": "<00d801dbf6ef$c55d8a20$50189e60$@assa-group.ru>",
+  "email_num_in_day": 7,
+  "total_emails_in_day": 20,
+  "from": "rozhencova@assa-group.ru",
+  "to": "m.gogoleva@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru, soprun@dna-technology.ru",
+  "to_emails": [
+    "m.gogoleva@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru",
+    "soprun@dna-technology.ru"
+  ],
+  "subject": "запрос КП для ДФИЦ, Махачкала",
+  "date": "Thu, 17 Jul 2025 14:52:39 +0700",
+  "parsed_date": "2025-07-17T14:52:39+07:00",
+  "body_raw": "Добрый день!\r\nМария, прошу направить КП и закрепить проект на Амплификатор ДТклассик для проведения классической полимеразной цепной реакции.\r\n\nКлиент: ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ БЮДЖЕТНОЕ УЧРЕЖДЕНИЕ НАУКИ ДАГЕСТАНСКИЙ ФЕДЕРАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК\r\n\nИНН: 0560020659\r\n\nБуду благодарна за оперативный ответ.\r\n\nАлёна Роженцова\r\n\nСпециалист отдела решений для научных исследований\r\n\nОтдел продаж | АССА ЛАБОРАТОРНЫЕ СИСТЕМЫ\r\n\n _____ \r\n\n <tel:+74994900272> \r\n\n <tel:+74994900272> +7 (499) 490-02-72, доб. 2002 | <tel:+79234096514> +7 (923) 409-65-14\r\n\n <mailto:rozhencova@assa-group.ru> rozhencova@assa-group.ru\r\n\n <http://assa-group.ru/> \r\n\n <https://assa-group.ru/> assa-group.ru\r\n\nТомск, 634012, ул. Елизаровых, 53/2​, 804 офис",
+  "body_clean": "Добрый день!\nМария, прошу направить КП и закрепить проект на Амплификатор ДТклассик для проведения классической полимеразной цепной реакции.\nКлиент: ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ БЮДЖЕТНОЕ УЧРЕЖДЕНИЕ НАУКИ ДАГЕСТАНСКИЙ ФЕДЕРАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ ЦЕНТР РОССИЙСКОЙ АКАДЕМИИ НАУК\nИНН: 0560020659\nБуду благодарна за оперативный ответ.\nАлёна Роженцова\nСпециалист отдела решений для научных исследований\nОтдел продаж | АССА ЛАБОРАТОРНЫЕ СИСТЕМЫ\ntel:+74994900272\ntel:+74994900272 +7 (499) 490-02-72, доб. 2002 | tel:+79234096514 +7 (923) 409-65-14\nmailto:rozhencova@assa-group.ru rozhencova@assa-group.ru\nhttp://assa-group.ru/\nhttps://assa-group.ru/ assa-group.ru\nТомск, 634012, ул. Елизаровых, 53/2​, 804 офис",
+  "char_count": 704,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image001.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image002.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image003.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image004.png",
+      "is_inline": true
+    },
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image005.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 5,
+    "saved": 0,
+    "excluded": 5,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:43:07.431427+07:00",
+  "raw_size": 25069,
+  "date_folder": "2025-07-17",
+  "eml_path": "eml/2025-07-17/00d801dbf6ef_c55d8a20_50189e60_assa-group.ru_004307_422330.eml"
+}

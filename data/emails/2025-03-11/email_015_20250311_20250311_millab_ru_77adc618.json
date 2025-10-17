@@ -1,0 +1,41 @@
+{
+  "thread_id": "20250311_millab_ru_77adc618",
+  "message_id": "<023501db926f$fb77f710$f267e530$@millab.ru>",
+  "email_num_in_day": 15,
+  "total_emails_in_day": 24,
+  "from": "aso@millab.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "авторизация СибГМУ",
+  "date": "Tue, 11 Mar 2025 17:25:58 +0700",
+  "parsed_date": "2025-03-11T17:25:58+07:00",
+  "body_raw": "Добрый день, Светлана!\r\nПрошу сообщить возможность авторизации за нами проекта:\r\n\nФедеральное государственное бюджетное образовательное учреждение высшего\r\nобразования <Сибирский государственный медицинский университет> Министерства\r\nздравоохранения Российской Федерации\r\n\nИНН 7018013613\r\n\nкафедра биологии и генетики\r\n\nКонтактное лицо: Заведующая кафедрой Воронкова Ольга Владимировна,\r\nvoronkova.ov@ssmu.ru, 8 (3822) 901-101 доб. 1945\r\n\n----- \r\nС уважением,\r\nСоколова Александра Вадимовна\r\nСпециалист отдела продаж биотехнологического направления \r\nКомпания МИЛЛАБ\r\nПредставительство в г.Новосибирске\r\nТ: +7 (383) 363-09-00\r\n\nМоб.: +7 (952) 946 12 63\r\nE: <mailto:aso@millab.ru%0b> aso@millab.ru\r\n <http://www.millab.ru/> www.millab.ru\r\nTelegram-канал: <https://t.me/MillabGroup> https://t.me/MillabGroup\r\n\ne-mail_logo",
+  "body_clean": "Добрый день, Светлана!\nПрошу сообщить возможность авторизации за нами проекта:\nФедеральное государственное бюджетное образовательное учреждение высшего\nобразования Сибирский государственный медицинский университет Министерства\nздравоохранения Российской Федерации\nИНН 7018013613\nкафедра биологии и генетики\nКонтактное лицо: Заведующая кафедрой Воронкова Ольга Владимировна,\nvoronkova.ov@ssmu.ru, 8 (3822) 901-101 доб. 1945\nС уважением,\nСоколова Александра Вадимовна\nСпециалист отдела продаж биотехнологического направления\nКомпания МИЛЛАБ\nПредставительство в г.Новосибирске\nТ: +7 (383) 363-09-00\nМоб.: +7 (952) 946 12 63\nE: mailto:aso@millab.ru%0b aso@millab.ru\nhttp://www.millab.ru/ www.millab.ru\nTelegram-канал: https://t.me/MillabGroup https://t.me/MillabGroup\ne-mail_logo",
+  "char_count": 775,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:image*",
+      "original_filename": "image001.jpg",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:16:47.579554+07:00",
+  "raw_size": 18440,
+  "date_folder": "2025-03-11",
+  "eml_path": "eml/2025-03-11/023501db926f_fb77f710_f267e530_millab.ru_071647_575001.eml"
+}

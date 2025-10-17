@@ -1,0 +1,18 @@
+{
+  "source_file": "email_003_20250825_20250825_bk_ru_8663d1fd.json",
+  "processed_result": {
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-08-25/email_003_20250825_20250825_bk_ru_8663d1fd.json",
+    "success": false,
+    "processing_strategy": "standard",
+    "processing_time_seconds": 3.68,
+    "errors": [
+      "Неизвестная ошибка"
+    ],
+    "validation_error": true,
+    "error": "Неизвестная ошибка",
+    "organizations": [],
+    "contacts": [],
+    "commercial_offers": [],
+    "interactions": []
+  }
+}

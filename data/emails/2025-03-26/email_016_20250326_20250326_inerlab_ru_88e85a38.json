@@ -1,0 +1,54 @@
+{
+  "thread_id": "20250326_inerlab_ru_88e85a38",
+  "message_id": "<1742980693.805812108@f133.i.mail.ru>",
+  "email_num_in_day": 16,
+  "total_emails_in_day": 29,
+  "from": "strelets@inerlab.ru",
+  "to": "m.gogoleva@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "m.gogoleva@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "запрос кп",
+  "date": "Wed, 26 Mar 2025 12:18:13 +0300",
+  "parsed_date": "2025-03-26T16:18:13+07:00",
+  "body_raw": "Прошу выслать кп на ДТ-Прайм- 4 шт. Закупка будет производиться через МЗ\nКонечные покупатели\nГОСУДАРСТВЕННОЕ БЮДЖЕТНОЕ УЧРЕЖДЕНИЕ ЗДРАВООХРАНЕНИЯ НОВОСИБИРСКОЙ ОБЛАСТИ \"ГОСУДАРСТВЕННАЯ НОВОСИБИРСКАЯ ОБЛАСТНАЯ КЛИНИЧЕСКАЯ БОЛЬНИЦА\" 5403106150 -2 шт\n\nГОСУДАРСТВЕННОЕ БЮДЖЕТНОЕ УЧРЕЖДЕНИЕ ЗДРАВООХРАНЕНИЯ НОВОСИБИРСКОЙ ОБЛАСТИ \"НОВОСИБИРСКИЙ ГОРОДСКОЙ КЛИНИЧЕСКИЙ ПЕРИНАТАЛЬНЫЙ ЦЕНТР\" 5401109460 - 2 шт\n\n- -\nС уважением, Светлана Стрелец\n\nОтдел продаж лабораторного оборудования\nООО \"ИнтерЛабТрейд\"\nг. Новосибирск ,ул. Бориса Богаткова 260оф.4\n\n+7 (383) 285-25-10\n+7 (495) 409-76-12\n\nE-mail info@ i nerlab.ru\nСайт  http://inerlab.ru/",
+  "body_clean": "Прошу выслать кп на ДТ-Прайм- 4 шт. Закупка будет производиться через МЗ\nКонечные покупатели\nГОСУДАРСТВЕННОЕ БЮДЖЕТНОЕ УЧРЕЖДЕНИЕ ЗДРАВООХРАНЕНИЯ НОВОСИБИРСКОЙ ОБЛАСТИ \"ГОСУДАРСТВЕННАЯ НОВОСИБИРСКАЯ ОБЛАСТНАЯ КЛИНИЧЕСКАЯ БОЛЬНИЦА\" 5403106150 -2 шт\nГОСУДАРСТВЕННОЕ БЮДЖЕТНОЕ УЧРЕЖДЕНИЕ ЗДРАВООХРАНЕНИЯ НОВОСИБИРСКОЙ ОБЛАСТИ \"НОВОСИБИРСКИЙ ГОРОДСКОЙ КЛИНИЧЕСКИЙ ПЕРИНАТАЛЬНЫЙ ЦЕНТР\" 5401109460 - 2 шт\nС уважением, Светлана Стрелец\nОтдел продаж лабораторного оборудования\nООО \"ИнтерЛабТрейд\"\nг. Новосибирск ,ул. Бориса Богаткова 260оф.4\n+7 (383) 285-25-10\n+7 (495) 409-76-12\nE-mail info@ i nerlab.ru\nСайт  http://inerlab.ru/",
+  "char_count": 621,
+  "attachments": [
+    {
+      "id": 766,
+      "original_filename": "Реквизиты ИнтерЛабТрейд.docx",
+      "saved_filename": "20250326_f3811052_072352_771040_attach_Реквизиты ИнтерЛабТрейд.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-26/20250326_f3811052_072352_771040_attach_Реквизиты ИнтерЛабТрейд.docx",
+      "relative_path": "attachments/2025-03-26/20250326_f3811052_072352_771040_attach_Реквизиты ИнтерЛабТрейд.docx",
+      "file_size": 12817,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-14 00:23:52",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<1742980693.805812108@f133.i.mail.ru>",
+      "thread_id": "20250326_inerlab_ru_88e85a38",
+      "sha256": "3fdc99bb7c2462ba449ba67c9940fce27812cfe2a36bf2b5d8f37e773ea952f8",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:23:52.770618+07:00",
+  "raw_size": 28533,
+  "date_folder": "2025-03-26",
+  "eml_path": "eml/2025-03-26/1742980693.805812108_f133.i.mail.ru_072352_768639.eml"
+}

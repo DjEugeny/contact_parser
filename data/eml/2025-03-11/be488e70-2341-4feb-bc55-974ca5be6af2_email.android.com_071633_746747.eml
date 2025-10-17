@@ -1,0 +1,58 @@
+Received:  from forward101d.mail.yandex.net ([178.154.239.212]:55122)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98 (FreeBSD))
+	 (envelope-from <lubasha.evdokimova@yandex.ru>)
+	 id 1trtSp-00000000ATq-3lge 
+	for s.voronova@dna-technology.ru;
+	Tue, 11 Mar 2025 09:51:53 +0300
+Received: from mail-nwsmtp-smtp-production-main-72.klg.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-72.klg.yp-c.yandex.net [IPv6:2a02:6b8:c42:3d4b:0:640:d84f:0])
+	by forward101d.mail.yandex.net (Yandex) with ESMTPS id 40BE260BCB
+	for <s.voronova@dna-technology.ru>; Tue, 11 Mar 2025 09:51:53 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-72.klg.yp-c.yandex.net (smtp/Yandex) with ESMTPSA id ppjD18BLjOs0-T6fwClRt;
+	Tue, 11 Mar 2025 09:51:52 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1741675912; bh=OJ48LxfmiiRHFxaMz7ilp0lA5W0f+91prom84YRvv7w=;
+	h=From:To:Message-ID:In-Reply-To:Subject:Date;
+	b=mZmL+wSBVunssiAhi0qaKMB8DME+gg5aCQYVUkMEzLSmkBfwnJhldOc2EG0Sgvba5
+	 OJUlXD3qjxKeA7aBaSuilCXMvVZOPzDO6IyNGes3FJulbodSoHPivDGJZTOcQekX9p
+	 LtBIoUmuOfAPou/pBRF7O283qgD2zpx7ahRkBbJc=
+Authentication-Results: mail-nwsmtp-smtp-production-main-72.klg.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+Date: Tue, 11 Mar 2025 13:51:47 +0700
+Subject: =?UTF-8?B?RndkOiDQndC+0LLQvtGB0LjQsdC40YDRgdC6LCDQptCb0JQuIA==?=
+Message-ID: <be488e70-2341-4feb-bc55-974ca5be6af2@email.android.com>
+X-Android-Message-ID: <be488e70-2341-4feb-bc55-974ca5be6af2@email.android.com>
+In-Reply-To: <7a6bdc72-8652-4816-ac78-fe51bc3ee036@email.android.com>
+From: "lubasha.evdokimova" <lubasha.evdokimova@yandex.ru>
+To: s.voronova@dna-technology.ru
+Importance: Normal
+X-Priority: 3
+X-MSMail-Priority: Normal
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: base64
+X-Warning: 178.154.239.212 is listed at hostkarma.junkemailfilter.com (127.0.0.2, 127.0.1.1: Black listed at hostkarma http://ipadmin.junkemailfilter.com/remove.php?ip=178.154.239.212)
+X-Spam-DNSBL-Host: yes
+Received-SPF: pass (mail.dna-technology.ru: domain of yandex.ru designates 178.154.239.212 as permitted sender) client-ip=178.154.239.212; envelope-from=lubasha.evdokimova@yandex.ru; helo=forward101d.mail.yandex.net;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+PGRpdiBkaXI9J2F1dG8nPjwvZGl2PjxkaXYgY2xhc3M9ImdtYWlsX3F1b3RlIj4tLS0tLS0tLS0t
+INCf0LXRgNC10LDQtNGA0LXRgdC+0LLQsNC90L3QvtC1INGB0L7QvtCx0YnQtdC90LjQtSAtLS0t
+LS0tLS0tPGJyPtCe0YI6ICZxdW90O2x1YmFzaGEuZXZkb2tpbW92YSZxdW90OyAmbHQ7bHViYXNo
+YS5ldmRva2ltb3ZhQHlhbmRleC5ydSZndDs8YnI+0JTQsNGC0LA6IDI2INGE0LXQstGALiAyMDI1
+INCzLiAyMDoyNjxicj7QotC10LzQsDog0J3QvtCy0L7RgdC40LHQuNGA0YHQuiwg0KbQm9CULiA8
+YnI+0JrQvtC80YM6IGhvdGxpbmVAZG5hLXRlY2hub2xvZ3kucnU8YnI+0JrQvtC/0LjRjzogPGJy
+PjxiciB0eXBlPSJhdHRyaWJ1dGlvbiIgLz48YmxvY2txdW90ZSBjbGFzcz0icXVvdGUiIHN0eWxl
+PSJtYXJnaW46MCAwIDAgLjhleDtib3JkZXItbGVmdDoxcHggI2NjYyBzb2xpZDtwYWRkaW5nLWxl
+ZnQ6MWV4Ij48ZGl2IGRpcj0iYXV0byI+0JTQvtCx0YDRi9C5INCy0LXRh9C10YAsINGD0LLQsNC2
+0LDQtdC80YvQtSDQutC+0LvQu9C10LPQuCEg0J/QvtGA0LXQutC+0LzQtdC90LTRg9C50YLQtSwg
+0L/QvtC20LDQu9GD0LnRgdGC0LAsINC60LDQutC+0Lkg0L/Qu9Cw0YHRgtC40LrQvtCy0YvQuSDQ
+v9C40L3RhtC10YIg0YPQtNC+0LHQvdC10Lkg0LTQu9GPINC80LDQs9C90LjRgtC90YvRhSDQv9C1
+0YHRgtC40LrQvtCyLCDQv9C+0LTQtdC70LjRgtC10YHRjCwg0L/QvtC20LDQu9GD0LnRgdGC0LAs
+INC+0L/Ri9GC0L7QvCDQvNCxINC10YHRgtGMINC60LDRgtCw0LvQvtC20L3Ri9C5INC90L7QvNC1
+0YAuINChINGD0LLQsNC20LXQvdC40LXQvCwg0JvQoS7CoDwvZGl2PjwvYmxvY2txdW90ZT48L2Rp
+dj48YnI+
+

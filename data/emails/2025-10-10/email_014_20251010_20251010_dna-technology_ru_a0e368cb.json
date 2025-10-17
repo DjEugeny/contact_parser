@@ -1,0 +1,60 @@
+{
+  "thread_id": "20251010_dna-technology_ru_a0e368cb",
+  "message_id": "<e2dfd08d-cab7-4cd4-83b6-7aa67a9e5855@dna-technology.ru>",
+  "email_num_in_day": 14,
+  "total_emails_in_day": 30,
+  "from": "bilalov@dna-technology.ru",
+  "to": "sdm_sale@mail.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "sdm_sale@mail.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "обновление КП",
+  "date": "Fri, 10 Oct 2025 13:08:17 +0300",
+  "parsed_date": "2025-10-10T17:08:17+07:00",
+  "body_raw": "Добрый день!\r\n\nВо вложении обновленное КП.\r\n\n-- \r\nДокумент без названия\r\n\n*С уважением, Билалов Альберт Аглямович,*\r\n\n*зам. начальника отдела продаж *\r\n\n**ООО \"ДНК-Технология\" **\r\n\n***Тел:**+7 (495) 640-17-71, доб.2031***\r\n\n**\r\n\n*E-mail:**bilalov@dna-technology.ru *\r\n\n*Web:**www.dna-technology.ru <https://dna-technology.ru>*\r\n\n<https://dna-technology.ru>**",
+  "body_clean": "Добрый день!\nВо вложении обновленное КП.\nДокумент без названия\n*С уважением, Билалов Альберт Аглямович,*\n*зам. начальника отдела продаж *\n**ООО \"ДНК-Технология\" **\n***Тел:**+7 (495) 640-17-71, доб.2031***\n*E-mail:**bilalov@dna-technology.ru *\n*Web:**www.dna-technology.ru https://dna-technology.ru*\nhttps://dna-technology.ru**",
+  "char_count": 326,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:logo*",
+      "original_filename": "logo.png",
+      "is_inline": true
+    },
+    {
+      "id": 586,
+      "original_filename": "Ком.пред.10.10.2025 для Новосибирск СИБДИАМЕД (для Клинический родильный дом №6) Лаборатория с ДТпрайм II 5M1.pdf",
+      "saved_filename": "20251010_1eb29c8e_010531_989330_attach_Ком.пред.10.10.2025 для Новосибирск СИБДИАМЕД _для Клинический родильный дом _6_ Лаборатория с ДТпрайм II 5M1.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-10-10/20251010_1eb29c8e_010531_989330_attach_Ком.пред.10.10.2025 для Новосибирск СИБДИАМЕД _для Клинический родильный дом _6_ Лаборатория с ДТпрайм II 5M1.pdf",
+      "relative_path": "attachments/2025-10-10/20251010_1eb29c8e_010531_989330_attach_Ком.пред.10.10.2025 для Новосибирск СИБДИАМЕД _для Клинический родильный дом _6_ Лаборатория с ДТпрайм II 5M1.pdf",
+      "file_size": 174393,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 18:05:31",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<e2dfd08d-cab7-4cd4-83b6-7aa67a9e5855@dna-technology.ru>",
+      "thread_id": "20251010_dna-technology_ru_a0e368cb",
+      "sha256": "1e11256cb05b6d2298303a37342cb12cfb02f3f95e3d4d8956fa9a0f79136b6c",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 1,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T01:05:31.986790+07:00",
+  "raw_size": 358755,
+  "date_folder": "2025-10-10",
+  "eml_path": "eml/2025-10-10/e2dfd08d-cab7-4cd4-83b6-7aa67a9e5855_dna-technology.ru_010531_979330.eml"
+}

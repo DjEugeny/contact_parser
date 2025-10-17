@@ -1,0 +1,94 @@
+{
+  "thread_id": "20250817_yandex_ru_f1126579",
+  "message_id": "<fd646912-f230-4085-8cef-59f622f73833@Spark>",
+  "from": "evgenyzach@yandex.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Тестируем вложения",
+  "date": "Sun, 17 Aug 2025 07:34:21 +0700",
+  "parsed_date": "2025-08-17T07:34:21+07:00",
+  "body": "",
+  "char_count": 0,
+  "attachments": [
+    {
+      "original_filename": "B8C7BCA290434853ACC90903CA04AA62.png",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: B8C7BCA290434853ACC90903CA04AA62",
+      "is_inline": true,
+      "content_id": "B8C7BCA290434853ACC90903CA04AA62"
+    },
+    {
+      "original_filename": "logo.png",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: 5DE3642BFDD54E34AC909F5B92AFF642",
+      "is_inline": true,
+      "content_id": "5DE3642BFDD54E34AC909F5B92AFF642"
+    },
+    {
+      "original_filename": "_.png",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: 560731B5F4D243D59FBAB0509E127EFF",
+      "is_inline": true,
+      "content_id": "560731B5F4D243D59FBAB0509E127EFF"
+    },
+    {
+      "original_filename": "photo_2025-06-25  15.54.24.jpeg",
+      "saved_filename": "20250817_yandex_ru_f1126579_153553_attach_photo_2025-06-25  15.54.24.jpeg",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-08-17/20250817_yandex_ru_f1126579_153553_attach_photo_2025-06-25  15.54.24.jpeg",
+      "relative_path": "attachments/2025-08-17/20250817_yandex_ru_f1126579_153553_attach_photo_2025-06-25  15.54.24.jpeg",
+      "file_size": 55946,
+      "file_type": "image/jpeg",
+      "content_type": "image/jpeg",
+      "saved_at": "2025-10-08T15:35:53.904222+07:00",
+      "status": "saved",
+      "is_inline": false
+    },
+    {
+      "original_filename": "🔬 Детальное руководство по изучению наборов реагентов  BRAF 3 и  BRAF 9.pdf",
+      "status": "excluded_by_filter",
+      "exclusion_reason": "имя файла соответствует паттерну '*руководство*'",
+      "is_inline": false
+    },
+    {
+      "original_filename": "Unknown.png",
+      "saved_filename": null,
+      "file_path": null,
+      "relative_path": null,
+      "file_size": 83509,
+      "file_type": "excluded_by_size",
+      "exclusion_reason": "размер файла 83509 байт - известный мусорный файл",
+      "saved_at": "2025-10-08T15:35:53.904830+07:00",
+      "status": "excluded_by_size",
+      "is_inline": false
+    },
+    {
+      "original_filename": "New_Life Residence_Optimizer (оптимизирован).pdf",
+      "saved_filename": "20250817_yandex_ru_f1126579_153553_attach_New_Life Residence_Optimizer _оптимизирован_.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-08-17/20250817_yandex_ru_f1126579_153553_attach_New_Life Residence_Optimizer _оптимизирован_.pdf",
+      "relative_path": "attachments/2025-08-17/20250817_yandex_ru_f1126579_153553_attach_New_Life Residence_Optimizer _оптимизирован_.pdf",
+      "file_size": 22633865,
+      "file_type": "application/pdf",
+      "content_type": "application/octet-stream",
+      "saved_at": "2025-10-08T15:35:54.007068+07:00",
+      "status": "saved",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 7,
+    "saved": 2,
+    "excluded": 3,
+    "excluded_filenames": 1,
+    "excluded_by_size": 1,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T15:35:54.007503+07:00",
+  "raw_size": 32554660,
+  "date_folder": "2025-08-17"
+}

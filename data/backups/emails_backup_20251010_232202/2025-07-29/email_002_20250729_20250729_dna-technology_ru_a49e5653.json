@@ -1,0 +1,45 @@
+{
+  "thread_id": "20250729_dna-technology_ru_a49e5653",
+  "message_id": "<75609d1e-e065-41c5-8b1c-f3552458d559@dna-technology.ru>",
+  "from": "hotline@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Клиенты Фемофлор II (Воронова С.)",
+  "date": "Tue, 29 Jul 2025 09:31:39 +0300",
+  "parsed_date": "2025-07-29T13:31:39+07:00",
+  "body": "Светлана, добрый день!\nВ связи с тем, что поддержка нового набора Фемофлор II изначально пошла\nне совсем по нашему плану и дистрибутив был сразу предоставлен всем\nрегиональным представителям, которые либо самостоятельно высылают его\nклиентам, либо устанавливают своими силами, то сейчас мне необходимо\nузнать, необходимо ли дослать кому-либо из Ваших клиентов дополнительную\nинформацию?\nНиже скрин из нашей таблицы. Фиолетовым покрашен клиент, кому отправлен\nпробник, без окраски - кому не был пока что отправлен.\nСветлана, добрый день! В связи с тем, что поддержка нового набора Фемофлор II изначально пошла не совсем по нашему плану и дистрибутив был сразу предоставлен всем региональным представителям, которые либо самостоятельно высылают его клиентам, либо устанавливают своими силами, то сейчас мне необходимо узнать, необходимо ли дослать кому-либо из Ваших клиентов дополнительную информацию? Ниже скрин из нашей таблицы. Фиолетовым покрашен клиент, кому отправлен пробник, без окраски - кому не был пока что отправлен.",
+  "char_count": 1027,
+  "attachments": [
+    {
+      "original_filename": "Воронова С.png",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: part1.VXFjT7mm.nFLmiJTF@dna-technology.ru",
+      "is_inline": true,
+      "content_id": "part1.VXFjT7mm.nFLmiJTF@dna-technology.ru"
+    },
+    {
+      "original_filename": "_.png",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: part2.PGy8tfq8.0sm6OTsp@dna-technology.ru",
+      "is_inline": true,
+      "content_id": "part2.PGy8tfq8.0sm6OTsp@dna-technology.ru"
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 0,
+    "excluded": 2,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T22:13:30.691313+07:00",
+  "raw_size": 59261,
+  "date_folder": "2025-07-29"
+}

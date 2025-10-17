@@ -1,0 +1,706 @@
+{
+  "source_file": "email_008_20250825_20250825_dna-technology_ru_6e69487b.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": null,
+        "website": "dna-technology.ru",
+        "city": "Москва",
+        "address": "Москва, Варшавское шоссе, дом 125Ж, корпус 5",
+        "emails": [
+          "info@dna-technology.ru",
+          "mail@dna-technology.ru"
+        ],
+        "phones": [
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71 (доб. 2030)",
+            "extension": "2030"
+          }
+        ],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      },
+      {
+        "organization_id": 2,
+        "name": "ЛДЦ",
+        "inn": null,
+        "website": null,
+        "city": "Новосибирск",
+        "address": null,
+        "emails": [],
+        "phones": [],
+        "gid": "85a42ec8-b715-5e8b-b697-34c67d42df6e"
+      },
+      {
+        "organization_id": 3,
+        "name": "ННИИТ Минздрава России",
+        "inn": "5401109396",
+        "website": null,
+        "city": "Новосибирск",
+        "address": null,
+        "emails": [],
+        "phones": [],
+        "gid": "0219b288-4fb4-5f60-941f-54b1346096ff"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Гоголева Мария Михайловна",
+        "organization_id": 1,
+        "position": "Менеджер по продаже оборудования",
+        "email": "m.gogoleva@dna-technology.ru",
+        "phones": [
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71 (доб. 2030)",
+            "extension": "2030"
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 0.95,
+        "value_score": 9,
+        "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "m.gogoleva@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674761.67425,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 2,
+        "name": "Воронова Светлана Сергеевна",
+        "organization_id": 1,
+        "position": "Региональный представитель в СФО",
+        "email": "s.voronova@dna-technology.ru",
+        "phones": [
+          {
+            "type": "mobile",
+            "number": "+7 (995) 129-39-76",
+            "normalized": "+79951293976",
+            "original": "8 (995) 129-39-76",
+            "extension": null
+          },
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71 (доб. 2030)",
+            "extension": "2030"
+          }
+        ],
+        "city": "Новосибирск",
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.9,
+        "value_score": 12,
+        "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "s.voronova@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674762.4098198,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 3,
+        "name": "Гребенников Олег",
+        "organization_id": 2,
+        "position": null,
+        "email": null,
+        "phones": [
+          {
+            "type": "mobile",
+            "number": "+7 (923) 632-68-91",
+            "normalized": "+79236326891",
+            "original": "+7-923-632-6891",
+            "extension": null
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "requested_quote",
+        "confidence": 0.9,
+        "value_score": 7,
+        "gid": "a68e0013-6023-5f14-aa1a-70b207159ca3",
+        "enrichment_skipped": true,
+        "enrichment_reason": "no_email"
+      }
+    ],
+    "business_context": "Мария Гоголева (ДНК-Технология) сообщает, что по запросу ООО «ЛДЦ» уже ведётся работа и выставлено КП. Светлана Воронова (ДНК-Технология) переслала запрос от Олега Гребенникова (ООО «ЛДЦ») на предоставление коммерческого предложения на поставку амплификаторов ДТпрайм для нужд ФГБУ \"ННИИТ\".",
+    "summary": {
+      "topic": "Re: Fwd: Запрос КП ООО \"ЛДЦ\" ННИИТ Туберкулеза Новосибирск 25",
+      "product_interest": "Амплификаторы ДТпрайм (профиль туберкулез)",
+      "communication_stage": "обработка запроса",
+      "request_type": "уточнение"
+    },
+    "key_points": [
+      "Мария Гоголева (ДНК-Технология) сообщает о работе над запросом ООО «ЛДЦ»",
+      "Светлана Воронова (ДНК-Технология) переслала запрос от ООО «ЛДЦ»",
+      "Запрос на КП на амплификаторы ДТпрайм для ФГБУ \"ННИИТ\""
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "Re: Fwd: Запрос КП ООО \"ЛДЦ\" ННИИТ Туберкулеза Новосибирск 25",
+        "message_date": "2025-08-25T18:18:59+07:00",
+        "message_id_hint": "e65bc0d5-82cf-46ba-885a-fd88dbd57801@dna-technology.ru",
+        "role_in_message": "sender",
+        "interaction_type": "other",
+        "summary": "Мария Гоголева сообщает, что по запросу ООО «ЛДЦ» уже ведётся работа и выставлено КП.",
+        "human_note": "Мария Гоголева (ДНК-Технология) информирует, что работа по запросу ООО «ЛДЦ» уже ведётся и КП выставлено.",
+        "participants": {
+          "actor": "Гоголева Мария Михайловна (ДНК-Технология, Менеджер по продаже оборудования)",
+          "audience": [
+            "ООО «ЛДЦ»",
+            "Воронова Светлана Сергеевна (ДНК-Технология)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 2,
+        "contact_id": 2,
+        "organization_id": 1,
+        "message_subject": "Re: Fwd: Запрос КП ООО \"ЛДЦ\" ННИИТ Туберкулеза Новосибирск 25",
+        "message_date": "2025-08-25T18:18:59+07:00",
+        "message_id_hint": "e65bc0d5-82cf-46ba-885a-fd88dbd57801@dna-technology.ru",
+        "role_in_message": "cc",
+        "interaction_type": "clarification",
+        "summary": "Светлана Воронова пересылает запрос от ООО «ЛДЦ» на предоставление КП.",
+        "human_note": "Светлана Воронова (ДНК-Технология) переслала запрос от ООО «ЛДЦ» на КП.",
+        "participants": {
+          "actor": "Воронова Светлана Сергеевна (ДНК-Технология, региональный представитель в СФО)",
+          "audience": [
+            "ООО «ЛДЦ»",
+            "Гоголева Мария Михайловна (ДНК-Технология)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.8
+      },
+      {
+        "interaction_local_id": 3,
+        "contact_id": 3,
+        "organization_id": 2,
+        "message_subject": "Запрос КП ООО \"ЛДЦ\" ННИИТ Туберкулеза Новосибирск 25",
+        "message_date": "2025-08-25T16:07:00+00:00",
+        "message_id_hint": null,
+        "role_in_message": "requested_quote",
+        "interaction_type": "requested_quote",
+        "summary": "ООО «ЛДЦ» запрашивает КП на поставку оборудования для нужд ФГБУ \"ННИИТ\".",
+        "human_note": "Олег Гребенников (ООО «ЛДЦ») запросил КП на оборудование для ФГБУ \"ННИИТ\".",
+        "participants": {
+          "actor": "Гребенников Олег (ООО «ЛДЦ»)",
+          "audience": [
+            "ДНК-Технология"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": null,\n      \"website\": \"dna-technology.ru\",\n      \"city\": \"Москва\",\n      \"address\": \"Москва, Варшавское шоссе, дом 125Ж, корпус 5\",\n      \"emails\": [\n        \"mail@dna-technology.ru\",\n        \"info@dna-technology.ru\"\n      ],\n      \"phones\": [\n        {\n          \"type\": \"office\",\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": \"+74956401771\",\n          \"original\": \"+7 (495) 640-17-71 (доб. 2030)\",\n          \"extension\": \"2030\"\n        },\n        {\n          \"type\": \"office\",\n          \"number\": \"+74956401771\",\n          \"normalized\": null,\n          \"original\": \"tel:+74956401771,2030\",\n          \"extension\": \"2030\"\n        }\n      ]\n    },\n    {\n      \"organization_id\": 2,\n      \"name\": \"ООО «ЛДЦ»\",\n      \"inn\": null,\n      \"website\": null,\n      \"city\": \"Новосибирск\",\n      \"address\": null,\n      \"emails\": [\n        \"labdc42@gmail.com\"\n      ],\n      \"phones\": []\n    },\n    {\n      \"organization_id\": 3,\n      \"name\": \"ФГБУ \\\"ННИИТ\\\" Минздрава России\",\n      \"inn\": \"5401109396\",\n      \"website\": null,\n      \"city\": \"Новосибирск\",\n      \"address\": null,\n      \"emails\": [],\n      \"phones\": []\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Гоголева Мария Михайловна\",\n      \"organization_id\": 1,\n      \"position\": \"Менеджер по продаже оборудования\",\n      \"email\": \"m.gogoleva@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.95\n    },\n    {\n      \"contact_id\": 2,\n      \"name\": \"Воронова Светлана Сергеевна\",\n      \"organization_id\": 1,\n      \"position\": \"региональный представитель в СФО\",\n      \"email\": \"s.voronova@dna-technology.ru\",\n      \"phones\": [\n        {\n          \"type\": \"mobile\",\n          \"number\": \"8 (995) 129-39-76\",\n          \"normalized\": null,\n          \"original\": \"8 (995) 129-39-76\",\n          \"extension\": null\n        }\n      ],\n      \"city\": \"Новосибирск\",\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.9\n    },\n    {\n      \"contact_id\": 3,\n      \"name\": \"Гребенников Олег\",\n      \"organization_id\": 2,\n      \"position\": null,\n      \"email\": null,\n      \"phones\": [\n        {\n          \"type\": \"mobile\",\n          \"number\": \"+7-923-632-6891\",\n          \"normalized\": null,\n          \"original\": \"+7-923-632-6891\",\n          \"extension\": null\n        }\n      ],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"requested_quote\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"business_context\": \"Мария Гоголева (ДНК-Технология) сообщает, что по запросу ООО «ЛДЦ» уже ведётся работа и выставлено КП. Светлана Воронова (ДНК-Технология) переслала запрос от Олега Гребенникова (ООО «ЛДЦ») на предоставление коммерческого предложения на поставку амплификаторов ДТпрайм для нужд ФГБУ \\\"ННИИТ\\\".\",\n  \"summary\": {\n    \"topic\": \"Re: Fwd: Запрос КП ООО \\\"ЛДЦ\\\" ННИИТ Туберкулеза Новосибирск 25\",\n    \"product_interest\": \"Амплификаторы ДТпрайм (профиль туберкулез)\",\n    \"communication_stage\": \"обработка запроса\",\n    \"request_type\": \"уточнение\"\n  },\n  \"key_points\": [\n    \"Мария Гоголева (ДНК-Технология) сообщает о работе над запросом ООО «ЛДЦ»\",\n    \"Светлана Воронова (ДНК-Технология) переслала запрос от ООО «ЛДЦ»\",\n    \"Запрос на КП на амплификаторы ДТпрайм для ФГБУ \\\"ННИИТ\\\"\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"Re: Fwd: Запрос КП ООО \\\"ЛДЦ\\\" ННИИТ Туберкулеза Новосибирск 25\",\n      \"message_date\": \"2025-08-25T18:18:59+07:00\",\n      \"message_id_hint\": \"<e65bc0d5-82cf-46ba-885a-fd88dbd57801@dna-technology.ru>\",\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"other\",\n      \"summary\": \"Мария Гоголева сообщает, что по запросу ООО «ЛДЦ» уже ведётся работа и выставлено КП.\",\n      \"human_note\": \"Мария Гоголева (ДНК-Технология) информирует, что работа по запросу ООО «ЛДЦ» уже ведётся и КП выставлено.\",\n      \"participants\": {\n        \"actor\": \"Гоголева Мария Михайловна (ДНК-Технология, Менеджер по продаже оборудования)\",\n        \"audience\": [\n          \"ООО «ЛДЦ»\",\n          \"Воронова Светлана Сергеевна (ДНК-Технология)\"\n        ]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    },\n    {\n      \"interaction_local_id\": 2,\n      \"contact_id\": 2,\n      \"organization_id\": 1,\n      \"message_subject\": \"Re: Fwd: Запрос КП ООО \\\"ЛДЦ\\\" ННИИТ Туберкулеза Новосибирск 25\",\n      \"message_date\": \"2025-08-25T18:18:59+07:00\",\n      \"message_id_hint\": \"<e65bc0d5-82cf-46ba-885a-fd88dbd57801@dna-technology.ru>\",\n      \"role_in_message\": \"cc\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Светлана Воронова пересылает запрос от ООО «ЛДЦ» на предоставление КП.\",\n      \"human_note\": \"Светлана Воронова (ДНК-Технология) переслала запрос от ООО «ЛДЦ» на КП.\",\n      \"participants\": {\n        \"actor\": \"Воронова Светлана Сергеевна (ДНК-Технология, региональный представитель в СФО)\",\n        \"audience\": [\n          \"ООО «ЛДЦ»\",\n          \"Гоголева Мария Михайловна (ДНК-Технология)\"\n        ]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.8\n    },\n    {\n      \"interaction_local_id\": 3,\n      \"contact_id\": 3,\n      \"organization_id\": 2,\n      \"message_subject\": \"Запрос КП ООО \\\"ЛДЦ\\\" ННИИТ Туберкулеза Новосибирск 25\",\n      \"message_date\": \"2025-08-25T16:07:00+00:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"requested_quote\",\n      \"interaction_type\": \"requested_quote\",\n      \"summary\": \"ООО «ЛДЦ» запрашивает КП на поставку оборудования для нужд ФГБУ \\\"ННИИТ\\\".\",\n      \"human_note\": \"Олег Гребенников (ООО «ЛДЦ») запросил КП на оборудование для ФГБУ \\\"ННИИТ\\\".\",\n      \"participants\": {\n        \"actor\": \"Гребенников Олег (ООО «ЛДЦ»)\",\n        \"audience\": [\"ДНК-Технология\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    }\n  ]\n}\n```",
+    "contact_mentions": [],
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-17T11:19:22.412353",
+      "stats": {
+        "processed_emails": 33,
+        "total_organizations_processed": 77,
+        "total_contacts_processed": 100,
+        "organizations_deduplicated": 1,
+        "contacts_filtered": 16,
+        "contacts_enriched": 84,
+        "data_normalized": 160,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 2,
+        "phones_added_to_contacts": 2
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1,
+        "2": 2,
+        "3": 3
+      },
+      "contact_mapping": {
+        "1": 1,
+        "2": 2,
+        "3": 3
+      },
+      "filtering": {
+        "contacts_without_info_filtered": 0,
+        "mentions_saved": 0
+      },
+      "provenance": {
+        "contacts": {
+          "1": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "3": {
+            "backfill_skipped": "no_personal_location_signal"
+          }
+        }
+      },
+      "email_classification": {
+        "1": {
+          "kept": [
+            "mail@dna-technology.ru",
+            "info@dna-technology.ru"
+          ],
+          "removed": [],
+          "removed_types": {}
+        },
+        "2": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        },
+        "3": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "DOMAIN",
+            "key_tuple": [
+              "ORG",
+              "DOMAIN",
+              "dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 2,
+            "gid": "85a42ec8-b715-5e8b-b697-34c67d42df6e",
+            "match_rule": "NAME_CITY",
+            "key_tuple": [
+              "ORG",
+              "NAME_CITY",
+              "лдц",
+              "новосибирск"
+            ],
+            "alias_added": true,
+            "source": "new"
+          },
+          {
+            "entity": "organization",
+            "local_id": 3,
+            "gid": "0219b288-4fb4-5f60-941f-54b1346096ff",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "5401109396"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "m.gogoleva@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 2,
+            "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "s.voronova@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 3,
+            "gid": "a68e0013-6023-5f14-aa1a-70b207159ca3",
+            "match_rule": "PHONE",
+            "key_tuple": [
+              "CONTACT",
+              "PHONE",
+              "85a42ec8-b715-5e8b-b697-34c67d42df6e",
+              "+79236326891"
+            ],
+            "alias_added": true,
+            "source": "new",
+            "organization_id": 2,
+            "organization_gid": "85a42ec8-b715-5e8b-b697-34c67d42df6e"
+          }
+        ],
+        "conflicts": []
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": [
+          {
+            "phone": "+74956401771",
+            "status": "unresolved",
+            "owners": [
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+            ],
+            "reason": "ambiguous"
+          }
+        ]
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "needs_review",
+            "inn": null,
+            "confidence": 0.68,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.68,
+            "candidates": [
+              {
+                "inn": "7723537840",
+                "ogrn": "1057746762105",
+                "name": "ООО \"ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 5, помещ 12",
+                "opf": "ООО",
+                "score": 0.68,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723537840"
+              },
+              {
+                "inn": "7723396678",
+                "ogrn": "1157746566031",
+                "name": "ООО \"НПФ ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "нпф днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 7",
+                "opf": "ООО",
+                "score": 0.5541666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723396678"
+              }
+            ],
+            "checked_at": "2025-10-17T11:19:19.146667",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "85a42ec8-b715-5e8b-b697-34c67d42df6e": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.4,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.4,
+            "candidates": [
+              {
+                "inn": "9102241435",
+                "ogrn": "1189102003540",
+                "name": "ООО \"ЛДЦ\"",
+                "name_norm": "лдц",
+                "city": "Самара",
+                "address": "г Самара, ул Физкультурная, д 90, офис 2-316",
+                "opf": "ООО",
+                "score": 0.4,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=9102241435"
+              },
+              {
+                "inn": "4253044013",
+                "ogrn": "1184205024552",
+                "name": "ООО \"ЛДЦ\"",
+                "name_norm": "лдц",
+                "city": "Новокузнецк",
+                "address": "Кемеровская область - Кузбасс, г Новокузнецк, р-н Кузнецкий, Кузнецкое шоссе, д 9, офис 310",
+                "opf": "ООО",
+                "score": 0.4,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=4253044013"
+              },
+              {
+                "inn": "7816750280",
+                "ogrn": "1247800066018",
+                "name": "АО \"ЛДЦ\"",
+                "name_norm": "ао лдц",
+                "city": "Санкт-Петербург",
+                "address": "192236, Г.САНКТ-ПЕТЕРБУРГ, ВН.ТЕР.Г. МУНИЦИПАЛЬНЫЙ ОКРУГ ВОЛКОВСКОЕ, УЛ. СОФИЙСКАЯ, Д. 14, ЛИТЕРА А, ПОМЕЩ. 25-Н, ОФИС 4В/907",
+                "opf": "НАО",
+                "score": 0.2,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7816750280"
+              },
+              {
+                "inn": "3418007173",
+                "ogrn": "1023405161262",
+                "name": "ООО \"ЛДЦ \"ФАРМАПРИМ\"",
+                "name_norm": "лдц фармаприм",
+                "city": "Николаевск",
+                "address": "Волгоградская обл, г Николаевск, ул Октябрьская, д 26/4",
+                "opf": "ООО",
+                "score": 0.2,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=3418007173"
+              },
+              {
+                "inn": "2464082712",
+                "ogrn": "1062464011720",
+                "name": "ООО \"ЛДЦ ФСК\"",
+                "name_norm": "лдц фск",
+                "city": "Красноярск",
+                "address": "г Красноярск, ул Никитина, д 1В/1",
+                "opf": "ООО",
+                "score": 0.2,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=2464082712"
+              },
+              {
+                "inn": "2801090994",
+                "ogrn": "1032800059269",
+                "name": "ООО \"ЛДЦ \"ВЕРА\"",
+                "name_norm": "лдц вера",
+                "city": "Благовещенск",
+                "address": "г Благовещенск, ул Зейская, д 134, помещ 006",
+                "opf": "ООО",
+                "score": 0.2,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=2801090994"
+              },
+              {
+                "inn": "9408006492",
+                "ogrn": "1229400074530",
+                "name": "ООО \"ЛДЦ\"ДОБРОМЕД\"",
+                "name_norm": "лдц добромед",
+                "city": "Краснодон",
+                "address": "294407, ЛУГАНСКАЯ НАРОДНАЯ РЕСПУБЛИКА, М.О. КРАСНОДОНСКИЙ, Г. КРАСНОДОН, УЛ. ПЕРВОКОННАЯ, Д. 22",
+                "opf": "ООО",
+                "score": 0.2,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=9408006492"
+              },
+              {
+                "inn": "1838019805",
+                "ogrn": "1161832070773",
+                "name": "ООО \"ЛДЦ \"КАМСКИЙ ДОКТОР\"",
+                "name_norm": "лдц камский доктор",
+                "city": "Сарапул",
+                "address": "Удмуртская Респ, г Сарапул, ул Труда, д 15, офис 304",
+                "opf": "ООО",
+                "score": 0.13333333333333333,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=1838019805"
+              },
+              {
+                "inn": "7713307051",
+                "ogrn": "1027739422919",
+                "name": "ООО \"ЛДЦ \"АРТ-МЕД\"",
+                "name_norm": "лдц арт мед",
+                "city": "Москва",
+                "address": "г Москва, ул Красная Пресня, д 28, помещ I, ком 1",
+                "opf": "ООО",
+                "score": 0.13333333333333333,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7713307051"
+              },
+              {
+                "inn": "6316031790",
+                "ogrn": "1026301169487",
+                "name": "АО \"ЛДЦ ИММУНОЛОГИИ И АЛЛЕРГОЛОГИИ\"",
+                "name_norm": "ао лдц иммунологии аллергологии",
+                "city": "Самара",
+                "address": "443031, САМАРСКАЯ ОБЛАСТЬ, Г. САМАРА, ПР-КТ КИРОВА, Д. 435, ОФИС 8,9,10",
+                "opf": "НАО",
+                "score": 0.1,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=6316031790"
+              }
+            ],
+            "checked_at": "2025-10-17T11:19:19.402523",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "0219b288-4fb4-5f60-941f-54b1346096ff": {
+            "decision": "skipped",
+            "inn": "5401109396",
+            "confidence": 1.0,
+            "source": "existing",
+            "method": "existing_valid_inn",
+            "score": 1.0,
+            "candidates": [],
+            "checked_at": "2025-10-17T11:19:19.402617",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+              "contact_name": "Гоголева Мария Михайловна",
+              "phones_added": [
+                {
+                  "phone": "+74956401771",
+                  "type": "office",
+                  "confidence": 0.85,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.85
+              ],
+              "decision": {
+                "confidence": 0.85,
+                "contact_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:19:19.404351",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (0.85 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+              "contact_name": "Воронова Светлана Сергеевна",
+              "phones_added": [
+                {
+                  "phone": "+74956401771",
+                  "type": "office",
+                  "confidence": 0.65,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.65
+              ],
+              "decision": {
+                "confidence": 0.65,
+                "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:19:19.404437",
+                "decision": "needs_review",
+                "reason": "Средний уровень уверенности (0.65), требуется проверка"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "a68e0013-6023-5f14-aa1a-70b207159ca3",
+              "contact_name": "Гребенников Олег",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "no_org_phones",
+                  "message": "Организация не имеет телефонов"
+                }
+              ],
+              "confidence_scores": [],
+              "decision": null,
+              "skip_reasons": [
+                "no_org_phones"
+              ]
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 3,
+            "contacts_enriched": 2,
+            "phones_added_total": 2,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.75,
+            "phones_skipped_by_reason": {
+              "low_confidence": 0,
+              "no_org_phones": 1,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-17T04:19:19.404483",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 5,
+        "organizations_processed": 1,
+        "contacts_processed": 3,
+        "ui_format_applied": 5,
+        "phones_sanitized": 5
+      }
+    },
+    "provider_used": "OpenRouter",
+    "model": "google/gemini-2.0-flash-001",
+    "processing_time": 2.498286724090576,
+    "text_length": 1604,
+    "chunks_processed": 1,
+    "total_contacts_found": 3,
+    "unique_contacts_found": 3,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-08-25/email_008_20250825_20250825_dna-technology_ru_6e69487b.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 22.245
+  }
+}

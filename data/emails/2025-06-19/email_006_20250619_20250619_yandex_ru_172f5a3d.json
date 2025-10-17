@@ -1,0 +1,53 @@
+{
+  "thread_id": "20250619_yandex_ru_172f5a3d",
+  "message_id": "<53041750322093@mail.yandex.ru>",
+  "email_num_in_day": 6,
+  "total_emails_in_day": 14,
+  "from": "khatashkeeva@yandex.ru",
+  "to": "s.voronova@dna-technology.ru, torgi@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru",
+    "torgi@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Заявка на поставку реактивов 19.06.2025",
+  "date": "Thu, 19 Jun 2025 16:35:34 +0800",
+  "parsed_date": "2025-06-19T15:35:34+07:00",
+  "body_raw": "-- \n\nС уважением Ольга Хаташкеева",
+  "body_clean": "С уважением Ольга Хаташкеева",
+  "char_count": 28,
+  "attachments": [
+    {
+      "id": 265,
+      "original_filename": "Заявка 19.06.2025г.xlsx",
+      "saved_filename": "20250619_267b6297_003628_526646_attach_Заявка 19.06.2025г.xlsx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-06-19/20250619_267b6297_003628_526646_attach_Заявка 19.06.2025г.xlsx",
+      "relative_path": "attachments/2025-06-19/20250619_267b6297_003628_526646_attach_Заявка 19.06.2025г.xlsx",
+      "file_size": 10920,
+      "file_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "saved_at": "2025-10-13 17:36:28",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<53041750322093@mail.yandex.ru>",
+      "thread_id": "20250619_yandex_ru_172f5a3d",
+      "sha256": "0990c0de5453227f6bac0b65efaaa307800e55a13af9ea66feecbf93d07d0a62",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:36:28.525974+07:00",
+  "raw_size": 18108,
+  "date_folder": "2025-06-19",
+  "eml_path": "eml/2025-06-19/53041750322093_mail.yandex.ru_003628_522892.eml"
+}

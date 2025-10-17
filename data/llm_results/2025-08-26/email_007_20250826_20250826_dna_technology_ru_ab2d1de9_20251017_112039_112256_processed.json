@@ -1,0 +1,398 @@
+{
+  "source_file": "email_007_20250826_20250826_dna-technology_ru_ab2d1de9.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": null,
+        "website": "dna-technology.ru",
+        "city": "Москва",
+        "address": "Варшавское шоссе, дом 125Ж, корпус 5",
+        "emails": [],
+        "phones": [
+          {
+            "type": "office",
+            "number": "+7 (495) 980-45-55",
+            "normalized": "+74959804555",
+            "original": "8(495)980-45-55",
+            "extension": "1150"
+          }
+        ],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Воронова Светлана",
+        "organization_id": 1,
+        "position": "Региональный представитель в СФО",
+        "email": "s.voronova@dna-technology.ru",
+        "phones": [
+          {
+            "type": "mobile",
+            "number": "+7 (995) 129-39-76",
+            "normalized": "+79951293976",
+            "original": "+7 (995) 129-39-76 tel:+79951293976",
+            "extension": null
+          },
+          {
+            "type": "office",
+            "number": "+7 (495) 980-45-55",
+            "normalized": "+74959804555",
+            "original": "8(495)980-45-55",
+            "extension": "1150"
+          }
+        ],
+        "city": "Новосибирск",
+        "address": null,
+        "role_in_message": "recipient",
+        "confidence": 0.95,
+        "value_score": 12,
+        "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "s.voronova@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674976.249424,
+          "version": "1.0.0"
+        },
+        "email_valid": true,
+        "name_original": "Светлана Воронова"
+      },
+      {
+        "contact_id": 2,
+        "name": "Визерова Валерия",
+        "organization_id": 1,
+        "position": "Старший менеджер по взаимодействию с клиентами",
+        "email": null,
+        "phones": [
+          {
+            "type": "office",
+            "number": "+7 (495) 980-45-55",
+            "normalized": "+74959804555",
+            "original": "8(495)980-45-55",
+            "extension": "1150"
+          },
+          {
+            "type": "mobile",
+            "number": "+7 (915) 016-66-82",
+            "normalized": "+79150166682",
+            "original": "моб.: 8(915)-016-66-82",
+            "extension": null
+          },
+          {
+            "type": "office",
+            "number": "+7 (495) 980-45-55",
+            "normalized": "+74959804555",
+            "original": "8(495)980-45-55",
+            "extension": "1150"
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 0.95,
+        "value_score": 9,
+        "gid": "855e8894-eef0-5543-8c9f-de498b553ed8",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.6,
+        "website_source": "organization_profile",
+        "enrichment_skipped": false,
+        "enrichment_reason": "organization_website_used",
+        "smart_enrichment": {
+          "source_email": null,
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760674976.249443,
+          "version": "1.0.0",
+          "source": "organization_website"
+        }
+      }
+    ],
+    "business_context": "Визерова Валерия (ДНК-Технология) отправляет Светлане Вороновой (ДНК-Технология) информацию по ИП (вероятно, инструкция по применению) для старых гепатитов. Ранее был запрос от клиники Хелми (г. Барнаул) о коэффициентах пересчёта в копии/мл из МЕ для геп В и геп С.",
+    "summary": {
+      "topic": "Информация по ИП для старых гепатитов",
+      "product_interest": "Наборы для диагностики гепатитов",
+      "communication_stage": "уточнение деталей",
+      "request_type": "clarification"
+    },
+    "key_points": [
+      "Визерова Валерия отправила информацию по ИП для старых гепатитов",
+      "Ранее был запрос от клиники Хелми (г. Барнаул)",
+      "Вопрос о коэффициентах пересчёта для геп В и геп С"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 2,
+        "organization_id": 1,
+        "message_subject": "Re: Гепатиты пересчёт",
+        "message_date": "2025-08-26T14:14:39+07:00",
+        "message_id_hint": "eb51511a-4261-4f97-8a6e-64682526a3fd@dna-technology.ru",
+        "role_in_message": "sender",
+        "interaction_type": "clarification",
+        "summary": "Визерова Валерия (ДНК-Технология) отправляет Светлане Вороновой (ДНК-Технология) информацию по ИП для старых гепатитов.",
+        "human_note": "Визерова Валерия (ДНК-Технология) отправила Светлане Вороновой (ДНК-Технология) ИП по старым гепатитам в ответ на предыдущий запрос.",
+        "participants": {
+          "actor": "Визерова Валерия (ДНК-Технология, старший менеджер по взаимодействию с клиентами)",
+          "audience": [
+            "Светлана Воронова (ДНК-Технология)"
+          ]
+        },
+        "attachments": [
+          "ИП_24_2019 МЕ.pdf"
+        ],
+        "confidence": 0.9
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": null,\n      \"website\": \"dna-technology.ru\",\n      \"city\": \"Москва\",\n      \"address\": \"Варшавское шоссе, дом 125Ж, корпус 5\",\n      \"emails\": [\n        \"hotline@dna-technology.ru\"\n      ],\n      \"phones\": [\n        {\n          \"type\": \"office\",\n          \"number\": \"8(495)980-45-55\",\n          \"normalized\": null,\n          \"original\": \"8(495)980-45-55\",\n          \"extension\": \"1150\"\n        }\n      ]\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Светлана Воронова\",\n      \"organization_id\": 1,\n      \"position\": \"Региональный представитель в СФО\",\n      \"email\": \"s.voronova@dna-technology.ru\",\n      \"phones\": [\n        {\n          \"type\": \"mobile\",\n          \"number\": \"+7 (995) 129-39-76\",\n          \"normalized\": null,\n          \"original\": \"+7 (995) 129-39-76 tel:+79951293976\",\n          \"extension\": null\n        }\n      ],\n      \"city\": \"Новосибирск\",\n      \"address\": null,\n      \"role_in_message\": \"recipient\",\n      \"confidence\": 0.95\n    },\n    {\n      \"contact_id\": 2,\n      \"name\": \"Визерова Валерия\",\n      \"organization_id\": 1,\n      \"position\": \"старший менеджер по взаимодействию с клиентами\",\n      \"email\": null,\n      \"phones\": [\n        {\n          \"type\": \"office\",\n          \"number\": \"8(495)980-45-55\",\n          \"normalized\": null,\n          \"original\": \"8(495)980-45-55\",\n          \"extension\": \"1150\"\n        },\n        {\n          \"type\": \"mobile\",\n          \"number\": \"8(915)-016-66-82\",\n          \"normalized\": null,\n          \"original\": \"моб.: 8(915)-016-66-82\",\n          \"extension\": null\n        }\n      ],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.95\n    }\n  ],\n  \"business_context\": \"Визерова Валерия (ДНК-Технология) отправляет Светлане Вороновой (ДНК-Технология) информацию по ИП (вероятно, инструкция по применению) для старых гепатитов. Ранее был запрос от клиники Хелми (г. Барнаул) о коэффициентах пересчёта в копии/мл из МЕ для геп В и геп С.\",\n  \"summary\": {\n    \"topic\": \"Информация по ИП для старых гепатитов\",\n    \"product_interest\": \"Наборы для диагностики гепатитов\",\n    \"communication_stage\": \"уточнение деталей\",\n    \"request_type\": \"clarification\"\n  },\n  \"key_points\": [\n    \"Визерова Валерия отправила информацию по ИП для старых гепатитов\",\n    \"Ранее был запрос от клиники Хелми (г. Барнаул)\",\n    \"Вопрос о коэффициентах пересчёта для геп В и геп С\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 2,\n      \"organization_id\": 1,\n      \"message_subject\": \"Re: Гепатиты пересчёт\",\n      \"message_date\": \"2025-08-26T14:14:39+07:00\",\n      \"message_id_hint\": \"<eb51511a-4261-4f97-8a6e-64682526a3fd@dna-technology.ru>\",\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Визерова Валерия (ДНК-Технология) отправляет Светлане Вороновой (ДНК-Технология) информацию по ИП для старых гепатитов.\",\n      \"human_note\": \"Визерова Валерия (ДНК-Технология) отправила Светлане Вороновой (ДНК-Технология) ИП по старым гепатитам в ответ на предыдущий запрос.\",\n      \"participants\": {\n        \"actor\": \"Визерова Валерия (ДНК-Технология, старший менеджер по взаимодействию с клиентами)\",\n        \"audience\": [\"Светлана Воронова (ДНК-Технология)\"]\n      },\n      \"attachments\": [\n        \"ИП_24_2019 МЕ.pdf\"\n      ],\n      \"confidence\": 0.9\n    }\n  ]\n}\n```",
+    "contact_mentions": [],
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-17T11:22:56.250408",
+      "stats": {
+        "processed_emails": 42,
+        "total_organizations_processed": 85,
+        "total_contacts_processed": 132,
+        "organizations_deduplicated": 1,
+        "contacts_filtered": 18,
+        "contacts_enriched": 114,
+        "data_normalized": 198,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 2,
+        "phones_added_to_contacts": 2
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1
+      },
+      "contact_mapping": {
+        "1": 1,
+        "2": 2
+      },
+      "filtering": {
+        "contacts_without_info_filtered": 0,
+        "mentions_saved": 0
+      },
+      "provenance": {
+        "contacts": {
+          "2": {
+            "backfill_skipped": "no_personal_location_signal"
+          }
+        }
+      },
+      "email_classification": {
+        "1": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "DOMAIN",
+            "key_tuple": [
+              "ORG",
+              "DOMAIN",
+              "dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "s.voronova@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 2,
+            "gid": "855e8894-eef0-5543-8c9f-de498b553ed8",
+            "match_rule": "PHONE",
+            "key_tuple": [
+              "CONTACT",
+              "PHONE",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "+74959804555"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          }
+        ],
+        "conflicts": []
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "needs_review",
+            "inn": null,
+            "confidence": 0.68,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.68,
+            "candidates": [
+              {
+                "inn": "7723537840",
+                "ogrn": "1057746762105",
+                "name": "ООО \"ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 5, помещ 12",
+                "opf": "ООО",
+                "score": 0.68,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723537840"
+              },
+              {
+                "inn": "7723396678",
+                "ogrn": "1157746566031",
+                "name": "ООО \"НПФ ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "нпф днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 7",
+                "opf": "ООО",
+                "score": 0.5541666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723396678"
+              }
+            ],
+            "checked_at": "2025-10-17T11:22:54.655202",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+              "contact_name": "Светлана Воронова",
+              "phones_added": [
+                {
+                  "phone": "+74959804555",
+                  "type": "office",
+                  "confidence": 0.85,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.85
+              ],
+              "decision": {
+                "confidence": 0.85,
+                "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:22:54.656526",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (0.85 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "855e8894-eef0-5543-8c9f-de498b553ed8",
+              "contact_name": "Визерова Валерия",
+              "phones_added": [
+                {
+                  "phone": "+74959804555",
+                  "type": "office",
+                  "confidence": 0.55,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.55
+              ],
+              "decision": {
+                "confidence": 0.55,
+                "contact_gid": "855e8894-eef0-5543-8c9f-de498b553ed8",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:22:54.656591",
+                "decision": "needs_review",
+                "reason": "Средний уровень уверенности (0.55), требуется проверка"
+              },
+              "skip_reasons": []
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 2,
+            "contacts_enriched": 2,
+            "phones_added_total": 2,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.7,
+            "phones_skipped_by_reason": {
+              "low_confidence": 0,
+              "no_org_phones": 0,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-17T04:22:54.656623",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 6,
+        "organizations_processed": 1,
+        "contacts_processed": 2,
+        "ui_format_applied": 6,
+        "phones_sanitized": 6
+      }
+    },
+    "provider_used": "OpenRouter",
+    "model": "google/gemini-2.0-flash-001",
+    "processing_time": 2.4972758293151855,
+    "text_length": 1498,
+    "chunks_processed": 1,
+    "total_contacts_found": 2,
+    "unique_contacts_found": 2,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-08-26/email_007_20250826_20250826_dna-technology_ru_ab2d1de9.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 13.845
+  }
+}

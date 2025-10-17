@@ -1,0 +1,306 @@
+{
+  "source_file": "email_001_20250729_20250729_centerld_ru_d03bd60b.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "Центр Лабораторной Диагностики",
+        "inn": null,
+        "website": "https://www.centerld.ru",
+        "city": "Новосибирск",
+        "address": "630075, г. Новосибирск, ул. Народная, 3",
+        "emails": [
+          "sklad@centerld.ru"
+        ],
+        "phones": [],
+        "gid": "7fd2e423-23ef-5814-adcd-ae26b2748956",
+        "website_confidence": 0.8,
+        "website_source": "organization_email_domain"
+      },
+      {
+        "organization_id": 2,
+        "name": "ДНК-Технология",
+        "inn": null,
+        "website": "https://www.dna-technology.ru",
+        "city": null,
+        "address": null,
+        "emails": [
+          "torgi@dna-technology.ru"
+        ],
+        "phones": [],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+        "website_confidence": 0.8,
+        "website_source": "organization_email_domain"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Бабиченко Иван Сергеевич",
+        "organization_id": 1,
+        "position": "Руководитель ОМТС",
+        "email": "sklad@centerld.ru",
+        "phones": [
+          {
+            "type": "mobile",
+            "number": "+7 (913) 399-32-72",
+            "normalized": "+79133993272",
+            "original": "+7-913-399-32-72",
+            "extension": null
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 0.95,
+        "value_score": 9,
+        "gid": "6aa672d5-2a74-5e7e-9b00-a277c036fe16",
+        "email_source": "organization_email_fallback",
+        "enrichment_skipped": false,
+        "enrichment_reason": "corporate_email_centerld.ru",
+        "website": "https://www.centerld.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "smart_enrichment": {
+          "source_email": "sklad@centerld.ru",
+          "extracted_domain": "centerld.ru",
+          "website_found": "https://www.centerld.ru",
+          "enriched_at": 1759757843.6787431,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      }
+    ],
+    "business_context": "Бабиченко Иван Сергеевич (Центр Лабораторной Диагностики) запрашивает у ДНК-Технологии сроки отгрузки товара по счету № 8164 от 16 июля 2025 года. Ожидается оперативный ответ с уточнением даты поставки.",
+    "summary": {
+      "topic": "Уточнение сроков отгрузки по счету № 8164",
+      "product_interest": "Товар по счету № 8164 от 16.07.2025",
+      "communication_stage": "постпродажное сопровождение",
+      "request_type": "уточнение сроков поставки"
+    },
+    "key_points": [
+      "Бабиченко Иван Сергеевич (Центр Лабораторной Диагностики) запрашивает сроки отгрузки у ДНК-Технологии",
+      "Запрос касается счета на оплату № 8164 от 16 июля 2025 года",
+      "Требуется оперативный ответ с указанием даты поставки товара"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "Заказ.",
+        "message_date": "2025-07-29T10:10:51+07:00",
+        "message_id_hint": "127-68883b80-41-64f24d00@99640895",
+        "role_in_message": "sender",
+        "interaction_type": "clarification",
+        "summary": "Запрос сроков отгрузки товара по счету № 8164 от 16.07.2025",
+        "human_note": "Иван Бабиченко (Центр Лабораторной Диагностики) уточняет сроки поставки по счету № 8164 от ДНК-Технологии",
+        "participants": {
+          "actor": "Бабиченко Иван Сергеевич (Центр Лабораторной Диагностики, Руководитель ОМТС)",
+          "audience": [
+            "Фетисова (ДНК-Технология)",
+            "Воронова (ДНК-Технология)",
+            "Отдел торговли ДНК-Технология"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"Центр Лабораторной Диагностики\",\n      \"inn\": null,\n      \"website\": null,\n      \"city\": \"Новосибирск\",\n      \"address\": \"630075, г. Новосибирск, ул. Народная, 3\",\n      \"emails\": [\"sklad@centerld.ru\"],\n      \"phones\": []\n    },\n    {\n      \"organization_id\": 2,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": null,\n      \"website\": null,\n      \"city\": null,\n      \"address\": null,\n      \"emails\": [\"torgi@dna-technology.ru\"],\n      \"phones\": []\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Бабиченко Иван Сергеевич\",\n      \"organization_id\": 1,\n      \"position\": \"Руководитель ОМТС\",\n      \"email\": null,\n      \"phones\": [\n        {\n          \"type\": \"mobile\",\n          \"number\": \"+7-913-399-32-72\",\n          \"normalized\": \"+79133993272\",\n          \"original\": \"+7-913-399-32-72\",\n          \"extension\": null\n        }\n      ],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.95\n    }\n  ],\n  \"business_context\": \"Бабиченко Иван Сергеевич (Центр Лабораторной Диагностики) запрашивает у ДНК-Технологии сроки отгрузки товара по счету № 8164 от 16 июля 2025 года. Ожидается оперативный ответ с уточнением даты поставки.\",\n  \"summary\": {\n    \"topic\": \"Уточнение сроков отгрузки по счету № 8164\",\n    \"product_interest\": \"Товар по счету № 8164 от 16.07.2025\",\n    \"communication_stage\": \"постпродажное сопровождение\",\n    \"request_type\": \"уточнение сроков поставки\"\n  },\n  \"key_points\": [\n    \"Бабиченко Иван Сергеевич (Центр Лабораторной Диагностики) запрашивает сроки отгрузки у ДНК-Технологии\",\n    \"Запрос касается счета на оплату № 8164 от 16 июля 2025 года\",\n    \"Требуется оперативный ответ с указанием даты поставки товара\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"Заказ.\",\n      \"message_date\": \"2025-07-29T10:10:51+07:00\",\n      \"message_id_hint\": \"<127-68883b80-41-64f24d00@99640895>\",\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Запрос сроков отгрузки товара по счету № 8164 от 16.07.2025\",\n      \"human_note\": \"Иван Бабиченко (Центр Лабораторной Диагностики) уточняет сроки поставки по счету № 8164 от ДНК-Технологии\",\n      \"participants\": {\n        \"actor\": \"Бабиченко Иван Сергеевич (Центр Лабораторной Диагностики, Руководитель ОМТС)\",\n        \"audience\": [\"Фетисова (ДНК-Технология)\", \"Воронова (ДНК-Технология)\", \"Отдел торговли ДНК-Технология\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    }\n  ]\n}\n```",
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-06T20:37:25.320914",
+      "stats": {
+        "processed_emails": 0,
+        "total_organizations_processed": 2,
+        "total_contacts_processed": 1,
+        "organizations_deduplicated": 0,
+        "contacts_filtered": 0,
+        "contacts_enriched": 1,
+        "data_normalized": 3,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 0,
+        "phones_added_to_contacts": 0
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1,
+        "2": 2
+      },
+      "contact_mapping": {
+        "1": 1
+      },
+      "provenance": {
+        "contacts": {
+          "1": {
+            "backfill_skipped": "no_personal_location_signal"
+          }
+        }
+      },
+      "email_classification": {
+        "1": {
+          "kept": [
+            "sklad@centerld.ru"
+          ],
+          "removed": [],
+          "removed_types": {}
+        },
+        "2": {
+          "kept": [
+            "torgi@dna-technology.ru"
+          ],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "7fd2e423-23ef-5814-adcd-ae26b2748956",
+            "match_rule": "DOMAIN",
+            "key_tuple": [
+              "ORG",
+              "DOMAIN",
+              "centerld.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 2,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "DOMAIN",
+            "key_tuple": [
+              "ORG",
+              "DOMAIN",
+              "dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "organization_id": 1,
+            "organization_gid": "7fd2e423-23ef-5814-adcd-ae26b2748956",
+            "gid": "6aa672d5-2a74-5e7e-9b00-a277c036fe16",
+            "match_rule": "PHONE",
+            "key_tuple": [
+              "CONTACT",
+              "PHONE",
+              "7fd2e423-23ef-5814-adcd-ae26b2748956",
+              "+79133993272"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          }
+        ],
+        "conflicts": []
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "7fd2e423-23ef-5814-adcd-ae26b2748956": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.0,
+            "source": "none",
+            "method": "no_candidates_found",
+            "score": 0.0,
+            "candidates": [],
+            "checked_at": "2025-10-06T20:37:22.663183",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.0,
+            "source": "none",
+            "method": "no_candidates_found",
+            "score": 0.0,
+            "candidates": [],
+            "checked_at": "2025-10-06T20:37:22.663517",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "6aa672d5-2a74-5e7e-9b00-a277c036fe16",
+              "contact_name": "Бабиченко Иван Сергеевич",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "no_org_phones",
+                  "message": "Организация не имеет телефонов"
+                }
+              ],
+              "confidence_scores": [],
+              "decision": null,
+              "skip_reasons": [
+                "no_org_phones"
+              ]
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 1,
+            "contacts_enriched": 0,
+            "phones_added_total": 0,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.0,
+            "phones_skipped_by_reason": {
+              "low_confidence": 0,
+              "no_org_phones": 1,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-06T13:37:22.663742",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 1,
+        "organizations_processed": 0,
+        "contacts_processed": 1,
+        "ui_format_applied": 1,
+        "phones_sanitized": 1
+      }
+    },
+    "provider_used": "OpenRouter",
+    "processing_time": 1.5356190204620361,
+    "text_length": 825,
+    "chunks_processed": 1,
+    "total_contacts_found": 1,
+    "unique_contacts_found": 1,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-07-29/email_001_20250729_20250729_centerld_ru_d03bd60b.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 50.312
+  }
+}

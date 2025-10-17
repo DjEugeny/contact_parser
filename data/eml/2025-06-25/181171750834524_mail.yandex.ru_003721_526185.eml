@@ -1,0 +1,76 @@
+Received:  from forward102b.mail.yandex.net ([178.154.239.149]:36980)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98.2 (FreeBSD))
+	 (envelope-from <mtkrsk@yandex.ru>)
+	 id 1uUKAH-00000000491-252l ;
+	Wed, 25 Jun 2025 10:03:26 +0300
+Received: from mail-nwsmtp-mxback-production-main-48.sas.yp-c.yandex.net (mail-nwsmtp-mxback-production-main-48.sas.yp-c.yandex.net [IPv6:2a02:6b8:c24:4b9:0:640:c2d4:0])
+	by forward102b.mail.yandex.net (Yandex) with ESMTPS id 5465260DA6;
+	Wed, 25 Jun 2025 10:03:25 +0300 (MSK)
+Received: from mail.yandex.ru (2a02:6b8:c1c:32b4:0:640:9deb:0 [2a02:6b8:c1c:32b4:0:640:9deb:0])
+	by mail-nwsmtp-mxback-production-main-48.sas.yp-c.yandex.net (mxback/Yandex) with HTTPS id L3OG1L4LxCg0-Z9yrYuXT;
+	Wed, 25 Jun 2025 10:03:25 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1750835005; bh=TAnfqMZN+H76RYltKuhEhh8uNMYr6AOhySsz7OCbEFQ=;
+	h=Message-Id:Date:Subject:To:From;
+	b=UJAskwXaPc+Jabzpke4ugBYrNomaCTvN/gyZBs+iIP7aLuAB3uiUOAdkKlMNEviRS
+	 +R48wZZQBEVUJNzEY0smHPl+Acs+5yjpiZvt1cUHgnspRzf7KazLSBIJrLTMlBaQqS
+	 j5+AU0UuWw8tiB+gRRKUeVGrodmmow0ZLafXsS14=
+Authentication-Results: mail-nwsmtp-mxback-production-main-48.sas.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+Received: by mail-sendbernar-production-main-71.sas.yp-c.yandex.net with HTTP;
+	Wed, 25 Jun 2025 10:03:25 +0300
+From: =?utf-8?B?0JzQtdC00LjRhtC40L3RgdC60LjQtSDQotC10YXQvdC+0LvQvtCz0LjQuA==?= <mtkrsk@yandex.ru>
+To: "ozernaya@dna-technology.ru" <ozernaya@dna-technology.ru>,
+	"s.voronova@dna-technology.ru" <s.voronova@dna-technology.ru>,
+	"fetisova@dna-technology.ru" <fetisova@dna-technology.ru>
+Subject: =?utf-8?B?0JrQmtCa0JLQlCDihJYx?=
+MIME-Version: 1.0
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Wed, 25 Jun 2025 14:03:25 +0700
+Message-Id: <181171750834524@mail.yandex.ru>
+Content-Transfer-Encoding: base64
+Content-Type: text/html; charset=utf-8
+Received-SPF: pass (mail.dna-technology.ru: domain of yandex.ru designates 178.154.239.149 as permitted sender) client-ip=178.154.239.149; envelope-from=mtkrsk@yandex.ru; helo=forward102b.mail.yandex.net;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+PGRpdj7QmtC+0LvQu9C10LPQuCwg0LTQvtCx0YDRi9C5INC00LXQvdGMITwvZGl2PjxkaXY+0J/R
+gNC+0YHRjNCx0LAg0L/RgNC40YHQu9Cw0YLRjCDRgdGH0LXRgiDQvdCwINCe0J7QniAi0JzQtdC0
+0LjRhtC40L3RgdC60LjQtSDRgtC10YXQvdC+0LvQvtCz0LjQuCIg0L/QviDQstGL0LjQs9GA0LDQ
+vdC90L7QvNGDINCw0YPQutGG0LjQvtC90YMg4oSWIDAxMTkyMDAwMDAxMjUwMTE3ODU8L2Rpdj48
+ZGl2PsKgPC9kaXY+PGRpdj48ZGl2PlIxLVAxMDktMjMvOSDQndCw0LHQvtGAINGA0LXQsNCz0LXQ
+vdGC0L7QsiDQtNC70Y8g0LLRi9GP0LLQu9C10L3QuNGPINCU0J3QmiDQvdC10LnRgdGB0LXRgNC4
+0Lgg0LPQvtC90L7RgNC10LggKE5laXNzZXJpYSBnb25vcnJob2VhZSkg0LzQtdGC0L7QtNC+0Lwg
+0L/QvtC70LjQvNC10YDQsNC30L3QvtC5INGG0LXQv9C90L7QuSDRgNC10LDQutGG0LjQuCAo0JPQ
+ntCd0J4t0JPQldCdKSDQv9C+INCi0KMgOTM5OC0wMDktNDY0ODIwNjItMjAwOCDQsiDQstCw0YDQ
+uNCw0L3RgtC1INC40YHQv9C+0LvQvdC10L3QuNGPOiDQn9Cm0KAg0YEg0LTQtdGC0LXQutGG0LjQ
+tdC5INCyINGA0LXQttC40LzQtSDRgNC10LDQu9GM0L3QvtCz0L4g0LLRgNC10LzQtdC90LgsINCk
+0LDRgdC+0LLQutCwIFMsINC/0YDQvtCx0LjRgNC60LggLSAxNiDQvdCw0LHQvtGA0L7QsjwvZGl2
+PjxkaXY+wqA8L2Rpdj48ZGl2PsKgPC9kaXY+PC9kaXY+PGRpdj7QoSDRg9Cy0LDQttC10L3QuNC1
+0LwsINCQ0L3RgtC+0L08L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj7CoDwvZGl2PjxkaXY+LS0tPC9k
+aXY+PGRpdj7CoDwvZGl2PjxkaXY+0LPRgNGD0L/Qv9CwINC60L7QvNC/0LDQvdC40Lkg0JzQtdC0
+0LjRhtC40L3RgdC60LjQtSDRgtC10YXQvdC+0LvQvtCz0LjQuDwvZGl2PjxkaXY+NjYwMDEyLCDQ
+sy4g0JrRgNCw0YHQvdC+0Y/RgNGB0LosINGD0LsuINCT0LvQsNC00LrQvtCy0LAsIDQg0L7RhCAx
+Mi0yMzxiciAvPtCw0LTRgNC10YEg0LTQu9GPINC60L7RgNGA0LXRgdC/0L7QvdC00LXQvdGG0LjQ
+uDogNjYwMDE2LCDQsy4g0JrRgNCw0YHQvdC+0Y/RgNGB0LosINCwL9GPIDIwMjQ4PGJyIC8+0YLQ
+tdC7LiArNyAoMzkxKSAyMzYtMjEtOTMg0J7RhNC40YE8L2Rpdj48ZGl2PtGC0LXQuy4gKzcgKDM5
+MSkgMjM2LTQyLTA3INCe0YTQuNGBPC9kaXY+PGRpdj7RgtC10LsuICs3ICg5NjcpIDYxOS05NC01
+NSDQkNC90YLQvtC9LCDRgNGD0LrQvtCy0L7QtNC40YLQtdC70Ywg0L7RgtC00LXQu9CwINC/0YDQ
+vtC00LDQtjwvZGl2PjxkaXY+0YLQtdC7LiArNyAoOTYzKSAyNjQgNDYgMDEg0JzQuNGF0LDQuNC7
+LCDRgNGD0LrQvtCy0L7QtNC40YLQtdC70Ywg0YHQutC70LDQtNCwPC9kaXY+PGRpdj7RgtC10Lsu
+ICs3ICg5MTMpIDU1NC0wMi01NSDQkNC70LjQvdCwLCDQsdGD0YXQs9Cw0LvRgtC10YAg0L/QviDR
+gNCw0LHQvtGC0LUg0YEg0L/QvtGB0YLQsNCy0YnQuNC60LDQvNC4PC9kaXY+PGRpdj7RgtC10Lsg
+KzcgKDkxMykgMDM0LTg4LTQ0INCQ0L3Qs9C10LvQuNC90LAsINCx0YPRhdCz0LDQu9GC0LXRgCDQ
+v9C+INGA0LDQsdC+0YLQtSDRgSDQv9C+0LrRg9C/0LDRgtC10LvRj9C80Lg8L2Rpdj48ZGl2PtGC
+0LXQuy4gKzcgKDk2NykgNjE5LTk3LTc1INCQ0LvQtdC90LAsINGC0LXQvdC00LXRgNC90YvQuSDQ
+vtGC0LTQtdC7PC9kaXY+PGRpdj7RgtC10LsuICs3ICg5NjcpIDYxOS05OC03NSDQldC70LXQvdCw
+LCDQtNC+0LPQvtCy0L7RgNC90L7QuSAvINGC0LXQvdC00LXRgNC90YvQuSDQvtGC0LTQtdC7PC9k
+aXY+PGRpdj7RgtC10LsgKzcgKDk2NykgNjEyLTA4LTU0INCe0LvQtdGB0Y8sINCz0LvQsNCy0L3R
+i9C5INCx0YPRhdCz0LDQu9GC0LXRgDxiciAvPmUtbWFpbDogPGEgaHJlZj0ibWFpbHRvOm10c2ty
+c2tAeWFuZGV4LnJ1IiByZWw9Im5vb3BlbmVyIG5vcmVmZXJyZXIiPm10c2tyc2tAeWFuZGV4LnJ1
+PC9hPjwvZGl2PjxkaXY+ZS1tYWlsINCx0YPRhdCz0LDQu9GC0LXRgNC40Lg6IDxhIGhyZWY9Im1h
+aWx0bzptdHNkZWJpdEB5YW5kZXgucnUiIHJlbD0ibm9vcGVuZXIgbm9yZWZlcnJlciI+bXRzZGVi
+aXRAeWFuZGV4LnJ1PC9hPjwvZGl2PjxkaXY+wqA8L2Rpdj4=

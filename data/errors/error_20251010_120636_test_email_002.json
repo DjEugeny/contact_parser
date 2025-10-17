@@ -1,0 +1,23 @@
+{
+  "error_type": "JSONDecodeError",
+  "error_message": "Expecting value: line 1 column 1 (char 0)",
+  "traceback": "Traceback (most recent call last):\n  File \"/Users/evgenyzach/contact_parser/test_tasks_9_10_1.py\", line 199, in test_error_logger\n    raise json.JSONDecodeError(\"Expecting value\", \"doc\", 0)\njson.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n",
+  "timestamp": "2025-10-10T12:06:36.636182",
+  "email_file": "test_email_002.json",
+  "input_data": {
+    "text_length": 10000,
+    "attachments_count": 0,
+    "has_ocr": false
+  },
+  "llm_request": {
+    "provider": "Replicate",
+    "model": "meta/llama-2-70b-chat",
+    "timeout": 180
+  },
+  "llm_response": {
+    "status_code": 200,
+    "processing_time": 45.6,
+    "response_length": 2345
+  },
+  "additional_context": {}
+}

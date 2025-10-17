@@ -1,0 +1,45 @@
+{
+  "thread_id": "20251002_yandex_ru_9bf79992",
+  "message_id": "<!&!AAAAAAAAAAAuAAAAAAAAAGSa3EL0ibtOucwgPriHHJMBAMO2jhD3dRHOtM0AqgC7tuYAAAAAAA4AABAAAADIqqlp7HvhSoDgUICK3fruAQAAAAA=@yandex.ru>",
+  "from": "dn.savchenko@yandex.ru",
+  "to": "mail@dna-technology.ru, ozernaya@dna-technology.ru, s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "mail@dna-technology.ru",
+    "ozernaya@dna-technology.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Запрос ТКП Магнитный штатив ДТмаг 16С",
+  "date": "Thu, 2 Oct 2025 15:37:10 +0800",
+  "parsed_date": "2025-10-02T14:37:10+07:00",
+  "body": "Добрый день!\nПрошу Вас направить КП на магнитный штатив ДТмаг 16С в количестве 4 шт.\nСавченко Денис Николаевич\nТел. +79501320235\ndn.savchenko@yandex.ru <mailto:dn.savchenko@yandex.ru>\nДобрый день!Прошу Вас направить КП на магнитный штатив ДТмаг 16С в количестве 4 шт. С уважением,Савченко Денис НиколаевичТел. +79501320235dn.savchenko@yandex.ru",
+  "char_count": 344,
+  "attachments": [
+    {
+      "original_filename": "Карточка.docx",
+      "saved_filename": "20251002_yandex_ru_9bf79992_222609_attach_Карточка.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-10-02/20251002_yandex_ru_9bf79992_222609_attach_Карточка.docx",
+      "relative_path": "attachments/2025-10-02/20251002_yandex_ru_9bf79992_222609_attach_Карточка.docx",
+      "file_size": 13853,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-08T22:26:09.708906+07:00",
+      "status": "saved",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T22:26:09.708927+07:00",
+  "raw_size": 25223,
+  "date_folder": "2025-10-02"
+}

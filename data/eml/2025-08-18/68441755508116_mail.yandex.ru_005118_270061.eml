@@ -1,0 +1,100 @@
+Received:  from forward501a.mail.yandex.net ([178.154.239.81]:38398)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98.2 (FreeBSD))
+	 (envelope-from <uvs-bio@yandex.ru>)
+	 id 1unvs5-00000000CNX-31Qn ;
+	Mon, 18 Aug 2025 12:09:41 +0300
+Received: from mail-nwsmtp-mxback-production-main-62.iva.yp-c.yandex.net (mail-nwsmtp-mxback-production-main-62.iva.yp-c.yandex.net [IPv6:2a02:6b8:c0c:9085:0:640:8bed:0])
+	by forward501a.mail.yandex.net (Yandex) with ESMTPS id CC7C080E02;
+	Mon, 18 Aug 2025 12:09:40 +0300 (MSK)
+Received: from mail.yandex.ru (2a02:6b8:c0c:9184:0:640:93a5:0 [2a02:6b8:c0c:9184:0:640:93a5:0])
+	by mail-nwsmtp-mxback-production-main-62.iva.yp-c.yandex.net (mxback/Yandex) with HTTPS id b9MGIP4Mm4Y0-r29Anxn1;
+	Mon, 18 Aug 2025 12:09:40 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1755508180; bh=etS/Az3+e9lgPaoJTo8U3Z+KfKvRN3Mgy6XGs52qw44=;
+	h=Message-Id:References:Date:Subject:To:In-Reply-To:From;
+	b=v9quhTTG/zrKjsLPOL5AKeYKD08i9TcK4sHktL3wUpdc35FaHXBulBSD1bJIR0b0D
+	 vwmEkALUhEqYfHge85r6FNXUvzCF8j3FaKdcMeCx7jEgIavGGggQNYamjTeZ1PjzN4
+	 YnEWcyXWfh+e7dP0WwnUP3I0U8/5es/Zpho3+h+s=
+Authentication-Results: mail-nwsmtp-mxback-production-main-62.iva.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+Received: by ske52ucy55r5y36k.iva.yp-c.yandex.net (sendbernar/Yandex) with HTTPS id 21314d060b4b623753307014ee060de2;
+	Mon, 18 Aug 2025 12:09:40 +0300
+From: =?utf-8?B?0J7QntCeICLQrtCS0KEt0JHQmNCeIg==?= <uvs-bio@yandex.ru>
+To: =?utf-8?B?0KTRgNC+0LvQvtCy0LAg0JzQsNGA0LjRjyDQkdC+0YDQuNGB0L7QstC90LA=?= <torgi@dna-technology.ru>,
+	"s.voronova@dna-technology.ru" <s.voronova@dna-technology.ru>
+In-Reply-To: <6f370167-949d-422a-a0b8-dfe1bf6421e5@dna-technology.ru>
+References: <417201755503060@mail.yandex.ru> <6f370167-949d-422a-a0b8-dfe1bf6421e5@dna-technology.ru>
+Subject: =?utf-8?B?UmU6INCX0LDQv9GA0L7RgSDQmtCf?=
+MIME-Version: 1.0
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Mon, 18 Aug 2025 12:09:40 +0300
+Message-Id: <68441755508116@mail.yandex.ru>
+Content-Transfer-Encoding: base64
+Content-Type: text/html; charset=utf-8
+Received-SPF: pass (mail.dna-technology.ru: domain of yandex.ru designates 178.154.239.81 as permitted sender) client-ip=178.154.239.81; envelope-from=uvs-bio@yandex.ru; helo=forward501a.mail.yandex.net;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+PGRpdj7QlNC+0YHRgtGD0L/QtdC9INC70Lgg0Log0LfQsNC60LDQt9GDINC90LDQsdC+0YAg0YEg
+0L/RgNC+0LHQuNGA0LrQsNC80LggMCwyIC0gUjMtUDQ0MC0yMy85PzwvZGl2PjxkaXY+wqA8L2Rp
+dj48ZGl2PsKgPC9kaXY+PGRpdj4tLcKgPC9kaXY+PGRpdj7QoSDRg9Cy0LDQttC10L3QuNC10Lws
+PC9kaXY+PGRpdj7QntCe0J4gItCu0JLQoS3QkdCY0J4iPC9kaXY+PGRpdj4oNDk5KSAxNTctNzQt
+NDk8L2Rpdj48ZGl2PsKgPC9kaXY+PGRpdj7CoDwvZGl2PjxkaXY+wqA8L2Rpdj48ZGl2Pi0tLS0t
+LS0tLS0tLS0tLS08L2Rpdj48ZGl2PtCa0L7QvNGDOiDQntCe0J4gXNCu0JLQoS3QkdCY0J5cICh1
+dnMtYmlvQHlhbmRleC5ydSksIHMudm9yb25vdmFAZG5hLXRlY2hub2xvZ3kucnUgKHMudm9yb25v
+dmFAZG5hLXRlY2hub2xvZ3kucnUpOzwvZGl2PjxkaXY+0KLQtdC80LA6INCX0LDQv9GA0L7RgSDQ
+mtCfOzwvZGl2PjxkaXY+MTguMDguMjAyNSwgMTE6NTksICLQpNGA0L7Qu9C+0LLQsCDQnNCw0YDQ
+uNGPINCR0L7RgNC40YHQvtCy0L3QsCIgJmx0O3RvcmdpQGRuYS10ZWNobm9sb2d5LnJ1Jmd0Ozo8
+L2Rpdj48YmxvY2txdW90ZT48cD7QlNC+0LHRgNGL0Lkg0LTQtdC90Yw8L3A+PHA+0JrQnyDQstC+
+INCy0LvQvtC20LXQvdC40Lg8L3A+PGRpdj48ZGl2IHN0eWxlPSJjb2xvcjojMzMzMzMzO2ZvbnQt
+ZmFtaWx5OidhcmlhbCcgLCBzYW5zLXNlcmlmO2ZvbnQtc2l6ZToxMnB4O2xpbmUtaGVpZ2h0OjEu
+NDttYXgtd2lkdGg6NTAwcHgiPjxwIHN0eWxlPSJmb250LXdlaWdodDpib2xkO21hcmdpbjowIDAg
+NXB4IDA7dGV4dC1hbGlnbjpsZWZ0Ij7QpNGA0L7Qu9C+0LLQsCDQnNCw0YDQuNGPwqDQkdC+0YDQ
+uNGB0L7QstC90LA8YnIgLz7QodC/0LXRhtC40LDQu9C40YHRgiDQv9C+INGC0LXQvdC00LXRgNCw
+0LwgfCDQntCe0J7CoMKr0JTQndCaLdCi0LXRhdC90L7Qu9C+0LPQuNGPwrs8L3A+PHAgc3R5bGU9
+Im1hcmdpbjo1cHggMCA1cHggMDt0ZXh0LWFsaWduOmxlZnQiPtCi0LXQuy4gPGEgaHJlZj0idGVs
+Ois3NDk1NjQwMTc3MSwyMDM2IiByZWw9Im5vb3BlbmVyIG5vcmVmZXJyZXIiIHN0eWxlPSJjb2xv
+cjojMDA2NmNjO3RleHQtZGVjb3JhdGlvbjpub25lIj4rN8KgKDQ5NSnCoDY0MC0xNy03MSAo0LTQ
+vtCxLsKgMjAzNik8L2E+PGJyIC8+RW1haWw6IDxhIGhyZWY9Im1haWx0bzolMjB0b3JnaUBkbmEt
+dGVjaG5vbG9neS5ydSIgcmVsPSJub29wZW5lciBub3JlZmVycmVyIiBzdHlsZT0iY29sb3I6IzAw
+NjZjYzt0ZXh0LWRlY29yYXRpb246bm9uZSI+IHRvcmdpQGRuYS10ZWNobm9sb2d5LnJ1PC9hPjwv
+cD48aHIgc3R5bGU9ImJvcmRlci1zdHlsZTpzb2xpZCBub25lIG5vbmUgbm9uZTtib3JkZXItdG9w
+LWNvbG9yOiNlMGUwZTA7Ym9yZGVyLXdpZHRoOjFweCAwIDAgMDttYXJnaW46MTBweCAwIDEwcHgg
+MDt3aWR0aDoxMDAlIiAvPjxwIHN0eWxlPSJtYXJnaW46NXB4IDAgNXB4IDA7dGV4dC1hbGlnbjps
+ZWZ0Ij7QodCw0LnRgjogPGEgaHJlZj0iaHR0cHM6Ly9kbmEtdGVjaG5vbG9neS5ydS8iIHJlbD0i
+bm9vcGVuZXIgbm9yZWZlcnJlciIgc3R5bGU9ImNvbG9yOiMwMDY2Y2M7dGV4dC1kZWNvcmF0aW9u
+Om5vbmUiPmRuYS10ZWNobm9sb2d5LnJ1PC9hPjxiciAvPlRlbGVncmFtOiA8YSBocmVmPSJodHRw
+czovL3QubWUvZG5hX3RlY2hfcnVzIiByZWw9Im5vb3BlbmVyIG5vcmVmZXJyZXIiIHN0eWxlPSJj
+b2xvcjojMDA2NmNjO3RleHQtZGVjb3JhdGlvbjpub25lIj5AZG5hX3RlY2hfcnVzPC9hPjxiciAv
+PjxhIGhyZWY9Imh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL2NoYW5uZWwvVUNxVXJwcWZaNjV6MjZD
+VVItNGY5NmlBIiByZWw9Im5vb3BlbmVyIG5vcmVmZXJyZXIiIHN0eWxlPSJjb2xvcjojMDA2NmNj
+O3RleHQtZGVjb3JhdGlvbjpub25lIj5Zb3VUdWJlPC9hPiB8IDxhIGhyZWY9Imh0dHBzOi8vcnV0
+dWJlLnJ1L2NoYW5uZWwvNjM5MTIyMzkvIiByZWw9Im5vb3BlbmVyIG5vcmVmZXJyZXIiIHN0eWxl
+PSJjb2xvcjojMDA2NmNjO3RleHQtZGVjb3JhdGlvbjpub25lIj5SVVRVQkU8L2E+PC9wPjxociBz
+dHlsZT0iYm9yZGVyLXN0eWxlOnNvbGlkIG5vbmUgbm9uZSBub25lO2JvcmRlci10b3AtY29sb3I6
+I2UwZTBlMDtib3JkZXItd2lkdGg6MXB4IDAgMCAwO21hcmdpbjoxMHB4IDAgMTBweCAwO3dpZHRo
+OjEwMCUiIC8+PHAgc3R5bGU9Im1hcmdpbjo1cHggMCA1cHggMDt0ZXh0LWFsaWduOmxlZnQiPtCc
+0L7RgdC60LLQsCwg0JLQsNGA0YjQsNCy0YHQutC+0LUg0YjQvtGB0YHQtSwg0LTQvtC8wqAxMjXQ
+liwg0LrQvtGA0L/Rg9GBwqA1PC9wPjxkaXYgc3R5bGU9Im1hcmdpbjoxNXB4IDAgMTBweCAwO3Rl
+eHQtYWxpZ246bGVmdCI+PGltZyBhbHQ9IsKr0JTQndCaLdCi0LXRhdC90L7Qu9C+0LPQuNGPwrsi
+IHNyYz0iaHR0cHM6Ly9kbmEtdGVjaG5vbG9neS5ydS9zaXRlcy9hbGwvdGhlbWVzL2Ruay9pbWcv
+cGhvdG9fMjAyNS0wNS0zMF8xMS00Ni00Mi5qcGciIHN0eWxlPSJoZWlnaHQ6YXV0bzttYXgtd2lk
+dGg6MjAwcHgiIC8+PC9kaXY+PHAgc3R5bGU9ImNvbG9yOiM1NTU1NTU7Zm9udC1zdHlsZTppdGFs
+aWM7bWFyZ2luOjVweCAwIDVweCAwO3RleHQtYWxpZ246bGVmdCI+0J/RgNC+0YTQuNC70Ywg0LrQ
+vtC80L/QsNC90LjQuDog0YDQsNC30YDQsNCx0L7RgtC60LAg0LjCoNC/0YDQvtC40LfQstC+0LTR
+gdGC0LLQviDQu9Cw0LHQvtGA0LDRgtC+0YDQvdC+0LPQviDQvtCx0L7RgNGD0LTQvtCy0LDQvdC4
+0Y8sINCf0J7CoNC4wqDRgNC10LDQs9C10L3RgtC+0LIg0LTQu9GPwqDQvNC+0LvQtdC60YPQu9GP
+0YDQvdC+LdCz0LXQvdC10YLQuNGH0LXRgdC60LjRhSDQuNGB0YHQu9C10LTQvtCy0LDQvdC40LnC
+oCjQn9Cm0KAswqBOR1MpLjwvcD48L2Rpdj48L2Rpdj48ZGl2PjE4LjA4LjIwMjUgMTA6NDcsINCe
+0J7QniAi0K7QktChLdCR0JjQniIg0L/QuNGI0LXRgjo8L2Rpdj48YmxvY2txdW90ZT48ZGl2PtCU
+0L7QsdGA0YvQuSDQtNC10L3RjCwg0L/RgNC+0YjRgyDQv9GA0LXQtNC+0YHRgtCw0LLQuNGC0Ywg
+0LrQvtC80LzQtdGA0YfQtdGB0LrQvtC1INC/0YDQtdC00LvQvtC20LXQvdC40LUg0JPQkdCj0Jcg
+0KDQoiDQlNC30YPQvS3QpdC10LzRh9C40LrRgdC60LjQuSDQnNCc0KYg0JjQndCdIDE3MDkwMDE4
+MDA8L2Rpdj48ZGl2PlIxLVA0NDAtczMvOSBTYXJzLUNvdjIgKyDQs9GA0LjQv9C/INCQL9CSIC0g
+MTAg0L3QsNCxPC9kaXY+PGRpdj7Qn9GA0L7QsdCwINCd0JotUyAtIDEwINC90LDQsTwvZGl2Pjxk
+aXY+wqA8L2Rpdj48ZGl2Pi0twqA8L2Rpdj48ZGl2PtChINGD0LLQsNC20LXQvdC40LXQvCw8L2Rp
+dj48ZGl2PtCe0J7QniAi0K7QktChLdCR0JjQniI8L2Rpdj48ZGl2Pig0OTkpIDE1Ny03NC00OTwv
+ZGl2PjxkaXY+wqA8L2Rpdj48L2Jsb2NrcXVvdGU+PC9ibG9ja3F1b3RlPg==

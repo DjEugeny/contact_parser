@@ -1,0 +1,54 @@
+{
+  "thread_id": "20251008_dna-technology_ru_cbcdadf3",
+  "message_id": "<50c04b15-e933-4c73-a112-b76a1404d993@dna-technology.ru>",
+  "email_num_in_day": 7,
+  "total_emails_in_day": 22,
+  "from": "m.gogoleva@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "o.isaev@dna-technology.ru",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "o.isaev@dna-technology.ru"
+  ],
+  "subject": "Fwd: Fwd: Реквизиты Альфа Банк.docx КП для СКР-ТЕСТ",
+  "date": "Wed, 8 Oct 2025 10:34:50 +0300",
+  "parsed_date": "2025-10-08T14:34:50+07:00",
+  "body_raw": "Добрый день, Светлана!\r\n\nЧто отвечать?\r\n\n-------- Перенаправленное сообщение --------\r\nТема: Fwd: Реквизиты Альфа Банк.docx\r\nДата: Wed, 8 Oct 2025 09:29:47 +0300\r\nОт: Секретариат ДНК-Технология <mail@dna-technology.ru>\r\nКому: Присяжнюк Маргарита <prisyazhnyuk@dna-technology.ru>, Билалов \r\nАльберт <bilalov@dna-technology.ru>, Гоголева Мария \r\n<m.gogoleva@dna-technology.ru>\r\n\n-------- Перенаправленное сообщение --------\r\nТема: Реквизиты Альфа Банк.docx\r\nДата: Wed, 08 Oct 2025 06:45:52 +0300\r\nОт: Романов Вячеслав <slavrom@mail.ru>\r\nОтвечать: Романов Вячеслав <slavrom@mail.ru>\r\nКому: mail@dna-technology.ru\r\n\nЗдравствуйте. Прошу выставить КП на прибор ДТПрайм модель Х1 (384) для \r\nлаборатории СКР-ТЕСТ\r\nРеквизиты во вложении.\r\nС уважением, Романов Вячеслав.",
+  "body_clean": "Добрый день, Светлана!\nЧто отвечать?\n-------- Перенаправленное сообщение --------\nТема: Fwd: Реквизиты Альфа Банк.docx\nДата: Wed, 8 Oct 2025 09:29:47 +0300\nОт: Секретариат ДНК-Технология mail@dna-technology.ru\nКому: Присяжнюк Маргарита prisyazhnyuk@dna-technology.ru, Билалов\nАльберт bilalov@dna-technology.ru, Гоголева Мария\nm.gogoleva@dna-technology.ru\nТема: Реквизиты Альфа Банк.docx\nДата: Wed, 08 Oct 2025 06:45:52 +0300\nОт: Романов Вячеслав slavrom@mail.ru\nОтвечать: Романов Вячеслав slavrom@mail.ru\nКому: mail@dna-technology.ru\nЗдравствуйте. Прошу выставить КП на прибор ДТПрайм модель Х1 (384) для\nлаборатории СКР-ТЕСТ\nРеквизиты во вложении.\nС уважением, Романов Вячеслав.",
+  "char_count": 679,
+  "attachments": [
+    {
+      "id": 564,
+      "original_filename": "Реквизиты Альфа Банк.docx",
+      "saved_filename": "20251008_162a1fc4_010350_181240_attach_Реквизиты Альфа Банк.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-10-08/20251008_162a1fc4_010350_181240_attach_Реквизиты Альфа Банк.docx",
+      "relative_path": "attachments/2025-10-08/20251008_162a1fc4_010350_181240_attach_Реквизиты Альфа Банк.docx",
+      "file_size": 24449,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-13 18:03:50",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<50c04b15-e933-4c73-a112-b76a1404d993@dna-technology.ru>",
+      "thread_id": "20251008_dna-technology_ru_cbcdadf3",
+      "sha256": "e7db679912287d39c70ef3aeb6b558656365ca10b24678f67df35ab5dfcbadf5",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T01:03:50.180036+07:00",
+  "raw_size": 41090,
+  "date_folder": "2025-10-08",
+  "eml_path": "eml/2025-10-08/50c04b15-e933-4c73-a112-b76a1404d993_dna-technology.ru_010350_174427.eml"
+}

@@ -1,0 +1,488 @@
+{
+  "source_file": "email_015_20250729_20250729_dna-technology_ru_41fbdf51.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": "77235378400",
+        "website": "dna-technology.ru",
+        "city": "Москва",
+        "address": "117587, г. Москва, Варшавское шоссе, дом 125Ж, корпус 5, этаж 1, пом.12",
+        "emails": [
+          "mail@dna-technology.ru",
+          "torgi@dna-technology.ru"
+        ],
+        "phones": [
+          {
+            "type": "main",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7(495) 640-17-71",
+            "extension": null
+          },
+          {
+            "type": "main",
+            "number": "+7 (800) 200-75-15",
+            "normalized": "+78002007515",
+            "original": "8-800-200-75-15",
+            "extension": null
+          },
+          {
+            "type": "main",
+            "number": "+7 (495) 640-16-93",
+            "normalized": "+74956401693",
+            "original": "+7(495) 640-16-93",
+            "extension": null
+          }
+        ],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      },
+      {
+        "organization_id": 2,
+        "name": "Компания Хеликон",
+        "inn": null,
+        "website": "helicon.ru",
+        "city": "Новосибирск",
+        "address": "630090, г. Новосибирск, ул. Николаева, 9/1",
+        "emails": [],
+        "phones": [
+          {
+            "type": "main",
+            "number": "+7 (800) 770-71-21",
+            "normalized": "+78007707121",
+            "original": "8 (800) 770-71-21 доб. 3108",
+            "extension": "3108"
+          }
+        ],
+        "gid": "79ef90eb-b1bc-547f-9121-003d2b620b71"
+      },
+      {
+        "organization_id": 3,
+        "name": "МЦ ДНК",
+        "inn": "1901074000",
+        "website": null,
+        "city": "Абакан",
+        "address": null,
+        "emails": [],
+        "phones": [],
+        "gid": "d96503ac-116d-5310-811d-9c092b922506"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 2,
+        "name": "Дудко Анастасия",
+        "organization_id": 2,
+        "position": "Младший специалист по работе с клиентами",
+        "email": "a.dudko@helicon.ru",
+        "phones": [
+          {
+            "type": "mobile",
+            "number": "+7 (953) 794-60-38",
+            "normalized": "+79537946038",
+            "original": "моб. +7 (953) 794-60-38",
+            "extension": null
+          },
+          {
+            "type": "main",
+            "number": "+7 (800) 770-71-21",
+            "normalized": "+78007707121",
+            "original": "8 (800) 770-71-21 доб. 3108",
+            "extension": "3108"
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "requested_quote",
+        "confidence": 0.95,
+        "value_score": 11,
+        "gid": "412aff50-8750-5c12-a99a-d6d2365f074a",
+        "website": "https://www.helicon.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_helicon.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "a.dudko@helicon.ru",
+          "extracted_domain": "helicon.ru",
+          "website_found": "https://www.helicon.ru",
+          "enriched_at": 1759758608.203097,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 1,
+        "name": "Фролова Мария Борисовна",
+        "organization_id": 1,
+        "position": "Специалист по тендерам",
+        "email": null,
+        "phones": [
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71 (доб. 2036)",
+            "extension": "2036"
+          },
+          {
+            "type": "main",
+            "number": "+7 (800) 200-75-15",
+            "normalized": "+78002007515",
+            "original": "8-800-200-75-15",
+            "extension": null
+          },
+          {
+            "type": "main",
+            "number": "+7 (495) 640-16-93",
+            "normalized": "+74956401693",
+            "original": "+7(495) 640-16-93",
+            "extension": null
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 0.9,
+        "value_score": 9,
+        "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.6,
+        "website_source": "organization_profile",
+        "enrichment_skipped": false,
+        "enrichment_reason": "organization_website_used",
+        "smart_enrichment": {
+          "source_email": null,
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1759758608.203116,
+          "version": "1.0.0",
+          "source": "organization_website"
+        }
+      },
+      {
+        "contact_id": 3,
+        "name": "Владыкин Павел Сергеевич",
+        "organization_id": 1,
+        "position": "Генеральный директор",
+        "email": null,
+        "phones": [
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71 д0б. 2008",
+            "extension": "2008"
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "other",
+        "confidence": 0.7,
+        "value_score": 9,
+        "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.6,
+        "website_source": "organization_profile",
+        "enrichment_skipped": false,
+        "enrichment_reason": "organization_website_used",
+        "smart_enrichment": {
+          "source_email": null,
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1759758608.2031202,
+          "version": "1.0.0",
+          "source": "organization_website"
+        }
+      }
+    ],
+    "business_context": "Дудко Анастасия (Компания Хеликон) запросила у ДНК-Технология коммерческое предложение на наборы для ПЦР по конечной точке для конечного пользователя ООО МЦ ДНК из Абакана. Фролова Мария Борисовна (ДНК-Технология) отвечает, что комплекты реагентов с детекцией по конечной точке сняты с производства, и прикладывает информационное письмо о снятии с продаж наборов формата FLASH.",
+    "summary": {
+      "topic": "Ответ на запрос КП по наборам для ПЦР с уведомлением о снятии с производства",
+      "product_interest": "Наборы для ПЦР по конечной точке: ВПЧ 16/18 высокого риска, ВПЧ 16/18 низкого риска, Герпес 1,2",
+      "communication_stage": "ответ на запрос с отказом",
+      "request_type": "информирование о прекращении производства"
+    },
+    "key_points": [
+      "Дудко Анастасия (Компания Хеликон) запросила КП на наборы для ПЦР для ООО МЦ ДНК из Абакана",
+      "Фролова Мария Борисовна (ДНК-Технология) сообщила о снятии с производства комплектов реагентов с детекцией по конечной точке",
+      "Приложено информационное письмо Исх№51 о снятии с продаж 22 наборов реагентов формата FLASH с 01.01.2025"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 2,
+        "organization_id": 2,
+        "message_subject": "Запрос КП Наборы",
+        "message_date": "2025-07-29T09:54:27+00:00",
+        "message_id_hint": null,
+        "role_in_message": "requested_quote",
+        "interaction_type": "requested_quote",
+        "summary": "Дудко Анастасия запросила коммерческое предложение на наборы для ПЦР по конечной точке для ООО МЦ ДНК",
+        "human_note": "Анастасия Дудко (Компания Хеликон) запросила КП на три набора для ПЦР для медицинского центра в Абакане",
+        "participants": {
+          "actor": "Дудко Анастасия (Компания Хеликон, младший специалист по работе с клиентами)",
+          "audience": [
+            "ДНК-Технология"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.95
+      },
+      {
+        "interaction_local_id": 2,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "Re: Fwd: Запрос КП Наборы",
+        "message_date": "2025-07-29T17:23:43+07:00",
+        "message_id_hint": "1e0bac39-8e52-4ead-9a28-2a918306b41a@dna-technology.ru",
+        "role_in_message": "sender",
+        "interaction_type": "clarification",
+        "summary": "Фролова Мария Борисовна проинформировала о снятии с производства запрошенных наборов и приложила информационное письмо",
+        "human_note": "Мария Фролова (ДНК-Технология) сообщает о прекращении производства запрошенных наборов и прикладывает официальное уведомление",
+        "participants": {
+          "actor": "Фролова Мария Борисовна (ДНК-Технология, специалист по тендерам)",
+          "audience": [
+            "Дудко Анастасия (Компания Хеликон)"
+          ]
+        },
+        "attachments": [
+          "Исх№51 о снятии наборов FLASH.pdf"
+        ],
+        "confidence": 0.9
+      }
+    ],
+    "auto_corrected": true,
+    "validation_error": false,
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": \"77235378400\",\n      \"website\": \"dna-technology.ru\",\n      \"city\": \"Москва\",\n      \"address\": \"117587, г. Москва, Варшавское шоссе, дом 125Ж, корпус 5, этаж 1, пом.12\",\n      \"emails\": [\"torgi@dna-technology.ru\", \"mail@dna-technology.ru\", \"hotline@dna-technology.ru\"],\n      \"phones\": [\n        {\n          \"type\": \"main\",\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": \"+74956401771\",\n          \"original\": \"+7(495) 640-17-71\",\n          \"extension\": null\n        },\n        {\n          \"type\": \"main\",\n          \"number\": \"8-800-200-75-15\",\n          \"normalized\": \"+78002007515\",\n          \"original\": \"8-800-200-75-15\",\n          \"extension\": null\n        },\n        {\n          \"type\": \"main\",\n          \"number\": \"+7 (495) 640-16-93\",\n          \"normalized\": \"+74956401693\",\n          \"original\": \"+7(495) 640-16-93\",\n          \"extension\": null\n        }\n      ]\n    },\n    {\n      \"organization_id\": 2,\n      \"name\": \"Компания Хеликон\",\n      \"inn\": null,\n      \"website\": \"helicon.ru\",\n      \"city\": \"Новосибирск\",\n      \"address\": \"630090, г. Новосибирск, ул. Николаева, 9/1\",\n      \"emails\": [],\n      \"phones\": [\n        {\n          \"type\": \"main\",\n          \"number\": \"8 (800) 770-71-21\",\n          \"normalized\": \"+78007707121\",\n          \"original\": \"8 (800) 770-71-21 доб. 3108\",\n          \"extension\": \"3108\"\n        }\n      ]\n    },\n    {\n      \"organization_id\": 3,\n      \"name\": \"ООО МЦ ДНК\",\n      \"inn\": \"1901074000\",\n      \"website\": null,\n      \"city\": \"Абакан\",\n      \"address\": null,\n      \"emails\": [],\n      \"phones\": []\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Фролова Мария Борисовна\",\n      \"organization_id\": 1,\n      \"position\": \"Специалист по тендерам\",\n      \"email\": null,\n      \"phones\": [\n        {\n          \"type\": \"office\",\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": \"+74956401771\",\n          \"original\": \"+7 (495) 640-17-71 (доб. 2036)\",\n          \"extension\": \"2036\"\n        }\n      ],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.9\n    },\n    {\n      \"contact_id\": 2,\n      \"name\": \"Дудко Анастасия\",\n      \"organization_id\": 2,\n      \"position\": \"Младший специалист по работе с клиентами\",\n      \"email\": \"a.dudko@helicon.ru\",\n      \"phones\": [\n        {\n          \"type\": \"mobile\",\n          \"number\": \"+7 (953) 794-60-38\",\n          \"normalized\": \"+79537946038\",\n          \"original\": \"моб. +7 (953) 794-60-38\",\n          \"extension\": null\n        }\n      ],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"requested_quote\",\n      \"confidence\": 0.95\n    },\n    {\n      \"contact_id\": 3,\n      \"name\": \"Владыкин Павел Сергеевич\",\n      \"organization_id\": 1,\n      \"position\": \"Генеральный директор\",\n      \"email\": null,\n      \"phones\": [\n        {\n          \"type\": \"office\",\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": \"+74956401771\",\n          \"original\": \"+7 (495) 640-17-71 д0б. 2008\",\n          \"extension\": \"2008\"\n        }\n      ],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": null,\n      \"confidence\": 0.7\n    }\n  ],\n  \"business_context\": \"Дудко Анастасия (Компания Хеликон) запросила у ДНК-Технология коммерческое предложение на наборы для ПЦР по конечной точке для конечного пользователя ООО МЦ ДНК из Абакана. Фролова Мария Борисовна (ДНК-Технология) отвечает, что комплекты реагентов с детекцией по конечной точке сняты с производства, и прикладывает информационное письмо о снятии с продаж наборов формата FLASH.\",\n  \"summary\": {\n    \"topic\": \"Ответ на запрос КП по наборам для ПЦР с уведомлением о снятии с производства\",\n    \"product_interest\": \"Наборы для ПЦР по конечной точке: ВПЧ 16/18 высокого риска, ВПЧ 16/18 низкого риска, Герпес 1,2\",\n    \"communication_stage\": \"ответ на запрос с отказом\",\n    \"request_type\": \"информирование о прекращении производства\"\n  },\n  \"key_points\": [\n    \"Дудко Анастасия (Компания Хеликон) запросила КП на наборы для ПЦР для ООО МЦ ДНК из Абакана\",\n    \"Фролова Мария Борисовна (ДНК-Технология) сообщила о снятии с производства комплектов реагентов с детекцией по конечной точке\",\n    \"Приложено информационное письмо Исх№51 о снятии с продаж 22 наборов реагентов формата FLASH с 01.01.2025\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 2,\n      \"organization_id\": 2,\n      \"message_subject\": \"Запрос КП Наборы\",\n      \"message_date\": \"2025-07-29T09:54:27+00:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"requested_quote\",\n      \"interaction_type\": \"requested_quote\",\n      \"summary\": \"Дудко Анастасия запросила коммерческое предложение на наборы для ПЦР по конечной точке для ООО МЦ ДНК\",\n      \"human_note\": \"Анастасия Дудко (Компания Хеликон) запросила КП на три набора для ПЦР для медицинского центра в Абакане\",\n      \"participants\": {\n        \"actor\": \"Дудко Анастасия (Компания Хеликон, младший специалист по работе с клиентами)\",\n        \"audience\": [\"ДНК-Технология\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.95\n    },\n    {\n      \"interaction_local_id\": 2,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"Re: Fwd: Запрос КП Наборы\",\n      \"message_date\": \"2025-07-29T17:23:43+07:00\",\n      \"message_id_hint\": \"<1e0bac39-8e52-4ead-9a28-2a918306b41a@dna-technology.ru>\",\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Фролова Мария Борисовна проинформировала о снятии с производства запрошенных наборов и приложила информационное письмо\",\n      \"human_note\": \"Мария Фролова (ДНК-Технология) сообщает о прекращении производства запрошенных наборов и прикладывает официальное уведомление\",\n      \"participants\": {\n        \"actor\": \"Фролова Мария Борисовна (ДНК-Технология, специалист по тендерам)\",\n        \"audience\": [\"Дудко Анастасия (Компания Хеликон)\"]\n      },\n      \"attachments\": [\"Исх№51 о снятии наборов FLASH.pdf\"],\n      \"confidence\": 0.9\n    }\n  ]\n}\n```",
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-06T20:50:08.203579",
+      "stats": {
+        "processed_emails": 11,
+        "total_organizations_processed": 29,
+        "total_contacts_processed": 29,
+        "organizations_deduplicated": 0,
+        "contacts_filtered": 0,
+        "contacts_enriched": 29,
+        "data_normalized": 58,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 2,
+        "phones_added_to_contacts": 3
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1,
+        "2": 2,
+        "3": 3
+      },
+      "contact_mapping": {
+        "2": 2,
+        "1": 1,
+        "3": 3
+      },
+      "provenance": {
+        "contacts": {
+          "2": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "1": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "3": {
+            "backfill_skipped": "no_personal_location_signal"
+          }
+        }
+      },
+      "email_classification": {
+        "1": {
+          "kept": [
+            "torgi@dna-technology.ru",
+            "mail@dna-technology.ru"
+          ],
+          "removed": [],
+          "removed_types": {}
+        },
+        "2": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        },
+        "3": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "DOMAIN",
+            "key_tuple": [
+              "ORG",
+              "DOMAIN",
+              "dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 2,
+            "gid": "79ef90eb-b1bc-547f-9121-003d2b620b71",
+            "match_rule": "DOMAIN",
+            "key_tuple": [
+              "ORG",
+              "DOMAIN",
+              "helicon.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 3,
+            "gid": "d96503ac-116d-5310-811d-9c092b922506",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "1901074000"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 2,
+            "organization_id": 2,
+            "organization_gid": "79ef90eb-b1bc-547f-9121-003d2b620b71",
+            "gid": "412aff50-8750-5c12-a99a-d6d2365f074a",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "79ef90eb-b1bc-547f-9121-003d2b620b71",
+              "a.dudko@helicon.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+            "match_rule": "PHONE",
+            "key_tuple": [
+              "CONTACT",
+              "PHONE",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "+74956401771"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 3,
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+            "match_rule": "PHONE",
+            "key_tuple": [
+              "CONTACT",
+              "PHONE",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "+74956401771"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          }
+        ],
+        "conflicts": [
+          {
+            "entity": "contact",
+            "key": [
+              "CONTACT",
+              "NAME_POSITION",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "фролова мария борисовна",
+              "специалист по тендерам"
+            ],
+            "existing_gid": "bc8372a9-45af-581c-b793-849941e3dfb9",
+            "target_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631"
+          },
+          {
+            "entity": "contact",
+            "key": [
+              "CONTACT",
+              "NAME_POSITION",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "владыкин павел сергеевич",
+              "генеральный директор"
+            ],
+            "existing_gid": "542afa76-618a-5c82-8260-f3c2fce1bce4",
+            "target_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631"
+          }
+        ]
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.0,
+            "source": "none",
+            "method": "no_candidates_found",
+            "score": 0.0,
+            "candidates": [],
+            "checked_at": "2025-10-06T20:50:07.427067",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "79ef90eb-b1bc-547f-9121-003d2b620b71": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.0,
+            "source": "none",
+            "method": "no_candidates_found",
+            "score": 0.0,
+            "candidates": [],
+            "checked_at": "2025-10-06T20:50:07.427422",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "d96503ac-116d-5310-811d-9c092b922506": {
+            "decision": "skipped",
+            "inn": "1901074000",
+            "confidence": 1.0,
+            "source": "existing",
+            "method": "existing_valid_inn",
+            "score": 1.0,
+            "candidates": [],
+            "checked_at": "2025-10-06T20:50:07.427438",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {
+          "evidence_count": 2,
+          "organizations_enriched": 0,
+          "cities_added": 0,
+          "addresses_added": 0,
+          "conflicts_detected": 0,
+          "location_evidence": {
+            "1": 

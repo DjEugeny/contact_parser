@@ -1,0 +1,44 @@
+{
+  "thread_id": "20250506_dna-technology_ru_f89b9d57",
+  "message_id": "<285eedf3-f4f0-4beb-84d5-9661beef0d8e@dna-technology.ru>",
+  "email_num_in_day": 3,
+  "total_emails_in_day": 8,
+  "from": "bortsova@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "razlivakhina@dna-technology.ru, litvinenko@dna-technology.ru",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "razlivakhina@dna-technology.ru",
+    "litvinenko@dna-technology.ru"
+  ],
+  "subject": "Re: Пробные наборы ГАУЗ КОКБ им. С. В. Беляева, Кемерово.",
+  "date": "Tue, 6 May 2025 09:05:02 +0300",
+  "parsed_date": "2025-05-06T13:05:02+07:00",
+  "body_raw": "Добрый день!\r\n\nСможем отправить после майских праздников.\r\n\n06.05.2025 2:52, s.voronova@dna-technology.ru пишет:\r\n> Добрый день, уважаемые коллеги!\r\n> По итогам визита в ГАУЗ КОКБ им. С. В. Беляева прошу предоставить \r\n> пробные наборы в целях ознакомления клиента с продукцией ДНК-Технология:\r\n> Микозоскрин, БакРезиста GLA,  Проба ОПТИМА, Проба НК плюс, Стор-М.\r\n> Адрес и контакты получателя :\r\n> Кемерово, Октябрьский проспект, 22 а,\r\n> Офтальмологический корпус КОКБ, бак лаборатория\r\n> Ефимова Татьяна Владиславовна\r\n> +7-909-516-69-88\r\n> Доп. номер :\r\n> Коренькова Ольга Александровна\r\n> +7-900-050-33-77\r\n>\r\n> Спасибо!\r\n> --\r\n> С уважением, Воронова Светлана Сергеевна\r\n> региональный представитель в СФО\r\n> ООО \"ДНК-Технология\"\r\n> моб. тел. 8 (995) 129-39-76\r\n> e-mail: s.voronova@dna-technology.ru\r\n> web: www.dna-technology.ru <https://www.dna-technology.ru>\r\n--",
+  "body_clean": "Добрый день!\nСможем отправить после майских праздников.\n06.05.2025 2:52, s.voronova@dna-technology.ru пишет:\n> Добрый день, уважаемые коллеги!\n> По итогам визита в ГАУЗ КОКБ им. С. В. Беляева прошу предоставить\n> пробные наборы в целях ознакомления клиента с продукцией ДНК-Технология:\n> Микозоскрин, БакРезиста GLA,  Проба ОПТИМА, Проба НК плюс, Стор-М.\n> Адрес и контакты получателя :\n> Кемерово, Октябрьский проспект, 22 а,\n> Офтальмологический корпус КОКБ, бак лаборатория\n> Ефимова Татьяна Владиславовна\n> +7-909-516-69-88\n> Доп. номер :\n> Коренькова Ольга Александровна\n> +7-900-050-33-77\n> Спасибо!\n> С уважением, Воронова Светлана Сергеевна\n> региональный представитель в СФО\n> ООО \"ДНК-Технология\"\n> моб. тел. 8 (995) 129-39-76\n> e-mail: s.voronova@dna-technology.ru\n> web: www.dna-technology.ru https://www.dna-technology.ru",
+  "char_count": 834,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:part1.rAIeJ6Rp.eUlBpphu@dna-technology.ru",
+      "original_filename": "подпись новая.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:27:18.592516+07:00",
+  "raw_size": 41627,
+  "date_folder": "2025-05-06",
+  "eml_path": "eml/2025-05-06/285eedf3-f4f0-4beb-84d5-9661beef0d8e_dna-technology.ru_094729_224855.eml"
+}

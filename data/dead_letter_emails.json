@@ -1,0 +1,27 @@
+{
+  "18780": {
+    "reason": "исчерпаны попытки после 3 раз - failed_to_fetch",
+    "moved_at": "2025-08-17T16:31:34.190873+07:00",
+    "attempts_exhausted": true
+  },
+  "18275": {
+    "reason": "исчерпаны попытки после 3 раз - failed_to_fetch",
+    "moved_at": "2025-08-21T15:52:29.158615+07:00",
+    "attempts_exhausted": true
+  },
+  "18775": {
+    "reason": "исчерпаны попытки после 3 раз - failed_to_fetch",
+    "moved_at": "2025-08-21T15:52:29.160802+07:00",
+    "attempts_exhausted": true
+  },
+  "18268": {
+    "reason": "исчерпаны попытки после 3 раз - failed_to_fetch",
+    "moved_at": "2025-10-08T22:28:08.062513+07:00",
+    "attempts_exhausted": true
+  },
+  "17905": {
+    "reason": "исчерпаны попытки после 3 раз - failed_to_fetch",
+    "moved_at": "2025-09-03T19:36:33.714769+07:00",
+    "attempts_exhausted": true
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "thread_id": "20250305_eventumc_com_b1326391",
+  "message_id": "<!&!AAAAAAAAAAAuAAAAAAAAAGjXQ+z3jZxGkCQBRon/PYsBAMO2jhD3dRHOtM0AqgC7tuYAAAAAAA4AABAAAAD9lXZLz2c3TqAY0sshbxk7AQAAAAA=@eventumc.com>",
+  "email_num_in_day": 19,
+  "total_emails_in_day": 19,
+  "from": "rodichkina@eventumc.com",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Конференция \"Педиатрия: вопросы межрегионального взаимодействия\", 06 июня 2025, Иркутск",
+  "date": "Wed, 5 Mar 2025 15:55:05 +0300",
+  "parsed_date": "2025-03-05T19:55:05+07:00",
+  "body_raw": "Светлана, добрый день ещё раз!\r\n\nНадеюсь Вам понравилась организация конференции для онкогематологов в\r\nИркутске и участие было полезным и успешным.\r\n\nВозможно, Вас заинтересует ещё одна научно-практическая конференция, которую\r\nмы проводим в июне в Иркутске, это - <Педиатрия: вопросы межрегионального\r\nвзаимодействия>. Данное мероприятие проводится для более широко круга\r\nспециалистов.\r\n\nВ приложении прикрепляю информационное письмо с условиями участия.\r\nПосмотрите, пожалуйста.\r\n\nБуду признательна Вам за обратную связь.\r\n\nС уважением,\r\n\nОльга Родичкина \r\n\nГенеральный директор\r\n\n+7(903)205-55-92\r\n\nrodichkina <mailto:rodichkina@eventumc.com> @eventumc.com\r\n\nИвентум МК\r\n\n123376, г. Москва, \r\n\nБольшой Трехгорный пер., д. 11, стр.2\r\n\n <https://eventumc.com/> https://eventumc.com/",
+  "body_clean": "Светлана, добрый день ещё раз!\nНадеюсь Вам понравилась организация конференции для онкогематологов в\nИркутске и участие было полезным и успешным.\nВозможно, Вас заинтересует ещё одна научно-практическая конференция, которую\nмы проводим в июне в Иркутске, это - Педиатрия: вопросы межрегионального\nвзаимодействия. Данное мероприятие проводится для более широко круга\nспециалистов.\nВ приложении прикрепляю информационное письмо с условиями участия.\nПосмотрите, пожалуйста.\nБуду признательна Вам за обратную связь.\nС уважением,\nОльга Родичкина\nГенеральный директор\n+7(903)205-55-92\nrodichkina mailto:rodichkina@eventumc.com @eventumc.com\nИвентум МК\n123376, г. Москва,\nБольшой Трехгорный пер., д. 11, стр.2\nhttps://eventumc.com/ https://eventumc.com/",
+  "char_count": 745,
+  "attachments": [
+    {
+      "id": 617,
+      "original_filename": "КП МШП Иркутск_06.06.2025.pdf",
+      "saved_filename": "20250305_017e69b5_071456_795796_attach_КП МШП Иркутск_06.06.2025.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-05/20250305_017e69b5_071456_795796_attach_КП МШП Иркутск_06.06.2025.pdf",
+      "relative_path": "attachments/2025-03-05/20250305_017e69b5_071456_795796_attach_КП МШП Иркутск_06.06.2025.pdf",
+      "file_size": 2478366,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:14:56",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<!&!AAAAAAAAAAAuAAAAAAAAAGjXQ+z3jZxGkCQBRon/PYsBAMO2jhD3dRHOtM0AqgC7tuYAAAAAAA4AABAAAAD9lXZLz2c3TqAY0sshbxk7AQAAAAA=@eventumc.com>",
+      "thread_id": "20250305_eventumc_com_b1326391",
+      "sha256": "4aae48f2c51c47ab1535fb2608eca9702ef1d3a99fd87d270307048f08485e47",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:14:56.783910+07:00",
+  "raw_size": 3401166,
+  "date_folder": "2025-03-05",
+  "eml_path": "eml/2025-03-05/_AAAAAAAAAAAuAAAAAAAAAGjXQ_z3jZxGkCQBRon_PYsBAMO2jhD3dRHOtM0AqgC7tuYAAAAAAA4AABAAAAD9lXZLz2c3TqAY0sshbxk7AQAAAAA_eventumc.com_071456_779914.eml"
+}

@@ -1,0 +1,238 @@
+{
+  "source_file": "email_010_20250729_20250729_mail_ru_7dfa0cad.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "БИОСИНТЕК",
+        "inn": "5408287373",
+        "website": null,
+        "city": "Новосибирск",
+        "address": "630090, Новосибирская обл, г. Новосибирск, ул. Терешковой, дом 10, квартира 180",
+        "emails": [],
+        "phones": [],
+        "gid": "98c97226-8c75-5cab-a309-86ed11e33c45"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Воронина Елена Николаевна",
+        "organization_id": 1,
+        "position": null,
+        "email": "voronina_l@mail.ru",
+        "phones": [
+          {
+            "type": "mobile",
+            "number": "+7 (913) 930-03-26",
+            "normalized": "+79139300326",
+            "original": "+7 (913) 930-03-26",
+            "extension": null
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 1.0,
+        "value_score": 9,
+        "gid": "e5ebc0a0-dff4-5afb-9c44-f2cd68c3019e",
+        "enrichment_skipped": true,
+        "enrichment_reason": "public_provider_mail.ru",
+        "email_valid": true
+      }
+    ],
+    "business_context": "Воронина Елена Николаевна (ООО БИОСИНТЕК) обращается к ДНК-Технология с запросом на приобретение наборов HLA-ДНК-ТЕХ трех типов: HLA-DRB1, HLA-DQB1 и HLA-DQA1. Ожидается подготовка коммерческого предложения или счета на указанные наборы.",
+    "summary": {
+      "topic": "Запрос на приобретение наборов HLA-ДНК-ТЕХ",
+      "product_interest": "HLA-ДНК-ТЕХ (HLA-DRB1), HLA-ДНК-ТЕХ (HLA-DQB1), HLA-ДНК-ТЕХ (HLA-DQA1)",
+      "communication_stage": "первичный запрос",
+      "request_type": "запрос коммерческого предложения"
+    },
+    "key_points": [
+      "Воронина Елена Николаевна (ООО БИОСИНТЕК) запрашивает приобретение наборов HLA-ДНК-ТЕХ",
+      "Указаны конкретные типы наборов: HLA-DRB1, HLA-DQB1, HLA-DQA1",
+      "Ожидается подготовка коммерческого предложения или счета на запрошенные наборы"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "Купить наборы ДНК-Технология",
+        "message_date": "2025-07-29T15:26:09+07:00",
+        "message_id_hint": "1753777569.32229678@f308.i.mail.ru",
+        "role_in_message": "sender",
+        "interaction_type": "requested_quote",
+        "summary": "Воронина Елена Николаевна запрашивает коммерческое предложение на наборы HLA-ДНК-ТЕХ трех типов для ООО БИОСИНТЕК",
+        "human_note": "Елена Воронина (БИОСИНТЕК) просит подготовить КП на наборы HLA-ДНК-ТЕХ для своей компании",
+        "participants": {
+          "actor": "Воронина Елена Николаевна (ООО БИОСИНТЕК)",
+          "audience": [
+            "ДНК-Технология"
+          ]
+        },
+        "attachments": [],
+        "confidence": 1.0
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ООО \\\"БИОСИНТЕК\\\"\",\n      \"inn\": \"5408287373\",\n      \"website\": null,\n      \"city\": \"Новосибирск\",\n      \"address\": \"630090, Новосибирская обл, г. Новосибирск, ул. Терешковой, дом 10, квартира 180\",\n      \"emails\": [],\n      \"phones\": []\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Воронина Елена Николаевна\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"voronina_l@mail.ru\",\n      \"phones\": [\n        {\n          \"type\": \"mobile\",\n          \"number\": \"+7 (913) 930-03-26\",\n          \"normalized\": \"+79139300326\",\n          \"original\": \"+7 (913) 930-03-26\",\n          \"extension\": null\n        }\n      ],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 1.0\n    }\n  ],\n  \"business_context\": \"Воронина Елена Николаевна (ООО БИОСИНТЕК) обращается к ДНК-Технология с запросом на приобретение наборов HLA-ДНК-ТЕХ трех типов: HLA-DRB1, HLA-DQB1 и HLA-DQA1. Ожидается подготовка коммерческого предложения или счета на указанные наборы.\",\n  \"summary\": {\n    \"topic\": \"Запрос на приобретение наборов HLA-ДНК-ТЕХ\",\n    \"product_interest\": \"HLA-ДНК-ТЕХ (HLA-DRB1), HLA-ДНК-ТЕХ (HLA-DQB1), HLA-ДНК-ТЕХ (HLA-DQA1)\",\n    \"communication_stage\": \"первичный запрос\",\n    \"request_type\": \"запрос коммерческого предложения\"\n  },\n  \"key_points\": [\n    \"Воронина Елена Николаевна (ООО БИОСИНТЕК) запрашивает приобретение наборов HLA-ДНК-ТЕХ\",\n    \"Указаны конкретные типы наборов: HLA-DRB1, HLA-DQB1, HLA-DQA1\",\n    \"Ожидается подготовка коммерческого предложения или счета на запрошенные наборы\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"Купить наборы ДНК-Технология\",\n      \"message_date\": \"2025-07-29T15:26:09+07:00\",\n      \"message_id_hint\": \"<1753777569.32229678@f308.i.mail.ru>\",\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"requested_quote\",\n      \"summary\": \"Воронина Елена Николаевна запрашивает коммерческое предложение на наборы HLA-ДНК-ТЕХ трех типов для ООО БИОСИНТЕК\",\n      \"human_note\": \"Елена Воронина (БИОСИНТЕК) просит подготовить КП на наборы HLA-ДНК-ТЕХ для своей компании\",\n      \"participants\": {\n        \"actor\": \"Воронина Елена Николаевна (ООО БИОСИНТЕК)\",\n        \"audience\": [\"ДНК-Технология\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 1.0\n    }\n  ]\n}\n```",
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-06T20:45:17.302104",
+      "stats": {
+        "processed_emails": 7,
+        "total_organizations_processed": 18,
+        "total_contacts_processed": 18,
+        "organizations_deduplicated": 0,
+        "contacts_filtered": 0,
+        "contacts_enriched": 18,
+        "data_normalized": 36,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 0,
+        "phones_added_to_contacts": 0
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1
+      },
+      "contact_mapping": {
+        "1": 1
+      },
+      "provenance": {
+        "contacts": {
+          "1": {
+            "backfill_skipped": "no_personal_location_signal"
+          }
+        }
+      },
+      "email_classification": {
+        "1": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "98c97226-8c75-5cab-a309-86ed11e33c45",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "5408287373"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "organization_id": 1,
+            "organization_gid": "98c97226-8c75-5cab-a309-86ed11e33c45",
+            "gid": "e5ebc0a0-dff4-5afb-9c44-f2cd68c3019e",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "98c97226-8c75-5cab-a309-86ed11e33c45",
+              "voronina_l@mail.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          }
+        ],
+        "conflicts": []
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "98c97226-8c75-5cab-a309-86ed11e33c45": {
+            "decision": "skipped",
+            "inn": "5408287373",
+            "confidence": 1.0,
+            "source": "existing",
+            "method": "existing_valid_inn",
+            "score": 1.0,
+            "candidates": [],
+            "checked_at": "2025-10-06T20:45:17.296368",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "e5ebc0a0-dff4-5afb-9c44-f2cd68c3019e",
+              "contact_name": "Воронина Елена Николаевна",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "no_org_phones",
+                  "message": "Организация не имеет телефонов"
+                }
+              ],
+              "confidence_scores": [],
+              "decision": null,
+              "skip_reasons": [
+                "no_org_phones"
+              ]
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 1,
+            "contacts_enriched": 0,
+            "phones_added_total": 0,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.0,
+            "phones_skipped_by_reason": {
+              "low_confidence": 0,
+              "no_org_phones": 1,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-06T13:45:17.299193",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 1,
+        "organizations_processed": 0,
+        "contacts_processed": 1,
+        "ui_format_applied": 1,
+        "phones_sanitized": 1
+      }
+    },
+    "provider_used": "OpenRouter",
+    "processing_time": 1.039827823638916,
+    "text_length": 770,
+    "chunks_processed": 1,
+    "total_contacts_found": 1,
+    "unique_contacts_found": 1,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-07-29/email_010_20250729_20250729_mail_ru_7dfa0cad.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 39.77
+  }
+}

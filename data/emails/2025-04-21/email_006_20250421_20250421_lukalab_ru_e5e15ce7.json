@@ -1,0 +1,53 @@
+{
+  "thread_id": "20250421_lukalab_ru_e5e15ce7",
+  "message_id": "<1745227223.373903435@f410.i.mail.ru>",
+  "email_num_in_day": 6,
+  "total_emails_in_day": 11,
+  "from": "n.yakovchic@lukalab.ru",
+  "to": "s.voronova@dna-technology.ru, ivaschuk@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru",
+    "ivaschuk@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Заявка ЛукаЛаб",
+  "date": "Mon, 21 Apr 2025 12:20:23 +0300",
+  "parsed_date": "2025-04-21T16:20:23+07:00",
+  "body_raw": "Здравствуйте!\nПрошу выставить счет согласно прилагаемой заявке.\n\n--\nНиколай Яковчиц\nОтправлено из Почты Mail",
+  "body_clean": "Здравствуйте!\nПрошу выставить счет согласно прилагаемой заявке.\nНиколай Яковчиц\nОтправлено из Почты Mail",
+  "char_count": 104,
+  "attachments": [
+    {
+      "id": 131,
+      "original_filename": "21-04-24 ДНК-Технология.xlsx",
+      "saved_filename": "20250421_e67a5121_002431_867731_attach_21-04-24 ДНК-Технология.xlsx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-21/20250421_e67a5121_002431_867731_attach_21-04-24 ДНК-Технология.xlsx",
+      "relative_path": "attachments/2025-04-21/20250421_e67a5121_002431_867731_attach_21-04-24 ДНК-Технология.xlsx",
+      "file_size": 30623,
+      "file_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "saved_at": "2025-10-13 17:24:31",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<1745227223.373903435@f410.i.mail.ru>",
+      "thread_id": "20250421_lukalab_ru_e5e15ce7",
+      "sha256": "1ddfd663be58ad10bb619702a081057694ba53e3baf7139b67806d4a100963c9",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:24:31.866184+07:00",
+  "raw_size": 47807,
+  "date_folder": "2025-04-21",
+  "eml_path": "eml/2025-04-21/1745227223.373903435_f410.i.mail.ru_002431_862590.eml"
+}

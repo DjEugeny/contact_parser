@@ -1,0 +1,261 @@
+{
+  "source_file": "email_002_20250829_20250829_yandex_ru_3b30f3a1.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "Алтай-Энзим",
+        "inn": null,
+        "website": "altai-enzyme.ru",
+        "city": null,
+        "address": null,
+        "emails": [],
+        "phones": [],
+        "gid": "fe8bc48a-9101-5194-b8d2-cbe67d8013b6"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Команда Алтай-Энзим",
+        "organization_id": 1,
+        "position": null,
+        "email": "altai-enzyme@yandex.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 0.9,
+        "value_score": 7,
+        "gid": "f02d3889-8b43-506d-9079-4866a2ecd1d7",
+        "enrichment_skipped": true,
+        "enrichment_reason": "public_provider_yandex.ru",
+        "email_valid": true
+      }
+    ],
+    "business_context": "Команда Алтай-Энзим просит скорректировать счет, исключив набор для выделения ДНК и оставив только набор для определения пола плода.",
+    "summary": {
+      "topic": "Корректировка счета: исключение набора для выделения ДНК",
+      "product_interest": "Набор для определения пола плода",
+      "communication_stage": "обсуждение условий",
+      "request_type": "уточнение"
+    },
+    "key_points": [
+      "Алтай-Энзим просит скорректировать счет",
+      "Не нужен набор для выделения ДНК",
+      "Нужен только набор для определения пола плода"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "Re: 9770 новый",
+        "message_date": "2025-08-29T13:48:37+07:00",
+        "message_id_hint": "497211756449912@mail.yandex.ru",
+        "role_in_message": "sender",
+        "interaction_type": "clarification",
+        "summary": "Просьба скорректировать счет, исключив набор для выделения ДНК.",
+        "human_note": "Команда Алтай-Энзим просит скорректировать счет, убрав набор для выделения ДНК и оставив только набор для определения пола плода.",
+        "participants": {
+          "actor": "команда Алтай-Энзим (Алтай-Энзим)",
+          "audience": [
+            "ДНК-Технология"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"Алтай-Энзим\",\n      \"inn\": null,\n      \"website\": \"altai-enzyme.ru\",\n      \"city\": null,\n      \"address\": null,\n      \"emails\": [\n        \"altai-enzyme@yandex.ru\"\n      ],\n      \"phones\": []\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"команда Алтай-Энзим\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": \"altai-enzyme@yandex.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"business_context\": \"Команда Алтай-Энзим просит скорректировать счет, исключив набор для выделения ДНК и оставив только набор для определения пола плода.\",\n  \"summary\": {\n    \"topic\": \"Корректировка счета: исключение набора для выделения ДНК\",\n    \"product_interest\": \"Набор для определения пола плода\",\n    \"communication_stage\": \"обсуждение условий\",\n    \"request_type\": \"уточнение\"\n  },\n  \"key_points\": [\n    \"Алтай-Энзим просит скорректировать счет\",\n    \"Не нужен набор для выделения ДНК\",\n    \"Нужен только набор для определения пола плода\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"Re: 9770 новый\",\n      \"message_date\": \"2025-08-29T13:48:37+07:00\",\n      \"message_id_hint\": \"<497211756449912@mail.yandex.ru>\",\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Просьба скорректировать счет, исключив набор для выделения ДНК.\",\n      \"human_note\": \"Команда Алтай-Энзим просит скорректировать счет, убрав набор для выделения ДНК и оставив только набор для определения пола плода.\",\n      \"participants\": {\n        \"actor\": \"команда Алтай-Энзим (Алтай-Энзим)\",\n        \"audience\": [\"ДНК-Технология\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    }\n  ]\n}\n```",
+    "contact_mentions": [],
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-17T11:37:02.509660",
+      "stats": {
+        "processed_emails": 79,
+        "total_organizations_processed": 157,
+        "total_contacts_processed": 253,
+        "organizations_deduplicated": 1,
+        "contacts_filtered": 33,
+        "contacts_enriched": 220,
+        "data_normalized": 376,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 0,
+        "phones_added_to_contacts": 0
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1
+      },
+      "contact_mapping": {
+        "1": 1
+      },
+      "filtering": {
+        "contacts_without_info_filtered": 0,
+        "mentions_saved": 0
+      },
+      "provenance": {
+        "contacts": {
+          "1": {
+            "backfill_skipped": "no_personal_location_signal"
+          }
+        }
+      },
+      "email_classification": {
+        "1": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "fe8bc48a-9101-5194-b8d2-cbe67d8013b6",
+            "match_rule": "DOMAIN",
+            "key_tuple": [
+              "ORG",
+              "DOMAIN",
+              "altai-enzyme.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "gid": "f02d3889-8b43-506d-9079-4866a2ecd1d7",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "fe8bc48a-9101-5194-b8d2-cbe67d8013b6",
+              "altai-enzyme@yandex.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "fe8bc48a-9101-5194-b8d2-cbe67d8013b6"
+          }
+        ],
+        "conflicts": []
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "fe8bc48a-9101-5194-b8d2-cbe67d8013b6": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.4,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.4,
+            "candidates": [
+              {
+                "inn": "2221237918",
+                "ogrn": "1182225003520",
+                "name": "ООО \"АЛТАЙ-ЭНЗИМ\"",
+                "name_norm": "алтай энзим",
+                "city": "Барнаул",
+                "address": "г Барнаул, пр-кт Ленина, д 61, офис 211",
+                "opf": "ООО",
+                "score": 0.4,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=2221237918"
+              },
+              {
+                "inn": "2225237919",
+                "ogrn": "1252200014197",
+                "name": "ООО \"АЛТАЙ-ЭНЗИМ 84\"",
+                "name_norm": "алтай энзим 84",
+                "city": "Барнаул",
+                "address": "г Барнаул, село Лебяжье, ул Раздольная, д 20",
+                "opf": "ООО",
+                "score": 0.26666666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=2225237919"
+              }
+            ],
+            "checked_at": "2025-10-17T11:37:02.508483",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "f02d3889-8b43-506d-9079-4866a2ecd1d7",
+              "contact_name": "Команда Алтай-Энзим",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "no_org_phones",
+                  "message": "Организация не имеет телефонов"
+                }
+              ],
+              "confidence_scores": [],
+              "decision": null,
+              "skip_reasons": [
+                "no_org_phones"
+              ]
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 1,
+            "contacts_enriched": 0,
+            "phones_added_total": 0,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.0,
+            "phones_skipped_by_reason": {
+              "low_confidence": 0,
+              "no_org_phones": 1,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-17T04:37:02.509260",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 0,
+        "organizations_processed": 0,
+        "contacts_processed": 0,
+        "ui_format_applied": 0,
+        "phones_sanitized": 0
+      }
+    },
+    "provider_used": "OpenRouter",
+    "model": "google/gemini-2.0-flash-001",
+    "processing_time": 2.505021333694458,
+    "text_length": 291,
+    "chunks_processed": 1,
+    "total_contacts_found": 1,
+    "unique_contacts_found": 1,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-08-29/email_002_20250829_20250829_yandex_ru_3b30f3a1.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 8.124
+  }
+}

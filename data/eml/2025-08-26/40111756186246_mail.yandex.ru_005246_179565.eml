@@ -1,0 +1,39 @@
+Received:  from forward100d.mail.yandex.net ([178.154.239.211]:56834)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98.2 (FreeBSD))
+	 (envelope-from <khatashkeeva@yandex.ru>)
+	 id 1uqmHk-00000000PAD-0a2Q 
+	for s.voronova@dna-technology.ru;
+	Tue, 26 Aug 2025 08:31:56 +0300
+Received: from mail-nwsmtp-mxback-production-main-72.iva.yp-c.yandex.net (mail-nwsmtp-mxback-production-main-72.iva.yp-c.yandex.net [IPv6:2a02:6b8:c0c:789d:0:640:3450:0])
+	by forward100d.mail.yandex.net (Yandex) with ESMTPS id BF630C0086
+	for <s.voronova@dna-technology.ru>; Tue, 26 Aug 2025 08:31:54 +0300 (MSK)
+Received: from mail.yandex.ru (2a02:6b8:c0c:a496:0:640:7879:0 [2a02:6b8:c0c:a496:0:640:7879:0])
+	by mail-nwsmtp-mxback-production-main-72.iva.yp-c.yandex.net (mxback/Yandex) with HTTPS id rVQKPq01m4Y0-pHmcxBBZ;
+	Tue, 26 Aug 2025 08:31:54 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1756186314; bh=EkAyr7ajrjymyG9uC7Y9EMI2ab+vLdcBq8nuQwwz7fI=;
+	h=Message-Id:Date:Subject:To:From;
+	b=tQJiWoIJCt1G6eDAef5UFwUwirnl5gT3XHfwjj13BG0y70TT63j8XhOOxB2rek6oU
+	 NnxLyDUl/2vh66k7dWJ+WxYdrLXnslejTESKeClwVD51wl7zmtnIBzipHyqPD1IBtF
+	 Bu5YZOsAj65bCioZA0laeqTv/C59hDbZAhy7LGmg=
+Authentication-Results: mail-nwsmtp-mxback-production-main-72.iva.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+Received: by mail-sendbernar-production-main-94.iva.yp-c.yandex.net (sendbernar/Yandex) with HTTPS id 427b021d2cf299a574d9a2fbfe2f451e;
+	Tue, 26 Aug 2025 08:31:54 +0300
+From: =?utf-8?B?0J7Qu9GM0LPQsCDQpdCw0YLQsNGI0LrQtdC10LLQsA==?= <khatashkeeva@yandex.ru>
+To: "s.voronova@dna-technology.ru" <s.voronova@dna-technology.ru>
+Subject: =?utf-8?B?0J7RgdGC0LDRgtC60Lgg0L/QviDQutC+0L3RgtGA0LDQutGC0LDQvA==?=
+MIME-Version: 1.0
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Tue, 26 Aug 2025 13:31:54 +0800
+Message-Id: <40111756186246@mail.yandex.ru>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/html; charset=utf-8
+Received-SPF: pass (mail.dna-technology.ru: domain of yandex.ru designates 178.154.239.211 as permitted sender) client-ip=178.154.239.211; envelope-from=khatashkeeva@yandex.ru; helo=forward100d.mail.yandex.net;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+<div> </div><div>Здравствуйте, Светлана!</div><div>Отправьте пожалуйста остатки по контрактам</div><div>-- </div><div>С уважением Ольга Хаташкеева</div><div> </div>

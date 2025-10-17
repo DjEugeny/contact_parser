@@ -1,0 +1,54 @@
+{
+  "thread_id": "20251009_dna-technology_ru_486de862",
+  "message_id": "<fe666679-c607-47f0-864f-08873e8fc1fd@dna-technology.ru>",
+  "email_num_in_day": 17,
+  "total_emails_in_day": 29,
+  "from": "fetisova@dna-technology.ru",
+  "to": "m.varlamov@clt-lab.ru, zn@clt-lab.ru, s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "m.varlamov@clt-lab.ru",
+    "zn@clt-lab.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "счет 11443",
+  "date": "Thu, 9 Oct 2025 12:30:22 +0300",
+  "parsed_date": "2025-10-09T16:30:22+07:00",
+  "body_raw": "Всем добрый день!\r\n\n09.10.2025 9:16, Maksim Varlamov пишет:\r\n>\r\n> Уважаемые коллеги, добрый день\r\n>\r\n> Мы 6.10 отправили Вам запрос, прошу прислать счет на согласование.\r\n>\r\n> Спасибо.\r\n>\r\n> С уважением,\r\n>\r\n> Варламов Максим Игоревич\r\n>\r\n> моб. тел. +7 (951) 686-72-34\r\n>\r\n> www.clt-lab.ru <http://www.clt-lab.ru/>\r\n>\r\n> *From:*Елена Лавицкая <zn@clt-lab.ru>\r\n> *Sent:* Monday, October 6, 2025 6:33 PM\r\n> *To:* Фетисова Ирина Николаевна ДНК-Технология \r\n> <fetisova@dna-technology.ru>\r\n> *Cc:* Воронова Светлана ДНК-Технология <s.voronova@dna-technology.ru>; \r\n> СПБ Варламов Максим <m.varlamov@clt-lab.ru>\r\n> *Subject:* заявка на октябрь\r\n>\r\n> Ирина Николаевна, день добрый!\r\n> Во вложении заявка, просьба выставить счет\r\n>\r\n> С уважением,\r\n> Центр лабораторных технологий АБВ\r\n> Лавицкая Елена\r\n> тел.: +7 (913) 532-83-09\r\n>\r\n> *www.clt-lab.ru <http://www.clt-lab.ru/>*\r\n>\r\n-- \r\nC Уважением,\r\nменеджер по продажам ООО \"ДНК-Технология\"\r\nФетисова Ирина.\r\nНаш сайт:www.dna-technology.ru\r\n\nтел. 8(495)6401771",
+  "body_clean": "Всем добрый день!\n09.10.2025 9:16, Maksim Varlamov пишет:\n[quoted message elided #9878024bbb21]\n> Уважаемые коллеги, добрый день\n> Мы 6.10 отправили Вам запрос, прошу прислать счет на согласование.\n> Спасибо.\n> С уважением,\n> Варламов Максим Игоревич\n> моб. тел. +7 (951) 686-72-34\n> www.clt-lab.ru http://www.clt-lab.ru/\n> *From:*Елена Лавицкая zn@clt-lab.ru\n> *Sent:* Monday, October 6, 2025 6:33 PM\n> *To:* Фетисова Ирина Николаевна ДНК-Технология\n> fetisova@dna-technology.ru\n> *Cc:* Воронова Светлана ДНК-Технология s.voronova@dna-technology.ru;\n> СПБ Варламов Максим m.varlamov@clt-lab.ru\n> *Subject:* заявка на октябрь\n> Ирина Николаевна, день добрый!\n> Во вложении заявка, просьба выставить счет\n> Центр лабораторных технологий АБВ\n> Лавицкая Елена\n> тел.: +7 (913) 532-83-09\n> *www.clt-lab.ru http://www.clt-lab.ru/*\nC Уважением,\nменеджер по продажам ООО \"ДНК-Технология\"\nФетисова Ирина.\nНаш сайт:www.dna-technology.ru\nтел. 8(495)6401771",
+  "char_count": 946,
+  "attachments": [
+    {
+      "id": 574,
+      "original_filename": "11443.pdf",
+      "saved_filename": "20251009_56ba73be_010443_319319_attach_11443.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-10-09/20251009_56ba73be_010443_319319_attach_11443.pdf",
+      "relative_path": "attachments/2025-10-09/20251009_56ba73be_010443_319319_attach_11443.pdf",
+      "file_size": 271220,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 18:04:43",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<fe666679-c607-47f0-864f-08873e8fc1fd@dna-technology.ru>",
+      "thread_id": "20251009_dna-technology_ru_486de862",
+      "sha256": "ca9088044e0d7b21136b45eee7e3f2f7a01efd4bf4e711eac3922f4b07d151fd",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T01:04:43.317925+07:00",
+  "raw_size": 383426,
+  "date_folder": "2025-10-09",
+  "eml_path": "eml/2025-10-09/fe666679-c607-47f0-864f-08873e8fc1fd_dna-technology.ru_010443_314351.eml"
+}

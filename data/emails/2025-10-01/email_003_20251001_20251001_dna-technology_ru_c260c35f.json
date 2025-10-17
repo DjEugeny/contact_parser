@@ -1,0 +1,61 @@
+{
+  "thread_id": "20251001_dna-technology_ru_c260c35f",
+  "message_id": "<c5ad4ea1-47e9-465b-8aeb-c184c009498a@dna-technology.ru>",
+  "email_num_in_day": 3,
+  "total_emails_in_day": 7,
+  "from": "prisyazhnyuk@dna-technology.ru",
+  "to": "anna7-78@mail.ru",
+  "cc": "s.voronova@dna-technology.ru, ozernaya@dna-technology.ru",
+  "to_emails": [
+    "anna7-78@mail.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru",
+    "ozernaya@dna-technology.ru"
+  ],
+  "subject": "Re: Fwd: Fwd: запрос кп",
+  "date": "Wed, 1 Oct 2025 10:47:23 +0300",
+  "parsed_date": "2025-10-01T14:47:23+07:00",
+  "body_raw": "Добрый день, Анна!\r\n\nКП во вложении.\r\n\n> ------- Перенаправленное сообщение --------\r\n> Тема: запрос кп\r\n> Дата: Fri, 26 Sep 2025 07:58:55 +0300\r\n> От: Анна Фомина <anna7-78@mail.ru>\r\n> Отвечать: Анна Фомина <anna7-78@mail.ru>\r\n> Кому: fetisova@dna-technology.ru\r\n>\r\n>\r\n>\r\n> Добрый день!\r\n> Выставите, пожалуйста кп на ООО «Логомед» на:\r\n>\r\n> 1. Амплификатор детектирующий ДТпрайм — 1 шт\r\n>\r\n> Для ОГАУЗ \"ИГКБ № 8\" ИНН3810009342\r\n> С уважением, Анна\r\n>\r\n> ООО «Логомед»\r\n> тел. (3952) 55-46-71 доб 154, 89643547544\r\n>\r\n> e-mail:anna7-78@mail.ru\r\n-- \r\nДокумент без названия\r\n\n*С уважением, Присяжнюк Маргарита Александровна,*\r\n\n*менеджер по продаже оборудования *\r\n\n**ООО \"ДНК-Технология\" **\r\n\n***Тел:**+7 (495) 640-17-71 доб.2007***\r\n\n**\r\n\n*E-mail:**prisyazhnyuk@dna-technology.ru *\r\n\n*Web:**www.dna-technology.ru <https://dna-technology.ru>*\r\n\n<https://dna-technology.ru>**",
+  "body_clean": "Добрый день, Анна!\nКП во вложении.\n> ------- Перенаправленное сообщение --------\n> Тема: запрос кп\n> Дата: Fri, 26 Sep 2025 07:58:55 +0300\n> От: Анна Фомина anna7-78@mail.ru\n> Отвечать: Анна Фомина anna7-78@mail.ru\n> Кому: fetisova@dna-technology.ru\n> Добрый день!\n> Выставите, пожалуйста кп на ООО «Логомед» на:\n> 1. Амплификатор детектирующий ДТпрайм — 1 шт\n> Для ОГАУЗ \"ИГКБ № 8\" ИНН3810009342\n> С уважением, Анна\n> ООО «Логомед»\n> тел. (3952) 55-46-71 доб 154, 89643547544\n> e-mail:anna7-78@mail.ru\nДокумент без названия\n*С уважением, Присяжнюк Маргарита Александровна,*\n*менеджер по продаже оборудования *\n**ООО \"ДНК-Технология\" **\n***Тел:**+7 (495) 640-17-71 доб.2007***\n*E-mail:**prisyazhnyuk@dna-technology.ru *\n*Web:**www.dna-technology.ru https://dna-technology.ru*\nhttps://dna-technology.ru**",
+  "char_count": 803,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:logo*",
+      "original_filename": "logo.png",
+      "is_inline": true
+    },
+    {
+      "id": 535,
+      "original_filename": "Ком.пред.01.10.2025 для Иркутск Логомед для Иркутск ОГАУЗ ИГКБ № 8 (ДТпрайм II 5М1) .pdf",
+      "saved_filename": "20251001_d0b72619_010202_120451_attach_Ком.пред.01.10.2025 для Иркутск Логомед для Иркутск ОГАУЗ ИГКБ _ 8 _ДТпрайм II 5М1_ .pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-10-01/20251001_d0b72619_010202_120451_attach_Ком.пред.01.10.2025 для Иркутск Логомед для Иркутск ОГАУЗ ИГКБ _ 8 _ДТпрайм II 5М1_ .pdf",
+      "relative_path": "attachments/2025-10-01/20251001_d0b72619_010202_120451_attach_Ком.пред.01.10.2025 для Иркутск Логомед для Иркутск ОГАУЗ ИГКБ _ 8 _ДТпрайм II 5М1_ .pdf",
+      "file_size": 196039,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 18:02:02",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<c5ad4ea1-47e9-465b-8aeb-c184c009498a@dna-technology.ru>",
+      "thread_id": "20251001_dna-technology_ru_c260c35f",
+      "sha256": "a9c2dee57bcaf973257b25c2223e4e3a28d2614075065d3ce629b6db9eb93be4",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 1,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T01:02:02.117755+07:00",
+  "raw_size": 392418,
+  "date_folder": "2025-10-01",
+  "eml_path": "eml/2025-10-01/c5ad4ea1-47e9-465b-8aeb-c184c009498a_dna-technology.ru_010202_109472.eml"
+}

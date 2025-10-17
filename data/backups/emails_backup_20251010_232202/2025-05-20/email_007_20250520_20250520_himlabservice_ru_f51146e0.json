@@ -1,0 +1,33 @@
+{
+  "thread_id": "20250520_himlabservice_ru_f51146e0",
+  "message_id": "<404448459.20250520154057@himlabservice.ru>",
+  "from": "hls@himlabservice.ru",
+  "to": "fetisova@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru, torgi@dna-technology.ru",
+  "to_emails": [
+    "fetisova@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru",
+    "torgi@dna-technology.ru"
+  ],
+  "subject": "Запрос счет",
+  "date": "Tue, 20 May 2025 15:40:57 +0700",
+  "parsed_date": "2025-05-20T15:40:57+07:00",
+  "body": "Здравствуйте!\nПрошу Вас выставить счет на ООО \"ХимЛабСервис\" ИНН 7017164088 на позиции:\nR1-H904-N3/4\nR1-H961-N3/4\nR1-H957-N3/4\nP-021/4 по 1 набору\nЗаранее благодарен!\nС  уважением Цыбанов Баир Валерьевич\nМенеджер по продажам\nООО \"ХимЛабСервис\"\n+7(3822)42-45-35\n634045 г. Томск, ул. Мокрушина 13А\nhttps://himlabservice.ru/",
+  "char_count": 321,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-09-03T18:39:46.138301+07:00",
+  "raw_size": 2810,
+  "date_folder": "2025-05-20"
+}

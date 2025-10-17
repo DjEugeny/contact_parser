@@ -1,0 +1,52 @@
+{
+  "thread_id": "20250711_medgenetics_ru_d60856f9",
+  "message_id": "<edd8abc0dc20b420ea57cf09442417e3@medgenetics.ru>",
+  "email_num_in_day": 4,
+  "total_emails_in_day": 32,
+  "from": "mariya.skleimova@medgenetics.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Запрос КП на реактивы",
+  "date": "Fri, 11 Jul 2025 10:26:41 +0700",
+  "parsed_date": "2025-07-11T10:26:41+07:00",
+  "body_raw": "Добрый день, Светлана Сергеевна! \r\n\nПрошу выслать КП на реактивы,\r\n\nПо возможности альтернативные КП и ТЗ с указанием ОКПД2 или КТРУ \r\n\nС\r\nуважением \r\n\nСклеймова Мария Михайловна",
+  "body_clean": "Добрый день, Светлана Сергеевна!\nПрошу выслать КП на реактивы,\nПо возможности альтернативные КП и ТЗ с указанием ОКПД2 или КТРУ\nС\nуважением\nСклеймова Мария Михайловна",
+  "char_count": 166,
+  "attachments": [
+    {
+      "id": 315,
+      "original_filename": "ДНК-Технология_реактивы_07.2025.docx",
+      "saved_filename": "20250711_c753c180_004048_551319_attach_ДНК-Технология_реактивы_07.2025.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-07-11/20250711_c753c180_004048_551319_attach_ДНК-Технология_реактивы_07.2025.docx",
+      "relative_path": "attachments/2025-07-11/20250711_c753c180_004048_551319_attach_ДНК-Технология_реактивы_07.2025.docx",
+      "file_size": 18584,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-13 17:40:48",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<edd8abc0dc20b420ea57cf09442417e3@medgenetics.ru>",
+      "thread_id": "20250711_medgenetics_ru_d60856f9",
+      "sha256": "25b1cde05bf8dc48f453ae2f0b6bb08784082ef8751a2134f80d5deaa09f0634",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:40:48.549111+07:00",
+  "raw_size": 30224,
+  "date_folder": "2025-07-11",
+  "eml_path": "eml/2025-07-11/edd8abc0dc20b420ea57cf09442417e3_medgenetics.ru_004048_541184.eml"
+}

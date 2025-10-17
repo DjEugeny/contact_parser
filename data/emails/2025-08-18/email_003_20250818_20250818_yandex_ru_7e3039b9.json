@@ -1,0 +1,35 @@
+{
+  "thread_id": "20250818_yandex_ru_7e3039b9",
+  "message_id": "<417201755503060@mail.yandex.ru>",
+  "email_num_in_day": 3,
+  "total_emails_in_day": 10,
+  "from": "uvs-bio@yandex.ru",
+  "to": "torgi@dna-technology.ru, s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "torgi@dna-technology.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Запрос КП",
+  "date": "Mon, 18 Aug 2025 10:47:33 +0300",
+  "parsed_date": "2025-08-18T14:47:33+07:00",
+  "body_raw": "Добрый день, прошу предоставить коммерческое предложение ГБУЗ РТ Дзун-Хемчикский ММЦ ИНН 1709001800\n\nR1-P440-s3/9 Sars-Cov2 + грипп А/В - 10 наб\n\nПроба НК-S - 10 наб\n\n \n\n-- \n\nС уважением,\n\nООО \"ЮВС-БИО\"\n\n(499) 157-74-49",
+  "body_clean": "Добрый день, прошу предоставить коммерческое предложение ГБУЗ РТ Дзун-Хемчикский ММЦ ИНН 1709001800\nR1-P440-s3/9 Sars-Cov2 + грипп А/В - 10 наб\nПроба НК-S - 10 наб\nС уважением,\nООО \"ЮВС-БИО\"\n(499) 157-74-49",
+  "char_count": 206,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:51:13.128753+07:00",
+  "raw_size": 2717,
+  "date_folder": "2025-08-18",
+  "eml_path": "eml/2025-08-18/417201755503060_mail.yandex.ru_005113_119642.eml"
+}

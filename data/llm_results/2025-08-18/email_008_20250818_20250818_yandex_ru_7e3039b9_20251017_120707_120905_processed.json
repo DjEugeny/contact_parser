@@ -1,0 +1,428 @@
+{
+  "source_file": "email_008_20250818_20250818_yandex_ru_7e3039b9.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ЮВС-БИО",
+        "inn": null,
+        "website": null,
+        "city": null,
+        "address": null,
+        "emails": [],
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (499) 157-74-49",
+            "normalized": "+74991577449",
+            "original": "(499) 157-74-49",
+            "extension": null
+          }
+        ],
+        "gid": "766c96f8-9631-5e3b-b6fb-b63b55b6094a"
+      },
+      {
+        "organization_id": 2,
+        "name": "ДНК-Технология",
+        "inn": null,
+        "website": "dna-technology.ru",
+        "city": "Москва",
+        "address": "Москва, Варшавское шоссе, дом 125Ж, корпус 5",
+        "emails": [
+          "torgi@dna-technology.ru"
+        ],
+        "phones": [
+          {
+            "type": null,
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71 (доб. 2036)",
+            "extension": "2036"
+          }
+        ],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      },
+      {
+        "organization_id": 3,
+        "name": "РТ Дзун-Хемчикский ММЦ",
+        "inn": "1709001800",
+        "website": null,
+        "city": null,
+        "address": null,
+        "emails": [],
+        "phones": [],
+        "gid": "60c5d5d8-f72f-524d-9d3a-57b669a16942"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Фролова Мария Борисовна",
+        "organization_id": 2,
+        "position": "Специалист по тендерам",
+        "email": "torgi@dna-technology.ru",
+        "phones": [
+          {
+            "type": "main",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71 (доб. 2036)",
+            "extension": "2036"
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 0.95,
+        "value_score": 9,
+        "gid": "bc8372a9-45af-581c-b793-849941e3dfb9",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "torgi@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760677745.2381198,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      }
+    ],
+    "business_context": "ООО \"ЮВС-БИО\" запросило КП у ДНК-Технологии для ГБУЗ РТ Дзун-Хемчикский ММЦ на наборы R1-P440-s3/9 Sars-Cov2 + грипп А/В и Проба НК-S. Фролова Мария Борисовна (ДНК-Технология) отправила КП во вложении и уточнила возможность замены на пробирки в КП. ООО \"ЮВС-БИО\" запросило наличие набора с пробирками 0,2 - R3-P440-23/9.",
+    "summary": {
+      "topic": "Запрос и отправка КП для ГБУЗ РТ Дзун-Хемчикский ММЦ",
+      "product_interest": "R1-P440-s3/9 Sars-Cov2 + грипп А/В, Проба НК-S, R3-P440-23/9",
+      "communication_stage": "запрос КП, отправка КП, уточнение",
+      "request_type": "requested_quote"
+    },
+    "key_points": [
+      "ООО \"ЮВС-БИО\" запросило КП у ДНК-Технологии для ГБУЗ РТ Дзун-Хемчикский ММЦ",
+      "Фролова Мария Борисовна (ДНК-Технология) отправила КП во вложении",
+      "Обсуждается замена на пробирки в КП и наличие набора R3-P440-23/9"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 1,
+        "organization_id": 2,
+        "message_subject": "Запрос КП;",
+        "message_date": "2025-08-18T12:20:00+00:00",
+        "message_id_hint": null,
+        "role_in_message": "sender",
+        "interaction_type": "sent_quote",
+        "summary": "Фролова Мария Борисовна (ДНК-Технология) отправила КП и уточнила возможность замены на пробирки.",
+        "human_note": "Фролова Мария Борисовна (ДНК-Технология) отправила КП в ответ на запрос и предложила заменить на пробирки.",
+        "participants": {
+          "actor": "Фролова Мария Борисовна (ДНК-Технология, Специалист по тендерам)",
+          "audience": [
+            "ООО \"ЮВС-БИО\"",
+            "s.voronova@dna-technology.ru"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      },
+      {
+        "interaction_local_id": 2,
+        "contact_id": 1,
+        "organization_id": 2,
+        "message_subject": "Запрос КП;",
+        "message_date": "2025-08-18T12:20:00+00:00",
+        "message_id_hint": null,
+        "role_in_message": "sender",
+        "interaction_type": "clarification",
+        "summary": "Фролова Мария Борисовна (ДНК-Технология) уточнила срок поставки.",
+        "human_note": "Фролова Мария Борисовна (ДНК-Технология) уточнила, что срок поставки дольше.",
+        "participants": {
+          "actor": "Фролова Мария Борисовна (ДНК-Технология, Специалист по тендерам)",
+          "audience": [
+            "ООО \"ЮВС-БИО\"",
+            "s.voronova@dna-technology.ru"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ЮВС-БИО\",\n      \"inn\": null,\n      \"website\": null,\n      \"city\": null,\n      \"address\": null,\n      \"emails\": [\n        \"uvs-bio@yandex.ru\"\n      ],\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"(499) 157-74-49\",\n          \"normalized\": null,\n          \"original\": \"(499) 157-74-49\",\n          \"extension\": null\n        }\n      ]\n    },\n    {\n      \"organization_id\": 2,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": null,\n      \"website\": \"dna-technology.ru\",\n      \"city\": \"Москва\",\n      \"address\": \"Москва, Варшавское шоссе, дом 125Ж, корпус 5\",\n      \"emails\": [\n        \"torgi@dna-technology.ru\"\n      ],\n      \"phones\": [\n        {\n          \"type\": null,\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": \"+74956401771\",\n          \"original\": \"+7 (495) 640-17-71 (доб. 2036)\",\n          \"extension\": \"2036\"\n        }\n      ]\n    },\n    {\n      \"organization_id\": 3,\n      \"name\": \"ГБУЗ РТ Дзун-Хемчикский ММЦ\",\n      \"inn\": \"1709001800\",\n      \"website\": null,\n      \"city\": null,\n      \"address\": null,\n      \"emails\": [],\n      \"phones\": []\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Фролова Мария Борисовна\",\n      \"organization_id\": 2,\n      \"position\": \"Специалист по тендерам\",\n      \"email\": \"torgi@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.95\n    }\n  ],\n  \"business_context\": \"ООО \\\"ЮВС-БИО\\\" запросило КП у ДНК-Технологии для ГБУЗ РТ Дзун-Хемчикский ММЦ на наборы R1-P440-s3/9 Sars-Cov2 + грипп А/В и Проба НК-S. Фролова Мария Борисовна (ДНК-Технология) отправила КП во вложении и уточнила возможность замены на пробирки в КП. ООО \\\"ЮВС-БИО\\\" запросило наличие набора с пробирками 0,2 - R3-P440-23/9.\",\n  \"summary\": {\n    \"topic\": \"Запрос и отправка КП для ГБУЗ РТ Дзун-Хемчикский ММЦ\",\n    \"product_interest\": \"R1-P440-s3/9 Sars-Cov2 + грипп А/В, Проба НК-S, R3-P440-23/9\",\n    \"communication_stage\": \"запрос КП, отправка КП, уточнение\",\n    \"request_type\": \"requested_quote\"\n  },\n  \"key_points\": [\n    \"ООО \\\"ЮВС-БИО\\\" запросило КП у ДНК-Технологии для ГБУЗ РТ Дзун-Хемчикский ММЦ\",\n    \"Фролова Мария Борисовна (ДНК-Технология) отправила КП во вложении\",\n    \"Обсуждается замена на пробирки в КП и наличие набора R3-P440-23/9\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 1,\n      \"organization_id\": 2,\n      \"message_subject\": \"Запрос КП;\",\n      \"message_date\": \"2025-08-18T12:20:00+00:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"sent_quote\",\n      \"summary\": \"Фролова Мария Борисовна (ДНК-Технология) отправила КП и уточнила возможность замены на пробирки.\",\n      \"human_note\": \"Фролова Мария Борисовна (ДНК-Технология) отправила КП в ответ на запрос и предложила заменить на пробирки.\",\n      \"participants\": {\n        \"actor\": \"Фролова Мария Борисовна (ДНК-Технология, Специалист по тендерам)\",\n        \"audience\": [\"ООО \\\"ЮВС-БИО\\\"\", \"s.voronova@dna-technology.ru\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    },\n    {\n      \"interaction_local_id\": 2,\n      \"contact_id\": 1,\n      \"organization_id\": 2,\n      \"message_subject\": \"Запрос КП;\",\n      \"message_date\": \"2025-08-18T12:20:00+00:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"clarification\",\n      \"summary\": \"Фролова Мария Борисовна (ДНК-Технология) уточнила срок поставки.\",\n      \"human_note\": \"Фролова Мария Борисовна (ДНК-Технология) уточнила, что срок поставки дольше.\",\n      \"participants\": {\n        \"actor\": \"Фролова Мария Борисовна (ДНК-Технология, Специалист по тендерам)\",\n        \"audience\": [\"ООО \\\"ЮВС-БИО\\\"\", \"s.voronova@dna-technology.ru\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    }\n  ]\n}\n```",
+    "contact_mentions": [],
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-17T12:09:05.238659",
+      "stats": {
+        "processed_emails": 6,
+        "total_organizations_processed": 16,
+        "total_contacts_processed": 6,
+        "organizations_deduplicated": 0,
+        "contacts_filtered": 0,
+        "contacts_enriched": 6,
+        "data_normalized": 22,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 1,
+        "phones_added_to_contacts": 1
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1,
+        "2": 2,
+        "3": 3
+      },
+      "contact_mapping": {
+        "1": 1
+      },
+      "filtering": {
+        "contacts_without_info_filtered": 0,
+        "mentions_saved": 0
+      },
+      "provenance": {
+        "contacts": {
+          "1": {
+            "backfill_skipped": "no_personal_location_signal"
+          }
+        }
+      },
+      "email_classification": {
+        "1": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        },
+        "2": {
+          "kept": [
+            "torgi@dna-technology.ru"
+          ],
+          "removed": [],
+          "removed_types": {}
+        },
+        "3": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "766c96f8-9631-5e3b-b6fb-b63b55b6094a",
+            "match_rule": "FALLBACK",
+            "key_tuple": [
+              "ORG",
+              "FALLBACK",
+              "ad764b2a8fd27197"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 2,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "DOMAIN",
+            "key_tuple": [
+              "ORG",
+              "DOMAIN",
+              "dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 3,
+            "gid": "60c5d5d8-f72f-524d-9d3a-57b669a16942",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "1709001800"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "gid": "bc8372a9-45af-581c-b793-849941e3dfb9",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "torgi@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 2,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          }
+        ],
+        "conflicts": []
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "766c96f8-9631-5e3b-b6fb-b63b55b6094a": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.4,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.4,
+            "candidates": [
+              {
+                "inn": "7714274641",
+                "ogrn": "1027714002403",
+                "name": "ООО \"ЮВС-БИО\"",
+                "name_norm": "ювс био",
+                "city": "Москва",
+                "address": "г Москва, Ленинградский пр-кт, д 45 к 1, офис 57",
+                "opf": "ООО",
+                "score": 0.4,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7714274641"
+              }
+            ],
+            "checked_at": "2025-10-17T12:09:03.403667",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "needs_review",
+            "inn": null,
+            "confidence": 0.68,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.68,
+            "candidates": [
+              {
+                "inn": "7723537840",
+                "ogrn": "1057746762105",
+                "name": "ООО \"ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 5, помещ 12",
+                "opf": "ООО",
+                "score": 0.68,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723537840"
+              },
+              {
+                "inn": "7723396678",
+                "ogrn": "1157746566031",
+                "name": "ООО \"НПФ ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "нпф днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 7",
+                "opf": "ООО",
+                "score": 0.5541666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723396678"
+              }
+            ],
+            "checked_at": "2025-10-17T12:09:03.618340",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "60c5d5d8-f72f-524d-9d3a-57b669a16942": {
+            "decision": "skipped",
+            "inn": "1709001800",
+            "confidence": 1.0,
+            "source": "existing",
+            "method": "existing_valid_inn",
+            "score": 1.0,
+            "candidates": [],
+            "checked_at": "2025-10-17T12:09:03.618403",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "bc8372a9-45af-581c-b793-849941e3dfb9",
+              "contact_name": "Фролова Мария Борисовна",
+              "phones_added": [
+                {
+                  "phone": "+74956401771",
+                  "type": "main",
+                  "confidence": 0.85,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.85
+              ],
+              "decision": {
+                "confidence": 0.85,
+                "contact_gid": "bc8372a9-45af-581c-b793-849941e3dfb9",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T05:09:03.619614",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (0.85 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 1,
+            "contacts_enriched": 1,
+            "phones_added_total": 1,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.85,
+            "phones_skipped_by_reason": {
+              "low_confidence": 0,
+              "no_org_phones": 0,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-17T05:09:03.619669",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 3,
+        "organizations_processed": 2,
+        "contacts_processed": 1,
+        "ui_format_applied": 3,
+        "phones_sanitized": 3
+      }
+    },
+    "provider_used": "OpenRouter",
+    "model": "google/gemini-2.0-flash-001",
+    "processing_time": 2.508965015411377,
+    "text_length": 1270,
+    "chunks_processed": 1,
+    "total_contacts_found": 1,
+    "unique_contacts_found": 1,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-08-18/email_008_20250818_20250818_yandex_ru_7e3039b9.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 15.182
+  }
+}

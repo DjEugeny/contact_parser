@@ -1,0 +1,53 @@
+{
+  "thread_id": "20250415_promix_ru_4ca286a7",
+  "message_id": "<6a500f16-b993-4cf8-84a0-504917ed7912@promix.ru>",
+  "email_num_in_day": 1,
+  "total_emails_in_day": 19,
+  "from": "v.kinsht@promix.ru",
+  "to": "torgi@dna-technology.ru, s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "torgi@dna-technology.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Промикс, запрос КП",
+  "date": "Tue, 15 Apr 2025 08:57:03 +0700",
+  "parsed_date": "2025-04-15T08:57:03+07:00",
+  "body_raw": "Коллеги, доброе утро! Дайте нам КП, пожалуйста.\r\n\n-- \r\nС уважением.\r\nРуководитель отдела поставок ООО \"Промикс\"\r\nк.м.н. Владимир Н. Киншт\r\n+7(913)919-6419",
+  "body_clean": "Коллеги, доброе утро! Дайте нам КП, пожалуйста.\nС уважением.\nРуководитель отдела поставок ООО \"Промикс\"\nк.м.н. Владимир Н. Киншт\n+7(913)919-6419",
+  "char_count": 144,
+  "attachments": [
+    {
+      "id": 87,
+      "original_filename": "Заявка на регистрацию проекта по заказу № 131632.ods",
+      "saved_filename": "20250415_8259aa46_220008_attach_Заявка на регистрацию проекта по заказу _ 131632.ods",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-15/20250415_8259aa46_220008_attach_Заявка на регистрацию проекта по заказу _ 131632.ods",
+      "relative_path": "attachments/2025-04-15/20250415_8259aa46_220008_attach_Заявка на регистрацию проекта по заказу _ 131632.ods",
+      "file_size": 18276,
+      "file_type": "application/vnd.oasis.opendocument.spreadsheet",
+      "content_type": "application/vnd.oasis.opendocument.spreadsheet",
+      "saved_at": "2025-10-11 15:00:08",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<6a500f16-b993-4cf8-84a0-504917ed7912@promix.ru>",
+      "thread_id": "20250415_promix_ru_4ca286a7",
+      "sha256": "d591c3701ba91b0f15060598397bbb43fe0f5cf42f27a720c1534ba47ff344c8",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:22:50.175510+07:00",
+  "raw_size": 28337,
+  "date_folder": "2025-04-15",
+  "eml_path": "eml/2025-04-15/6a500f16-b993-4cf8-84a0-504917ed7912_promix.ru_002250_174019.eml"
+}

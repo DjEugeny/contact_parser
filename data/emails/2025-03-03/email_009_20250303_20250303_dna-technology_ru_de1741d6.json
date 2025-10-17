@@ -1,0 +1,54 @@
+{
+  "thread_id": "20250303_dna-technology_ru_de1741d6",
+  "message_id": "<9b8ea6c9-37bf-4b20-ba85-93c42533cb2f@dna-technology.ru>",
+  "email_num_in_day": 9,
+  "total_emails_in_day": 25,
+  "from": "torgi@dna-technology.ru",
+  "to": "ip_kas@inbox.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "ip_kas@inbox.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Fwd: КККВД №1",
+  "date": "Mon, 3 Mar 2025 11:17:34 +0300",
+  "parsed_date": "2025-03-03T15:17:34+07:00",
+  "body_raw": "Добрый день!\r\n\nКП во вложении к письму.\r\n\n> Тема: КККВД №1\r\n> Дата: Mon, 03 Mar 2025 07:21:29 +0300\r\n> От: ИП Ковалевич А.С. <ip_kas@inbox.ru>\r\n> Отвечать: ИП Ковалевич А.С. <ip_kas@inbox.ru>\r\n> Кому: Фетисова Ирина Николаевна <fetisova@dna-technology.ru>\r\n> Копия: s.voronova <s.voronova@dna-technology.ru>\r\n>\r\n>\r\n>\r\n> Ирина, добрый день!\r\n> Пришлите пожалуйста КП с согласованной скидкой на набор Андрофлор 12 \r\n> тестов — 3 набора\r\n> Поставка в КГБУЗ КККВД №1 по прямому договору\r\n> С уважением,\r\n> ИП Ковалевич А.С.\r\n\n-- \r\nПросьба сохранять переписку при ответе.\r\nС уважением, специалист по тендерам\r\nООО \"ДНК-Технология\" Разливахин Дмитрий Алексеевич\r\nТелефон 8 (495) 640 -17 -71 доб.2039\r\nmailto:torgi@dna-technology.ru",
+  "body_clean": "Добрый день!\nКП во вложении к письму.\n> Тема: КККВД №1\n> Дата: Mon, 03 Mar 2025 07:21:29 +0300\n> От: ИП Ковалевич А.С. ip_kas@inbox.ru\n> Отвечать: ИП Ковалевич А.С. ip_kas@inbox.ru\n> Кому: Фетисова Ирина Николаевна fetisova@dna-technology.ru\n> Копия: s.voronova s.voronova@dna-technology.ru\n> Ирина, добрый день!\n> Пришлите пожалуйста КП с согласованной скидкой на набор Андрофлор 12\n> тестов — 3 набора\n> Поставка в КГБУЗ КККВД №1 по прямому договору\n> С уважением,\n> ИП Ковалевич А.С.\nПросьба сохранять переписку при ответе.\nС уважением, специалист по тендерам\nООО \"ДНК-Технология\" Разливахин Дмитрий Алексеевич\nТелефон 8 (495) 640 -17 -71 доб.2039\nmailto:torgi@dna-technology.ru",
+  "char_count": 681,
+  "attachments": [
+    {
+      "id": 597,
+      "original_filename": "КП 2750 от 03.03.2025.pdf",
+      "saved_filename": "20250303_7744317f_071316_679307_attach_КП 2750 от 03.03.2025.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-03/20250303_7744317f_071316_679307_attach_КП 2750 от 03.03.2025.pdf",
+      "relative_path": "attachments/2025-03-03/20250303_7744317f_071316_679307_attach_КП 2750 от 03.03.2025.pdf",
+      "file_size": 210889,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:13:16",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<9b8ea6c9-37bf-4b20-ba85-93c42533cb2f@dna-technology.ru>",
+      "thread_id": "20250303_dna-technology_ru_de1741d6",
+      "sha256": "76bb7cce4252c6d8fd0b8449f5f85ea01393c1cd1f574ae7fc27e4b3d4270891",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:13:16.675880+07:00",
+  "raw_size": 297124,
+  "date_folder": "2025-03-03",
+  "eml_path": "eml/2025-03-03/9b8ea6c9-37bf-4b20-ba85-93c42533cb2f_dna-technology.ru_071316_670855.eml"
+}

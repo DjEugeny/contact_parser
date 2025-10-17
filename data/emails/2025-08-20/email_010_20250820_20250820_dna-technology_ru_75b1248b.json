@@ -1,0 +1,55 @@
+{
+  "thread_id": "20250820_dna-technology_ru_75b1248b",
+  "message_id": "<1bfe74c3-e858-48a8-9abc-469cb0b51618@dna-technology.ru>",
+  "email_num_in_day": 10,
+  "total_emails_in_day": 12,
+  "from": "kozlova@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru, ozernaya@dna-technology.ru",
+  "cc": "savicheva@dna-technology.ru",
+  "to_emails": [
+    "s.voronova@dna-technology.ru",
+    "ozernaya@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "savicheva@dna-technology.ru"
+  ],
+  "subject": "оценка эффективности мероприятия 14-15.08.25",
+  "date": "Wed, 20 Aug 2025 15:28:01 +0300",
+  "parsed_date": "2025-08-20T19:28:01+07:00",
+  "body_raw": "Коллеги, добрый день!\r\n\nПросьба заполнить оценку эффективности мероприятия 14 - 15.08.25 \r\n\"Лабораторная диагностика  - область междисциплинарного взаимодействия\" \r\nг. Иркутск\r\n\nСпасибо,\r\n\n-- \r\n\nКозлова Ольга\r\nВедущий сервис-менеджер | ООО «ДНК-Технология»\r\n\nТел.: +7-915-252-22-43 <tel:+7-915-252-22-43>\r\nРабочий: +7 (495) 640-17-71 (доб. 2026) <tel:+74956401771,2026>\r\nEmail: kozlova@dna-technology.ru\r\n\n------------------------------------------------------------------------",
+  "body_clean": "Коллеги, добрый день!\nПросьба заполнить оценку эффективности мероприятия 14 - 15.08.25\n\"Лабораторная диагностика  - область междисциплинарного взаимодействия\"\nг. Иркутск\nСпасибо,\nКозлова Ольга\nВедущий сервис-менеджер | ООО «ДНК-Технология»\nТел.: +7-915-252-22-43 tel:+7-915-252-22-43\nРабочий: +7 (495) 640-17-71 (доб. 2026) tel:+74956401771,2026\nEmail: kozlova@dna-technology.ru",
+  "char_count": 378,
+  "attachments": [
+    {
+      "id": 427,
+      "original_filename": "Шаблон Оценки эффективности участия в выставке.docx",
+      "saved_filename": "20250820_4bb8d3b3_005148_739156_attach_Шаблон Оценки эффективности участия в выставке.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-08-20/20250820_4bb8d3b3_005148_739156_attach_Шаблон Оценки эффективности участия в выставке.docx",
+      "relative_path": "attachments/2025-08-20/20250820_4bb8d3b3_005148_739156_attach_Шаблон Оценки эффективности участия в выставке.docx",
+      "file_size": 44418,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-13 17:51:48",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<1bfe74c3-e858-48a8-9abc-469cb0b51618@dna-technology.ru>",
+      "thread_id": "20250820_dna-technology_ru_75b1248b",
+      "sha256": "1a9e28b5a23e05737488c4db4b8043dde9ebe5b8567e83ff9d36d325e524a763",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:51:48.738411+07:00",
+  "raw_size": 101672,
+  "date_folder": "2025-08-20",
+  "eml_path": "eml/2025-08-20/1bfe74c3-e858-48a8-9abc-469cb0b51618_dna-technology.ru_005148_735260.eml"
+}

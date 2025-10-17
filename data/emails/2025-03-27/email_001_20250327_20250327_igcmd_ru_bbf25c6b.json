@@ -1,0 +1,52 @@
+{
+  "thread_id": "20250327_igcmd_ru_bbf25c6b",
+  "message_id": "<459111743046914@mail.yandex.ru>",
+  "email_num_in_day": 1,
+  "total_emails_in_day": 10,
+  "from": "lab@igcmd.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "",
+  "date": "Thu, 27 Mar 2025 11:46:57 +0800",
+  "parsed_date": "2025-03-27T10:46:57+07:00",
+  "body_raw": "Добрый день!\n\nЗаявка во вложении. Сделайте пожалуйста, счет с учетом доставки . И оплату после получения наборов. С предоплатой у нас сложно.\n\n \n\n \n\n \n\nООО \"Клиника ЦМД\" г. Иркутск\n\nЕлена Георгиевна Михайлова\n\nтел.: 8 914 92 705 12",
+  "body_clean": "Добрый день!\nЗаявка во вложении. Сделайте пожалуйста, счет с учетом доставки . И оплату после получения наборов. С предоплатой у нас сложно.\nООО \"Клиника ЦМД\" г. Иркутск\nЕлена Георгиевна Михайлова\nтел.: 8 914 92 705 12",
+  "char_count": 218,
+  "attachments": [
+    {
+      "id": 774,
+      "original_filename": "ДНК технология 27.03.2025.doc",
+      "saved_filename": "20250327_67614c50_072414_387282_attach_ДНК технология 27.03.2025.doc",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-27/20250327_67614c50_072414_387282_attach_ДНК технология 27.03.2025.doc",
+      "relative_path": "attachments/2025-03-27/20250327_67614c50_072414_387282_attach_ДНК технология 27.03.2025.doc",
+      "file_size": 33792,
+      "file_type": "application/msword",
+      "content_type": "application/msword",
+      "saved_at": "2025-10-14 00:24:14",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<459111743046914@mail.yandex.ru>",
+      "thread_id": "20250327_igcmd_ru_bbf25c6b",
+      "sha256": "1c33f610e2cf66fc453291c9122d54a08eb6227eec9e57add92f1dca9cc34449",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:24:14.385771+07:00",
+  "raw_size": 48962,
+  "date_folder": "2025-03-27",
+  "eml_path": "eml/2025-03-27/459111743046914_mail.yandex.ru_072414_379473.eml"
+}

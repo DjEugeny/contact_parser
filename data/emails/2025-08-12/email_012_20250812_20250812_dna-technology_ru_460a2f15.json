@@ -1,0 +1,61 @@
+{
+  "thread_id": "20250812_dna-technology_ru_460a2f15",
+  "message_id": "<06677de9-c7fe-4f4c-ab8e-728b1ff567dd@dna-technology.ru>",
+  "email_num_in_day": 12,
+  "total_emails_in_day": 13,
+  "from": "razlivakhina@dna-technology.ru",
+  "to": "k.bukharova@dna-technology.ru, s.voronova@dna-technology.ru, kosacheva@dna-technology.ru...",
+  "cc": "o.isaev@dna-technology.ru, litvinenko@dna-technology.ru",
+  "to_emails": [
+    "k.bukharova@dna-technology.ru",
+    "s.voronova@dna-technology.ru",
+    "kosacheva@dna-technology.ru",
+    "nyrkova@dna-technology.ru",
+    "ozernaya@dna-technology.ru",
+    "m.ponomareva@ecomedsnw.ru",
+    "soprun@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "o.isaev@dna-technology.ru",
+    "litvinenko@dna-technology.ru"
+  ],
+  "subject": "Обратная связь по ДТпрайм II",
+  "date": "Tue, 12 Aug 2025 17:08:32 +0300",
+  "parsed_date": "2025-08-12T21:08:32+07:00",
+  "body_raw": "Добрый день!\r\n\nВ соответствии с распоряжением руководства, просьба собрать и \r\nпредоставить *до 20 августа* обратную связь от клиентов по результатам \r\nиспользования приборов Дтпрайм II.\r\n\nСписок клиентов,, купивших или получивших приборы, во вложении.\r\n\n-- \r\nС уважением,\r\nРазливахина Наталья,\r\nруководитель службы клиентской поддержки\r\nООО \"ДНК-Технология\"\r\n+7(916)378-33-20\r\n+7(903)681-78-97",
+  "body_clean": "Добрый день!\nВ соответствии с распоряжением руководства, просьба собрать и\nпредоставить *до 20 августа* обратную связь от клиентов по результатам\nиспользования приборов Дтпрайм II.\nСписок клиентов,, купивших или получивших приборы, во вложении.\nС уважением,\nРазливахина Наталья,\nруководитель службы клиентской поддержки\nООО \"ДНК-Технология\"\n+7(916)378-33-20\n+7(903)681-78-97",
+  "char_count": 374,
+  "attachments": [
+    {
+      "id": 405,
+      "original_filename": "ДТпрайм II.xlsx",
+      "saved_filename": "20250812_0075ad02_005009_066552_attach_ДТпрайм II.xlsx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-08-12/20250812_0075ad02_005009_066552_attach_ДТпрайм II.xlsx",
+      "relative_path": "attachments/2025-08-12/20250812_0075ad02_005009_066552_attach_ДТпрайм II.xlsx",
+      "file_size": 13277,
+      "file_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "saved_at": "2025-10-13 17:50:09",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<06677de9-c7fe-4f4c-ab8e-728b1ff567dd@dna-technology.ru>",
+      "thread_id": "20250812_dna-technology_ru_460a2f15",
+      "sha256": "431b5c5c6d5b95497e4ccc7111721de67d1e729fa0c32360099a43ea71f20b69",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:50:09.065989+07:00",
+  "raw_size": 58240,
+  "date_folder": "2025-08-12",
+  "eml_path": "eml/2025-08-12/06677de9-c7fe-4f4c-ab8e-728b1ff567dd_dna-technology.ru_005009_063220.eml"
+}

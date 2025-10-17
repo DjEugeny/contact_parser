@@ -1,0 +1,52 @@
+{
+  "thread_id": "20250617_mail_ru_26f440c2",
+  "message_id": "<1750151466.597724175@f508.i.mail.ru>",
+  "email_num_in_day": 10,
+  "total_emails_in_day": 15,
+  "from": "nii_pcr@mail.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "КП для НИИ КМ (Иркутск)",
+  "date": "Tue, 17 Jun 2025 12:11:06 +0300",
+  "parsed_date": "2025-06-17T16:11:06+07:00",
+  "body_raw": "Нет, только на наборы Фемофлор-16)\nвторник, 17 июня 2025г., 17:06 +08:00 от s.voronova s.voronova@dna-technology.ru :\n\n>Добрый день, Юлия Александровна! \n>На какие реквизиты выставить счет? \n>И нужно ли включить набор для выделения НК? \n>\n>--\n>С уважением, Воронова Светлана Сергеевна\n>региональный представитель в СФО\n>ООО \"ДНК-Технология\"\n>моб. тел. 8 (995) 129-39-76\n>e-mail: s.voronova@dna-technology.ru\n>web: www.dna-technology.ru\n>\n>15:25, 17 июня 2025 г., \"НИИ КМ\" < nii_pcr@mail.ru> :\n>>Добрый день!\n>>Прошу составить коммерческое предложение по наборам:\n>> \n>>* \n>>Фемофлор® 16 Набор реагентов для исследования биоценоза урогенитального тракта у женщин методом ПЦР в реальном времени — R1-P801-S3/6\n>> \n>>С уважением,\n>>Врач КДЛ,\n>>Юлия Александровна\n>>Тел. 8  904 1569 467",
+  "body_clean": "Нет, только на наборы Фемофлор-16)\nвторник, 17 июня 2025г., 17:06 +08:00 от s.voronova s.voronova@dna-technology.ru :\n>Добрый день, Юлия Александровна!\n>На какие реквизиты выставить счет?\n>И нужно ли включить набор для выделения НК?\n>С уважением, Воронова Светлана Сергеевна\n>региональный представитель в СФО\n>ООО \"ДНК-Технология\"\n>моб. тел. 8 (995) 129-39-76\n>e-mail: s.voronova@dna-technology.ru\n>web: www.dna-technology.ru\n>15:25, 17 июня 2025 г., \"НИИ КМ\" nii_pcr@mail.ru :\n>>Добрый день!\n>>Прошу составить коммерческое предложение по наборам:\n>>Фемофлор® 16 Набор реагентов для исследования биоценоза урогенитального тракта у женщин методом ПЦР в реальном времени — R1-P801-S3/6\n>>С уважением,\n>>Врач КДЛ,\n>>Юлия Александровна\n>>Тел. 8  904 1569 467",
+  "char_count": 754,
+  "attachments": [
+    {
+      "id": 253,
+      "original_filename": "Реквизиты.docx",
+      "saved_filename": "20250617_f8ce2979_003548_420330_attach_Реквизиты.docx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-06-17/20250617_f8ce2979_003548_420330_attach_Реквизиты.docx",
+      "relative_path": "attachments/2025-06-17/20250617_f8ce2979_003548_420330_attach_Реквизиты.docx",
+      "file_size": 14386,
+      "file_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "content_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "saved_at": "2025-10-13 17:35:48",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<1750151466.597724175@f508.i.mail.ru>",
+      "thread_id": "20250617_mail_ru_26f440c2",
+      "sha256": "6d07ba9453be90b3730839656d9c2a86e4316dcf25387771e4bcec406aa74d26",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:35:48.418954+07:00",
+  "raw_size": 32163,
+  "date_folder": "2025-06-17",
+  "eml_path": "eml/2025-06-17/1750151466.597724175_f508.i.mail.ru_003548_412474.eml"
+}

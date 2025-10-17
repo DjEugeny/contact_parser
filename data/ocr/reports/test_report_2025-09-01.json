@@ -1,0 +1,16 @@
+[
+  {
+    "file_name": "20250711_dna-technology_ru_73424a0e_161536_attach_D043-02_ПРОБА-МЧ-РАПИД-II_2025-03-07.pdf",
+    "file_path": "data/attachments/2025-09-01/20250711_dna-technology_ru_73424a0e_161536_attach_D043-02_ПРОБА-МЧ-РАПИД-II_2025-03-07.pdf",
+    "file_size_mb": 2.22,
+    "success": false,
+    "text": "",
+    "method": "error",
+    "confidence": 0.0,
+    "processing_time_sec": 0.9674699306488037,
+    "error": "500 Received RST_STREAM with error code 2",
+    "total_time_sec": 0.9675548076629639,
+    "timestamp": "2025-09-01T23:22:22.281683",
+    "txt_file_path": "data/final_results/texts/2025-09-01/20250711_dna-technology_ru_73424a0e_161536_attach_D043-02_ПРОБА-МЧ-РАПИД-II_2025-03-07_ERROR.txt"
+  }
+]

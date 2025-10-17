@@ -1,0 +1,38 @@
+{
+  "thread_id": "20250309_dna-technology_ru_27df17d7",
+  "message_id": "<6aca2679-f276-4797-8380-c99bf934ea19@dna-technology.ru>",
+  "email_num_in_day": 2,
+  "total_emails_in_day": 2,
+  "from": "babiy@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru, litvinenko@dna-technology.ru",
+  "cc": "razlivakhina@dna-technology.ru, bortsova@dna-technology.ru",
+  "to_emails": [
+    "s.voronova@dna-technology.ru",
+    "litvinenko@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "razlivakhina@dna-technology.ru",
+    "bortsova@dna-technology.ru"
+  ],
+  "subject": "Re: Пробники. Барнаул Клинка Хелми.",
+  "date": "Sun, 9 Mar 2025 11:18:56 +0300",
+  "parsed_date": "2025-03-09T15:18:56+07:00",
+  "body_raw": "D23ТС000085\r\n\n07.03.2025 9:42, Воронова Светлана Сергеевна пишет:\r\n> Добрый день, коллеги!\r\n>\r\n> Для апробации с целью ознакомления с новой продукцией прошу \r\n> предоставить наборы в лабораторию Клиники Хелми г.Барнаул:\r\n>\r\n> ВПЧскрин и Проба-МЧ-РапидII фасовка N.\r\n>\r\n> Адрес получателя:\r\n>\r\n> г. Барнаул улица Пушкина, 70.  Клиника Хелми, Лаборатория.\r\n>\r\n> Белоусов Андрей Анатольевич 8-905-926-84-38\r\n>\r\n> Спасибо!\r\n>\r\n-- \r\nС уважением,\r\nБабий Александр\r\nНачальник отдела обучения\r\nООО \"ДНК-Технология\"\r\n+7(916)175-03-75",
+  "body_clean": "D23ТС000085\n07.03.2025 9:42, Воронова Светлана Сергеевна пишет:\n[quoted message elided #681effaf8b63]\n> Добрый день, коллеги!\n> Для апробации с целью ознакомления с новой продукцией прошу\n> предоставить наборы в лабораторию Клиники Хелми г.Барнаул:\n> ВПЧскрин и Проба-МЧ-РапидII фасовка N.\n> Адрес получателя:\n> г. Барнаул улица Пушкина, 70.  Клиника Хелми, Лаборатория.\n> Белоусов Андрей Анатольевич 8-905-926-84-38\n> Спасибо!\nС уважением,\nБабий Александр\nНачальник отдела обучения\nООО \"ДНК-Технология\"\n+7(916)175-03-75",
+  "char_count": 520,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:15:58.801452+07:00",
+  "raw_size": 2296,
+  "date_folder": "2025-03-09",
+  "eml_path": "eml/2025-03-09/6aca2679-f276-4797-8380-c99bf934ea19_dna-technology.ru_071558_796634.eml"
+}

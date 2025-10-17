@@ -1,0 +1,131 @@
+{
+  "date": "2025-04-02",
+  "run_id": "20251012_234021",
+  "timezone": "UTC",
+  "started_at": "2025-10-12T23:40:21.623732+07:00",
+  "completed_at": "2025-10-12T23:41:04.961997+07:00",
+  "totals": {
+    "emails": 4,
+    "success": 0,
+    "failed": 4,
+    "organizations": 0,
+    "contacts": 0,
+    "commercial_offers": 0,
+    "interactions": 0
+  },
+  "entries": [
+    {
+      "filename": "email_001_20250402_20250402_siblabservice_ru_4a146063.json",
+      "success": false,
+      "organizations": 0,
+      "contacts": 0,
+      "commercial_offers": 0,
+      "interactions": 0,
+      "processing_time_seconds": 19.942,
+      "raw_json": "raw/email_001_20250402_20250402_siblabservice_ru_4a146063_20251012_234021_234104_raw.json",
+      "processed_json": "email_001_20250402_20250402_siblabservice_ru_4a146063_20251012_234021_234104_processed.json",
+      "markdown": "reports/email_001_20250402_20250402_siblabservice_ru_4a146063_20251012_234021_234104.md",
+      "errors": [
+        "Ошибка валидации"
+      ],
+      "processing_strategy": "standard",
+      "fallback_reason": null,
+      "was_retried": false
+    },
+    {
+      "filename": "email_002_20250402_20250402_siblabservice_ru_4a146063.json",
+      "success": false,
+      "organizations": 0,
+      "contacts": 0,
+      "commercial_offers": 0,
+      "interactions": 0,
+      "processing_time_seconds": 20.14,
+      "raw_json": "raw/email_002_20250402_20250402_siblabservice_ru_4a146063_20251012_234021_234104_raw.json",
+      "processed_json": "email_002_20250402_20250402_siblabservice_ru_4a146063_20251012_234021_234104_processed.json",
+      "markdown": "reports/email_002_20250402_20250402_siblabservice_ru_4a146063_20251012_234021_234104.md",
+      "errors": [
+        "Ошибка валидации"
+      ],
+      "processing_strategy": "standard",
+      "fallback_reason": null,
+      "was_retried": false
+    },
+    {
+      "filename": "email_003_20250402_20250402_siblabservice_ru_3d8d24f0.json",
+      "success": false,
+      "organizations": 0,
+      "contacts": 0,
+      "commercial_offers": 0,
+      "interactions": 0,
+      "processing_time_seconds": 3.21,
+      "raw_json": "raw/email_003_20250402_20250402_siblabservice_ru_3d8d24f0_20251012_234021_234104_raw.json",
+      "processed_json": "email_003_20250402_20250402_siblabservice_ru_3d8d24f0_20251012_234021_234104_processed.json",
+      "markdown": "reports/email_003_20250402_20250402_siblabservice_ru_3d8d24f0_20251012_234021_234104.md",
+      "errors": [
+        "Ошибка валидации"
+      ],
+      "processing_strategy": "standard",
+      "fallback_reason": null,
+      "was_retried": false
+    },
+    {
+      "filename": "email_004_20250402_20250402_dna-technology_ru_8ec7fb4e.json",
+      "success": false,
+      "organizations": 0,
+      "contacts": 0,
+      "commercial_offers": 0,
+      "interactions": 0,
+      "processing_time_seconds": 0.009,
+      "raw_json": "raw/email_004_20250402_20250402_dna_technology_ru_8ec7fb4e_20251012_234021_234104_raw.json",
+      "processed_json": "email_004_20250402_20250402_dna_technology_ru_8ec7fb4e_20251012_234021_234104_processed.json",
+      "markdown": "reports/email_004_20250402_20250402_dna_technology_ru_8ec7fb4e_20251012_234021_234104.md",
+      "errors": [
+        "Ошибка валидации"
+      ],
+      "processing_strategy": "standard",
+      "fallback_reason": null,
+      "was_retried": false
+    }
+  ],
+  "run_stats": {
+    "emails_total": 4,
+    "emails_successful": 0,
+    "emails_failed": 4,
+    "total_processing_time": 43.301,
+    "average_processing_time": 10.825,
+    "organizations": 0,
+    "contacts": 0,
+    "commercial_offers": 0,
+    "interactions": 0,
+    "failures": [
+      {
+        "filename": "email_001_20250402_20250402_siblabservice_ru_4a146063.json",
+        "errors": [
+          "Ошибка валидации"
+        ],
+        "processing_time_seconds": 19.942
+      },
+      {
+        "filename": "email_002_20250402_20250402_siblabservice_ru_4a146063.json",
+        "errors": [
+          "Ошибка валидации"
+        ],
+        "processing_time_seconds": 20.14
+      },
+      {
+        "filename": "email_003_20250402_20250402_siblabservice_ru_3d8d24f0.json",
+        "errors": [
+          "Ошибка валидации"
+        ],
+        "processing_time_seconds": 3.21
+      },
+      {
+        "filename": "email_004_20250402_20250402_dna-technology_ru_8ec7fb4e.json",
+        "errors": [
+          "Ошибка валидации"
+        ],
+        "processing_time_seconds": 0.009
+      }
+    ]
+  }
+}

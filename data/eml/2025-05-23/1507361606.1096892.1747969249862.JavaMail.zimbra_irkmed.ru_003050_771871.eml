@@ -1,0 +1,210 @@
+Received:  from mail.irkmed.ru ([84.244.51.106]:37028)
+	  by mail.dna-technology.ru with esmtps (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	 (Exim 4.98 (FreeBSD))
+	 (envelope-from <zapros_kp@irkmed.ru>)
+	 id 1uIIeU-00000000JqZ-1H3m ;
+	Fri, 23 May 2025 06:00:55 +0300
+Received: from localhost (localhost [127.0.0.1])
+	by mail.irkmed.ru (Postfix) with ESMTP id 6C5A6BC08EA;
+	Fri, 23 May 2025 11:00:50 +0800 (+08)
+Received: from mail.irkmed.ru ([127.0.0.1])
+	by localhost (mail.irkmed.ru [127.0.0.1]) (amavisd-new, port 10032)
+	with ESMTP id QO002735LPAx; Fri, 23 May 2025 11:00:50 +0800 (+08)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.irkmed.ru (Postfix) with ESMTP id EDE9BBC08D1;
+	Fri, 23 May 2025 11:00:49 +0800 (+08)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.irkmed.ru EDE9BBC08D1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=irkmed.ru;
+	s=6E827F8E-F633-11E9-AEDC-049B4D09BC06; t=1747969250;
+	bh=sp9IK10pT5p3nWxE7Oi9Q2Pqi2fsNjllXkyAww4pAzQ=;
+	h=Date:From:To:Message-ID:MIME-Version;
+	b=E0rjDzFM4gav0koOBI7zUGjYO8oSNISm1CsOkyQ0ENAJ5BjfWSffgyB05HAYJeopo
+	 iMSoxp3s277Vcx2Ptda1lQBVN/QaEUccW5rU5pvw0ha8EmE/PPzfv0CUsO9YBPvNsK
+	 fkMIo0lbSwi42vHFvnM+TXPx5DDedqEgRT/meJcXkd+fv867/669q86CcLOEum+MIC
+	 wFef8mBrSCQ1Jp8cRH5E2d+oC8dm/zUfLcGb2fQibgIMxWU82Er4xvkji38r6mSJnZ
+	 Cv6M0M44x5YGUCbT0jSYHYUfOgoE+O7OklzsoBCe6qDG3zk3HIa/fa8IVRsRhyfSpW
+	 gWQk4bIazUWnw==
+X-Virus-Scanned: amavisd-new at irkmed.ru
+Received: from mail.irkmed.ru ([127.0.0.1])
+	by localhost (mail.irkmed.ru [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id GW0qft_ecwjS; Fri, 23 May 2025 11:00:49 +0800 (+08)
+Received: from mail.irkmed.ru (localhost [127.0.0.1])
+	by mail.irkmed.ru (Postfix) with ESMTP id D9E14BC08E5;
+	Fri, 23 May 2025 11:00:49 +0800 (+08)
+Date: Fri, 23 May 2025 11:00:49 +0800 (IRKT)
+From: zapros_kp@irkmed.ru
+To: bilalov@dna-technology.ru
+Cc: s.voronova@dna-technology.ru
+Message-ID: <1507361606.1096892.1747969249862.JavaMail.zimbra@irkmed.ru>
+Subject: =?utf-8?B?0JfQsNC/0YDQvtGBINCa0J8gLCDQk9Ca0JEgNQ==?=
+MIME-Version: 1.0
+Content-Type: multipart/alternative; 
+	boundary="=_60a03a52-567f-4f76-810c-4171910dc399"
+X-Originating-IP: [172.172.14.197]
+X-Mailer: Zimbra 8.8.12_GA_3866 (ZimbraWebClient - GC136 (Win)/8.8.12_GA_3844)
+Thread-Index: FtZrdaMh+ztzRhvP4aoQ+iPal2xeTw==
+Thread-Topic: =?utf-8?B?0JfQsNC/0YDQvtGBINCa0J8gLCDQk9Ca0JE=?= 5
+Received-SPF: pass (mail.dna-technology.ru: domain of irkmed.ru designates 84.244.51.106 as permitted sender) client-ip=84.244.51.106; envelope-from=zapros_kp@irkmed.ru; helo=mail.irkmed.ru;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+--=_60a03a52-567f-4f76-810c-4171910dc399
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+=D0=94=D0=BE=D0=B1=D1=80=D1=8B=D0=B9 =D0=B4=D0=B5=D0=BD=D1=8C!=20
+=D0=9F=D1=80=D0=B5=D0=B4=D0=BE=D1=81=D1=82=D0=B0=D0=B2=D1=8C=D1=82=D0=B5,=
+ =D0=BF=D0=BE=D0=B6=D0=B0=D0=BB=D1=83=D0=B9=D1=81=D1=82=D0=B0, =D0=9A=D0=9F=
+ =D0=BD=D0=B0 =D0=94=D0=A2=D0=BF=D1=80=D0=B0=D0=B9=D0=BC =D0=B4=D0=BB=D1=8F=
+ =D0=9E=D0=B1=D0=BB=D0=B0=D1=81=D1=82=D0=BD=D0=BE=D0=B5 =D0=B3=D0=BE=D1=81=
+=D1=83=D0=B4=D0=B0=D1=80=D1=81=D1=82=D0=B2=D0=B5=D0=BD=D0=BD=D0=BE=D0=B5 =
+=D0=B1=D1=8E=D0=B4=D0=B6=D0=B5=D1=82=D0=BD=D0=BE=D0=B5 =D1=83=D1=87=D1=80=
+=D0=B5=D0=B6=D0=B4=D0=B5=D0=BD=D0=B8=D0=B5 =D0=B7=D0=B4=D1=80=D0=B0=D0=B2=
+=D0=BE=D0=BE=D1=85=D1=80=D0=B0=D0=BD=D0=B5=D0=BD=D0=B8=D1=8F =C2=AB=D0=98=
+=D1=80=D0=BA=D1=83=D1=82=D1=81=D0=BA=D0=B0=D1=8F =D0=B3=D0=BE=D1=80=D0=BE=
+=D0=B4=D1=81=D0=BA=D0=B0=D1=8F =D0=B1=D0=BE=D0=BB=D1=8C=D0=BD=D0=B8=D1=86=
+=D0=B0 =E2=84=96 5=C2=BB, =D0=98=D0=9D=D0=9D [ callto:3812014450 | 381201=
+4450 ]=20
+=D0=A3=D1=82=D0=BE=D1=87=D0=BD=D0=B8=D1=82=D0=B5, =D0=BF=D0=BE=D0=B6=D0=B0=
+=D0=BB=D1=83=D0=B9=D1=81=D1=82=D0=B0, =D0=B2=D0=BE=D0=B7=D0=BC=D0=BE=D0=B6=
+=D0=BD=D0=BE=D1=81=D1=82=D1=8C =D0=B8 =D1=83=D1=81=D0=BB=D0=BE=D0=B2=D0=B8=
+=D1=8F =D0=B0=D0=BF=D1=80=D0=BE=D0=B1=D0=B0=D1=86=D0=B8=D0=B8.=20
+
+
+
+--=20
+=D0=A1 =D1=83=D0=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,=20
+=D0=A2=D1=83=D1=80=D0=BE=D0=B2=D1=81=D0=BA=D0=B0=D1=8F =D0=90=D0=BD=D1=82=
+=D0=BE=D0=BD=D0=B8=D0=BD=D0=B0 =D0=90=D0=BB=D0=B5=D0=BA=D1=81=D0=B0=D0=BD=
+=D0=B4=D1=80=D0=BE=D0=B2=D0=BD=D0=B0=20
+=D0=9C=D0=B5=D0=BD=D0=B5=D0=B4=D0=B6=D0=B5=D1=80 =D0=BF=D0=BE =D1=82=D0=B5=
+=D0=BD=D0=B4=D0=B5=D1=80=D0=B0=D0=BC=20
+=D0=9E=D0=9E=D0=9E =C2=AB=D0=9B=D0=B0=D0=B1=D0=BE=D1=80=D0=B0=C2=BB=20
+=D0=A2=D0=B5=D0=BB./=D1=84=D0=B0=D0=BA=D1=81 (3952) 28-88-66 =D0=B2=D0=BD=
+:3144=20
+E-mail: turovskaya.aa@irkmed.ru=20
+
+--=_60a03a52-567f-4f76-810c-4171910dc399
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><body><div style=3D"font-family: arial, helvetica, sans-serif; font-s=
+ize: 12pt; color: #000000"><div id=3D"zimbraEditorContainer" style=3D"font-=
+family: arial, helvetica, sans-serif; font-size: 12pt; color: #000000" clas=
+s=3D"3"> <!--StartFragment--><div style=3D"color: #000000; font-family: ari=
+al, helvetica, sans-serif; font-size: 12pt; font-style: normal; font-varian=
+t-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-sp=
+acing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transf=
+orm: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; wh=
+ite-space: normal; background-color: #fdfdfd; text-decoration-thickness: in=
+itial; text-decoration-style: initial; text-decoration-color: initial;" dat=
+a-mce-style=3D"color: #000000; font-family: arial, helvetica, sans-serif; f=
+ont-size: 12pt; font-style: normal; font-variant-ligatures: normal; font-va=
+riant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; t=
+ext-align: start; text-indent: 0px; text-transform: none; widows: 2; word-s=
+pacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; backgroun=
+d-color: #fdfdfd; text-decoration-thickness: initial; text-decoration-style=
+: initial; text-decoration-color: initial;">=D0=94=D0=BE=D0=B1=D1=80=D1=8B=
+=D0=B9 =D0=B4=D0=B5=D0=BD=D1=8C!&nbsp;</div><div style=3D"color: #000000; f=
+ont-family: arial, helvetica, sans-serif; font-size: 12pt; font-style: norm=
+al; font-variant-ligatures: normal; font-variant-caps: normal; font-weight:=
+ 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0=
+px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke=
+-width: 0px; white-space: normal; background-color: #fdfdfd; text-decoratio=
+n-thickness: initial; text-decoration-style: initial; text-decoration-color=
+: initial;" data-mce-style=3D"color: #000000; font-family: arial, helvetica=
+, sans-serif; font-size: 12pt; font-style: normal; font-variant-ligatures: =
+normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal=
+; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; wi=
+dows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: no=
+rmal; background-color: #fdfdfd; text-decoration-thickness: initial; text-d=
+ecoration-style: initial; text-decoration-color: initial;">=D0=9F=D1=80=D0=
+=B5=D0=B4=D0=BE=D1=81=D1=82=D0=B0=D0=B2=D1=8C=D1=82=D0=B5, =D0=BF=D0=BE=D0=
+=B6=D0=B0=D0=BB=D1=83=D0=B9=D1=81=D1=82=D0=B0, =D0=9A=D0=9F =D0=BD=D0=B0&nb=
+sp;<span> <!--StartFragment--><strong style=3D"box-sizing: border-box; max-=
+height: 100000px; outline: 0px; font-weight: bold; margin: 0px; padding: 0p=
+x; border: 0px; font-style: normal; font-variant-ligatures: normal; font-va=
+riant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian:=
+ inherit; font-variant-alternates: inherit; font-variant-position: inherit;=
+ font-variant-emoji: inherit; font-stretch: inherit; font-size: 15px; line-=
+height: inherit; font-family: 'Open Sans', sans-serif; font-optical-sizing:=
+ inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-se=
+ttings: inherit; font-variation-settings: inherit; vertical-align: baseline=
+; color: #555555; letter-spacing: normal; orphans: 2; text-align: start; te=
+xt-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit=
+-text-stroke-width: 0px; white-space: normal; background-color: #ffffff; te=
+xt-decoration-thickness: initial; text-decoration-style: initial; text-deco=
+ration-color: initial;" data-mce-style=3D"box-sizing: border-box; max-heigh=
+t: 100000px; outline: 0px; font-weight: bold; margin: 0px; padding: 0px; bo=
+rder: 0px; font-style: normal; font-variant-ligatures: normal; font-variant=
+-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inhe=
+rit; font-variant-alternates: inherit; font-variant-position: inherit; font=
+-variant-emoji: inherit; font-stretch: inherit; font-size: 15px; line-heigh=
+t: inherit; font-family: 'Open Sans', sans-serif; font-optical-sizing: inhe=
+rit; font-size-adjust: inherit; font-kerning: inherit; font-feature-setting=
+s: inherit; font-variation-settings: inherit; vertical-align: baseline; col=
+or: #555555; letter-spacing: normal; orphans: 2; text-align: start; text-in=
+dent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text=
+-stroke-width: 0px; white-space: normal; background-color: #ffffff; text-de=
+coration-thickness: initial; text-decoration-style: initial; text-decoratio=
+n-color: initial;">=D0=94=D0=A2=D0=BF=D1=80=D0=B0=D0=B9=D0=BC</strong><!--E=
+ndFragment--> </span><span style=3D"color: #2f2f2f; font-family: montserrat=
+, -apple-system, blinkmacsystemfont, 'segoe ui', roboto, oxygen-sans, ubunt=
+u, cantarell, 'helvetica neue', sans-serif; font-size: 14pt; font-style: no=
+rmal; letter-spacing: normal; text-indent: 0px; text-transform: none; word-=
+spacing: 0px; white-space: normal; background-color: #ffffff; float: none; =
+display: inline !important;" data-mce-style=3D"color: #2f2f2f; font-family:=
+ montserrat, -apple-system, blinkmacsystemfont, 'segoe ui', roboto, oxygen-=
+sans, ubuntu, cantarell, 'helvetica neue', sans-serif; font-size: 14pt; fon=
+t-style: normal; letter-spacing: normal; text-indent: 0px; text-transform: =
+none; word-spacing: 0px; white-space: normal; background-color: #ffffff; fl=
+oat: none; display: inline !important;">&nbsp;</span><span style=3D"font-si=
+ze: 12pt;" data-mce-style=3D"font-size: 12pt;">=D0=B4=D0=BB=D1=8F&nbsp;=D0=
+=9E=D0=B1=D0=BB=D0=B0=D1=81=D1=82=D0=BD=D0=BE=D0=B5&nbsp; =D0=B3=D0=BE=D1=
+=81=D1=83=D0=B4=D0=B0=D1=80=D1=81=D1=82=D0=B2=D0=B5=D0=BD=D0=BD=D0=BE=D0=B5=
+ =D0=B1=D1=8E=D0=B4=D0=B6=D0=B5=D1=82=D0=BD=D0=BE=D0=B5 =D1=83=D1=87=D1=80=
+=D0=B5=D0=B6=D0=B4=D0=B5=D0=BD=D0=B8=D0=B5 =D0=B7=D0=B4=D1=80=D0=B0=D0=B2=
+=D0=BE=D0=BE=D1=85=D1=80=D0=B0=D0=BD=D0=B5=D0=BD=D0=B8=D1=8F =C2=AB=D0=98=
+=D1=80=D0=BA=D1=83=D1=82=D1=81=D0=BA=D0=B0=D1=8F =D0=B3=D0=BE=D1=80=D0=BE=
+=D0=B4=D1=81=D0=BA=D0=B0=D1=8F =D0=B1=D0=BE=D0=BB=D1=8C=D0=BD=D0=B8=D1=86=
+=D0=B0 =E2=84=96 5=C2=BB, =D0=98=D0=9D=D0=9D&nbsp;<span class=3D"Object" ro=
+le=3D"link" id=3D"OBJ_PREFIX_DWT1079_com_zimbra_phone" style=3D"color: #006=
+990; text-decoration: none; cursor: pointer;" data-mce-style=3D"color: #006=
+990; text-decoration: none; cursor: pointer;"><a href=3D"callto:3812014450"=
+ onclick=3D"window.top.Com_Zimbra_Phone.unsetOnbeforeunload()" style=3D"col=
+or: #006990; text-decoration: none; cursor: pointer;" data-mce-href=3D"call=
+to:3812014450" data-mce-style=3D"color: #006990; text-decoration: none; cur=
+sor: pointer;">3812014450</a></span></span></div><div style=3D"color: #0000=
+00; font-family: arial, helvetica, sans-serif; font-size: 12pt; font-style:=
+ normal; font-variant-ligatures: normal; font-variant-caps: normal; font-we=
+ight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-inde=
+nt: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-s=
+troke-width: 0px; white-space: normal; background-color: #fdfdfd; text-deco=
+ration-thickness: initial; text-decoration-style: initial; text-decoration-=
+color: initial;" data-mce-style=3D"color: #000000; font-family: arial, helv=
+etica, sans-serif; font-size: 12pt; font-style: normal; font-variant-ligatu=
+res: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: n=
+ormal; orphans: 2; text-align: start; text-indent: 0px; text-transform: non=
+e; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-spac=
+e: normal; background-color: #fdfdfd; text-decoration-thickness: initial; t=
+ext-decoration-style: initial; text-decoration-color: initial;"><span style=
+=3D"font-size: 12pt;" data-mce-style=3D"font-size: 12pt;">=D0=A3=D1=82=D0=
+=BE=D1=87=D0=BD=D0=B8=D1=82=D0=B5, =D0=BF=D0=BE=D0=B6=D0=B0=D0=BB=D1=83=D0=
+=B9=D1=81=D1=82=D0=B0, =D0=B2=D0=BE=D0=B7=D0=BC=D0=BE=D0=B6=D0=BD=D0=BE=D1=
+=81=D1=82=D1=8C =D0=B8 =D1=83=D1=81=D0=BB=D0=BE=D0=B2=D0=B8=D1=8F =D0=B0=D0=
+=BF=D1=80=D0=BE=D0=B1=D0=B0=D1=86=D0=B8=D0=B8.&nbsp;</span></div><!--EndFra=
+gment--><div style=3D"clear: both;" data-mce-style=3D"clear: both;"><br dat=
+a-mce-bogus=3D"1"></div><br><br><div data-marker=3D"__SIG_POST__">-- <br></=
+div><div id=3D"fc059914-e208-4c8a-b6c6-494c1e274b0e"><div>=D0=A1 =D1=83=D0=
+=B2=D0=B0=D0=B6=D0=B5=D0=BD=D0=B8=D0=B5=D0=BC,<br>=D0=A2=D1=83=D1=80=D0=BE=
+=D0=B2=D1=81=D0=BA=D0=B0=D1=8F =D0=90=D0=BD=D1=82=D0=BE=D0=BD=D0=B8=D0=BD=
+=D0=B0 =D0=90=D0=BB=D0=B5=D0=BA=D1=81=D0=B0=D0=BD=D0=B4=D1=80=D0=BE=D0=B2=
+=D0=BD=D0=B0<br>=D0=9C=D0=B5=D0=BD=D0=B5=D0=B4=D0=B6=D0=B5=D1=80 =D0=BF=D0=
+=BE =D1=82=D0=B5=D0=BD=D0=B4=D0=B5=D1=80=D0=B0=D0=BC</div><div><span style=
+=3D"color:black">=D0=9E=D0=9E=D0=9E &nbsp;=C2=AB=D0=9B=D0=B0=D0=B1=D0=BE=D1=
+=80=D0=B0=C2=BB</span><br>=D0=A2=D0=B5=D0=BB./=D1=84=D0=B0=D0=BA=D1=81 (395=
+2) 28-88-66 =D0=B2=D0=BD:3144<br>E-mail: turovskaya.aa@irkmed.ru<br></div><=
+/div></div></div></body></html>
+--=_60a03a52-567f-4f76-810c-4171910dc399--

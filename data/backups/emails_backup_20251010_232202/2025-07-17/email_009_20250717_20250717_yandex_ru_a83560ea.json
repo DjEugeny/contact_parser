@@ -1,0 +1,39 @@
+{
+  "thread_id": "20250717_yandex_ru_a83560ea",
+  "message_id": "<1976206390.20250717152602@yandex.ru>",
+  "from": "79059839981@yandex.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Fwd: Запрос",
+  "date": "Thu, 17 Jul 2025 15:26:02 +0700",
+  "parsed_date": "2025-07-17T15:26:02+07:00",
+  "body": "Здравствуйте,\n---------- Пересылаемое письмо ----------\nОт:                  Акимова Наталья <79059839981@yandex.ru>\nК:                   ДНК технология Билатов Альберт <bilalov@dna-technology.ru>\nА также к:\nВремя создания:      Thu, 17 Jul 2025 15:22:04 +0700\nТема:                Запрос\nПрикрепленные файлы: Перинат. РА от 17.07.25г.doc\nЗдравствуйте.\nС уважением менеджер ООО \"Хирон\",\nАкимова Наталья Михайловна\nтел/факс : (3852)61-71-71\nСот. т. 8-905-983-99-81                       mailto:79059839981@yandex.ru\n---------- Конец пересылаемого письма ----------\nСот. т. 8-905-983-99-81                     mailto:79059839981@yandex.ru",
+  "char_count": 636,
+  "attachments": [
+    {
+      "filename": "ru_a83560ea_081918_attach_Перинат. РА от 17.07.25г.doc",
+      "saved_filename": "20250717_yandex_ru_a83560ea_081918_attach_Перинат. РА от 17.07.25г.doc",
+      "size": 186368,
+      "path": "attachments/2025-07-17/20250717_yandex_ru_a83560ea_081918_attach_Перинат. РА от 17.07.25г.doc",
+      "status": "saved",
+      "type": "existing_attachment"
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-08-26T17:51:14.797372+07:00",
+  "raw_size": 259370,
+  "date_folder": "2025-07-17"
+}

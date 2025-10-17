@@ -1,0 +1,45 @@
+{
+  "thread_id": "20250319_dna-technology_ru_2e7ec591",
+  "message_id": "<0fcd905b-68dc-4f3a-a83b-450152eb998d@dna-technology.ru>",
+  "email_num_in_day": 16,
+  "total_emails_in_day": 19,
+  "from": "kozlova@dna-technology.ru",
+  "to": "kalashnikov@dna-technology.ru, o.isaev@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru, savicheva@dna-technology.ru",
+  "to_emails": [
+    "kalashnikov@dna-technology.ru",
+    "o.isaev@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru",
+    "savicheva@dna-technology.ru"
+  ],
+  "subject": "Re: Fwd: РОО «Красноярская краевая Ассоциация медицинской лабораторной диагностики»",
+  "date": "Wed, 19 Mar 2025 15:47:05 +0300",
+  "parsed_date": "2025-03-19T19:47:05+07:00",
+  "body_raw": "Олег Юрьевич, Денис, добрый день!\r\n\nПодскажите, пожалуйста, будет ли нам интересно участие в данном \r\nмероприятии? Краткую информацию прилагаю.\r\n\nСпасибо,\r\n\n-- \r\nС уважением,\r\nКозлова Ольга\r\nВедущий сервис-менеджер\r\nООО \"ДНК-Технология\"\r\n\nTel: 8 (495) 640-17-71 (ext. 2026)\r\nTel Mob: +7 915-252-22-43\r\ne-mail:kozlova@dna-technology.ru\r\nweb: dna-technology.ru\r\n\n13.03.2025 14:15, s.voronova@dna-technology.ru пишет:\r\n> А предыдущем письме нет вложения, прикрепляю.\r\n>\r\n> --\r\n> С уважением, Воронова Светлана Сергеевна\r\n> региональный представитель в СФО\r\n> ООО \"ДНК-Технология\"\r\n> моб. тел. 8 (995) 129-39-76\r\n> e-mail: s.voronova@dna-technology.ru\r\n> web: www.dna-technology.ru\r\n>\r\n> -------- Пересылаемое сообщение --------\r\n> 18:13, 13 марта 2025 г., \"s.voronova@dna-technology.ru\" \r\n> <s.voronova@dna-technology.ru>:\r\n>\r\n> Добрый день, коллеги!\r\n> Во вложении высылаю приглашение на мероприятие в Красноярске. \r\n> Прошу рассмотреть. Сроки ограничены, так как\r\n> Входящее письмо ушло в спам и  только что было обнаружено!\r\n> Спасибо!\r\n> --\r\n> С уважением, Воронова Светлана Сергеевна\r\n> региональный представитель в СФО\r\n> ООО \"ДНК-Технология\"\r\n> моб. тел. 8 (995) 129-39-76\r\n> e-mail: s.voronova@dna-technology.ru\r\n> web: www.dna-technology.ru <https://www.dna-technology.ru>\r\n>\r\n>\r\n> -------- Конец пересылаемого сообщения --------",
+  "body_clean": "Олег Юрьевич, Денис, добрый день!\nПодскажите, пожалуйста, будет ли нам интересно участие в данном\nмероприятии? Краткую информацию прилагаю.\nСпасибо,\nС уважением,\nКозлова Ольга\nВедущий сервис-менеджер\nООО \"ДНК-Технология\"\nTel: 8 (495) 640-17-71 (ext. 2026)\nTel Mob: +7 915-252-22-43\ne-mail:kozlova@dna-technology.ru\nweb: dna-technology.ru\n13.03.2025 14:15, s.voronova@dna-technology.ru пишет:\n> А предыдущем письме нет вложения, прикрепляю.\n> С уважением, Воронова Светлана Сергеевна\n> региональный представитель в СФО\n> ООО \"ДНК-Технология\"\n> моб. тел. 8 (995) 129-39-76\n> e-mail: s.voronova@dna-technology.ru\n> web: www.dna-technology.ru\n> -------- Пересылаемое сообщение --------\n> 18:13, 13 марта 2025 г., \"s.voronova@dna-technology.ru\"\n> s.voronova@dna-technology.ru:\n> Добрый день, коллеги!\n> Во вложении высылаю приглашение на мероприятие в Красноярске.\n> Прошу рассмотреть. Сроки ограничены, так как\n> Входящее письмо ушло в спам и  только что было обнаружено!\n> Спасибо!\n> web: www.dna-technology.ru https://www.dna-technology.ru\n> -------- Конец пересылаемого сообщения --------",
+  "char_count": 1087,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:Информационное письмо*",
+      "original_filename": "Информационное письмо (2).pdf",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:20:27.092831+07:00",
+  "raw_size": 272981,
+  "date_folder": "2025-03-19",
+  "eml_path": "eml/2025-03-19/0fcd905b-68dc-4f3a-a83b-450152eb998d_dna-technology.ru_072027_088172.eml"
+}

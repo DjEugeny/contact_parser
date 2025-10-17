@@ -1,0 +1,44 @@
+{
+  "thread_id": "20250904_yandex_ru_d913e1f8",
+  "message_id": "<100361756975996@mail.yandex.ru>",
+  "from": "khatashkeeva@yandex.ru",
+  "to": "s.voronova@dna-technology.ru, torgi@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru",
+    "torgi@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Заявка на поставку реактивов 04.09.2025",
+  "date": "Thu, 04 Sep 2025 16:54:37 +0800",
+  "parsed_date": "2025-09-04T15:54:37+07:00",
+  "body": "-- С уважением Ольга Хаташкеева",
+  "char_count": 31,
+  "attachments": [
+    {
+      "original_filename": "Заявка 04.09.2025.xlsx",
+      "saved_filename": "20250904_yandex_ru_d913e1f8_153943_attach_Заявка 04.09.2025.xlsx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-09-04/20250904_yandex_ru_d913e1f8_153943_attach_Заявка 04.09.2025.xlsx",
+      "relative_path": "attachments/2025-09-04/20250904_yandex_ru_d913e1f8_153943_attach_Заявка 04.09.2025.xlsx",
+      "file_size": 10871,
+      "file_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "saved_at": "2025-10-08T15:39:43.187430+07:00",
+      "status": "saved",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T15:39:43.187466+07:00",
+  "raw_size": 17884,
+  "date_folder": "2025-09-04"
+}

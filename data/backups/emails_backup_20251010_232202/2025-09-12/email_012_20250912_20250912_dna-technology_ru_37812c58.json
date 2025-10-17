@@ -1,0 +1,64 @@
+{
+  "thread_id": "20250912_dna-technology_ru_37812c58",
+  "message_id": "<68d7e6a1-819e-4eb5-9fd0-e5b43f9bc17e@dna-technology.ru>",
+  "from": "hotline@dna-technology.ru",
+  "to": "dnklab.eugene@gmail.com",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "dnklab.eugene@gmail.com"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Начало работы с Фемофлор II",
+  "date": "Fri, 12 Sep 2025 14:44:20 +0300",
+  "parsed_date": "2025-09-12T18:44:20+07:00",
+  "body": "Добрый день!\nСкоро вы получите (или уже получили) набор реагентов Фемофлор II,\nФемофлор Альфа скрин, Фемофлор Дельта скрин  вместе с набором реагентов\nдля выделения ДНК.\nПо нижеуказанной ссылке можно скачать дистрибутив модуля анализа\nФемофлор II, Фемофлор Альфа скрин, Фемофлор Дельта скрин и установить его:\nhttps://cloud.dna-technology.ru/s/64nSZeXqpMwstDe?openfile=true\nДля работы с набором реагентов Фемофлор II в вашей лаборатории подходят\nамплификаторы серии ДТ с 5-ю каналами, старше 2018 года.\nДополнительно во вложение прикладываем Описание технологического\nпроцесса по особенностям работы с ПО ДТмастер и набором реагентов\nФемофлор II.\nЕсли в лаборатории настроен обмен данных с ЛИС, после установки ДТмастер\nи дистрибутива исследования необходимо обратиться в Службу клиентской\nподдержки с запросом настройки обмена данными теста Фемофлор II и ЛИС.\nБудем признательны за предоставление протоколов постановок после начала\nработы с новыми тестами.\nДобрый день! Скоро вы получите (или уже получили) набор реагентов Фемофлор II, Фемофлор Альфа скрин, Фемофлор Дельта скрин  вместе с набором реагентов для выделения ДНК. По нижеуказанной ссылке можно скачать дистрибутив модуля анализа Фемофлор II, Фемофлор Альфа скрин, Фемофлор Дельта скрин и установить его: https://cloud.dna-technology.ru/s/64nSZeXqpMwstDe?openfile=true Для работы с набором реагентов Фемофлор II в вашей лаборатории подходят амплификаторы серии ДТ с 5-ю каналами, старше 2018 года. Дополнительно во вложение прикладываем Описание технологического процесса по особенностям работы с ПО ДТмастер и набором реагентов Фемофлор II. Если в лаборатории настроен обмен данных с ЛИС, после установки ДТмастер и дистрибутива исследования необходимо обратиться в Службу клиентской поддержки с запросом настройки обмена данными теста Фемофлор II и ЛИС. Будем признательны за предоставление протоколов постановок после начала работы с новыми тестами.",
+  "char_count": 1915,
+  "attachments": [
+    {
+      "original_filename": "___.png",
+      "status": "excluded_inline_image",
+      "exclusion_reason": "изображение с Content-ID: part1.UeTkJP9x.uOrkqdbB@dna-technology.ru",
+      "is_inline": true,
+      "content_id": "part1.UeTkJP9x.uOrkqdbB@dna-technology.ru"
+    },
+    {
+      "original_filename": "D070-00_ДТмастер_1.pdf",
+      "saved_filename": "20250912_dna-technology_ru_37812c58_154304_attach_D070-00_ДТмастер_1.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-09-12/20250912_dna-technology_ru_37812c58_154304_attach_D070-00_ДТмастер_1.pdf",
+      "relative_path": "attachments/2025-09-12/20250912_dna-technology_ru_37812c58_154304_attach_D070-00_ДТмастер_1.pdf",
+      "file_size": 597781,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-08T15:43:04.202929+07:00",
+      "status": "saved",
+      "is_inline": false
+    },
+    {
+      "original_filename": "D070-00_ДТмастер_6.pdf",
+      "saved_filename": "20250912_dna-technology_ru_37812c58_154304_attach_D070-00_ДТмастер_6.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-09-12/20250912_dna-technology_ru_37812c58_154304_attach_D070-00_ДТмастер_6.pdf",
+      "relative_path": "attachments/2025-09-12/20250912_dna-technology_ru_37812c58_154304_attach_D070-00_ДТмастер_6.pdf",
+      "file_size": 1166484,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-08T15:43:04.207218+07:00",
+      "status": "saved",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 3,
+    "saved": 2,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T15:43:04.207244+07:00",
+  "raw_size": 2453441,
+  "date_folder": "2025-09-12"
+}

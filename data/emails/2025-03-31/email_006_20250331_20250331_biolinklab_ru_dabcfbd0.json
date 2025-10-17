@@ -1,0 +1,53 @@
+{
+  "thread_id": "20250331_biolinklab_ru_dabcfbd0",
+  "message_id": "<4990882b-f6fd-4408-9864-907345ab3847@biolinklab.ru>",
+  "email_num_in_day": 6,
+  "total_emails_in_day": 16,
+  "from": "med@biolinklab.ru",
+  "to": "fetisova@dna-technology.ru, s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "fetisova@dna-technology.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Заказ реагентов",
+  "date": "Mon, 31 Mar 2025 13:43:14 +0700",
+  "parsed_date": "2025-03-31T13:43:14+07:00",
+  "body_raw": ">\r\n>>>> Добрый день!\r\n>>>>\r\n>>>> Во вложении, заказ на наборы реагентов. Прошу выставить счет и \r\n>>>> сообщить время доставки.\r\n>>>>\r\n-- \r\nС уважением,\r\nзав.лаборатории\r\nНаталья Дубинина\r\nООО \"БиоЛинк\"\r\nУл.Николаева 13\r\n630090 г.Новосибирск\r\n+79537917887",
+  "body_clean": ">>>> Добрый день!\n>>>> Во вложении, заказ на наборы реагентов. Прошу выставить счет и\n>>>> сообщить время доставки.\nС уважением,\nзав.лаборатории\nНаталья Дубинина\nООО \"БиоЛинк\"\nУл.Николаева 13\n630090 г.Новосибирск\n+79537917887",
+  "char_count": 225,
+  "attachments": [
+    {
+      "id": 780,
+      "original_filename": "Заказ ДНК-технология HLA март.doc",
+      "saved_filename": "20250331_b2036a05_072446_806124_attach_Заказ ДНК-технология HLA март.doc",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-31/20250331_b2036a05_072446_806124_attach_Заказ ДНК-технология HLA март.doc",
+      "relative_path": "attachments/2025-03-31/20250331_b2036a05_072446_806124_attach_Заказ ДНК-технология HLA март.doc",
+      "file_size": 31744,
+      "file_type": "application/msword",
+      "content_type": "application/msword",
+      "saved_at": "2025-10-14 00:24:46",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<4990882b-f6fd-4408-9864-907345ab3847@biolinklab.ru>",
+      "thread_id": "20250331_biolinklab_ru_dabcfbd0",
+      "sha256": "33a2ac7fa0b88d7d71d59e646ccbfa45a8b1aadb372b1ca5d74cb745a2bcba93",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:24:46.804793+07:00",
+  "raw_size": 48026,
+  "date_folder": "2025-03-31",
+  "eml_path": "eml/2025-03-31/4990882b-f6fd-4408-9864-907345ab3847_biolinklab.ru_072446_800428.eml"
+}

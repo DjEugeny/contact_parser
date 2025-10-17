@@ -1,0 +1,41 @@
+{
+  "thread_id": "20250319_dna-technology_ru_4e5d3db3",
+  "message_id": "<78c406ea-67fa-4c7f-ae4a-f485d0518ed0@dna-technology.ru>",
+  "email_num_in_day": 17,
+  "total_emails_in_day": 19,
+  "from": "sivkova@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Fwd: Сценарий Allsheng Рапид II",
+  "date": "Wed, 19 Mar 2025 16:03:50 +0300",
+  "parsed_date": "2025-03-19T20:03:50+07:00",
+  "body_raw": "Света, привет!\r\n\nЭто сценарий Allsheng.\r\n\n-------- Перенаправленное сообщение --------\r\nТема: Сценарий Allsheng Рапид II\r\nДата: Mon, 17 Mar 2025 18:46:28 +0300\r\nОт: Кошкина Татьяна <koshkina@dna-technology.ru>\r\nКому: Иванова Лариса <l.ivanova@dna-technology.ru>, Сивкова Елена \r\n<sivkova@dna-technology.ru>\r\n\nДевочки, привет.\r\n\nСценарий во вложении.\r\n\n-- \r\nС уважением,\r\nКошкина Татьяна\r\nНачальник отдела внедрения\r\nООО \"ДНК-Технология\"\r\nт/ф (495)980-45-55\r\nмоб. +7-916-028-83-41",
+  "body_clean": "Света, привет!\nЭто сценарий Allsheng.\n-------- Перенаправленное сообщение --------\nТема: Сценарий Allsheng Рапид II\nДата: Mon, 17 Mar 2025 18:46:28 +0300\nОт: Кошкина Татьяна koshkina@dna-technology.ru\nКому: Иванова Лариса l.ivanova@dna-technology.ru, Сивкова Елена\nsivkova@dna-technology.ru\nДевочки, привет.\nСценарий во вложении.\nС уважением,\nКошкина Татьяна\nНачальник отдела внедрения\nООО \"ДНК-Технология\"\nт/ф (495)980-45-55\nмоб. +7-916-028-83-41",
+  "char_count": 447,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "extension_excluded:.zip",
+      "original_filename": "Items.zip",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:20:28.403373+07:00",
+  "raw_size": 5385,
+  "date_folder": "2025-03-19",
+  "eml_path": "eml/2025-03-19/78c406ea-67fa-4c7f-ae4a-f485d0518ed0_dna-technology.ru_072028_401570.eml"
+}

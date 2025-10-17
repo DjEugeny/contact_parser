@@ -1,0 +1,69 @@
+{
+  "thread_id": "20250324_skc-fmba_ru_89096d76",
+  "message_id": "<9dfda41a-f374-40eb-8b5b-da988b9d039f@smail14.skc-fmba.ru>",
+  "email_num_in_day": 1,
+  "total_emails_in_day": 23,
+  "from": "paryigina_oa@skc-fmba.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Запрос КП",
+  "date": "Mon, 24 Mar 2025 09:50:32 +0700",
+  "parsed_date": "2025-03-24T09:50:32+07:00",
+  "body_raw": "Светлана, доброе утро!\r\n\nПрошу выслать ценовое предложение на расходные материалы во вложении с указанием страны производителя.\r\n\nСпасибо!\r\n\nС уважением,\r\nзаведующая ПЦР-лабораторией, \r\nбиолог КДЛ ФГБУ ФСНКЦ ФМБА России,\r\nПарыгина Ольга Александровна,\r\nм. т. 8-913-830-99-88\r\nФГБУ ФСНКЦ ФМБА России\r\nhttps://www.skc-fmba.ru",
+  "body_clean": "Светлана, доброе утро!\nПрошу выслать ценовое предложение на расходные материалы во вложении с указанием страны производителя.\nСпасибо!\nС уважением,\nзаведующая ПЦР-лабораторией,\nбиолог КДЛ ФГБУ ФСНКЦ ФМБА России,\nПарыгина Ольга Александровна,\nм. т. 8-913-830-99-88\nФГБУ ФСНКЦ ФМБА России\nhttps://www.skc-fmba.ru",
+  "char_count": 310,
+  "attachments": [
+    {
+      "id": 730,
+      "original_filename": "Запрос КП 2025.pdf",
+      "saved_filename": "20250324_bc43b944_072147_699838_attach_Запрос КП 2025.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-24/20250324_bc43b944_072147_699838_attach_Запрос КП 2025.pdf",
+      "relative_path": "attachments/2025-03-24/20250324_bc43b944_072147_699838_attach_Запрос КП 2025.pdf",
+      "file_size": 438296,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:21:47",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<9dfda41a-f374-40eb-8b5b-da988b9d039f@smail14.skc-fmba.ru>",
+      "thread_id": "20250324_skc-fmba_ru_89096d76",
+      "sha256": "64da708787e6684bac9689e48df52778fc2b44cfd7d13d22372183765993bab4",
+      "file_exists": true
+    },
+    {
+      "id": 731,
+      "original_filename": "Заявка на генотпирование ВГС ДНК.xlsx",
+      "saved_filename": "20250324_bc43b944_072147_701295_attach_Заявка на генотпирование ВГС ДНК.xlsx",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-24/20250324_bc43b944_072147_701295_attach_Заявка на генотпирование ВГС ДНК.xlsx",
+      "relative_path": "attachments/2025-03-24/20250324_bc43b944_072147_701295_attach_Заявка на генотпирование ВГС ДНК.xlsx",
+      "file_size": 11031,
+      "file_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "content_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "saved_at": "2025-10-14 00:21:47",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<9dfda41a-f374-40eb-8b5b-da988b9d039f@smail14.skc-fmba.ru>",
+      "thread_id": "20250324_skc-fmba_ru_89096d76",
+      "sha256": "55f8e5ad983f4974b18e70782928574aae80655f50b6ca44bbdd566151baf4ba",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 2,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:21:47.696808+07:00",
+  "raw_size": 621845,
+  "date_folder": "2025-03-24",
+  "eml_path": "eml/2025-03-24/9dfda41a-f374-40eb-8b5b-da988b9d039f_smail14.skc-fmba.ru_072147_695359.eml"
+}

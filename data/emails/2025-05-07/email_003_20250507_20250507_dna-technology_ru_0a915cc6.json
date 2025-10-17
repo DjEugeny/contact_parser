@@ -1,0 +1,43 @@
+{
+  "thread_id": "20250507_dna-technology_ru_0a915cc6",
+  "message_id": "<52bbce30-bae2-418d-a2f4-5766120d8787@dna-technology.ru>",
+  "email_num_in_day": 3,
+  "total_emails_in_day": 3,
+  "from": "m.gogoleva@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru, albert@dna-technology.ru, prisyazhnyuk@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru",
+    "albert@dna-technology.ru",
+    "prisyazhnyuk@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Re: ТЗ ДТпрайм 5М1",
+  "date": "Wed, 7 May 2025 16:07:40 +0300",
+  "parsed_date": "2025-05-07T20:07:40+07:00",
+  "body_raw": "Добрый день, Светлана!\r\n\nТЗ, которое мы сейчас предлагаем для конкурсов, во вложении.\r\n\nС уважением,\r\nменеджер ООО \"ДНК-Технология\"\r\nГоголева Мария\r\nтел.: (495) 640-17-71, доб. 2030\r\n\n07.05.2025 15:48, s.voronova@dna-technology.ru пишет:\r\n> Добрый день, коллеги!\r\n> Прошу прислать актуальное ТЗ на ДТ прайм 5М1.\r\n> Спасибо!\r\n>\r\n> --\r\n> С уважением, Воронова Светлана Сергеевна\r\n> региональный представитель в СФО\r\n> ООО \"ДНК-Технология\"\r\n> моб. тел. 8 (995) 129-39-76\r\n> e-mail: s.voronova@dna-technology.ru\r\n> web: www.dna-technology.ru",
+  "body_clean": "Добрый день, Светлана!\nТЗ, которое мы сейчас предлагаем для конкурсов, во вложении.\nС уважением,\nменеджер ООО \"ДНК-Технология\"\nГоголева Мария\nтел.: (495) 640-17-71, доб. 2030\n07.05.2025 15:48, s.voronova@dna-technology.ru пишет:\n> Добрый день, коллеги!\n> Прошу прислать актуальное ТЗ на ДТ прайм 5М1.\n> Спасибо!\n> С уважением, Воронова Светлана Сергеевна\n> региональный представитель в СФО\n> ООО \"ДНК-Технология\"\n> моб. тел. 8 (995) 129-39-76\n> e-mail: s.voronova@dna-technology.ru\n> web: www.dna-technology.ru",
+  "char_count": 510,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:ТЗ*",
+      "original_filename": "ТЗ ДТпрайм 5M1 (c обоснованием ТХ) 2025.docx",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:27:30.581368+07:00",
+  "raw_size": 53240,
+  "date_folder": "2025-05-07",
+  "eml_path": "eml/2025-05-07/52bbce30-bae2-418d-a2f4-5766120d8787_dna-technology.ru_002730_579333.eml"
+}

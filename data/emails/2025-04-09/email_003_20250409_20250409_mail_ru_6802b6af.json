@@ -1,0 +1,58 @@
+{
+  "thread_id": "20250409_mail_ru_6802b6af",
+  "message_id": "<1744179421.559872559@f740.i.mail.ru>",
+  "email_num_in_day": 3,
+  "total_emails_in_day": 28,
+  "from": "ea.merc@mail.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "ООО ИНТЕГРО",
+  "date": "Wed, 09 Apr 2025 09:17:01 +0300",
+  "parsed_date": "2025-04-09T13:17:01+07:00",
+  "body_raw": "Добрый день! \n\nФКУЗ МСЧ-24 ФСИН РОССИИ ИНН 2463050796\n\nФедотов Евгений Александрович \nТел.:   +7 (999) 126-68-88\nea.merc@mail.ru\nМногопрофильная производственная компания ООО \"ИНТЕГРО\".\nМатериально техническое обеспечение государственных и муниципальных учреждений (44/223ФЗ).\nВсегда рады сотрудничеству!\ne-mail (общий):   info.merc@mail.ru  \ne-mail (сайт) : zakaz@integro.site  \nТел.:   +7 (499)-286-85-55  Доб. 104\nСайт:   https://integro.site/\nУбедительная просьба сохранять историю переписки при ответе. Это ускоряет работу и решение вашего вопроса. Спасибо!",
+  "body_clean": "Добрый день!\nФКУЗ МСЧ-24 ФСИН РОССИИ ИНН 2463050796\nФедотов Евгений Александрович\nТел.: +7 (999) 126-68-88\nea.merc@mail.ru\nМногопрофильная производственная компания ООО \"ИНТЕГРО\".\nМатериально техническое обеспечение государственных и муниципальных учреждений (44/223ФЗ).\nВсегда рады сотрудничеству!\ne-mail (общий): info.merc@mail.ru\ne-mail (сайт) : zakaz@integro.site\nТел.: +7 (499)-286-85-55  Доб. 104\nСайт: https://integro.site/\nУбедительная просьба сохранять историю переписки при ответе. Это ускоряет работу и решение вашего вопроса. Спасибо!",
+  "char_count": 546,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "inline_content_id:XEtBVAPbuqzVXItk",
+      "original_filename": "mailrusigimg_QWyAqlCM.png",
+      "is_inline": true
+    },
+    {
+      "id": 63,
+      "original_filename": "Карточка_предприятия_ООО_ИНТЕГРО_с_казначейскими_реквизитами (2).doc",
+      "saved_filename": "20250409_0ca81eab_215729_attach_Карточка_предприятия_ООО_ИНТЕГРО_с_казначейскими_реквизитами _2_.doc",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-09/20250409_0ca81eab_215729_attach_Карточка_предприятия_ООО_ИНТЕГРО_с_казначейскими_реквизитами _2_.doc",
+      "relative_path": "attachments/2025-04-09/20250409_0ca81eab_215729_attach_Карточка_предприятия_ООО_ИНТЕГРО_с_казначейскими_реквизитами _2_.doc",
+      "file_size": 38400,
+      "file_type": "application/msword",
+      "content_type": "application/msword",
+      "saved_at": "2025-10-11 14:57:29",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<1744179421.559872559@f740.i.mail.ru>",
+      "thread_id": "20250409_mail_ru_6802b6af",
+      "sha256": "9e2f74ceb006bfe100c218762424fb8367e38f3d52301a3373677562eac4b400",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 1,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:20:51.852443+07:00",
+  "raw_size": 213785,
+  "date_folder": "2025-04-09",
+  "eml_path": "eml/2025-04-09/1744179421.559872559_f740.i.mail.ru_235730_434947.eml"
+}

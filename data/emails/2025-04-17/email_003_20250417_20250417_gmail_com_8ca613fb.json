@@ -1,0 +1,36 @@
+{
+  "thread_id": "20250417_gmail_com_8ca613fb",
+  "message_id": "<1744872945.246920405@f104.i.mail.ru>",
+  "email_num_in_day": 3,
+  "total_emails_in_day": 15,
+  "from": "labdc42@gmail.com",
+  "to": "torgi@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "torgi@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Запрос КП ООО \"ЛДЦ\" МСЧ-42",
+  "date": "Thu, 17 Apr 2025 09:55:45 +0300",
+  "parsed_date": "2025-04-17T13:55:45+07:00",
+  "body_raw": "Здравствуйте!\nПросим предоставить ООО «ЛДЦ» коммерческое предложение на поставку наборов для нужд  ФКУЗ МСЧ-42 ФСИН России Кемерово (ИНН 4205007607)\n\nСтор-Ф -P-901-R/1 \nПроба-Оптима — P-016-1/2\n\nПока по одному набору, количество согласуем позже.\n\nС уважением, \nООО «ЛДЦ»\nГребенников Олег\n+7-923-632-6891",
+  "body_clean": "Здравствуйте!\nПросим предоставить ООО «ЛДЦ» коммерческое предложение на поставку наборов для нужд  ФКУЗ МСЧ-42 ФСИН России Кемерово (ИНН 4205007607)\nСтор-Ф -P-901-R/1\nПроба-Оптима — P-016-1/2\nПока по одному набору, количество согласуем позже.\nС уважением,\nООО «ЛДЦ»\nГребенников Олег\n+7-923-632-6891",
+  "char_count": 298,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:23:51.752664+07:00",
+  "raw_size": 8149,
+  "date_folder": "2025-04-17",
+  "eml_path": "eml/2025-04-17/1744872945.246920405_f104.i.mail.ru_002351_748798.eml"
+}

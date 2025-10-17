@@ -1,0 +1,63 @@
+Received:  from forward502d.mail.yandex.net ([178.154.239.210]:58000)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98 (FreeBSD))
+	 (envelope-from <yuliya.nemchinova@biovitrum.ru>)
+	 id 1u21e5-00000000CHc-3NBC 
+	for s.voronova@dna-technology.ru;
+	Tue, 08 Apr 2025 08:37:14 +0300
+Received: from mail-nwsmtp-mxback-production-main-89.klg.yp-c.yandex.net (mail-nwsmtp-mxback-production-main-89.klg.yp-c.yandex.net [IPv6:2a02:6b8:c42:40ad:0:640:1d2d:0])
+	by forward502d.mail.yandex.net (Yandex) with ESMTPS id 0669260CAE
+	for <s.voronova@dna-technology.ru>; Tue,  8 Apr 2025 08:37:13 +0300 (MSK)
+Received: from mail.yandex.ru (2a02:6b8:c42:b7a7:0:640:325e:0 [2a02:6b8:c42:b7a7:0:640:325e:0])
+	by mail-nwsmtp-mxback-production-main-89.klg.yp-c.yandex.net (mxback/Yandex) with HTTPS id 5bVrPS4LqSw0-8Zyfp7rs;
+	Tue, 08 Apr 2025 08:37:12 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=biovitrum.ru;
+	s=mail; t=1744090632;
+	bh=owpszmAfkhDuJv8q+YILofFYevCE3nivEospZno4Rf4=;
+	h=Message-Id:References:Date:Subject:To:In-Reply-To:From;
+	b=Pxt1HzBvh/KvpHFh4ZdgmnxndnCjbJeu7WXBCb5R4PJrDjL8K4TpsblbvRQjGQo0r
+	 I26LnGMT/mIWkEP+wj80bMonXevZ+QX3jHxsRdsxzP4iXfYVGbJSR01aVTRpyH4hQy
+	 6Ai7Ea4p1KbNIU7Z2Q2TcGpqb1SELU/09CONPzFU=
+Authentication-Results: mail-nwsmtp-mxback-production-main-89.klg.yp-c.yandex.net; dkim=pass header.i=@biovitrum.ru
+Received: by mail-sendbernar-production-main-46.klg.yp-c.yandex.net with HTTP;
+	Tue, 08 Apr 2025 08:37:12 +0300
+From: =?utf-8?B?0K7Qu9C40Y8g0J3QtdC80YfQuNC90L7QstCw?= <yuliya.nemchinova@biovitrum.ru>
+To: =?utf-8?B?0JLQvtGA0L7QvdC+0LLQsCDQodCy0LXRgtC70LDQvdCwINCh0LXRgNCz0LXQtdCy0L3QsA==?= <s.voronova@dna-technology.ru>
+In-Reply-To: <c2537a86-ef39-4598-a976-1238a7253f90@dna-technology.ru>
+References: <c2537a86-ef39-4598-a976-1238a7253f90@dna-technology.ru>
+Subject: =?utf-8?B?UmU6INCf0YDQvtC10LrRgiDQv9C+0YHRgtCw0LLQutC4INC+0LHQvtGA0YPQtNC+0LLQsNC90LjRjyA=?=
+	=?utf-8?B?0LTQu9GPINCe0JPQkNCj0JcgItCY0JPQmtCRIOKEliA4Iiwg0LMuINCY0YDQutGD0YLRgdC6LCDQmNCd?=
+	=?utf-8?B?0J0gMzgxMDAwOTM0Mg==?=
+MIME-Version: 1.0
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Tue, 08 Apr 2025 13:37:12 +0800
+Message-Id: <2937091744090632@mail-sendbernar-production-main-46.klg.yp-c.yandex.net>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/html; charset=utf-8
+Received-SPF: pass (mail.dna-technology.ru: domain of biovitrum.ru designates 178.154.239.210 as permitted sender) client-ip=178.154.239.210; envelope-from=yuliya.nemchinova@biovitrum.ru; helo=forward502d.mail.yandex.net;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+Светлана, доброе утро! <div>Завтра с визитом буду у заказчика, всё узнаю и отвечу.<br /><br /></div>13:35, 8 апреля 2025 г., "Воронова Светлана Сергеевна" &lt;s.voronova@dna-technology.ru&gt;:<br /><blockquote class="210e7a848e8fcb45wmi-quote">
+
+    <p>Добрый день, Юлия!</p>
+    <p>Прошу актуализировать информацию по данному проекту (на каком
+      этапе?):</p>
+    <p><span class="8ae5d3aff201e9dec5d51fc7373c3925fontstyle0">проект поставки оборудования для ОГАУЗ
+        "ИГКБ № 8", г. Иркутск, ИНН <span class="1f1ea193f6735cf0wmi-callto">3810009342</span></span></p>
+    <p><span class="8ae5d3aff201e9dec5d51fc7373c3925fontstyle0">Ранее выставленные КП высылаю во
+        вложении.<br />
+      </span> </p>
+    <pre class="17a9648e597149ad25f4234f87338152moz-signature">-- 
+С уважением,
+Воронова Светлана Сергеевна
+региональный представитель в СФО
+ООО "ДНК-Технология"
+Моб.тел. 8 (995) 129-39-76
+e-mail: <a class="324de92b3f6b2f5e993df2fdf11fa1c7moz-txt-link-abbreviated" href="mailto:s.voronova@dna-technology.ru">s.voronova@dna-technology.ru</a>
+web:    <a class="324de92b3f6b2f5e993df2fdf11fa1c7moz-txt-link-abbreviated" href="http://www.dna-technology.ru">www.dna-technology.ru</a></pre>
+  
+</blockquote><br /><br />-- <br />Отправлено из мобильного приложения Яндекс Почты

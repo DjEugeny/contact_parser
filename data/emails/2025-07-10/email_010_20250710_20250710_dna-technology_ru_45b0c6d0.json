@@ -1,0 +1,43 @@
+{
+  "thread_id": "20250710_dna-technology_ru_45b0c6d0",
+  "message_id": "<081946a5-b114-4ccf-90ba-8268429f57c5@dna-technology.ru>",
+  "email_num_in_day": 10,
+  "total_emails_in_day": 13,
+  "from": "d.dubrovskih@dna-technology.ru",
+  "to": "r.lebedeva@gm.clinic",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "r.lebedeva@gm.clinic"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "КП на ТО A5E206",
+  "date": "Thu, 10 Jul 2025 14:17:15 +0300",
+  "parsed_date": "2025-07-10T18:17:15+07:00",
+  "body_raw": "Рита Николаевна, добрый день!\r\n\nВо вложении направляю КП на ТО вашего ДТ A5E206.\r\n\n-------- Перенаправленное сообщение --------\r\n\nТема: ТО Новокузнецк Гранд Медика\r\nДата: Wed, 09 Jul 2025 10:32:58 +0700\r\nОт: Светлана Воронова <s.voronova@dna-technology.ru>\r\nКому: Дубровских Дарья <d.dubrovskih@dna-technology.ru>, \r\nhotline@dna-technology.ru\r\n\n Добрый день, коллеги!\r\n\nПрошу предоставить КП для проведения ТО амплификатора ДТпрайм 5М1 зав \r\nномер А5E206\r\n\n ООО \"ГРАНД МЕДИКА\"\r\n\nИНН \r\n4217162879\r\n\nКонтактное лицо в лаборатории :\r\nЛебедева Рита Николаевна\r\n+79059050447\r\n\nСпасибо!\r\n------------------------------------------------------------------------\r\n\nВоронова Светлана Сергеевна\r\nРегиональный представитель в СФО, г. Новосибирск | ООО «ДНК-Технология»\r\n\nТел.: +7 (995) 129-39-76 <tel:+79951293976>\r\nEmail: s.voronova@dna-technology.ru\r\n\n-- \r\nС уважением,\r\nДубровских Дарья\r\nВедущий специалист по техническому обслуживанию\r\nГруппы компаний \"ДНК-Технология\"\r\n(495)980-45-55, доб.1152\r\nМоб: +7 (985) 240-06-71\r\nd.dubrovskih@dna-technology.ru\r\n\nRegards,\r\nDaria Dubrovskikh\r\nTechnician services executive\r\nDNA-Technology Group of companies\r\nTel. / Fax office: +7 (495) 980 4555, Ext. No 1152\r\nMob: +7 (985) 240-06-71\r\nd.dubrovskih@dna-technology.ru",
+  "body_clean": "Рита Николаевна, добрый день!\nВо вложении направляю КП на ТО вашего ДТ A5E206.\n-------- Перенаправленное сообщение --------\nТема: ТО Новокузнецк Гранд Медика\nДата: Wed, 09 Jul 2025 10:32:58 +0700\nОт: Светлана Воронова s.voronova@dna-technology.ru\nКому: Дубровских Дарья d.dubrovskih@dna-technology.ru,\nhotline@dna-technology.ru\nДобрый день, коллеги!\nПрошу предоставить КП для проведения ТО амплификатора ДТпрайм 5М1 зав\nномер А5E206\nООО \"ГРАНД МЕДИКА\"\nИНН\n4217162879\nКонтактное лицо в лаборатории :\nЛебедева Рита Николаевна\n+79059050447\nСпасибо!\nВоронова Светлана Сергеевна\nРегиональный представитель в СФО, г. Новосибирск | ООО «ДНК-Технология»\nТел.: +7 (995) 129-39-76 tel:+79951293976\nEmail: s.voronova@dna-technology.ru\nС уважением,\nДубровских Дарья\nВедущий специалист по техническому обслуживанию\nГруппы компаний \"ДНК-Технология\"\n(495)980-45-55, доб.1152\nМоб: +7 (985) 240-06-71\nd.dubrovskih@dna-technology.ru\nRegards,\nDaria Dubrovskikh\nTechnician services executive\nDNA-Technology Group of companies\nTel. / Fax office: +7 (495) 980 4555, Ext. No 1152\nMob: +7 (985) 240-06-71",
+  "char_count": 1080,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:*_ТО_*",
+      "original_filename": "КП_НПО_Новокузнецк_Гранд_Медика_ТО_A5E206.pdf",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:40:38.822755+07:00",
+  "raw_size": 473068,
+  "date_folder": "2025-07-10",
+  "eml_path": "eml/2025-07-10/081946a5-b114-4ccf-90ba-8268429f57c5_dna-technology.ru_004038_811274.eml"
+}

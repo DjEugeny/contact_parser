@@ -1,0 +1,39 @@
+Received:  from forward100b.mail.yandex.net ([178.154.239.147]:52484)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98.2 (FreeBSD))
+	 (envelope-from <anda4@yandex.ru>)
+	 id 1urWyg-00000000NKi-3Ymp 
+	for s.voronova@dna-technology.ru;
+	Thu, 28 Aug 2025 10:23:23 +0300
+Received: from mail-nwsmtp-mxback-production-main-33.sas.yp-c.yandex.net (mail-nwsmtp-mxback-production-main-33.sas.yp-c.yandex.net [IPv6:2a02:6b8:c27:14b7:0:640:1831:0])
+	by forward100b.mail.yandex.net (Yandex) with ESMTPS id C0A9280692
+	for <s.voronova@dna-technology.ru>; Thu, 28 Aug 2025 10:23:21 +0300 (MSK)
+Received: from mail.yandex.ru (2a02:6b8:c23:faa:0:640:f783:0 [2a02:6b8:c23:faa:0:640:f783:0])
+	by mail-nwsmtp-mxback-production-main-33.sas.yp-c.yandex.net (mxback/Yandex) with HTTPS id FNUZ2s3xn8c0-xG8MPXLs;
+	Thu, 28 Aug 2025 10:23:21 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1756365801; bh=a35mWm8+gTwZcGp7oIjSJCh+fraLiGx1Yd1ggsxJXbw=;
+	h=Message-Id:Date:Subject:To:From;
+	b=tXxClXy3ruJB/XsLkK8h/Et+hKxzRx+AmJiwV3PIL6/caJxVy8a8JZIY2pBqXCufd
+	 A/pWfoWd+NoIfMMfy0EHlVolDXkm0lu66feWgJpECfnUFwUwiXBps42GdXVV7fCPgv
+	 /oFUVH7bMEvUU9o7W6xeSS1uFDY/E2zzKjgGuwYo=
+Authentication-Results: mail-nwsmtp-mxback-production-main-33.sas.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+Received: by umbzx4hqxrw5qxo7.sas.yp-c.yandex.net (sendbernar/Yandex) with HTTPS id 397225cc413b97c2c9c4b409edf4cd83;
+	Thu, 28 Aug 2025 10:23:20 +0300
+From: =?utf-8?B?0JrRg9C30L3QtdGG0L7QstCwINCY0YDQuNC90LA=?= <anda4@yandex.ru>
+To: "s.voronova@dna-technology.ru" <s.voronova@dna-technology.ru>
+Subject: =?utf-8?B?0JHQuNC70LXRgtGL?=
+MIME-Version: 1.0
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Thu, 28 Aug 2025 10:23:20 +0300
+Message-Id: <67781756365426@mail.yandex.ru>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/html; charset=utf-8
+Received-SPF: pass (mail.dna-technology.ru: domain of yandex.ru designates 178.154.239.147 as permitted sender) client-ip=178.154.239.147; envelope-from=anda4@yandex.ru; helo=forward100b.mail.yandex.net;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+<div>Светлана Сергеевна, нашла удобные по времени рейсы</div><div>23.09.2025 S7 2510 в 15:30 Новосибирск-Москва</div><div>28.09.2025 S7 2505 в 11:25 Москва-Новосибирск</div><div>+багаж</div><div>Паспортные данные:</div><div>Кузнецова Ирина Андреевна, 01.01.1987</div><div>5024 820013</div><div>ГУ МВД России по Новосибирской области от 12.10.2024</div><div> </div><div> </div><div>-- <br />С уважением</div><div>Кузнецова Ирина Андреевна</div><div>+7(913)482-05-32</div><div> </div>

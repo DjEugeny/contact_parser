@@ -1,0 +1,362 @@
+{
+  "source_file": "email_011_20250826_20250826_dna-technology_ru_64c67d80.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": null,
+        "website": "dna-technology.ru",
+        "city": "Москва",
+        "address": "Москва, Варшавское шоссе, дом 125Ж, корпус 5",
+        "emails": [
+          "torgi@dna-technology.ru"
+        ],
+        "phones": [
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71",
+            "extension": "2037"
+          }
+        ],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Воронова Светлана",
+        "organization_id": 1,
+        "position": "Региональный представитель в СФО",
+        "email": "s.voronova@dna-technology.ru",
+        "phones": [
+          {
+            "type": "mobile",
+            "number": "+7 (995) 129-39-76",
+            "normalized": "+79951293976",
+            "original": "+7 (995) 129-39-76",
+            "extension": null
+          },
+          {
+            "type": "office",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71",
+            "extension": "2037"
+          }
+        ],
+        "city": "Новосибирск",
+        "address": null,
+        "role_in_message": "cc",
+        "confidence": 0.95,
+        "value_score": 12,
+        "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "s.voronova@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1760675031.6453,
+          "version": "1.0.0"
+        },
+        "email_valid": true,
+        "name_original": "Светлана Воронова"
+      },
+      {
+        "contact_id": 2,
+        "name": "Хаташкеева Ольга",
+        "organization_id": null,
+        "position": null,
+        "email": "khatashkeeva@yandex.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "recipient",
+        "confidence": 0.8,
+        "value_score": 5,
+        "gid": "ecaa9b68-a68b-5ed8-9e38-863d70db3f5e",
+        "enrichment_skipped": true,
+        "enrichment_reason": "public_provider_yandex.ru",
+        "email_valid": true,
+        "name_original": "Ольга Хаташкеева"
+      }
+    ],
+    "business_context": "Ольга Хаташкеева запросила у Светланы Вороновой остатки по контрактам. Ольга Чурочкина (ДНК-Технология) пересылает сверку по остаткам.",
+    "summary": {
+      "topic": "Сверка остатков по контрактам",
+      "product_interest": "Наборы реагентов",
+      "communication_stage": "уточнение",
+      "request_type": "запрос информации"
+    },
+    "key_points": [
+      "Ольга Хаташкеева запросила остатки по контрактам",
+      "Ольга Чурочкина (ДНК-Технология) пересылает сверку",
+      "В сверке указаны остатки наборов реагентов"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 2,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "Остатки по контрактам",
+        "message_date": "2025-08-26T12:31:00+07:00",
+        "message_id_hint": null,
+        "role_in_message": "cc",
+        "interaction_type": "other",
+        "summary": "Запрос остатков по контрактам",
+        "human_note": "Светлана Воронова получила запрос остатков по контрактам от Ольги Хаташкеевой.",
+        "participants": {
+          "actor": "Воронова Светлана (ДНК-Технология, Региональный представитель в СФО)",
+          "audience": [
+            "Хаташкеева Ольга"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.7
+      }
+    ],
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": null,\n      \"website\": \"dna-technology.ru\",\n      \"city\": \"Москва\",\n      \"address\": \"Москва, Варшавское шоссе, дом 125Ж, корпус 5\",\n      \"emails\": [\n        \"torgi@dna-technology.ru\"\n      ],\n      \"phones\": [\n        {\n          \"type\": \"office\",\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": \"+74956401771\",\n          \"original\": \"+7 (495) 640-17-71\",\n          \"extension\": \"2037\"\n        }\n      ]\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Светлана Воронова\",\n      \"organization_id\": 1,\n      \"position\": \"Региональный представитель в СФО\",\n      \"email\": \"s.voronova@dna-technology.ru\",\n      \"phones\": [\n        {\n          \"type\": \"mobile\",\n          \"number\": \"+7 (995) 129-39-76\",\n          \"normalized\": \"+79951293976\",\n          \"original\": \"+7 (995) 129-39-76\",\n          \"extension\": null\n        }\n      ],\n      \"city\": \"Новосибирск\",\n      \"address\": null,\n      \"role_in_message\": \"cc\",\n      \"confidence\": 0.95\n    },\n    {\n      \"contact_id\": 2,\n      \"name\": \"Ольга Хаташкеева\",\n      \"organization_id\": null,\n      \"position\": null,\n      \"email\": \"khatashkeeva@yandex.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"recipient\",\n      \"confidence\": 0.8\n    },\n    {\n      \"contact_id\": 3,\n      \"name\": \"Ольга Чурочкина\",\n      \"organization_id\": 1,\n      \"position\": \"Ведущий специалист по тендерам\",\n      \"email\": null,\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 0.9\n    }\n  ],\n  \"business_context\": \"Ольга Хаташкеева запросила у Светланы Вороновой остатки по контрактам. Ольга Чурочкина (ДНК-Технология) пересылает сверку по остаткам.\",\n  \"summary\": {\n    \"topic\": \"Сверка остатков по контрактам\",\n    \"product_interest\": \"Наборы реагентов\",\n    \"communication_stage\": \"уточнение\",\n    \"request_type\": \"запрос информации\"\n  },\n  \"key_points\": [\n    \"Ольга Хаташкеева запросила остатки по контрактам\",\n    \"Ольга Чурочкина (ДНК-Технология) пересылает сверку\",\n    \"В сверке указаны остатки наборов реагентов\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 3,\n      \"organization_id\": 1,\n      \"message_subject\": \"Re: Fwd: Остатки по контрактам\",\n      \"message_date\": \"2025-08-26T15:36:33+07:00\",\n      \"message_id_hint\": \"<4e8375ff-2adc-4261-9526-0235892e3829@dna-technology.ru>\",\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"other\",\n      \"summary\": \"Пересылка сверки по остаткам по контрактам\",\n      \"human_note\": \"Ольга Чурочкина (ДНК-Технология) пересылает сверку по остаткам Ольге Хаташкеевой.\",\n      \"participants\": {\n        \"actor\": \"Чурочкина Ольга (ДНК-Технология, Ведущий специалист по тендерам)\",\n        \"audience\": [\n          \"Хаташкеева Ольга\"\n        ]\n      },\n      \"attachments\": [\n        \"СВЕРКА ГК.xls\"\n      ],\n      \"confidence\": 0.9\n    },\n    {\n      \"interaction_local_id\": 2,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"Остатки по контрактам\",\n      \"message_date\": \"2025-08-26T12:31:00+07:00\",\n      \"message_id_hint\": null,\n      \"role_in_message\": \"cc\",\n      \"interaction_type\": \"other\",\n      \"summary\": \"Запрос остатков по контрактам\",\n      \"human_note\": \"Светлана Воронова получила запрос остатков по контрактам от Ольги Хаташкеевой.\",\n      \"participants\": {\n        \"actor\": \"Воронова Светлана (ДНК-Технология, Региональный представитель в СФО)\",\n        \"audience\": [\n          \"Хаташкеева Ольга\"\n        ]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.7\n    }\n  ]\n}\n```",
+    "contact_mentions": [
+      {
+        "name": "Ольга Чурочкина",
+        "position": "Ведущий специалист по тендерам",
+        "organization_id": 1,
+        "role_in_message": "sender",
+        "confidence": 0.9,
+        "city": null,
+        "address": null
+      }
+    ],
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-17T11:23:51.646651",
+      "stats": {
+        "processed_emails": 46,
+        "total_organizations_processed": 91,
+        "total_contacts_processed": 141,
+        "organizations_deduplicated": 1,
+        "contacts_filtered": 19,
+        "contacts_enriched": 122,
+        "data_normalized": 212,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 1,
+        "phones_added_to_contacts": 1
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1
+      },
+      "contact_mapping": {
+        "1": 1,
+        "2": 2,
+        "3": 3
+      },
+      "filtering": {
+        "contacts_without_info_filtered": 1,
+        "mentions_saved": 1
+      },
+      "email_classification": {
+        "1": {
+          "kept": [
+            "torgi@dna-technology.ru"
+          ],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "DOMAIN",
+            "key_tuple": [
+              "ORG",
+              "DOMAIN",
+              "dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "s.voronova@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry",
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+          },
+          {
+            "entity": "contact",
+            "local_id": 2,
+            "gid": "ecaa9b68-a68b-5ed8-9e38-863d70db3f5e",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "PERSONAL",
+              "khatashkeeva@yandex.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          }
+        ],
+        "conflicts": []
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "needs_review",
+            "inn": null,
+            "confidence": 0.68,
+            "source": "dadata",
+            "method": "candidate_scoring",
+            "score": 0.68,
+            "candidates": [
+              {
+                "inn": "7723537840",
+                "ogrn": "1057746762105",
+                "name": "ООО \"ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 5, помещ 12",
+                "opf": "ООО",
+                "score": 0.68,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723537840"
+              },
+              {
+                "inn": "7723396678",
+                "ogrn": "1157746566031",
+                "name": "ООО \"НПФ ДНК-ТЕХНОЛОГИЯ\"",
+                "name_norm": "нпф днк технология",
+                "city": "Москва",
+                "address": "г Москва, Варшавское шоссе, д 125Ж к 7",
+                "opf": "ООО",
+                "score": 0.5541666666666666,
+                "provider": "dadata",
+                "link": "https://egrul.nalog.ru/index.html?queryAll=7723396678"
+              }
+            ],
+            "checked_at": "2025-10-17T11:23:50.046673",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+              "contact_name": "Светлана Воронова",
+              "phones_added": [
+                {
+                  "phone": "+74956401771",
+                  "type": "office",
+                  "confidence": 0.65,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.65
+              ],
+              "decision": {
+                "confidence": 0.65,
+                "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-17T04:23:50.048491",
+                "decision": "needs_review",
+                "reason": "Средний уровень уверенности (0.65), требуется проверка"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "ecaa9b68-a68b-5ed8-9e38-863d70db3f5e",
+              "contact_name": "Ольга Хаташкеева",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "no_organization",
+                  "message": "Контакт не связан с организацией"
+                }
+              ],
+              "confidence_scores": [],
+              "decision": null,
+              "skip_reasons": [
+                "no_organization"
+              ]
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 2,
+            "contacts_enriched": 1,
+            "phones_added_total": 1,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.65,
+            "phones_skipped_by_reason": {
+              "low_confidence": 0,
+              "no_org_phones": 0,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 1
+            }
+          },
+          "timestamp": "2025-10-17T04:23:50.048579",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 3,
+        "organizations_processed": 1,
+        "contacts_processed": 1,
+        "ui_format_applied": 3,
+        "phones_sanitized": 3
+      }
+    },
+    "provider_used": "OpenRouter",
+    "model": "google/gemini-2.0-flash-001",
+    "processing_time": 2.639633893966675,
+    "text_length": 13461,
+    "chunks_processed": 1,
+    "total_contacts_found": 2,
+    "unique_contacts_found": 2,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-08-26/email_011_20250826_20250826_dna-technology_ru_64c67d80.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 14.245
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "thread_id": "20250919_cardio-tomsk_ru_1d5d3692",
+  "message_id": "<2DF89B13FC6ECA43A7CE03AA109108E001702CF206@post1.cardio-tomsk.ru>",
+  "from": "maslov@cardio-tomsk.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "проф Маслова 3",
+  "date": "Fri, 19 Sep 2025 10:32:58 +0000",
+  "parsed_date": "2025-09-19T17:32:58+07:00",
+  "body": "",
+  "char_count": 0,
+  "attachments": [
+    {
+      "original_filename": "Технологический запрос.pptx",
+      "saved_filename": null,
+      "file_path": null,
+      "relative_path": null,
+      "file_size": 0,
+      "file_type": "excluded",
+      "exclusion_reason": "расширение .pptx исключено",
+      "saved_at": "2025-10-08T15:45:27.461915+07:00",
+      "status": "excluded",
+      "is_inline": false
+    },
+    {
+      "original_filename": "ПисьмоУчСекретаря.doc",
+      "saved_filename": "20250919_cardio-tomsk_ru_1d5d3692_154527_attach_ПисьмоУчСекретаря.doc",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-09-19/20250919_cardio-tomsk_ru_1d5d3692_154527_attach_ПисьмоУчСекретаря.doc",
+      "relative_path": "attachments/2025-09-19/20250919_cardio-tomsk_ru_1d5d3692_154527_attach_ПисьмоУчСекретаря.doc",
+      "file_size": 25088,
+      "file_type": "application/msword",
+      "content_type": "application/msword",
+      "saved_at": "2025-10-08T15:45:27.462613+07:00",
+      "status": "saved",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 1,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-08T15:45:27.462634+07:00",
+  "raw_size": 1136966,
+  "date_folder": "2025-09-19"
+}

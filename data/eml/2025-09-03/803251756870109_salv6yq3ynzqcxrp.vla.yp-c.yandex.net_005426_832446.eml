@@ -1,0 +1,39 @@
+Received:  from forward101a.mail.yandex.net ([178.154.239.84]:58660)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98.2 (FreeBSD))
+	 (envelope-from <darya@tokmakova1.ru>)
+	 id 1uteAg-00000000Laf-3lwy 
+	for s.voronova@dna-technology.ru;
+	Wed, 03 Sep 2025 06:28:31 +0300
+Received: from mail-nwsmtp-mxback-production-main-56.vla.yp-c.yandex.net (mail-nwsmtp-mxback-production-main-56.vla.yp-c.yandex.net [IPv6:2a02:6b8:c2b:209:0:640:17fb:0])
+	by forward101a.mail.yandex.net (Yandex) with ESMTPS id 5666A80731
+	for <s.voronova@dna-technology.ru>; Wed, 03 Sep 2025 06:28:29 +0300 (MSK)
+Received: from mail.yandex.ru (2a02:6b8:c15:3519:0:640:5598:0 [2a02:6b8:c15:3519:0:640:5598:0])
+	by mail-nwsmtp-mxback-production-main-56.vla.yp-c.yandex.net (mxback/Yandex) with HTTPS id MSWkMW3xmSw0-F0pis9cn;
+	Wed, 03 Sep 2025 06:28:29 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tokmakova1.ru;
+	s=mail; t=1756870109;
+	bh=mJO9XV778VnD/V1uuCzmT0EPLxGPXh5by95qrN2y1Pw=;
+	h=Message-Id:Date:To:From;
+	b=IUmZXlq0WsqARNhgH67CRIbI40kCNtnFN5F99LEx7RfhevIB90KaWT/BwBR4OecrN
+	 ODIb01NWhEhiawDDw9rfq4/ybkC0tj6HHIFgBlg94hVktedOwewzax0LoQUNo34xIB
+	 Fq/qk7/WWTCbcr5b0of4yy7M0L0MS5XpT3zlRhvU=
+Authentication-Results: mail-nwsmtp-mxback-production-main-56.vla.yp-c.yandex.net; dkim=pass header.i=@tokmakova1.ru
+Received: by salv6yq3ynzqcxrp.vla.yp-c.yandex.net (sendbernar/Yandex) with HTTPS id ca7e8a1d42776adcb5cdb2a2f3e77b74;
+	Wed, 03 Sep 2025 06:28:29 +0300
+From: =?utf-8?B?0JTQsNGA0YzRjyDQotC+0LrQvNCw0LrQvtCy0LAvINCf0YfQtdC70YzQvdC40LrQvtCy0LA=?= <darya@tokmakova1.ru>
+To: s.voronova@dna-technology.ru
+MIME-Version: 1.0
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Wed, 03 Sep 2025 10:28:29 +0700
+Message-Id: <803251756870109@salv6yq3ynzqcxrp.vla.yp-c.yandex.net>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/html; charset=utf-8
+Received-SPF: pass (mail.dna-technology.ru: domain of tokmakova1.ru designates 178.154.239.84 as permitted sender) client-ip=178.154.239.84; envelope-from=darya@tokmakova1.ru; helo=forward101a.mail.yandex.net;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+Здравствуйте, можно заказать набор на выделение ПРОБА ГС ГЕНЕТИКА - 6шт<div>И подскажите сроки доставки? <br /><br />-- <br />С уважением,<br />Токмакова Дарья Владимировна </div>

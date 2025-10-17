@@ -1,0 +1,35 @@
+{
+  "thread_id": "20250918_dna-technology_ru_5e02aaf4",
+  "message_id": "<5ff60f30-6967-4474-b458-a46e5abfd246@dna-technology.ru>",
+  "email_num_in_day": 12,
+  "total_emails_in_day": 14,
+  "from": "torgi@dna-technology.ru",
+  "to": "marya.skleimova@medgenetics.ru, s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "marya.skleimova@medgenetics.ru",
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "про поставку",
+  "date": "Thu, 18 Sep 2025 18:09:45 +0300",
+  "parsed_date": "2025-09-18T22:09:45+07:00",
+  "body_raw": "Добрый день\r\n\nУ нас с вами заключен контракт №140/44ЗК/25 от 17.09.2025 на поставку \r\nреагентов для ПЦР\r\n\nУточните, пожалуйста, точный адрес для поставки товара и ФИО и телефон \r\nлица, ответственного за получение товара\r\n\n-- \r\n\nФролова Мария Борисовна\r\nСпециалист по тендерам | ООО «ДНК-Технология»\r\n\nТел. +7 (495) 640-17-71 (доб. 2036) <tel:+74956401771,2036>\r\nEmail: torgi@dna-technology.ru\r\n\n------------------------------------------------------------------------\r\n\nСайт: dna-technology.ru <https://dna-technology.ru>\r\nTelegram: @dna_tech_rus <https://t.me/dna_tech_rus>\r\nYouTube <https://www.youtube.com/channel/UCqUrpqfZ65z26CUR-4f96iA> | \r\nRUTUBE <https://rutube.ru/channel/63912239/>\r\n\n------------------------------------------------------------------------\r\n\nМосква, Варшавское шоссе, дом 125Ж, корпус 5\r\n\n«ДНК-Технология»\r\n\nПрофиль компании: разработка и производство лабораторного оборудования, \r\nПО и реагентов для молекулярно-генетических исследований (ПЦР, NGS).",
+  "body_clean": "Добрый день\nУ нас с вами заключен контракт №140/44ЗК/25 от 17.09.2025 на поставку\nреагентов для ПЦР\nУточните, пожалуйста, точный адрес для поставки товара и ФИО и телефон\nлица, ответственного за получение товара\nФролова Мария Борисовна\nСпециалист по тендерам | ООО «ДНК-Технология»\nТел. +7 (495) 640-17-71 (доб. 2036) tel:+74956401771,2036\nEmail: torgi@dna-technology.ru\nСайт: dna-technology.ru https://dna-technology.ru\nTelegram: @dna_tech_rus https://t.me/dna_tech_rus\nYouTube https://www.youtube.com/channel/UCqUrpqfZ65z26CUR-4f96iA |\nRUTUBE https://rutube.ru/channel/63912239/\nМосква, Варшавское шоссе, дом 125Ж, корпус 5\n«ДНК-Технология»\nПрофиль компании: разработка и производство лабораторного оборудования,\nПО и реагентов для молекулярно-генетических исследований (ПЦР, NGS).",
+  "char_count": 783,
+  "attachments": [],
+  "attachments_stats": {
+    "total": 0,
+    "saved": 0,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:58:37.105572+07:00",
+  "raw_size": 6004,
+  "date_folder": "2025-09-18",
+  "eml_path": "eml/2025-09-18/5ff60f30-6967-4474-b458-a46e5abfd246_dna-technology.ru_005837_100300.eml"
+}

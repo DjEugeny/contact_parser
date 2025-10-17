@@ -1,0 +1,43 @@
+{
+  "thread_id": "20251007_dna-technology_ru_7940444f",
+  "message_id": "<c013ec1b-965f-48a8-98ab-f7cbc86f019c@dna-technology.ru>",
+  "email_num_in_day": 14,
+  "total_emails_in_day": 21,
+  "from": "o.isaev@dna-technology.ru",
+  "to": "litvinenko@dna-technology.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "litvinenko@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Договор с ПЦ Новосибирск",
+  "date": "Tue, 7 Oct 2025 15:00:04 +0300",
+  "parsed_date": "2025-10-07T19:00:04+07:00",
+  "body_raw": "Юля, апробационный договор на ДТпрайм с ПЦ г.Новосибирск продлеваем до \r\n30.06.2025\r\n\n-- \r\nДокумент без названия\r\n\n*С уважением, Исаев Олег Юрьевич,*\r\n\n*Руководитель отдела регионального развития *\r\n\n**ООО \"ДНК-Технология\" **\r\n\n***Тел:**+7 (495) 640-17-71***\r\n\n**\r\n\n*E-mail:**o.isaev@dna-technology.ru *\r\n\n*Web:**www.dna-technology.ru <https://dna-technology.ru>*\r\n\n<https://dna-technology.ru>**",
+  "body_clean": "Юля, апробационный договор на ДТпрайм с ПЦ г.Новосибирск продлеваем до\n30.06.2025\nДокумент без названия\n*С уважением, Исаев Олег Юрьевич,*\n*Руководитель отдела регионального развития *\n**ООО \"ДНК-Технология\" **\n***Тел:**+7 (495) 640-17-71***\n*E-mail:**o.isaev@dna-technology.ru *\n*Web:**www.dna-technology.ru https://dna-technology.ru*\nhttps://dna-technology.ru**",
+  "char_count": 363,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:logo*",
+      "original_filename": "logo.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T01:03:25.006564+07:00",
+  "raw_size": 118595,
+  "date_folder": "2025-10-07",
+  "eml_path": "eml/2025-10-07/c013ec1b-965f-48a8-98ab-f7cbc86f019c_dna-technology.ru_010325_002817.eml"
+}

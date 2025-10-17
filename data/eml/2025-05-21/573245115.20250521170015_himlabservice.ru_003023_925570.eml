@@ -1,0 +1,143 @@
+Received:  from forward500a.mail.yandex.net ([178.154.239.80]:55772)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98 (FreeBSD))
+	 (envelope-from <hls@himlabservice.ru>)
+	 id 1uHgFG-00000000Hao-2tc5 
+	for s.voronova@dna-technology.ru;
+	Wed, 21 May 2025 13:00:19 +0300
+Received: from mail-nwsmtp-smtp-production-main-77.iva.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-77.iva.yp-c.yandex.net [IPv6:2a02:6b8:c0c:740a:0:640:fb7d:0])
+	by forward500a.mail.yandex.net (Yandex) with ESMTPS id 9F6056121B
+	for <s.voronova@dna-technology.ru>; Wed, 21 May 2025 13:00:17 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-77.iva.yp-c.yandex.net (smtp/Yandex) with ESMTPSA id F0LTDs3LgeA0-O8LrkWbM;
+	Wed, 21 May 2025 13:00:17 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=himlabservice.ru;
+	s=mail; t=1747821617;
+	bh=BMoDqw+aUuwE16A121b9TXUv47lzIsKX+cYb2cQdrVE=;
+	h=In-Reply-To:Message-ID:Subject:References:To:From:Date;
+	b=iVHxyoKIONE1TISkTubV0hnvf+ob156zGmKkwjCCuRJ2gqovjf90PQJxmH8Ayxx1J
+	 OeCFn3CBdCTlXrdmrAn9rnpvYMT/bI7J58HbAyZ0Xdwiu6hnHUiJOh4pEbnFwF8CKt
+	 eulRlUjgYApl4f1kbmRocSyLm6Otqx7+qrBMOmrY=
+Authentication-Results: mail-nwsmtp-smtp-production-main-77.iva.yp-c.yandex.net; dkim=pass header.i=@himlabservice.ru
+Date: Wed, 21 May 2025 17:00:15 +0700
+From: =?utf-8?B?0KXQuNC80JvQsNCx0KHQtdGA0LLQuNGB?= <hls@himlabservice.ru>
+Message-ID: <573245115.20250521170015@himlabservice.ru>
+To: =?utf-8?B?0JLQvtGA0L7QvdC+0LLQsCDQodCy0LXRgtC70LDQvdCwINCh0LXRgNCz0LXQtdCy0L3QsA==?= <s.voronova@dna-technology.ru>
+Subject: =?utf-8?B?UmU6INCX0LDQv9GA0L7RgSDRgdGH0LXRgtCw?=
+In-Reply-To: <1075391747752566@p4asi5rknp7qze37.vla.yp-c.yandex.net>
+References: <1515502370.20250519150620@himlabservice.ru> <1075391747752566@p4asi5rknp7qze37.vla.yp-c.yandex.net>
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Received-SPF: pass (mail.dna-technology.ru: domain of himlabservice.ru designates 178.154.239.80 as permitted sender) client-ip=178.154.239.80; envelope-from=hls@himlabservice.ru; helo=forward500a.mail.yandex.net;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+<html><head><title>Re: &#1047;&#1072;&#1087;&#1088;&#1086;&#1089; &#1089;&#=
+1095;&#1077;&#1090;&#1072;</title>
+<meta charset=3D"utf-8" http-equiv=3D"X-UA-Compatible" content=3D"IE=3D9; I=
+E=3D8; IE=3D7; IE=3DEDGE" />
+</head>
+<body>
+<span style=3D" font-family:'consolas'; font-size: 9pt;">&#1047;&#1076;&#10=
+88;&#1072;&#1074;&#1089;&#1090;&#1074;&#1091;&#1081;&#1090;&#1077;!<br>
+<br>
+&#1047;&#1072;&#1082;&#1072;&#1079;&#1095;&#1080;&#1082; &nbsp; &#1053;&#10=
+48;&#1048; &nbsp; &#1050;&#1072;&#1088;&#1076;&#1080;&#1086;&#1083;&#1086;&=
+#1075;&#1080;&#1080; &nbsp;&#1058;&#1086;&#1084;&#1089;&#1082;&#1086;&#1075=
+;&#1086; &nbsp;&#1053;&#1048;&#1052;&#1062; &nbsp;&#1048;&#1053;&#1053; &nb=
+sp;7019011979, &nbsp;&#1050;&#1055; &nbsp;&#1085;&#1077;<br>
+&#1074;&#1099;&#1089;&#1090;&#1072;&#1074;&#1083;&#1103;&#1083;&#1086;&#108=
+9;&#1100;.<br>
+<br>
+&#1042;&#1099; &#1087;&#1080;&#1089;&#1072;&#1083;&#1080; 20 &#1084;&#1072;=
+&#1103; 2025 &#1075;., 21:49:26:<br>
+<br>
+</span><table style =3D" border-collapse: collapse;" cellpadding =3D 1 cell=
+Spacing =3D 2>
+<tr>
+<td  width=3D2 bgcolor=3D #0000ff><br>
+</td>
+<td ><span style=3D" font-family:'consolas'; font-size: 9pt;">&#1041;&#1072=
+;&#1080;&#1088;, &#1079;&#1076;&#1088;&#1072;&#1074;&#1089;&#1090;&#1074;&#=
+1091;&#1081;&#1090;&#1077;!<br>
+&#1054;&#1073;&#1103;&#1079;&#1072;&#1090;&#1077;&#1083;&#1100;&#1085;&#108=
+6; &#1079;&#1072;&#1087;&#1088;&#1072;&#1096;&#1080;&#1074;&#1072;&#1077;&#=
+1084; &#1089;&#1095;&#1105;&#1090; &#1080; &#1050;&#1055; &#1089; &#1091;&#=
+1082;&#1072;&#1079;&#1072;&#1085;&#1080;&#1077;&#1084; &#1082;&#1086;&#1085=
+;&#1077;&#1095;&#1085;&#1086;&#1075;&#1086; &#1087;&#1086;&#1083;&#1100;&#1=
+079;&#1086;&#1074;&#1072;&#1090;&#1077;&#1083;&#1103;!<br>
+<br>
+--<br>
+&#1057; &#1091;&#1074;&#1072;&#1078;&#1077;&#1085;&#1080;&#1077;&#1084;, &#=
+1042;&#1086;&#1088;&#1086;&#1085;&#1086;&#1074;&#1072; &#1057;&#1074;&#1077=
+;&#1090;&#1083;&#1072;&#1085;&#1072; &#1057;&#1077;&#1088;&#1075;&#1077;&#1=
+077;&#1074;&#1085;&#1072;<br>
+&#1088;&#1077;&#1075;&#1080;&#1086;&#1085;&#1072;&#1083;&#1100;&#1085;&#109=
+9;&#1081; &#1087;&#1088;&#1077;&#1076;&#1089;&#1090;&#1072;&#1074;&#1080;&#=
+1090;&#1077;&#1083;&#1100; &#1074; &#1057;&#1060;&#1054;<br>
+&#1054;&#1054;&#1054; "&#1044;&#1053;&#1050;-&#1058;&#1077;&#1093;&#1085;&#=
+1086;&#1083;&#1086;&#1075;&#1080;&#1103;"<br>
+&#1084;&#1086;&#1073;. &#1090;&#1077;&#1083;. 8 (995) 129-39-76<br>
+e-mail: s.voronova@dna-technology.ru<br>
+web: www.dna-technology.ru<br>
+<br>
+11:06, 19 &#1084;&#1072;&#1103; 2025 &#1075;., "&#1061;&#1080;&#1084;&#1051=
+;&#1072;&#1073;&#1057;&#1077;&#1088;&#1074;&#1080;&#1089;" &lt;hls@himlabse=
+rvice.ru&gt;:<br>
+</span><table style =3D" border-collapse: collapse;" cellpadding =3D 1 cell=
+Spacing =3D 2>
+<tr>
+<td  width=3D2 bgcolor=3D #3200ff><br>
+</td>
+<td ><span style=3D" font-family:'consolas'; font-size: 9pt;">&#1047;&#1076=
+;&#1088;&#1072;&#1074;&#1089;&#1090;&#1074;&#1091;&#1081;&#1090;&#1077;, &#=
+1057;&#1074;&#1077;&#1090;&#1083;&#1072;&#1085;&#1072; &#1057;&#1077;&#1088=
+;&#1075;&#1077;&#1077;&#1074;&#1085;&#1072;!<br>
+<br>
+&#1055;&#1088;&#1086;&#1096;&#1091; &#1042;&#1072;&#1089; &#1074;&#1099;&#1=
+089;&#1090;&#1072;&#1074;&#1080;&#1090;&#1100; &#1089;&#1095;&#1077;&#1090;=
+ &#1085;&#1072; &#1087;&#1086;&#1079;&#1080;&#1094;&#1080;&#1080;:<br>
+R1-H904-N3/4<br>
+R1-H961-N3/4<br>
+R1-H957-N3/4<br>
+P-021/4 &#1087;&#1086; 1 &#1085;&#1072;&#1073;&#1086;&#1088;&#1091;<br>
+&#1047;&#1072;&#1088;&#1072;&#1085;&#1077;&#1077; &#1073;&#1083;&#1072;&#10=
+75;&#1086;&#1076;&#1072;&#1088;&#1077;&#1085;!<br>
+<br>
+&#1057; &#1091;&#1074;&#1072;&#1078;&#1077;&#1085;&#1080;&#1077;&#1084; &#1=
+062;&#1099;&#1073;&#1072;&#1085;&#1086;&#1074; &#1041;&#1072;&#1080;&#1088;=
+ &#1042;&#1072;&#1083;&#1077;&#1088;&#1100;&#1077;&#1074;&#1080;&#1095;<br>
+&#1052;&#1077;&#1085;&#1077;&#1076;&#1078;&#1077;&#1088; &#1087;&#1086; &#1=
+087;&#1088;&#1086;&#1076;&#1072;&#1078;&#1072;&#1084;<br>
+&#1054;&#1054;&#1054; "&#1061;&#1080;&#1084;&#1051;&#1072;&#1073;&#1057;&#1=
+077;&#1088;&#1074;&#1080;&#1089;"<br>
++7(3822)42-45-35<br>
+634045 &#1075;. &#1058;&#1086;&#1084;&#1089;&#1082;, &#1091;&#1083;. &#1052=
+;&#1086;&#1082;&#1088;&#1091;&#1096;&#1080;&#1085;&#1072; 13&#1040;<br>
+</span><a style=3D" font-family:'consolas'; font-size: 9pt;" href=3D"https:=
+//himlabservice.ru">https://himlabservice.ru/</a></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<br>
+<br>
+<br>
+<span style=3D" font-family:'consolas'; font-size: 9pt;">&#1057; &nbsp;&#10=
+91;&#1074;&#1072;&#1078;&#1077;&#1085;&#1080;&#1077;&#1084; &#1062;&#1099;&=
+#1073;&#1072;&#1085;&#1086;&#1074; &#1041;&#1072;&#1080;&#1088; &#1042;&#10=
+72;&#1083;&#1077;&#1088;&#1100;&#1077;&#1074;&#1080;&#1095;<br>
+&#1052;&#1077;&#1085;&#1077;&#1076;&#1078;&#1077;&#1088; &#1087;&#1086; &#1=
+087;&#1088;&#1086;&#1076;&#1072;&#1078;&#1072;&#1084;<br>
+&#1054;&#1054;&#1054; "&#1061;&#1080;&#1084;&#1051;&#1072;&#1073;&#1057;&#1=
+077;&#1088;&#1074;&#1080;&#1089;"<br>
++7(3822)42-45-35<br>
+634045 &#1075;. &#1058;&#1086;&#1084;&#1089;&#1082;, &#1091;&#1083;. &#1052=
+;&#1086;&#1082;&#1088;&#1091;&#1096;&#1080;&#1085;&#1072; 13&#1040;<br>
+</span><a style=3D" font-family:'consolas'; font-size: 9pt;" href=3D"https:=
+//himlabservice.ru/">https://himlabservice.ru/</a></body></html>
+

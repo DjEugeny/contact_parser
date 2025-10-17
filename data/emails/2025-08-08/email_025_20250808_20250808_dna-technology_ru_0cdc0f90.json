@@ -1,0 +1,52 @@
+{
+  "thread_id": "20250808_dna-technology_ru_0cdc0f90",
+  "message_id": "<52d66c69-503c-4e7e-87ae-e4c8b8231beb@dna-technology.ru>",
+  "email_num_in_day": 25,
+  "total_emails_in_day": 27,
+  "from": "torgi@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "ПОВТОРНО! Fwd: Fwd: Запрос цен № 349",
+  "date": "Fri, 8 Aug 2025 17:47:27 +0300",
+  "parsed_date": "2025-08-08T21:47:27+07:00",
+  "body_raw": "Светлана, добрый день\r\n\nЧто им выставить в КП?\r\n\n-------- Перенаправленное сообщение --------\r\nТема: Fwd: Запрос цен № 349\r\nДата: Wed, 6 Aug 2025 09:42:41 +0300\r\nОт: Секретариат ДНК-Технология <mail@dna-technology.ru>\r\nОрганизация: ДНК-Технология\r\nКому: Тендерный отдел <torgi@dna-technology.ru>\r\n\n-------- Перенаправленное сообщение --------\r\nТема: Запрос цен № 349\r\nДата: Wed, 6 Aug 2025 10:31:54 +0700\r\nОт: Пашенцева Яна Сергеевна <dogovor3@kkptd1.ru>\r\nКому: mail@dna-technology.ru\r\n\nДобрый день!\r\n\nКГБУЗ «ККПТД № 1» запрашивает коммерческое предложение для проведения \r\nэлектронного аукциона на поставку изделий медицинского назначения (Набор \r\nдля экстракции/изоляции нуклеиновых кислот ИВД) для нужд бактериальной \r\nлаборатории КГБУЗ ККПТД № 1 в 2025 – 2026 гг. году.\r\n\n-- \r\nС уважением,\r\nПашенцева Яна Сергеевна\r\nдоговорной отдел КГБУЗ ККПТД №1\r\n8 (391) 290-68-02 (доб.4)",
+  "body_clean": "Светлана, добрый день\nЧто им выставить в КП?\n-------- Перенаправленное сообщение --------\nТема: Fwd: Запрос цен № 349\nДата: Wed, 6 Aug 2025 09:42:41 +0300\nОт: Секретариат ДНК-Технология mail@dna-technology.ru\nОрганизация: ДНК-Технология\nКому: Тендерный отдел torgi@dna-technology.ru\nТема: Запрос цен № 349\nДата: Wed, 6 Aug 2025 10:31:54 +0700\nОт: Пашенцева Яна Сергеевна dogovor3@kkptd1.ru\nКому: mail@dna-technology.ru\nДобрый день!\nКГБУЗ «ККПТД № 1» запрашивает коммерческое предложение для проведения\nэлектронного аукциона на поставку изделий медицинского назначения (Набор\nдля экстракции/изоляции нуклеиновых кислот ИВД) для нужд бактериальной\nлаборатории КГБУЗ ККПТД № 1 в 2025 – 2026 гг. году.\nС уважением,\nПашенцева Яна Сергеевна\nдоговорной отдел КГБУЗ ККПТД №1\n8 (391) 290-68-02 (доб.4)",
+  "char_count": 792,
+  "attachments": [
+    {
+      "id": 401,
+      "original_filename": "Запрос цен № 349 Набор экстракции нуклеиновых кислот.pdf",
+      "saved_filename": "20250808_7b384d3c_004928_841910_attach_Запрос цен _ 349 Набор экстракции нуклеиновых кислот.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-08-08/20250808_7b384d3c_004928_841910_attach_Запрос цен _ 349 Набор экстракции нуклеиновых кислот.pdf",
+      "relative_path": "attachments/2025-08-08/20250808_7b384d3c_004928_841910_attach_Запрос цен _ 349 Набор экстракции нуклеиновых кислот.pdf",
+      "file_size": 2596760,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:49:28",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<52d66c69-503c-4e7e-87ae-e4c8b8231beb@dna-technology.ru>",
+      "thread_id": "20250808_dna-technology_ru_0cdc0f90",
+      "sha256": "f84245fe8118b84fb74729492f2a21015bb1d81751e83c3d493192a381101502",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:49:28.829777+07:00",
+  "raw_size": 3566417,
+  "date_folder": "2025-08-08",
+  "eml_path": "eml/2025-08-08/52d66c69-503c-4e7e-87ae-e4c8b8231beb_dna-technology.ru_004928_824760.eml"
+}

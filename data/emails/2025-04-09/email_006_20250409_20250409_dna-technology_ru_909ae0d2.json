@@ -1,0 +1,54 @@
+{
+  "thread_id": "20250409_dna-technology_ru_909ae0d2",
+  "message_id": "<3cbea914-5a77-43e7-bc55-361338eb8489@dna-technology.ru>",
+  "email_num_in_day": 6,
+  "total_emails_in_day": 28,
+  "from": "torgi@dna-technology.ru",
+  "to": "gvi@oblmed.nsk.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "gvi@oblmed.nsk.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: Новосибирск ГНОКБ Fwd: Fwd: Запрос на тест-системы",
+  "date": "Wed, 9 Apr 2025 10:15:33 +0300",
+  "parsed_date": "2025-04-09T14:15:33+07:00",
+  "body_raw": "Добрый день, коллеги!\r\n\n  КП во вложении.\r\n\n>\r\n>\r\n> -------- Пересылаемое сообщение --------\r\n> 15:47, 7 апреля 2025 г., \"Галкин В.И.\" <gvi@oblmed.nsk.ru>:\r\n>\r\n>\r\n> -------- Конец пересылаемого сообщения --------\r\n\n-- \r\nС уважением,\r\nспециалист по тендерам ООО \"ДНК-Технология\"\r\nЧурочкина Ольга Александровна\r\nТел. (495) 640 17 71 доб.2037\r\nmailto:torgi@dna-technology.ru\r\nhttp://www.dna-technology.ru",
+  "body_clean": "Добрый день, коллеги!\nКП во вложении.\n> -------- Пересылаемое сообщение --------\n> 15:47, 7 апреля 2025 г., \"Галкин В.И.\" gvi@oblmed.nsk.ru:\n> -------- Конец пересылаемого сообщения --------\nС уважением,\nспециалист по тендерам ООО \"ДНК-Технология\"\nЧурочкина Ольга Александровна\nТел. (495) 640 17 71 доб.2037\nmailto:torgi@dna-technology.ru\nhttp://www.dna-technology.ru",
+  "char_count": 367,
+  "attachments": [
+    {
+      "id": 64,
+      "original_filename": "КП 4465 от 07.04.2025.pdf",
+      "saved_filename": "20250409_31b835b0_215735_attach_КП 4465 от 07.04.2025.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-04-09/20250409_31b835b0_215735_attach_КП 4465 от 07.04.2025.pdf",
+      "relative_path": "attachments/2025-04-09/20250409_31b835b0_215735_attach_КП 4465 от 07.04.2025.pdf",
+      "file_size": 208164,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-11 14:57:35",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<3cbea914-5a77-43e7-bc55-361338eb8489@dna-technology.ru>",
+      "thread_id": "20250409_dna-technology_ru_909ae0d2",
+      "sha256": "5668cef93cef7ceb4ec37814a3a959095c427e758811b63028e707fff3242259",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:20:56.568482+07:00",
+  "raw_size": 289698,
+  "date_folder": "2025-04-09",
+  "eml_path": "eml/2025-04-09/3cbea914-5a77-43e7-bc55-361338eb8489_dna-technology.ru_235735_860607.eml"
+}

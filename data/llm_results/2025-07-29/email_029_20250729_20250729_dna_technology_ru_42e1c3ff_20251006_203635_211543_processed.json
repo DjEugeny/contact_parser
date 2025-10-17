@@ -1,0 +1,533 @@
+{
+  "source_file": "email_029_20250729_20250729_dna-technology_ru_42e1c3ff.json",
+  "processed_result": {
+    "organizations": [
+      {
+        "organization_id": 1,
+        "name": "ДНК-Технология",
+        "inn": "7728469349",
+        "website": "dna-technology.ru",
+        "city": "Москва",
+        "address": "Москва, Варшавское шоссе, дом 125Ж, корпус 5",
+        "emails": [],
+        "phones": [
+          {
+            "type": "main",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71 (доб. 2030)",
+            "extension": "2030"
+          }
+        ],
+        "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3"
+      },
+      {
+        "organization_id": 2,
+        "name": "Медико-санитарная часть «Клиницист-Клиника Претор»",
+        "inn": "5402537179",
+        "website": null,
+        "city": "Новосибирск",
+        "address": "630082, г.Новосибирск,ул.Жуковского,97-111",
+        "emails": [],
+        "phones": [],
+        "gid": "6a8f8ae1-f84a-5583-935c-5c1201d32519"
+      }
+    ],
+    "contacts": [
+      {
+        "contact_id": 1,
+        "name": "Гоголева Мария Михайловна",
+        "organization_id": 1,
+        "position": "Менеджер по продаже оборудования",
+        "email": "m.gogoleva@dna-technology.ru",
+        "phones": [
+          {
+            "type": "main",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71 (доб. 2030)",
+            "extension": "2030"
+          }
+        ],
+        "city": null,
+        "address": null,
+        "role_in_message": "sender",
+        "confidence": 1.0,
+        "value_score": 9,
+        "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "m.gogoleva@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1759760142.140874,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 2,
+        "name": "Воронова Светлана Сергеевна",
+        "organization_id": 1,
+        "position": "Региональный представитель в СФО",
+        "email": "s.voronova@dna-technology.ru",
+        "phones": [
+          {
+            "type": "mobile",
+            "number": "+7 (995) 129-39-76",
+            "normalized": "+79951293976",
+            "original": "Моб.тел. 8 (995) 129-39-76",
+            "extension": null
+          },
+          {
+            "type": "main",
+            "number": "+7 (495) 640-17-71",
+            "normalized": "+74956401771",
+            "original": "+7 (495) 640-17-71 (доб. 2030)",
+            "extension": "2030"
+          }
+        ],
+        "city": "Новосибирск",
+        "address": null,
+        "role_in_message": "recipient",
+        "confidence": 1.0,
+        "value_score": 12,
+        "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.9,
+        "website_source": "smart_corporate_email",
+        "website_method": "domain_extraction",
+        "enrichment_reason": "corporate_email_dna-technology.ru",
+        "enrichment_skipped": false,
+        "smart_enrichment": {
+          "source_email": "s.voronova@dna-technology.ru",
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1759760143.0019698,
+          "version": "1.0.0"
+        },
+        "email_valid": true
+      },
+      {
+        "contact_id": 4,
+        "name": "Пименова Юлия Александровна",
+        "organization_id": 1,
+        "position": null,
+        "email": "medic.81@mail.ru",
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "mentioned",
+        "confidence": 0.7,
+        "value_score": 7,
+        "gid": "6573bf02-d81c-5ad8-9126-28d2b7589460",
+        "enrichment_skipped": true,
+        "enrichment_reason": "public_provider_mail.ru",
+        "email_valid": true,
+        "name_original": "Юлия Александровна Пименова"
+      },
+      {
+        "contact_id": 3,
+        "name": "Литвиненко Юлия",
+        "organization_id": 1,
+        "position": null,
+        "email": null,
+        "phones": [],
+        "city": null,
+        "address": null,
+        "role_in_message": "mentioned",
+        "confidence": 0.8,
+        "value_score": 5,
+        "gid": "78f3c5f1-74cd-572f-9baf-21f3a827bca9",
+        "website": "https://www.dna-technology.ru",
+        "website_confidence": 0.6,
+        "website_source": "organization_profile",
+        "enrichment_skipped": false,
+        "enrichment_reason": "organization_website_used",
+        "smart_enrichment": {
+          "source_email": null,
+          "extracted_domain": "dna-technology.ru",
+          "website_found": "https://www.dna-technology.ru",
+          "enriched_at": 1759760143.0019882,
+          "version": "1.0.0",
+          "source": "organization_website"
+        }
+      }
+    ],
+    "business_context": "Мария Гоголева (ДНК-Технология) сообщает Светлане Вороновой, что отправила КП по акции на ДТпрайм5М1 и переадресовала запрос на реагентный контракт Юлии Литвиненко. Ожидается рассмотрение вариантов руководством клиники МСЧ «Клиницист-Клиника Претор».",
+    "summary": {
+      "topic": "Отправка КП по акции на ДТпрайм5М1 и проект договора на реагентный контракт",
+      "product_interest": "ДТпрайм5М1, реагентный контракт",
+      "communication_stage": "отправка коммерческого предложения",
+      "request_type": "запрос КП и договора"
+    },
+    "key_points": [
+      "Мария Гоголева отправила КП по акции на оборудование ДТпрайм5М1",
+      "Запрос на реагентный контракт передан Юлии Литвиненко",
+      "Решение по вариантам будет принимать руководство клиники МСЧ «Клиницист-Клиника Претор»"
+    ],
+    "commercial_offers": [],
+    "interactions": [
+      {
+        "interaction_local_id": 1,
+        "contact_id": 1,
+        "organization_id": 1,
+        "message_subject": "Re: МСЧ Клиницист-Клиника Претор г. Новосибирск Акция ДТпраймFwd: Fwd: Fwd: Начало отгрузки наборов Фемофлор®II",
+        "message_date": "2025-07-29T20:26:05+07:00",
+        "message_id_hint": "8a6618f2-88a9-42f9-a391-f8908b699226@dna-technology.ru",
+        "role_in_message": "sender",
+        "interaction_type": "sent_quote",
+        "summary": "Мария Гоголева подтверждает отправку коммерческого предложения по акции на ДТпрайм5М1 и передачу запроса на реагентный контракт коллеге",
+        "human_note": "Мария Гоголева (ДНК-Технология) сообщает Светлане Вороновой, что отправила КП по акции на ДТпрайм5М1 и передала запрос на реагентный контракт Юлии Литвиненко",
+        "participants": {
+          "actor": "Гоголева Мария Михайловна (ДНК-Технология, Менеджер по продаже оборудования)",
+          "audience": [
+            "Воронова Светлана Сергеевна (ДНК-Технология)"
+          ]
+        },
+        "attachments": [],
+        "confidence": 0.9
+      }
+    ],
+    "auto_corrected": true,
+    "validation_error": false,
+    "original_response": "```json\n{\n  \"organizations\": [\n    {\n      \"organization_id\": 1,\n      \"name\": \"ДНК-Технология\",\n      \"inn\": \"7728469349\",\n      \"website\": \"dna-technology.ru\",\n      \"city\": \"Москва\",\n      \"address\": \"Москва, Варшавское шоссе, дом 125Ж, корпус 5\",\n      \"emails\": [],\n      \"phones\": [\n        {\n          \"type\": \"main\",\n          \"number\": \"+7 (495) 640-17-71\",\n          \"normalized\": \"+74956401771\",\n          \"original\": \"+7 (495) 640-17-71 (доб. 2030)\",\n          \"extension\": \"2030\"\n        }\n      ]\n    },\n    {\n      \"organization_id\": 2,\n      \"name\": \"Медико-санитарная часть «Клиницист-Клиника Претор»\",\n      \"inn\": \"5402537179\",\n      \"website\": null,\n      \"city\": \"Новосибирск\",\n      \"address\": \"630082, г.Новосибирск,ул.Жуковского,97-111\",\n      \"emails\": [],\n      \"phones\": []\n    }\n  ],\n  \"contacts\": [\n    {\n      \"contact_id\": 1,\n      \"name\": \"Гоголева Мария Михайловна\",\n      \"organization_id\": 1,\n      \"position\": \"Менеджер по продаже оборудования\",\n      \"email\": \"m.gogoleva@dna-technology.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"sender\",\n      \"confidence\": 1.0\n    },\n    {\n      \"contact_id\": 2,\n      \"name\": \"Воронова Светлана Сергеевна\",\n      \"organization_id\": 1,\n      \"position\": \"региональный представитель в СФО\",\n      \"email\": \"s.voronova@dna-technology.ru\",\n      \"phones\": [\n        {\n          \"type\": \"mobile\",\n          \"number\": \"8 (995) 129-39-76\",\n          \"normalized\": \"+79951293976\",\n          \"original\": \"Моб.тел. 8 (995) 129-39-76\",\n          \"extension\": null\n        }\n      ],\n      \"city\": \"Новосибирск\",\n      \"address\": null,\n      \"role_in_message\": \"recipient\",\n      \"confidence\": 1.0\n    },\n    {\n      \"contact_id\": 3,\n      \"name\": \"Литвиненко Юлия\",\n      \"organization_id\": 1,\n      \"position\": null,\n      \"email\": null,\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"mentioned\",\n      \"confidence\": 0.8\n    },\n    {\n      \"contact_id\": 4,\n      \"name\": \"Юлия Александровна Пименова\",\n      \"organization_id\": null,\n      \"position\": null,\n      \"email\": \"medic.81@mail.ru\",\n      \"phones\": [],\n      \"city\": null,\n      \"address\": null,\n      \"role_in_message\": \"mentioned\",\n      \"confidence\": 0.7\n    }\n  ],\n  \"business_context\": \"Мария Гоголева (ДНК-Технология) сообщает Светлане Вороновой, что отправила КП по акции на ДТпрайм5М1 и переадресовала запрос на реагентный контракт Юлии Литвиненко. Ожидается рассмотрение вариантов руководством клиники МСЧ «Клиницист-Клиника Претор».\",\n  \"summary\": {\n    \"topic\": \"Отправка КП по акции на ДТпрайм5М1 и проект договора на реагентный контракт\",\n    \"product_interest\": \"ДТпрайм5М1, реагентный контракт\",\n    \"communication_stage\": \"отправка коммерческого предложения\",\n    \"request_type\": \"запрос КП и договора\"\n  },\n  \"key_points\": [\n    \"Мария Гоголева отправила КП по акции на оборудование ДТпрайм5М1\",\n    \"Запрос на реагентный контракт передан Юлии Литвиненко\",\n    \"Решение по вариантам будет принимать руководство клиники МСЧ «Клиницист-Клиника Претор»\"\n  ],\n  \"commercial_offers\": [],\n  \"interactions\": [\n    {\n      \"interaction_local_id\": 1,\n      \"contact_id\": 1,\n      \"organization_id\": 1,\n      \"message_subject\": \"Re: МСЧ Клиницист-Клиника Претор г. Новосибирск Акция ДТпраймFwd: Fwd: Fwd: Начало отгрузки наборов Фемофлор®II\",\n      \"message_date\": \"2025-07-29T20:26:05+07:00\",\n      \"message_id_hint\": \"<8a6618f2-88a9-42f9-a391-f8908b699226@dna-technology.ru>\",\n      \"role_in_message\": \"sender\",\n      \"interaction_type\": \"sent_quote\",\n      \"summary\": \"Мария Гоголева подтверждает отправку коммерческого предложения по акции на ДТпрайм5М1 и передачу запроса на реагентный контракт коллеге\",\n      \"human_note\": \"Мария Гоголева (ДНК-Технология) сообщает Светлане Вороновой, что отправила КП по акции на ДТпрайм5М1 и передала запрос на реагентный контракт Юлии Литвиненко\",\n      \"participants\": {\n        \"actor\": \"Гоголева Мария Михайловна (ДНК-Технология, Менеджер по продаже оборудования)\",\n        \"audience\": [\"Воронова Светлана Сергеевна (ДНК-Технология)\"]\n      },\n      \"attachments\": [],\n      \"confidence\": 0.9\n    }\n  ]\n}\n```",
+    "postprocessing_metadata": {
+      "processed_at": "2025-10-06T21:15:43.002249",
+      "stats": {
+        "processed_emails": 24,
+        "total_organizations_processed": 61,
+        "total_contacts_processed": 74,
+        "organizations_deduplicated": 0,
+        "contacts_filtered": 0,
+        "contacts_enriched": 74,
+        "data_normalized": 135,
+        "organizations_inn_enriched": 0,
+        "organizations_email_enriched": 0,
+        "contacts_phone_enriched": 2,
+        "phones_added_to_contacts": 2
+      },
+      "version": "1.3.0",
+      "organization_mapping": {
+        "1": 1,
+        "2": 2
+      },
+      "contact_mapping": {
+        "1": 1,
+        "2": 2,
+        "4": 4,
+        "3": 3
+      },
+      "provenance": {
+        "contacts": {
+          "1": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "4": {
+            "backfill_skipped": "no_personal_location_signal"
+          },
+          "3": {
+            "backfill_skipped": "no_personal_location_signal"
+          }
+        }
+      },
+      "email_classification": {
+        "1": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        },
+        "2": {
+          "kept": [],
+          "removed": [],
+          "removed_types": {}
+        }
+      },
+      "gid": {
+        "assigned": [
+          {
+            "entity": "organization",
+            "local_id": 1,
+            "gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "7728469349"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "organization",
+            "local_id": 2,
+            "gid": "6a8f8ae1-f84a-5583-935c-5c1201d32519",
+            "match_rule": "INN",
+            "key_tuple": [
+              "ORG",
+              "INN",
+              "5402537179"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 1,
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "m.gogoleva@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 2,
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "s.voronova@dna-technology.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 4,
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "gid": "6573bf02-d81c-5ad8-9126-28d2b7589460",
+            "match_rule": "EMAIL",
+            "key_tuple": [
+              "CONTACT",
+              "EMAIL",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "medic.81@mail.ru"
+            ],
+            "alias_added": false,
+            "source": "registry"
+          },
+          {
+            "entity": "contact",
+            "local_id": 3,
+            "organization_id": 1,
+            "organization_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+            "gid": "78f3c5f1-74cd-572f-9baf-21f3a827bca9",
+            "match_rule": "NAME_POSITION",
+            "key_tuple": [
+              "CONTACT",
+              "NAME_POSITION",
+              "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+              "литвиненко юлия",
+              ""
+            ],
+            "alias_added": false,
+            "source": "registry"
+          }
+        ],
+        "conflicts": []
+      },
+      "phone_conflicts": {
+        "resolved": [],
+        "unresolved": []
+      },
+      "enrichment": {
+        "org_inn": {
+          "58a49494-b44e-5b2f-9263-0ce9005f10e3": {
+            "decision": "reject",
+            "inn": null,
+            "confidence": 0.0,
+            "source": "none",
+            "method": "no_candidates_found",
+            "score": 0.0,
+            "candidates": [],
+            "checked_at": "2025-10-06T21:15:39.295916",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          },
+          "6a8f8ae1-f84a-5583-935c-5c1201d32519": {
+            "decision": "skipped",
+            "inn": "5402537179",
+            "confidence": 1.0,
+            "source": "existing",
+            "method": "existing_valid_inn",
+            "score": 1.0,
+            "candidates": [],
+            "checked_at": "2025-10-06T21:15:39.295934",
+            "auto_accept_threshold": 0.85,
+            "review_threshold": 0.65
+          }
+        },
+        "org_email_enrichment": {},
+        "org_location_from_attachments": {},
+        "contact_phone_enrichment": {
+          "contacts": [
+            {
+              "contact_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+              "contact_name": "Гоголева Мария Михайловна",
+              "phones_added": [
+                {
+                  "phone": "+74956401771",
+                  "type": "main",
+                  "confidence": 0.85,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.85
+              ],
+              "decision": {
+                "confidence": 0.85,
+                "contact_gid": "a3ac53de-6e12-5e5e-8cbc-2a8a1714c631",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-06T14:15:39.296109",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (0.85 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+              "contact_name": "Воронова Светлана Сергеевна",
+              "phones_added": [
+                {
+                  "phone": "+74956401771",
+                  "type": "main",
+                  "confidence": 0.85,
+                  "source": "org_enrichment"
+                }
+              ],
+              "phones_skipped": [],
+              "confidence_scores": [
+                0.85
+              ],
+              "decision": {
+                "confidence": 0.85,
+                "contact_gid": "aa275056-36e1-5d9a-b6ef-3803d33e353f",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-06T14:15:39.296131",
+                "decision": "auto_accept",
+                "reason": "Высокий уровень уверенности (0.85 ≥ 0.75)"
+              },
+              "skip_reasons": []
+            },
+            {
+              "contact_gid": "6573bf02-d81c-5ad8-9126-28d2b7589460",
+              "contact_name": "Юлия Александровна Пименова",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.15 < 0.5)",
+                  "confidence": 0.15
+                }
+              ],
+              "confidence_scores": [
+                0.15
+              ],
+              "decision": {
+                "confidence": 0.15,
+                "contact_gid": "6573bf02-d81c-5ad8-9126-28d2b7589460",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-06T14:15:39.296142",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.15 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            },
+            {
+              "contact_gid": "78f3c5f1-74cd-572f-9baf-21f3a827bca9",
+              "contact_name": "Литвиненко Юлия",
+              "phones_added": [],
+              "phones_skipped": [
+                {
+                  "reason": "low_confidence",
+                  "message": "Низкий уровень уверенности (0.00 < 0.5)",
+                  "confidence": 0.0
+                }
+              ],
+              "confidence_scores": [
+                0.0
+              ],
+              "decision": {
+                "confidence": 0.0,
+                "contact_gid": "78f3c5f1-74cd-572f-9baf-21f3a827bca9",
+                "org_gid": "58a49494-b44e-5b2f-9263-0ce9005f10e3",
+                "timestamp": "2025-10-06T14:15:39.296148",
+                "decision": "reject",
+                "reason": "Низкий уровень уверенности (0.00 < 0.5)"
+              },
+              "skip_reasons": [
+                "low_confidence"
+              ]
+            }
+          ],
+          "statistics": {
+            "contacts_processed": 4,
+            "contacts_enriched": 2,
+            "phones_added_total": 2,
+            "phones_skipped_total": 0,
+            "avg_confidence": 0.46249999999999997,
+            "phones_skipped_by_reason": {
+              "low_confidence": 2,
+              "no_org_phones": 0,
+              "already_has_phones": 0,
+              "mobile_only": 0,
+              "duplicate": 0,
+              "no_organization": 0
+            }
+          },
+          "timestamp": "2025-10-06T14:15:39.296156",
+          "config": {
+            "enabled": true,
+            "enrichment_mode": "balanced",
+            "min_confidence_threshold": 0.5,
+            "review_threshold": 0.75,
+            "allowed_phone_types": [
+              "main",
+              "office",
+              "fax"
+            ]
+          }
+        }
+      },
+      "phone_ui_formatting": {
+        "phones_processed": 4,
+        "organizations_processed": 1,
+        "contacts_processed": 2,
+        "ui_format_applied": 4,
+        "phones_sanitized": 4
+      }
+    },
+    "provider_used": "OpenRouter",
+    "processing_time": 1.3202998638153076,
+    "text_length": 3716,
+    "chunks_processed": 1,
+    "total_contacts_found": 4,
+    "unique_contacts_found": 4,
+    "success": true,
+    "source_file": "/Users/evgenyzach/contact_parser/data/emails/2025-07-29/email_029_20250729_20250729_dna-technology_ru_42e1c3ff.json",
+    "processing_strategy": "standard",
+    "processing_time_seconds": 80.119
+  }
+}

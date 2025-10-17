@@ -1,0 +1,612 @@
+# 📄 Файл: 20250815_dna-technology_ru_29556bb3_160420_attach_Фемофлор2.pdf
+# ⚙️ Метод: local_pdf_text
+# ✨ Уверенность: 100.00%
+# ⏱️ Время: 0.13 сек
+# ==================================================
+
+остояние микробиоты
+Исследование   женской   микрофлоры
+100%
+10%
+1%
+Контрольные показатели
+Геномная ДНК человека
+Общее количество бактерий
+⯀   Состояние микробиоты - выраженный анаэробный
+дисбиоз: нормальная микробиота снижена до 0%,
+увеличено относительное количество анаэробов.
+⯀   Патогенные микроорганизмы не обнаружены. 
+Итоговый результат
+Анаэробы
+Микоплазмы
+Аэробы
+нижний порог нормы 80%
+Референс
+lg, ГЭ/мл
+lg, ГЭ/мл
+%
+Референс
+Нормобиота
+НОРМОБИОТА, общая доля
+0,0%
+≥ 80%
+Lactobacillus spp.1
+Bifidobacterium spp.
+АЭРОБЫ, общая доля
+0,0%
+Staphylococcus spp.
+Streptococcus spp.2
+Enterobacteriaceae
+Enterococcus spp.
+Haemophilus spp.
+АНАЭРОБЫ, общая доля
+100,0%
+Gardnerella vaginalis
+Fannyhessea (Atopobium) vaginae
+Mobiluncus spp.
+Anaerococcus spp.
+Peptostreptococcus spp.
+Bacteroides spp./Porphyromonas spp./Prevotella spp.
+Sneathia spp./Leptotrichia spp./Fusobacterium spp.
+Megasphaera spp./Veilonella spp./Dialister spp.
+BVAB1/BVAB2/BVAB3
+МИКОПЛАЗМЫ, общая доля
+0,0%
+Ureaplasma urealyticum
+Ureaplasma parvum
+Mycoplasma hominis
+ Lactobacillus spp.
+Дрожжевые грибы
+L.crispatus
+Candida spp.
+L.gasseri/L.paragasseri
+Candida albicans
+L.jensenii/L.mulieris
+ Стрептококк группы B
+L.iners
+Streptococcus agalactiae
+lg, ГЭ/мл
+lg, ГЭ/мл
+Доля вида в
+Lactobacillus spp., %
+Референс
+см.прим.
+—
+—
+—
+—
+—
+—
+—
+—
+—
+< 4,0
+—
+< 4,0
+—
+—
+1
+2
+1/2
+
+
+Исследование   женской   микрофлоры
+атогены
+Результат
+lg, ГЭ/мл
+Референс
+ОБЛИГАТНЫЕ ПАТОГЕНЫ
+Chlamydia trachomatis
+Mycoplasma genitalium
+Neisseria gonorrhoeae
+Trichomonas vaginalis
+ГЕРПЕСВИРУСЫ
+HSV-1
+HSV-2
+CMV
+ВИРУСЫ ПАПИЛЛОМЫ ЧЕЛОВЕКА (ВПЧ)
+HPV 16
+HPV 18
+HPV 45
+HPV 31/33/35/39/51/52/56/58/59/66/68
+2/2
+ВАЖНО!
+Итоговый результат формируется при указании локуса взятия биоматериала (V, C).
+Интерпретация результата исследования проводится только лечащим врачом!
+Дата выполнения исследования
+Исследование выполнил
+Заведующий лабораторией
+2025-08-14
+ФИО
+ФИО
+Подпись
+Подпись
+Больше информации
+в интерактивном
+бланке на сайте
+
+
+остояние микробиоты
+Исследование   женской   микрофлоры
+100%
+10%
+1%
+Контрольные показатели
+Геномная ДНК человека
+Общее количество бактерий
+⯀   Снижено общее количество бактерий и ДНК человека.
+⯀   Состояние микробиоты - умеренный анаэробный
+дисбиоз: нормальная микробиота снижена до 66,4%,
+относительное количество Lactobacillus spp. 66,4%
+(L.iners), увеличено относительное количество анаэробов.
+⯀   Патогенные микроорганизмы не обнаружены. 
+Итоговый результат
+Анаэробы
+Микоплазмы
+Аэробы
+нижний порог нормы 80%
+Референс
+lg, ГЭ/мл
+lg, ГЭ/мл
+%
+Референс
+Нормобиота
+НОРМОБИОТА, общая доля
+66,4%
+≥ 80%
+Lactobacillus spp.1
+Bifidobacterium spp.
+АЭРОБЫ, общая доля
+0,0%
+Staphylococcus spp.
+Streptococcus spp.2
+Enterobacteriaceae
+Enterococcus spp.
+Haemophilus spp.
+АНАЭРОБЫ, общая доля
+33,7%
+Gardnerella vaginalis
+Fannyhessea (Atopobium) vaginae
+Mobiluncus spp.
+Anaerococcus spp.
+Peptostreptococcus spp.
+Bacteroides spp./Porphyromonas spp./Prevotella spp.
+Sneathia spp./Leptotrichia spp./Fusobacterium spp.
+Megasphaera spp./Veilonella spp./Dialister spp.
+BVAB1/BVAB2/BVAB3
+МИКОПЛАЗМЫ, общая доля
+0,0%
+Ureaplasma urealyticum
+Ureaplasma parvum
+Mycoplasma hominis
+ Lactobacillus spp.
+Дрожжевые грибы
+L.crispatus
+Candida spp.
+L.gasseri/L.paragasseri
+Candida albicans
+L.jensenii/L.mulieris
+ Стрептококк группы B
+L.iners
+Streptococcus agalactiae
+lg, ГЭ/мл
+lg, ГЭ/мл
+Доля вида в
+Lactobacillus spp., %
+Референс
+см.прим.
+—
+—
+—
+—
+—
+3,4
+—
+—
+16%
+< 4,0
+—
+< 4,0
+—
+—
+1
+2
+1/2
+
+
+Исследование   женской   микрофлоры
+атогены
+Результат
+lg, ГЭ/мл
+Референс
+ОБЛИГАТНЫЕ ПАТОГЕНЫ
+Chlamydia trachomatis
+Mycoplasma genitalium
+Neisseria gonorrhoeae
+Trichomonas vaginalis
+ГЕРПЕСВИРУСЫ
+HSV-1
+HSV-2
+CMV
+ВИРУСЫ ПАПИЛЛОМЫ ЧЕЛОВЕКА (ВПЧ)
+HPV 16
+HPV 18
+HPV 45
+HPV 31/33/35/39/51/52/56/58/59/66/68
+2/2
+ВАЖНО!
+Итоговый результат формируется при указании локуса взятия биоматериала (V, C).
+Интерпретация результата исследования проводится только лечащим врачом!
+Дата выполнения исследования
+Исследование выполнил
+Заведующий лабораторией
+2025-08-14
+ФИО
+ФИО
+Подпись
+Подпись
+Больше информации
+в интерактивном
+бланке на сайте
+
+
+остояние микробиоты
+Исследование   женской   микрофлоры
+100%
+10%
+1%
+Контрольные показатели
+Геномная ДНК человека
+Общее количество бактерий
+⯀   Состояние микробиоты - умеренный анаэробный
+дисбиоз: нормальная микробиота снижена до 30,6%,
+относительное количество Lactobacillus spp. 30,4%
+(L.iners, L.jensenii/L.mulieris), Bifidobacterium spp. < 1%,
+увеличено относительное количество анаэробов.
+⯀   Обнаружено: HPV 31-68 (11 типов).
+Итоговый результат
+Анаэробы
+Микоплазмы
+Аэробы
+нижний порог нормы 80%
+Референс
+lg, ГЭ/мл
+lg, ГЭ/мл
+%
+Референс
+Нормобиота
+НОРМОБИОТА, общая доля
+30,6%
+≥ 80%
+Lactobacillus spp.1
+Bifidobacterium spp.
+АЭРОБЫ, общая доля
+< 1%
+Staphylococcus spp.
+Streptococcus spp.2
+Enterobacteriaceae
+Enterococcus spp.
+Haemophilus spp.
+АНАЭРОБЫ, общая доля
+69,0%
+Gardnerella vaginalis
+Fannyhessea (Atopobium) vaginae
+Mobiluncus spp.
+Anaerococcus spp.
+Peptostreptococcus spp.
+Bacteroides spp./Porphyromonas spp./Prevotella spp.
+Sneathia spp./Leptotrichia spp./Fusobacterium spp.
+Megasphaera spp./Veilonella spp./Dialister spp.
+BVAB1/BVAB2/BVAB3
+МИКОПЛАЗМЫ, общая доля
+0,0%
+Ureaplasma urealyticum
+Ureaplasma parvum
+Mycoplasma hominis
+ Lactobacillus spp.
+Дрожжевые грибы
+L.crispatus
+Candida spp.
+L.gasseri/L.paragasseri
+Candida albicans
+L.jensenii/L.mulieris
+ Стрептококк группы B
+L.iners
+Streptococcus agalactiae
+lg, ГЭ/мл
+lg, ГЭ/мл
+Доля вида в
+Lactobacillus spp., %
+Референс
+см.прим.
+—
+—
+—
+—
+4,4
+5,7
+—
+<1%
+16%
+< 4,0
+—
+< 4,0
+—
+3,7
+1
+2
+1/2
+
+
+Исследование   женской   микрофлоры
+атогены
+Результат
+lg, ГЭ/мл
+Референс
+ОБЛИГАТНЫЕ ПАТОГЕНЫ
+Chlamydia trachomatis
+Mycoplasma genitalium
+Neisseria gonorrhoeae
+Trichomonas vaginalis
+ГЕРПЕСВИРУСЫ
+HSV-1
+HSV-2
+CMV
+ВИРУСЫ ПАПИЛЛОМЫ ЧЕЛОВЕКА (ВПЧ)
+HPV 16
+HPV 18
+HPV 45
+HPV 31/33/35/39/51/52/56/58/59/66/68
+2/2
+ВАЖНО!
+Итоговый результат формируется при указании локуса взятия биоматериала (V, C).
+Интерпретация результата исследования проводится только лечащим врачом!
+Дата выполнения исследования
+Исследование выполнил
+Заведующий лабораторией
+2025-08-14
+ФИО
+ФИО
+Подпись
+Подпись
+Больше информации
+в интерактивном
+бланке на сайте
+
+
+остояние микробиоты
+Исследование   женской   микрофлоры
+100%
+10%
+1%
+Контрольные показатели
+Геномная ДНК человека
+Общее количество бактерий
+Контроль -
+Итоговый результат
+Анаэробы
+Микоплазмы
+Аэробы
+нижний порог нормы 80%
+Референс
+lg, ГЭ/мл
+lg, ГЭ/мл
+%
+Референс
+Нормобиота
+НОРМОБИОТА, общая доля
+0,0%
+≥ 80%
+Lactobacillus spp.1
+Bifidobacterium spp.
+АЭРОБЫ, общая доля
+0,0%
+Staphylococcus spp.
+Streptococcus spp.2
+Enterobacteriaceae
+Enterococcus spp.
+Haemophilus spp.
+АНАЭРОБЫ, общая доля
+0,0%
+Gardnerella vaginalis
+Fannyhessea (Atopobium) vaginae
+Mobiluncus spp.
+Anaerococcus spp.
+Peptostreptococcus spp.
+Bacteroides spp./Porphyromonas spp./Prevotella spp.
+Sneathia spp./Leptotrichia spp./Fusobacterium spp.
+Megasphaera spp./Veilonella spp./Dialister spp.
+BVAB1/BVAB2/BVAB3
+МИКОПЛАЗМЫ, общая доля
+0,0%
+Ureaplasma urealyticum
+Ureaplasma parvum
+Mycoplasma hominis
+ Lactobacillus spp.
+Дрожжевые грибы
+L.crispatus
+Candida spp.
+L.gasseri/L.paragasseri
+Candida albicans
+L.jensenii/L.mulieris
+ Стрептококк группы B
+L.iners
+Streptococcus agalactiae
+lg, ГЭ/мл
+lg, ГЭ/мл
+Доля вида в
+Lactobacillus spp., %
+Референс
+см.прим.
+—
+—
+—
+—
+—
+—
+—
+—
+—
+< 4,0
+—
+< 4,0
+—
+—
+1
+2
+1/2
+
+
+Исследование   женской   микрофлоры
+атогены
+Результат
+lg, ГЭ/мл
+Референс
+ОБЛИГАТНЫЕ ПАТОГЕНЫ
+Chlamydia trachomatis
+Mycoplasma genitalium
+Neisseria gonorrhoeae
+Trichomonas vaginalis
+ГЕРПЕСВИРУСЫ
+HSV-1
+HSV-2
+CMV
+ВИРУСЫ ПАПИЛЛОМЫ ЧЕЛОВЕКА (ВПЧ)
+HPV 16
+HPV 18
+HPV 45
+HPV 31/33/35/39/51/52/56/58/59/66/68
+2/2
+ВАЖНО!
+Итоговый результат формируется при указании локуса взятия биоматериала (V, C).
+Интерпретация результата исследования проводится только лечащим врачом!
+Дата выполнения исследования
+Исследование выполнил
+Заведующий лабораторией
+2025-08-14
+ФИО
+ФИО
+Подпись
+Подпись
+Больше информации
+в интерактивном
+бланке на сайте
+
+
+остояние микробиоты
+Исследование   женской   микрофлоры
+100%
+10%
+1%
+Контрольные показатели
+Геномная ДНК человека
+Общее количество бактерий
+Контроль +
+Итоговый результат
+Анаэробы
+Микоплазмы
+Аэробы
+нижний порог нормы 80%
+Референс
+lg, ГЭ/мл
+lg, ГЭ/мл
+%
+Референс
+Нормобиота
+НОРМОБИОТА, общая доля
+6,6%
+≥ 80%
+Lactobacillus spp.1
+Bifidobacterium spp.
+АЭРОБЫ, общая доля
+21,5%
+Staphylococcus spp.
+Streptococcus spp.2
+Enterobacteriaceae
+Enterococcus spp.
+Haemophilus spp.
+АНАЭРОБЫ, общая доля
+49,7%
+Gardnerella vaginalis
+Fannyhessea (Atopobium) vaginae
+Mobiluncus spp.
+Anaerococcus spp.
+Peptostreptococcus spp.
+Bacteroides spp./Porphyromonas spp./Prevotella spp.
+Sneathia spp./Leptotrichia spp./Fusobacterium spp.
+Megasphaera spp./Veilonella spp./Dialister spp.
+BVAB1/BVAB2/BVAB3
+МИКОПЛАЗМЫ, общая доля
+9,5%
+Ureaplasma urealyticum
+Ureaplasma parvum
+Mycoplasma hominis
+ Lactobacillus spp.
+Дрожжевые грибы
+L.crispatus
+Candida spp.
+L.gasseri/L.paragasseri
+Candida albicans
+L.jensenii/L.mulieris
+ Стрептококк группы B
+L.iners
+Streptococcus agalactiae
+lg, ГЭ/мл
+lg, ГЭ/мл
+Доля вида в
+Lactobacillus spp., %
+Референс
+см.прим.
+4,9
+4,9
+12%
+4,9
+5,1
+5,6
+12%
+18%
+58%
+< 4,0
+4,9
+< 4,0
+—
+4,8
+1
+2
+1/2
+
+
+Исследование   женской   микрофлоры
+атогены
+Результат
+lg, ГЭ/мл
+Референс
+ОБЛИГАТНЫЕ ПАТОГЕНЫ
+Chlamydia trachomatis
+Mycoplasma genitalium
+Neisseria gonorrhoeae
+Trichomonas vaginalis
+ГЕРПЕСВИРУСЫ
+HSV-1
+HSV-2
+CMV
+ВИРУСЫ ПАПИЛЛОМЫ ЧЕЛОВЕКА (ВПЧ)
+HPV 16
+HPV 18
+HPV 45
+HPV 31/33/35/39/51/52/56/58/59/66/68
+2/2
+ВАЖНО!
+Итоговый результат формируется при указании локуса взятия биоматериала (V, C).
+Интерпретация результата исследования проводится только лечащим врачом!
+Дата выполнения исследования
+Исследование выполнил
+Заведующий лабораторией
+2025-08-14
+ФИО
+ФИО
+Подпись
+Подпись
+Больше информации
+в интерактивном
+бланке на сайте

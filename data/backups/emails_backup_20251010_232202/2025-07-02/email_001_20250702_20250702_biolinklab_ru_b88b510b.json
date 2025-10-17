@@ -1,0 +1,39 @@
+{
+  "thread_id": "20250702_biolinklab_ru_b88b510b",
+  "message_id": "<43a70981-5714-4c33-8635-346b6049d72d@biolinklab.ru>",
+  "from": "med@biolinklab.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Заказ реагентов",
+  "date": "Wed, 2 Jul 2025 11:43:13 +0700",
+  "parsed_date": "2025-07-02T11:43:13+07:00",
+  "body": "Добрый день!\nВо вложении, заказ на наборы реагентов. Прошу выставить счет и сообщить\nвремя доставки.\nзав.лаборатории\nНаталья Дубинина\nООО \"БиоЛинк\"\nУл.Николаева 13\n630090 г.Новосибирск\n+79537917887",
+  "char_count": 197,
+  "attachments": [
+    {
+      "filename": "ru_b88b510b_074822_attach_Заказ ДНК-технология HLA июль.doc",
+      "saved_filename": "20250702_biolinklab_ru_b88b510b_074822_attach_Заказ ДНК-технология HLA июль.doc",
+      "size": 31744,
+      "path": "attachments/2025-07-02/20250702_biolinklab_ru_b88b510b_074822_attach_Заказ ДНК-технология HLA июль.doc",
+      "status": "saved",
+      "type": "existing_attachment"
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 1,
+    "excluded": 0,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-08-26T17:41:10.368312+07:00",
+  "raw_size": 47424,
+  "date_folder": "2025-07-02"
+}

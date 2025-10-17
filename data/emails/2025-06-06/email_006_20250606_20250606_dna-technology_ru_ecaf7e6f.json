@@ -1,0 +1,41 @@
+{
+  "thread_id": "20250606_dna-technology_ru_ecaf7e6f",
+  "message_id": "<82ce80d9-168a-41cc-83ea-fa8bc7b099a6@dna-technology.ru>",
+  "email_num_in_day": 6,
+  "total_emails_in_day": 20,
+  "from": "bilalov@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Fwd: запрос кп",
+  "date": "Fri, 6 Jun 2025 11:48:09 +0300",
+  "parsed_date": "2025-06-06T15:48:09+07:00",
+  "body_raw": "Светлана, добрый день!\r\n\nВ январе им же выставляли КП. Обновляем ?\r\n\n30.01.25 Новокузнецк Новые Технологии-НК, рп Кольцово ГАУЗ \"НГКБ № \r\n1\", ИНН 4216003989 2025 ДТпрайм 5M1, ноутбук, ибп Федорова Светлана \r\nКП от 30.01.2025 Нет Воронова \r\n\n/\r\n/\r\n\n//\r\n\n//\r\n\n//\r\n\n//\r\n\n//\r\n\n//\r\n\n//\r\n\n/С уважением,Федорова Светлана,/\r\n\n/8-950-578-8505/\r\n\n/E-mail: mdc@ntnsk.ru <mailto:mdc@ntnsk.ru>/",
+  "body_clean": "Светлана, добрый день!\nВ январе им же выставляли КП. Обновляем ?\n30.01.25 Новокузнецк Новые Технологии-НК, рп Кольцово ГАУЗ \"НГКБ №\n1\", ИНН 4216003989 2025 ДТпрайм 5M1, ноутбук, ибп Федорова Светлана\nКП от 30.01.2025 Нет Воронова\n/С уважением,Федорова Светлана,/\n/8-950-578-8505/\n/E-mail: mdc@ntnsk.ru mailto:mdc@ntnsk.ru/",
+  "char_count": 322,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:Бланк*",
+      "original_filename": "Бланк заявки Новые технологии НК  ГКБ 1 Новокузнецк.docx",
+      "is_inline": false
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:33:33.440115+07:00",
+  "raw_size": 33384,
+  "date_folder": "2025-06-06",
+  "eml_path": "eml/2025-06-06/82ce80d9-168a-41cc-83ea-fa8bc7b099a6_dna-technology.ru_003333_437176.eml"
+}

@@ -1,0 +1,62 @@
+Received:  from forward102b.mail.yandex.net ([178.154.239.149]:42846)
+	  by mail.dna-technology.ru with esmtps (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	 (Exim 4.98.2 (FreeBSD))
+	 (envelope-from <uvs-bio@yandex.ru>)
+	 id 1urEAv-00000000Kmo-1Xon ;
+	Wed, 27 Aug 2025 14:18:45 +0300
+Received: from mail-nwsmtp-mxback-production-main-71.sas.yp-c.yandex.net (mail-nwsmtp-mxback-production-main-71.sas.yp-c.yandex.net [IPv6:2a02:6b8:c23:4388:0:640:2c8d:0])
+	by forward102b.mail.yandex.net (Yandex) with ESMTPS id E739AC8107;
+	Wed, 27 Aug 2025 14:18:44 +0300 (MSK)
+Received: from mail.yandex.ru (2a02:6b8:c24:27:0:640:ae4d:0 [2a02:6b8:c24:27:0:640:ae4d:0])
+	by mail-nwsmtp-mxback-production-main-71.sas.yp-c.yandex.net (mxback/Yandex) with HTTPS id iIXlSH21mSw0-SRZWF8dL;
+	Wed, 27 Aug 2025 14:18:44 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1756293524; bh=WSa/irUmvlAEG8eCz2Bv304qVNKnwlrLDRQtQKIYs7c=;
+	h=Message-Id:Date:Subject:To:From;
+	b=cv5UggsijKZUbkJmKV4VEepOAP0cCmm5aI4Q4dFpGygFCc1wm4+l+JGJNnJWa0KCc
+	 xMpYY+uojqGOuGVYSyQhvgZNqRrgKdKHxxfki/90jI0BDySu/oIgwCUdwuCynpz2ba
+	 YAXJiZJmjvV5cIsDJoeitlyMUmrXUbA+piW7jW1k=
+Authentication-Results: mail-nwsmtp-mxback-production-main-71.sas.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+Received: by rovqcheq6rlfpwus.sas.yp-c.yandex.net (sendbernar/Yandex) with HTTPS id 390388f39b7ab4195ed0b9fa9977ff16;
+	Wed, 27 Aug 2025 14:18:44 +0300
+From: =?utf-8?B?0J7QntCeICLQrtCS0KEt0JHQmNCeIg==?= <uvs-bio@yandex.ru>
+To: =?utf-8?B?0J3QsNGC0LDQu9GM0Y8g0KHRg9GH0LrQvtCy0LA=?= <suchkova@dna-technology.ru>,
+	"s.voronova@dna-technology.ru" <s.voronova@dna-technology.ru>
+Subject: =?utf-8?B?0JfQsNGP0LLQutCw?=
+MIME-Version: 1.0
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Wed, 27 Aug 2025 14:18:44 +0300
+Message-Id: <162051756293411@mail.yandex.ru>
+Content-Transfer-Encoding: base64
+Content-Type: text/html; charset=utf-8
+Received-SPF: pass (mail.dna-technology.ru: domain of yandex.ru designates 178.154.239.149 as permitted sender) client-ip=178.154.239.149; envelope-from=uvs-bio@yandex.ru; helo=forward102b.mail.yandex.net;
+X-Spam_score: 0.0
+X-Spam_score_int: 0
+X-Spam_bar: /
+X-Spam_report: Spam score: 0
+
+PGRpdj48ZGl2IHN0eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOnJnYiggMjU1ICwgMjU1ICwgMjU1ICk7
+Y29sb3I6cmdiKCAyNiAsIDI2ICwgMjYgKTtmb250LWZhbWlseToneXMgdGV4dCcgLCAnYXJpYWwn
+ICwgc2Fucy1zZXJpZjtmb250LXNpemU6MTZweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdo
+dDo0MDA7dGV4dC1hbGlnbjpzdGFydDt0ZXh0LWRlY29yYXRpb24tY29sb3I6aW5pdGlhbDt0ZXh0
+LWRlY29yYXRpb24tc3R5bGU6aW5pdGlhbDt0ZXh0LWluZGVudDowcHg7dGV4dC10cmFuc2Zvcm06
+bm9uZTt3aGl0ZS1zcGFjZTpub3JtYWw7d29yZC1zcGFjaW5nOjBweCI+0JTQvtCx0YDRi9C5INC0
+0LXQvdGMLCDQv9GA0L7RiNGDINCy0YvQv9C40YHQsNGC0Ywg0YHRh9C10YLCoNCT0JHQo9CXINCg
+0KIg0JHQsNGA0YPQvS3QpdC10LzRh9C40LrRgdC60LjQuSDQnNCc0KYg0JjQndCdwqAxNzE4MDAy
+MzY2PC9kaXY+PGRpdiBzdHlsZT0iYmFja2dyb3VuZC1jb2xvcjpyZ2IoIDI1NSAsIDI1NSAsIDI1
+NSApO2NvbG9yOnJnYiggMjYgLCAyNiAsIDI2ICk7Zm9udC1mYW1pbHk6J3lzIHRleHQnICwgJ2Fy
+aWFsJyAsIHNhbnMtc2VyaWY7Zm9udC1zaXplOjE2cHg7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC13
+ZWlnaHQ6NDAwO3RleHQtYWxpZ246c3RhcnQ7dGV4dC1kZWNvcmF0aW9uLWNvbG9yOmluaXRpYWw7
+dGV4dC1kZWNvcmF0aW9uLXN0eWxlOmluaXRpYWw7dGV4dC1pbmRlbnQ6MHB4O3RleHQtdHJhbnNm
+b3JtOm5vbmU7d2hpdGUtc3BhY2U6bm9ybWFsO3dvcmQtc3BhY2luZzowcHgiPlIzLVA0NDAtczMv
+OSBTYXJzLUNvdjIgKyDQs9GA0LjQv9C/INCQL9CSIC0gMTAg0L3QsNCxPC9kaXY+PGRpdiBzdHls
+ZT0iYmFja2dyb3VuZC1jb2xvcjpyZ2IoIDI1NSAsIDI1NSAsIDI1NSApO2NvbG9yOnJnYiggMjYg
+LCAyNiAsIDI2ICk7Zm9udC1mYW1pbHk6J3lzIHRleHQnICwgJ2FyaWFsJyAsIHNhbnMtc2VyaWY7
+Zm9udC1zaXplOjE2cHg7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC13ZWlnaHQ6NDAwO3RleHQtYWxp
+Z246c3RhcnQ7dGV4dC1kZWNvcmF0aW9uLWNvbG9yOmluaXRpYWw7dGV4dC1kZWNvcmF0aW9uLXN0
+eWxlOmluaXRpYWw7dGV4dC1pbmRlbnQ6MHB4O3RleHQtdHJhbnNmb3JtOm5vbmU7d2hpdGUtc3Bh
+Y2U6bm9ybWFsO3dvcmQtc3BhY2luZzowcHgiPtCf0YDQvtCx0LAg0J3Qmi1TIC0gMTAg0L3QsNCx
+PC9kaXY+PC9kaXY+PGRpdj7CoDwvZGl2PjxkaXY+wqA8L2Rpdj48ZGl2Pi0twqA8L2Rpdj48ZGl2
+PtChINGD0LLQsNC20LXQvdC40LXQvCw8L2Rpdj48ZGl2PtCe0J7QniAi0K7QktChLdCR0JjQniI8
+L2Rpdj48ZGl2Pig0OTkpIDE1Ny03NC00OTwvZGl2PjxkaXY+wqA8L2Rpdj4=

@@ -1,0 +1,58 @@
+{
+  "thread_id": "20250702_invitro_ru_d1793525",
+  "message_id": "<f69f76dc79124896ba9383735a031884@invitro.ru>",
+  "email_num_in_day": 7,
+  "total_emails_in_day": 10,
+  "from": "abronnikova@invitro.ru",
+  "to": "help@dna-technology.ru, s.voronova@dna-technology.ru, hotline@dna-technology.ru",
+  "cc": "arubayko@invitro.ru, aallakhverdyan@invitro.ru, abronnikova@invitro.ru...",
+  "to_emails": [
+    "help@dna-technology.ru",
+    "s.voronova@dna-technology.ru",
+    "hotline@dna-technology.ru"
+  ],
+  "cc_emails": [
+    "arubayko@invitro.ru",
+    "aallakhverdyan@invitro.ru",
+    "abronnikova@invitro.ru",
+    "avdorofeeva@invitro.ru",
+    "apevnev@invitro.ru",
+    "doc-lmgi@invitro.ru",
+    "nluzanova@invitro.ru",
+    "okoval@invitro.ru",
+    "lab-lmgi@invitro.ru",
+    "reg-lmgi@invitro.ru",
+    "evshevchenko@invitro.ru",
+    "ichakina@invitro.ru",
+    "tmazalova@invitro.ru",
+    "vstyukhin@invitro.ru"
+  ],
+  "subject": "завести учетную запись в ПО Менеджер протоколов",
+  "date": "Wed, 2 Jul 2025 10:06:20 +0000",
+  "parsed_date": "2025-07-02T17:06:20+07:00",
+  "body_raw": "Здравствуйте.\r\nПрошу создать учетную запись в ПО Менеджер протоколов для пользователей:\r\nШевченко Екатерина\r\nЧакина Инга\r\nМазалова Татьяна\r\nСтюхин Владислав\r\n\nС уважением,\r\n\nБронникова Александра Сергеевна,\r\nврач клинической лабораторной диагностики,\r\nлаборатория молекулярно-генетических исследований, <ИНВИТРО-Сибирь>,\r\n\nг.Новосибирск, ул.Римского-Корсакова, (9),\r\nтел 8 800 234 40 50, вн. 7717\r\n\nwww.invitro.ru<http://www.invitro.ru/>\r\n\n[cid:image003.png@01D33C30.D7F857F0]\r\n\nУВЕДОМЛЕНИЕ О КОНФИДЕНЦИАЛЬНОСТИ: Информация, содержащаяся в данном электронном сообщении, не является договорённостью сторон, не влечёт за собой возникновение никаких прав и/или обязанностей, не может служить основанием для осуществления каких-либо юридических действий или отказа от действий. Данное электронное сообщение предназначено только для адресата и может содержать конфиденциальную информацию. Любое рассмотрение, повторная передача, распространение или иное использование информации лицами или организациями, кроме предполагаемого получателя, запрещены.\r\n\nCONFIDENTIALITY NOTICE: The information contained in this electronic message is not an agreement of the parties, does not entail the appearance of any rights and/or obligations. It can't be a basis for the implementation of any legal action or refusal to act. This e-mail is for the intended recipient only and may contain confidential information. Any consideration, retransmission, distribution or other use of information by persons or organizations other than the intended recipient is prohibited.",
+  "body_clean": "Здравствуйте.\nПрошу создать учетную запись в ПО Менеджер протоколов для пользователей:\nШевченко Екатерина\nЧакина Инга\nМазалова Татьяна\nСтюхин Владислав\nС уважением,\nБронникова Александра Сергеевна,\nврач клинической лабораторной диагностики,\nлаборатория молекулярно-генетических исследований, ИНВИТРО-Сибирь,\nг.Новосибирск, ул.Римского-Корсакова, (9),\nтел 8 800 234 40 50, вн. 7717\nwww.invitro.ruhttp://www.invitro.ru/\n[cid:image003.png@01D33C30.D7F857F0]\nУВЕДОМЛЕНИЕ О КОНФИДЕНЦИАЛЬНОСТИ: Информация, содержащаяся в данном электронном сообщении, не является договорённостью сторон, не влечёт за собой возникновение никаких прав и/или обязанностей, не может служить основанием для осуществления каких-либо юридических действий или отказа от действий. Данное электронное сообщение предназначено только для адресата и может содержать конфиденциальную информацию. Любое рассмотрение, повторная передача, распространение или иное использование информации лицами или организациями, кроме предполагаемого получателя, запрещены.\nCONFIDENTIALITY NOTICE: The information contained in this electronic message is not an agreement of the parties, does not entail the appearance of any rights and/or obligations. It can't be a basis for the implementation of any legal action or refusal to act. This e-mail is for the intended recipient only and may contain confidential information. Any consideration, retransmission, distribution or other use of information by persons or organizations other than the intended recipient is prohibited.",
+  "char_count": 1522,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_in_static_exclusions",
+      "original_filename": "image001.png",
+      "is_inline": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 1,
+    "saved": 0,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:39:05.748204+07:00",
+  "raw_size": 27381,
+  "date_folder": "2025-07-02",
+  "eml_path": "eml/2025-07-02/f69f76dc79124896ba9383735a031884_invitro.ru_003905_738845.eml"
+}

@@ -1,0 +1,93 @@
+{
+  "thread_id": "20250630_dna-technology_ru_844eac0e",
+  "message_id": "<7f3529f7-ba5f-44f2-8fba-a326a6389ced@dna-technology.ru>",
+  "email_num_in_day": 10,
+  "total_emails_in_day": 10,
+  "from": "torgi@dna-technology.ru",
+  "to": "s.voronova@dna-technology.ru, doc_esperanzo@mail.ru",
+  "cc": "",
+  "to_emails": [
+    "s.voronova@dna-technology.ru",
+    "doc_esperanzo@mail.ru"
+  ],
+  "cc_emails": [],
+  "subject": "Re: Томский НИМЦ наборы для РНС",
+  "date": "Mon, 30 Jun 2025 15:13:17 +0300",
+  "parsed_date": "2025-06-30T19:13:17+07:00",
+  "body_raw": "Добрый день\r\n\nСканы КП и ТЗ во вложении\r\n\nФролова Мария Борисовна\r\nСпециалист по тендерам | ООО «ДНК-Технология»\r\n\nТел. +7 (495) 640-17-71 (доб. 2036) <tel:+74956401771,2036>\r\nEmail: torgi@dna-technology.ru\r\n\n------------------------------------------------------------------------\r\n\nСайт: dna-technology.ru <https://dna-technology.ru>\r\nTelegram: @dna_tech_rus <https://t.me/dna_tech_rus>\r\nYouTube <https://www.youtube.com/channel/UCqUrpqfZ65z26CUR-4f96iA> | \r\nRUTUBE <https://rutube.ru/channel/63912239/>\r\n\n------------------------------------------------------------------------\r\n\nМосква, Варшавское шоссе, дом 125Ж, корпус 5\r\n\n«ДНК-Технология»\r\n\nПрофиль компании: разработка и производство лабораторного оборудования, \r\nПО и реагентов для молекулярно-генетических исследований (ПЦР, NGS).",
+  "body_clean": "Добрый день\nСканы КП и ТЗ во вложении\nФролова Мария Борисовна\nСпециалист по тендерам | ООО «ДНК-Технология»\nТел. +7 (495) 640-17-71 (доб. 2036) tel:+74956401771,2036\nEmail: torgi@dna-technology.ru\nСайт: dna-technology.ru https://dna-technology.ru\nTelegram: @dna_tech_rus https://t.me/dna_tech_rus\nYouTube https://www.youtube.com/channel/UCqUrpqfZ65z26CUR-4f96iA |\nRUTUBE https://rutube.ru/channel/63912239/\nМосква, Варшавское шоссе, дом 125Ж, корпус 5\n«ДНК-Технология»\nПрофиль компании: разработка и производство лабораторного оборудования,\nПО и реагентов для молекулярно-генетических исследований (ПЦР, NGS).",
+  "char_count": 609,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:ТЗ*",
+      "original_filename": "ТЗ развернутое  30.06.2025.doc",
+      "is_inline": false
+    },
+    {
+      "id": 286,
+      "original_filename": "КП Лаб Тех 30.06.2025.pdf",
+      "saved_filename": "20250630_83edebe0_003816_073596_attach_КП Лаб Тех 30.06.2025.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-06-30/20250630_83edebe0_003816_073596_attach_КП Лаб Тех 30.06.2025.pdf",
+      "relative_path": "attachments/2025-06-30/20250630_83edebe0_003816_073596_attach_КП Лаб Тех 30.06.2025.pdf",
+      "file_size": 246043,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:38:16",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<7f3529f7-ba5f-44f2-8fba-a326a6389ced@dna-technology.ru>",
+      "thread_id": "20250630_dna-technology_ru_844eac0e",
+      "sha256": "1f19620dcc2c68f61a948f74a1be66b7beee421db9e5bb678cdda45222d65d40",
+      "file_exists": true
+    },
+    {
+      "id": 287,
+      "original_filename": "Кп Далекс 30.06.2025.pdf",
+      "saved_filename": "20250630_83edebe0_003816_076114_attach_Кп Далекс 30.06.2025.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-06-30/20250630_83edebe0_003816_076114_attach_Кп Далекс 30.06.2025.pdf",
+      "relative_path": "attachments/2025-06-30/20250630_83edebe0_003816_076114_attach_Кп Далекс 30.06.2025.pdf",
+      "file_size": 231758,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:38:16",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<7f3529f7-ba5f-44f2-8fba-a326a6389ced@dna-technology.ru>",
+      "thread_id": "20250630_dna-technology_ru_844eac0e",
+      "sha256": "4f1af61dce69e0ab2b2246cc7d208553dc86716e2efb9925f84ff86e5bd832ee",
+      "file_exists": true
+    },
+    {
+      "id": 288,
+      "original_filename": "КП 7546 от 30.06.2025.pdf",
+      "saved_filename": "20250630_83edebe0_003816_078003_attach_КП 7546 от 30.06.2025.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-06-30/20250630_83edebe0_003816_078003_attach_КП 7546 от 30.06.2025.pdf",
+      "relative_path": "attachments/2025-06-30/20250630_83edebe0_003816_078003_attach_КП 7546 от 30.06.2025.pdf",
+      "file_size": 198386,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-13 17:38:16",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<7f3529f7-ba5f-44f2-8fba-a326a6389ced@dna-technology.ru>",
+      "thread_id": "20250630_dna-technology_ru_844eac0e",
+      "sha256": "b4bcef325a3d720f913522a3cf543e4966cb756e41b947e8ef1538b4b2a95273",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 4,
+    "saved": 3,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T00:38:16.071676+07:00",
+  "raw_size": 1007544,
+  "date_folder": "2025-06-30",
+  "eml_path": "eml/2025-06-30/7f3529f7-ba5f-44f2-8fba-a326a6389ced_dna-technology.ru_003816_059695.eml"
+}

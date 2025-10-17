@@ -1,0 +1,60 @@
+{
+  "thread_id": "20250314_dna-technology_ru_55b0ae01",
+  "message_id": "<6155687a-09bc-4f2e-b882-c314e8a293e8@dna-technology.ru>",
+  "email_num_in_day": 18,
+  "total_emails_in_day": 22,
+  "from": "m.gogoleva@dna-technology.ru",
+  "to": "ivak@millab.ru",
+  "cc": "s.voronova@dna-technology.ru",
+  "to_emails": [
+    "ivak@millab.ru"
+  ],
+  "cc_emails": [
+    "s.voronova@dna-technology.ru"
+  ],
+  "subject": "Re: ФБУЗ \"Центр Гигиены и Эпидемиологии в Республике Хакасия\"",
+  "date": "Fri, 14 Mar 2025 15:01:22 +0300",
+  "parsed_date": "2025-03-14T19:01:22+07:00",
+  "body_raw": "Добрый день, Иван Алексеевич!\r\n\nКП во вложении.\r\n\nС уважением,\r\nменеджер ООО \"ДНК-Технология\"\r\nГоголева Мария\r\nтел.: (495) 640-17-71, доб. 2030\r\n\n14.03.2025 14:19, Иван Акутин пишет:\r\n>\r\n> Добрый день, коллеги!\r\n>\r\n> Прошу Вас уточнить возможность работать по следующему проекту:\r\n>\r\n> Конечный пользователь: ФБУЗ \"Центр Гигиены и Эпидемиологии в \r\n> Республике Хакасия\"\r\n>\r\n> ИНН: 1901066506\r\n>\r\n> Оборудование: DTprime 5М6\r\n>\r\n> Спасибо!\r\n>\r\n> ----\r\n> С уважением,\r\n> Акутин Иван Алексеевич\r\n> Менеджер отдела\r\n> \"Оборудование для микробиологии и биотехнологий\"\r\n> Компания МИЛЛАБ\r\n> Т: +7 (495) 933 71 47 (48), доб.171\r\n>\r\n> Моб: +7 (968) 628 75 81\r\n> Е: ivak@millab.ru\r\n> <mailto:ivak@millab.ru>www.millab.ru <http://www.millab.ru/>\r\n> Телеграм <t.me/MillabGroup>\r\n>",
+  "body_clean": "Добрый день, Иван Алексеевич!\nКП во вложении.\nС уважением,\nменеджер ООО \"ДНК-Технология\"\nГоголева Мария\nтел.: (495) 640-17-71, доб. 2030\n14.03.2025 14:19, Иван Акутин пишет:\n> Добрый день, коллеги!\n> Прошу Вас уточнить возможность работать по следующему проекту:\n> Конечный пользователь: ФБУЗ \"Центр Гигиены и Эпидемиологии в\n> Республике Хакасия\"\n> ИНН: 1901066506\n> Оборудование: DTprime 5М6\n> Спасибо!\n> С уважением,\n> Акутин Иван Алексеевич\n> Менеджер отдела\n> \"Оборудование для микробиологии и биотехнологий\"\n> Компания МИЛЛАБ\n> Т: +7 (495) 933 71 47 (48), доб.171\n> Моб: +7 (968) 628 75 81\n> Е: ivak@millab.ru\n> mailto:ivak@millab.ruwww.millab.ru http://www.millab.ru/\n> Телеграм t.me/MillabGroup",
+  "char_count": 702,
+  "attachments": [
+    {
+      "status": "excluded",
+      "reason": "filename_matches_pattern:image*",
+      "original_filename": "image001.jpg",
+      "is_inline": true
+    },
+    {
+      "id": 683,
+      "original_filename": "Ком.пред.14.03.2025 для Москва Компания МИЛЛАБ для Абакан ЦГиЭ (ДТпрайм 5М6, ноутбук).pdf",
+      "saved_filename": "20250314_47862a3d_071858_134921_attach_Ком.пред.14.03.2025 для Москва Компания МИЛЛАБ для Абакан ЦГиЭ _ДТпрайм 5М6_ ноутбук_.pdf",
+      "file_path": "/Users/evgenyzach/contact_parser/data/attachments/2025-03-14/20250314_47862a3d_071858_134921_attach_Ком.пред.14.03.2025 для Москва Компания МИЛЛАБ для Абакан ЦГиЭ _ДТпрайм 5М6_ ноутбук_.pdf",
+      "relative_path": "attachments/2025-03-14/20250314_47862a3d_071858_134921_attach_Ком.пред.14.03.2025 для Москва Компания МИЛЛАБ для Абакан ЦГиЭ _ДТпрайм 5М6_ ноутбук_.pdf",
+      "file_size": 303704,
+      "file_type": "application/pdf",
+      "content_type": "application/pdf",
+      "saved_at": "2025-10-14 00:18:58",
+      "status": "saved",
+      "is_inline": false,
+      "message_id": "<6155687a-09bc-4f2e-b882-c314e8a293e8@dna-technology.ru>",
+      "thread_id": "20250314_dna-technology_ru_55b0ae01",
+      "sha256": "8fb8528ac8436bf4efe1c37a32162eba76fdb63c5c1b1d7450a202ec1585adb5",
+      "file_exists": true
+    }
+  ],
+  "attachments_stats": {
+    "total": 2,
+    "saved": 1,
+    "excluded": 1,
+    "excluded_filenames": 0,
+    "excluded_by_size": 0,
+    "excluded_by_image_dimensions": 0,
+    "unsupported": 0,
+    "inline_images": 0
+  },
+  "processed_at": "2025-10-14T07:18:58.131608+07:00",
+  "raw_size": 496784,
+  "date_folder": "2025-03-14",
+  "eml_path": "eml/2025-03-14/6155687a-09bc-4f2e-b882-c314e8a293e8_dna-technology.ru_071858_129449.eml"
+}
