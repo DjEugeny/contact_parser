@@ -160,6 +160,18 @@ class APIPipelineValidator:
         self.start_date = args.start_date
         self.end_date = args.end_date
         self.dry_run = args.dry_run
+        
+        # 🆕 Обработка параметров GID
+        if args.gid_v1:
+            self.use_gid_v2 = False
+            print("🔧 Используется GID v1 (старая логика)")
+        elif args.gid_v2:
+            self.use_gid_v2 = True
+            print("🔧 Используется GID v2 (новая логика с двухуровневыми ключами)")
+        else:
+            # По умолчанию используем v2
+            self.use_gid_v2 = True
+            print("🔧 Используется GID v2 (по умолчанию)")
 
         # 🔧 ПОРТИРУЕМЫЕ ПУТИ: Используем централизованную систему путей
         self.portable_paths = get_portable_paths()
@@ -180,7 +192,7 @@ class APIPipelineValidator:
         self.loader = ProcessedEmailLoader()
         self.ocr_cache = OCRCacheManager()  # Легковесный кеш-менеджер
         self.ocr_manager = None  # Ленивая инициализация OCR модуля
-        self.extractor = ExtractorFactory.create_extractor(test_mode=False)
+        self.extractor = ExtractorFactory.create_extractor(test_mode=False, use_gid_v2=self.use_gid_v2)
         
         # Создаем устойчивый процессор с автоматическим повтором
         self.resilient_processor = ResilientEmailProcessor(self, max_retries=2)
@@ -1219,6 +1231,8 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--start", dest="start_date", help="Начальная дата для режима range или имя файла для режима first10", default=None)
     parser.add_argument("--end", dest="end_date", help="Конечная дата для режима range", default=None)
     parser.add_argument("--dry-run", action="store_true", help="Не выполнять запись в БД")
+    parser.add_argument("--gid-v1", action="store_true", help="Использовать GID v1 (старая логика)")
+    parser.add_argument("--gid-v2", action="store_true", help="Использовать GID v2 (новая логика с двухуровневыми ключами)")
     return parser.parse_args(argv)
 
 

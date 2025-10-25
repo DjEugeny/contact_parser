@@ -39,7 +39,8 @@ class ExtractorFactory:
     def create_extractor(
         test_mode: bool = False,
         config_path: Optional[Path] = None,
-        prompts_dir: Optional[Path] = None
+        prompts_dir: Optional[Path] = None,
+        use_gid_v2: bool = True
     ) -> ContactExtractor:
         """
         🏗️ Создание ContactExtractor со всеми зависимостями
@@ -48,6 +49,7 @@ class ExtractorFactory:
             test_mode: Режим тестирования
             config_path: Путь к файлу конфигурации провайдеров
             prompts_dir: Директория с промптами
+            use_gid_v2: Использовать GID v2 (двухуровневые ключи)
 
         Returns:
             ContactExtractor: Полностью настроенный экземпляр
@@ -87,7 +89,8 @@ class ExtractorFactory:
             chunking_config=chunking_config,
             retry_config=retry_config,
             prompts_dir=prompts_dir,
-            test_mode=test_mode
+            test_mode=test_mode,
+            use_gid_v2=use_gid_v2
         )
 
         # 6. Создание и возврат экстрактора

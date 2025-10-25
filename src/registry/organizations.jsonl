@@ -181,3 +181,59 @@
 {"event": "create", "gid": "37a7418e-c34e-5c22-9ca7-57ada985efa5", "key": ["ORG", "NAME", "цсп"], "aliases": [], "created_at": "2025-10-17T10:31:26Z", "source": "new"}
 {"event": "alias", "gid": "649f107e-bcd9-58fb-ac9d-053409d7b582", "alias": ["ORG", "NAME_CITY", "федеральный исследовательский центр фундаментальной и трансляционной медицины", "новосибирск"], "created_at": "2025-10-17T10:32:26Z"}
 {"event": "alias", "gid": "649f107e-bcd9-58fb-ac9d-053409d7b582", "alias": ["ORG", "NAME", "федеральный исследовательский центр фундаментальной и трансляционной медицины"], "created_at": "2025-10-17T10:32:26Z"}
+{"event": "alias", "gid": "7fd2e423-23ef-5814-adcd-ae26b2748956", "alias": ["ORG", "NAME", "центр лабораторной диагностики"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "8977c8c4-1bbf-5db2-9988-c4703a2743b1", "alias": ["ORG", "NAME", "мсч клиницист-клиника претор"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "d5fe73ec-73c1-5eb7-8af0-0278a764a70e", "alias": ["ORG", "NAME", "центр гигиены и эпидемиологии в республике хакасия"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "941277e9-82a4-590a-ab3b-be08f9db30e9", "alias": ["ORG", "NAME", "агродиагностика"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "ac12ae29-7a6b-5c7b-858d-0c26108cfc88", "alias": ["ORG", "NAME", "центр гигиены и эпидемиологии в алтайском крае"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "79ef90eb-b1bc-547f-9121-003d2b620b71", "alias": ["ORG", "NAME", "компания хеликон"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "d96503ac-116d-5310-811d-9c092b922506", "alias": ["ORG", "NAME", "мц днк"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "9eafe350-6460-59f1-a7e5-12056b76f61d", "alias": ["ORG", "NAME", "экомед"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "25eab71a-64f5-5bdb-a3e6-0f9667ab4b3d", "alias": ["ORG", "NAME", "агрохим"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "98c97226-8c75-5cab-a309-86ed11e33c45", "alias": ["ORG", "NAME", "биосинтек"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "ef485f15-63ee-5569-bf4d-c62b0ab12067", "alias": ["ORG", "NAME", "мед конгресс"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "6a8f8ae1-f84a-5583-935c-5c1201d32519", "alias": ["ORG", "NAME", "медико-санитарная часть клиницист-клиника претор"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "d4f9af71-626d-5525-9597-7daff1782b97", "alias": ["ORG", "NAME", "алтайский центр прикладной биотехнологии алтайского государственного университета"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "d59d5883-e17c-57ad-98a2-656705f35aae", "alias": ["ORG", "NAME", "гранд медика"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "39a75f89-609f-5015-9566-725b107c909b", "alias": ["ORG", "NAME", "служба по ветеринарному надзору красноярского края"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "2cd5f32f-ca74-5a7f-b5ce-9e204ebafc9f", "alias": ["ORG", "NAME", "цок апк, филиал в г.барнаул"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "14ef8ac7-9e30-57a5-8573-e8b1bcd7a75f", "alias": ["ORG", "NAME", "томский нимц"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "2ecf126d-30e6-53a4-bcad-385092ea7523", "alias": ["ORG", "NAME", "химлабсервис"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "7a6b097d-ab02-574d-961a-e56394391855", "alias": ["ORG", "NAME", "ренда"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "9b25954c-ed22-5fb9-83d9-0265c363d18b", "alias": ["ORG", "NAME", "цлд"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "b142f9a2-b30f-5a31-be96-fd8cc00ade21", "alias": ["ORG", "NAME", "асса лабораторные системы"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "bee1f6d0-724f-55d7-907d-7f19c634176d", "alias": ["ORG", "NAME", "мц диамед"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "e3275650-2a9d-5767-8f24-874a09d5bd9d", "alias": ["ORG", "NAME", "яндекс"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "f07adc61-1b36-5b3c-8056-be652bd7aa01", "alias": ["ORG", "NAME", "неизвестная компания xyz999"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "7183ab8d-ec6b-56f1-8008-ecb4007d6558", "alias": ["ORG", "NAME", "фгбоу во красгму им. проф. в.ф. войно-ясенецкого минздрава россии"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "a45444da-86fc-5ccb-b46f-d58807a7e784", "alias": ["ORG", "NAME", "тестовая компания"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "64ac2a7d-04de-579c-8691-d26cfc57f8ad", "alias": ["ORG", "NAME", "us company"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "e5f7e102-ac30-5839-8921-69f543098d2f", "alias": ["ORG", "NAME", "снабтрейд"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "c9e54b34-f668-5aac-991c-49c48459a83d", "alias": ["ORG", "NAME", "институт химической биологии и фундаментальной медицины сибирского отделения российской академии наук"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "ee52284f-ec93-5fa0-b078-db9852a9e76a", "alias": ["ORG", "NAME", "клиника цмд"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "1b7ce63f-4fc8-5f2b-a709-62901a767d72", "alias": ["ORG", "NAME", "рх республиканский центр профилактики и борьбы со спид"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "cef854ba-b02e-5dc4-a4f8-0d884f0846f3", "alias": ["ORG", "NAME", "сеченовский университет"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "cfb2d9dd-c2e1-54e1-aef4-8e9cda4d7702", "alias": ["ORG", "NAME", "км-клиник"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "e4a92525-b053-5a8f-a6b4-1817412146b2", "alias": ["ORG", "NAME", "мед конгресс"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "cf2e86a8-3b71-5857-a4ec-55be2fb325f7", "alias": ["ORG", "NAME", "федеральное государственное бюджетное образовательное учреждение высшего образования алтайский государственный университет"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "9f259469-e654-5d6e-8401-44727e6f4a78", "alias": ["ORG", "NAME", "хакасская ветлаборатория"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "9c7dbbe0-eff4-558b-a5f6-6dcb043a3439", "alias": ["ORG", "NAME", "алтай-энзим"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "fe8bc48a-9101-5194-b8d2-cbe67d8013b6", "alias": ["ORG", "NAME", "алтай-энзим"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "6b3cfaf5-e735-5fdb-a721-7b3f35d40053", "alias": ["ORG", "NAME", "гку рх хакасская ветлаборатория"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "2ca086cb-273c-578f-ae7b-0598eb3da3cf", "alias": ["ORG", "NAME", "хеликон"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "c736908d-4edf-53da-9335-ea71c7229f39", "alias": ["ORG", "NAME", "инвитро-сибирь"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "a5b0cbb8-e654-58a9-9675-6656a1733943", "alias": ["ORG", "NAME", "мц лаборатория днк-диагностики"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "ce0724cc-6abd-5a62-982a-326ca42dcaed", "alias": ["ORG", "NAME", "русветгрупп"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "d8c35e50-d0d6-5e54-aaa0-6160240c0090", "alias": ["ORG", "NAME", "управление ветеринарии карасукского района новосибирской области гбу но"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "66d25a64-f36e-54c2-ad62-9852a661f24a", "alias": ["ORG", "NAME", "гбу нсо управление ветеринарии карасукского муниципального округа нсо"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "e3966a5b-5572-543a-b855-416b9b44e76b", "alias": ["ORG", "NAME", "сиблабсервис"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "b9490448-f613-57fa-be8c-d9a5379156cd", "alias": ["ORG", "NAME", "крона"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "98636e77-9661-5858-8b8c-304064f0ada7", "alias": ["ORG", "NAME", "биолинк"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "85a42ec8-b715-5e8b-b697-34c67d42df6e", "alias": ["ORG", "NAME", "лдц"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "71a92360-471e-587c-bbf6-1886b1935f41", "alias": ["ORG", "NAME", "цлд новосибирск"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "7209d8a2-437f-5d4c-8e3d-7c470491f652", "alias": ["ORG", "NAME", "новосибирский научно-исследовательский институт травматологии и ортопедии им. я.л. цивьяна"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "bfd95121-9947-5449-a10f-26d913a2fe03", "alias": ["ORG", "NAME", "далекс"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "4f4ddbd9-4ee0-5f30-a3f7-eb21524ab29e", "alias": ["ORG", "NAME", "фгбну федеральный исследовательский центр фундаментальной и трансляционной медицины"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "49042171-5375-5a3e-897e-19bc2970059c", "alias": ["ORG", "NAME", "ювс-био"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "5b91cba6-6cbb-583e-846d-a82df072785d", "alias": ["ORG", "NAME", "кгбуз консультативно-диагностический центр, г. бийск"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}
+{"event": "alias", "gid": "8a12af72-f5f7-578b-b595-eb5e3843de68", "alias": ["ORG", "NAME", "хирон"], "created_at": "2025-10-23T16:00:00Z", "source": "v2_migration"}

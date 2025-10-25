@@ -58,6 +58,7 @@ class ExtractorConfig:
     ocr_manager: Optional[OCRManager] = field(default_factory=lambda: get_ocr_manager())
     prompts_dir: Optional[Path] = None
     test_mode: bool = False
+    use_gid_v2: bool = True  # 🆕 Параметр для включения GID v2
 
 
 class ContactExtractor:
@@ -122,7 +123,7 @@ class ContactExtractor:
         self.result_cache = None
         print("💾 EXTRACTOR КЭШИРОВАНИЕ ОТКЛЮЧЕНО ДЛЯ ОТЛАДКИ")
 
-        self.postprocessor = PostProcessor()
+        self.postprocessor = PostProcessor(use_gid_v2=self.config.use_gid_v2)
 
         print("🎯 Новый ContactExtractor инициализирован с Dependency Injection")
         print(f"   📁 Промпты: {self.config.prompts_dir}")
@@ -131,6 +132,7 @@ class ContactExtractor:
         print("   📊 JSON Schema Validator: интегрирован")
         print("   🔍 OCR Manager: интегрирован")
         print("   🏪 Result Cache: включен")
+        print(f"   🆔 GID v2: {'включен' if self.config.use_gid_v2 else 'выключен'}")
 
     def _build_empty_result(self) -> Dict[str, Any]:
         """📦 Создание пустого результата в формате JSON-схемы"""
