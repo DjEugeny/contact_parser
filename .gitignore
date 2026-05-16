@@ -219,3 +219,5 @@ archive/csv_2025/*
 archive/legacy/*
 archive/src/*config/service_account.json
 config/service_account.json
+config/google_credentials.json
+config/google_token.json
