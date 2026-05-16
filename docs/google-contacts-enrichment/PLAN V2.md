@@ -116,7 +116,7 @@ V1 написан грамотно, скрипты по нему уже сген
 
 - [x] `google-api-python-client` в requirements.txt
 - [x] `google-auth` в requirements.txt
-- [ ] **Добавить `google-auth-oauthlib>=1.2.0` в requirements.txt** (установлен в venv 1.2.2, но в файле его нет)
+- [x] **Добавить `google-auth-oauthlib>=1.2.0` в requirements.txt** (добавлено)
 - [x] `python-dotenv` в requirements.txt
 
 ### Тесты ✅
@@ -361,10 +361,12 @@ V1 написан грамотно, скрипты по нему уже сген
 
 #### M3. Результат
 - Было проблем: 3174 из 3214
-- Стало проблем: 1807 из 2850 (только пустая фамилия + displayName ≠ ФИО)
+- Стало проблем: 1473 из 2793 (пустая фамилия + displayName ≠ ФИО с org/должностями)
 - Перепутанных Ф/И: 0 (было 1354)
 - Отчеств в неправильных полях: 0 (было 720)
-- КАПС: 0 (было 192)
+- КАПС: 3 (было 192)
+- fn==gn дублей: 0 (было 599)
+- displayName порядок: Фамилия Имя Отчество (было хаотичный)
 
 ### Шаг G. Полный enrich (повтор после дедупа)
 
@@ -372,15 +374,49 @@ V1 написан грамотно, скрипты по нему уже сген
 - [ ] Проверить `data/enrichment_report.json` — нет ли ошибок
 - [ ] Жена проверяет несколько контактов в Aquamail
 
+### Шаг M4. Фикс fn==gn дублей ✅
+
+**Проблема**: предыдущий автофикс (M2) создал дубли — familyName скопирован в givenName.
+Например: fn='Надежда', gn='Надежда', mn='Мергеноловна' — 599 контактов.
+
+- [x] Создан `scripts/google_contacts_fix_fn_gn_dup.py` (--report / --update)
+- [x] Логика: извлечение имени из middleName (если «Имя Отчество»), очистка gn если fn=имя
+- [x] Прогон: 599 обновлено, 0 ошибок
+- [x] Результат: fn==gn дублей = 0
+
+### Шаг M5. Фикс displayName ✅
+
+**Проблема**: displayName не обновляется автоматически при изменении familyName/givenName/middleName.
+Также: КАПС в displayName, дублирование слов, разный порядок.
+
+- [x] Создан `scripts/google_contacts_fix_displaynames.py` (--report / --update)
+- [x] Порядок: **Фамилия Имя Отчество** (единообразно для всех)
+- [x] Детекция: КАПС, дублирование слов, неправильный порядок
+- [x] Skip: контакты с лишними словами в displayName (должности, org)
+- [x] Прогон 1: 647 обновлено (порядок Имя Отчество Фамилия)
+- [x] Прогон 2: 926 обновлено (после fn==gn фикса)
+- [x] Прогон 3: 865 обновлено (порядок → Фамилия Имя Отчество)
+- [x] Прогон 4: 10 обновлено (КАПС + дубли)
+- [x] Результат: displayName единообразный, порядок Фамилия Имя Отчество
+
+### Шаг M6. Фикс mixed layout ✅
+
+**Проблема**: латинские буквы в русских словах (AЛЕКСАНДРА) — визуально КАПС, но не детектируется.
+
+- [x] Добавлена `fix_mixed_layout()` в `google_contacts_fix_names.py`
+- [x] Применяется только если слово преимущественно русское (russian_count > latin_other_count)
+- [x] Откат сломанных контактов через `scripts/rollback_mixed_layout.py` (10 восстановлено)
+- [x] Результат: 1 контакт исправлен (AЛЕКСАНДРА → Александра), 10 нормальных откачены
+
 ### Шаг H. Документация и закрытие
 
-- [ ] Создать `docs/google-contacts-enrichment/README.md` — короткая инструкция как пере-запустить (например через год, когда добавятся новые контакты)
+- [x] Создать `docs/google-contacts-enrichment/README.md` — короткая инструкция как пере-запустить (например через год, когда добавятся новые контакты)
 - [ ] Создать `docs/google-contacts-enrichment/RUNBOOK.md`:
   - как переавторизоваться через 7 дней (просто перезапустить `auth`)
   - как откатить обогащение (см. I)
   - как добавить нового sender вручную в `senders_cache.json` (формат записи)
-- [ ] Добавить `google-auth-oauthlib>=1.2.0` в `requirements.txt`
-- [ ] Закоммитить, проверить что `config/google_credentials.json` и `config/google_token.json` НЕ попали в коммит
+- [x] Добавить `google-auth-oauthlib>=1.2.0` в `requirements.txt`
+- [x] Закоммитить, проверить что `config/google_credentials.json` и `config/google_token.json` НЕ попали в коммит
 
 ### Шаг I. Скрипт отката (страховка)
 
@@ -435,6 +471,9 @@ scripts/
   google_contacts_phone_normalize.py      ✅ L: нормализация телефонов (3087 обновлено)
   google_contacts_export.py               ✅ M: экспорт + анализ ФИО
   google_contacts_fix_names.py            ✅ M: автофикс ФИО (~2514 исправлено)
+  google_contacts_fix_fn_gn_dup.py       ✅ M4: фикс fn==gn дублей (599 исправлено)
+  google_contacts_fix_displaynames.py    ✅ M5: фикс displayName (порядок ФИО, КАПС, дубли)
+  rollback_mixed_layout.py               ✅ M6: откат сломанных mixed-layout контактов
   google_contacts_rollback.py             ❌ ещё не написан (страховка)
 
 config/
@@ -442,13 +481,17 @@ config/
   google_token.json                       ❌ создастся при первой авторизации
 
 data/
-  senders_cache.json                      ✅ есть (98 записей — мало!)
-  match_results.json                      ❌ создастся после dry-run
-  enrichment_report.json                  ❌ создастся после enrich
+  senders_cache.json                      ✅ есть (422 записи: 99 реестр + 323 IMAP)
+  match_results.json                      ✅ создан (160 мэтчей)
+  enrichment_report.json                  ✅ создан (125 обогащено)
   imap_scan_progress.json                 ❌ создастся для возобновления IMAP-скана
+  contacts_export_problems.md             ✅ M: отчёт проблем ФИО
+  contacts_export.csv                     ✅ M: CSV экспорт
+  fix_fn_gn_dup_report.md                 ✅ M4: отчёт fn==gn дублей
+  fix_names_report.md                     ✅ M: отчёт автофикса ФИО
 
 tests/
-  test_google_enrichment.py               ❌ ещё не написан
+  test_google_enrichment.py               ✅ 47 тестов (все зелёные)
 ```
 
 ---
